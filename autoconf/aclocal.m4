@@ -649,14 +649,7 @@ cat > conftest.$ac_ext <<EOF
 #include "confdefs.h"
 EOF
 cat "$cl_machine_file_c" >> conftest.$ac_ext
-ORIGCC="$CC"
-if test $ac_cv_prog_gcc = yes; then
-# gcc -O (gcc version <= 2.3.2) crashes when compiling long long shifts for
-# target 80386. Strip "-O".
-CC=`echo "$CC " | sed -e 's/-O //g'`
-fi
 AC_TRY_EVAL(ac_link)
-CC="$ORIGCC"
 if test -s conftest; then
   echo "creating $cl_machine_file_h"
   ./conftest > conftest.h
