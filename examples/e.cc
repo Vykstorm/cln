@@ -73,7 +73,7 @@ sum_exp1 (uintL a, uintL b, cl_I & first, cl_I & second)
 
 namespace cln {
   extern cl_LF cl_I_to_LF(const cl_I&, uintC);
-};
+}
 
 void
 const_exp1 (cl_LF & result, uintL dec)
