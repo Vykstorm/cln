@@ -117,8 +117,11 @@
   // except that the latter inhibits inlining of the function containing it
   // in gcc-2.95. For new CPUs, look for "jump" and "indirect_jump" in gcc's
   // machine description.
-  #if defined(__i386__) || defined(__x86_64__)
+  #if defined(__i386__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp %*%0" : : "rm" ((void*)(addr)))
+  #endif
+  #if defined(__x86_64__)
+    #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp " #addr)
   #endif
   #if defined(__m68k__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp %0@" : : "a" ((void*)(addr)))

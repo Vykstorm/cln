@@ -1,3 +1,7 @@
+2004-06-27  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/modules.h (CL_JUMP_TO): Fix AMD64 brokenness.
+
 2004-06-23  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Pretend ftime() is not available. Needed by
