@@ -33,7 +33,7 @@ the CLN library.
 %setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS -fno-exceptions" ./configure --prefix=%{_prefix}
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS -fno-exceptions" ./configure --prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir}
 make
 
 %install
