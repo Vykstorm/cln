@@ -7,7 +7,7 @@ using namespace cln;
 
 #define ASSERT(expr)  \
   if (!(expr)) {                                        \
-	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;    \
+	std::cerr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;    \
 	error = 1;                                      \
   }
 
@@ -31,9 +31,9 @@ static int test_##typename##_##opname (void)				\
 		rtype computed_result = opname(arg1,arg2);		\
 		rtype result = rtype(test.result);			\
 		if (computed_result != result) {			\
-			stderr << "Error in " #typename "_" #opname "_tests[" << i << "] !" << endl;	\
-			stderr << "Result should be: " << result << endl;	\
-			stderr << "Result computed : " << computed_result << endl << endl;	\
+			std::cerr << "Error in " #typename "_" #opname "_tests[" << i << "] !" << endl;	\
+			std::cerr << "Result should be: " << result << endl;	\
+			std::cerr << "Result computed : " << computed_result << endl << endl;	\
 			error = 1;					\
 		}							\
 	}								\

@@ -10,6 +10,7 @@
 #include <cln/io.h>
 #include <stdlib.h>
 
+using namespace std;
 using namespace cln;
 
 // Computes the n-th Legendre polynomial in R[x], using the formula
@@ -54,21 +55,21 @@ const cl_UP_MI legendre (const cl_modint_ring& R, int n)
 int main (int argc, char* argv[])
 {
 	if (!(argc == 2 || argc == 3)) {
-		fprint(stderr, "Usage: legendre n [m]\n");
+		cerr << "Usage: legendre n [m]" << endl;
 		exit(1);
 	}
 	int n = atoi(argv[1]);
 	if (!(n >= 0)) {
-		fprint(stderr, "Usage: legendre n [m]  with n >= 0\n");
+		cerr << "Usage: legendre n [m]  with n >= 0" << endl;
 		exit(1);
 	}
 	if (argc == 2) {
 		cl_UP p = legendre(cl_RA_ring,n);
-		fprint(stdout, p);
+		cout << p << endl;
 	} else {
 		cl_I m = argv[2];
 		cl_UP p = legendre(find_modint_ring(m),n);
-		fprint(stdout, p);
+		cout << p << endl;
 	}
-	fprint(stdout, "\n");
+	return 0;
 }

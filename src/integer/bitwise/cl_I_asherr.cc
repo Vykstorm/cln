@@ -18,9 +18,9 @@ namespace cln {
 
 void cl_ash_error (const cl_I& badamount)
 {
-	fprint(stderr, "ash: too large shift amount: ");
-	fprint(stderr, badamount);
-	fprint(stderr, "\n");
+	fprint(std::cerr, "ash: too large shift amount: ");
+	fprint(std::cerr, badamount);
+	fprint(std::cerr, "\n");
 	cl_abort();
 }
 

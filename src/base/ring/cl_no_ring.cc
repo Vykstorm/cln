@@ -19,18 +19,18 @@ namespace cln {
 nonreturning_function(static, uninitialized_ring, (void));
 static void uninitialized_ring ()
 {
-	fprint(stderr, "Uninitialized ring operation called\n");
+	fprint(std::cerr, "Uninitialized ring operation called\n");
 	cl_abort();
 }
 
 nonreturning_function(static, uninitialized_error, (const _cl_ring_element&));
 static void uninitialized_error (const _cl_ring_element& obj)
 {
-	fprint(stderr, "Uninitialized ring element @0x");
-	fprinthexadecimal(stderr, (unsigned long)(void*)&obj);
-	fprint(stderr, ": 0x");
-        fprinthexadecimal(stderr, (unsigned long)obj.rep.word);
-	fprint(stderr, "\n");
+	fprint(std::cerr, "Uninitialized ring element @0x");
+	fprinthexadecimal(std::cerr, (unsigned long)(void*)&obj);
+	fprint(std::cerr, ": 0x");
+        fprinthexadecimal(std::cerr, (unsigned long)obj.rep.word);
+	fprint(std::cerr, "\n");
 	cl_abort();
 }
 

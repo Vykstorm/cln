@@ -16,7 +16,7 @@ namespace cln {
 
 void read_number_eof (void)
 {
-	fprint(stderr, "read_number: end of stream encountered\n");
+	fprint(std::cerr, "read_number: end of stream encountered\n");
 	cl_abort();
 }
 

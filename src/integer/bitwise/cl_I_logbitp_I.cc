@@ -44,9 +44,9 @@ cl_boolean logbitp (const cl_I& x, const cl_I& y)
         }
         else
         // x<0
-        { fprint(stderr, "logbitp: Index is negative: ");
-          fprint(stderr, x);
-          fprint(stderr, "\n");
+        { fprint(std::cerr, "logbitp: Index is negative: ");
+          fprint(std::cerr, x);
+          fprint(std::cerr, "\n");
           cl_abort();
         }
 }

@@ -28,7 +28,7 @@ static void* xmalloc (size_t size)
 	void* ptr = malloc(size);
 	if (ptr)
 		return ptr;
-	fprint(stderr, "Out of virtual memory.\n");
+	fprint(std::cerr, "Out of virtual memory.\n");
 	cl_abort();
 }
 

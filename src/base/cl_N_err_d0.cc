@@ -16,7 +16,7 @@ namespace cln {
 
 void cl_error_division_by_0 (void)
 {
-	fprint(stderr, "Division by zero.\n");
+	fprint(std::cerr, "Division by zero.\n");
 	cl_abort();
 }
 

@@ -107,9 +107,9 @@ void format_cardinal (cl_ostream stream, const cl_I& argument)
 		var uintL * small_piece_ptr = &small_pieces[0];
 		do {
 			if (*illion_ptr == NULL) {
-				fprint(stderr, "format_cardinal: argument too large: ");
-				fprint(stderr, argument);
-				fprint(stderr, "\n");
+				fprint(std::cerr, "format_cardinal: argument too large: ");
+				fprint(std::cerr, argument);
+				fprint(std::cerr, "\n");
 				cl_abort();
 			}
 			var cl_I_div_t div = floor2(arg,1000);

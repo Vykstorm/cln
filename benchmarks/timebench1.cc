@@ -61,13 +61,13 @@ int main (int argc, char * argv[])
 	if (argc < 1)
 		exit(1);
 
-	fprint(stderr, "Number of repetitions: ");
-	fprintdecimal(stderr, repetitions);
-	fprint(stderr, "\n");
+	fprint(std::cerr, "Number of repetitions: ");
+	fprintdecimal(std::cerr, repetitions);
+	fprint(std::cerr, "\n");
 
 	float_format_t prec = float_format(1000);
 
-	fprint(stderr, "pi\n");
+	fprint(std::cerr, "pi\n");
 	{ cl_F p;
 	  { CL_TIMING; p = pi(prec); }
 	  { CL_TIMING;
@@ -77,7 +77,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "gamma\n");
+	fprint(std::cerr, "gamma\n");
 	{ cl_F p;
 	  { CL_TIMING; p = eulerconst(prec); }
 	  { CL_TIMING;
@@ -87,7 +87,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "e\n");
+	fprint(std::cerr, "e\n");
 	{ cl_F p = exp1(prec);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -96,7 +96,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "sqrt(3)\n");
+	fprint(std::cerr, "sqrt(3)\n");
 	{ cl_R p = sqrt(cl_float(3,prec));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -105,7 +105,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "exp(log(2))\n");
+	fprint(std::cerr, "exp(log(2))\n");
 	{ cl_N p = exp(log(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -114,7 +114,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "log(exp(2))\n");
+	fprint(std::cerr, "log(exp(2))\n");
 	{ cl_N p = log(exp(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -123,7 +123,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "sin(pi/3)\n");
+	fprint(std::cerr, "sin(pi/3)\n");
 	{ cl_R p = sin(pi(prec)/3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -132,7 +132,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "cos(pi/3)\n");
+	fprint(std::cerr, "cos(pi/3)\n");
 	{ cl_R p = cos(pi(prec)/3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -141,7 +141,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "arcsin(sqrt(3)/2)\n");
+	fprint(std::cerr, "arcsin(sqrt(3)/2)\n");
 	{ cl_N p = asin(sqrt(cl_float(3,prec))/2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -150,7 +150,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "arccos(sqrt(3)/2)\n");
+	fprint(std::cerr, "arccos(sqrt(3)/2)\n");
 	{ cl_N p = acos(sqrt(cl_float(3,prec))/2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -159,7 +159,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "sinh(log(2))\n");
+	fprint(std::cerr, "sinh(log(2))\n");
 	{ cl_N p = sinh(log(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -168,7 +168,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "cosh(log(2))\n");
+	fprint(std::cerr, "cosh(log(2))\n");
 	{ cl_N p = cosh(log(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -177,7 +177,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "arsinh(pi)\n");
+	fprint(std::cerr, "arsinh(pi)\n");
 	{ cl_N p = asinh(pi(prec));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -186,7 +186,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(stderr, "arcosh(pi)\n");
+	fprint(std::cerr, "arcosh(pi)\n");
 	{ cl_N p = acosh(pi(prec));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)

@@ -16,7 +16,7 @@ namespace cln {
 
 void cl_error_floating_point_overflow (void)
 {
-	fprint(stderr, "Floating point overflow.\n");
+	fprint(std::cerr, "Floating point overflow.\n");
 	cl_abort();
 }
 

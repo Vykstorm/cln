@@ -8,6 +8,7 @@
 #include <cln/io.h>
 #include <cln/integer_io.h>
 
+using namespace std;
 using namespace cln;
 
 // Our private error handling: return to the main program.
@@ -27,23 +28,23 @@ int main (int argc, char* argv[])
 		cl_R x = arg;
 		// Check sign.
 		if (minusp(x)) {
-			stdout << '-';
+			cout << '-';
 			x = -x;
 		}
-		fprint(stdout, "[");
+		cout << "[";
 		const char* separator = "; ";
 		for (;;) {
 			// Split x into integral and fractional part.
 			cl_R_div_t x_split = floor2(x);
-			stdout << x_split.quotient;
+			cout << x_split.quotient;
 			x = x_split.remainder;
 			if (zerop(x))
 				break;
-			stdout << separator;
+			cout << separator;
 			separator = ", ";
 			// Invert x.
 			x = recip(x);
 		}
-		stdout << ']' << std::endl;
+		cout << ']' << endl;
 	}
 }

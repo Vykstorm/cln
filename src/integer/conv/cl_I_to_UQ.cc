@@ -91,9 +91,9 @@ uint64 cl_I_to_UQ (const cl_I& obj)
 		#undef IF_LENGTH
 	}
 	bad: // unpassendes Objekt
-	fprint(stderr, "Not a 64-bit integer: ");
-	fprint(stderr, obj);
-	fprint(stderr, "\n");
+	fprint(std::cerr, "Not a 64-bit integer: ");
+	fprint(std::cerr, obj);
+	fprint(std::cerr, "\n");
 	cl_abort();
 }
 

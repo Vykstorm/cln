@@ -32,9 +32,9 @@ const cl_R random_R (random_state& r, const cl_R& n)
 			}
 		}
 	}
-	fprint(stderr, "random: argument should be positive and an integer or float: ");
-	fprint(stderr, n);
-	fprint(stderr, "\n");
+	fprint(std::cerr, "random: argument should be positive and an integer or float: ");
+	fprint(std::cerr, n);
+	fprint(std::cerr, "\n");
 	cl_abort();
 }
 

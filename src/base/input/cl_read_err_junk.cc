@@ -16,15 +16,15 @@ namespace cln {
 
 void read_number_junk (const char * string_rest, const char * string, const char * string_limit)
 {
-	fprint(stderr, "Junk after number: ");
+	fprint(std::cerr, "Junk after number: ");
 	{ for (const char * ptr = string; ptr != string_rest; ptr++)
-		fprintchar(stderr, *ptr);
+		fprintchar(std::cerr, *ptr);
 	}
-	fprint(stderr, "\"");
+	fprint(std::cerr, "\"");
 	{ for (const char * ptr = string_rest; ptr != string_limit; ptr++)
-		fprintchar(stderr, *ptr);
+		fprintchar(std::cerr, *ptr);
 	}
-	fprint(stderr, "\"\n");
+	fprint(std::cerr, "\"\n");
 	cl_abort();
 }
 

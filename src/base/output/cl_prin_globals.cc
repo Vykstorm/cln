@@ -13,9 +13,6 @@ CL_PROVIDE(cl_prin_globals)
 
 namespace cln {
 
-cl_ostream stdout = std::cout;
-cl_ostream stderr = std::cerr;
-
 cl_print_flags default_print_flags;
 #if 0 // The default constructors already do this.
 AT_INITIALIZATION(default_print_flags)

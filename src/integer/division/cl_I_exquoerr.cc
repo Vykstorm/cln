@@ -17,11 +17,11 @@ namespace cln {
 
 void cl_error_exquo (const cl_I& x, const cl_I& y)
 {
-	fprint(stderr, "Quotient ");
-	fprint(stderr, x);
-	fprint(stderr, " / ");
-	fprint(stderr, y);
-	fprint(stderr, " is not an integer.\n");
+	fprint(std::cerr, "Quotient ");
+	fprint(std::cerr, x);
+	fprint(std::cerr, " / ");
+	fprint(std::cerr, y);
+	fprint(std::cerr, " is not an integer.\n");
 	cl_abort();
 }
 

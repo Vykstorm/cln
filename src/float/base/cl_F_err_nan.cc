@@ -16,7 +16,7 @@ namespace cln {
 
 void cl_error_floating_point_nan (void)
 {
-	fprint(stderr, "floating point NaN occurred.\n");
+	fprint(std::cerr, "floating point NaN occurred.\n");
 	cl_abort();
 }
 

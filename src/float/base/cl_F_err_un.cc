@@ -16,7 +16,7 @@ namespace cln {
 
 void cl_error_floating_point_underflow (void)
 {
-	fprint(stderr, "Floating point underflow.\n");
+	fprint(std::cerr, "Floating point underflow.\n");
 	cl_abort();
 }
 

@@ -714,7 +714,7 @@ static void fill_factor (uintL N, fftr_real* x, uintL l,
 	if (max_l(2) > intDsize && l > intDsize) {
 		// l > intDsize
 		if (max_l(2) > 64 && l > 64) {
-			fprint(stderr, "FFT problem: l > 64 not supported by pow2_table\n");
+			fprint(std::cerr, "FFT problem: l > 64 not supported by pow2_table\n");
 			cl_abort();
 		}
 		var fftr_real carry = 0;
@@ -987,7 +987,7 @@ static inline void mulu_fftr_nocheck (const uintD* sourceptr1, uintC len1,
 	for ( ; ; k++) {
 		if (k >= sizeof(max_l_table)/sizeof(max_l_table[0])
 		    || max_l_table[k] <= 0) {
-			fprint(stderr, "FFT problem: numbers too big, floating point precision not sufficient\n");
+			fprint(std::cerr, "FFT problem: numbers too big, floating point precision not sufficient\n");
 			cl_abort();
 		}
 		if (2*ceiling((uintL)len1*intDsize,max_l_table[k])-1 <= ((uintL)1 << k))
@@ -1137,7 +1137,7 @@ static void mulu_fftr (const uintD* sourceptr1, uintC len1,
 	var uintD checksum = multiply_checksum(checksum1,checksum2);
 	mulu_fftr_nocheck(sourceptr1,len1,sourceptr2,len2,destptr);
 	if (!(checksum == compute_checksum(destptr,len1+len2))) {
-		fprint(stderr, "FFT problem: checksum error\n");
+		fprint(std::cerr, "FFT problem: checksum error\n");
 		cl_abort();
 	}
 }

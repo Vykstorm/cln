@@ -16,22 +16,22 @@ namespace cln {
 
 void cl_as_error (const cl_number& obj, const char * typestring, const char * filename, int line)
 {
-	fprint(stderr, "Type assertion failed: in file ");
-	fprint(stderr, filename);
-	fprint(stderr, ", line ");
-	fprintdecimal(stderr, line);
-	fprint(stderr, ", not ");
-	fprint(stderr, typestring);
-	fprint(stderr, ": ");
+	fprint(std::cerr, "Type assertion failed: in file ");
+	fprint(std::cerr, filename);
+	fprint(std::cerr, ", line ");
+	fprintdecimal(std::cerr, line);
+	fprint(std::cerr, ", not ");
+	fprint(std::cerr, typestring);
+	fprint(std::cerr, ": ");
 #if 0 // This brings in a dependency from the complex and float printer and all the float stuff.
-	fprint(stderr, obj);
+	fprint(std::cerr, obj);
 #else
-	fprint(stderr, "@0x");
-	fprinthexadecimal(stderr, (unsigned long)(void*)&obj);
-	fprint(stderr, ": 0x");
-	fprinthexadecimal(stderr, (unsigned long)obj.word);
+	fprint(std::cerr, "@0x");
+	fprinthexadecimal(std::cerr, (unsigned long)(void*)&obj);
+	fprint(std::cerr, ": 0x");
+	fprinthexadecimal(std::cerr, (unsigned long)obj.word);
 #endif
-	fprint(stderr, "\n");
+	fprint(std::cerr, "\n");
 	cl_abort();
 }
 

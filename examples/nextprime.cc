@@ -15,11 +15,11 @@
 int main (int argc, char* argv[])
 {
 	if (argc != 2) {
-		cln::stderr << "Usage: nextprime x" << std::endl;
+		std::cerr << "Usage: nextprime x" << std::endl;
 		return(1);
 	}
 	cln::cl_R x = (cln::cl_R)argv[1];
 	cln::cl_I p = cln::nextprobprime(x);
-	cln::stdout << p << std::endl;
+	std::cout << p << std::endl;
 	return(0);
 }

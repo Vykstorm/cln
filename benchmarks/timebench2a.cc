@@ -31,8 +31,8 @@ int main (int argc, char * argv[])
 	if (argc < 1)
 		exit(1);
 	
-	stderr << "Number of digits: " << digits << endl;
-	stderr << "Number of repetitions: " << repetitions << endl;
+	cerr << "Number of digits: " << digits << endl;
+	cerr << "Number of repetitions: " << repetitions << endl;
 
 	float_format_t prec = float_format(digits);
 	float_format_t prec2 = float_format(digits*2);
@@ -41,7 +41,7 @@ int main (int argc, char * argv[])
 	cl_I x2 = floor1(sqrt(cl_float(3,prec)) * pow);
 	cl_I x3 = pow+1;
 
-	stderr << "multiplication" << endl;
+	cerr << "multiplication" << endl;
 	{ cl_I r = x1*x2;
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -50,7 +50,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "division" << endl;
+	cerr << "division" << endl;
 	{ cl_I_div_t qr = floor2(x1,x2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -59,7 +59,7 @@ int main (int argc, char * argv[])
 	  cout << qr.quotient << endl << qr.remainder << endl << endl;
 	}
 
-	stderr << "isqrt" << endl;
+	cerr << "isqrt" << endl;
 	{ cl_I r = isqrt(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -68,7 +68,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "gcd" << endl;
+	cerr << "gcd" << endl;
 	{ cl_I r = gcd(x1,x2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)

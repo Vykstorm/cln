@@ -34,15 +34,15 @@ int main (int argc, char * argv[])
 	if (argc < 1)
 		exit(1);
 
-	stderr << "Number of digits: " << digits << endl;
-	stderr << "Number of repetitions (except for pi,euler,e): " << repetitions << endl;
+	cerr << "Number of digits: " << digits << endl;
+	cerr << "Number of repetitions (except for pi,euler,e): " << repetitions << endl;
 
 	float_format_t prec = float_format(digits);
 	cl_F x1 = sqrt(cl_float(2,prec));
 	cl_F x2 = sqrt(cl_float(3,prec));
 	cl_F x3 = The(cl_F)(log(cl_float(2,prec)));
 
-	stderr << "multiplication" << endl;
+	cerr << "multiplication" << endl;
 	{ cl_F r = x1*x2;
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -51,7 +51,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "sqrt" << endl;
+	cerr << "sqrt" << endl;
 	{ cl_F r = sqrt(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -60,25 +60,25 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "pi" << endl;
+	cerr << "pi" << endl;
 	{ cl_F r;
 	  { CL_TIMING; r = pi(prec); }
 	  cout << r << endl << endl;
 	}
 
-	stderr << "eulerconst" << endl;
+	cerr << "eulerconst" << endl;
 	{ cl_F r;
 	  { CL_TIMING; r = eulerconst(prec); }
 	  cout << r << endl << endl;
 	}
 
-	stderr << "e" << endl;
+	cerr << "e" << endl;
 	{ cl_F r;
 	  { CL_TIMING; r = exp1(prec); }
 	  cout << r << endl << endl;
 	}
 
-	stderr << "exp" << endl;
+	cerr << "exp" << endl;
 	{ cl_F r = exp(-x1);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -87,7 +87,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "log" << endl;
+	cerr << "log" << endl;
 	{ cl_N r = log(x2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -96,7 +96,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "sin" << endl;
+	cerr << "sin" << endl;
 	{ cl_R r = sin(5*x1);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -105,7 +105,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "cos" << endl;
+	cerr << "cos" << endl;
 	{ cl_R r = cos(5*x1);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -114,7 +114,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "asin" << endl;
+	cerr << "asin" << endl;
 	{ cl_N r = asin(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -123,7 +123,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "acos" << endl;
+	cerr << "acos" << endl;
 	{ cl_N r = acos(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -132,7 +132,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "atan" << endl;
+	cerr << "atan" << endl;
 	{ cl_F r = atan(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -141,7 +141,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "sinh" << endl;
+	cerr << "sinh" << endl;
 	{ cl_F r = sinh(x2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -150,7 +150,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "cosh" << endl;
+	cerr << "cosh" << endl;
 	{ cl_F r = cosh(x2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -159,7 +159,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "asinh" << endl;
+	cerr << "asinh" << endl;
 	{ cl_N r = asinh(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -168,7 +168,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "acosh" << endl;
+	cerr << "acosh" << endl;
 	{ cl_N r = acosh(1+x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -177,7 +177,7 @@ int main (int argc, char * argv[])
 	  cout << r << endl << endl;
 	}
 
-	stderr << "atanh" << endl;
+	cerr << "atanh" << endl;
 	{ cl_N r = atanh(x3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)

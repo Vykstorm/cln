@@ -1,4 +1,4 @@
-// I/O through <stdio.h> or <iostream>
+// I/O through <iostream>
 
 #ifndef _CL_IO_H
 #define _CL_IO_H
@@ -20,9 +20,6 @@ namespace cln {
 
 typedef std::istream& cl_istream;
 typedef std::ostream& cl_ostream;
-extern cl_istream stdin;
-extern cl_ostream stdout;
-extern cl_ostream stderr;
 extern std::ostream* cl_debugout_stream;
 #define cl_debugout  (*cl_debugout_stream)
 

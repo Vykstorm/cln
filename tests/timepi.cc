@@ -52,9 +52,9 @@ int main (int argc, char * argv[])
 	int n = atoi(argv[1]);
 	float_format_t prec = float_format(n);
 	cl_F p;
-	stderr << "Computing pi" << endl;
+	cerr << "Computing pi" << endl;
 	{ CL_TIMING; p = pi(prec); }
-	stderr << "Converting pi to decimal" << endl;
+	cerr << "Converting pi to decimal" << endl;
 	{ CL_TIMING; cout << p << endl << endl; }
 #endif
 }

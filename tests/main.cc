@@ -13,7 +13,7 @@
 #include <cln/timing.h>
 
 #define DUMP(expr)  \
-	fprint(stdout, #expr" = "); fprint(stdout, expr); fprint(stdout, "\n");
+	fprint(cout, #expr" = "); fprint(cout, expr); fprint(cout, "\n");
 
 int main (int argc, char* argv[])
 {
@@ -21,8 +21,8 @@ int main (int argc, char* argv[])
 
 #if 0
 	cl_F archimedes = pi((float_format_t)10000);
-	fprint(stdout, archimedes);
-	fprint(stdout, "\n");
+	fprint(cout, archimedes);
+	fprint(cout, "\n");
 #endif
 
 #if 0
@@ -30,11 +30,11 @@ int main (int argc, char* argv[])
 	cl_FF x1 = "-0.2173f0";
 	cl_FF x2 = "5.5084f9";
 	cl_FF y = "-1.19698f9";
-	fprint(stdout, "x1 = "); print_float_binary(stdout,x1); fprint(stdout, " = "); fprint(stdout,x1); fprint(stdout, "\n");
-	fprint(stdout, "x2 = "); print_float_binary(stdout,x2); fprint(stdout, " = "); fprint(stdout,x2); fprint(stdout, "\n");
-	fprint(stdout, "y = "); print_float_binary(stdout,y); fprint(stdout, " = "); fprint(stdout,y); fprint(stdout, "\n");
+	fprint(cout, "x1 = "); print_float_binary(cout,x1); fprint(cout, " = "); fprint(cout,x1); fprint(cout, "\n");
+	fprint(cout, "x2 = "); print_float_binary(cout,x2); fprint(cout, " = "); fprint(cout,x2); fprint(cout, "\n");
+	fprint(cout, "y = "); print_float_binary(cout,y); fprint(cout, " = "); fprint(cout,y); fprint(cout, "\n");
 	cl_FF x = x1*x2;
-	fprint(stdout, "x1*x2 = "); print_float_binary(stdout,x); fprint(stdout, " = "); fprint(stdout,x); fprint(stdout, "\n");
+	fprint(cout, "x1*x2 = "); print_float_binary(cout,x); fprint(cout, " = "); fprint(cout,x); fprint(cout, "\n");
 #endif
 
 #if 0
@@ -42,8 +42,8 @@ int main (int argc, char* argv[])
 	cl_I y = ++x;
 	x *= 2;
 	x++;
-	fprint(stdout, "x = "); fprint(stdout, x); fprint(stdout, "\n");
-	fprint(stdout, "y = "); fprint(stdout, y); fprint(stdout, "\n");
+	fprint(cout, "x = "); fprint(cout, x); fprint(cout, "\n");
+	fprint(cout, "y = "); fprint(cout, y); fprint(cout, "\n");
 #endif
 
 #if 0

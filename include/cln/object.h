@@ -175,7 +175,7 @@ typedef void (*cl_heap_destructor_function) (cl_heap* pointer);
 #define cl_class_flags_subclass_rational  8  // all instances belong to cl_RA
 #define cl_class_flags_number_ring       16  // all instances are rings whose
                                              // elements belong to cl_number
-// Function to print an object for debugging, to stderr.
+// Function to print an object for debugging, to cerr.
 typedef void (*cl_heap_dprint_function) (cl_heap* pointer);
 
 struct cl_class {

@@ -10,7 +10,7 @@
 // Implementation.
 
 // Just assume that the debugger runs on /dev/tty, independently of
-// stdin, stdout, stderr.
+// cin, cout, cerr.
 
 #include <fstream>
 

@@ -16,10 +16,10 @@ namespace cln {
 
 void read_number_bad_syntax (const char * string, const char * string_limit)
 {
-	fprint(stderr, "Illegal number syntax: \"");
+	fprint(std::cerr, "Illegal number syntax: \"");
 	for (const char * ptr = string; ptr != string_limit; ptr++)
-		fprintchar(stderr, *ptr);
-	fprint(stderr, "\"\n");
+		fprintchar(std::cerr, *ptr);
+	fprint(std::cerr, "\"\n");
 	cl_abort();
 }
 

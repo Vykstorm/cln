@@ -53,9 +53,9 @@ static int test_##typename##_##opname (void)				\
 		rtype computed_result = arg1 op arg2;			\
 		rtype result = rtype(test.result);			\
 		if (computed_result != result) {			\
-			stderr << "Error in " #typename "_" #opname "_tests[" << i << "] !" << endl; \
-			stderr << "Result should be: " << result << endl;	\
-			stderr << "Result computed : " << computed_result << endl << endl;	\
+			std::cerr << "Error in " #typename "_" #opname "_tests[" << i << "] !" << endl; \
+			std::cerr << "Result should be: " << result << endl;	\
+			std::cerr << "Result computed : " << computed_result << endl << endl;	\
 			error = 1;					\
 		}							\
 	}								\
@@ -74,9 +74,9 @@ static int test_##typename##_floor (void)				\
 		cl_I result1 = cl_I(test.result1);			\
 		type result2 = type(test.result2);			\
 		if ((computed_result.quotient != result1) || (computed_result.remainder != result2)) { \
-			stderr << "Error in " #typename "_floor_tests[" << i << endl; \
-			stderr << "Results should be: " << result1 << ", " << result2 << endl;	\
-			stderr << "Results computed : " << computed_result.quotient << ", " << computed_result.remainder << endl << endl;	\
+			std::cerr << "Error in " #typename "_floor_tests[" << i << endl; \
+			std::cerr << "Results should be: " << result1 << ", " << result2 << endl;	\
+			std::cerr << "Results computed : " << computed_result.quotient << ", " << computed_result.remainder << endl << endl;	\
 			error = 1;					\
 		}							\
 	}								\

@@ -28,8 +28,8 @@ int main (int argc, char * argv[])
 	if (argc < 1)
 		exit(1);
 
-	stderr << "Limit: " << limit << endl;
-	stderr << "Number of repetitions: " << repetitions << endl;
+	cerr << "Limit: " << limit << endl;
+	cerr << "Number of repetitions: " << repetitions << endl;
 
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)

@@ -52,8 +52,8 @@ extern void cl_timing_report (cl_ostream, const cl_time_consumption&);
 struct cl_timing {
 	// Constructor, starts the time interval.
 	cl_timing (cl_time_consumption& accumulator);
-	cl_timing (cl_ostream destination = stderr);
-	cl_timing (const char *, cl_ostream destination = stderr);
+	cl_timing (cl_ostream destination = std::cerr);
+	cl_timing (const char *, cl_ostream destination = std::cerr);
 	// Destructor, closes the time interval and does a report.
 	~cl_timing ();	
 //private:
@@ -67,7 +67,7 @@ struct cl_timing {
 // Usage:
 //     { CL_TIMING; computation(); }
 // or  { CL_TIMING(accumulator); computation(); }
-// or  { CL_TIMING(stdout); computation(); }
+// or  { CL_TIMING(cout); computation(); }
 // The timing interval starts immediately and ends at the closing brace.
 #define CL_TIMING  CL_TIMING1(__LINE__)
 #define CL_TIMING1(line)  CL_TIMING2(line)

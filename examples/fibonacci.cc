@@ -125,11 +125,11 @@ const cl_I fibonacci_slow (int n)
 int main (int argc, char* argv[])
 {
 	if (argc != 2) {
-		stderr << "Usage: fibonacci n" << endl;
+		cerr << "Usage: fibonacci n" << endl;
 		return(1);
 	}
 	int n = atoi(argv[1]);
-	stdout << "fib(" << n << ") = " << fibonacci(n) << endl;
+	cout << "fib(" << n << ") = " << fibonacci(n) << endl;
 	return(0);
 }
 
@@ -143,27 +143,27 @@ int main (int argc, char* argv[])
 		argc -= 2; argv += 2;
 	}
 	if (argc != 2) {
-		stderr << "Usage: fibonacci n" << endl;
+		cerr << "Usage: fibonacci n" << endl;
 		return(1);
 	}
 	int n = atoi(argv[1]);
 	{ CL_TIMING;
-		stdout << "fib(" << n << ") = ";
+		cout << "fib(" << n << ") = ";
 		for (int rep = repetitions-1; rep > 0; rep--)
 			fibonacci(n);
-		stdout << fibonacci(n) << endl;
+		cout << fibonacci(n) << endl;
 	}
 	{ CL_TIMING;
-		stdout << "fib(" << n << ") = ";
+		cout << "fib(" << n << ") = ";
 		for (int rep = repetitions-1; rep > 0; rep--)
 			fibonacci_compact(n);
-		stdout << fibonacci_compact(n) << endl;
+		cout << fibonacci_compact(n) << endl;
 	}
 	{ CL_TIMING;
-		stdout << "fib(" << n << ") = ";
+		cout << "fib(" << n << ") = ";
 		for (int rep = repetitions-1; rep > 0; rep--)
 			fibonacci_slow(n);
-		stdout << fibonacci_slow(n) << endl;
+		cout << fibonacci_slow(n) << endl;
 	}
 	return(0);
 }

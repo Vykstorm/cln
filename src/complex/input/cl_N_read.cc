@@ -24,10 +24,6 @@
 #undef floor
 #include <cmath>
 #define floor cln_floor
-// Ugh, some compilers #define stderr, confusing cln::stderr
-#ifdef stderr
-  #undef stderr
-#endif
 
 
 namespace cln {
@@ -96,9 +92,9 @@ const cl_N read_complex (const cl_read_flags& flags, const char * string, const 
 						goto not_rational_syntax;
 					var cl_I base = read_integer(10,0,ptr,0,base_end_ptr-ptr);
 					if (!((base >= 2) && (base <= 36))) {
-						fprint(stderr, "Base must be an integer in the range from 2 to 36, not ");
-						fprint(stderr, base);
-						fprint(stderr, "\n");
+						fprint(std::cerr, "Base must be an integer in the range from 2 to 36, not ");
+						fprint(std::cerr, base);
+						fprint(std::cerr, "\n");
 						cl_abort();
 					}
 					rational_base = FN_to_UL(base); ptr = base_end_ptr;

@@ -20,17 +20,17 @@ int main (int argc, char * argv[])
 	{
 		cl_MI a = R->canonhom("1111111111111111111111111111111111111111111111111");
 		cl_MI b = R->canonhom("777777777777777777777777777777777777777777777777");
-		stdout << "product modulo p" << endl;
+		cout << "product modulo p" << endl;
 		{ CL_TIMING;
 		  for (int rep = repetitions; rep > 0; rep--)
 		    { cl_MI c = R->mul(a,b); }
 		}
-		stdout << "square modulo p" << endl;
+		cout << "square modulo p" << endl;
 		{ CL_TIMING;
 		  for (int rep = repetitions; rep > 0; rep--)
 		    { cl_MI c = R->square(a); }
 		}
-		stdout << "quotient modulo p" << endl;
+		cout << "quotient modulo p" << endl;
 		{ CL_TIMING;
 		  for (int rep = repetitions; rep > 0; rep--)
 		    { cl_MI c = R->div(a,b); }
@@ -39,17 +39,17 @@ int main (int argc, char * argv[])
 	{
 		cl_MI a = R->canonhom("1234567890123456789012345678901234567890123456789");
 		cl_MI b = R->canonhom("909090909090909090909090909090909090909090909090");
-		stdout << "product modulo p" << endl;
+		cout << "product modulo p" << endl;
 		{ CL_TIMING;
 		  for (int rep = repetitions; rep > 0; rep--)
 		    { cl_MI c = R->mul(a,b); }
 		}
-		stdout << "square modulo p" << endl;
+		cout << "square modulo p" << endl;
 		{ CL_TIMING;
 		  for (int rep = repetitions; rep > 0; rep--)
 		    { cl_MI c = R->square(a); }
 		}
-		stdout << "quotient modulo p" << endl;
+		cout << "quotient modulo p" << endl;
 		{ CL_TIMING;
 		  for (int rep = repetitions; rep > 0; rep--)
 		    { cl_MI c = R->div(a,b); }

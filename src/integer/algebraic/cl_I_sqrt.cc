@@ -21,9 +21,9 @@ namespace cln {
 cl_boolean isqrt (const cl_I& x, cl_I* w)
 {
 	if (minusp(x)) {
-		fprint(stderr, "isqrt: applied to negative number: ");
-		fprint(stderr, x);
-		fprint(stderr, "\n");
+		fprint(std::cerr, "isqrt: applied to negative number: ");
+		fprint(std::cerr, x);
+		fprint(std::cerr, "\n");
 		cl_abort();
 	}
 	CL_ALLOCA_STACK;

@@ -28,7 +28,7 @@ int main (int argc, char * argv[])
 		p1.set_coeff(i, R1->canonhom((int)(1.618033989*i*i)));
 	p1.finalize();
 
-	stdout << p1 << endl;
+	cout << p1 << endl;
 
 	cl_UP sp1 = PR1->zero();
 	{ CL_TIMING;
@@ -36,7 +36,7 @@ int main (int argc, char * argv[])
 	    { sp1 = square(p1); }
 	}
 
-	stdout << sp1 << endl;
+	cout << sp1 << endl;
 }
 
 // Time:

@@ -75,10 +75,10 @@ struct cl_composite_condition : public cl_condition {
 	// Constructors.
 	cl_composite_condition (const cl_I& _p)
 		: p (_p), factor (0)
-		{ print(stderr); }
+		{ print(std::cerr); }
 	cl_composite_condition (const cl_I& _p, const cl_I& _f)
 		: p (_p), factor (_f)
-		{ print(stderr); }
+		{ print(std::cerr); }
 	// Implement general condition methods.
 	const char * name () const;
 	void print (cl_ostream) const;

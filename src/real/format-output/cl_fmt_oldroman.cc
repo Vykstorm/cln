@@ -18,9 +18,9 @@ namespace cln {
 void format_old_roman (cl_ostream stream, const cl_I& arg)
 {
 	if (!(0 < arg && arg < 5000)) {
-		fprint(stderr, "format_old_roman: argument should be in the range 1 - 4999, not ");
-		fprint(stderr, arg);
-		fprint(stderr, ".\n");
+		fprint(std::cerr, "format_old_roman: argument should be in the range 1 - 4999, not ");
+		fprint(std::cerr, arg);
+		fprint(std::cerr, ".\n");
 		cl_abort();
 	}
 	var uintL value = cl_I_to_UL(arg);

@@ -553,7 +553,8 @@ Rational numbers are always normalized to the form
 are coprime integers and the denominator is positive. If the resulting
 denominator is @code{1}, the rational number is converted to an integer.
 
-Small integers (typically in the range @code{-2^30}@dots{}@code{2^30-1},
+@cindex immediate numbers
+Small integers (typically in the range @code{-2^29}@dots{}@code{2^29-1},
 for 32-bit machines) are especially efficient, because they consume no heap
 allocation. Otherwise the distinction between these immediate integers
 (called ``fixnums'') and heap allocated integers (called ``bignums'')
@@ -2418,13 +2419,6 @@ Including @code{<cln/io.h>} defines a type @code{cl_istream}, which is
 the type of the first argument to all input functions. @code{cl_istream}
 is the same as @code{std::istream&}.
 
-The variable
-@itemize @asis
-@item
-@code{cl_istream stdin}
-@end itemize
-contains the standard input stream.
-
 These are the simple input functions:
 
 @table @code
@@ -2523,20 +2517,6 @@ precision corresponding to their number of significant digits.
 Including @code{<cln/io.h>} defines a type @code{cl_ostream}, which is
 the type of the first argument to all output functions. @code{cl_ostream}
 is the same as @code{std::ostream&}.
-
-The variable
-@itemize @asis
-@item
-@code{cl_ostream stdout}
-@end itemize
-contains the standard output stream.
-
-The variable
-@itemize @asis
-@item
-@code{cl_ostream stderr}
-@end itemize
-contains the standard error output stream.
 
 These are the simple output functions:
 
@@ -3285,6 +3265,7 @@ Garbage collection: A reference counting mechanism makes sure that any
 number object's storage is freed immediately when the last reference to the
 object is gone.
 @item
+@cindex immediate numbers
 Small integers are represented as immediate values instead of pointers
 to heap allocated storage. This means that integers @code{> -2^29},
 @code{< 2^29} don't consume heap memory, unless they were explicitly allocated

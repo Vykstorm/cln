@@ -31,7 +31,7 @@ static const _cl_MI int_random (cl_heap_modint_ring* R, random_state& randomstat
 {
 	unused R;
 	unused randomstate;
-	fprint(stderr, "Z / 0 Z not a finite set - no equidistributed random function.\n");
+	fprint(std::cerr, "Z / 0 Z not a finite set - no equidistributed random function.\n");
 	cl_abort();
 #if ((defined(__sparc__) || defined(__sparc64__)) && !defined(__GNUC__)) // Sun CC wants a return value
 	return _cl_MI(R, 0);
