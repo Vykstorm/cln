@@ -10,7 +10,7 @@
 dnl AC_PATH_CLN([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl Test for installed CLN library, and define CLN_CPPFLAGS and CLN_LIBS
 dnl
-AC_DEFUN(AC_PATH_CLN,
+AC_DEFUN([AC_PATH_CLN],
 [dnl 
 dnl Get the cppflags and libraries from the cln-config script
 dnl
