@@ -21,7 +21,7 @@
   #include "cl_asm_i386.h"
 #endif
 
-#if defined(__mips__) && !defined(__mips64__) && !defined(__mipsel__) && (intDsize==32)
+#if (defined(__mips__) || defined(__mipsel__)) && !defined(__mips64__) && (intDsize==32)
   #include "cl_asm_mips.h"
 #endif
 

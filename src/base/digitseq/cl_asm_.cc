@@ -25,6 +25,10 @@
   #include "cl_asm_mips_.cc"
 #endif
 
+#if defined(__mipsel__)
+  #include "cl_asm_mipsel_.cc"
+#endif
+
 #if defined(__hppa__)
   #include "cl_asm_hppa_.cc"
 #endif

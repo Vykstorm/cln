@@ -1,3 +1,11 @@
+2004-09-27  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Support for little-endian Mips, second shot
+	* src/base/digitseq/cl_asm_mipsel_.cc: New file...
+	* src/base/digitseq/cl_asm_cc: ...used here.
+	* src/base/digitseq/cl_asm.h: Include cl_asm_mips.h for any endianness.
+	* include/cln/object.h: Set alignment for mipsel explicitly.
+
 2004-09-05  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Support for little-endian Mips
