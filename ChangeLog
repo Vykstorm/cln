@@ -1,3 +1,7 @@
+2001-03-26  Arvid Norberg <c99ang@cs.umu.se>
+
+        * src/base/random/cl_random_from.cc: ported to beos.
+
 2001-03-05  Richard Kreckel  <kreckel@ginac.de>
 
         * include/cln/modules.h (CL_JUMP_TO): Fix IA64 brokenness.
