@@ -27,6 +27,7 @@ CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
 INCLUDES = -I../include -I$(top_srcdir)/include
 override CPPFLAGS += $(INCLUDES)
+LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
