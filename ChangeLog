@@ -1,3 +1,8 @@
+2004-05-01  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* src/Makefile.in: Fix for parallel build: wait for subdir objects to
+	be finished before creating the library.
+
 2004-04-30  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/integer/output/cl_I_print.cc (print_integer): workaround
