@@ -1,3 +1,8 @@
+2000-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+        * autoconf/aclocal.m4 (CL_CANONICAL_HOST): Determine host_cpu,
+          host_vendor, host_os correctly if $host has more than two hyphens.
+
 2000-05-19  Richard Kreckel  <kreckel@ginac.de>
 
         * src/base/digitseq/cl_DS_mul.cc: Rearranged break-even points to
