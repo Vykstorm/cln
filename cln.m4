@@ -54,11 +54,12 @@ dnl Parse required version and the result of cln-config.
             sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
     CLN_CPPFLAGS=`$CLN_CONFIG $cln_config_args --cppflags`
     CLN_LIBS=`$CLN_CONFIG $cln_config_args --libs`
-    cln_config_major_version=`$CLN_CONFIG $cln_config_args --version | \
+    cln_config_version=`$CLN_CONFIG $cln_config_args --version`
+    cln_config_major_version=`echo $cln_config_version | \
             sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
-    cln_config_minor_version=`$CLN_CONFIG $cln_config_args --version | \
+    cln_config_minor_version=`echo $cln_config_version | \
             sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
-    cln_config_micro_version=`$CLN_CONFIG $cln_config_args --version | \
+    cln_config_micro_version=`echo $cln_config_version | \
             sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
 dnl Check if the installed CLN is sufficiently new according to cln-config.
     if test \( $cln_config_major_version -lt $cln_min_major_version \) -o \
@@ -122,7 +123,7 @@ int main(void)
             LIBS="$ac_save_LIBS"
         fi
         if test "x$no_cln" = x ; then
-            AC_MSG_RESULT([yes, `$CLN_CONFIG $cln_config_args --version`])
+            AC_MSG_RESULT([yes, $cln_config_version])
             ifelse([$2], , :, [$2])
         else
             AC_MSG_RESULT(no)
