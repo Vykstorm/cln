@@ -1,6 +1,6 @@
 dnl  AUTOCONF configuration for CLN
 dnl
-dnl  configure.in ---<autoconf>--->> configure
+dnl  configure.ac ---<autoconf>--->> configure
 dnl
 dnl  configure    ---<sh>--->> config.status
 dnl                      --->> include/cln/config.h
@@ -68,7 +68,7 @@ dnl
                       dnl libcln depends on libm
 PACKAGE=cln
                       dnl libtool wants PACKAGE
-AM_PROG_LIBTOOL
+AC_PROG_LIBTOOL
                       dnl sets variable LIBTOOL
 
 dnl Libtool's library version information for CLN.
@@ -80,7 +80,7 @@ dnl   CL_CURRENT and set CL_REVISION to 0,
 dnl * if any functions/classes have been added, increment CL_AGE,
 dnl * if backwards compatibility has been broken, set CL_AGE to 0.
 CL_CURRENT=2
-CL_REVISION=2
+CL_REVISION=3
 CL_AGE=0
 dnl make substitutions
 AC_SUBST(CL_CURRENT)
@@ -89,7 +89,7 @@ AC_SUBST(CL_AGE)
 dnl release version
 CL_VERSION_MAJOR=1
 CL_VERSION_MINOR=1
-CL_VERSION_PATCHLEVEL=3
+CL_VERSION_PATCHLEVEL=4
 dnl release version for cln/config.h, so it can be tested by the preprocessor
 AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)

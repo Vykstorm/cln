@@ -24,18 +24,27 @@ AC_DEFUN(CL_GMP_SET_UINTD,
 #include <gmp.h>
 int main() {
     FILE *f=fopen("conftestval", "w");
-    if (!f) return(1);
+    if (!f) return(255);
     if (sizeof(mp_limb_t) > sizeof(long))
         fprintf(f, "long long");
     else if (sizeof(mp_limb_t) == sizeof(long))
         fprintf(f, "long");
     else if (sizeof(mp_limb_t) == sizeof(int))
         fprintf(f, "int");
-    else return(1);
+    else return(sizeof(mp_limb_t));
+#if defined(__GMP_BITS_PER_MP_LIMB)
+    /* Is there a nail in a limb? */
+    if (8*sizeof(mp_limb_t)!=__GMP_BITS_PER_MP_LIMB)
+        return(254);
+#endif
     return(0);
-}], cl_cv_gmp_set_uintd=`cat conftestval`; \
-    cl_gmp_demands="GMP_DEMANDS_UINTD_`echo ${cl_cv_gmp_set_uintd} | sed -e 'y/ gilnot/_GILNOT/'`"; 
-    AC_DEFINE_UNQUOTED($cl_gmp_demands),
-    AC_MSG_ERROR([CLN can't handle the result]),dnl
+}], cl_cv_gmp_set_uintd=`cat conftestval`
+    cl_gmp_demands="GMP_DEMANDS_UINTD_`echo ${cl_cv_gmp_set_uintd} | sed -e 'y/ gilnot/_GILNOT/'`",
+    gmp_retval="$ac_status"
+    if test x$gmp_retval = "x255"; then AC_MSG_ERROR([error opening output file.]); fi
+    if test x$gmp_retval = "x254"; then AC_MSG_ERROR([nails in MP limbs are unsupported.]); fi
+    AC_MSG_ERROR([Don't know which C-type has sizeof $gmp_retval.]),
     AC_MSG_ERROR([cross-compiling - cannot determine]))
-])])
+])
+AC_DEFINE_UNQUOTED($cl_gmp_demands)
+])

@@ -64,8 +64,10 @@ top_builddir = ..
 SUBDIR = .
 
 # Define the search path for sources.
-# The ":" below keeps config.status from removing this line.
-VPATH = $(srcdir)/$(SUBDIR) # :
+# The variable $(aux_srcdir) is needed because new versions of aufoconf tend to
+# remove $(srcdir), ${srcdir} and so on...
+aux_srcdir = @srcdir@
+VPATH = $(aux_srcdir)/$(SUBDIR)
 
 # Add subdirectory specific flags.
 include $(srcdir)/$(SUBDIR)/Makeflags

@@ -1,3 +1,16 @@
+2002-01-03  Richard Kreckel  <kreckel@ginac.de>
+
+        * autoconf/acinclude.m4: revamp MPN-matcher.
+        * autoconf/aclocal.m4: upgrade to autoconf-2.52 infrastructure,
+          sync with CLisp from CVS.
+        * autoconf/autoconf: Likewise.
+        * autoconf/autoconf.m4f: Likewise (new file).
+        * configure.ac: Likewise (new file, replaces configure.in).
+        * configure.in: Likewise (deleted, replaced by configure.ac).
+        * autoconf/config.{guess,sub}: Update to GNU version 2001-12-13.
+        * src/Makefile.in: made VPATH safe for autoconf-2.52.
+        * include/cln/config.h.in: Add __s390__.
+
 2001-12-31  Richard Kreckel  <kreckel@ginac.de>
 
         * src/base/digitseq/cl_DS.h: <gmp.h> is not included extern "C"

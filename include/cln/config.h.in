@@ -54,6 +54,9 @@
 #ifndef __ia64__
 #undef __ia64__
 #endif
+#ifndef __s390__
+#undef __s390__
+#endif
 
 
 /* assembler syntax */

@@ -3393,7 +3393,7 @@ macro is in the file @file{cln.m4} which is installed in
 different @samp{--prefix} than CLN, you will either have to manually
 move @file{cln.m4} to automake's @file{$datadir/aclocal}, or give
 aclocal the @samp{-I} option when running it. Here is a possible example
-to be included in your package's @file{configure.in}:
+to be included in your package's @file{configure.ac}:
 @example
 AC_PATH_CLN(1.1.0, [
   LIBS="$LIBS $CLN_LIBS"
