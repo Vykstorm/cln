@@ -314,7 +314,7 @@ const sqrt_mod_p_t sqrt_mod_p (const cl_modint_ring& R, const cl_MI& a)
 	}
 	var uintL l = integer_length(p);
 	var uintL e = ord2(p-1);
-	//if (e > 30 && e > l/(log((double)l)*0.72-1))
+	//if (e > 30 && e > l/(::log((double)l)*0.72-1))
 	if (e > 30 && e > l/(::log((double)l)*0.92-2.41))
 		// Algorithm 2.
 		return cantor_zassenhaus_sqrt(R,a);
