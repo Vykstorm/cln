@@ -48,7 +48,7 @@
     #undef HAVE_LONGLONG
    #endif
   #endif
-  #if defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__mips64__) || defined(__sparc64__))
+  #if defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__mips64__) || (defined(__mips__) && defined(_ABIN32)) || defined(__sparc64__))
     // 64 bit registers in hardware
     #define HAVE_FAST_LONGLONG
   #endif
@@ -100,6 +100,15 @@
   #define intPsize long_bitsize
   typedef long           sintP;
   typedef unsigned long  uintP;
+
+// Largest integer type which can be manipulated as efficiently as a pointer.
+// This is normally the same as the hardware register size.
+// Assumption: cl_word_size >= intPsize
+  #ifdef HAVE_FAST_LONGLONG
+    #define cl_word_size  64
+  #else
+    #define cl_word_size  32
+  #endif
 
 // Numbers in the heap are stored as "digit" sequences.
 // A digit is an unsigned int with intDsize bits.

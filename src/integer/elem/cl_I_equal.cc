@@ -27,7 +27,7 @@ cl_boolean cl_equal (const cl_I& x, const cl_I& y)
         // x Fixnum
         if (fixnump(y))
           // x Fixnum, y Fixnum
-          { // This assumes cl_value_shift + cl_value_len == cl_word_size.
+          { // This assumes cl_value_shift + cl_value_len == cl_pointer_size.
             return (cl_boolean) ((cl_sint)x.word == (cl_sint)y.word);
           }
           else

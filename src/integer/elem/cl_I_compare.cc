@@ -38,7 +38,7 @@ cl_signean cl_compare (const cl_I& x, const cl_I& y)
         // x Fixnum
         if (fixnump(y))
           // x Fixnum, y Fixnum
-          { // This assumes cl_value_shift + cl_value_len == cl_word_size.
+          { // This assumes cl_value_shift + cl_value_len == cl_pointer_size.
             if ((cl_sint)x.word == (cl_sint)y.word) return signean_null;
             else if ((cl_sint)x.word > (cl_sint)y.word) return signean_plus;
             else return signean_minus;

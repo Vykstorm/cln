@@ -62,9 +62,9 @@
 // Immediate data is a word, as wide as a pointer.
 typedef sintP  cl_sint;
 typedef uintP  cl_uint;  // This ought to be called `cl_word'.
-#define cl_word_size intPsize
-// NB: (cl_word_size==64) implies defined(HAVE_FAST_LONGLONG)
-#if (cl_word_size==64)
+#define cl_pointer_size intPsize
+// NB: (cl_pointer_size==64) implies defined(HAVE_FAST_LONGLONG)
+#if (cl_pointer_size==64)
   #define CL_WIDE_POINTERS
 #endif
 
@@ -90,12 +90,12 @@ inline cl_boolean cl_immediate_p (cl_uint word)
   #define cl_tag_len	3
 #endif
 #define cl_tag_shift	0
-#if (cl_word_size == 64)
+#if (cl_pointer_size == 64)
   #define cl_value_shift  32
 #else
   #define cl_value_shift  (cl_tag_len+cl_tag_shift)
 #endif
-#define cl_value_len	(cl_word_size - cl_value_shift)
+#define cl_value_len	(cl_pointer_size - cl_value_shift)
 #define cl_tag_mask	(((1UL << cl_tag_len) - 1) << cl_tag_shift)
 #define cl_value_mask	(((1UL << cl_value_len) - 1) << cl_value_shift)
 
@@ -108,7 +108,7 @@ inline cl_uint cl_tag (cl_uint word)
 // Return the value (unsigned) of a word.
 inline cl_uint cl_value (cl_uint word)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return word >> cl_value_shift;
 }
 
@@ -119,7 +119,7 @@ inline cl_uint cl_combine (cl_uint tag, cl_uint value)
 }
 inline cl_uint cl_combine (cl_uint tag, cl_sint value)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (value << cl_value_shift) + (tag << cl_tag_shift);
 }
 // Keep the compiler happy.

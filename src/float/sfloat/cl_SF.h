@@ -21,7 +21,7 @@
   #define SF_exp_high  (bit(SF_exp_len)-1)	// maximum exponent
   #define SF_exp_shift  (SF_mant_len+SF_mant_shift) // lowest exponent bit
   #define SF_mant_shift  SF_value_shift		    // lowest mantissa bit
-  #define SF_sign_shift  (cl_word_size - 1)
+  #define SF_sign_shift  (cl_pointer_size - 1)
 
 // Builds a float from the immediate word.
 inline cl_SF::cl_SF (struct cl_sfloat * null, cl_uint w)
@@ -71,7 +71,7 @@ inline uintL SF_uexp (const cl_SF& x)
 }
 inline cl_signean SF_sign (const cl_SF& x)
 {
-	return ((cl_sint)x.word << (cl_word_size-1 - SF_sign_shift)) >> (cl_word_size-1);
+	return ((cl_sint)x.word << (cl_pointer_size-1 - SF_sign_shift)) >> (cl_pointer_size-1);
 }
 inline uintL SF_mant (const cl_SF& x)
 {

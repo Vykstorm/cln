@@ -18,7 +18,7 @@ const cl_I minus1 (const cl_I& x)
 	  { // x ist Fixnum
 	    if (x.word != cl_combine(cl_FN_tag,bit(cl_value_len-1)))
 		// bleibt Fixnum: direkt 1 subtrahieren
-		// This assumes cl_value_shift + cl_value_len == cl_word_size.
+		// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 		{ return cl_I_from_word(x.word - cl_combine(0,1)); }
           }
         // die sichere Methode

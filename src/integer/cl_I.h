@@ -89,7 +89,7 @@ inline cl_boolean bignump (const cl_I& x)
 inline cl_boolean minusp (const cl_I& x)
 {
 	if (fixnump(x))
-		// This assumes cl_value_shift + cl_value_len == cl_word_size.
+		// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 		return (cl_boolean)((cl_sint) x.word < 0);
 	else
 		return (cl_boolean)((sintD)mspref(arrayMSDptr(TheBignum(x)->data,TheBignum(x)->length),0) < 0);
@@ -116,7 +116,7 @@ inline cl_boolean eq (const cl_I& x, sint32 y)
 // < ergebnis: der Wert des Fixnum als 32-Bit-Zahl.
 inline uint32 FN_to_UL (const cl_I& x)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_uint)(x.word) >> cl_value_shift;
 }
 
@@ -126,7 +126,7 @@ inline uint32 FN_to_UL (const cl_I& x)
 // < ergebnis: der Wert des Fixnum als 32-Bit-Zahl.
 inline sint32 FN_to_L (const cl_I& x)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_sint)(x.word) >> cl_value_shift;
 }
 
@@ -146,7 +146,7 @@ inline sint32 FN_to_L (const cl_I& x)
 // < ergebnis: der Wert des Fixnum als 64-Bit-Zahl.
 inline sint64 FN_to_Q (const cl_I& x)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_sint)(x.word) >> cl_value_shift;
 }
 
@@ -362,7 +362,7 @@ inline uint64 pFN_maxlength_digits_at (const uintD* ptr)
 
 inline sintD FN_MSD (cl_uint word)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_sint)word >> (cl_value_shift + (FN_maxlength-1)*intDsize);
 }
 
@@ -629,7 +629,7 @@ inline cl_boolean bignump (const cl_FN& x)
 
 inline cl_boolean minusp (const cl_FN& x)
 {
-	// This assumes cl_value_shift + cl_value_len == cl_word_size.
+	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_boolean)((cl_sint) x.word < 0);
 }
 
