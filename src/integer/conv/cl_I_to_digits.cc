@@ -302,7 +302,7 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           var uintC len;
           var const uintD* LSDptr;
           I_to_NDS_nocopy(X, MSDptr=,len=,LSDptr=,cl_false,);
-          var int b = (base==2 ? 1 : base==4 ? 2 : base==8 ? 3 : /*base==16*/ 4);
+          var int b = (base==2 ? 1 : base==4 ? 2 : base==8 ? 3 : base==16 ? 4 : /*base==32*/ 5);
           var uintD carry = 0;
           var int carrybits = 0;
           loop

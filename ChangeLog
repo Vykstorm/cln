@@ -1,3 +1,7 @@
+2004-10-05  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/conv/cl_I_to_digits.cc (I_to_digits): Fix bug in base 32.
+
 2004-09-27  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Support for little-endian Mips, second shot
