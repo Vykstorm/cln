@@ -3,10 +3,15 @@
 	* configure.ac: Pretend ftime() is not available. Needed by
 	CL_TIMES_CLOCK.
 
+2004-06-21  Ralf Stephan  <ralf@ark.in-berlin.de>
+
+	* doc/cln.tex: Document jacobi, isprobprime and nextprobprime.
+
 2004-06-18  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* rational/transcendental/cl_RA_logp.cc: fix bug where base is
 	reciprocal of an integer.
+	Reported by Niklas Knutsson <nq@altern.org>.
 
 2004-06-18  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
