@@ -63,12 +63,12 @@
     #define ASM_UNDERSCORE_PREFIX ""
   #endif
   // Globalize a label defined in the same translation unit.
-  // See macro ASM_GLOBALIZE_LABEL in the egcs sources.
+  // See macro ASM_GLOBALIZE_LABEL in the gcc sources.
   #if defined(__i386__) || defined(__m68k__) || defined(__mips__) || defined(__mips64__) || defined(__alpha__) || defined(__rs6000__)
     // Some m68k systems use "xdef" or "global" or ".global"...
     #define CL_GLOBALIZE_LABEL(label)  __asm__("\t.globl " label);
   #endif
-  #if defined(__sparc__) || defined(__sparc64__) || defined(__arm__)
+  #if defined(__sparc__) || defined(__sparc64__) || defined(__arm__) || defined(__ia64__)
     // Some arm systems use "EXPORT" or ".globl"...
     #define CL_GLOBALIZE_LABEL(label)  __asm__("\t.global " label);
   #endif
@@ -80,9 +80,6 @@
   #endif
   #if defined(__convex__)
     #define CL_GLOBALIZE_LABEL(label)  __asm__(".globl " label);
-  #endif
-  #if defined(__ia64__)
-    #define CL_GLOBALIZE_LABEL(label)  __asm__("\t.global " label);
   #endif
   #ifndef CL_GLOBALIZE_LABEL
     #define CL_GLOBALIZE_LABEL(label)
@@ -98,7 +95,7 @@
     #define CL_GLOBALIZE_CTORDTOR_LABEL(label)
   #endif
   // Output a label inside a function.
-  // See macro ASM_OUTPUT_LABEL in the egcs sources.
+  // See macro ASM_OUTPUT_LABEL in the gcc sources.
   #if defined(__hppa__)
     #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label)
   #else
@@ -149,7 +146,7 @@
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp (%0)" : : "r" ((void*)(addr)))
   #endif
   #if defined(__ia64__)
-    #define CL_JUMP_TO(addr)  ASM_VOLATILE("br %0" : : "b" ((void*)(addr)))
+    #define CL_JUMP_TO(addr)  ASM_VOLATILE("br " #addr)
   #endif
   #define CL_PROVIDE(module)  \
     extern "C" void cl_module__##module##__firstglobalfun () {}		\
