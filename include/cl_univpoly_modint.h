@@ -1,7 +1,7 @@
 // Univariate Polynomials over modular integers.
 
 #ifndef _CL_UNIVPOLY_MODINT_H
-#define _CL_UNIVPOLY_MoDINT_H
+#define _CL_UNIVPOLY_MODINT_H
 
 #include "cl_ring.h"
 #include "cl_univpoly.h"

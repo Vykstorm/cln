@@ -1,3 +1,7 @@
+2000-08-18  Bruno Haible  <haible@clisp.cons.org>
+
+        * include/cl_univpoly_modint.h: Fix typo.
+
 2000-07-13  Bruno Haible  <haible@clisp.cons.org>
 
         * src/float/input/cl_F_read_stream.cc (number_char_p): Accept '_',
