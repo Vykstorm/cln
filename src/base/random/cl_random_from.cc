@@ -34,22 +34,6 @@ inline uint32 get_seed (void)
 	return cln::highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zufällige Bits
 }
 
-#elif defined(HAVE_FTIME)
-
-#include <sys/timeb.h>
-#ifdef _WIN32
-  extern "C" void ftime (struct timeb * tp);
-#else
-  extern "C" int ftime (struct timeb * tp);
-#endif
-
-inline uint32 get_seed (void)
-{
-	var struct timeb tb;
-	ftime(&tb);
-	return (tb.time << 10) | tb.millitm; // 22+10 zufällige Bits
-}
-
 #elif defined(HAVE_TIMES_CLOCK)
 
 #include <time.h>

@@ -13,9 +13,7 @@ namespace cln {
 // A vector of integers is *not* just a normal vector of numbers (the vectorops
 // support the maxbits() operation), but we treat can it like this nevertheless.
 
-#ifdef HAVE_TEMPLATE_NULL
 template <>
-#endif
 struct cl_heap_GV<cl_I> : cl_heap {
 	cl_GV_inner<cl_I> v;
 	// here room for the elements

@@ -11,9 +11,7 @@ namespace cln {
 // A vector of modular integers (over the same modular integer ring)
 // is just a normal vector of integers, with maxbits() operation.
 
-#ifdef HAVE_TEMPLATE_NULL
 template <>
-#endif
 struct cl_heap_GV<_cl_MI> : cl_heap {
 	cl_GV_inner<_cl_MI> v;
 	// here room for the elements

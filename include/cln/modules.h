@@ -7,7 +7,7 @@
 // specified in C++. AIX 4 has a linker which apparently does order
 // the modules according to dependencies, so that low-level modules
 // will be initialized earlier than the high-level modules which depend
-// on them. I have a patch for GNU ld that does the same thing.
+// on them. I (Bruno) have a patch for GNU ld that does the same thing.
 //
 // But for now, I take a half-automatic approach to the correct module
 // ordering problem: PROVIDE/REQUIRE, as in Common Lisp.

@@ -51,9 +51,9 @@ AC_PROG_CXXCPP
                       dnl sets variable CXXCPP
 CL_AS_UNDERSCORE
                       dnl sets variable AS_UNDERSCORE, DEFS ASM_UNDERSCORE
-CL_PROG_RANLIB
+AC_PROG_RANLIB
                       dnl sets variable RANLIB
-CL_PROG_INSTALL
+AC_PROG_INSTALL
                       dnl sets variables INSTALL, INSTALL_DATA, INSTALL_PROGRAM
 dnl
 dnl           check for host type
@@ -65,7 +65,6 @@ CL_CANONICAL_HOST_CPU
 dnl
 dnl           check for build configuration
 dnl
-                      dnl libcln depends on libm
 PACKAGE=cln
                       dnl libtool wants PACKAGE
 AC_PROG_LIBTOOL
@@ -80,7 +79,7 @@ dnl   CL_CURRENT and set CL_REVISION to 0,
 dnl * if any functions/classes have been added, increment CL_AGE,
 dnl * if backwards compatibility has been broken, set CL_AGE to 0.
 CL_CURRENT=2
-CL_REVISION=4
+CL_REVISION=5
 CL_AGE=0
 dnl make substitutions
 AC_SUBST(CL_CURRENT)
@@ -89,7 +88,7 @@ AC_SUBST(CL_AGE)
 dnl release version
 CL_VERSION_MAJOR=1
 CL_VERSION_MINOR=1
-CL_VERSION_PATCHLEVEL=5
+CL_VERSION_PATCHLEVEL=6
 dnl release version for cln/config.h, so it can be tested by the preprocessor
 AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)
@@ -104,20 +103,16 @@ dnl           checks for compiler characteristics
 dnl
 AC_LANG_CPLUSPLUS
 dnl
-CL_BOOL
-                      dnl DEFS HAVE_BOOL, bool
 CL_LONGLONG
                       dnl DEFS HAVE_LONGLONG
 CL_LONGDOUBLE
                       dnl DEFS HAVE_LONGDOUBLE
-CL_TEMPLATE_NULL
-                      dnl DEFS HAVE_TEMPLATE_NULL
 CL_GLOBAL_CONSTRUCTORS
                       dnl DEFS CL_GLOBAL_CONSTRUCTOR_PREFIX, CL_GLOBAL_DESTRUCTOR_PREFIX
 dnl
 dnl           checks for header files
 dnl
-CL_UNISTD_H
+AC_CHECK_HEADERS([unistd.h])
                       dnl DEFS HAVE_UNISTD_H if exist unistd.h
 dnl
 dnl           checks for typedefs
@@ -131,8 +126,6 @@ CL_FPU_CONTROL
                       dnl DEFS HAVE_FPU_CONTROL_T, HAVE_SETFPUCW
 CL_GETTIMEOFDAY
                       dnl DEFS HAVE_GETTIMEOFDAY, GETTIMEOFDAY_DOTS, GETTIMEOFDAY_TZP_T
-CL_FTIME
-                      dnl DEFS HAVE_FTIME
 CL_TIMES_CLOCK
                       dnl DEFS HAVE_TIMES_CLOCK
 CL_RUSAGE
@@ -142,7 +135,7 @@ CL_PERROR
 dnl
 dnl           checks for compiler characteristics
 dnl
-CL_CHAR_UNSIGNED
+AC_C_CHAR_UNSIGNED
                       dnl DEFS __CHAR_UNSIGNED__ if char is unsigned
 test -d 'include/cln' || mkdir -p 'include/cln'
 CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,include/cln/intparam.h,cl_cv_file_intparam_h)

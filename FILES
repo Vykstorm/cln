@@ -50,6 +50,7 @@ Files in this package:
     Installation:
 
         configure       configuration script
-        configure.in    autoconf-2.13 source for the configuration script
+        configure.in    autoconf source for the configuration script
         autoconf/*      auxiliary configuration scripts
+        m4/*            autoconf's driver macros
         Makefile.in     Makefile master

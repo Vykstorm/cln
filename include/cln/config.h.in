@@ -71,12 +71,6 @@
 
 /* compiler characteristics */
 
-/* CL_BOOL */
-/* Define if your compiler understands the bool type. */
-#undef HAVE_BOOL
-/* Define this as `int' if your compiler doesn't understand the bool type. */
-#undef bool
-
 /* CL_LONGLONG */
 /* Define if your compiler supports the `long long' type. */
 #undef HAVE_LONGLONG
@@ -84,10 +78,6 @@
 /* CL_LONGDOUBLE */
 /* Define if your compiler supports the `long double' type. */
 #undef HAVE_LONGDOUBLE
-
-/* CL_TEMPLATE_NULL */
-/* Define if your compiler supports the `template <>' syntax. */
-#undef HAVE_TEMPLATE_NULL
 
 
 /* header files */

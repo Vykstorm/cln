@@ -1,3 +1,27 @@
+2003-12-29  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Rework of autoconfiscation infrastructure
+	* autoconf/config.{guess,sub}: Update to GNU version 2003-10-07.
+	* autoconf/ltmain.sh: Update to GNU version 1.4.3.
+	* autoconf/autoconf: Remove (from now on we assume autoconf is
+	  installed properly on the sytem).
+	* autoconf/autoconf.m4: Likewise.
+	* autoconf/autoconf.m4f: Likewise.
+	* autoconf/acgeneral.m4: Likewise.
+	* autoconf/acspecific.m4: Likewise.
+	* autoconf/aclocal.m4: Regenerate.
+	* autoconf/acinclude.m4: Remove (while moving the macros...)
+	* m4/gmp.m4: New file (...to here).
+	* Makefile.devel: Update to new scheme.
+	* configure.ac: Likewise.
+	* include/cln/GV_integer.h: Assume template specializations work.
+	* include/cln/GV_modinteger.h: Likewise.
+	* include/cln/config.h.in: Likewise, and drop HAVE_BOOL.
+	* src/base/cl_base_config.h.in: Drop support for obsolete ftime(3).
+	* src/base/random/cl_random_from.cc: Likewise.
+	* src/timing/cl_base_config.h.in: Likewise.
+	* src/timing/cl_t_current.cc: Likewise.
+
 2003-12-27  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/polynomial/cl_UP_gen.h (gen_minus): Fix case where first

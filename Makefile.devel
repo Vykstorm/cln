@@ -13,33 +13,31 @@ PACKOPT = cvfhj
 PACKEXT = .tar.bz2
 
 
-all : configures documentation
+all: configures documentation
 
 
 CONFIGURES = configure
 CONFIGURES_IN = configure.ac
 
-AUTOCONF_FILES = autoconf/aclocal.m4 autoconf/autoconf.m4f autoconf/acgeneral.m4 autoconf/acspecific.m4
+AUTOCONF_FILES = autoconf/aclocal.m4
 
-configures : $(CONFIGURES)
+configures: ${CONFIGURES}
 
-configure : configure.ac $(AUTOCONF_FILES)
-	./autoconf/autoconf -A autoconf -l autoconf
+configure: configure.ac ${AUTOCONF_FILES}
+	autoconf --include=autoconf
 
-CLISP_ACLOCAL = /home/kreckel/contrib/clisp/src/autoconf/aclocal.m4
-ACSELECT = /home/kreckel/contrib/clisp/src/autoconf/acselect
-LIBTOOLMACROS = /home/kreckel/contrib/libtool/libtool.m4
+CLISP_M4DIR = ~/contrib/clisp/src/m4
 
-autoconf/aclocal.m4 : $(CLISP_ACLOCAL) autoconf/acinclude.m4
-	($(ACSELECT) `cat $(CONFIGURES_IN) | grep '^[A-Z][A-Z]_' | sed 's,[^A-Z_].*$$,,g' | sort | uniq` < $(CLISP_ACLOCAL) ; cat $(LIBTOOLMACROS) | sed -e 's,AC_CANONICAL_HOST,CL_CANONICAL_HOST,g' -e 's,AC_PROG_RANLIB,CL_PROG_RANLIB,g'; cat autoconf/acinclude.m4) > autoconf/aclocal.m4
+autoconf/aclocal.m4: ${wildcard m4/*.m4}
+	aclocal -I m4 -I ${CLISP_M4DIR} --output=autoconf/aclocal.m4
 
 # Syntaxcheck
-check-configures : $(CONFIGURES)
-	set -e; for f in $(CONFIGURES); do bash -x -n $$f; done
+check-configures: ${CONFIGURES}
+	set -e; for f in ${CONFIGURES}; do bash -x -n $$f; done
 
 
-documentation : force
-	cd doc && $(MAKE) -f Makefile.devel documentation
+documentation: force
+	cd doc && ${MAKE} -f Makefile.devel documentation
 
-force :
+force:
 
