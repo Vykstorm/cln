@@ -7,7 +7,7 @@ Tips for performance tuning on a specific architecture:
 2. Tune GMP.
 
 3. The break-even points between several algorithms for the same task
-   have to be determined experimentally.
+   have to be determined experimentally, in the order given below:
 
    multiplication:
      cl_DS_mul.cc          karatsuba_threshold
