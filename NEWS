@@ -1,3 +1,12 @@
+2001-07-xx, version 1.1.2
+
+Implementation changes
+----------------------
+
+* Minor cleanups and portability issues.
+  (No need to upgrade if you have been happy so far.)
+
+
 2001-05-31, version 1.1.1
 =========================
 

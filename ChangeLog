@@ -1,3 +1,8 @@
+2000-07-24  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/base/hash/cl_hash.h: declare _cl_hashtable_iterator<htentry> a
+          friend of cl_heap_hashtable<htentry>.
+
 2000-07-22  Richard Kreckel  <kreckel@ginac.de>
 
         * src/float/base/cl_ieee.cc: try to do magic to the FPU only if
