@@ -8,6 +8,12 @@
 	* rational/transcendental/cl_RA_logp.cc: fix bug where base is
 	reciprocal of an integer.
 
+2004-06-18  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* src/complex/ring/cl_C_ring.cc, src/integer/ring/cl_I_ring.cc,
+	src/rational/ring/cl_RA_ring.cc, src/real/ring/cl_R_ring.cc:
+	Make template specializations explicit.
+
 2004-06-17  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* benchmarks/timebench1.cc, benchmarks/timebench2a.LiDIA.cc,

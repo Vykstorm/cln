@@ -154,6 +154,7 @@ cl_class cl_class_real_ring = {
 };
 
 // Constructor.
+template <>
 inline cl_real_ring::cl_specialized_number_ring ()
 	: cl_number_ring (new cl_heap_real_ring()) {}
 

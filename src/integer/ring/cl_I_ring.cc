@@ -150,6 +150,7 @@ cl_class cl_class_integer_ring = {
 };
 
 // Constructor.
+template <>
 inline cl_integer_ring::cl_specialized_number_ring ()
 	: cl_number_ring (new cl_heap_integer_ring()) {}
 
