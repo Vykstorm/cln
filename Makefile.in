@@ -22,8 +22,8 @@ MKDIR = mkdir -p
 @SET_MAKE@
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_DATA = @INSTALL_DATA@
-UNINSTALL_PROGRAM = @UNINSTALL_PROGRAM@
 
 #### End of system configuration section. ####
 
@@ -34,7 +34,7 @@ all : force
 
 install : installdirs force
 	cd @subdir@; $(MAKE) install
-	$(INSTALL_PROGRAM) cln-config $(DESTDIR)$(bindir)/cln-config
+	$(INSTALL_SCRIPT) cln-config $(DESTDIR)$(bindir)/cln-config
 	$(INSTALL_DATA) cln-config.1 $(DESTDIR)$(mandir)/man1/cln-config.1
 	$(INSTALL_DATA) ${srcdir}/cln.m4 ${DESTDIR}${datadir}/aclocal/cln.m4
 	$(INSTALL_DATA) cln.pc $(DESTDIR)$(libdir)/pkgconfig/cln.pc

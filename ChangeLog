@@ -1,3 +1,13 @@
+2004-10-27  Peter Breitenlohner  <peb@mppmu.mpg.de>
+
+	* cln.pc.in: Fix typo.
+	* Makefile.in (INSTALL_SCRIPT): Added, to be used for scripts like
+	cln-config.  Allows us to do special things to binaries, like
+	installing them with install -s.
+	* doc/Makefile.in: add/remove the cln.info from the installed
+	$(infodir)/dir unless this is debian install-info (code copied from
+	what GNU automake would produce).
+
 2004-10-26  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/integer/input/cl_I_read_stream.cc (read_integer): Fix a bug

@@ -7,4 +7,4 @@ Name: cln
 Description: Class Library for Numbers
 Version: @CL_VERSION@
 Libs: -L${libdir} -lcln @LIBS@
-Cflags: -I${includedir} @CPPFLAGS
+Cflags: -I${includedir} @CPPFLAGS@

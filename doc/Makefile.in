@@ -81,6 +81,11 @@ $(PACKAGE)_toc.html : $(srcdir)/$(PACKAGE).texi
 
 install : all installdirs force
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).info $(DESTDIR)$(infodir)/$(PACKAGE).info
+	@if (install-info --version && \
+	     install-info --version 2>&1 | sed 1q | fgrep -i -v debian) >/dev/null 2>&1; then \
+	  echo " install-info --info-dir=$(DESTDIR)$(infodir) $(DESTDIR)$(infodir)/$(PACKAGE).info";\
+	  install-info --info-dir=$(DESTDIR)$(infodir) $(DESTDIR)$(infodir)/$(PACKAGE).info || :;\
+	else : ; fi
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE)_*.html $(DESTDIR)$(htmldir)
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
 
@@ -91,6 +96,11 @@ installdirs : force
 	$(MKDIR) $(DESTDIR)$(dvidir)
 
 uninstall : force
+	@if (install-info --version && \
+	     install-info --version 2>&1 | sed 1q | fgrep -i -v debian) >/dev/null 2>&1; then \
+	  echo " install-info --info-dir=$(DESTDIR)$(infodir) --remove $(DESTDIR)$(infodir)/$(PACKAGE).info"; \
+	  install-info --info-dir=$(DESTDIR)$(infodir) --remove $(DESTDIR)$(infodir)/$(PACKAGE).info; \
+	else :; fi
 	$(RM) $(DESTDIR)$(infodir)/$(PACKAGE).info
 	$(RM) $(DESTDIR)$(htmldir)/$(PACKAGE)_*.html
 	$(RM) $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
