@@ -44,10 +44,13 @@ VER=${shell echo `grep "CL_VERSION " include/cln/version.h |sed 's/^.*CL_VERSION
 src-distrib: include/cln/version.h force
 	${MAKE} -f Makefile.devel src--distrib TOPDIR=cln-${VER}
 
-src--distrib: force
+src--distrib: clean
 	ln -s . ${TOPDIR}
 	${PACK} ${PACKOPT} ${SRC_DIST} ${EXCLUDE} --exclude ${TOPDIR}/${TOPDIR} ${TOPDIR}
 	rm -f ${TOPDIR}
+
+clean: force
+	test -f Makefile && ${MAKE} distclean
 
 # Syntaxcheck:
 check-configures: ${CONFIGURES}
