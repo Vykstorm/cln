@@ -71,7 +71,7 @@ fi
 %{_libdir}/*.so
 %{_includedir}/cln/*.h
 %{_infodir}/*.info*
-%{_mandir}/man1/cln-config.1
+%{_mandir}/man1/cln-config.1*
 %{_bindir}/cln-config
 %{_datadir}/aclocal/*
 
