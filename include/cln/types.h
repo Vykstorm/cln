@@ -101,42 +101,48 @@
   typedef long           sintP;
   typedef unsigned long  uintP;
 
-// Largest integer type which can be manipulated as efficiently as a pointer.
-// This is normally the same as the hardware register size.
-// Assumption: cl_word_size >= intPsize
-  #ifdef HAVE_FAST_LONGLONG
-    #define cl_word_size  64
-  #else
-    #define cl_word_size  32
-  #endif
-
 // Numbers in the heap are stored as "digit" sequences.
 // A digit is an unsigned int with intDsize bits.
-// intDsize should be 8 or 16 or 32 or 64.
-  #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__)))
-    #define intDsize 64
-    #define intDDsize 128  // = 2*intDsize
-    #define log2_intDsize  6  // = log2(intDsize)
-  #else
-    #define intDsize 32
-    #define intDDsize 64  // = 2*intDsize
-    #define log2_intDsize  5  // = log2(intDsize)
-  #endif
-  #if (intDsize==8)
-    typedef sint8  sintD;
-    typedef uint8  uintD;
-  #endif
-  #if (intDsize==16)
-    typedef sint16  sintD;
-    typedef uint16  uintD;
-  #endif
-  #if (intDsize==32)
-    typedef sint32  sintD;
-    typedef uint32  uintD;
+// intDsize should be 8 or 16 or 32 or 64 and it should match mp_limb_t,
+// if CLN is sitting on top of GMP.
+  #if defined(GMP_DEMANDS_UINTD_LONG_LONG)
+    #define HAVE_FAST_LONGLONG
+    #define intDsize long_long_bitsize
+    typedef long long sintD;
+    typedef unsigned long long uintD;
+  #elif defined(GMP_DEMANDS_UINTD_LONG)
+    #define intDsize long_bitsize
+    typedef long sintD;
+    typedef unsigned long uintD;
+  #elif defined(GMP_DEMANDS_UINTD_INT)
+    #define intDsize int_bitsize
+    typedef int sintD;
+    typedef unsigned int uintD;
+  #else  // we are not using GMP, so just guess something reasonable
+    #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__)))
+      #define intDsize 64
+      typedef sint64  sintD;
+      typedef uint64  uintD;
+    #else
+      #define intDsize 32
+      typedef sint32  sintD;
+      typedef uint32  uintD;
+    #endif
   #endif
   #if (intDsize==64)
-    typedef sint64  sintD;
-    typedef uint64  uintD;
+    #define intDDsize 128    // = 2*intDsize
+    #define log2_intDsize 6  // = log2(intDsize)
+  #elif (intDsize==32)
+    #define intDDsize 64     // = 2*intDsize
+    #define log2_intDsize 5  // = log2(intDsize)
+  #elif (intDsize==16)
+    #define intDDsize 32     // = 2*intDsize
+    #define log2_intDsize 4  // = log2(intDsize)
+  #elif (intDsize==8)
+    #define intDDsize 16     // = 2*intDsize
+    #define log2_intDsize 3  // = log2(intDsize)
+  #else
+    #error "What is intDsize again?"
   #endif
 // HAVE_DD means that there are unsigned ints with 2*intDsize bits.
   #if (intDDsize <= (defined(HAVE_FAST_LONGLONG) ? 64 : 32))
@@ -155,6 +161,15 @@
     #endif
   #else
     #define HAVE_DD 0
+  #endif
+
+// Largest integer type which can be manipulated as efficiently as a pointer.
+// This is normally the same as the hardware register size.
+// Assumption: cl_word_size >= intPsize
+  #ifdef HAVE_FAST_LONGLONG
+    #define cl_word_size  64
+  #else
+    #define cl_word_size  32
   #endif
 
 #endif /* _CL_TYPES_H */

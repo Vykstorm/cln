@@ -50,6 +50,7 @@ dnl Franc,ois Pinard, Karl Berry, Richard Pixley, Ian Lance Taylor,
 dnl Roland McGrath, Noah Friedman, david d zuhn, and many others.
 dnl
 dnl Changed by Bruno Haible, 18 January 1999
+dnl Changed more by Richard Kreckel, 16 November 2000
 dnl
 divert(-1)dnl Throw away output until AC_INIT is called.
 changequote([, ])
@@ -204,8 +205,8 @@ localstatedir='${prefix}/var'
 libdir='${exec_prefix}/lib'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
-infodir='${prefix}/info'
-mandir='${prefix}/man'
+infodir='${datadir}/info'
+mandir='${datadir}/man'
 
 # Initialize some other variables.
 subdirs=

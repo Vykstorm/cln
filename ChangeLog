@@ -1,3 +1,11 @@
+2000-11-16  Richard Kreckel  <kreckel@ginac.de>
+
+        * autoconf/aclocal.m4 (CL_GMP_SET_UINTD): New macro...
+        * configure.in: ...used here.
+        * include/cln/config.h.in: Put in macros defined by CL_GMP_SET_UINTD...
+        * include/cln/types.h: ...used here.
+        * autoconf/acgeneral.m4, autoconf/aclocal.m4: Adhere to FHS.
+
 2000-11-13  Richard Kreckel  <kreckel@ginac.de>
 
         * src/base/digitseq/cl_asm.h: Test if (intDsize==32) for MIPS and HPPA,

@@ -90,6 +90,12 @@
 /* Define if you have <unistd.h>. */
 #undef HAVE_UNISTD_H
 
+/* CL_GMP_SET_UINTD */
+/* Define one of the following so sizeof(uintD) matches sizeof(mp_limb_t). */
+#undef GMP_DEMANDS_UINTD_LONG_LONG
+#undef GMP_DEMANDS_UINTD_LONG
+#undef GMP_DEMANDS_UINTD_INT
+
 
 /* functions and declarations */
 

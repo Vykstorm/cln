@@ -95,7 +95,7 @@ dnl release version for cln/config.h, so it can be tested by the preprocessor
 AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_PATCHLEVEL, $CL_VERSION_PATCHLEVEL)
-dnl concateneted release version
+dnl concatenated release version
 CL_VERSION=$CL_VERSION_MAJOR.$CL_VERSION_MINOR.$CL_VERSION_PATCHLEVEL
 AC_DEFINE_UNQUOTED(CL_VERSION, $CL_VERSION)
 AC_SUBST(CL_VERSION)
@@ -145,7 +145,6 @@ dnl           checks for compiler characteristics
 dnl
 CL_CHAR_UNSIGNED
                       dnl DEFS __CHAR_UNSIGNED__ if char is unsigned
-test -d 'include' || mkdir 'include'
 CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,include/cln/intparam.h,cl_cv_file_intparam_h)
                       dnl builds include/cln/intparam.h
 CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,include/cln/floatparam.h,cl_cv_file_floatparam_h)
@@ -164,6 +163,7 @@ if test "$with_gmp" = yes; then
   fi
 fi
 if test "$with_gmp" = yes; then
+  CL_GMP_SET_UINTD
   AC_DEFINE(CL_USE_GMP)
 else
   AC_MSG_WARN([disabling external GNU MP library])

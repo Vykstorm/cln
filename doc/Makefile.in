@@ -78,17 +78,17 @@ $(PACKAGE)_toc.html : $(srcdir)/$(PACKAGE).texi
 
 
 install : all force
+	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
 	if [ ! -d $(infodir) ] ; then mkdir $(infodir) ; fi
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).info $(infodir)/$(PACKAGE).info
-	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
 	if [ ! -d $(htmldir) ] ; then mkdir $(htmldir) ; fi
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE)_*.html $(htmldir)
 	if [ ! -d $(dvidir) ] ; then mkdir $(dvidir) ; fi
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(dvidir)/$(PACKAGE).dvi
 
 installdirs : force
-	if [ ! -d $(infodir) ] ; then mkdir $(infodir) ; fi
 	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
+	if [ ! -d $(infodir) ] ; then mkdir $(infodir) ; fi
 	if [ ! -d $(htmldir) ] ; then mkdir $(htmldir) ; fi
 	if [ ! -d $(dvidir) ] ; then mkdir $(dvidir) ; fi
 
