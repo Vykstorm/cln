@@ -187,7 +187,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 	       );
 	return _prod;
 }
-#elif defined(__sparc__)
+#elif defined(__sparc__) && !defined(NO_ASM)
   extern "C" uint32 mulu32_unchecked (uint32 x, uint32 y); // extern in Assembler
 #else
   // Wir können dafür auch die Bibliotheksroutine des C-Compilers nehmen:
@@ -244,7 +244,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 	      );						\
        hi_zuweisung (uint32)_hi; lo_zuweisung (uint32)_lo;	\
      })
-#elif defined(__GNUC__) && defined(__sparc__)
+#elif defined(__GNUC__) && defined(__sparc__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ lo_zuweisung mulu32_(x,y); /* extern in Assembler */	\
       {var register uint32 _hi __asm__("%g1");			\
@@ -666,7 +666,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       q_zuweisung (uint32)__q;     \
       r_zuweisung (uint32)__r;     \
      })
-#elif defined(__GNUC__) && (defined(__sparc__) || defined(__sparc64__))
+#elif defined(__GNUC__) && (defined(__sparc__) || defined(__sparc64__)) && !defined(NO_ASM)
   #define divu_6432_3232(xhi,xlo,y,q_zuweisung,r_zuweisung)  \
     ({ var uint32 _q = divu_6432_3232_(xhi,xlo,y); /* extern in Assembler */\
        var register uint32 _r __asm__("%g1");				    \
