@@ -5,19 +5,20 @@ Functional changes
 ------------------
 
 * ISO/IEC 14882 fashion adjustments:
-  Put everything into namespace cln.  All funcamental data types still
+  Put everything into namespace cln.  All fundamental data types still
   carry their old names.  Other non-macro identifiers are now written as 
   cln::foo instead of cl_foo, except where the cl_ comes from a data type
   (as in cl_I_to_int()).  Headers are installed into a separate
   directory, #include <cln/foo.h> instead of <cl_foo.h>.  Applications
-  must be manually ported to the new style.  We apologizes for the
+  must be manually ported to the new style.  We apologize for the
   inconvenience.
 
 Implementation changes
 ----------------------
 
-* Removed internal copy of mpn/-tree from libgmp-2.0.2.  Configuring with
-  --with-gmp now predepends on an installed libgmp library version 3 or above.
+* Removed internal copy of mpn subdirectory tree from libgmp-2.0.2.
+  Configuring with --with-gmp now relies on an installed libgmp library
+  version 3 or above.  We recommend libgmp-3.1 or newer.
 
 * Adjusted several break-even points to make better use of a faster libgmp and
   better match present-day CPUs.
@@ -25,7 +26,7 @@ Implementation changes
 * Fix several errors for architectures with 64-bit wide words.
   (Others than Alpha.)
 
-* Fix compilation errors with current GCC3.0 snapshots.
+* Fix compilation errors with current GCC-3.0 snapshots.
 
 Other changes
 -------------
