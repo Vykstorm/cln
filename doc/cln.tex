@@ -3386,6 +3386,42 @@ need special flags for compiling. The library has been installed to a
 public directory as well (normally @code{/usr/local/lib}), hence when
 linking a CLN application it is sufficient to give the flag @code{-lcln}.
 
+Since CLN version 1.1, there are two tools to make the creation of
+software packages that use CLN easier:
+@itemize @bullet
+@item
+@cindex @code{cln-config}
+@code{cln-config} is a shell script that you can use to determine the
+compiler and linker command line options required to compile and link a
+program with CLN.  Start it with @code{--help} to learn about its options
+or consult the manpage that comes with it.
+@item
+@cindex @code{AC_PATH_LIBCLN}
+@code{AC_PATH_LIBCLN} is for packages configured using GNU automake.
+The synopsis is:
+@example
+@code{AC_PATH_LIBCLN([@var{MINIMUM-VERSION}, [@var{ACTION-IF-FOUND} [, @var{ACTION-IF-NOT-FOUND}]]])}
+@end example
+This macro determines the location of CLN using @code{cln-config}, which
+is either found in the user's path, or from the environment variable
+@code{CLN_CONFIG}.  It tests the installed libraries to make sure that
+their version is later than @var{MINIMUM-VERSION} (a default version
+will be used if not specified). If the required version was found, sets
+the @env{CLNLIB_CPPFLAGS} and the @env{CLNLIB_LIBS} variables. This
+macro is in the file @file{cln.m4} which is installed in
+@file{$datadir/aclocal}. Note that if automake was installed with a
+different @samp{--prefix} than CLN, you will either have to manually
+move @file{cln.m4} to automake's @file{$datadir/aclocal}, or give
+aclocal the @samp{-I} option when running it. Here is a possible example
+to be included in your package's @file{configure.in}:
+@example
+AC_PATH_LIBCLN(1.1.0, [
+  LIBS="$LIBS $LIBCLN_LIBS"
+  CPPFLAGS="$CPPFLAGS $LIBCLN_CPPFLAGS"
+], AC_MSG_ERROR([No suitable installed version of CLN could be found.]))
+@end example
+@end itemize
+
 
 @section Compatibility to old CLN versions
 @cindex namespace

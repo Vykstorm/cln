@@ -27,6 +27,12 @@ Implementation changes
 
 * Fix compilation errors with current GCC3.0 snapshots.
 
+Other changes
+-------------
+
+* Added package tools: script cln-config and autoconf macro AC_PATH_LIBCLN
+  (in file cln.m4).
+
 
 2000-01-13, version 1.0.3
 =========================
