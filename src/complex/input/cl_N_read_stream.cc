@@ -29,7 +29,7 @@ static cl_boolean number_char_p (char c)
 	if (((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')))
 		return cl_true;
 	switch (c) {
-		case '+': case '-': case '.': case '/':
+		case '+': case '-': case '.': case '_': case '/':
 			return cl_true;
 		default:
 			return cl_false;
