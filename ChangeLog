@@ -1,3 +1,8 @@
+2003-08-06  Richard Kreckel  <kreckel@ginac.de>
+
+	* src/numtheory/cl_nt_sqrtmodp.cc: #undef _R.
+	Reported by Andrew Rechnitzer <A.Rechnitzer@ms.unimelb.edu.au>.
+
 2003-08-01  Richard Kreckel  <kreckel@ginac.de>
 
 	More dependent base resolution issues

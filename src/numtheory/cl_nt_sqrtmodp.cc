@@ -16,6 +16,9 @@
 #include <cmath>
 #define floor cln_floor
 
+// MacOS X does "#define _R 0x00040000L".  Grr...
+#undef _R
+
 namespace cln {
 
 // Algorithm 1 (for very small p only):
