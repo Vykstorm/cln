@@ -1,3 +1,19 @@
+2004-07-01, version 1.1.8
+=========================
+
+Implementation changes
+----------------------
+
+* Fix bug in log(a,b) when b is 1/n.
+
+* Fix crash in shared library on AMD64.
+
+Other changes
+-------------
+
+* Fixes for some language conformance issues.
+
+
 2004-05-02, version 1.1.7
 =========================
 

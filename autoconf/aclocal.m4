@@ -4240,7 +4240,7 @@ AC_PREREQ(2.57)
 
 AC_DEFUN([CL_TIMES_CLOCK],
 [AC_REQUIRE([CL_GETTIMEOFDAY])dnl
-if test $ac_cv_func_gettimeofday = no; then
+if test $ac_cv_func_gettimeofday = no -a $ac_cv_func_ftime = no; then
 AC_CHECK_FUNC(times, , no_times=1)dnl
 if test -z "$no_times"; then
 AC_CACHE_CHECK(for times return value, cl_cv_func_times_return, [
