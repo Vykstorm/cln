@@ -41,6 +41,10 @@ rm -rf ${RPM_BUILD_ROOT}
 mkdir -p ${RPM_BUILD_ROOT}/usr
 make prefix=%{_prefix} DESTDIR=${RPM_BUILD_ROOT} install
 gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/cln.info*
+mkdir -p ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-devel-%{version}
+mv ${RPM_BUILD_ROOT}%{_datadir}/dvi/cln.dvi ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-devel-%{version}
+rmdir ${RPM_BUILD_ROOT}%{_datadir}/dvi
+mv ${RPM_BUILD_ROOT}%{_datadir}/html ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-devel-%{version}
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -66,7 +70,7 @@ fi
 
 %files devel
 %defattr(-,root,root)
-%doc examples/*.cc
+%{_defaultdocdir}/%{name}-devel-%{version}
 %{_libdir}/*.a
 %{_libdir}/*.la
 %{_libdir}/*.so
@@ -77,5 +81,7 @@ fi
 %{_datadir}/aclocal/*
 
 %changelog
+* Wed Nov  6 2002 Christian Bauer <Christian.Bauer@uni-mainz.de>
+  Added HTML and DVI docs to devel package
 * Tue Nov  5 2001 Christian Bauer <Christian.Bauer@uni-mainz.de>
   Added Packager
