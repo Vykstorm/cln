@@ -2,7 +2,7 @@
 
 namespace cln {
 
-static void int_fprint (cl_heap_modint_ring* R, cl_ostream stream, const _cl_MI &x)
+static void int_fprint (cl_heap_modint_ring* R, std::ostream& stream, const _cl_MI &x)
 {
 	fprint(stream,R->_retract(x));
 }

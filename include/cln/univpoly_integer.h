@@ -59,7 +59,7 @@ public:	// Ability to place an object at a given address.
 class cl_heap_univpoly_integer_ring : public cl_heap_univpoly_ring {
 	SUBCLASS_cl_heap_univpoly_ring()
 	// High-level operations.
-	void fprint (cl_ostream stream, const cl_UP_I& x)
+	void fprint (std::ostream& stream, const cl_UP_I& x)
 	{
 		cl_heap_univpoly_ring::fprint(stream,x);
 	}

@@ -155,7 +155,7 @@ public:	// Debugging output.
 
 struct _cl_ring_setops {
 	// print
-	void (* fprint) (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x);
+	void (* fprint) (cl_heap_ring* R, std::ostream& stream, const _cl_ring_element& x);
 	// equality
 	cl_boolean (* equal) (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y);
 	// ...
@@ -208,7 +208,7 @@ public:
 	// ...
 public:
 	// Low-level operations.
-	void _fprint (cl_ostream stream, const _cl_ring_element& x)
+	void _fprint (std::ostream& stream, const _cl_ring_element& x)
 		{ setops->fprint(this,stream,x); }
 	cl_boolean _equal (const _cl_ring_element& x, const _cl_ring_element& y)
 		{ return setops->equal(this,x,y); }
@@ -233,7 +233,7 @@ public:
 	const _cl_ring_element _expt_pos (const _cl_ring_element& x, const cl_I& y)
 		{ return mulops->expt_pos(this,x,y); }
 	// High-level operations.
-	void fprint (cl_ostream stream, const cl_ring_element& x)
+	void fprint (std::ostream& stream, const cl_ring_element& x)
 	{
 		if (!(x.ring() == this)) cl_abort();
 		_fprint(stream,x);
@@ -314,7 +314,7 @@ public:									  \
 // Operations on ring elements.
 
 // Output.
-inline void fprint (cl_ostream stream, const cl_ring_element& x)
+inline void fprint (std::ostream& stream, const cl_ring_element& x)
 	{ x.ring()->fprint(stream,x); }
 CL_DEFINE_PRINT_OPERATOR(cl_ring_element)
 

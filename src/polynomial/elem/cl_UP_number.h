@@ -29,7 +29,7 @@ static inline void num_normalize (cl_number_ring_ops<cl_number>& ops, cl_SV_numb
 	}
 }
 
-static void num_fprint (cl_heap_univpoly_ring* UPR, cl_ostream stream, const _cl_UP& x)
+static void num_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, const _cl_UP& x)
 {{
 	DeclarePoly(cl_SV_number,x);
 	var cl_number_ring_ops<cl_number>& ops = *TheNumberRing(UPR->basering())->ops;

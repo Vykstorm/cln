@@ -131,7 +131,7 @@ CL_REQUIRE(cl_st_null)
 extern unsigned long hashcode (const cl_string& str);
 
 // Output.
-extern void fprint (cl_ostream stream, const cl_string& str);
+extern void fprint (std::ostream& stream, const cl_string& str);
 CL_DEFINE_PRINT_OPERATOR(cl_string)
 
 // Input.
@@ -139,23 +139,23 @@ CL_DEFINE_PRINT_OPERATOR(cl_string)
 // Reads a line. Up to delim. The delimiter character is not placed in the
 // resulting string. The delimiter character is kept in the input stream.
 // If EOF is encountered, the stream's eofbit is set.
-extern const cl_string cl_fget (cl_istream stream, char delim = '\n');
+extern const cl_string cl_fget (std::istream& stream, char delim = '\n');
 
 // Reads a line. Up to delim. The delimiter character is not placed in the
 // resulting string. The delimiter character is extracted from the input stream.
 // If EOF is encountered, the stream's eofbit is set.
-extern const cl_string cl_fgetline (cl_istream stream, char delim = '\n');
+extern const cl_string cl_fgetline (std::istream& stream, char delim = '\n');
 
 // Like above, but only up to n-1 characters. If n-1 characters were read
 // before the delimiter character was seen, the stream's failbit is set.
-extern const cl_string cl_fget (cl_istream stream, int n, char delim = '\n');
-extern const cl_string cl_fgetline (cl_istream stream, int n, char delim = '\n');
+extern const cl_string cl_fget (std::istream& stream, int n, char delim = '\n');
+extern const cl_string cl_fgetline (std::istream& stream, int n, char delim = '\n');
 
 // Skips whitespace and then reads a non-whitespace string.
 // If stream.width() is greater than 0, at most stream.width()-1 non-whitespace
 // characters are read. When done, stream.width(0) is called.
 // If EOF is encountered, the stream's eofbit is set.
-extern cl_istream operator>> (cl_istream stream, cl_string& str);
+extern std::istream& operator>> (std::istream& stream, cl_string& str);
 
 // Runtime typing support.
 extern cl_class cl_class_string;

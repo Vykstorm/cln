@@ -51,7 +51,7 @@ inline const cl_SV_ringelt copy (const cl_SV_ringelt& vector)
 { return The(cl_SV_ringelt) (copy((const cl_SV_any&) vector)); }
 
 // Output.
-extern void fprint (cl_ostream stream, const cl_ring& R, const cl_SV_ringelt& x);
+extern void fprint (std::ostream& stream, const cl_ring& R, const cl_SV_ringelt& x);
 
 // Debugging support.
 #ifdef CL_DEBUG

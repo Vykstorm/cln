@@ -12,6 +12,9 @@
 @end iftex
 @c %**end of header
 
+@direntry
+* CLN: (cln).                       Class Library for Numbers (C++).
+@end direntry
 
 @c My own index.
 @defindex my
@@ -2415,18 +2418,15 @@ In Common Lisp notation: @code{#C(@var{realpart} @var{imagpart})}.
 
 @section Input functions
 
-Including @code{<cln/io.h>} defines a type @code{cl_istream}, which is
-the type of the first argument to all input functions. @code{cl_istream}
-is the same as @code{std::istream&}.
-
-These are the simple input functions:
+Including @code{<cln/io.h>} defines a number of simple input functions
+that read from @code{std::istream&}:
 
 @table @code
-@item int freadchar (cl_istream stream)
+@item int freadchar (std::istream& stream)
 Reads a character from @code{stream}. Returns @code{cl_EOF} (not a @samp{char}!)
 if the end of stream was encountered or an error occurred.
 
-@item int funreadchar (cl_istream stream, int c)
+@item int funreadchar (std::istream& stream, int c)
 Puts back @code{c} onto @code{stream}. @code{c} must be the result of the
 last @code{freadchar} operation on @code{stream}.
 @end table
@@ -2436,7 +2436,7 @@ Each of the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
 defines, in @code{<cln/@var{type}_io.h>}, the following input function:
 
 @table @code
-@item cl_istream operator>> (cl_istream stream, @var{type}& result)
+@item std::istream& operator>> (std::istream& stream, @var{type}& result)
 Reads a number from @code{stream} and stores it in the @code{result}.
 @end table
 
@@ -2444,11 +2444,11 @@ The most flexible input functions, defined in @code{<cln/@var{type}_io.h>},
 are the following:
 
 @table @code
-@item cl_N read_complex (cl_istream stream, const cl_read_flags& flags)
-@itemx cl_R read_real (cl_istream stream, const cl_read_flags& flags)
-@itemx cl_F read_float (cl_istream stream, const cl_read_flags& flags)
-@itemx cl_RA read_rational (cl_istream stream, const cl_read_flags& flags)
-@itemx cl_I read_integer (cl_istream stream, const cl_read_flags& flags)
+@item cl_N read_complex (std::istream& stream, const cl_read_flags& flags)
+@itemx cl_R read_real (std::istream& stream, const cl_read_flags& flags)
+@itemx cl_F read_float (std::istream& stream, const cl_read_flags& flags)
+@itemx cl_RA read_rational (std::istream& stream, const cl_read_flags& flags)
+@itemx cl_I read_integer (std::istream& stream, const cl_read_flags& flags)
 Reads a number from @code{stream}. The @code{flags} are parameters which
 affect the input syntax. Whitespace before the number is silently skipped.
 
@@ -2514,32 +2514,29 @@ precision corresponding to their number of significant digits.
 
 @section Output functions
 
-Including @code{<cln/io.h>} defines a type @code{cl_ostream}, which is
-the type of the first argument to all output functions. @code{cl_ostream}
-is the same as @code{std::ostream&}.
-
-These are the simple output functions:
+Including @code{<cln/io.h>} defines a number of simple output functions
+that write to @code{std::ostream&}:
 
 @table @code
-@item void fprintchar (cl_ostream stream, char c)
+@item void fprintchar (std::ostream& stream, char c)
 Prints the character @code{x} literally on the @code{stream}.
 
-@item void fprint (cl_ostream stream, const char * string)
+@item void fprint (std::ostream& stream, const char * string)
 Prints the @code{string} literally on the @code{stream}.
 
-@item void fprintdecimal (cl_ostream stream, int x)
-@itemx void fprintdecimal (cl_ostream stream, const cl_I& x)
+@item void fprintdecimal (std::ostream& stream, int x)
+@itemx void fprintdecimal (std::ostream& stream, const cl_I& x)
 Prints the integer @code{x} in decimal on the @code{stream}.
 
-@item void fprintbinary (cl_ostream stream, const cl_I& x)
+@item void fprintbinary (std::ostream& stream, const cl_I& x)
 Prints the integer @code{x} in binary (base 2, without prefix)
 on the @code{stream}.
 
-@item void fprintoctal (cl_ostream stream, const cl_I& x)
+@item void fprintoctal (std::ostream& stream, const cl_I& x)
 Prints the integer @code{x} in octal (base 8, without prefix)
 on the @code{stream}.
 
-@item void fprinthexadecimal (cl_ostream stream, const cl_I& x)
+@item void fprinthexadecimal (std::ostream& stream, const cl_I& x)
 Prints the integer @code{x} in hexadecimal (base 16, without prefix)
 on the @code{stream}.
 @end table
@@ -2549,8 +2546,8 @@ Each of the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
 defines, in @code{<cln/@var{type}_io.h>}, the following output functions:
 
 @table @code
-@item void fprint (cl_ostream stream, const @var{type}& x)
-@itemx cl_ostream operator<< (cl_ostream stream, const @var{type}& x)
+@item void fprint (std::ostream& stream, const @var{type}& x)
+@itemx std::ostream& operator<< (std::ostream& stream, const @var{type}& x)
 Prints the number @code{x} on the @code{stream}. The output may depend
 on the global printer settings in the variable @code{default_print_flags}.
 The @code{ostream} flags and settings (flags, width and locale) are
@@ -2560,15 +2557,15 @@ ignored.
 The most flexible output function, defined in @code{<cln/@var{type}_io.h>},
 are the following:
 @example
-void print_complex  (cl_ostream stream, const cl_print_flags& flags,
+void print_complex  (std::ostream& stream, const cl_print_flags& flags,
                      const cl_N& z);
-void print_real     (cl_ostream stream, const cl_print_flags& flags,
+void print_real     (std::ostream& stream, const cl_print_flags& flags,
                      const cl_R& z);
-void print_float    (cl_ostream stream, const cl_print_flags& flags,
+void print_float    (std::ostream& stream, const cl_print_flags& flags,
                      const cl_F& z);
-void print_rational (cl_ostream stream, const cl_print_flags& flags,
+void print_rational (std::ostream& stream, const cl_print_flags& flags,
                      const cl_RA& z);
-void print_integer  (cl_ostream stream, const cl_print_flags& flags,
+void print_integer  (std::ostream& stream, const cl_print_flags& flags,
                      const cl_I& z);
 @end example
 Prints the number @code{x} on the @code{stream}. The @code{flags} are
@@ -2627,7 +2624,7 @@ These compare two rings for equality.
 Given a ring @code{R}, the following members can be used.
 
 @table @code
-@item void R->fprint (cl_ostream stream, const cl_ring_element& x)
+@item void R->fprint (std::ostream& stream, const cl_ring_element& x)
 @cindex @code{fprint ()}
 @itemx cl_boolean R->equal (const cl_ring_element& x, const cl_ring_element& y)
 @cindex @code{equal ()}
@@ -2849,9 +2846,9 @@ The following output functions are defined (see also the chapter on
 input/output).
 
 @table @code
-@item void fprint (cl_ostream stream, const cl_MI& x)
+@item void fprint (std::ostream& stream, const cl_MI& x)
 @cindex @code{fprint ()}
-@itemx cl_ostream operator<< (cl_ostream stream, const cl_MI& x)
+@itemx std::ostream& operator<< (std::ostream& stream, const cl_MI& x)
 @cindex @code{operator << ()}
 Prints the modular integer @code{x} on the @code{stream}. The output may depend
 on the global printer settings in the variable @code{default_print_flags}.
@@ -3171,9 +3168,9 @@ The following output functions are defined (see also the chapter on
 input/output).
 
 @table @code
-@item void fprint (cl_ostream stream, const cl_UP& x)
+@item void fprint (std::ostream& stream, const cl_UP& x)
 @cindex @code{fprint ()}
-@itemx cl_ostream operator<< (cl_ostream stream, const cl_UP& x)
+@itemx std::ostream& operator<< (std::ostream& stream, const cl_UP& x)
 @cindex @code{operator << ()}
 Prints the univariate polynomial @code{x} on the @code{stream}. The output may
 depend on the global printer settings in the variable

@@ -11,7 +11,7 @@
 
 namespace cln {
 
-void fprinthexadecimal (cl_ostream stream, unsigned long x)
+void fprinthexadecimal (std::ostream& stream, unsigned long x)
 {
 	#define bufsize 16
 	var char buf[bufsize+1];
@@ -27,7 +27,7 @@ void fprinthexadecimal (cl_ostream stream, unsigned long x)
 	#undef bufsize
 }
 
-void fprinthexadecimal (cl_ostream stream, long x)
+void fprinthexadecimal (std::ostream& stream, long x)
 {
 	if (x >= 0)
 		fprintdecimal(stream,(unsigned long)x);

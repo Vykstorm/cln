@@ -16,7 +16,7 @@ struct cl_condition {
 	// Name.
 	virtual const char * name () const = 0;
 	// Print.
-	virtual void print (cl_ostream) const = 0;
+	virtual void print (std::ostream&) const = 0;
 	// Virtual destructor.
 	virtual ~cl_condition () = 0;
 private:

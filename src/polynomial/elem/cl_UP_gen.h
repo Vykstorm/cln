@@ -28,7 +28,7 @@ static inline void gen_normalize (cl_heap_ring* R, cl_SV_ringelt& result, uintL 
 	}
 }
 
-static void gen_fprint (cl_heap_univpoly_ring* UPR, cl_ostream stream, const _cl_UP& x)
+static void gen_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, const _cl_UP& x)
 {{
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());

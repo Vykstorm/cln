@@ -13,7 +13,7 @@
 
 namespace cln {
 
-void fprint (cl_ostream stream, const cl_string& str)
+void fprint (std::ostream& stream, const cl_string& str)
 {
 	stream.write(str.asciz(),str.length());
 }

@@ -15,7 +15,7 @@
 
 namespace cln {
 
-void format_old_roman (cl_ostream stream, const cl_I& arg)
+void format_old_roman (std::ostream& stream, const cl_I& arg)
 {
 	if (!(0 < arg && arg < 5000)) {
 		fprint(std::cerr, "format_old_roman: argument should be in the range 1 - 4999, not ");

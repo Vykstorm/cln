@@ -16,7 +16,7 @@
 
 namespace cln {
 
-void print_rational (cl_ostream stream, const cl_print_rational_flags& flags, const cl_RA& z)
+void print_rational (std::ostream& stream, const cl_print_rational_flags& flags, const cl_RA& z)
 {
 	var unsigned int base = flags.rational_base;
 	if (flags.rational_readably)

@@ -15,7 +15,7 @@
 
 namespace cln {
 
-void print_rational (cl_ostream stream, unsigned int base, const cl_RA& z)
+void print_rational (std::ostream& stream, unsigned int base, const cl_RA& z)
 {
 	if (integerp(z)) {
 		DeclareType(cl_I,z);

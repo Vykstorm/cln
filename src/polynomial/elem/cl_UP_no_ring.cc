@@ -59,7 +59,7 @@ static const _cl_UP dummy_op2 (cl_heap_univpoly_ring* R, const _cl_UP& x, const 
 	uninitialized_error(x); uninitialized_error(y); RETDUMMY;
 }
 
-static void dummy_fprint (cl_heap_univpoly_ring* R, cl_ostream stream, const _cl_UP& x)
+static void dummy_fprint (cl_heap_univpoly_ring* R, std::ostream& stream, const _cl_UP& x)
 {
 	unused R;
 	unused stream;

@@ -36,14 +36,14 @@ inline const cl_SV_RA copy (const cl_SV_RA& vector)
 }
 
 // Output.
-inline void fprint (cl_ostream stream, const cl_SV_RA& x)
+inline void fprint (std::ostream& stream, const cl_SV_RA& x)
 {
 	extern cl_print_flags default_print_flags;
-	extern void print_vector (cl_ostream stream, const cl_print_flags& flags, void (* fun) (cl_ostream, const cl_print_flags&, const cl_number&), const cl_SV_number& vector);
-	extern void print_rational (cl_ostream stream, const cl_print_flags& flags, const cl_RA& z);
+	extern void print_vector (std::ostream& stream, const cl_print_flags& flags, void (* fun) (std::ostream&, const cl_print_flags&, const cl_number&), const cl_SV_number& vector);
+	extern void print_rational (std::ostream& stream, const cl_print_flags& flags, const cl_RA& z);
 	print_vector(stream, default_print_flags,
-	             (void (*) (cl_ostream, const cl_print_flags&, const cl_number&))
-	             (void (*) (cl_ostream, const cl_print_flags&, const cl_RA&))
+	             (void (*) (std::ostream&, const cl_print_flags&, const cl_number&))
+	             (void (*) (std::ostream&, const cl_print_flags&, const cl_RA&))
 	             &print_rational,
 	             x);
 }

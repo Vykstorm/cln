@@ -13,7 +13,7 @@
 
 namespace cln {
 
-void print_integer (cl_ostream stream, const cl_print_number_flags& flags, const cl_I& z)
+void print_integer (std::ostream& stream, const cl_print_number_flags& flags, const cl_I& z)
 {
 	print_integer(stream,(const cl_print_real_flags&)flags,z);
 }

@@ -1,3 +1,11 @@
+2000-12-14  Richard Kreckel  <kreckel@ginac.de>
+
+        * Version 1.1 released.
+
+2000-12-13  Richard Kreckel  <kreckel@ginac.de>
+
+        * */*: cl_istream -> std::istream, cl_ostream -> std::ostream.
+
 2000-12-05  Richard Kreckel  <kreckel@ginac.de>
 
         * Makefile.in, src/Makefile.in, doc/Makefile.in: Use mkdir -p.

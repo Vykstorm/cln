@@ -32,7 +32,7 @@ static inline void modint_normalize (cl_heap_modint_ring* R, cl_GV_MI& result, u
 	}
 }
 
-static void modint_fprint (cl_heap_univpoly_ring* UPR, cl_ostream stream, const _cl_UP& x)
+static void modint_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, const _cl_UP& x)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());

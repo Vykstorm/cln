@@ -15,7 +15,7 @@
 
 namespace cln {
 
-void format_integer (cl_ostream stream, const cl_I& arg,
+void format_integer (std::ostream& stream, const cl_I& arg,
 	unsigned int base, sintL mincol, char padchar,
 	char commachar, uintL commainterval, cl_boolean commaflag,
 	cl_boolean positive_sign_flag)

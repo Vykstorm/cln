@@ -51,7 +51,7 @@ class cl_heap_univpoly_modint_ring : public cl_heap_univpoly_ring {
 	SUBCLASS_cl_heap_univpoly_ring()
 	const cl_modint_ring& basering () const { return The(cl_modint_ring)(_basering); }
 	// High-level operations.
-	void fprint (cl_ostream stream, const cl_UP_MI& x)
+	void fprint (std::ostream& stream, const cl_UP_MI& x)
 	{
 		cl_heap_univpoly_ring::fprint(stream,x);
 	}

@@ -41,7 +41,7 @@ static cl_boolean number_char_p (char c)
 	}
 }
 
-const cl_RA read_rational (cl_istream stream, const cl_read_flags& flags)
+const cl_RA read_rational (std::istream& stream, const cl_read_flags& flags)
 {
 	// One pre-allocated buffer. This reduces the allocation/free cost.
 	static pushstring_hack buffer;

@@ -65,7 +65,6 @@ CL_CANONICAL_HOST_CPU
 dnl
 dnl           check for build configuration
 dnl
-LIBS=-lm
                       dnl libcln depends on libm
 PACKAGE=cln
                       dnl libtool wants PACKAGE

@@ -49,7 +49,7 @@ static const char * const cl_format_ordinal_tens [10] = {
 	"ninetieth",
 };
 
-void format_ordinal (cl_ostream stream, const cl_I& argument)
+void format_ordinal (std::ostream& stream, const cl_I& argument)
 {
 	if (zerop(argument))
 		fprint(stream,"zeroth");

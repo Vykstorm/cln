@@ -33,7 +33,7 @@ static const _cl_ring_element null_op2 (cl_heap_ring* R, const _cl_ring_element&
 	return _cl_ring_element(R, (cl_I)0);
 }
 
-static void null_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
+static void null_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_element& x)
 {
 	unused R;
 	unused x;

@@ -32,11 +32,11 @@ extern const cl_F read_float (unsigned int base, float_format_t prec,
 // It is here only so that you don't need the complex and rational number
 // readers in order to read a float number. ("Treeshaking")
 extern const cl_F read_float (const cl_read_flags& flags, const char * string, const char * string_limit, const char * * end_of_parse);
-extern const cl_F read_float (cl_istream stream, const cl_read_flags& flags);
+extern const cl_F read_float (std::istream& stream, const cl_read_flags& flags);
 
 // Documented input functions
 
-inline cl_istream operator>> (cl_istream stream, cl_F& result)
+inline std::istream& operator>> (std::istream& stream, cl_F& result)
 {
 	extern cl_read_flags cl_F_read_flags;
 	result = read_float(stream,cl_F_read_flags);
@@ -53,22 +53,22 @@ inline cl_istream operator>> (cl_istream stream, cl_F& result)
 // print_float(stream,z);
 // > z: Float
 // > stream: Stream
-extern void print_float (cl_ostream stream, const cl_print_flags& flags, const cl_F& z);
-extern void print_float (cl_ostream stream, const cl_print_number_flags& flags, const cl_F& z);
-extern void print_float (cl_ostream stream, const cl_print_real_flags& flags, const cl_F& z);
-extern void print_float (cl_ostream stream, const cl_print_float_flags& flags, const cl_F& z);
+extern void print_float (std::ostream& stream, const cl_print_flags& flags, const cl_F& z);
+extern void print_float (std::ostream& stream, const cl_print_number_flags& flags, const cl_F& z);
+extern void print_float (std::ostream& stream, const cl_print_real_flags& flags, const cl_F& z);
+extern void print_float (std::ostream& stream, const cl_print_float_flags& flags, const cl_F& z);
 
 // Gibt ein Float binär (sehr primitiv) aus.
 // print_float_binary(stream,z);
 // > z: Float
 // > stream: Stream
-extern void print_float_binary (cl_ostream stream, const cl_F& z);
+extern void print_float_binary (std::ostream& stream, const cl_F& z);
 
 // The following does strictly the same as the general `fprint' for numbers.
 // It is here only so that you don't need the complex printer
 // in order to print a float. ("Treeshaking")
 
-inline void fprint (cl_ostream stream, const cl_F& x)
+inline void fprint (std::ostream& stream, const cl_F& x)
 {
 	extern cl_print_flags default_print_flags;
 	print_float(stream,default_print_flags,x);

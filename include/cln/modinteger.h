@@ -81,7 +81,7 @@ struct cl_composite_condition : public cl_condition {
 		{ print(std::cerr); }
 	// Implement general condition methods.
 	const char * name () const;
-	void print (cl_ostream) const;
+	void print (std::ostream&) const;
 	~cl_composite_condition () {}
 };
 
@@ -151,7 +151,7 @@ public:
 
 struct _cl_modint_setops /* cf. _cl_ring_setops */ {
 	// print
-	void (* fprint) (cl_heap_modint_ring* R, cl_ostream stream, const _cl_MI& x);
+	void (* fprint) (cl_heap_modint_ring* R, std::ostream& stream, const _cl_MI& x);
 	// equality
 	cl_boolean (* equal) (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y);
 	// random number
@@ -214,7 +214,7 @@ public:
 	cl_I modulus;	// m, normalized to be >= 0
 public:
 	// Low-level operations.
-	void _fprint (cl_ostream stream, const _cl_MI& x)
+	void _fprint (std::ostream& stream, const _cl_MI& x)
 		{ setops->fprint(this,stream,x); }
 	cl_boolean _equal (const _cl_MI& x, const _cl_MI& y)
 		{ return setops->equal(this,x,y); }
@@ -251,7 +251,7 @@ public:
 	const cl_I _retract (const _cl_MI& x)
 		{ return mulops->retract(this,x); }
 	// High-level operations.
-	void fprint (cl_ostream stream, const cl_MI& x)
+	void fprint (std::ostream& stream, const cl_MI& x)
 	{
 		if (!(x.ring() == this)) cl_abort();
 		_fprint(stream,x);
@@ -370,7 +370,7 @@ extern cl_class cl_class_modint_ring;
 // Operations on modular integers.
 
 // Output.
-inline void fprint (cl_ostream stream, const cl_MI& x)
+inline void fprint (std::ostream& stream, const cl_MI& x)
 	{ x.ring()->fprint(stream,x); }
 CL_DEFINE_PRINT_OPERATOR(cl_MI)
 

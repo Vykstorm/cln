@@ -16,7 +16,7 @@
 
 namespace cln {
 
-void print_real (cl_ostream stream, const cl_print_real_flags& flags, const cl_R& z)
+void print_real (std::ostream& stream, const cl_print_real_flags& flags, const cl_R& z)
 {
 	if (rationalp(z)) {
 		DeclareType(cl_RA,z);

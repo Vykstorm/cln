@@ -40,14 +40,14 @@ inline const cl_GV_N copy (const cl_GV_N& vector)
 }
 
 // Output.
-inline void fprint (cl_ostream stream, const cl_GV_N& x)
+inline void fprint (std::ostream& stream, const cl_GV_N& x)
 {
 	extern cl_print_flags default_print_flags;
-	extern void print_vector (cl_ostream stream, const cl_print_flags& flags, void (* fun) (cl_ostream, const cl_print_flags&, const cl_number&), const cl_GV_number& vector);
-	extern void print_complex (cl_ostream stream, const cl_print_flags& flags, const cl_N& z);
+	extern void print_vector (std::ostream& stream, const cl_print_flags& flags, void (* fun) (std::ostream&, const cl_print_flags&, const cl_number&), const cl_GV_number& vector);
+	extern void print_complex (std::ostream& stream, const cl_print_flags& flags, const cl_N& z);
 	print_vector(stream, default_print_flags,
-	             (void (*) (cl_ostream, const cl_print_flags&, const cl_number&))
-	             (void (*) (cl_ostream, const cl_print_flags&, const cl_N&))
+	             (void (*) (std::ostream&, const cl_print_flags&, const cl_number&))
+	             (void (*) (std::ostream&, const cl_print_flags&, const cl_N&))
 	             &print_complex,
 	             x);
 }

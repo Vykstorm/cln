@@ -27,11 +27,11 @@ extern const cl_RA read_rational (unsigned int base,
 // It is here only so that you don't need the complex and float number
 // readers in order to read an rational number. ("Treeshaking")
 extern const cl_RA read_rational (const cl_read_flags& flags, const char * string, const char * string_limit, const char * * end_of_parse);
-extern const cl_RA read_rational (cl_istream stream, const cl_read_flags& flags);
+extern const cl_RA read_rational (std::istream& stream, const cl_read_flags& flags);
 
 // Documented input functions
 
-inline cl_istream operator>> (cl_istream stream, cl_RA& result)
+inline std::istream& operator>> (std::istream& stream, cl_RA& result)
 {
 	extern cl_read_flags cl_RA_read_flags;
 	result = read_rational(stream,cl_RA_read_flags);
@@ -46,7 +46,7 @@ inline cl_istream operator>> (cl_istream stream, cl_RA& result)
 // > z: rationale Zahl
 // > base: Basis (>=2, <=36)
 // > stream: Stream
-extern void print_rational (cl_ostream stream, unsigned int base, const cl_RA& z);
+extern void print_rational (std::ostream& stream, unsigned int base, const cl_RA& z);
 
 
 // Documented output functions
@@ -56,16 +56,16 @@ extern void print_rational (cl_ostream stream, unsigned int base, const cl_RA& z
 // > z: Zahl
 // > stream: Stream
 // > flags: Ausgabe-Parameter
-extern void print_rational (cl_ostream stream, const cl_print_flags& flags, const cl_RA& z);
-extern void print_rational (cl_ostream stream, const cl_print_number_flags& flags, const cl_RA& z);
-extern void print_rational (cl_ostream stream, const cl_print_real_flags& flags, const cl_RA& z);
-extern void print_rational (cl_ostream stream, const cl_print_rational_flags& flags, const cl_RA& z);
+extern void print_rational (std::ostream& stream, const cl_print_flags& flags, const cl_RA& z);
+extern void print_rational (std::ostream& stream, const cl_print_number_flags& flags, const cl_RA& z);
+extern void print_rational (std::ostream& stream, const cl_print_real_flags& flags, const cl_RA& z);
+extern void print_rational (std::ostream& stream, const cl_print_rational_flags& flags, const cl_RA& z);
 
 // The following does strictly the same as the general `fprint' for numbers.
 // It is here only so that you don't need the complex and long-float number
 // printers in order to print an integer. ("Treeshaking")
 
-inline void fprint (cl_ostream stream, const cl_RA& x)
+inline void fprint (std::ostream& stream, const cl_RA& x)
 {
 	extern cl_print_flags default_print_flags;
 	print_rational(stream,default_print_flags,x);

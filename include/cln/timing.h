@@ -47,13 +47,13 @@ extern const cl_time_consumption cl_current_time_consumption ();
 
 // Report a time consumption.
 // (Should better be a virtual member function of `cl_time_consumption').
-extern void cl_timing_report (cl_ostream, const cl_time_consumption&);
+extern void cl_timing_report (std::ostream&, const cl_time_consumption&);
 
 struct cl_timing {
 	// Constructor, starts the time interval.
 	cl_timing (cl_time_consumption& accumulator);
-	cl_timing (cl_ostream destination = std::cerr);
-	cl_timing (const char *, cl_ostream destination = std::cerr);
+	cl_timing (std::ostream& destination = std::cerr);
+	cl_timing (const char *, std::ostream& destination = std::cerr);
 	// Destructor, closes the time interval and does a report.
 	~cl_timing ();	
 //private:

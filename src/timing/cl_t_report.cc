@@ -15,7 +15,7 @@ namespace cln {
 #define CL_HZ 1000
 #define CL_HZ_NSECS (1000000000/CL_HZ)
 
-void cl_timing_report (cl_ostream stream, const cl_time_consumption& t)
+void cl_timing_report (std::ostream& stream, const cl_time_consumption& t)
 {
 	var uintL real_sec = t.realtime.tv_sec;
 	var uintL real_msec = (t.realtime.tv_nsec + (CL_HZ_NSECS-1)/2) / CL_HZ_NSECS;

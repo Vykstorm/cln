@@ -16,7 +16,7 @@
 
 namespace cln {
 
-void print_float_binary (cl_ostream stream, const cl_F& z)
+void print_float_binary (std::ostream& stream, const cl_F& z)
 {
 // Vorzeichen, Punkt, Mantisse (binär), (Zweiersystem-)Exponent (dezimal)
 	cl_idecoded_float m_e_s = integer_decode_float(z);

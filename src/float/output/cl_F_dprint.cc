@@ -361,7 +361,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
 }
 
 // Ausgabefunktion:
-void print_float (cl_ostream stream, const cl_print_float_flags& flags, const cl_F& z)
+void print_float (std::ostream& stream, const cl_print_float_flags& flags, const cl_F& z)
 {
   var cl_decimal_decoded_float z_decoded = decode_float_decimal(z);
   var char * & mantstring = z_decoded.a;

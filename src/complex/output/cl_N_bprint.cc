@@ -16,7 +16,7 @@
 
 namespace cln {
 
-void print_complex (cl_ostream stream, const cl_print_number_flags& flags, const cl_N& z)
+void print_complex (std::ostream& stream, const cl_print_number_flags& flags, const cl_N& z)
 {
 	if (realp(z)) {
 		DeclareType(cl_R,z);

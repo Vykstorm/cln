@@ -40,7 +40,7 @@ static const char * const cl_format_ones [20] = {
 
 // gibt eine ganze Zahl >0, <1000 im Klartext auf englisch auf den stream aus.
 // (arg=0 -> gibt nichts aus.)
-static void format_small_cardinal (cl_ostream stream, uintL arg)
+static void format_small_cardinal (std::ostream& stream, uintL arg)
 {
 	var uintL hundreds = floor(arg,100);
 	var uintL tens_and_ones = arg % 100;
@@ -65,7 +65,7 @@ static void format_small_cardinal (cl_ostream stream, uintL arg)
 	}
 }
 
-void format_cardinal (cl_ostream stream, const cl_I& argument)
+void format_cardinal (std::ostream& stream, const cl_I& argument)
 {
 	if (zerop(argument))
 		fprint(stream,"zero");

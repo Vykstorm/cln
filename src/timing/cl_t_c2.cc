@@ -1,4 +1,4 @@
-// constructor cl_timing(cl_ostream).
+// constructor cl_timing(std::ostream&).
 
 // General includes.
 #include "cl_sysdep.h"
@@ -19,14 +19,14 @@ static void report_stream (const cl_timing& t)
 	usage.realtime = usage_end.realtime - usage_start.realtime;
 	usage.usertime = usage_end.usertime - usage_start.usertime;
 
-	var cl_ostream destination = *(std::ostream*) t.report_destination;
+	var std::ostream& destination = *(std::ostream*) t.report_destination;
 	if (t.comment)
 		fprint(destination,t.comment);
 	cl_timing_report(destination,usage);
 	fprint(destination,"\n");
 }
 
-cl_timing::cl_timing (cl_ostream destination)
+cl_timing::cl_timing (std::ostream& destination)
 {
 	report_fn = report_stream;
 	report_destination = &destination;
@@ -34,7 +34,7 @@ cl_timing::cl_timing (cl_ostream destination)
 	tmp = cl_current_time_consumption();
 }
 
-cl_timing::cl_timing (const char * msg, cl_ostream destination)
+cl_timing::cl_timing (const char * msg, std::ostream& destination)
 {
 	report_fn = report_stream;
 	report_destination = &destination;

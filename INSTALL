@@ -14,7 +14,7 @@ Known to work with:
   - Linux/x86, gcc-2.8.0, egcs-1.1, gcc-2.95.x
   - Solaris 2.4 (sparc), egcs-1.1, gcc-2.95
   - OSF/1 V4.0 (alpha), egcs-1.1, gcc-2.95
-  - Irix 5.3, CC 4
+  - Irix 6.5, gcc-2.95
 
 The "make" step takes about 1 hour, on a P-II / 400 MHz / 64 MB.
 
@@ -27,9 +27,6 @@ either "-O", "-O1" or "-O2 -fno-schedule-insns" to the CXXFLAGS. With full
 "-O2", g++ miscompiles the division routines. Also, if you have g++ version
 egcs-1.1.1 or older on Sparc, you must specify --disable-shared because g++
 would miscompile parts of the library.
-
-On MIPS (SGI Irix 6), pass option "--without-gmp" to configure. gmp does
-not work when compiled in "n32" binary format on Irix.
 
 More detailed installation instructions can be found in the documentation,
 in the doc/ directory.

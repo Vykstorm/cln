@@ -18,16 +18,17 @@
 
 namespace cln {
 
+// compatibility:
 typedef std::istream& cl_istream;
 typedef std::ostream& cl_ostream;
 extern std::ostream* cl_debugout_stream;
 #define cl_debugout  (*cl_debugout_stream)
 
-// Elementary operations on cl_istream
+// Elementary operations on std::istream&
 
 #define cl_EOF  (-1)
 
-inline int freadchar (cl_istream stream)
+inline int freadchar (std::istream& stream)
 {
 	char c;
 	if (stream.get(c))
@@ -37,46 +38,46 @@ inline int freadchar (cl_istream stream)
 		return cl_EOF;
 }
 
-inline int funreadchar (cl_istream stream, int c)
+inline int funreadchar (std::istream& stream, int c)
 {
 	if (c != cl_EOF)
 		stream.putback((char)c);
 	return c;
 }
 
-// Elementary operations on cl_ostream
+// Elementary operations on std::ostream&
 
-inline void fprintchar (cl_ostream stream, char c)
+inline void fprintchar (std::ostream& stream, char c)
 {
 	stream.put(c);
 }
 
-inline void fprint (cl_ostream stream, const char * string)
+inline void fprint (std::ostream& stream, const char * string)
 {
 	stream << string;
 }
 
 
-extern void fprintdecimal (cl_ostream stream, unsigned long x);
-extern void fprintdecimal (cl_ostream stream, long x);
+extern void fprintdecimal (std::ostream& stream, unsigned long x);
+extern void fprintdecimal (std::ostream& stream, long x);
 
-inline void fprintdecimal (cl_ostream stream, unsigned int x)
+inline void fprintdecimal (std::ostream& stream, unsigned int x)
 {
 	fprintdecimal(stream,(unsigned long)x);
 }
-inline void fprintdecimal (cl_ostream stream, int x)
+inline void fprintdecimal (std::ostream& stream, int x)
 {
 	fprintdecimal(stream,(long)x);
 }
 
-extern void fprinthexadecimal (cl_ostream stream, unsigned long x);
-extern void fprinthexadecimal (cl_ostream stream, long x);
+extern void fprinthexadecimal (std::ostream& stream, unsigned long x);
+extern void fprinthexadecimal (std::ostream& stream, long x);
 
-inline void fprinthexadecimal (cl_ostream stream, unsigned int x)
+inline void fprinthexadecimal (std::ostream& stream, unsigned int x)
 {
 	fprinthexadecimal(stream,(unsigned long)x);
 }
-inline void fprinthexadecimal (cl_ostream stream, int x)
+inline void fprinthexadecimal (std::ostream& stream, int x)
 {
 	fprinthexadecimal(stream,(long)x);
 }
@@ -93,7 +94,7 @@ CL_REQUIRE(cl_prin_globals)
 // Define the customary << and >> operators.
 
 #define CL_DEFINE_PRINT_OPERATOR(_class_)  \
-inline cl_ostream operator<< (cl_ostream stream, const _class_& x)	\
+inline std::ostream& operator<< (std::ostream& stream, const _class_& x)	\
 {									\
 	fprint(stream,x);						\
 	return stream;							\

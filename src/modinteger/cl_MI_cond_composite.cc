@@ -17,7 +17,7 @@ namespace cln {
 const char * cl_composite_condition::name () const
 { return "cl_composite_condition"; }
 
-void cl_composite_condition::print (cl_ostream strm) const
+void cl_composite_condition::print (std::ostream& strm) const
 {
 	fprint(strm, "Exception <cl_composite_condition> occurred: p = ");
 	fprint(strm, p);

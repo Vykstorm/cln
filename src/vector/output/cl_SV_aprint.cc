@@ -13,7 +13,7 @@
 
 namespace cln {
 
-void fprint (cl_ostream stream, const cl_ring& R, const cl_SV_ringelt& vector)
+void fprint (std::ostream& stream, const cl_ring& R, const cl_SV_ringelt& vector)
 {
 	var const cl_print_flags& flags = default_print_flags;
 	var uintL len = vector.length();

@@ -13,7 +13,7 @@
 
 namespace cln {
 
-void print_rational (cl_ostream stream, const cl_print_number_flags& flags, const cl_RA& z)
+void print_rational (std::ostream& stream, const cl_print_number_flags& flags, const cl_RA& z)
 {
 	print_rational(stream,(const cl_print_real_flags&)flags,z);
 }

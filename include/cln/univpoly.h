@@ -111,7 +111,7 @@ public:	// Ability to place an object at a given address.
 
 struct _cl_univpoly_setops /* cf. _cl_ring_setops */ {
 	// print
-	void (* fprint) (cl_heap_univpoly_ring* R, cl_ostream stream, const _cl_UP& x);
+	void (* fprint) (cl_heap_univpoly_ring* R, std::ostream& stream, const _cl_UP& x);
 	// equality
 	// (Be careful: This is not well-defined for polynomials with
 	// floating-point coefficients.)
@@ -184,7 +184,7 @@ public:
 	const cl_ring& basering () const { return _basering; }
 public:
 	// Low-level operations.
-	void _fprint (cl_ostream stream, const _cl_UP& x)
+	void _fprint (std::ostream& stream, const _cl_UP& x)
 		{ setops->fprint(this,stream,x); }
 	cl_boolean _equal (const _cl_UP& x, const _cl_UP& y)
 		{ return setops->equal(this,x,y); }
@@ -225,7 +225,7 @@ public:
 	const cl_ring_element _eval (const _cl_UP& x, const cl_ring_element& y)
 		{ return polyops->eval(this,x,y); }
 	// High-level operations.
-	void fprint (cl_ostream stream, const cl_UP& x)
+	void fprint (std::ostream& stream, const cl_UP& x)
 	{
 		if (!(x.ring() == this)) cl_abort();
 		_fprint(stream,x);
@@ -357,7 +357,7 @@ extern cl_class cl_class_univpoly_ring;
 // Operations on polynomials.
 
 // Output.
-inline void fprint (cl_ostream stream, const cl_UP& x)
+inline void fprint (std::ostream& stream, const cl_UP& x)
 	{ x.ring()->fprint(stream,x); }
 CL_DEFINE_PRINT_OPERATOR(cl_UP)
 
@@ -531,7 +531,7 @@ template <class T>
 class cl_heap_univpoly_specialized_ring : public cl_heap_univpoly_ring {
 	SUBCLASS_cl_heap_univpoly_ring()
 	// High-level operations.
-	void fprint (cl_ostream stream, const cl_UP_specialized<T>& x)
+	void fprint (std::ostream& stream, const cl_UP_specialized<T>& x)
 	{
 		cl_heap_univpoly_ring::fprint(stream,x);
 	}

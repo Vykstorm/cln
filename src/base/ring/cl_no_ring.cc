@@ -59,7 +59,7 @@ static const _cl_ring_element dummy_op2 (cl_heap_ring* R, const _cl_ring_element
 	uninitialized_error(x); uninitialized_error(y); RETDUMMY;
 }
 
-static void dummy_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
+static void dummy_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_element& x)
 {
 	unused R;
 	unused stream;

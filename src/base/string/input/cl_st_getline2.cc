@@ -14,7 +14,7 @@
 
 namespace cln {
 
-const cl_string cl_fgetline (cl_istream stream, int n, char delim)
+const cl_string cl_fgetline (std::istream& stream, int n, char delim)
 {
 	var cl_spushstring buffer;
 	// Handling of eofp is tricky: EOF is reached when (!stream.good()) || (stream.get()==EOF).

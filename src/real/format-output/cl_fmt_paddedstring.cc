@@ -13,7 +13,7 @@
 
 namespace cln {
 
-void format_padded_string (cl_ostream stream, sintL mincol, sintL colinc, sintL minpad, char padchar, cl_boolean padleftflag, const char * str)
+void format_padded_string (std::ostream& stream, sintL mincol, sintL colinc, sintL minpad, char padchar, cl_boolean padleftflag, const char * str)
 {
 	var sintL need = ::strlen(str) + minpad; // so viele Zeichen mindestens
 	var uintL auxpad = (need < mincol

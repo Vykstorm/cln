@@ -15,7 +15,7 @@
 
 namespace cln {
 
-cl_istream operator>> (cl_istream stream, cl_string& str)
+std::istream& operator>> (std::istream& stream, cl_string& str)
 {
 	var cl_spushstring buffer;
 	var int n = stream.width();

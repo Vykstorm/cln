@@ -17,7 +17,7 @@ CL_PROVIDE(cl_I_ring)
 
 namespace cln {
 
-static void I_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
+static void I_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_element& x)
 {
 	unused R;
 	fprint(stream,The(cl_I)(x));
