@@ -402,22 +402,26 @@ or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
 If you use @code{g++} 3.0.x or 3.1, I recommend adding
 @samp{-finline-limit=1000} to the CXXFLAGS. This is essential for good code.
 
-If you use @code{g++} gcc-2.95.x or gcc-3.0.x , I recommend adding
+If you use @code{g++} gcc-2.95.x or gcc-3.x , I recommend adding
 @samp{-fno-exceptions} to the CXXFLAGS. This will likely generate better code.
 
-If you use @code{g++} from gcc-2.95.x on Sparc, add either @samp{-O},
-@samp{-O1} or @samp{-O2 -fno-schedule-insns} to the CXXFLAGS. With full
-@samp{-O2}, @code{g++} miscompiles the division routines. If you use 
-@code{g++} older than 2.95.3 on Sparc you should also specify 
-@samp{--disable-shared} because of bad code produced in the shared 
-library. 
+If you use @code{g++} from gcc-3.0.4 or older on Sparc, add either
+@samp{-O}, @samp{-O1} or @samp{-O2 -fno-schedule-insns} to the
+CXXFLAGS. With full @samp{-O2}, @code{g++} miscompiles the division
+routines. If you use @code{g++} older than 2.95.3 on Sparc you should
+also specify @samp{--disable-shared} because of bad code produced in the
+shared library. Also, do not use gcc-3.0 on Sparc for compiling CLN, it
+won't work at all.
 
 If you use @code{g++} on OSF/1 or Tru64 using gcc-2.95.x, you should
 specify @samp{--disable-shared} because of linker problems with
 duplicate symbols in shared libraries.  If you use @code{g++} from
 gcc-3.0.n, with n larger than 1, you should @emph{not} add
 @samp{-fno-exceptions} to the CXXFLAGS, since that will generate wrong
-code (gcc-3.1.0 is okay again, as is gcc-3.0.0).
+code (gcc-3.1 is okay again, as is gcc-3.0).
+
+Also, please do not compile CLN with @code{g++} using the @code{-O3}
+optimization level.  This leads to inferior code quality.
 
 If you use @code{g++} from gcc-3.1, it will need 235 MB of virtual memory.
 You might need some swap space if your machine doesn't have 512 MB of RAM.
