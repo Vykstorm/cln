@@ -1,4 +1,18 @@
+2004-05-02, version 1.1.7
+=========================
+
+Implementation changes
+----------------------
+
+* Fixed two corner case bugs in cl_LF multiplication and sqrt.
+
+* Workaround GCC 3.[123] compiler bug.
+
+* Parallel build should work reliably now.
+
+
 2004-01-01, version 1.1.6
+=========================
 
 Functional changes
 ------------------
