@@ -5,7 +5,7 @@
 #include <cln/real_io.h>
 #include <ctype.h>
 #include <stdlib.h>
-//#include <string.h>
+#include <string.h>
 
 using namespace std;
 using namespace cln;
