@@ -1,3 +1,8 @@
+2001-12-31  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/base/digitseq/cl_DS.h: <gmp.h> is not included extern "C"
+          any more since GMP4 has some C++ support in it.
+
 2001-12-14  Richard Kreckel  <kreckel@ginac.de>
 
         * include/cln/modules.h, include/cln/object.h: add support for

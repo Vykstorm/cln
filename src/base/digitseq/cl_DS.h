@@ -351,9 +351,11 @@ extern void shiftxor_loop_up (uintD* xptr, const uintD* yptr, uintC count, uintC
 // Supersede the functions by wrappers around calls to gmp mpn,
 // for those functions where gmp is believed to be faster.
 
-extern "C" {
+}  // namespace cln
+
 #include <gmp.h>
-}
+
+namespace cln {
 
 #if 0 // not worth it, since gmp's mpn_cmp is not optimized
 inline cl_signean compare_loop_down (const uintD* xptr, const uintD* yptr, uintC count)
