@@ -23,13 +23,13 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
 // Sonst: Ergebnis-Vorzeichen = VZ von x1 xor VZ von x2.
 //        Ergebnis-Exponent = Summe der Exponenten von x1 und x2.
 //        Produkt der Mantissen bilden (2n Digits).
-//        Falls das führende Bit =0 ist: Mantissenprodukt um 1 Bit nach links
-//          schieben (die vorderen n+1 Digits genügen)
+//        Falls das fhrende Bit =0 ist: Mantissenprodukt um 1 Bit nach links
+//          schieben (die vorderen n+1 Digits gengen)
 //          und Exponent decrementieren.
 //        Runden auf n Digits liefert die Ergebnis-Mantisse.
       var uintC len1 = TheLfloat(x1)->len;
       var uintC len2 = TheLfloat(x2)->len;
-      var uintC len = (len1 < len2 ? len1 : len2); // min. Länge n von x1 und x2
+      var uintC len = (len1 < len2 ? len1 : len2); // min. Lï¿½ge n von x1 und x2
       var uintL uexp1 = TheLfloat(x1)->expo;
       if (uexp1==0) // x1=0.0 -> Ergebnis 0.0
         { if (len < len1) return shorten(x1,len); else return x1; }
@@ -71,22 +71,22 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
                       len2,x2_LSDptr,
                       MSDptr=,,);
       {var uintD* midptr = MSDptr mspop len; // Pointer in die Mitte der len1+len2 Digits
-       if ((sintD)mspref(MSDptr,0) >= 0) // führendes Bit abtesten
+       if ((sintD)mspref(MSDptr,0) >= 0) // fhrendes Bit abtesten
          { // erste n+1 Digits um 1 Bit nach links schieben:
            shift1left_loop_lsp(midptr mspop 1,len+1);
            // Exponenten decrementieren:
-           if ((TheLfloat(y)->expo)-- == LF_exp_low-1)
+           if (--(TheLfloat(y)->expo) == LF_exp_low-1)
              { if (underflow_allowed())
                  { cl_error_floating_point_underflow(); }
                  else
                  { return encode_LF0(len); } // Ergebnis 0.0
              }
          }
-       // erste Hälfte des Mantissenprodukts übertragen:
+       // erste Hï¿½fte des Mantissenprodukts bertragen:
        {var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
         var uintD* y_mantLSDptr = copy_loop_msp(MSDptr,y_mantMSDptr,len);
         // Runden:
-        if ( ((sintD)mspref(midptr,0) >= 0) // nächstes Bit =0 -> abrunden
+        if ( ((sintD)mspref(midptr,0) >= 0) // nï¿½hstes Bit =0 -> abrunden
              || ( ((mspref(midptr,0) & ((uintD)bit(intDsize-1)-1)) ==0) // Bit =1, weitere Bits >0 -> aufrunden
                   && !test_loop_msp(midptr mspop 1,len1+len2-len-1)
                   // round-to-even
@@ -97,10 +97,10 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
           else
           // aufrunden
           { if ( inc_loop_lsp(y_mantLSDptr,len) )
-              { // Übertrag durchs Aufrunden (kann nur auftreten,
+              { // ï¿½ertrag durchs Aufrunden (kann nur auftreten,
                 // wenn vorhin um 1 Bit nach links geschoben wurde)
                 mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
-                (TheLfloat(y)->expo)++; // Exponent wieder zurück-erhöhen
+                (TheLfloat(y)->expo)++; // Exponent wieder zurck-erhhen
           }   }
         // LF_exp_low <= exp <= LF_exp_high sicherstellen:
         if (TheLfloat(y)->expo == LF_exp_high+1) { cl_error_floating_point_overflow(); }
