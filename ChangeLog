@@ -1,3 +1,8 @@
+2002-03-15  Bruno Haible  <bruno@clisp.org>
+
+	* cln.tex: Document problem with GNU make 3.77.
+	Reported by Michael Somos <somos@grail.cba.csuohio.edu>.
+
 2002-02-16  Richard Kreckel  <kreckel@ginac.de>
 
         * cln.m4: quote macro name.
