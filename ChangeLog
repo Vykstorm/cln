@@ -2,6 +2,8 @@
 
 	* src/float/lfloat/elem/cl_LF_mul.cc (operator*): Fix the second
 	underflow condition.
+	* src/float/lfloat/algebraic/cl_LF_sqrt.cc (sqrt): Fix a bug with large
+	uexp whereby SQRT of MOST-POSITIVE-LONG-FLOAT was less than 1.
 
 2004-03-04  Richard B. Kreckel  <kreckel@ginac.de>
 
