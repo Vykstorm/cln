@@ -6,11 +6,9 @@
 
 	* autoconf/ltmain.sh: Upgrade to libtool-1.5.6.
 	* m4/libtool.m4: New file, from libtool-1.5.6 with modifications:
-
-2004-08-22  Bruno Haible  <bruno@clisp.org>
-
-	* m4/libtool.m4: Add support for Comeau C++ on Linux.
-	Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+	2004-08-22  Bruno Haible  <bruno@clisp.org>
+		* m4/libtool.m4: Add support for Comeau C++ on Linux.
+		Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
 	* autoconf/aclocal.m4: Regenerate.
 
 2004-08-19  Bruno Haible  <bruno@clisp.org>
