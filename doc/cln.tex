@@ -386,6 +386,10 @@ commands, you have to @code{export} the environment variables before
 calling @code{configure}. In a @code{csh} shell, you have to use the
 @samp{setenv} command for setting each of the environment variables.
 
+Currently CLN works only with the GNU @code{g++} compiler, and only in
+optimizing mode. So you should specify at least @code{-O} in the CXXFLAGS,
+or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
+
 On Linux, @code{g++} needs 15 MB to compile the tests. So you should better
 have 17 MB swap space and 1 MB room in $TMPDIR.
 
