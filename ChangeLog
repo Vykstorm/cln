@@ -5,6 +5,7 @@
 	2004-02-22  Bruno Haible  <bruno@clisp.org>
 		* m4/libtool.m4: Add support for Comeau C++ on Linux.
 		Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+	* autoconf/aclocal.m4: Regenerate.
 
 2004-08-19  Bruno Haible  <bruno@clisp.org>
 
