@@ -95,7 +95,7 @@ namespace cln {
       #if defined(__osf__)
         extern "C" char* alloca (int size);
       #else
-        extern "C" void* alloca (int size);
+        extern "C" void* alloca (size_t size);
       #endif
     #endif
   #elif defined(_AIX)
@@ -103,7 +103,7 @@ namespace cln {
   #elif defined(WATCOM)
     #include <malloc.h> // defines `alloca' as a macro
   #elif !defined(NO_ALLOCA)
-    extern "C" void* alloca (int size);
+    extern "C" void* alloca (size_t size);
   #endif
 
 // NULL pointer.
