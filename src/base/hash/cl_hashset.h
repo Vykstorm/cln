@@ -22,6 +22,10 @@ struct cl_htsetentry {
 
 template <class key1_type>
 struct cl_heap_hashtable_set : public cl_heap_hashtable <cl_htsetentry <key1_type> > {
+protected:
+    // Abbreviation.
+    typedef typename cl_heap_hashtable <cl_htsetentry <key1_type> >::htxentry htxentry;
+public:
     // Allocation.
     void* operator new (size_t size) { return malloc_hook(size); }
     // Deallocation.

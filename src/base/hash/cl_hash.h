@@ -154,12 +154,12 @@ struct _cl_hashtable_iterator
   #endif
 {
 private:
-    cl_heap_hashtable<htentry>::htxentry * _entries;
+    typename cl_heap_hashtable<htentry>::htxentry * _entries;
     long _index;
 public:
     _cl_hashtable_iterator () : _entries (0), _index (-1) {}
 public: /* ugh */
-    _cl_hashtable_iterator (cl_heap_hashtable<htentry>::htxentry * e, long i)
+    _cl_hashtable_iterator (typename cl_heap_hashtable<htentry>::htxentry * e, long i)
         : _entries (e), _index (i)
     {
         do { _index--; }

@@ -1,3 +1,15 @@
+2002-05-05  Bruno Haible  <bruno@clisp.org>
+
+	Avoid g++ 3.1 warnings.
+	* src/base/hash/cl_hash.h (struct cl_heap_hashtable): Use typename
+	where needed.
+	* src/base/hash/cl_hash1.h (struct cl_heap_hashtable_1): typedef
+	htxentry as a shortcut.
+	* src/base/hash/cl_hash2.h (struct cl_heap_hashtable_2): Likewise.
+	* src/base/hash/cl_hashset.h (struct cl_heap_hashtable_set): Likewise.
+	* src/base/hash/cl_hashuniq.h (struct cl_heap_hashtable_uniq):
+	Likewise.
+
 2002-03-15  Bruno Haible  <bruno@clisp.org>
 
 	* cln.tex: Document problem with GNU make 3.77.

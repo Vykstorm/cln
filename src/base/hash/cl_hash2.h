@@ -29,6 +29,10 @@ struct cl_htentry2 {
 
 template <class key1_type, class key2_type, class value_type>
 struct cl_heap_hashtable_2 : public cl_heap_hashtable <cl_htentry2 <key1_type,key2_type,value_type> > {
+protected:
+    // Abbreviation.
+    typedef typename cl_heap_hashtable <cl_htentry2 <key1_type,key2_type,value_type> >::htxentry htxentry;
+public:
     // Allocation.
     void* operator new (size_t size) { return malloc_hook(size); }
     // Deallocation.
