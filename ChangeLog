@@ -1,8 +1,8 @@
-2004-05-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+2004-06-30  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* src/base/cl_macros.h: alloca(3) has size_t argument type.
 
-2004-05-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+2004-06-30  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* include/cln/floatformat.h: Do define a type here.
 
