@@ -73,11 +73,11 @@ AM_PROG_LIBTOOL
 dnl Libtool's library version information for CLN.
 dnl (Not to be confused with CLN's release version.)
 dnl Making new releases:
-dnl * increment CLN_REVISION,
+dnl * increment CL_REVISION,
 dnl * if any functions/classes have been added, removed or changed, increment
-dnl   CLN_CURRENT and set CLN_REVISION to 0,
-dnl * if any functions/classes have been added, increment CLN_AGE,
-dnl * if backwards compatibility has been broken, set CLN_AGE to 0.
+dnl   CL_CURRENT and set CL_REVISION to 0,
+dnl * if any functions/classes have been added, increment CL_AGE,
+dnl * if backwards compatibility has been broken, set CL_AGE to 0.
 CL_CURRENT=1
 CL_REVISION=1
 CL_AGE=1
