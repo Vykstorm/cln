@@ -1,3 +1,7 @@
+2002-05-27  Richard Kreckel  <kreckel@ginac.de>
+
+	* include/cln/modules.h (CL_CONCATENATE): New macro.
+
 2002-05-10  Richard Kreckel  <kreckel@ginac.de>
 
 	* doc/cln.tex (Building the library): Update recommendations for 

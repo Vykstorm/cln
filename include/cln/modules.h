@@ -248,6 +248,12 @@
   #define CL_REQUIRE(module)
 #endif
 
+// Concatenation of macroexpanded tokens.
+// Equivalent to CL_CONCAT in src/base/cl_macros.h which we do not want
+// to expose, however.
+#define CL_CONCATENATE_(xxx,yyy)  xxx##yyy
+#define CL_CONCATENATE(xxx,yyy)  CL_CONCATENATE_(xxx,yyy)
+
 // Sometimes a link time dependency is needed, but without requirements
 // on initialization order.
 //
@@ -267,7 +273,7 @@
         abort();							\
     }									\
   }									\
-  dummy##_instance;
+  CL_CONCATENATE(dummy,_instance);
 #endif
 
 #endif /* _CL_MODULES_H */
