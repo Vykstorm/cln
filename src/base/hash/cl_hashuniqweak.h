@@ -32,7 +32,7 @@ public:
 	cl_heap_weak_hashtable_uniq ()
 		: cl_heap_hashtable_uniq <key1_type,value_type> ()
 	{
-		this->_garcol_fun = cl_heap_weak_hashtable_uniq<key1_type,value_type>::garcol;
+		this->_garcol_fun = garcol;
 	}
 private:
 	// Garbage collection.
@@ -75,7 +75,7 @@ private:
 		else if (2*removed < ht->_count) {
 			// Table shrank by less than a factor of 1/1.5.
 			// Don't expand the table now, but expand it next time.
-			ht->_garcol_fun = cl_heap_weak_hashtable_uniq<key1_type,value_type>::garcol_nexttime;
+			ht->_garcol_fun = garcol_nexttime;
 			return cl_true;
 		} else {
 			// Table shrank much. Don't expand the table now,
@@ -87,7 +87,7 @@ private:
 	{
 		var cl_heap_weak_hashtable_uniq* ht = (cl_heap_weak_hashtable_uniq*)_ht;
 		// Now ht->_garcol_fun = garcol_nexttime.
-		ht->_garcol_fun = cl_heap_weak_hashtable_uniq<key1_type,value_type>::garcol;
+		ht->_garcol_fun = garcol;
 		return cl_false;
 	}
 };

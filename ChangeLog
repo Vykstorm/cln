@@ -1,3 +1,18 @@
+2003-08-01  Richard Kreckel  <kreckel@ginac.de>
+
+	More dependent base resolution issues
+	* src/base/hash/cl_hash.h (cl_heap_hashtable<T>::iterator()): 
+	portable syntactic simplification.
+	* src/base/hash/cl_hashset.h: Preceed inherited members with this->.
+	* src/base/hash/cl_hash1.h: Likewise for member functions.
+	* src/base/hash/cl_hash2.h: Likewise.
+	* src/base/hash/cl_hashuniq.h: Likewise.
+	* src/base/hash/cl_hashuniqweak.h: Likewise.
+	* src/base/hash/cl_hash.h: Revert explicit static member function
+	lookup since that was GCC's fault.
+	* src/base/hash/cl_hash2weak.h: Likewise.
+	* src/base/hash/cl_hashuniqweak.h: Likewise.
+
 2003-06-29  Richard Kreckel  <kreckel@ginac.de>
 
 	Dependent base resolution needed for GCC-3.4

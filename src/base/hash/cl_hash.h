@@ -43,7 +43,7 @@ public:
     void operator delete (void* ptr) { free_hook(ptr); }
     // Constructor: build a new, empty table.
     cl_heap_hashtable (long initial_size = 5) : cl_heap (),
-        _size (initial_size), _count (0), _garcol_fun (cl_heap_hashtable<htentry>::no_garcol)
+        _size (initial_size), _count (0), _garcol_fun (no_garcol)
     {
         _modulus = compute_modulus(_size);
         _total_vector = malloc_hook(_modulus*sizeof(long) + _size*sizeof(htxentry));
@@ -181,12 +181,7 @@ public:
 template <class htentry>
 inline _cl_hashtable_iterator<htentry> cl_heap_hashtable<htentry>::iterator ()
 {
-#if defined(__GNUC__)
-    return _cl_hashtable_iterator<htentry>::_cl_hashtable_iterator(_entries,_size);
-#else // workaround most C++ compilers' bug
-    typedef _cl_hashtable_iterator<htentry> _cl_hashtable_iterator_type;
-    return _cl_hashtable_iterator_type(_entries,_size);
-#endif
+    return _cl_hashtable_iterator<htentry>(_entries,_size);
 }
 
 }  // namespace cln

@@ -30,8 +30,9 @@ struct cl_htentry2 {
 template <class key1_type, class key2_type, class value_type>
 struct cl_heap_hashtable_2 : public cl_heap_hashtable <cl_htentry2 <key1_type,key2_type,value_type> > {
 protected:
-    // Abbreviation.
-    typedef typename cl_heap_hashtable <cl_htentry2 <key1_type,key2_type,value_type> >::htxentry htxentry;
+    // Abbreviations.
+    typedef cl_heap_hashtable <cl_htentry2 <key1_type,key2_type,value_type> > inherited;
+    typedef typename inherited::htxentry htxentry;
 public:
     // Allocation.
     void* operator new (size_t size) { return malloc_hook(size); }
@@ -75,7 +76,7 @@ public:
         // Put it into the table.
         prepare_store();
         var long hindex = hcode % this->_modulus; // _modulus may have changed!
-        var long index = get_free_index();
+        var long index = this->get_free_index();
         new (&this->_entries[index].entry) cl_htentry2<key1_type,key2_type,value_type> (key1,key2,val);
         this->_entries[index].next = this->_slots[hindex];
         this->_slots[hindex] = 1+index;
@@ -95,7 +96,7 @@ public:
                 *_index = this->_entries[index].next;
                 this->_entries[index].~htxentry();
                 // The entry is now free.
-                put_free_index(index);
+                this->put_free_index(index);
                 // That's it.
                 this->_count--;
                 return;
@@ -133,7 +134,7 @@ private:
     void grow ()
     {
         var long new_size = this->_size + (this->_size >> 1) + 1; // _size*1.5
-        var long new_modulus = compute_modulus(new_size);
+        var long new_modulus = inherited::compute_modulus(new_size);
         var void* new_total_vector = malloc_hook(new_modulus*sizeof(long) + new_size*sizeof(htxentry));
         var long* new_slots = (long*) ((char*)new_total_vector + 0);
         var htxentry* new_entries = (htxentry *) ((char*)new_total_vector + new_modulus*sizeof(long));
