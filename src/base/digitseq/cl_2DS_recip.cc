@@ -13,7 +13,12 @@
 #include "cl_DS.h"
 
 // Break-even point of the Newton iteration vs. standard div2adic.
+#if CL_USE_GMP
+const unsigned int recip2adic_threshold = 620;
+#else
+// Use the old default values from CLN version <= 1.0.3 as a crude estimate.
 const unsigned int recip2adic_threshold = 380;
+#endif
 
 void recip2adic (uintC len, const uintD* a_LSDptr, uintD* dest_LSDptr)
 {

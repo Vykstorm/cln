@@ -7,6 +7,9 @@ Implementation changes
 * Removed internal copy of mpn/-tree from libgmp-2.0.2.  Configuring with
   --with-gmp now predepends on an installed libgmp library version 3 or above.
 
+* Adjusted several break-even points to make better use of a faster libgmp and
+  better match present-day CPUs.
+
 
 2000-01-13, version 1.0.3
 =========================
