@@ -14,6 +14,24 @@
 
 // We observe the following timings:
 // Time for square root of a_len = 2*N by b_len = N digits,
+// OS: Linux 2.2, intDsize==32,        OS: TRU64/4.0, intDsize==64,
+// Machine: P-III/450MHz               Machine: EV5/300MHz:
+//      N   standard  Newton           standard  Newton
+//      30   0.00002   0.00009          0.00011   0.00027
+//     100   0.00012   0.00052          0.00057   0.0017
+//     300   0.00087   0.0031           0.0037    0.0091
+//    1000   0.0089    0.020            0.037     0.069
+//    3000   0.087     0.11  <-(~3200)  0.30      0.28  <- (~2750)
+//   10000   1.27      0.55             3.5       1.3
+//   30000  12.7       1.35            31.1       3.4
+// Newton faster for 3200<N            Newton faster for 2750<N
+// When in doubt, prefer to choose the standard algorithm.
+#if CL_USE_GMP
+  static inline cl_boolean cl_recipsqrt_suitable (uintL n)
+  { return (cl_boolean)(n >= 3200); }
+#else
+// Use the old default values from CLN version <= 1.0.3 as a crude estimate.
+// Time for square root of a_len = 2*N by b_len = N digits,
 // on a i486 33 MHz running Linux:
 //      N   standard  Newton
 //      10    0.00022 0.00132
@@ -27,9 +45,9 @@
 //    5000   24.1    10.7
 //   10000   98      23.2
 //   -----> Newton faster for 1570 <= N <= 1790 and for N >= 2100.
-// When in doubt, prefer to choose the standard algorithm.
   static inline cl_boolean cl_recipsqrt_suitable (uintL n)
-    { return (cl_boolean)(n >= 2100); }
+  { return (cl_boolean)(n >= 2100); }
+#endif
 
 // Workaround gcc-2.7.0 bug on i386.
 #if defined(__GNUC__)

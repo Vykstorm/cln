@@ -64,7 +64,7 @@ const cl_LF sqrt (const cl_LF& x)
       var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
       // Wurzel ziehen:
 #ifndef CL_LF_PEDANTIC
-      if (len > 1900) // Das ist etwa 10% bis 20% schneller (im Mittel 15%).
+      if (len > 2900) // This is about 15% faster
         { // Kehrwert der Wurzel errechnen:
           var uintD* s_MSDptr;
           var uintD* s_LSDptr;

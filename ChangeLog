@@ -1,9 +1,14 @@
+2000-05-27  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/float/lfloat/algebraic/cl_LF_sqrt.cc,
+          src/base/digitseq/cl_DS_sqrt.cc: Readjusted break-even points.
+
 2000-05-24  Richard Kreckel  <kreckel@ginac.de>
 
         * autoconf/config.*: Updated to new version from FSF
           (the new libtool wants this).
         * src/Makefile.in: added $(LDFLAGS) to link step.
-        * src/base/digitseq/cl_2DS_div.cc, cl_2DS_recip.cc: Adjusted 
+        * src/base/digitseq/cl_2DS_div.cc, cl_2DS_recip.cc: Readjusted 
           break-even points.
 
 2000-05-23  Bruno Haible  <haible@clisp.cons.org>
