@@ -23,7 +23,7 @@ const cl_I digits_to_I (const char * MSBptr, uintL len, uintD base)
         // Fast path for powers of two: write the digits from least
         // significant to most significant into the result NUDS.
         var int b = (base==2 ? 1 : base==4 ? 2 : base==8 ? 3 : base==16 ? 4 : /*base==32*/ 5);
-        num_stack_alloc(1+(len*b-1)/intDsize,,erg_LSDptr=);
+        num_stack_alloc(1+(len*b)/intDsize,,erg_LSDptr=);
         erg_MSDptr = erg_LSDptr; erg_len = 0;
         var uintD d = 0;  // resulting digit
         var int ch_where = 0;  // position of ch inside d
