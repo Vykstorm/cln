@@ -72,7 +72,6 @@ const cl_N read_complex (std::istream& stream, const cl_read_flags& flags)
 		}
 		if (!(((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z'))))
 			goto syntax1;
-		buffer.push(c);
 		c = freadchar(stream);
 		if (c == cl_EOF) goto eof;
 		if (c == '(') {

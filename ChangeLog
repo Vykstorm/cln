@@ -1,3 +1,12 @@
+2004-10-26  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/input/cl_I_read_stream.cc (read_integer): Fix a bug
+	that caused radix specifiers to not work when reading from a stream.
+	* src/rational/input/cl_RA_read_stream.cc (read_rational): Likewise.
+	* src/real/input/cl_R_read_stream.cc (read_real): Likewise.
+	* src/float/input/cl_F_read_stream.cc (read_float): Likewise.
+	* src/complex/input/cl_N_read_stream.cc (read_complex): Likewise.
+
 2004-10-25  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/cl_low.h: Add mulu64 assembler macro for ia64.
