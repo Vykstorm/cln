@@ -64,7 +64,7 @@
   #endif
   // Globalize a label defined in the same translation unit.
   // See macro ASM_GLOBALIZE_LABEL in the gcc sources.
-  #if defined(__i386__) || defined(__m68k__) || defined(__mips__) || defined(__mips64__) || defined(__alpha__) || defined(__rs6000__)
+  #if defined(__i386__) || defined(__m68k__) || defined(__mips__) || defined(__mips64__) || defined(__alpha__) || defined(__rs6000__) || defined(__s390__)
     // Some m68k systems use "xdef" or "global" or ".global"...
     #define CL_GLOBALIZE_LABEL(label)  __asm__("\t.globl " label);
   #endif
@@ -151,6 +151,9 @@
   #endif
   #if defined(__ia64__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("br " #addr)
+  #endif
+  #if defined(__s390__)
+    #define CL_JUMP_TO(addr)  ASM_VOLATILE("br %0" : : "a" ((void*)(addr)))
   #endif
   #ifdef CL_GLOBAL_DESTRUCTOR_PREFIX
     #define CL_PROVIDE(module)  \

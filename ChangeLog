@@ -1,3 +1,10 @@
+2001-12-14  Richard Kreckel  <kreckel@ginac.de>
+
+        * include/cln/modules.h, include/cln/object.h: add support for
+          s390.
+        * src/numtheory/cl_nt_sqrtmodp.cc: workaround for GCC2.x compiler-bug
+          on s390, provided by Gerhard Tonn.
+
 2001-11-05  Richard Kreckel  <kreckel@ginac.de>
 
         * autoconf/ltmain.sh: Upgrade to libtool-1.4.2.

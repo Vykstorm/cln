@@ -173,6 +173,16 @@ static const sqrt_mod_p_t cantor_zassenhaus_sqrt (const cl_modint_ring& R, const
 	}
 }
 
+#if defined(__GNUC__) && defined(__s390__) && (__GNUC__ == 2)  // Workaround GCC-bug (see below)
+		struct cl_sylow2gen_property : public cl_property {
+			SUBCLASS_cl_property();
+		public:
+			cl_I h_rep;
+			// Constructor.
+			cl_sylow2gen_property (const cl_symbol& k, const cl_MI& h) : cl_property (k), h_rep (h.rep) {}
+		};
+#endif
+
 // Algorithm 3 (for p > 2 only):
 // Tonelli-Shanks.
 // [Cohen, A Course in Computational Algebraic Number Theory,
@@ -213,6 +223,7 @@ static const sqrt_mod_p_t tonelli_shanks_sqrt (const cl_modint_ring& R, const cl
 		// Since this computation is a bit costly, we cache its result
 		// on the ring's property list.
 		static const cl_symbol key = (cl_symbol)(cl_string)"generator of 2-Sylow subgroup of (Z/pZ)^*";
+#if !(defined(__GNUC__) && defined(__s390__) && (__GNUC__ == 2))  // Workaround GCC-bug (see above)
 		struct cl_sylow2gen_property : public cl_property {
 			SUBCLASS_cl_property();
 		public:
@@ -220,6 +231,7 @@ static const sqrt_mod_p_t tonelli_shanks_sqrt (const cl_modint_ring& R, const cl
 			// Constructor.
 			cl_sylow2gen_property (const cl_symbol& k, const cl_MI& h) : cl_property (k), h_rep (h.rep) {}
 		};
+#endif
 		var cl_sylow2gen_property* prop = (cl_sylow2gen_property*) R->get_property(key);
 		if (prop)
 			h = cl_MI(R,prop->h_rep);
