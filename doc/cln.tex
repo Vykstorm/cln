@@ -393,16 +393,14 @@ Currently CLN works only with the GNU @code{g++} compiler, and only in
 optimizing mode. So you should specify at least @code{-O} in the CXXFLAGS,
 or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
 
-If you use @code{g++} version 2.8.x or egcs-2.91.x (a.k.a. egcs-1.1) or
-gcc-2.95.x, I recommend adding @samp{-fno-exceptions} to the CXXFLAGS.
-This will likely generate better code.
+If you use @code{g++} gcc-2.95.x or gcc-3.0, I recommend adding
+@samp{-fno-exceptions} to the CXXFLAGS. This will likely generate better code.
 
-If you use @code{g++} version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
-add either @samp{-O}, @samp{-O1} or @samp{-O2 -fno-schedule-insns} to the 
-CXXFLAGS.  With full @samp{-O2}, @code{g++} miscompiles the division routines.
-Also, if you have @code{g++} version egcs-1.1.1 or older on Sparc, you must
-specify @samp{--disable-shared} because @code{g++} would miscompile parts of 
-the library.
+If you use @code{g++} from gcc-2.95.x on Sparc, add either @samp{-O},
+@samp{-O1} or @samp{-O2 -fno-schedule-insns} to the CXXFLAGS. With full
+@samp{-O2}, @code{g++} miscompiles the division routines. Also, on OSF/1 or
+Tru64 using gcc-2.95.x, you should specify @samp{--disable-shared} because of
+linker problems with duplicate symbols in shared libraries.
 
 By default, both a shared and a static library are built.  You can build
 CLN as a static (or shared) library only, by calling @code{configure} with

@@ -11,22 +11,27 @@ $ make install
 You need GNU make. On HP-UX, you also need GNU sed.
 
 Known to work with:
-  - Linux/x86, gcc-2.8.0, egcs-1.1, gcc-2.95.x
-  - Solaris 2.4 (sparc), egcs-1.1, gcc-2.95
-  - OSF/1 V4.0 (alpha), egcs-1.1, gcc-2.95
+  - Linux/x86, gcc-2.95.x, gcc-3.0(pre)
+  - Linux/ia64, gcc-2.96, gcc-3.0(pre)
+  - Linux/arm, gcc-2.95.3
+  - Linux/sparc, gcc-2.95.3
+  - Linux/alpha, gcc-2.95.x
+  - Linux/powerpc, gcc-2.95.x
+  - Solaris 2.4 (sparc), gcc-2.95
+  - OSF/1 V4.0 (alpha), gcc-2.95
   - Irix 6.5, gcc-2.95
+  - BeOS, gcc-2.95
 
 The "make" step takes about 1 hour, on a P-II / 400 MHz / 64 MB.
 
-If you use g++ version 2.8.x or egcs-2.91.x (a.k.a. egcs-1.1) or gcc-2.95.x,
-I recommend adding "-fno-exceptions" to the CXXFLAGS. This will likely
-generate better code.
+If you use g++ gcc-2.95.x or gcc-3.0, I recommend adding "-fno-exceptions" 
+to the CXXFLAGS. This will likely generate better code.
 
-If you use g++ version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc, add
-either "-O", "-O1" or "-O2 -fno-schedule-insns" to the CXXFLAGS. With full 
-"-O2", g++ miscompiles the division routines. Also, if you have g++ version
-egcs-1.1.1 or older on Sparc, you must specify --disable-shared because g++
-would miscompile parts of the library.
+If you use g++ from gcc-2.95.x on Sparc, add either "-O", "-O1" or
+"-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2", g++ miscompiles
+the division routines. Also, on OSF/1 or Tru64 using gcc-2.95.x, you should
+specify --disable-shared because of linker problems with duplicate symbols
+in shared libraries.
 
 More detailed installation instructions can be found in the documentation,
 in the doc/ directory.

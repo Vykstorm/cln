@@ -1,3 +1,8 @@
+2001-05-19  Richard Kreckel  <kreckel@ginac.de>
+
+        * INSTALL: Update toolchain info: no egcs, some more platforms.
+        * doc/cln.tex: Likewise.
+
 2001-05-18  Richard Kreckel  <kreckel@ginac.de>
 
         * src/base/cl_low.h: prepended variables declared inside macros
