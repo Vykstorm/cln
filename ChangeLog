@@ -1,3 +1,9 @@
+2000-05-31  Bruno Haible  <haible@clisp.cons.org>
+
+        * tests/exam_I_floor.cc (integer_floor_tests): Add one more entry.
+          From a sample that fails with gcc-2.95.2 on Sparc.
+        * tests/exam_I_gcd.cc (integer_gcd_tests): Likewise.
+
 2000-05-30  Richard Kreckel  <kreckel@ginac.de>
 
         * configure.in, autoconf/aclocal.m4 (CL_GMP_H_VERSION, CL_GMP_CHECK):
