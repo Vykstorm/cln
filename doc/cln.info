@@ -1,5 +1,4 @@
-This is Info file cln.info, produced by Makeinfo version 1.68 from the
-input file cln.texi.
+This is cln.info, produced by makeinfo version 4.0 from cln.texi.
 
 This file documents CLN, a Class Library for Numbers.
 
@@ -41,7 +40,8 @@ File: cln.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 * Customizing::
 * Index::
 
- -- The Detailed Node Listing --
+
+ --- The Detailed Node Listing ---
 
 Installation
 
@@ -55,6 +55,10 @@ Prerequisites
 * C++ compiler::
 * Make utility::
 * Sed utility::
+
+Building the library
+
+* Using the GNU MP Library::
 
 Ordinary number types
 
@@ -383,6 +387,30 @@ shared library too, by calling `configure' with the option
 If you use `g++' version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
 use `--enable-shared' because `g++' would miscompile parts of the
 library.
+
+* Menu:
+
+* Using the GNU MP Library::
+
+
+File: cln.info,  Node: Using the GNU MP Library,  Prev: Building the library,  Up: Building the library
+
+Using the GNU MP Library
+------------------------
+
+Starting with version 1.0.4, CLN may be configured to make use of a
+preinstalled `gmp' library.  Please make sure that you have at least
+`gmp' version 3.0 installed since earlier versions are unsupported and
+likely not to work.  Enabling this feature by calling `configure' with
+the option `--with-gmp' is known to be quite a boost for CLN's
+performance.
+
+If you have installed the `gmp' library and its header file in some
+place where your compiler cannot find it by default, you must help
+`configure' by setting `CPPFLAGS' and `LDFLAGS'.  Here is an example:
+
+     $ CC="gcc" CFLAGS="-O2" CXX="g++" CXXFLAGS="-O2 -fno-exceptions" \
+       CPPFLAGS="-I/opt/gmp/include" LDFLAGS="-L/opt/gmp/lib" ./configure --with-gmp
 
 
 File: cln.info,  Node: Installing the library,  Next: Cleaning up,  Prev: Building the library,  Up: Installation
@@ -812,7 +840,7 @@ Each of the classes `cl_N', `cl_R', `cl_RA', `cl_F', `cl_SF', `cl_FF',
 The class `cl_I' doesn't define a `/' operation because in the C/C++
 language this operator, applied to integral types, denotes the `floor'
 or `truncate' operation (which one of these, is implementation
-dependent). (*Note Rounding functions::) Instead, `cl_I' defines an
+dependent). (*Note Rounding functions::.)  Instead, `cl_I' defines an
 "exact quotient" function:
 
 `cl_I exquo (const cl_I& x, const cl_I& y)'
@@ -2002,7 +2030,8 @@ with the macro CL_IO_STDIO being defined, `cl_istream' is the same as
 `istream&'.
 
 The variable
-     `cl_istream cl_stdin' contains the standard input stream.
+     `cl_istream cl_stdin'
+contains the standard input stream.
 
 These are the simple input functions:
 
@@ -2102,10 +2131,12 @@ CLN with the macro CL_IO_STDIO being defined, `cl_ostream' is the same
 as `ostream&'.
 
 The variable
-     `cl_ostream cl_stdout' contains the standard output stream.
+     `cl_ostream cl_stdout'
+contains the standard output stream.
 
 The variable
-     `cl_ostream cl_stderr' contains the standard error output stream.
+     `cl_ostream cl_stderr'
+contains the standard error output stream.
 
 These are the simple output functions:
 
@@ -3282,7 +3313,7 @@ Index
 * acosh ():                              Hyperbolic functions.
 * advocacy:                              Why C++ ?.
 * Archimedes' constant:                  Trigonometric functions.
-* As() ():                               Conversions.
+* As()():                                Conversions.
 * ash ():                                Logical functions.
 * asin:                                  Trigonometric functions.
 * asin ():                               Trigonometric functions.
@@ -3332,17 +3363,21 @@ Index
 * cl_default_print_flags:                Customizing I/O.
 * cl_default_random_state:               Random number generators.
 * cl_DF:                                 Floating-point numbers.
+* cl_DF_fdiv_t:                          Rounding functions.
 * cl_double_approx ():                   Conversions.
 * cl_equal_hashcode ():                  Comparisons.
 * cl_eulerconst ():                      Euler gamma.
 * cl_F <1>:                              Floating-point numbers.
 * cl_F:                                  Ordinary number types.
+* cl_F_fdiv_t:                           Rounding functions.
 * cl_FF:                                 Floating-point numbers.
+* cl_FF_fdiv_t:                          Rounding functions.
 * cl_find_modint_ring ():                Modular integer rings.
 * cl_find_univpoly_ring ():              Univariate polynomial rings.
-* cl_float:                              Conversion to floating-point numbers.
+* cl_float ():                           Conversion to floating-point numbers.
 * cl_float_approx ():                    Conversions.
 * cl_float_format ():                    Conversion to floating-point numbers.
+* cl_float_format_t:                     Conversion to floating-point numbers.
 * cl_free_hook ():                       Customizing the memory allocator.
 * cl_hermite ():                         Special polynomials.
 * cl_I_to_int ():                        Conversions.
@@ -3353,13 +3388,18 @@ Index
 * cl_laguerre ():                        Special polynomials.
 * cl_legendre ():                        Special polynomials.
 * cl_LF:                                 Floating-point numbers.
+* cl_LF_fdiv_t:                          Rounding functions.
 * cl_malloc_hook ():                     Customizing the memory allocator.
+* cl_modint_ring:                        Modular integer rings.
 * cl_N:                                  Ordinary number types.
 * cl_number:                             Ordinary number types.
-* cl_pi:                                 Trigonometric functions.
+* cl_pi ():                              Trigonometric functions.
 * cl_R:                                  Ordinary number types.
+* cl_R_fdiv_t:                           Rounding functions.
 * cl_RA:                                 Ordinary number types.
+* cl_random_state:                       Random number generators.
 * cl_SF:                                 Floating-point numbers.
+* cl_SF_fdiv_t:                          Rounding functions.
 * cl_string ():                          Strings.
 * cl_symbol ():                          Symbols.
 * cl_tschebychev ():                     Special polynomials.
@@ -3389,7 +3429,6 @@ Index
 * dpb ():                                Logical functions.
 * equal () <1>:                          Symbols.
 * equal ():                              Strings.
-* etract ():                             Functions on modular integers.
 * Euler's constant:                      Euler gamma.
 * evenp ():                              Logical functions.
 * exact number:                          Exact numbers.
@@ -3428,6 +3467,7 @@ Index
 * garbage collection <1>:                Garbage collection.
 * garbage collection:                    Memory efficiency.
 * gcd ():                                Number theoretic functions.
+* GMP <1>:                               Using the GNU MP Library.
 * GMP:                                   Introduction.
 * header files:                          Include files.
 * Hermite polynomial:                    Special polynomials.
@@ -3464,7 +3504,7 @@ Index
 * logp ():                               Number theoretic functions.
 * logtest ():                            Logical functions.
 * logxor ():                             Logical functions.
-* make:                                  C++ compiler.
+* make:                                  Make utility.
 * mask_field ():                         Logical functions.
 * max ():                                Comparisons.
 * min ():                                Comparisons.
@@ -3551,10 +3591,11 @@ Index
 * reference counting:                    Memory efficiency.
 * rem ():                                Rounding functions.
 * representation:                        Internal and printed representation.
+* retract ():                            Functions on modular integers.
 * Riemann's zeta:                        Riemann zeta.
 * ring:                                  Modular integer rings.
-* ring ():                               Functions on univariate polynomials.
-* ring():                                Functions on modular integers.
+* ring () <1>:                           Functions on univariate polynomials.
+* ring ():                               Functions on modular integers.
 * rootp ():                              Roots.
 * round1 ():                             Rounding functions.
 * round2 ():                             Rounding functions.
@@ -3562,9 +3603,9 @@ Index
 * rounding error:                        Floating-point numbers.
 * Rubik's cube:                          Conversions.
 * scale_float ():                        Functions on floating-point numbers.
-* Schönhage-Strassen:                    Speed efficiency.
+* Schönhage-Strassen multiplication <1>: Speed efficiency.
 * Schönhage-Strassen multiplication:     Introduction.
-* sed:                                   Make utility.
+* sed:                                   Sed utility.
 * set_coeff ():                          Functions on univariate polynomials.
 * signum ():                             Elementary functions.
 * sin ():                                Trigonometric functions.
@@ -3580,7 +3621,7 @@ Index
 * symbolic type:                         Symbolic data types.
 * tan ():                                Trigonometric functions.
 * tanh ():                               Hyperbolic functions.
-* The() ():                              Conversions.
+* The()():                               Conversions.
 * transcendental functions:              Transcendental functions.
 * truncate1 ():                          Rounding functions.
 * truncate2 ():                          Rounding functions.
@@ -3598,79 +3639,80 @@ Index
 
 
 Tag Table:
-Node: Top957
-Node: Introduction3124
-Node: Installation5646
-Node: Prerequisites5940
-Node: C++ compiler6138
-Node: Make utility6853
-Node: Sed utility7039
-Node: Building the library7359
-Node: Installing the library10541
-Node: Cleaning up11264
-Node: Ordinary number types11589
-Node: Exact numbers13936
-Node: Floating-point numbers15101
-Node: Complex numbers18680
-Node: Conversions19177
-Node: Functions on numbers22643
-Node: Constructing numbers23346
-Node: Constructing integers23718
-Node: Constructing rational numbers24008
-Node: Constructing floating-point numbers24483
-Node: Constructing complex numbers25603
-Node: Elementary functions25967
-Node: Elementary rational functions28434
-Node: Elementary complex functions29006
-Node: Comparisons29834
-Node: Rounding functions31733
-Node: Roots37510
-Node: Transcendental functions39391
-Node: Exponential and logarithmic functions39947
-Node: Trigonometric functions41964
-Node: Hyperbolic functions45315
-Node: Euler gamma47388
-Node: Riemann zeta48304
-Node: Functions on integers48860
-Node: Logical functions49148
-Node: Number theoretic functions55101
-Node: Combinatorial functions56468
-Node: Functions on floating-point numbers57146
-Node: Conversion functions60377
-Node: Conversion to floating-point numbers60657
-Node: Conversion to rational numbers62880
-Node: Random number generators63934
-Node: Obfuscating operators65608
-Node: Input/Output67338
-Node: Internal and printed representation67548
-Node: Input functions70090
-Node: Output functions74641
-Node: Rings78377
-Node: Modular integers80301
-Node: Modular integer rings80501
-Node: Functions on modular integers82591
-Node: Symbolic data types85601
-Node: Strings85864
-Node: Symbols86929
-Node: Univariate polynomials87831
-Node: Univariate polynomial rings88089
-Node: Functions on univariate polynomials93043
-Node: Special polynomials96824
-Node: Internals97544
-Node: Why C++ ?97758
-Node: Memory efficiency99258
-Node: Speed efficiency99956
-Node: Garbage collection101040
-Node: Using the library101867
-Node: Compiler options102401
-Node: Include files103319
-Node: An Example106960
-Node: Debugging support110110
-Node: Customizing112460
-Node: Error handling112688
-Node: Floating-point underflow113262
-Node: Customizing I/O113901
-Node: Customizing the memory allocator114194
-Node: Index115151
+Node: Top931
+Node: Introduction3153
+Node: Installation5675
+Node: Prerequisites5969
+Node: C++ compiler6167
+Node: Make utility6882
+Node: Sed utility7068
+Node: Building the library7388
+Node: Using the GNU MP Library10609
+Node: Installing the library11487
+Node: Cleaning up12210
+Node: Ordinary number types12535
+Node: Exact numbers14882
+Node: Floating-point numbers16047
+Node: Complex numbers19626
+Node: Conversions20123
+Node: Functions on numbers23589
+Node: Constructing numbers24292
+Node: Constructing integers24664
+Node: Constructing rational numbers24954
+Node: Constructing floating-point numbers25429
+Node: Constructing complex numbers26549
+Node: Elementary functions26913
+Node: Elementary rational functions29382
+Node: Elementary complex functions29954
+Node: Comparisons30782
+Node: Rounding functions32681
+Node: Roots38458
+Node: Transcendental functions40339
+Node: Exponential and logarithmic functions40895
+Node: Trigonometric functions42912
+Node: Hyperbolic functions46263
+Node: Euler gamma48336
+Node: Riemann zeta49252
+Node: Functions on integers49808
+Node: Logical functions50096
+Node: Number theoretic functions56049
+Node: Combinatorial functions57416
+Node: Functions on floating-point numbers58094
+Node: Conversion functions61325
+Node: Conversion to floating-point numbers61605
+Node: Conversion to rational numbers63828
+Node: Random number generators64882
+Node: Obfuscating operators66556
+Node: Input/Output68286
+Node: Internal and printed representation68496
+Node: Input functions71038
+Node: Output functions75589
+Node: Rings79325
+Node: Modular integers81249
+Node: Modular integer rings81449
+Node: Functions on modular integers83539
+Node: Symbolic data types86549
+Node: Strings86812
+Node: Symbols87877
+Node: Univariate polynomials88779
+Node: Univariate polynomial rings89037
+Node: Functions on univariate polynomials93991
+Node: Special polynomials97772
+Node: Internals98492
+Node: Why C++ ?98706
+Node: Memory efficiency100206
+Node: Speed efficiency100904
+Node: Garbage collection101988
+Node: Using the library102815
+Node: Compiler options103349
+Node: Include files104267
+Node: An Example107908
+Node: Debugging support111058
+Node: Customizing113408
+Node: Error handling113636
+Node: Floating-point underflow114210
+Node: Customizing I/O114849
+Node: Customizing the memory allocator115142
+Node: Index116099
 
 End Tag Table

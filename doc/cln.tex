@@ -283,13 +283,13 @@ initializations will not work.
 @end itemize
 @end ignore
 
-@cindex @code{make}
 @subsection Make utility
+@cindex @code{make}
 
 To build CLN, you also need to have GNU @code{make} installed.
 
-@cindex @code{sed}
 @subsection Sed utility
+@cindex @code{sed}
 
 To build CLN on HP-UX, you also need to have GNU @code{sed} installed.
 This is because the libtool script, which creates the CLN library, relies
@@ -409,6 +409,27 @@ To get it built as a shared library only, call @code{configure} with the options
 If you use @code{g++} version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
 use @samp{--enable-shared} because @code{g++} would miscompile parts of the
 library.
+
+
+@subsection Using the GNU MP Library
+@cindex GMP
+
+Starting with version 1.0.4, CLN may be configured to make use of a
+preinstalled @code{gmp} library.  Please make sure that you have at
+least @code{gmp} version 3.0 installed since earlier versions are
+unsupported and likely not to work.  Enabling this feature by calling
+@code{configure} with the option @samp{--with-gmp} is known to be quite
+a boost for CLN's performance.
+
+If you have installed the @code{gmp} library and its header file in
+some place where your compiler cannot find it by default, you must help
+@code{configure} by setting @code{CPPFLAGS} and @code{LDFLAGS}.  Here is
+an example:
+
+@example
+$ CC="gcc" CFLAGS="-O2" CXX="g++" CXXFLAGS="-O2 -fno-exceptions" \
+  CPPFLAGS="-I/opt/gmp/include" LDFLAGS="-L/opt/gmp/lib" ./configure --with-gmp
+@end example
 
 
 @section Installing the library
@@ -721,10 +742,10 @@ Conversions from any class to any of its subclasses (``derived classes'' in
 C++ terminology) are not provided. Instead, you can assert and check
 that a value belongs to a certain subclass, and return it as element of that
 class, using the @samp{As} and @samp{The} macros.
-@cindex @code{As() ()}
+@cindex @code{As()()}
 @code{As(@var{type})(@var{value})} checks that @var{value} belongs to
 @var{type} and returns it as such.
-@cindex @code{The() ()}
+@cindex @code{The()()}
 @code{The(@var{type})(@var{value})} assumes that @var{value} belongs to
 @var{type} and returns it as such. It is your responsibility to ensure
 that this assumption is valid.
@@ -852,7 +873,7 @@ Returns the reciprocal of the argument.
 The class @code{cl_I} doesn't define a @samp{/} operation because
 in the C/C++ language this operator, applied to integral types,
 denotes the @samp{floor} or @samp{truncate} operation (which one of these,
-is implementation dependent). (@xref{Rounding functions})
+is implementation dependent). (@xref{Rounding functions}.)
 Instead, @code{cl_I} defines an ``exact quotient'' function:
 
 @table @code
@@ -1196,6 +1217,11 @@ and the remainder. The suffix @samp{2} indicates this.
 Each of the classes
 @code{cl_F}, @code{cl_SF}, @code{cl_FF}, @code{cl_DF}, @code{cl_LF}
 defines the following operations:
+@cindex @code{cl_F_fdiv_t}
+@cindex @code{cl_SF_fdiv_t}
+@cindex @code{cl_FF_fdiv_t}
+@cindex @code{cl_DF_fdiv_t}
+@cindex @code{cl_LF_fdiv_t}
 
 @table @code
 @item struct @var{type}_fdiv_t @{ @var{type} quotient; @var{type} remainder; @};
@@ -1209,6 +1235,7 @@ defines the following operations:
 @cindex @code{fround2 ()}
 @end table
 and similarly for class @code{cl_R}, but with quotient type @code{cl_F}.
+@cindex @code{cl_R_fdiv_t}
 
 The class @code{cl_R} defines the following operations:
 
@@ -1482,7 +1509,7 @@ Archimedes' constant pi = 3.14@dots{} is returned by the following functions:
 
 @table @code
 @item cl_F cl_pi (cl_float_format_t f)
-@cindex @code{cl_pi}
+@cindex @code{cl_pi ()}
 Returns pi as a float of format @code{f}.
 
 @item cl_F cl_pi (const cl_F& y)
@@ -2083,6 +2110,7 @@ zero, it is treated as positive. Same for @code{y}.
 @subsection Conversion to floating-point numbers
 
 The type @code{cl_float_format_t} describes a floating-point format.
+@cindex @code{cl_float_format_t}
 
 @table @code
 @item cl_float_format_t cl_float_format (uintL n)
@@ -2106,7 +2134,7 @@ defines the following operations:
 
 @table @code
 @item cl_F cl_float (const @var{type}&x, cl_float_format_t f)
-@cindex @code{cl_float}
+@cindex @code{cl_float ()}
 Returns @code{x} as a float of format @code{f}.
 @item cl_F cl_float (const @var{type}&x, const cl_F& y)
 Returns @code{x} in the float format of @code{y}.
@@ -2198,6 +2226,7 @@ Calling one of these modifies the state of the random number generator in
 a complicated but deterministic way.
 
 The global variable
+@cindex @code{cl_random_state}
 @cindex @code{cl_default_random_state}
 @example
 cl_random_state cl_default_random_state
@@ -2684,6 +2713,7 @@ The class of modular integer rings is
                     cl_modint_ring
                    <cl_modinteger.h>
 @end example
+@cindex @code{cl_modint_ring}
 
 and the class of all modular integers (elements of modular integer rings) is
 
@@ -2742,7 +2772,7 @@ This returns @code{1 mod N}.
 This returns @code{x mod N}.
 
 @item cl_I R->retract (const cl_MI& x)
-@cindex @code{etract ()}
+@cindex @code{retract ()}
 This is a partial inverse function to @code{R->canonhom}. It returns the
 standard representative (@code{>=0}, @code{<N}) of @code{x}.
 
@@ -2756,7 +2786,7 @@ The following operations are defined on modular integers.
 
 @table @code
 @item cl_modint_ring x.ring ()
-@cindex @code{ring()}
+@cindex @code{ring ()}
 Returns the ring to which the modular integer @code{x} belongs.
 
 @item cl_MI operator+ (const cl_MI&, const cl_MI&)
@@ -3015,7 +3045,7 @@ There is a cache table of rings, indexed by @code{R} and @code{varname}.
 This ensures that two calls of this function with the same arguments will
 return the same polynomial ring.
 
-@item cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R)
+@itemx cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R)
 @cindex @code{cl_find_univpoly_ring ()}
 @itemx cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R, const cl_symbol& varname)
 @itemx cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring& R)
@@ -3279,14 +3309,14 @@ algorithm.
 For very large numbers (more than 12000 decimal digits), CLN uses
 @iftex
 Sch{@"o}nhage-Strassen
-@cindex Sch{@"o}nhage-Strassen
+@cindex Sch{@"o}nhage-Strassen multiplication
 @end iftex
 @ifinfo
 Schönhage-Strassen
-@cindex Schönhage-Strassen
+@cindex Schönhage-Strassen multiplication
 @end ifinfo
-multiplication, which is an asymptotically
-optimal multiplication algorithm.
+multiplication, which is an asymptotically optimal multiplication 
+algorithm.
 @item
 These fast multiplication algorithms also give improvements in the speed
 of division and radix conversion.

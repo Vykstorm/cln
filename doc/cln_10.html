@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 5 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 10. Internals</TITLE>
 </HEAD>
@@ -9,13 +9,13 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_9.html">previous</A>, <A 
 <P><HR><P>
 
 
-<H1><A NAME="SEC58" HREF="cln_toc.html#TOC58">10. Internals</A></H1>
+<H1><A NAME="SEC59" HREF="cln_toc.html#TOC59">10. Internals</A></H1>
 
 
 
-<H2><A NAME="SEC59" HREF="cln_toc.html#TOC59">10.1 Why C++ ?</A></H2>
+<H2><A NAME="SEC60" HREF="cln_toc.html#TOC60">10.1 Why C++ ?</A></H2>
 <P>
-<A NAME="IDX303"></A>
+<A NAME="IDX313"></A>
 
 
 <P>
@@ -30,7 +30,7 @@ Efficiency: It compiles to machine code.
 
 <LI>
 
-<A NAME="IDX304"></A>
+<A NAME="IDX314"></A>
 Portability: It runs on all platforms supporting a C++ compiler. Because
 of the availability of GNU C++, this includes all currently used 32-bit and
 64-bit platforms, independently of the quality of the vendor's C++ compiler.
@@ -62,7 +62,7 @@ in a high-level language.
 
 
 
-<H2><A NAME="SEC60" HREF="cln_toc.html#TOC60">10.2 Memory efficiency</A></H2>
+<H2><A NAME="SEC61" HREF="cln_toc.html#TOC61">10.2 Memory efficiency</A></H2>
 
 <P>
 In order to save memory allocations, CLN implements:
@@ -76,8 +76,8 @@ Object sharing: An operation like <CODE>x+0</CODE> returns <CODE>x</CODE> withou
 it.
 <LI>
 
-<A NAME="IDX305"></A>
-<A NAME="IDX306"></A>
+<A NAME="IDX315"></A>
+<A NAME="IDX316"></A>
 Garbage collection: A reference counting mechanism makes sure that any
 number object's storage is freed immediately when the last reference to the
 object is gone.
@@ -91,7 +91,7 @@ on the heap.
 
 
 
-<H2><A NAME="SEC61" HREF="cln_toc.html#TOC61">10.3 Speed efficiency</A></H2>
+<H2><A NAME="SEC62" HREF="cln_toc.html#TOC62">10.3 Speed efficiency</A></H2>
 
 <P>
 Speed efficiency is obtained by the combination of the following tricks
@@ -122,9 +122,9 @@ algorithm.
 
 For very large numbers (more than 12000 decimal digits), CLN uses
 Schönhage-Strassen
-<A NAME="IDX307"></A>
-multiplication, which is an asymptotically
-optimal multiplication algorithm.
+<A NAME="IDX317"></A>
+multiplication, which is an asymptotically optimal multiplication 
+algorithm.
 <LI>
 
 These fast multiplication algorithms also give improvements in the speed
@@ -133,9 +133,9 @@ of division and radix conversion.
 
 
 
-<H2><A NAME="SEC62" HREF="cln_toc.html#TOC62">10.4 Garbage collection</A></H2>
+<H2><A NAME="SEC63" HREF="cln_toc.html#TOC63">10.4 Garbage collection</A></H2>
 <P>
-<A NAME="IDX308"></A>
+<A NAME="IDX318"></A>
 
 
 <P>

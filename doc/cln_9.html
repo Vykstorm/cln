@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 5 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 9. Univariate polynomials</TITLE>
 </HEAD>
@@ -9,15 +9,15 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_8.html">previous</A>, <A 
 <P><HR><P>
 
 
-<H1><A NAME="SEC54" HREF="cln_toc.html#TOC54">9. Univariate polynomials</A></H1>
+<H1><A NAME="SEC55" HREF="cln_toc.html#TOC55">9. Univariate polynomials</A></H1>
 <P>
-<A NAME="IDX269"></A>
-<A NAME="IDX270"></A>
+<A NAME="IDX279"></A>
+<A NAME="IDX280"></A>
 
 
 
 
-<H2><A NAME="SEC55" HREF="cln_toc.html#TOC55">9.1 Univariate polynomial rings</A></H2>
+<H2><A NAME="SEC56" HREF="cln_toc.html#TOC56">9.1 Univariate polynomial rings</A></H2>
 
 <P>
 CLN implements univariate polynomials (polynomials in one variable) over an
@@ -125,7 +125,7 @@ return the same polynomial ring.
 
 <DT><CODE>cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring&#38; R)</CODE>
 <DD>
-<A NAME="IDX271"></A>
+<A NAME="IDX281"></A>
 <DT><CODE>cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring&#38; R, const cl_symbol&#38; varname)</CODE>
 <DD>
 <DT><CODE>cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring&#38; R)</CODE>
@@ -150,7 +150,7 @@ only the return type is more specific, according to the base ring's type.
 
 
 
-<H2><A NAME="SEC56" HREF="cln_toc.html#TOC56">9.2 Functions on univariate polynomials</A></H2>
+<H2><A NAME="SEC57" HREF="cln_toc.html#TOC57">9.2 Functions on univariate polynomials</A></H2>
 
 <P>
 Given a univariate polynomial ring <CODE>R</CODE>, the following members can be used.
@@ -160,33 +160,33 @@ Given a univariate polynomial ring <CODE>R</CODE>, the following members can be 
 
 <DT><CODE>cl_ring R-&#62;basering()</CODE>
 <DD>
-<A NAME="IDX272"></A>
+<A NAME="IDX282"></A>
 This returns the base ring, as passed to <SAMP>`cl_find_univpoly_ring'</SAMP>.
 
 <DT><CODE>cl_UP R-&#62;zero()</CODE>
 <DD>
-<A NAME="IDX273"></A>
+<A NAME="IDX283"></A>
 This returns <CODE>0 in R</CODE>, a polynomial of degree -1.
 
 <DT><CODE>cl_UP R-&#62;one()</CODE>
 <DD>
-<A NAME="IDX274"></A>
+<A NAME="IDX284"></A>
 This returns <CODE>1 in R</CODE>, a polynomial of degree &#60;= 0.
 
 <DT><CODE>cl_UP R-&#62;canonhom (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX275"></A>
+<A NAME="IDX285"></A>
 This returns <CODE>x in R</CODE>, a polynomial of degree &#60;= 0.
 
 <DT><CODE>cl_UP R-&#62;monomial (const cl_ring_element&#38; x, uintL e)</CODE>
 <DD>
-<A NAME="IDX276"></A>
+<A NAME="IDX286"></A>
 This returns a sparse polynomial: <CODE>x * X^e</CODE>, where <CODE>X</CODE> is the
 indeterminate.
 
 <DT><CODE>cl_UP R-&#62;create (sintL degree)</CODE>
 <DD>
-<A NAME="IDX277"></A>
+<A NAME="IDX287"></A>
 Creates a new polynomial with a given degree. The zero polynomial has degree
 <CODE>-1</CODE>. After creating the polynomial, you should put in the coefficients,
 using the <CODE>set_coeff</CODE> member function, and then call the <CODE>finalize</CODE>
@@ -201,14 +201,14 @@ The following are the only destructive operations on univariate polynomials.
 
 <DT><CODE>void set_coeff (cl_UP&#38; x, uintL index, const cl_ring_element&#38; y)</CODE>
 <DD>
-<A NAME="IDX278"></A>
+<A NAME="IDX288"></A>
 This changes the coefficient of <CODE>X^index</CODE> in <CODE>x</CODE> to be <CODE>y</CODE>.
 After changing a polynomial and before applying any "normal" operation on it,
 you should call its <CODE>finalize</CODE> member function.
 
 <DT><CODE>void finalize (cl_UP&#38; x)</CODE>
 <DD>
-<A NAME="IDX279"></A>
+<A NAME="IDX289"></A>
 This function marks the endpoint of destructive modifications of a polynomial.
 It normalizes the internal representation so that subsequent computations have
 less overhead. Doing normal computations on unnormalized polynomials may
@@ -223,17 +223,17 @@ The following operations are defined on univariate polynomials.
 
 <DT><CODE>cl_univpoly_ring x.ring ()</CODE>
 <DD>
-<A NAME="IDX280"></A>
+<A NAME="IDX290"></A>
 Returns the ring to which the univariate polynomial <CODE>x</CODE> belongs.
 
 <DT><CODE>cl_UP operator+ (const cl_UP&#38;, const cl_UP&#38;)</CODE>
 <DD>
-<A NAME="IDX281"></A>
+<A NAME="IDX291"></A>
 Returns the sum of two univariate polynomials.
 
 <DT><CODE>cl_UP operator- (const cl_UP&#38;, const cl_UP&#38;)</CODE>
 <DD>
-<A NAME="IDX282"></A>
+<A NAME="IDX292"></A>
 Returns the difference of two univariate polynomials.
 
 <DT><CODE>cl_UP operator- (const cl_UP&#38;)</CODE>
@@ -242,54 +242,54 @@ Returns the negative of a univariate polynomial.
 
 <DT><CODE>cl_UP operator* (const cl_UP&#38;, const cl_UP&#38;)</CODE>
 <DD>
-<A NAME="IDX283"></A>
+<A NAME="IDX293"></A>
 Returns the product of two univariate polynomials. One of the arguments may
 also be a plain integer or an element of the base ring.
 
 <DT><CODE>cl_UP square (const cl_UP&#38;)</CODE>
 <DD>
-<A NAME="IDX284"></A>
+<A NAME="IDX294"></A>
 Returns the square of a univariate polynomial.
 
 <DT><CODE>cl_UP expt_pos (const cl_UP&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX285"></A>
+<A NAME="IDX295"></A>
 <CODE>y</CODE> must be &#62; 0. Returns <CODE>x^y</CODE>.
 
 <DT><CODE>bool operator== (const cl_UP&#38;, const cl_UP&#38;)</CODE>
 <DD>
-<A NAME="IDX286"></A>
+<A NAME="IDX296"></A>
 <DT><CODE>bool operator!= (const cl_UP&#38;, const cl_UP&#38;)</CODE>
 <DD>
-<A NAME="IDX287"></A>
+<A NAME="IDX297"></A>
 Compares two univariate polynomials, belonging to the same univariate
 polynomial ring, for equality.
 
 <DT><CODE>cl_boolean zerop (const cl_UP&#38; x)</CODE>
 <DD>
-<A NAME="IDX288"></A>
+<A NAME="IDX298"></A>
 Returns true if <CODE>x</CODE> is <CODE>0 in R</CODE>.
 
 <DT><CODE>sintL degree (const cl_UP&#38; x)</CODE>
 <DD>
-<A NAME="IDX289"></A>
+<A NAME="IDX299"></A>
 Returns the degree of the polynomial. The zero polynomial has degree <CODE>-1</CODE>.
 
 <DT><CODE>cl_ring_element coeff (const cl_UP&#38; x, uintL index)</CODE>
 <DD>
-<A NAME="IDX290"></A>
+<A NAME="IDX300"></A>
 Returns the coefficient of <CODE>X^index</CODE> in the polynomial <CODE>x</CODE>.
 
 <DT><CODE>cl_ring_element x (const cl_ring_element&#38; y)</CODE>
 <DD>
-<A NAME="IDX291"></A>
+<A NAME="IDX301"></A>
 Evaluation: If <CODE>x</CODE> is a polynomial and <CODE>y</CODE> belongs to the base ring,
 then <SAMP>`x(y)'</SAMP> returns the value of the substitution of <CODE>y</CODE> into
 <CODE>x</CODE>.
 
 <DT><CODE>cl_UP deriv (const cl_UP&#38; x)</CODE>
 <DD>
-<A NAME="IDX292"></A>
+<A NAME="IDX302"></A>
 Returns the derivative of the polynomial <CODE>x</CODE> with respect to the
 indeterminate <CODE>X</CODE>.
 </DL>
@@ -303,10 +303,10 @@ input/output).
 
 <DT><CODE>void fprint (cl_ostream stream, const cl_UP&#38; x)</CODE>
 <DD>
-<A NAME="IDX293"></A>
+<A NAME="IDX303"></A>
 <DT><CODE>cl_ostream operator&#60;&#60; (cl_ostream stream, const cl_UP&#38; x)</CODE>
 <DD>
-<A NAME="IDX294"></A>
+<A NAME="IDX304"></A>
 Prints the univariate polynomial <CODE>x</CODE> on the <CODE>stream</CODE>. The output may
 depend on the global printer settings in the variable
 <CODE>cl_default_print_flags</CODE>.
@@ -314,7 +314,7 @@ depend on the global printer settings in the variable
 
 
 
-<H2><A NAME="SEC57" HREF="cln_toc.html#TOC57">9.3 Special polynomials</A></H2>
+<H2><A NAME="SEC58" HREF="cln_toc.html#TOC58">9.3 Special polynomials</A></H2>
 
 <P>
 The following functions return special polynomials.
@@ -324,26 +324,26 @@ The following functions return special polynomials.
 
 <DT><CODE>cl_UP_I cl_tschebychev (sintL n)</CODE>
 <DD>
-<A NAME="IDX295"></A>
-<A NAME="IDX296"></A>
+<A NAME="IDX305"></A>
+<A NAME="IDX306"></A>
 Returns the n-th Tchebychev polynomial (n &#62;= 0).
 
 <DT><CODE>cl_UP_I cl_hermite (sintL n)</CODE>
 <DD>
-<A NAME="IDX297"></A>
-<A NAME="IDX298"></A>
+<A NAME="IDX307"></A>
+<A NAME="IDX308"></A>
 Returns the n-th Hermite polynomial (n &#62;= 0).
 
 <DT><CODE>cl_UP_RA cl_legendre (sintL n)</CODE>
 <DD>
-<A NAME="IDX299"></A>
-<A NAME="IDX300"></A>
+<A NAME="IDX309"></A>
+<A NAME="IDX310"></A>
 Returns the n-th Legendre polynomial (n &#62;= 0).
 
 <DT><CODE>cl_UP_I cl_laguerre (sintL n)</CODE>
 <DD>
-<A NAME="IDX301"></A>
-<A NAME="IDX302"></A>
+<A NAME="IDX311"></A>
+<A NAME="IDX312"></A>
 Returns the n-th Laguerre polynomial (n &#62;= 0).
 </DL>
 

@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 5 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 4. Functions on numbers</TITLE>
 </HEAD>
@@ -9,7 +9,7 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_3.html">previous</A>, <A 
 <P><HR><P>
 
 
-<H1><A NAME="SEC15" HREF="cln_toc.html#TOC15">4. Functions on numbers</A></H1>
+<H1><A NAME="SEC16" HREF="cln_toc.html#TOC16">4. Functions on numbers</A></H1>
 
 <P>
 Each of the number classes declares its mathematical operations in the
@@ -19,7 +19,7 @@ objects of type <CODE>cl_I</CODE>, it should <CODE>#include &#60;cl_integer.h&#6
 
 
 
-<H2><A NAME="SEC16" HREF="cln_toc.html#TOC16">4.1 Constructing numbers</A></H2>
+<H2><A NAME="SEC17" HREF="cln_toc.html#TOC17">4.1 Constructing numbers</A></H2>
 
 <P>
 Here is how to create number objects "from nothing".
@@ -27,37 +27,37 @@ Here is how to create number objects "from nothing".
 
 
 
-<H3><A NAME="SEC17" HREF="cln_toc.html#TOC17">4.1.1 Constructing integers</A></H3>
+<H3><A NAME="SEC18" HREF="cln_toc.html#TOC18">4.1.1 Constructing integers</A></H3>
 
 <P>
 <CODE>cl_I</CODE> objects are most easily constructed from C integers and from
-strings. See section <A HREF="cln_3.html#SEC14">3.4 Conversions</A>.
+strings. See section <A HREF="cln_3.html#SEC15">3.4 Conversions</A>.
 
 
 
 
-<H3><A NAME="SEC18" HREF="cln_toc.html#TOC18">4.1.2 Constructing rational numbers</A></H3>
+<H3><A NAME="SEC19" HREF="cln_toc.html#TOC19">4.1.2 Constructing rational numbers</A></H3>
 
 <P>
 <CODE>cl_RA</CODE> objects can be constructed from strings. The syntax
-for rational numbers is described in section <A HREF="cln_5.html#SEC44">5.1 Internal and printed representation</A>.
+for rational numbers is described in section <A HREF="cln_5.html#SEC45">5.1 Internal and printed representation</A>.
 Another standard way to produce a rational number is through application
 of <SAMP>`operator /'</SAMP> or <SAMP>`recip'</SAMP> on integers.
 
 
 
 
-<H3><A NAME="SEC19" HREF="cln_toc.html#TOC19">4.1.3 Constructing floating-point numbers</A></H3>
+<H3><A NAME="SEC20" HREF="cln_toc.html#TOC20">4.1.3 Constructing floating-point numbers</A></H3>
 
 <P>
 <CODE>cl_F</CODE> objects with low precision are most easily constructed from
-C <SAMP>`float'</SAMP> and <SAMP>`double'</SAMP>. See section <A HREF="cln_3.html#SEC14">3.4 Conversions</A>.
+C <SAMP>`float'</SAMP> and <SAMP>`double'</SAMP>. See section <A HREF="cln_3.html#SEC15">3.4 Conversions</A>.
 
 
 <P>
 To construct a <CODE>cl_F</CODE> with high precision, you can use the conversion
 from <SAMP>`const char *'</SAMP>, but you have to specify the desired precision
-within the string. (See section <A HREF="cln_5.html#SEC44">5.1 Internal and printed representation</A>.)
+within the string. (See section <A HREF="cln_5.html#SEC45">5.1 Internal and printed representation</A>.)
 Example:
 
 <PRE>
@@ -71,7 +71,7 @@ will set <SAMP>`e'</SAMP> to the given value, with a precision of 40 decimal dig
 <P>
 The programmatic way to construct a <CODE>cl_F</CODE> with high precision is
 through the <CODE>cl_float</CODE> conversion function, see
-section <A HREF="cln_4.html#SEC39">4.11.1 Conversion to floating-point numbers</A>. For example, to compute
+section <A HREF="cln_4.html#SEC40">4.11.1 Conversion to floating-point numbers</A>. For example, to compute
 <CODE>e</CODE> to 40 decimal places, first construct 1.0 to 40 decimal places
 and then apply the exponential function:
 
@@ -82,7 +82,7 @@ and then apply the exponential function:
 
 
 
-<H3><A NAME="SEC20" HREF="cln_toc.html#TOC20">4.1.4 Constructing complex numbers</A></H3>
+<H3><A NAME="SEC21" HREF="cln_toc.html#TOC21">4.1.4 Constructing complex numbers</A></H3>
 
 <P>
 Non-real <CODE>cl_N</CODE> objects are normally constructed through the function
@@ -92,12 +92,12 @@ Non-real <CODE>cl_N</CODE> objects are normally constructed through the function
 </PRE>
 
 <P>
-See section <A HREF="cln_4.html#SEC23">4.4 Elementary complex functions</A>.
+See section <A HREF="cln_4.html#SEC24">4.4 Elementary complex functions</A>.
 
 
 
 
-<H2><A NAME="SEC21" HREF="cln_toc.html#TOC21">4.2 Elementary functions</A></H2>
+<H2><A NAME="SEC22" HREF="cln_toc.html#TOC22">4.2 Elementary functions</A></H2>
 
 <P>
 Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
@@ -109,12 +109,12 @@ defines the following operations:
 
 <DT><CODE><VAR>type</VAR> operator + (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX35"></A>
+<A NAME="IDX36"></A>
 Addition.
 
 <DT><CODE><VAR>type</VAR> operator - (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX36"></A>
+<A NAME="IDX37"></A>
 Subtraction.
 
 <DT><CODE><VAR>type</VAR> operator - (const <VAR>type</VAR>&#38;)</CODE>
@@ -123,22 +123,22 @@ Returns the negative of the argument.
 
 <DT><CODE><VAR>type</VAR> plus1 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX37"></A>
+<A NAME="IDX38"></A>
 Returns <CODE>x + 1</CODE>.
 
 <DT><CODE><VAR>type</VAR> minus1 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX38"></A>
+<A NAME="IDX39"></A>
 Returns <CODE>x - 1</CODE>.
 
 <DT><CODE><VAR>type</VAR> operator * (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX39"></A>
+<A NAME="IDX40"></A>
 Multiplication.
 
 <DT><CODE><VAR>type</VAR> square (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX40"></A>
+<A NAME="IDX41"></A>
 Returns <CODE>x * x</CODE>.
 </DL>
 
@@ -152,12 +152,12 @@ defines the following operations:
 
 <DT><CODE><VAR>type</VAR> operator / (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX41"></A>
+<A NAME="IDX42"></A>
 Division.
 
 <DT><CODE><VAR>type</VAR> recip (const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX42"></A>
+<A NAME="IDX43"></A>
 Returns the reciprocal of the argument.
 </DL>
 
@@ -165,7 +165,7 @@ Returns the reciprocal of the argument.
 The class <CODE>cl_I</CODE> doesn't define a <SAMP>`/'</SAMP> operation because
 in the C/C++ language this operator, applied to integral types,
 denotes the <SAMP>`floor'</SAMP> or <SAMP>`truncate'</SAMP> operation (which one of these,
-is implementation dependent). (See section <A HREF="cln_4.html#SEC25">4.6 Rounding functions</A>)
+is implementation dependent). (See section <A HREF="cln_4.html#SEC26">4.6 Rounding functions</A>.)
 Instead, <CODE>cl_I</CODE> defines an "exact quotient" function:
 
 
@@ -173,7 +173,7 @@ Instead, <CODE>cl_I</CODE> defines an "exact quotient" function:
 
 <DT><CODE>cl_I exquo (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX43"></A>
+<A NAME="IDX44"></A>
 Checks that <CODE>y</CODE> divides <CODE>x</CODE>, and returns the quotient <CODE>x</CODE>/<CODE>y</CODE>.
 </DL>
 
@@ -185,14 +185,14 @@ The following exponentiation functions are defined:
 
 <DT><CODE>cl_I expt_pos (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX44"></A>
+<A NAME="IDX45"></A>
 <DT><CODE>cl_RA expt_pos (const cl_RA&#38; x, const cl_I&#38; y)</CODE>
 <DD>
 <CODE>y</CODE> must be &#62; 0. Returns <CODE>x^y</CODE>.
 
 <DT><CODE>cl_RA expt (const cl_RA&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX45"></A>
+<A NAME="IDX46"></A>
 <DT><CODE>cl_R expt (const cl_R&#38; x, const cl_I&#38; y)</CODE>
 <DD>
 <DT><CODE>cl_N expt (const cl_N&#38; x, const cl_I&#38; y)</CODE>
@@ -210,7 +210,7 @@ defines the following operation:
 
 <DT><CODE><VAR>type</VAR> abs (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX46"></A>
+<A NAME="IDX47"></A>
 Returns the absolute value of <CODE>x</CODE>.
 This is <CODE>x</CODE> if <CODE>x &#62;= 0</CODE>, and <CODE>-x</CODE> if <CODE>x &#60;= 0</CODE>.
 </DL>
@@ -236,7 +236,7 @@ defines the following operation:
 
 <DT><CODE><VAR>type</VAR> signum (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX47"></A>
+<A NAME="IDX48"></A>
 Returns the sign of <CODE>x</CODE>, in the same number format as <CODE>x</CODE>.
 This is defined as <CODE>x / abs(x)</CODE> if <CODE>x</CODE> is non-zero, and
 <CODE>x</CODE> if <CODE>x</CODE> is zero. If <CODE>x</CODE> is real, the value is either
@@ -245,7 +245,7 @@ This is defined as <CODE>x / abs(x)</CODE> if <CODE>x</CODE> is non-zero, and
 
 
 
-<H2><A NAME="SEC22" HREF="cln_toc.html#TOC22">4.3 Elementary rational functions</A></H2>
+<H2><A NAME="SEC23" HREF="cln_toc.html#TOC23">4.3 Elementary rational functions</A></H2>
 
 <P>
 Each of the classes <CODE>cl_RA</CODE>, <CODE>cl_I</CODE> defines the following operations:
@@ -255,12 +255,12 @@ Each of the classes <CODE>cl_RA</CODE>, <CODE>cl_I</CODE> defines the following 
 
 <DT><CODE>cl_I numerator (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX48"></A>
+<A NAME="IDX49"></A>
 Returns the numerator of <CODE>x</CODE>.
 
 <DT><CODE>cl_I denominator (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX49"></A>
+<A NAME="IDX50"></A>
 Returns the denominator of <CODE>x</CODE>.
 </DL>
 
@@ -271,7 +271,7 @@ a way that they have no factor in common and the denominator is positive.
 
 
 
-<H2><A NAME="SEC23" HREF="cln_toc.html#TOC23">4.4 Elementary complex functions</A></H2>
+<H2><A NAME="SEC24" HREF="cln_toc.html#TOC24">4.4 Elementary complex functions</A></H2>
 
 <P>
 The class <CODE>cl_N</CODE> defines the following operation:
@@ -281,7 +281,7 @@ The class <CODE>cl_N</CODE> defines the following operation:
 
 <DT><CODE>cl_N complex (const cl_R&#38; a, const cl_R&#38; b)</CODE>
 <DD>
-<A NAME="IDX50"></A>
+<A NAME="IDX51"></A>
 Returns the complex number <CODE>a+bi</CODE>, that is, the complex number with
 real part <CODE>a</CODE> and imaginary part <CODE>b</CODE>.
 </DL>
@@ -294,17 +294,17 @@ Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE> defines the following o
 
 <DT><CODE>cl_R realpart (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX51"></A>
+<A NAME="IDX52"></A>
 Returns the real part of <CODE>x</CODE>.
 
 <DT><CODE>cl_R imagpart (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
 Returns the imaginary part of <CODE>x</CODE>.
 
 <DT><CODE><VAR>type</VAR> conjugate (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX53"></A>
+<A NAME="IDX54"></A>
 Returns the complex conjugate of <CODE>x</CODE>.
 </DL>
 
@@ -324,9 +324,9 @@ We have the relations
 
 
 
-<H2><A NAME="SEC24" HREF="cln_toc.html#TOC24">4.5 Comparisons</A></H2>
+<H2><A NAME="SEC25" HREF="cln_toc.html#TOC25">4.5 Comparisons</A></H2>
 <P>
-<A NAME="IDX54"></A>
+<A NAME="IDX55"></A>
 
 
 <P>
@@ -339,22 +339,22 @@ defines the following operations:
 
 <DT><CODE>bool operator == (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX55"></A>
+<A NAME="IDX56"></A>
 <DT><CODE>bool operator != (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX56"></A>
+<A NAME="IDX57"></A>
 Comparison, as in C and C++.
 
 <DT><CODE>uint32 cl_equal_hashcode (const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX57"></A>
+<A NAME="IDX58"></A>
 Returns a 32-bit hash code that is the same for any two numbers which are
 the same according to <CODE>==</CODE>. This hash code depends on the number's value,
 not its type or precision.
 
 <DT><CODE>cl_boolean zerop (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX58"></A>
+<A NAME="IDX59"></A>
 Compare against zero: <CODE>x == 0</CODE>
 </DL>
 
@@ -368,42 +368,42 @@ defines the following operations:
 
 <DT><CODE>cl_signean cl_compare (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX59"></A>
+<A NAME="IDX60"></A>
 Compares <CODE>x</CODE> and <CODE>y</CODE>. Returns +1 if <CODE>x</CODE>&#62;<CODE>y</CODE>,
 -1 if <CODE>x</CODE>&#60;<CODE>y</CODE>, 0 if <CODE>x</CODE>=<CODE>y</CODE>.
 
 <DT><CODE>bool operator &#60;= (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX60"></A>
+<A NAME="IDX61"></A>
 <DT><CODE>bool operator &#60; (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX61"></A>
+<A NAME="IDX62"></A>
 <DT><CODE>bool operator &#62;= (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX62"></A>
+<A NAME="IDX63"></A>
 <DT><CODE>bool operator &#62; (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX63"></A>
+<A NAME="IDX64"></A>
 Comparison, as in C and C++.
 
 <DT><CODE>cl_boolean minusp (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX64"></A>
+<A NAME="IDX65"></A>
 Compare against zero: <CODE>x &#60; 0</CODE>
 
 <DT><CODE>cl_boolean plusp (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX65"></A>
+<A NAME="IDX66"></A>
 Compare against zero: <CODE>x &#62; 0</CODE>
 
 <DT><CODE><VAR>type</VAR> max (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX66"></A>
+<A NAME="IDX67"></A>
 Return the maximum of <CODE>x</CODE> and <CODE>y</CODE>.
 
 <DT><CODE><VAR>type</VAR> min (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX67"></A>
+<A NAME="IDX68"></A>
 Return the minimum of <CODE>x</CODE> and <CODE>y</CODE>.
 </DL>
 
@@ -418,9 +418,9 @@ there is no floating point number whose value is exactly <CODE>1/3</CODE>.
 
 
 
-<H2><A NAME="SEC25" HREF="cln_toc.html#TOC25">4.6 Rounding functions</A></H2>
+<H2><A NAME="SEC26" HREF="cln_toc.html#TOC26">4.6 Rounding functions</A></H2>
 <P>
-<A NAME="IDX68"></A>
+<A NAME="IDX69"></A>
 
 
 <P>
@@ -491,19 +491,19 @@ defines the following operations:
 
 <DT><CODE>cl_I floor1 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX69"></A>
+<A NAME="IDX70"></A>
 Returns <CODE>floor(x)</CODE>.
 <DT><CODE>cl_I ceiling1 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX70"></A>
+<A NAME="IDX71"></A>
 Returns <CODE>ceiling(x)</CODE>.
 <DT><CODE>cl_I truncate1 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX71"></A>
+<A NAME="IDX72"></A>
 Returns <CODE>truncate(x)</CODE>.
 <DT><CODE>cl_I round1 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX72"></A>
+<A NAME="IDX73"></A>
 Returns <CODE>round(x)</CODE>.
 </DL>
 
@@ -592,16 +592,16 @@ defines the following operations:
 <DD>
 <DT><CODE><VAR>type</VAR>_div_t floor2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX73"></A>
+<A NAME="IDX74"></A>
 <DT><CODE><VAR>type</VAR>_div_t ceiling2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX74"></A>
+<A NAME="IDX75"></A>
 <DT><CODE><VAR>type</VAR>_div_t truncate2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX75"></A>
+<A NAME="IDX76"></A>
 <DT><CODE><VAR>type</VAR>_div_t round2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX76"></A>
+<A NAME="IDX77"></A>
 </DL>
 
 <P>
@@ -620,16 +620,16 @@ defines the following operations:
 
 <DT><CODE><VAR>type</VAR> ffloor (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX77"></A>
+<A NAME="IDX78"></A>
 <DT><CODE><VAR>type</VAR> fceiling (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX78"></A>
+<A NAME="IDX79"></A>
 <DT><CODE><VAR>type</VAR> ftruncate (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX79"></A>
+<A NAME="IDX80"></A>
 <DT><CODE><VAR>type</VAR> fround (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX80"></A>
+<A NAME="IDX81"></A>
 </DL>
 
 <P>
@@ -661,6 +661,11 @@ and the remainder. The suffix <SAMP>`2'</SAMP> indicates this.
 Each of the classes
 <CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
 defines the following operations:
+<A NAME="IDX82"></A>
+<A NAME="IDX83"></A>
+<A NAME="IDX84"></A>
+<A NAME="IDX85"></A>
+<A NAME="IDX86"></A>
 
 
 <DL COMPACT>
@@ -669,19 +674,20 @@ defines the following operations:
 <DD>
 <DT><CODE><VAR>type</VAR>_fdiv_t ffloor2 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX81"></A>
+<A NAME="IDX87"></A>
 <DT><CODE><VAR>type</VAR>_fdiv_t fceiling2 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX82"></A>
+<A NAME="IDX88"></A>
 <DT><CODE><VAR>type</VAR>_fdiv_t ftruncate2 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX83"></A>
+<A NAME="IDX89"></A>
 <DT><CODE><VAR>type</VAR>_fdiv_t fround2 (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX84"></A>
+<A NAME="IDX90"></A>
 </DL>
 <P>
 and similarly for class <CODE>cl_R</CODE>, but with quotient type <CODE>cl_F</CODE>.
+<A NAME="IDX91"></A>
 
 
 <P>
@@ -733,15 +739,15 @@ The classes <CODE>cl_R</CODE>, <CODE>cl_I</CODE> define the following operations
 
 <DT><CODE><VAR>type</VAR> mod (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX85"></A>
+<A NAME="IDX92"></A>
 <DT><CODE><VAR>type</VAR> rem (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
 <DD>
-<A NAME="IDX86"></A>
+<A NAME="IDX93"></A>
 </DL>
 
 
 
-<H2><A NAME="SEC26" HREF="cln_toc.html#TOC26">4.7 Roots</A></H2>
+<H2><A NAME="SEC27" HREF="cln_toc.html#TOC27">4.7 Roots</A></H2>
 
 <P>
 Each of the classes <CODE>cl_R</CODE>,
@@ -753,7 +759,7 @@ defines the following operation:
 
 <DT><CODE><VAR>type</VAR> sqrt (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX87"></A>
+<A NAME="IDX94"></A>
 <CODE>x</CODE> must be &#62;= 0. This function returns the square root of <CODE>x</CODE>,
 normalized to be &#62;= 0. If <CODE>x</CODE> is the square of a rational number,
 <CODE>sqrt(x)</CODE> will be a rational number, else it will return a
@@ -768,7 +774,7 @@ The classes <CODE>cl_RA</CODE>, <CODE>cl_I</CODE> define the following operation
 
 <DT><CODE>cl_boolean sqrtp (const <VAR>type</VAR>&#38; x, <VAR>type</VAR>* root)</CODE>
 <DD>
-<A NAME="IDX88"></A>
+<A NAME="IDX95"></A>
 This tests whether <CODE>x</CODE> is a perfect square. If so, it returns true
 and the exact square root in <CODE>*root</CODE>, else it returns false.
 </DL>
@@ -781,7 +787,7 @@ Furthermore, for integers, similarly:
 
 <DT><CODE>cl_boolean isqrt (const <VAR>type</VAR>&#38; x, <VAR>type</VAR>* root)</CODE>
 <DD>
-<A NAME="IDX89"></A>
+<A NAME="IDX96"></A>
 <CODE>x</CODE> should be &#62;= 0. This function sets <CODE>*root</CODE> to
 <CODE>floor(sqrt(x))</CODE> and returns the same value as <CODE>sqrtp</CODE>:
 the boolean value <CODE>(expt(*root,2) == x)</CODE>.
@@ -796,7 +802,7 @@ define the following operation:
 
 <DT><CODE>cl_boolean rootp (const <VAR>type</VAR>&#38; x, const cl_I&#38; n, <VAR>type</VAR>* root)</CODE>
 <DD>
-<A NAME="IDX90"></A>
+<A NAME="IDX97"></A>
 <CODE>x</CODE> must be &#62;= 0. <CODE>n</CODE> must be &#62; 0.
 This tests whether <CODE>x</CODE> is an <CODE>n</CODE>th power of a rational number.
 If so, it returns true and the exact root in <CODE>*root</CODE>, else it returns
@@ -812,7 +818,7 @@ for class <CODE>cl_N</CODE>:
 
 <DT><CODE>cl_N sqrt (const cl_N&#38; z)</CODE>
 <DD>
-<A NAME="IDX91"></A>
+<A NAME="IDX98"></A>
 Returns the square root of <CODE>z</CODE>, as defined by the formula
 <CODE>sqrt(z) = exp(log(z)/2)</CODE>. Conversion to a floating-point type
 or to a complex number are done if necessary. The range of the result is the
@@ -824,9 +830,9 @@ The result is an exact number only if <CODE>z</CODE> is an exact number.
 
 
 
-<H2><A NAME="SEC27" HREF="cln_toc.html#TOC27">4.8 Transcendental functions</A></H2>
+<H2><A NAME="SEC28" HREF="cln_toc.html#TOC28">4.8 Transcendental functions</A></H2>
 <P>
-<A NAME="IDX92"></A>
+<A NAME="IDX99"></A>
 
 
 <P>
@@ -838,13 +844,13 @@ For example, <CODE>cos(0) = 1</CODE> returns the rational number <CODE>1</CODE>.
 
 
 
-<H3><A NAME="SEC28" HREF="cln_toc.html#TOC28">4.8.1 Exponential and logarithmic functions</A></H3>
+<H3><A NAME="SEC29" HREF="cln_toc.html#TOC29">4.8.1 Exponential and logarithmic functions</A></H3>
 
 <DL COMPACT>
 
 <DT><CODE>cl_R exp (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX93"></A>
+<A NAME="IDX100"></A>
 <DT><CODE>cl_N exp (const cl_N&#38; x)</CODE>
 <DD>
 Returns the exponential function of <CODE>x</CODE>. This is <CODE>e^x</CODE> where
@@ -853,12 +859,12 @@ is the entire complex plane excluding 0.
 
 <DT><CODE>cl_R ln (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX94"></A>
+<A NAME="IDX101"></A>
 <CODE>x</CODE> must be &#62; 0. Returns the (natural) logarithm of x.
 
 <DT><CODE>cl_N log (const cl_N&#38; x)</CODE>
 <DD>
-<A NAME="IDX95"></A>
+<A NAME="IDX102"></A>
 Returns the (natural) logarithm of x. If <CODE>x</CODE> is real and positive,
 this is <CODE>ln(x)</CODE>. In general, <CODE>log(x) = log(abs(x)) + i*phase(x)</CODE>.
 The range of the result is the strip in the complex plane
@@ -866,7 +872,7 @@ The range of the result is the strip in the complex plane
 
 <DT><CODE>cl_R phase (const cl_N&#38; x)</CODE>
 <DD>
-<A NAME="IDX96"></A>
+<A NAME="IDX103"></A>
 Returns the angle part of <CODE>x</CODE> in its polar representation as a
 complex number. That is, <CODE>phase(x) = atan(realpart(x),imagpart(x))</CODE>.
 This is also the imaginary part of <CODE>log(x)</CODE>.
@@ -888,7 +894,7 @@ Returns the logarithm of <CODE>a</CODE> with respect to base <CODE>b</CODE>.
 
 <DT><CODE>cl_N expt (const cl_N&#38; x, const cl_N&#38; y)</CODE>
 <DD>
-<A NAME="IDX97"></A>
+<A NAME="IDX104"></A>
 Exponentiation: Returns <CODE>x^y = exp(y*log(x))</CODE>.
 </DL>
 
@@ -900,7 +906,7 @@ The constant e = exp(1) = 2.71828... is returned by the following functions:
 
 <DT><CODE>cl_F cl_exp1 (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX98"></A>
+<A NAME="IDX105"></A>
 Returns e as a float of format <CODE>f</CODE>.
 
 <DT><CODE>cl_F cl_exp1 (const cl_F&#38; y)</CODE>
@@ -914,13 +920,13 @@ Returns e as a float of format <CODE>cl_default_float_format</CODE>.
 
 
 
-<H3><A NAME="SEC29" HREF="cln_toc.html#TOC29">4.8.2 Trigonometric functions</A></H3>
+<H3><A NAME="SEC30" HREF="cln_toc.html#TOC30">4.8.2 Trigonometric functions</A></H3>
 
 <DL COMPACT>
 
 <DT><CODE>cl_R sin (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX99"></A>
+<A NAME="IDX106"></A>
 Returns <CODE>sin(x)</CODE>. The range of the result is the interval
 <CODE>-1 &#60;= sin(x) &#60;= 1</CODE>.
 
@@ -930,7 +936,7 @@ Returns <CODE>sin(z)</CODE>. The range of the result is the entire complex plane
 
 <DT><CODE>cl_R cos (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX100"></A>
+<A NAME="IDX107"></A>
 Returns <CODE>cos(x)</CODE>. The range of the result is the interval
 <CODE>-1 &#60;= cos(x) &#60;= 1</CODE>.
 
@@ -940,31 +946,31 @@ Returns <CODE>cos(z)</CODE>. The range of the result is the entire complex plane
 
 <DT><CODE>struct cl_cos_sin_t { cl_R cos; cl_R sin; };</CODE>
 <DD>
-<A NAME="IDX101"></A>
+<A NAME="IDX108"></A>
 <DT><CODE>cl_cos_sin_t cl_cos_sin (const cl_R&#38; x)</CODE>
 <DD>
 Returns both <CODE>sin(x)</CODE> and <CODE>cos(x)</CODE>. This is more efficient than
-<A NAME="IDX102"></A>
+<A NAME="IDX109"></A>
 computing them separately. The relation <CODE>cos^2 + sin^2 = 1</CODE> will
 hold only approximately.
 
 <DT><CODE>cl_R tan (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX103"></A>
+<A NAME="IDX110"></A>
 <DT><CODE>cl_N tan (const cl_N&#38; x)</CODE>
 <DD>
 Returns <CODE>tan(x) = sin(x)/cos(x)</CODE>.
 
 <DT><CODE>cl_N cis (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX104"></A>
+<A NAME="IDX111"></A>
 <DT><CODE>cl_N cis (const cl_N&#38; x)</CODE>
 <DD>
 Returns <CODE>exp(i*x)</CODE>. The name <SAMP>`cis'</SAMP> means "cos + i sin", because
 <CODE>e^(i*x) = cos(x) + i*sin(x)</CODE>.
 
-<A NAME="IDX105"></A>
-<A NAME="IDX106"></A>
+<A NAME="IDX112"></A>
+<A NAME="IDX113"></A>
 <DT><CODE>cl_N asin (const cl_N&#38; z)</CODE>
 <DD>
 Returns <CODE>arcsin(z)</CODE>. This is defined as
@@ -977,7 +983,7 @@ with <CODE>realpart = pi/2</CODE> and <CODE>imagpart &#62; 0</CODE>.
 
 <DT><CODE>cl_N acos (const cl_N&#38; z)</CODE>
 <DD>
-<A NAME="IDX107"></A>
+<A NAME="IDX114"></A>
 Returns <CODE>arccos(z)</CODE>. This is defined as
 <CODE>arccos(z) = pi/2 - arcsin(z) = log(z+i*sqrt(1-z^2))/i</CODE>
 and satisfies <CODE>arccos(-z) = pi - arccos(z)</CODE>.
@@ -986,8 +992,8 @@ The range of the result is the strip in the complex domain
 with <CODE>realpart = 0</CODE> and <CODE>imagpart &#60; 0</CODE> and the numbers
 with <CODE>realpart = pi</CODE> and <CODE>imagpart &#62; 0</CODE>.
 
-<A NAME="IDX108"></A>
-<A NAME="IDX109"></A>
+<A NAME="IDX115"></A>
+<A NAME="IDX116"></A>
 <DT><CODE>cl_R atan (const cl_R&#38; x, const cl_R&#38; y)</CODE>
 <DD>
 Returns the angle of the polar representation of the complex number
@@ -1016,8 +1022,8 @@ with <CODE>realpart = pi/2</CODE> and <CODE>imagpart &#60;= 0</CODE>.
 </DL>
 
 <P>
-<A NAME="IDX110"></A>
-<A NAME="IDX111"></A>
+<A NAME="IDX117"></A>
+<A NAME="IDX118"></A>
 Archimedes' constant pi = 3.14... is returned by the following functions:
 
 
@@ -1025,7 +1031,7 @@ Archimedes' constant pi = 3.14... is returned by the following functions:
 
 <DT><CODE>cl_F cl_pi (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX112"></A>
+<A NAME="IDX119"></A>
 Returns pi as a float of format <CODE>f</CODE>.
 
 <DT><CODE>cl_F cl_pi (const cl_F&#38; y)</CODE>
@@ -1039,13 +1045,13 @@ Returns pi as a float of format <CODE>cl_default_float_format</CODE>.
 
 
 
-<H3><A NAME="SEC30" HREF="cln_toc.html#TOC30">4.8.3 Hyperbolic functions</A></H3>
+<H3><A NAME="SEC31" HREF="cln_toc.html#TOC31">4.8.3 Hyperbolic functions</A></H3>
 
 <DL COMPACT>
 
 <DT><CODE>cl_R sinh (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX113"></A>
+<A NAME="IDX120"></A>
 Returns <CODE>sinh(x)</CODE>.
 
 <DT><CODE>cl_N sinh (const cl_N&#38; z)</CODE>
@@ -1054,7 +1060,7 @@ Returns <CODE>sinh(z)</CODE>. The range of the result is the entire complex plan
 
 <DT><CODE>cl_R cosh (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX114"></A>
+<A NAME="IDX121"></A>
 Returns <CODE>cosh(x)</CODE>. The range of the result is the interval
 <CODE>cosh(x) &#62;= 1</CODE>.
 
@@ -1064,24 +1070,24 @@ Returns <CODE>cosh(z)</CODE>. The range of the result is the entire complex plan
 
 <DT><CODE>struct cl_cosh_sinh_t { cl_R cosh; cl_R sinh; };</CODE>
 <DD>
-<A NAME="IDX115"></A>
+<A NAME="IDX122"></A>
 <DT><CODE>cl_cosh_sinh_t cl_cosh_sinh (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX116"></A>
+<A NAME="IDX123"></A>
 Returns both <CODE>sinh(x)</CODE> and <CODE>cosh(x)</CODE>. This is more efficient than
 computing them separately. The relation <CODE>cosh^2 - sinh^2 = 1</CODE> will
 hold only approximately.
 
 <DT><CODE>cl_R tanh (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX117"></A>
+<A NAME="IDX124"></A>
 <DT><CODE>cl_N tanh (const cl_N&#38; x)</CODE>
 <DD>
 Returns <CODE>tanh(x) = sinh(x)/cosh(x)</CODE>.
 
 <DT><CODE>cl_N asinh (const cl_N&#38; z)</CODE>
 <DD>
-<A NAME="IDX118"></A>
+<A NAME="IDX125"></A>
 Returns <CODE>arsinh(z)</CODE>. This is defined as
 <CODE>arsinh(z) = log(z+sqrt(1+z^2))</CODE> and satisfies
 <CODE>arsinh(-z) = -arsinh(z)</CODE>.
@@ -1092,7 +1098,7 @@ with <CODE>imagpart = pi/2</CODE> and <CODE>realpart &#60; 0</CODE>.
 
 <DT><CODE>cl_N acosh (const cl_N&#38; z)</CODE>
 <DD>
-<A NAME="IDX119"></A>
+<A NAME="IDX126"></A>
 Returns <CODE>arcosh(z)</CODE>. This is defined as
 <CODE>arcosh(z) = 2*log(sqrt((z+1)/2)+sqrt((z-1)/2))</CODE>.
 The range of the result is the half-strip in the complex domain
@@ -1101,7 +1107,7 @@ excluding the numbers with <CODE>realpart = 0</CODE> and <CODE>-pi &#60; imagpar
 
 <DT><CODE>cl_N atanh (const cl_N&#38; z)</CODE>
 <DD>
-<A NAME="IDX120"></A>
+<A NAME="IDX127"></A>
 Returns <CODE>artanh(z)</CODE>. This is defined as
 <CODE>artanh(z) = (log(1+z)-log(1-z)) / 2</CODE> and satisfies
 <CODE>artanh(-z) = -artanh(z)</CODE>. The range of the result is
@@ -1113,9 +1119,9 @@ with <CODE>imagpart = pi/2</CODE> and <CODE>realpart &#62;= 0</CODE>.
 
 
 
-<H3><A NAME="SEC31" HREF="cln_toc.html#TOC31">4.8.4 Euler gamma</A></H3>
+<H3><A NAME="SEC32" HREF="cln_toc.html#TOC32">4.8.4 Euler gamma</A></H3>
 <P>
-<A NAME="IDX121"></A>
+<A NAME="IDX128"></A>
 
 
 <P>
@@ -1126,7 +1132,7 @@ Euler's constant C = 0.577... is returned by the following functions:
 
 <DT><CODE>cl_F cl_eulerconst (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX122"></A>
+<A NAME="IDX129"></A>
 Returns Euler's constant as a float of format <CODE>f</CODE>.
 
 <DT><CODE>cl_F cl_eulerconst (const cl_F&#38; y)</CODE>
@@ -1140,14 +1146,14 @@ Returns Euler's constant as a float of format <CODE>cl_default_float_format</COD
 
 <P>
 Catalan's constant G = 0.915... is returned by the following functions:
-<A NAME="IDX123"></A>
+<A NAME="IDX130"></A>
 
 
 <DL COMPACT>
 
 <DT><CODE>cl_F cl_catalanconst (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX124"></A>
+<A NAME="IDX131"></A>
 Returns Catalan's constant as a float of format <CODE>f</CODE>.
 
 <DT><CODE>cl_F cl_catalanconst (const cl_F&#38; y)</CODE>
@@ -1161,9 +1167,9 @@ Returns Catalan's constant as a float of format <CODE>cl_default_float_format</C
 
 
 
-<H3><A NAME="SEC32" HREF="cln_toc.html#TOC32">4.8.5 Riemann zeta</A></H3>
+<H3><A NAME="SEC33" HREF="cln_toc.html#TOC33">4.8.5 Riemann zeta</A></H3>
 <P>
-<A NAME="IDX125"></A>
+<A NAME="IDX132"></A>
 
 
 <P>
@@ -1175,7 +1181,7 @@ following functions:
 
 <DT><CODE>cl_F cl_zeta (int s, cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX126"></A>
+<A NAME="IDX133"></A>
 Returns Riemann's zeta function at <CODE>s</CODE> as a float of format <CODE>f</CODE>.
 
 <DT><CODE>cl_F cl_zeta (int s, const cl_F&#38; y)</CODE>
@@ -1190,11 +1196,11 @@ Returns Riemann's zeta function at <CODE>s</CODE> as a float of format
 
 
 
-<H2><A NAME="SEC33" HREF="cln_toc.html#TOC33">4.9 Functions on integers</A></H2>
+<H2><A NAME="SEC34" HREF="cln_toc.html#TOC34">4.9 Functions on integers</A></H2>
 
 
 
-<H3><A NAME="SEC34" HREF="cln_toc.html#TOC34">4.9.1 Logical functions</A></H3>
+<H3><A NAME="SEC35" HREF="cln_toc.html#TOC35">4.9.1 Logical functions</A></H3>
 
 <P>
 Integers, when viewed as in two's complement notation, can be thought as
@@ -1215,69 +1221,69 @@ on each of the bit positions in parallel.
 
 <DT><CODE>cl_I lognot (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX127"></A>
+<A NAME="IDX134"></A>
 <DT><CODE>cl_I operator ~ (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX128"></A>
+<A NAME="IDX135"></A>
 Logical not, like <CODE>~x</CODE> in C. This is the same as <CODE>-1-x</CODE>.
 
 <DT><CODE>cl_I logand (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX129"></A>
+<A NAME="IDX136"></A>
 <DT><CODE>cl_I operator &#38; (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX130"></A>
+<A NAME="IDX137"></A>
 Logical and, like <CODE>x &#38; y</CODE> in C.
 
 <DT><CODE>cl_I logior (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX131"></A>
+<A NAME="IDX138"></A>
 <DT><CODE>cl_I operator | (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX132"></A>
+<A NAME="IDX139"></A>
 Logical (inclusive) or, like <CODE>x | y</CODE> in C.
 
 <DT><CODE>cl_I logxor (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX133"></A>
+<A NAME="IDX140"></A>
 <DT><CODE>cl_I operator ^ (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX134"></A>
+<A NAME="IDX141"></A>
 Exclusive or, like <CODE>x ^ y</CODE> in C.
 
 <DT><CODE>cl_I logeqv (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX135"></A>
+<A NAME="IDX142"></A>
 Bitwise equivalence, like <CODE>~(x ^ y)</CODE> in C.
 
 <DT><CODE>cl_I lognand (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX136"></A>
+<A NAME="IDX143"></A>
 Bitwise not and, like <CODE>~(x &#38; y)</CODE> in C.
 
 <DT><CODE>cl_I lognor (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX137"></A>
+<A NAME="IDX144"></A>
 Bitwise not or, like <CODE>~(x | y)</CODE> in C.
 
 <DT><CODE>cl_I logandc1 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX138"></A>
+<A NAME="IDX145"></A>
 Logical and, complementing the first argument, like <CODE>~x &#38; y</CODE> in C.
 
 <DT><CODE>cl_I logandc2 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX139"></A>
+<A NAME="IDX146"></A>
 Logical and, complementing the second argument, like <CODE>x &#38; ~y</CODE> in C.
 
 <DT><CODE>cl_I logorc1 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX140"></A>
+<A NAME="IDX147"></A>
 Logical or, complementing the first argument, like <CODE>~x | y</CODE> in C.
 
 <DT><CODE>cl_I logorc2 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX141"></A>
+<A NAME="IDX148"></A>
 Logical or, complementing the second argument, like <CODE>x | ~y</CODE> in C.
 </DL>
 
@@ -1287,7 +1293,7 @@ These operations are all available though the function
 
 <DT><CODE>cl_I boole (cl_boole op, const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX142"></A>
+<A NAME="IDX149"></A>
 </DL>
 <P>
 where <CODE>op</CODE> must have one of the 16 values (each one stands for a function
@@ -1296,13 +1302,6 @@ which combines two bits into one bit): <CODE>boole_clr</CODE>, <CODE>boole_set</
 <CODE>boole_and</CODE>, <CODE>boole_ior</CODE>, <CODE>boole_xor</CODE>, <CODE>boole_eqv</CODE>,
 <CODE>boole_nand</CODE>, <CODE>boole_nor</CODE>, <CODE>boole_andc1</CODE>, <CODE>boole_andc2</CODE>,
 <CODE>boole_orc1</CODE>, <CODE>boole_orc2</CODE>.
-<A NAME="IDX143"></A>
-<A NAME="IDX144"></A>
-<A NAME="IDX145"></A>
-<A NAME="IDX146"></A>
-<A NAME="IDX147"></A>
-<A NAME="IDX148"></A>
-<A NAME="IDX149"></A>
 <A NAME="IDX150"></A>
 <A NAME="IDX151"></A>
 <A NAME="IDX152"></A>
@@ -1311,6 +1310,13 @@ which combines two bits into one bit): <CODE>boole_clr</CODE>, <CODE>boole_set</
 <A NAME="IDX155"></A>
 <A NAME="IDX156"></A>
 <A NAME="IDX157"></A>
+<A NAME="IDX158"></A>
+<A NAME="IDX159"></A>
+<A NAME="IDX160"></A>
+<A NAME="IDX161"></A>
+<A NAME="IDX162"></A>
+<A NAME="IDX163"></A>
+<A NAME="IDX164"></A>
 
 
 <P>
@@ -1321,19 +1327,19 @@ Other functions that view integers as bit strings:
 
 <DT><CODE>cl_boolean logtest (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX158"></A>
+<A NAME="IDX165"></A>
 Returns true if some bit is set in both <CODE>x</CODE> and <CODE>y</CODE>, i.e. if
 <CODE>logand(x,y) != 0</CODE>.
 
 <DT><CODE>cl_boolean logbitp (const cl_I&#38; n, const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX159"></A>
+<A NAME="IDX166"></A>
 Returns true if the <CODE>n</CODE>th bit (from the right) of <CODE>x</CODE> is set.
 Bit 0 is the least significant bit.
 
 <DT><CODE>uintL logcount (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX160"></A>
+<A NAME="IDX167"></A>
 Returns the number of one bits in <CODE>x</CODE>, if <CODE>x</CODE> &#62;= 0, or
 the number of zero bits in <CODE>x</CODE>, if <CODE>x</CODE> &#60; 0.
 </DL>
@@ -1347,7 +1353,7 @@ struct cl_byte { uintL size; uintL position; };
 </PRE>
 
 <P>
-<A NAME="IDX161"></A>
+<A NAME="IDX168"></A>
 represents the bit interval containing the bits
 <CODE>position</CODE>...<CODE>position+size-1</CODE> of an integer.
 The constructor <CODE>cl_byte(size,position)</CODE> constructs a <CODE>cl_byte</CODE>.
@@ -1357,19 +1363,19 @@ The constructor <CODE>cl_byte(size,position)</CODE> constructs a <CODE>cl_byte</
 
 <DT><CODE>cl_I ldb (const cl_I&#38; n, const cl_byte&#38; b)</CODE>
 <DD>
-<A NAME="IDX162"></A>
+<A NAME="IDX169"></A>
 extracts the bits of <CODE>n</CODE> described by the bit interval <CODE>b</CODE>
 and returns them as a nonnegative integer with <CODE>b.size</CODE> bits.
 
 <DT><CODE>cl_boolean ldb_test (const cl_I&#38; n, const cl_byte&#38; b)</CODE>
 <DD>
-<A NAME="IDX163"></A>
+<A NAME="IDX170"></A>
 Returns true if some bit described by the bit interval <CODE>b</CODE> is set in
 <CODE>n</CODE>.
 
 <DT><CODE>cl_I dpb (const cl_I&#38; newbyte, const cl_I&#38; n, const cl_byte&#38; b)</CODE>
 <DD>
-<A NAME="IDX164"></A>
+<A NAME="IDX171"></A>
 Returns <CODE>n</CODE>, with the bits described by the bit interval <CODE>b</CODE>
 replaced by <CODE>newbyte</CODE>. Only the lowest <CODE>b.size</CODE> bits of
 <CODE>newbyte</CODE> are relevant.
@@ -1384,13 +1390,13 @@ functions are their counterparts without shifting:
 
 <DT><CODE>cl_I mask_field (const cl_I&#38; n, const cl_byte&#38; b)</CODE>
 <DD>
-<A NAME="IDX165"></A>
+<A NAME="IDX172"></A>
 returns an integer with the bits described by the bit interval <CODE>b</CODE>
 copied from the corresponding bits in <CODE>n</CODE>, the other bits zero.
 
 <DT><CODE>cl_I deposit_field (const cl_I&#38; newbyte, const cl_I&#38; n, const cl_byte&#38; b)</CODE>
 <DD>
-<A NAME="IDX166"></A>
+<A NAME="IDX173"></A>
 returns an integer where the bits described by the bit interval <CODE>b</CODE>
 come from <CODE>newbyte</CODE> and the other bits come from <CODE>n</CODE>.
 </DL>
@@ -1421,39 +1427,39 @@ for common arithmetic operations:
 
 <DT><CODE>cl_boolean oddp (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX167"></A>
+<A NAME="IDX174"></A>
 Returns true if the least significant bit of <CODE>x</CODE> is 1. Equivalent to
 <CODE>mod(x,2) != 0</CODE>.
 
 <DT><CODE>cl_boolean evenp (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX168"></A>
+<A NAME="IDX175"></A>
 Returns true if the least significant bit of <CODE>x</CODE> is 0. Equivalent to
 <CODE>mod(x,2) == 0</CODE>.
 
 <DT><CODE>cl_I operator &#60;&#60; (const cl_I&#38; x, const cl_I&#38; n)</CODE>
 <DD>
-<A NAME="IDX169"></A>
+<A NAME="IDX176"></A>
 Shifts <CODE>x</CODE> by <CODE>n</CODE> bits to the left. <CODE>n</CODE> should be &#62;=0.
 Equivalent to <CODE>x * expt(2,n)</CODE>.
 
 <DT><CODE>cl_I operator &#62;&#62; (const cl_I&#38; x, const cl_I&#38; n)</CODE>
 <DD>
-<A NAME="IDX170"></A>
+<A NAME="IDX177"></A>
 Shifts <CODE>x</CODE> by <CODE>n</CODE> bits to the right. <CODE>n</CODE> should be &#62;=0.
 Bits shifted out to the right are thrown away.
 Equivalent to <CODE>floor(x / expt(2,n))</CODE>.
 
 <DT><CODE>cl_I ash (const cl_I&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX171"></A>
+<A NAME="IDX178"></A>
 Shifts <CODE>x</CODE> by <CODE>y</CODE> bits to the left (if <CODE>y</CODE>&#62;=0) or
 by <CODE>-y</CODE> bits to the right (if <CODE>y</CODE>&#60;=0). In other words, this
 returns <CODE>floor(x * expt(2,y))</CODE>.
 
 <DT><CODE>uintL integer_length (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX172"></A>
+<A NAME="IDX179"></A>
 Returns the number of bits (excluding the sign bit) needed to represent <CODE>x</CODE>
 in two's complement notation. This is the smallest n &#62;= 0 such that
 -2^n &#60;= x &#60; 2^n. If x &#62; 0, this is the unique n &#62; 0 such that
@@ -1461,14 +1467,14 @@ in two's complement notation. This is the smallest n &#62;= 0 such that
 
 <DT><CODE>uintL ord2 (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX173"></A>
+<A NAME="IDX180"></A>
 <CODE>x</CODE> must be non-zero. This function returns the number of 0 bits at the
 right of <CODE>x</CODE> in two's complement notation. This is the largest n &#62;= 0
 such that 2^n divides <CODE>x</CODE>.
 
 <DT><CODE>uintL power2p (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX174"></A>
+<A NAME="IDX181"></A>
 <CODE>x</CODE> must be &#62; 0. This function checks whether <CODE>x</CODE> is a power of 2.
 If <CODE>x</CODE> = 2^(n-1), it returns n. Else it returns 0.
 (See also the function <CODE>logp</CODE>.)
@@ -1476,13 +1482,13 @@ If <CODE>x</CODE> = 2^(n-1), it returns n. Else it returns 0.
 
 
 
-<H3><A NAME="SEC35" HREF="cln_toc.html#TOC35">4.9.2 Number theoretic functions</A></H3>
+<H3><A NAME="SEC36" HREF="cln_toc.html#TOC36">4.9.2 Number theoretic functions</A></H3>
 
 <DL COMPACT>
 
 <DT><CODE>uint32 gcd (uint32 a, uint32 b)</CODE>
 <DD>
-<A NAME="IDX175"></A>
+<A NAME="IDX182"></A>
 <DT><CODE>cl_I gcd (const cl_I&#38; a, const cl_I&#38; b)</CODE>
 <DD>
 This function returns the greatest common divisor of <CODE>a</CODE> and <CODE>b</CODE>,
@@ -1490,7 +1496,7 @@ normalized to be &#62;= 0.
 
 <DT><CODE>cl_I xgcd (const cl_I&#38; a, const cl_I&#38; b, cl_I* u, cl_I* v)</CODE>
 <DD>
-<A NAME="IDX176"></A>
+<A NAME="IDX183"></A>
 This function ("extended gcd") returns the greatest common divisor <CODE>g</CODE> of
 <CODE>a</CODE> and <CODE>b</CODE> and at the same time the representation of <CODE>g</CODE>
 as an integral linear combination of <CODE>a</CODE> and <CODE>b</CODE>:
@@ -1502,13 +1508,13 @@ value, in the following sense: If <CODE>a</CODE> and <CODE>b</CODE> are non-zero
 
 <DT><CODE>cl_I lcm (const cl_I&#38; a, const cl_I&#38; b)</CODE>
 <DD>
-<A NAME="IDX177"></A>
+<A NAME="IDX184"></A>
 This function returns the least common multiple of <CODE>a</CODE> and <CODE>b</CODE>,
 normalized to be &#62;= 0.
 
 <DT><CODE>cl_boolean logp (const cl_I&#38; a, const cl_I&#38; b, cl_RA* l)</CODE>
 <DD>
-<A NAME="IDX178"></A>
+<A NAME="IDX185"></A>
 <DT><CODE>cl_boolean logp (const cl_RA&#38; a, const cl_RA&#38; b, cl_RA* l)</CODE>
 <DD>
 <CODE>a</CODE> must be &#62; 0. <CODE>b</CODE> must be &#62;0 and != 1. If log(a,b) is
@@ -1518,26 +1524,26 @@ it returns false.
 
 
 
-<H3><A NAME="SEC36" HREF="cln_toc.html#TOC36">4.9.3 Combinatorial functions</A></H3>
+<H3><A NAME="SEC37" HREF="cln_toc.html#TOC37">4.9.3 Combinatorial functions</A></H3>
 
 <DL COMPACT>
 
 <DT><CODE>cl_I factorial (uintL n)</CODE>
 <DD>
-<A NAME="IDX179"></A>
+<A NAME="IDX186"></A>
 <CODE>n</CODE> must be a small integer &#62;= 0. This function returns the factorial
 <CODE>n</CODE>! = <CODE>1*2*...*n</CODE>.
 
 <DT><CODE>cl_I doublefactorial (uintL n)</CODE>
 <DD>
-<A NAME="IDX180"></A>
+<A NAME="IDX187"></A>
 <CODE>n</CODE> must be a small integer &#62;= 0. This function returns the 
 doublefactorial <CODE>n</CODE>!! = <CODE>1*3*...*n</CODE> or 
 <CODE>n</CODE>!! = <CODE>2*4*...*n</CODE>, respectively.
 
 <DT><CODE>cl_I binomial (uintL n, uintL k)</CODE>
 <DD>
-<A NAME="IDX181"></A>
+<A NAME="IDX188"></A>
 <CODE>n</CODE> and <CODE>k</CODE> must be small integers &#62;= 0. This function returns the
 binomial coefficient
 (<CODE>n</CODE> choose <CODE>k</CODE>) = <CODE>n</CODE>! / <CODE>k</CODE>! <CODE>(n-k)</CODE>!
@@ -1546,7 +1552,7 @@ for 0 &#60;= k &#60;= n, 0 else.
 
 
 
-<H2><A NAME="SEC37" HREF="cln_toc.html#TOC37">4.10 Functions on floating-point numbers</A></H2>
+<H2><A NAME="SEC38" HREF="cln_toc.html#TOC38">4.10 Functions on floating-point numbers</A></H2>
 
 <P>
 Recall that a floating-point number consists of a sign <CODE>s</CODE>, an
@@ -1564,7 +1570,7 @@ defines the following operations.
 
 <DT><CODE><VAR>type</VAR> scale_float (const <VAR>type</VAR>&#38; x, sintL delta)</CODE>
 <DD>
-<A NAME="IDX182"></A>
+<A NAME="IDX189"></A>
 <DT><CODE><VAR>type</VAR> scale_float (const <VAR>type</VAR>&#38; x, const cl_I&#38; delta)</CODE>
 <DD>
 Returns <CODE>x*2^delta</CODE>. This is more efficient than an explicit multiplication
@@ -1580,32 +1586,32 @@ representation of floating-point numbers.
 
 <DT><CODE>sintL float_exponent (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX183"></A>
+<A NAME="IDX190"></A>
 Returns the exponent <CODE>e</CODE> of <CODE>x</CODE>.
 For <CODE>x = 0.0</CODE>, this is 0. For <CODE>x</CODE> non-zero, this is the unique
 integer with <CODE>2^(e-1) &#60;= abs(x) &#60; 2^e</CODE>.
 
 <DT><CODE>sintL float_radix (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX184"></A>
+<A NAME="IDX191"></A>
 Returns the base of the floating-point representation. This is always <CODE>2</CODE>.
 
 <DT><CODE><VAR>type</VAR> float_sign (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX185"></A>
+<A NAME="IDX192"></A>
 Returns the sign <CODE>s</CODE> of <CODE>x</CODE> as a float. The value is 1 for
 <CODE>x</CODE> &#62;= 0, -1 for <CODE>x</CODE> &#60; 0.
 
 <DT><CODE>uintL float_digits (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX186"></A>
+<A NAME="IDX193"></A>
 Returns the number of mantissa bits in the floating-point representation
 of <CODE>x</CODE>, including the hidden bit. The value only depends on the type
 of <CODE>x</CODE>, not on its value.
 
 <DT><CODE>uintL float_precision (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX187"></A>
+<A NAME="IDX194"></A>
 Returns the number of significant mantissa bits in the floating-point
 representation of <CODE>x</CODE>. Since denormalized numbers are not supported,
 this is the same as <CODE>float_digits(x)</CODE> if <CODE>x</CODE> is non-zero, and
@@ -1614,11 +1620,11 @@ this is the same as <CODE>float_digits(x)</CODE> if <CODE>x</CODE> is non-zero, 
 
 <P>
 The complete internal representation of a float is encoded in the type
-<A NAME="IDX188"></A>
-<A NAME="IDX189"></A>
-<A NAME="IDX190"></A>
-<A NAME="IDX191"></A>
-<A NAME="IDX192"></A>
+<A NAME="IDX195"></A>
+<A NAME="IDX196"></A>
+<A NAME="IDX197"></A>
+<A NAME="IDX198"></A>
+<A NAME="IDX199"></A>
 <CODE>cl_decoded_float</CODE> (or <CODE>cl_decoded_sfloat</CODE>, <CODE>cl_decoded_ffloat</CODE>,
 <CODE>cl_decoded_dfloat</CODE>, <CODE>cl_decoded_lfloat</CODE>, respectively), defined by
 
@@ -1636,7 +1642,7 @@ and returned by the function
 
 <DT><CODE>cl_decoded_<VAR>type</VAR>float decode_float (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX193"></A>
+<A NAME="IDX200"></A>
 For <CODE>x</CODE> non-zero, this returns <CODE>(-1)^s</CODE>, <CODE>e</CODE>, <CODE>m</CODE> with
 <CODE>x = (-1)^s * 2^e * m</CODE> and <CODE>0.5 &#60;= m &#60; 1.0</CODE>. For <CODE>x</CODE> = 0,
 it returns <CODE>(-1)^s</CODE>=1, <CODE>e</CODE>=0, <CODE>m</CODE>=0.
@@ -1647,7 +1653,7 @@ it returns <CODE>(-1)^s</CODE>=1, <CODE>e</CODE>=0, <CODE>m</CODE>=0.
 A complete decoding in terms of integers is provided as type
 
 <PRE>
-<A NAME="IDX194"></A>struct cl_idecoded_float {
+<A NAME="IDX201"></A>struct cl_idecoded_float {
         cl_I mantissa; cl_I exponent; cl_I sign;
 };
 </PRE>
@@ -1660,7 +1666,7 @@ by the following function:
 
 <DT><CODE>cl_idecoded_float integer_decode_float (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX195"></A>
+<A NAME="IDX202"></A>
 For <CODE>x</CODE> non-zero, this returns <CODE>(-1)^s</CODE>, <CODE>e</CODE>, <CODE>m</CODE> with
 <CODE>x = (-1)^s * 2^e * m</CODE> and <CODE>m</CODE> an integer with <CODE>float_digits(x)</CODE>
 bits. For <CODE>x</CODE> = 0, it returns <CODE>(-1)^s</CODE>=1, <CODE>e</CODE>=0, <CODE>m</CODE>=0.
@@ -1676,7 +1682,7 @@ Some other function, implemented only for class <CODE>cl_F</CODE>:
 
 <DT><CODE>cl_F float_sign (const cl_F&#38; x, const cl_F&#38; y)</CODE>
 <DD>
-<A NAME="IDX196"></A>
+<A NAME="IDX203"></A>
 This returns a floating point number whose precision and absolute value
 is that of <CODE>y</CODE> and whose sign is that of <CODE>x</CODE>. If <CODE>x</CODE> is
 zero, it is treated as positive. Same for <CODE>y</CODE>.
@@ -1684,24 +1690,25 @@ zero, it is treated as positive. Same for <CODE>y</CODE>.
 
 
 
-<H2><A NAME="SEC38" HREF="cln_toc.html#TOC38">4.11 Conversion functions</A></H2>
+<H2><A NAME="SEC39" HREF="cln_toc.html#TOC39">4.11 Conversion functions</A></H2>
 <P>
-<A NAME="IDX197"></A>
+<A NAME="IDX204"></A>
 
 
 
 
-<H3><A NAME="SEC39" HREF="cln_toc.html#TOC39">4.11.1 Conversion to floating-point numbers</A></H3>
+<H3><A NAME="SEC40" HREF="cln_toc.html#TOC40">4.11.1 Conversion to floating-point numbers</A></H3>
 
 <P>
 The type <CODE>cl_float_format_t</CODE> describes a floating-point format.
+<A NAME="IDX205"></A>
 
 
 <DL COMPACT>
 
 <DT><CODE>cl_float_format_t cl_float_format (uintL n)</CODE>
 <DD>
-<A NAME="IDX198"></A>
+<A NAME="IDX206"></A>
 Returns the smallest float format which guarantees at least <CODE>n</CODE>
 decimal digits in the mantissa (after the decimal point).
 
@@ -1711,7 +1718,7 @@ Returns the floating point format of <CODE>x</CODE>.
 
 <DT><CODE>cl_float_format_t cl_default_float_format</CODE>
 <DD>
-<A NAME="IDX199"></A>
+<A NAME="IDX207"></A>
 Global variable: the default float format used when converting rational numbers
 to floats.
 </DL>
@@ -1727,7 +1734,7 @@ defines the following operations:
 
 <DT><CODE>cl_F cl_float (const <VAR>type</VAR>&#38;x, cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX200"></A>
+<A NAME="IDX208"></A>
 Returns <CODE>x</CODE> as a float of format <CODE>f</CODE>.
 <DT><CODE>cl_F cl_float (const <VAR>type</VAR>&#38;x, const cl_F&#38; y)</CODE>
 <DD>
@@ -1750,40 +1757,40 @@ Every floating-point format has some characteristic numbers:
 
 <DT><CODE>cl_F most_positive_float (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX201"></A>
+<A NAME="IDX209"></A>
 Returns the largest (most positive) floating point number in float format <CODE>f</CODE>.
 
 <DT><CODE>cl_F most_negative_float (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX202"></A>
+<A NAME="IDX210"></A>
 Returns the smallest (most negative) floating point number in float format <CODE>f</CODE>.
 
 <DT><CODE>cl_F least_positive_float (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX203"></A>
+<A NAME="IDX211"></A>
 Returns the least positive floating point number (i.e. &#62; 0 but closest to 0)
 in float format <CODE>f</CODE>.
 
 <DT><CODE>cl_F least_negative_float (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX204"></A>
+<A NAME="IDX212"></A>
 Returns the least negative floating point number (i.e. &#60; 0 but closest to 0)
 in float format <CODE>f</CODE>.
 
 <DT><CODE>cl_F float_epsilon (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX205"></A>
+<A NAME="IDX213"></A>
 Returns the smallest floating point number e &#62; 0 such that <CODE>1+e != 1</CODE>.
 
 <DT><CODE>cl_F float_negative_epsilon (cl_float_format_t f)</CODE>
 <DD>
-<A NAME="IDX206"></A>
+<A NAME="IDX214"></A>
 Returns the smallest floating point number e &#62; 0 such that <CODE>1-e != 1</CODE>.
 </DL>
 
 
 
-<H3><A NAME="SEC40" HREF="cln_toc.html#TOC40">4.11.2 Conversion to rational numbers</A></H3>
+<H3><A NAME="SEC41" HREF="cln_toc.html#TOC41">4.11.2 Conversion to rational numbers</A></H3>
 
 <P>
 Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_F</CODE>
@@ -1794,7 +1801,7 @@ defines the following operation:
 
 <DT><CODE>cl_RA rational (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX207"></A>
+<A NAME="IDX215"></A>
 Returns the value of <CODE>x</CODE> as an exact number. If <CODE>x</CODE> is already
 an exact number, this is <CODE>x</CODE>. If <CODE>x</CODE> is a floating-point number,
 the value is a rational number whose denominator is a power of 2.
@@ -1809,7 +1816,7 @@ the function
 
 <DT><CODE>cl_RA rationalize (const cl_R&#38; x)</CODE>
 <DD>
-<A NAME="IDX208"></A>
+<A NAME="IDX216"></A>
 If <CODE>x</CODE> is a floating-point number, it actually represents an interval
 of real numbers, and this function returns the rational number with
 smallest denominator (and smallest numerator, in magnitude)
@@ -1833,7 +1840,7 @@ If <CODE>x</CODE> is any float, one has
 
 
 
-<H2><A NAME="SEC41" HREF="cln_toc.html#TOC41">4.12 Random number generators</A></H2>
+<H2><A NAME="SEC42" HREF="cln_toc.html#TOC42">4.12 Random number generators</A></H2>
 
 <P>
 A random generator is a machine which produces (pseudo-)random numbers.
@@ -1851,7 +1858,8 @@ a complicated but deterministic way.
 
 <P>
 The global variable
-<A NAME="IDX209"></A>
+<A NAME="IDX217"></A>
+<A NAME="IDX218"></A>
 
 <PRE>
 cl_random_state cl_default_random_state
@@ -1868,14 +1876,14 @@ below are called without <CODE>cl_random_state</CODE> argument.
 <DD>
 <DT><CODE>uint32 random32 ()</CODE>
 <DD>
-<A NAME="IDX210"></A>
+<A NAME="IDX219"></A>
 Returns a random unsigned 32-bit number. All bits are equally random.
 
 <DT><CODE>cl_I random_I (cl_random_state&#38; randomstate, const cl_I&#38; n)</CODE>
 <DD>
 <DT><CODE>cl_I random_I (const cl_I&#38; n)</CODE>
 <DD>
-<A NAME="IDX211"></A>
+<A NAME="IDX220"></A>
 <CODE>n</CODE> must be an integer &#62; 0. This function returns a random integer <CODE>x</CODE>
 in the range <CODE>0 &#60;= x &#60; n</CODE>.
 
@@ -1883,7 +1891,7 @@ in the range <CODE>0 &#60;= x &#60; n</CODE>.
 <DD>
 <DT><CODE>cl_F random_F (const cl_F&#38; n)</CODE>
 <DD>
-<A NAME="IDX212"></A>
+<A NAME="IDX221"></A>
 <CODE>n</CODE> must be a float &#62; 0. This function returns a random floating-point
 number of the same format as <CODE>n</CODE> in the range <CODE>0 &#60;= x &#60; n</CODE>.
 
@@ -1891,16 +1899,16 @@ number of the same format as <CODE>n</CODE> in the range <CODE>0 &#60;= x &#60; 
 <DD>
 <DT><CODE>cl_R random_R (const cl_R&#38; n)</CODE>
 <DD>
-<A NAME="IDX213"></A>
+<A NAME="IDX222"></A>
 Behaves like <CODE>random_I</CODE> if <CODE>n</CODE> is an integer and like <CODE>random_F</CODE>
 if <CODE>n</CODE> is a float.
 </DL>
 
 
 
-<H2><A NAME="SEC42" HREF="cln_toc.html#TOC42">4.13 Obfuscating operators</A></H2>
+<H2><A NAME="SEC43" HREF="cln_toc.html#TOC43">4.13 Obfuscating operators</A></H2>
 <P>
-<A NAME="IDX214"></A>
+<A NAME="IDX223"></A>
 
 
 <P>
@@ -1916,7 +1924,7 @@ to get happy, then add
 </PRE>
 
 <P>
-<A NAME="IDX215"></A>
+<A NAME="IDX224"></A>
 to the beginning of your source files, before the inclusion of any CLN
 include files. This flag will enable the following operators:
 
@@ -1930,16 +1938,16 @@ For the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>,
 
 <DT><CODE><VAR>type</VAR>&#38; operator += (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX216"></A>
+<A NAME="IDX225"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator -= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX217"></A>
+<A NAME="IDX226"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator *= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX218"></A>
+<A NAME="IDX227"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator /= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX219"></A>
+<A NAME="IDX228"></A>
 </DL>
 
 <P>
@@ -1956,19 +1964,19 @@ For the class <CODE>cl_I</CODE>:
 <DD>
 <DT><CODE><VAR>type</VAR>&#38; operator &#38;= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX220"></A>
+<A NAME="IDX229"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator |= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX221"></A>
+<A NAME="IDX230"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator ^= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX222"></A>
+<A NAME="IDX231"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator &#60;&#60;= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX223"></A>
+<A NAME="IDX232"></A>
 <DT><CODE><VAR>type</VAR>&#38; operator &#62;&#62;= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
 <DD>
-<A NAME="IDX224"></A>
+<A NAME="IDX233"></A>
 </DL>
 
 <P>
@@ -1980,7 +1988,7 @@ For the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>
 
 <DT><CODE><VAR>type</VAR>&#38; operator ++ (<VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX225"></A>
+<A NAME="IDX234"></A>
 The prefix operator <CODE>++x</CODE>.
 
 <DT><CODE>void operator ++ (<VAR>type</VAR>&#38; x, int)</CODE>
@@ -1989,7 +1997,7 @@ The postfix operator <CODE>x++</CODE>.
 
 <DT><CODE><VAR>type</VAR>&#38; operator -- (<VAR>type</VAR>&#38; x)</CODE>
 <DD>
-<A NAME="IDX226"></A>
+<A NAME="IDX235"></A>
 The prefix operator <CODE>--x</CODE>.
 
 <DT><CODE>void operator -- (<VAR>type</VAR>&#38; x, int)</CODE>

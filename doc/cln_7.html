@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 5 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 7. Modular integers</TITLE>
 </HEAD>
@@ -9,16 +9,16 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_6.html">previous</A>, <A 
 <P><HR><P>
 
 
-<H1><A NAME="SEC48" HREF="cln_toc.html#TOC48">7. Modular integers</A></H1>
+<H1><A NAME="SEC49" HREF="cln_toc.html#TOC49">7. Modular integers</A></H1>
 <P>
-<A NAME="IDX231"></A>
+<A NAME="IDX240"></A>
 
 
 
 
-<H2><A NAME="SEC49" HREF="cln_toc.html#TOC49">7.1 Modular integer rings</A></H2>
+<H2><A NAME="SEC50" HREF="cln_toc.html#TOC50">7.1 Modular integer rings</A></H2>
 <P>
-<A NAME="IDX232"></A>
+<A NAME="IDX241"></A>
 
 
 <P>
@@ -47,6 +47,10 @@ The class of modular integer rings is
 </PRE>
 
 <P>
+<A NAME="IDX242"></A>
+
+
+<P>
 and the class of all modular integers (elements of modular integer rings) is
 
 
@@ -65,11 +69,11 @@ Modular integer rings are constructed using the function
 
 <DT><CODE>cl_modint_ring cl_find_modint_ring (const cl_I&#38; N)</CODE>
 <DD>
-<A NAME="IDX233"></A>
+<A NAME="IDX243"></A>
 This function returns the modular ring <SAMP>`Z/NZ'</SAMP>. It takes care
 of finding out about special cases of <CODE>N</CODE>, like powers of two
 and odd numbers for which Montgomery multiplication will be a win,
-<A NAME="IDX234"></A>
+<A NAME="IDX244"></A>
 and precomputes any necessary auxiliary data for computing modulo <CODE>N</CODE>.
 There is a cache table of rings, indexed by <CODE>N</CODE> (or, more precisely,
 by <CODE>abs(N)</CODE>). This ensures that the precomputation costs are reduced
@@ -84,10 +88,10 @@ Modular integer rings can be compared for equality:
 
 <DT><CODE>bool operator== (const cl_modint_ring&#38;, const cl_modint_ring&#38;)</CODE>
 <DD>
-<A NAME="IDX235"></A>
+<A NAME="IDX245"></A>
 <DT><CODE>bool operator!= (const cl_modint_ring&#38;, const cl_modint_ring&#38;)</CODE>
 <DD>
-<A NAME="IDX236"></A>
+<A NAME="IDX246"></A>
 These compare two modular integer rings for equality. Two different calls
 to <CODE>cl_find_modint_ring</CODE> with the same argument necessarily return the
 same ring because it is memoized in the cache table.
@@ -95,7 +99,7 @@ same ring because it is memoized in the cache table.
 
 
 
-<H2><A NAME="SEC50" HREF="cln_toc.html#TOC50">7.2 Functions on modular integers</A></H2>
+<H2><A NAME="SEC51" HREF="cln_toc.html#TOC51">7.2 Functions on modular integers</A></H2>
 
 <P>
 Given a modular integer ring <CODE>R</CODE>, the following members can be used.
@@ -105,27 +109,27 @@ Given a modular integer ring <CODE>R</CODE>, the following members can be used.
 
 <DT><CODE>cl_I R-&#62;modulus</CODE>
 <DD>
-<A NAME="IDX237"></A>
+<A NAME="IDX247"></A>
 This is the ring's modulus, normalized to be nonnegative: <CODE>abs(N)</CODE>.
 
 <DT><CODE>cl_MI R-&#62;zero()</CODE>
 <DD>
-<A NAME="IDX238"></A>
+<A NAME="IDX248"></A>
 This returns <CODE>0 mod N</CODE>.
 
 <DT><CODE>cl_MI R-&#62;one()</CODE>
 <DD>
-<A NAME="IDX239"></A>
+<A NAME="IDX249"></A>
 This returns <CODE>1 mod N</CODE>.
 
 <DT><CODE>cl_MI R-&#62;canonhom (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX240"></A>
+<A NAME="IDX250"></A>
 This returns <CODE>x mod N</CODE>.
 
 <DT><CODE>cl_I R-&#62;retract (const cl_MI&#38; x)</CODE>
 <DD>
-<A NAME="IDX241"></A>
+<A NAME="IDX251"></A>
 This is a partial inverse function to <CODE>R-&#62;canonhom</CODE>. It returns the
 standard representative (<CODE>&#62;=0</CODE>, <CODE>&#60;N</CODE>) of <CODE>x</CODE>.
 
@@ -133,7 +137,7 @@ standard representative (<CODE>&#62;=0</CODE>, <CODE>&#60;N</CODE>) of <CODE>x</
 <DD>
 <DT><CODE>cl_MI R-&#62;random()</CODE>
 <DD>
-<A NAME="IDX242"></A>
+<A NAME="IDX252"></A>
 This returns a random integer modulo <CODE>N</CODE>.
 </DL>
 
@@ -145,18 +149,18 @@ The following operations are defined on modular integers.
 
 <DT><CODE>cl_modint_ring x.ring ()</CODE>
 <DD>
-<A NAME="IDX243"></A>
+<A NAME="IDX253"></A>
 Returns the ring to which the modular integer <CODE>x</CODE> belongs.
 
 <DT><CODE>cl_MI operator+ (const cl_MI&#38;, const cl_MI&#38;)</CODE>
 <DD>
-<A NAME="IDX244"></A>
+<A NAME="IDX254"></A>
 Returns the sum of two modular integers. One of the arguments may also be
 a plain integer.
 
 <DT><CODE>cl_MI operator- (const cl_MI&#38;, const cl_MI&#38;)</CODE>
 <DD>
-<A NAME="IDX245"></A>
+<A NAME="IDX255"></A>
 Returns the difference of two modular integers. One of the arguments may also be
 a plain integer.
 
@@ -166,61 +170,61 @@ Returns the negative of a modular integer.
 
 <DT><CODE>cl_MI operator* (const cl_MI&#38;, const cl_MI&#38;)</CODE>
 <DD>
-<A NAME="IDX246"></A>
+<A NAME="IDX256"></A>
 Returns the product of two modular integers. One of the arguments may also be
 a plain integer.
 
 <DT><CODE>cl_MI square (const cl_MI&#38;)</CODE>
 <DD>
-<A NAME="IDX247"></A>
+<A NAME="IDX257"></A>
 Returns the square of a modular integer.
 
 <DT><CODE>cl_MI recip (const cl_MI&#38; x)</CODE>
 <DD>
-<A NAME="IDX248"></A>
+<A NAME="IDX258"></A>
 Returns the reciprocal <CODE>x^-1</CODE> of a modular integer <CODE>x</CODE>. <CODE>x</CODE>
 must be coprime to the modulus, otherwise an error message is issued.
 
 <DT><CODE>cl_MI div (const cl_MI&#38; x, const cl_MI&#38; y)</CODE>
 <DD>
-<A NAME="IDX249"></A>
+<A NAME="IDX259"></A>
 Returns the quotient <CODE>x*y^-1</CODE> of two modular integers <CODE>x</CODE>, <CODE>y</CODE>.
 <CODE>y</CODE> must be coprime to the modulus, otherwise an error message is issued.
 
 <DT><CODE>cl_MI expt_pos (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX250"></A>
+<A NAME="IDX260"></A>
 <CODE>y</CODE> must be &#62; 0. Returns <CODE>x^y</CODE>.
 
 <DT><CODE>cl_MI expt (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX251"></A>
+<A NAME="IDX261"></A>
 Returns <CODE>x^y</CODE>. If <CODE>y</CODE> is negative, <CODE>x</CODE> must be coprime to the
 modulus, else an error message is issued.
 
 <DT><CODE>cl_MI operator&#60;&#60; (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX252"></A>
+<A NAME="IDX262"></A>
 Returns <CODE>x*2^y</CODE>.
 
 <DT><CODE>cl_MI operator&#62;&#62; (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
 <DD>
-<A NAME="IDX253"></A>
+<A NAME="IDX263"></A>
 Returns <CODE>x*2^-y</CODE>. When <CODE>y</CODE> is positive, the modulus must be odd,
 or an error message is issued.
 
 <DT><CODE>bool operator== (const cl_MI&#38;, const cl_MI&#38;)</CODE>
 <DD>
-<A NAME="IDX254"></A>
+<A NAME="IDX264"></A>
 <DT><CODE>bool operator!= (const cl_MI&#38;, const cl_MI&#38;)</CODE>
 <DD>
-<A NAME="IDX255"></A>
+<A NAME="IDX265"></A>
 Compares two modular integers, belonging to the same modular integer ring,
 for equality.
 
 <DT><CODE>cl_boolean zerop (const cl_MI&#38; x)</CODE>
 <DD>
-<A NAME="IDX256"></A>
+<A NAME="IDX266"></A>
 Returns true if <CODE>x</CODE> is <CODE>0 mod N</CODE>.
 </DL>
 
@@ -233,10 +237,10 @@ input/output).
 
 <DT><CODE>void fprint (cl_ostream stream, const cl_MI&#38; x)</CODE>
 <DD>
-<A NAME="IDX257"></A>
+<A NAME="IDX267"></A>
 <DT><CODE>cl_ostream operator&#60;&#60; (cl_ostream stream, const cl_MI&#38; x)</CODE>
 <DD>
-<A NAME="IDX258"></A>
+<A NAME="IDX268"></A>
 Prints the modular integer <CODE>x</CODE> on the <CODE>stream</CODE>. The output may depend
 on the global printer settings in the variable <CODE>cl_default_print_flags</CODE>.
 </DL>

@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 5 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 12. Customizing</TITLE>
 </HEAD>
@@ -9,14 +9,14 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_11.html">previous</A>, <A
 <P><HR><P>
 
 
-<H1><A NAME="SEC68" HREF="cln_toc.html#TOC68">12. Customizing</A></H1>
+<H1><A NAME="SEC69" HREF="cln_toc.html#TOC69">12. Customizing</A></H1>
 <P>
-<A NAME="IDX316"></A>
+<A NAME="IDX326"></A>
 
 
 
 
-<H2><A NAME="SEC69" HREF="cln_toc.html#TOC69">12.1 Error handling</A></H2>
+<H2><A NAME="SEC70" HREF="cln_toc.html#TOC70">12.1 Error handling</A></H2>
 
 <P>
 When a fatal error occurs, an error message is output to the standard error
@@ -31,15 +31,15 @@ void cl_abort (void);
 </PRE>
 
 <P>
-<A NAME="IDX317"></A>
+<A NAME="IDX327"></A>
 This function must not return control to its caller.
 
 
 
 
-<H2><A NAME="SEC70" HREF="cln_toc.html#TOC70">12.2 Floating-point underflow</A></H2>
+<H2><A NAME="SEC71" HREF="cln_toc.html#TOC71">12.2 Floating-point underflow</A></H2>
 <P>
-<A NAME="IDX318"></A>
+<A NAME="IDX328"></A>
 
 
 <P>
@@ -60,17 +60,17 @@ will be generated instead.  The default value of
 
 
 
-<H2><A NAME="SEC71" HREF="cln_toc.html#TOC71">12.3 Customizing I/O</A></H2>
+<H2><A NAME="SEC72" HREF="cln_toc.html#TOC72">12.3 Customizing I/O</A></H2>
 
 <P>
 The output of the function <CODE>fprint</CODE> may be customized by changing the
 value of the global variable <CODE>cl_default_print_flags</CODE>.
-<A NAME="IDX319"></A>
+<A NAME="IDX329"></A>
 
 
 
 
-<H2><A NAME="SEC72" HREF="cln_toc.html#TOC72">12.4 Customizing the memory allocator</A></H2>
+<H2><A NAME="SEC73" HREF="cln_toc.html#TOC73">12.4 Customizing the memory allocator</A></H2>
 
 <P>
 Every memory allocation of CLN is done through the function pointer
@@ -89,8 +89,8 @@ void (*cl_free_hook) (void* ptr)      = ...;
 </PRE>
 
 <P>
-<A NAME="IDX320"></A>
-<A NAME="IDX321"></A>
+<A NAME="IDX330"></A>
+<A NAME="IDX331"></A>
 The <CODE>cl_malloc_hook</CODE> function must not return a <CODE>NULL</CODE> pointer.
 
 
