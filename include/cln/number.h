@@ -196,11 +196,6 @@ CL_DEFINE_FLOAT_CONSTRUCTOR(cl_number)
 CL_DEFINE_DOUBLE_CONSTRUCTOR(cl_number)
 
 
-// Conversion:
-//inline cl_N& cl_as_N (const cl_number& x)
-//{ return *(cl_N*)(&x); }
-
-
 // Hack section.
 
 // Conversions to subtypes without checking, template version:
