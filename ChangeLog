@@ -1,3 +1,9 @@
+2002-05-10  Richard Kreckel  <kreckel@ginac.de>
+
+	* doc/cln.tex (Building the library): Update recommendations for 
+	compiling on Tru64 using g++ 3.0 and 3.1.
+	* README: Update homepage.
+
 2002-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* doc/cln.tex (Building the library): Give some recommendations for

@@ -34,4 +34,4 @@ templates and namespaces.
 The following C++ features are not used:
 new, delete, virtual inheritance, exceptions.
 
-Homepage: http://clisp.cons.org/~haible/packages-cln.html
+Homepage: <http://www.ginac.de/CLN>
