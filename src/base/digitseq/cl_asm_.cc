@@ -5,7 +5,7 @@
 
 #ifndef NO_ASM
 
-#ifdef __m68k__
+#if defined(__m68k__) && (intCsize==16)
   #include "cl_asm_m68k_.cc"
 #endif
 
@@ -17,19 +17,19 @@
   #include "cl_asm_sparc64_.cc"
 #endif
 
-#ifdef __i386__
+#if defined(__i386__)
   #include "cl_asm_i386_.cc"
 #endif
 
-#ifdef __mips__
+#if defined(__mips__)
   #include "cl_asm_mips_.cc"
 #endif
 
-#ifdef __hppa__
+#if defined(__hppa__)
   #include "cl_asm_hppa_.cc"
 #endif
 
-#ifdef __arm__
+#if defined(__arm__)
   #include "cl_asm_arm_.cc"
 #endif
 

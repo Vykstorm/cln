@@ -1,3 +1,9 @@
+2002-06-08  Richard Kreckel  <kreckel@ginac.de>
+
+	* src/base/digitseq/cl_asm.h: ensure intCsize==16 when including
+	m68k Assembler routines.
+	* src/base/digitseq/cl_asm_.cc: Likewise.
+
 2002-05-28  Richard Kreckel  <kreckel@ginac.de>
 
 	* Version 1.1.5 released.
