@@ -1,3 +1,8 @@
+2004-10-12  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/conv/cl_I_from_digits.cc (digits_to_I): Speedup when
+	the base is a power of two.
+
 2004-10-05  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/integer/conv/cl_I_to_digits.cc (I_to_digits): Fix bug in base 32.
