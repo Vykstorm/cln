@@ -335,7 +335,7 @@ public:
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
-	void* operator new (size_t size, cl_gcobject* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void* operator new (size_t size) { return ::operator new (size); }
 };
 inline cl_gcobject::cl_gcobject () {}
@@ -385,7 +385,7 @@ public:
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
-	void* operator new (size_t size, cl_gcpointer* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void* operator new (size_t size) { return ::operator new (size); }
 };
 inline cl_gcpointer::cl_gcpointer () {}
@@ -435,7 +435,7 @@ public:
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
-	void* operator new (size_t size, cl_rcobject* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void* operator new (size_t size) { return ::operator new (size); }
 };
 inline cl_rcobject::cl_rcobject () {}
@@ -485,7 +485,7 @@ public:
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
-	void* operator new (size_t size, cl_rcpointer* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void* operator new (size_t size) { return ::operator new (size); }
 };
 inline cl_rcpointer::cl_rcpointer () {}

@@ -121,7 +121,7 @@ public: /* ugh */
 	_cl_ring_element (const cl_ring& R, const cl_gcobject& r) : rep (as_cl_private_thing(r)) { (void)R; }
 public:	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, _cl_ring_element* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 
@@ -140,7 +140,7 @@ public:	// Debugging output.
 	void debug_print () const;
 	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, cl_ring_element* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 

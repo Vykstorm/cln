@@ -72,7 +72,7 @@ public:
 	CL_DEFINE_CONVERTER(_cl_ring_element)
 public:	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, _cl_UP* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 
@@ -102,7 +102,7 @@ public:
 	void debug_print () const;
 public:	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, cl_UP* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 
@@ -523,7 +523,7 @@ public:
 	const T operator() (const T& y) const;
 public:	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, cl_UP_specialized<T>* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 

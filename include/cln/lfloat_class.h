@@ -28,7 +28,7 @@ public:
 	operator struct cl_heap_lfloat * () const;
 public:	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, cl_LF* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 // Define this if you want the elementary cl_LF operations (+, -, *, /,

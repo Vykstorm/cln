@@ -52,7 +52,7 @@ public:
 	const cl_I operator() (const cl_I& y) const;
 public:	// Ability to place an object at a given address.
 	void* operator new (size_t size) { return malloc_hook(size); }
-	void* operator new (size_t size, cl_UP_I* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 	void operator delete (void* ptr) { free_hook(ptr); }
 };
 

@@ -81,7 +81,7 @@ public:
 	// Destructor.
 	~cl_SV_inner ();
 	// Ability to place an object at a given address.
-	void* operator new (size_t size, cl_SV_inner* ptr) { (void)size; return ptr; }
+	void* operator new (size_t size, void* ptr) { (void)size; return ptr; }
 private:
 // No default constructor, copy constructor, assignment operator, new.
 	cl_SV_inner ();

@@ -1,3 +1,15 @@
+2001-01-22  Richard Kreckel  <kreckel@ginac.de>
+
+        * configure.in: Make build in separate builddir possible (again).
+
+2001-01-22  Richard Kreckel  <kreckel@ginac.de>
+
+        * include/cln/*.h: Change signatures of all classes' methods
+          cln::cl_foo::operator new(size_t, cl_foo*) to
+          cln::cl_foo::operator new(size_t, void*) so one can declare
+          std::vector<cln::cl_foo>, std::list<cln::cl_foo> etc. for
+          certain STL implementations (like libstdc++-v3).
+
 2000-12-14  Richard Kreckel  <kreckel@ginac.de>
 
         * Version 1.1 released.
