@@ -47,18 +47,38 @@ extern cl_boolean plusp (const cl_DF& x);
 
 // Liefert zu zwei Double-Float x und y : (+ x y), ein DF.
 extern const cl_DF operator+ (const cl_DF& x, const cl_DF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_DF operator+ (const cl_DF& x, const double y)
+	{ return x + cl_DF(y); }
+inline const cl_DF operator+ (const double x, const cl_DF& y)
+	{ return cl_DF(x) + y; }
 
 // Liefert zu zwei Double-Float x und y : (- x y), ein DF.
 extern const cl_DF operator- (const cl_DF& x, const cl_DF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_DF operator- (const cl_DF& x, const double y)
+	{ return x - cl_DF(y); }
+inline const cl_DF operator- (const double x, const cl_DF& y)
+	{ return cl_DF(x) - y; }
 
 // Liefert zu zwei Double-Float x und y : (* x y), ein DF.
 extern const cl_DF operator* (const cl_DF& x, const cl_DF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_DF operator* (const cl_DF& x, const double y)
+	{ return x * cl_DF(y); }
+inline const cl_DF operator* (const double x, const cl_DF& y)
+	{ return cl_DF(x) * y; }
 
 // Liefert zu einem Double-Float x : (* x x), ein DF.
 inline const cl_DF square (const cl_DF& x) { return x*x; }
 
 // Liefert zu zwei Double-Float x und y : (/ x y), ein DF.
 extern const cl_DF operator/ (const cl_DF& x, const cl_DF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_DF operator/ (const cl_DF& x, const double y)
+	{ return x / cl_DF(y); }
+inline const cl_DF operator/ (const double x, const cl_DF& y)
+	{ return cl_DF(x) / y; }
 
 // Liefert zu einem Double-Float x>=0 : (sqrt x), ein DF.
 extern const cl_DF sqrt (const cl_DF& x);
@@ -276,13 +296,17 @@ extern double double_approx (const cl_DF& x);
 #ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_DF& operator+= (cl_DF& x, const cl_DF& y) { return x = x + y; }
+inline cl_DF& operator+= (cl_DF& x, const double y) { return x = x + y; }
 inline cl_DF& operator++ /* prefix */ (cl_DF& x) { return x = plus1(x); }
 inline void operator++ /* postfix */ (cl_DF& x, int dummy) { (void)dummy; x = plus1(x); }
 inline cl_DF& operator-= (cl_DF& x, const cl_DF& y) { return x = x - y; }
+inline cl_DF& operator-= (cl_DF& x, const double y) { return x = x - y; }
 inline cl_DF& operator-- /* prefix */ (cl_DF& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_DF& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_DF& operator*= (cl_DF& x, const cl_DF& y) { return x = x * y; }
+inline cl_DF& operator*= (cl_DF& x, const double y) { return x = x * y; }
 inline cl_DF& operator/= (cl_DF& x, const cl_DF& y) { return x = x / y; }
+inline cl_DF& operator/= (cl_DF& x, const double y) { return x = x / y; }
 #endif
 
 

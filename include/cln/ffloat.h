@@ -47,18 +47,38 @@ extern cl_boolean plusp (const cl_FF& x);
 
 // Liefert zu zwei Single-Float x und y : (+ x y), ein FF.
 extern const cl_FF operator+ (const cl_FF& x, const cl_FF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_FF operator+ (const cl_FF& x, const float y)
+	{ return x + cl_FF(y); }
+inline const cl_FF operator+ (const float x, const cl_FF& y)
+	{ return cl_FF(x) + y; }
 
 // Liefert zu zwei Single-Float x und y : (- x y), ein FF.
 extern const cl_FF operator- (const cl_FF& x, const cl_FF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_FF operator- (const cl_FF& x, const float y)
+	{ return x - cl_FF(y); }
+inline const cl_FF operator- (const float x, const cl_FF& y)
+	{ return cl_FF(x) - y; }
 
 // Liefert zu zwei Single-Float x und y : (* x y), ein FF.
 extern const cl_FF operator* (const cl_FF& x, const cl_FF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_FF operator* (const cl_FF& x, const float y)
+	{ return x * cl_FF(y); }
+inline const cl_FF operator* (const float x, const cl_FF& y)
+	{ return cl_FF(x) * y; }
 
 // Liefert zu einem Single-Float x : (* x x), ein FF.
 inline const cl_FF square (const cl_FF& x) { return x*x; }
 
 // Liefert zu zwei Single-Float x und y : (/ x y), ein FF.
 extern const cl_FF operator/ (const cl_FF& x, const cl_FF& y);
+// The C++ compiler may hesitate to do these conversions of its own:
+inline const cl_FF operator/ (const cl_FF& x, const float y)
+	{ return x / cl_FF(y); }
+inline const cl_FF operator/ (const float x, const cl_FF& y)
+	{ return cl_FF(x) / y; }
 
 // Liefert zu einem Single-Float x>=0 : (sqrt x), ein FF.
 extern const cl_FF sqrt (const cl_FF& x);
@@ -276,13 +296,17 @@ extern double double_approx (const cl_FF& x);
 #ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_FF& operator+= (cl_FF& x, const cl_FF& y) { return x = x + y; }
+inline cl_FF& operator+= (cl_FF& x, const float y) { return x = x + y; }
 inline cl_FF& operator++ /* prefix */ (cl_FF& x) { return x = plus1(x); }
 inline void operator++ /* postfix */ (cl_FF& x, int dummy) { (void)dummy; x = plus1(x); }
 inline cl_FF& operator-= (cl_FF& x, const cl_FF& y) { return x = x - y; }
+inline cl_FF& operator-= (cl_FF& x, const float y) { return x = x - y; }
 inline cl_FF& operator-- /* prefix */ (cl_FF& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_FF& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_FF& operator*= (cl_FF& x, const cl_FF& y) { return x = x * y; }
+inline cl_FF& operator*= (cl_FF& x, const float y) { return x = x * y; }
 inline cl_FF& operator/= (cl_FF& x, const cl_FF& y) { return x = x / y; }
+inline cl_FF& operator/= (cl_FF& x, const float y) { return x = x / y; }
 #endif
 
 

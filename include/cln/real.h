@@ -84,6 +84,10 @@ inline const cl_R operator+ (const long x, const cl_R& y)
 	{ return cl_I(x) + y; }
 inline const cl_R operator+ (const unsigned long x, const cl_R& y)
 	{ return cl_I(x) + y; }
+inline const cl_F operator+ (const float x, const cl_R& y)
+	{ return The(cl_F)(cl_R(x) + y); }
+inline const cl_F operator+ (const double x, const cl_R& y)
+	{ return The(cl_F)(cl_R(x) + y); }
 inline const cl_R operator+ (const cl_R& x, const int y)
 	{ return x + cl_I(y); }
 inline const cl_R operator+ (const cl_R& x, const unsigned int y)
@@ -92,6 +96,10 @@ inline const cl_R operator+ (const cl_R& x, const long y)
 	{ return x + cl_I(y); }
 inline const cl_R operator+ (const cl_R& x, const unsigned long y)
 	{ return x + cl_I(y); }
+inline const cl_F operator+ (const cl_R& x, const float y)
+	{ return The(cl_F)(x + cl_R(y)); }
+inline const cl_F operator+ (const cl_R& x, const double y)
+	{ return The(cl_F)(x + cl_R(y)); }
 
 // Liefert (- x y), wo x und y reelle Zahlen sind.
 extern const cl_R operator- (const cl_R& x, const cl_R& y);
@@ -109,6 +117,10 @@ inline const cl_R operator- (const long x, const cl_R& y)
 	{ return cl_I(x) - y; }
 inline const cl_R operator- (const unsigned long x, const cl_R& y)
 	{ return cl_I(x) - y; }
+inline const cl_F operator- (const float x, const cl_R& y)
+	{ return The(cl_F)(cl_R(x) - y); }
+inline const cl_F operator- (const double x, const cl_R& y)
+	{ return The(cl_F)(cl_R(x) - y); }
 inline const cl_R operator- (const cl_R& x, const int y)
 	{ return x - cl_I(y); }
 inline const cl_R operator- (const cl_R& x, const unsigned int y)
@@ -117,6 +129,10 @@ inline const cl_R operator- (const cl_R& x, const long y)
 	{ return x - cl_I(y); }
 inline const cl_R operator- (const cl_R& x, const unsigned long y)
 	{ return x - cl_I(y); }
+inline const cl_F operator- (const cl_R& x, const float y)
+	{ return The(cl_F)(x - cl_R(y)); }
+inline const cl_F operator- (const cl_R& x, const double y)
+	{ return The(cl_F)(x - cl_R(y)); }
 
 // Liefert (* x y), wo x und y reelle Zahlen sind.
 extern const cl_R operator* (const cl_R& x, const cl_R& y);
@@ -129,6 +145,10 @@ inline const cl_R operator* (const long x, const cl_R& y)
 	{ return cl_I(x) * y; }
 inline const cl_R operator* (const unsigned long x, const cl_R& y)
 	{ return cl_I(x) * y; }
+inline const cl_R operator* (const float x, const cl_R& y)
+	{ return cl_R(x) * y; }
+inline const cl_R operator* (const double x, const cl_R& y)
+	{ return cl_R(x) * y; }
 inline const cl_R operator* (const cl_R& x, const int y)
 	{ return x * cl_I(y); }
 inline const cl_R operator* (const cl_R& x, const unsigned int y)
@@ -137,13 +157,17 @@ inline const cl_R operator* (const cl_R& x, const long y)
 	{ return x * cl_I(y); }
 inline const cl_R operator* (const cl_R& x, const unsigned long y)
 	{ return x * cl_I(y); }
+inline const cl_R operator* (const cl_R& x, const float y)
+	{ return x * cl_R(y); }
+inline const cl_R operator* (const cl_R& x, const double y)
+	{ return x * cl_R(y); }
 
 // Liefert (* x x), wo x eine reelle Zahl ist.
 extern const cl_R square (const cl_R& x);
 
 // Liefert (/ x y), wo x und y reelle Zahlen sind.
 extern const cl_R operator/ (const cl_R& x, const cl_R& y);
-// Spezialfall: x oder y Float -> Ergebnis Float
+// Spezialfall: x Float -> Ergebnis Float
 inline const cl_F operator/ (const cl_F& x, const cl_R& y)
 	{ return The(cl_F)(The(cl_R)(x) / y); }
 // Dem C++-Compiler muﬂ man auch das Folgende sagen (wg. `int / cl_F' u.‰.):
@@ -155,6 +179,10 @@ inline const cl_R operator/ (const long x, const cl_R& y)
 	{ return cl_I(x) / y; }
 inline const cl_R operator/ (const unsigned long x, const cl_R& y)
 	{ return cl_I(x) / y; }
+inline const cl_F operator/ (const float x, const cl_R& y)
+	{ return The(cl_F)(cl_R(x) / y); }
+inline const cl_F operator/ (const double x, const cl_R& y)
+	{ return The(cl_F)(cl_R(x) / y); }
 inline const cl_R operator/ (const cl_R& x, const int y)
 	{ return x / cl_I(y); }
 inline const cl_R operator/ (const cl_R& x, const unsigned int y)
@@ -163,6 +191,10 @@ inline const cl_R operator/ (const cl_R& x, const long y)
 	{ return x / cl_I(y); }
 inline const cl_R operator/ (const cl_R& x, const unsigned long y)
 	{ return x / cl_I(y); }
+inline const cl_R operator/ (const cl_R& x, const float y)
+	{ return x / cl_R(y); }
+inline const cl_R operator/ (const cl_R& x, const double y)
+	{ return x / cl_R(y); }
 
 // Liefert (abs x), wo x eine reelle Zahl ist.
 extern const cl_R abs (const cl_R& x);
@@ -455,6 +487,8 @@ inline cl_R& operator+= (cl_R& x, const int y) { return x = x + y; }
 inline cl_R& operator+= (cl_R& x, const unsigned int y) { return x = x + y; }
 inline cl_R& operator+= (cl_R& x, const long y) { return x = x + y; }
 inline cl_R& operator+= (cl_R& x, const unsigned long y) { return x = x + y; }
+inline cl_F& operator+= (cl_R& x, const float y) { return static_cast<cl_F&>(x = x + y); }
+inline cl_F& operator+= (cl_R& x, const double y) { return static_cast<cl_F&>(x = x + y); }
 inline cl_F& operator+= (cl_F& x, const int y) { return x = x + y; }
 inline cl_F& operator+= (cl_F& x, const unsigned int y) { return x = x + y; }
 inline cl_F& operator+= (cl_F& x, const long y) { return x = x + y; }
@@ -469,6 +503,8 @@ inline cl_R& operator-= (cl_R& x, const int y) { return x = x - y; }
 inline cl_R& operator-= (cl_R& x, const unsigned int y) { return x = x - y; }
 inline cl_R& operator-= (cl_R& x, const long y) { return x = x - y; }
 inline cl_R& operator-= (cl_R& x, const unsigned long y) { return x = x - y; }
+inline cl_F& operator-= (cl_R& x, const float y) { return static_cast<cl_F&>(x = x - y); }
+inline cl_F& operator-= (cl_R& x, const double y) { return static_cast<cl_F&>(x = x - y); }
 inline cl_F& operator-= (cl_F& x, const int y) { return x = x - y; }
 inline cl_F& operator-= (cl_F& x, const unsigned int y) { return x = x - y; }
 inline cl_F& operator-= (cl_F& x, const long y) { return x = x - y; }
@@ -476,6 +512,12 @@ inline cl_F& operator-= (cl_F& x, const unsigned long y) { return x = x - y; }
 inline cl_R& operator-- /* prefix */ (cl_R& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_R& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_R& operator*= (cl_R& x, const cl_R& y) { return x = x * y; }
+inline cl_R& operator*= (cl_R& x, const int y) { return x = x * y; }
+inline cl_R& operator*= (cl_R& x, const unsigned int y) { return x = x * y; }
+inline cl_R& operator*= (cl_R& x, const long y) { return x = x * y; }
+inline cl_R& operator*= (cl_R& x, const unsigned long y) { return x = x * y; }
+inline cl_R& operator*= (cl_R& x, const float y) { return x = x * y; }
+inline cl_R& operator*= (cl_R& x, const double y) { return x = x * y; }
 inline cl_R& operator/= (cl_R& x, const cl_R& y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const cl_R& y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const cl_RA& y) { return x = x / y; }
@@ -484,6 +526,8 @@ inline cl_R& operator/= (cl_R& x, const int y) { return x = x / y; }
 inline cl_R& operator/= (cl_R& x, const unsigned int y) { return x = x / y; }
 inline cl_R& operator/= (cl_R& x, const long y) { return x = x / y; }
 inline cl_R& operator/= (cl_R& x, const unsigned long y) { return x = x / y; }
+inline cl_R& operator/= (cl_R& x, const float y) { return x = x / y; }
+inline cl_R& operator/= (cl_R& x, const double y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const int y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const unsigned int y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const long y) { return x = x / y; }

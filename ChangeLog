@@ -1,3 +1,14 @@
+2004-11-28  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Disambiguate binary operators of CLN types with float/double
+	* include/cln/dfloat.h: Add binary operator overloads for arguments of
+	type double.
+	* include/cln/ffloat.h: Likewise, for arguments of type float.
+	* include/cln/float.h: Likewise, both for arguments of types double and
+	float.
+	* include/cln/real.h: Likewise.
+	Reported by Isidro Cachadiña Gutiérrez <icacha@unex.es>.
+
 2004-11-03  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.1.9 released.
