@@ -17,6 +17,7 @@ template <class htentry> struct _cl_hashtable_iterator;
 
 template <class htentry>
 struct cl_heap_hashtable : public cl_heap {
+	friend struct _cl_hashtable_iterator<htentry>;
 protected:
     typedef struct htxentry {
         long next;     // > 0: pseudo-list continues at next-1
