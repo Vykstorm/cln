@@ -1,4 +1,4 @@
-.TH cln-config 1 "November, 2000" "CLN @CL_VERSION@" "Bruno Haible"
+.TH cln-config 1 "November, 2000" "CLN @CL_VERSION@" "GNU"
 .SH NAME
 cln-config \- script to get information about the installed version of the CLN library
 .SH SYNOPSIS
