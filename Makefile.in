@@ -67,7 +67,7 @@ distclean : force
 maintainer-clean : force
 	cd @subdir@; if test -f Makefile; then $(MAKE) maintainer-clean; fi
 	$(RM) config.status config.log config.cache Makefile
-	$(RM) cln-config
+	$(RM) cln-config cln-config.1 cln.spec
 	$(RM) libtool
 	$(RM) include/cln/config.h include/cln/intparam.h include/cln/floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
 

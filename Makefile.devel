@@ -7,10 +7,10 @@ SHELL = /bin/sh
 MAKE = make
 
 
-# GNU tar together with GNU gzip. Excellent performance.
+# GNU tar together with GNU bzip2. Excellent performance.
 PACK = tar
-PACKOPT = cvfhz
-PACKEXT = .tar.z
+PACKOPT = cvfhI
+PACKEXT = .tar.bz2
 
 
 all : configures documentation
