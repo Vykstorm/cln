@@ -1,3 +1,7 @@
+2004-10-25  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/base/cl_low.h: Add mulu64 assembler macro for ia64.
+
 2004-10-24  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/cl_low.h: Add mul and div macros for x86_64.

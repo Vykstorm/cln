@@ -360,6 +360,17 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
               );                                                 \
        hi_zuweisung _hi; lo_zuweisung _lo;                       \
      })
+#elif defined(__GNUC__) && defined(__ia64__) && !defined(NO_ASM)
+  #define mulu64(x,y,hi_zuweisung,lo_zuweisung)	 \
+    ({ var register uint64 _x = (x);				  \
+       var register uint64 _y = (y);				  \
+       var register uint64 _hi;					  \
+       __asm__("xma.hu %0 = %1, %2, f0"				  \
+               : "=f" (_hi)					  \
+               : "f" ((uint64)(_x)), "f" ((uint64)(_y))		  \
+              );						  \
+       hi_zuweisung _hi; lo_zuweisung ((uint64)(_x)*(uint64)(_y));\
+     })
 #else
   #define mulu64(x,y,hi_zuweisung,lo_zuweisung)  \
     { lo_zuweisung mulu64_(x,y); hi_zuweisung mulu64_high; }
