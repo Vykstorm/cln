@@ -1,3 +1,17 @@
+2001-11-05, version 1.1.3
+=========================
+
+Implementation changes
+----------------------
+
+* Fix a computation error of sin and sinh for small arguments.
+  (Reported by Christopher Kennedy.)
+
+* Module ordering works with gcc-3.0 -fuse-cxa-atexit now.
+
+* -DNO_ASM works properly on Sparc.
+
+
 2001-07-25, version 1.1.2
 
 Implementation changes

@@ -9,7 +9,7 @@ MAKE = make
 
 # GNU tar together with GNU bzip2. Excellent performance.
 PACK = tar
-PACKOPT = cvfhI
+PACKOPT = cvfhj
 PACKEXT = .tar.bz2
 
 

@@ -1,11 +1,17 @@
+2001-11-05  Richard Kreckel  <kreckel@ginac.de>
+
+        * autoconf/ltmain.sh: Upgrade to libtool-1.4.2.
+        * autoconf/config.{guess,sub}: Update to GNU version 2001-09-07.
+        * Version 1.1.3 released.
+
 2001-11-04  Bruno Haible  <haible@clisp.cons.org>
 
-	Interoperability with gcc-3.0 -fuse-cxa-atexit.
-	* autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add test whether
-	global destructors actually exist.
-	* include/cln/modules.h (CL_PROVIDE, CL_PROVIDE_END, CL_PROVIDE_END):
-	Don't hack the global destructors if there is no global destructors
-	function.
+        Interoperability with gcc-3.0 -fuse-cxa-atexit.
+        * autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add test whether
+          global destructors actually exist.
+        * include/cln/modules.h (CL_PROVIDE, CL_PROVIDE_END, CL_PROVIDE_END):
+          Don't hack the global destructors if there is no global destructors
+          function.
 
 2001-11-03  Richard Kreckel  <kreckel@ginac.de>
 
