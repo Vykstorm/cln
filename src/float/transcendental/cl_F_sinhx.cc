@@ -118,7 +118,7 @@ const cl_LF sinhx_naive (const cl_LF& x)
 	var uintL d = float_digits(x);
 	var sintL e = float_exponent(x);
 	if (e <= (1-(sintL)d)>>1) // e <= (1-d)/2 <==> e <= -ceiling((d-1)/2) ?
-		return x; // ja -> x als Ergebnis
+		return square(x); // ja -> x^2 als Ergebnis
  {	Mutable(cl_LF,x);
 	var sintL ee = e;
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe

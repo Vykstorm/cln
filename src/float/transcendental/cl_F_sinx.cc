@@ -120,14 +120,13 @@ const cl_LF sinx_naive (const cl_LF& x)
 //  -1.4 = d/dk j(k) = (d/dj k(j))^-1 = - j^2/(d+j)*ln 2, also j^2=2(d+j),
 //  grob j=sqrt(2d) und damit k=sqrt(d).]
 // Aufwand: asymptotisch d^2.5 .
-
 	if (zerop(x))
 		return x;
 	var uintL actuallen = TheLfloat(x)->len;
 	var uintL d = float_digits(x);
 	var sintL e = float_exponent(x);
 	if (e <= (-(sintL)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
-		return x; // ja -> x als Ergebnis
+		return square(x); // ja -> x^2 als Ergebnis
  {	Mutable(cl_LF,x);
 	var sintL ee = e;
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe

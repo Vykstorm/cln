@@ -1,13 +1,19 @@
-2000-07-25  Richard Kreckel  <kreckel@ginac.de>
+2001-11-03  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/float/transcendental/cl_F_sinx.cc (sinx_naive): For small
+          values of x, return square(x) instead of x.
+        * src/float/transcendental/cl_F_sinhx.cc (sinhx_naive): Likewise.
+
+2001-07-25  Richard Kreckel  <kreckel@ginac.de>
 
         * Version 1.1.2 released.
 
-2000-07-24  Richard Kreckel  <kreckel@ginac.de>
+2001-07-24  Richard Kreckel  <kreckel@ginac.de>
 
         * src/base/hash/cl_hash.h: declare _cl_hashtable_iterator<htentry> a
           friend of cl_heap_hashtable<htentry>.
 
-2000-07-22  Richard Kreckel  <kreckel@ginac.de>
+2001-07-22  Richard Kreckel  <kreckel@ginac.de>
 
         * src/float/base/cl_ieee.cc: try to do magic to the FPU only if
           _FPU_IEEE is really defined.
@@ -20,18 +26,18 @@
           extern "C" elsewhere out of the namespace.
         * src/base/low/cl_low_div.cc: Likewise.
 
-2000-06-08  Bruno Haible  <haible@clisp.cons.org>
+2001-06-08  Bruno Haible  <haible@clisp.cons.org>
 
         * autoconf/config.{guess,sub}: Update to GNU version 2001-05-11.
         * autoconf/aclocal.m4: Upgrade to libtool-1.4.
         * autoconf/ltmain.sh: Likewise.
         * autoconf/ltconfig: Remove file.
 
-2000-06-05  Richard Kreckel  <kreckel@ginac.de>
+2001-06-05  Richard Kreckel  <kreckel@ginac.de>
 
         * tests/tests.cc: resolve namespace ambiguity about strcmp().
 
-2000-05-31  Richard Kreckel  <kreckel@ginac.de>
+2001-05-31  Richard Kreckel  <kreckel@ginac.de>
 
         * Version 1.1.1 released.
 
