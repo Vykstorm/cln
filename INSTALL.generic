@@ -154,8 +154,10 @@ operates.
 
 `--with-gmp'
 `--without-gmp'
-     CLN builds upon GNU gmp by default. If you encounter problems
-     relating to gmp, try configuring without gmp.
+     CLN may be build upon GNU gmp (version 3 or above), recommended for 
+     maximum performance.  CLN will not work together with GNU gmp 2.
+     The default is to use gmp.  If you encounter problems relating to gmp, 
+     try configuring without gmp.
 
 `configure' also accepts some other, not widely useful, options.
 
