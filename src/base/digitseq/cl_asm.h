@@ -3,6 +3,8 @@
 #include "cln/config.h"
 #include "cl_DS_endian.h"
 
+#ifndef NO_ASM
+
 #ifdef __m68k__
   #include "cl_asm_m68k.h"
 #endif
@@ -31,3 +33,4 @@
   #include "cl_asm_arm.h"
 #endif
 
+#endif // ndef NO_ASM

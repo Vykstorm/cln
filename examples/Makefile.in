@@ -19,7 +19,7 @@ CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
 INCLUDES = -I../include -I$(top_srcdir)/include -I$(srcdir)
-CPPFLAGS += $(INCLUDES)
+override CPPFLAGS += $(INCLUDES)
 LIBTOOL = @LIBTOOL@
 LIBTOOL_LINK = $(LIBTOOL) --mode=link
 MV = mv

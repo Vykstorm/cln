@@ -1,3 +1,13 @@
+2001-04-25  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/base/cl_low.h: Added several checks if NO_ASM is defined, so
+          this definition becomes actually useful.  This is needed for 
+          compilation on Arm until somebody fixes the assembler files for Arm.
+        * src/base/digitseq/cl_asm.h: Likewise.
+        * src/base/digitseq/cl_asm_.cc: Likewise.
+        * */Makefile.in: Added `override' in front of `CPPFLAGS +=' so
+           one can say `make CPPFLAGS=-DFOOBAR'.
+
 2001-03-26  Arvid Norberg <c99ang@cs.umu.se>
 
         * src/base/random/cl_random_from.cc: ported to beos.

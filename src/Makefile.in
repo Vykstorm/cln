@@ -26,7 +26,7 @@ CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
 INCLUDES = -I../include -I$(top_srcdir)/include
-CPPFLAGS += $(INCLUDES)
+override CPPFLAGS += $(INCLUDES)
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
@@ -69,7 +69,7 @@ VPATH = $(srcdir)/$(SUBDIR) # :
 
 # Add subdirectory specific flags.
 include $(srcdir)/$(SUBDIR)/Makeflags
-CPPFLAGS += $(SUBDIR_INCLUDES)
+override CPPFLAGS += $(SUBDIR_INCLUDES)
 
 # Need to know the system name.
 SYSTEM := $(shell uname -s)
