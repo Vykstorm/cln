@@ -36,18 +36,21 @@ install : installdirs force
 	$(INSTALL_PROGRAM) cln-config $(DESTDIR)$(bindir)/cln-config
 	$(INSTALL_DATA) cln-config.1 $(DESTDIR)$(mandir)/man1/cln-config.1
 	$(INSTALL_DATA) cln.m4 $(DESTDIR)$(datadir)/aclocal/cln.m4
+	$(INSTALL_DATA) cln.pc $(DESTDIR)$(libdir)/pkgconfig/cln.pc
 
 installdirs : force
 	cd @subdir@; $(MAKE) installdirs
 	$(MKDIR) $(DESTDIR)$(mandir)/man1
 	$(MKDIR) $(DESTDIR)$(datadir)/aclocal
 	$(MKDIR) $(DESTDIR)$(bindir)
+	$(MKDIR) $(DESTDIR)$(libdir)/pkgconfig
 
 uninstall : force
 	cd @subdir@; $(MAKE) uninstall
 	$(RM) $(DESTDIR)$(bindir)/cln-config
 	$(RM) $(DESTDIR)$(mandir)/man1/cln-config.1
 	$(RM) $(DESTDIR)$(datadir)/aclocal/cln.m4
+	$(RM) $(DESTDIR)$(libdir)/pkgconfig/cln.pc
 
 check : force
 	cd @subdir@; $(MAKE) check
@@ -61,14 +64,14 @@ clean : force
 distclean : force
 	cd @subdir@; if test -f Makefile; then $(MAKE) distclean; fi
 	$(RM) config.status config.log config.cache Makefile
-	$(RM) cln-config cln-config.1 cln.spec
+	$(RM) cln-config cln-config.1 cln.spec cln.pc
 	$(RM) libtool
 	$(RM) include/cln/config.h include/cln/intparam.h include/cln/floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
 
 maintainer-clean : force
 	cd @subdir@; if test -f Makefile; then $(MAKE) maintainer-clean; fi
 	$(RM) config.status config.log config.cache Makefile
-	$(RM) cln-config cln-config.1 cln.spec
+	$(RM) cln-config cln-config.1 cln.spec cln.pc
 	$(RM) libtool
 	$(RM) include/cln/config.h include/cln/intparam.h include/cln/floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
 

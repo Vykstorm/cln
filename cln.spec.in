@@ -74,13 +74,16 @@ fi
 %{_libdir}/*.a
 %{_libdir}/*.la
 %{_libdir}/*.so
-%{_includedir}/cln/*.h
+%{_libdir}/pkgconfig/cln.pc
+%{_includedir}/cln
 %{_infodir}/*.info*
 %{_mandir}/man1/cln-config.1*
 %{_bindir}/cln-config
-%{_datadir}/aclocal/*
+%{_datadir}/aclocal/cln.m4
 
 %changelog
+* Thu Nov 20 2003 Christian Bauer <Christian.Bauer@uni-mainz.de>
+  Added pkg-config metadata file to devel package
 * Wed Nov  6 2002 Christian Bauer <Christian.Bauer@uni-mainz.de>
   Added HTML and DVI docs to devel package
 * Tue Nov  5 2001 Christian Bauer <Christian.Bauer@uni-mainz.de>
