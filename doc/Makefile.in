@@ -18,6 +18,7 @@ DESTDIR =
 
 # Programs used by "make":
 RM = rm -f
+MKDIR = mkdir -p
 @SET_MAKE@
 
 # Programs used by "make" if you have changed the documentation files:
@@ -84,10 +85,10 @@ install : all installdirs force
 	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
 
 installdirs : force
-	if [ ! -d $(DESTDIR)$(datadir) ] ; then mkdir $(DESTDIR)$(datadir) ; fi
-	if [ ! -d $(DESTDIR)$(infodir) ] ; then mkdir $(DESTDIR)$(infodir) ; fi
-	if [ ! -d $(DESTDIR)$(htmldir) ] ; then mkdir $(DESTDIR)$(htmldir) ; fi
-	if [ ! -d $(DESTDIR)$(dvidir) ] ; then mkdir $(DESTDIR)$(dvidir) ; fi
+	$(MKDIR) $(DESTDIR)$(datadir)
+	$(MKDIR) $(DESTDIR)$(infodir)
+	$(MKDIR) $(DESTDIR)$(htmldir)
+	$(MKDIR) $(DESTDIR)$(dvidir)
 
 uninstall : force
 	$(RM) $(DESTDIR)$(infodir)/$(PACKAGE).info

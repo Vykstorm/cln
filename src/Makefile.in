@@ -39,6 +39,7 @@ RANLIB = @RANLIB@
 MV = mv
 LN = ln
 RM = rm -f
+MKDIR = mkdir -p
 @SET_MAKE@
 # Libtool's library interface versions:
 CL_CURRENT = @CL_CURRENT@
@@ -200,25 +201,15 @@ libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
 	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) -version-info $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) $(LDFLAGS) $(LIBS) $(ALLOBJECTS_LO)
 
 install : all force
-	if [ ! -d $(DESTDIR)$(libdir) ] ; then mkdir $(DESTDIR)$(libdir) ; fi
+	$(MKDIR) $(DESTDIR)$(libdir)
 	$(LIBTOOL_INSTALL) $(INSTALL_DATA) libcln.la $(DESTDIR)$(libdir)/libcln.la
-	if [ ! -d $(DESTDIR)$(includedir) ] ; then mkdir $(DESTDIR)$(includedir) ; fi
-	if [ ! -d $(DESTDIR)$(includedir)/cln ] ; then mkdir $(DESTDIR)$(includedir)/cln ; fi
+	$(MKDIR) $(DESTDIR)$(includedir)/cln
 	$(INSTALL_DATA) $(top_srcdir)/include/cln/*.h $(DESTDIR)$(includedir)/cln
 	$(INSTALL_DATA) ../include/cln/*.h $(DESTDIR)$(includedir)/cln
-#	if [ ! -d $(DESTDIR)$(mandir) ] ; then mkdir $(DESTDIR)$(mandir) ; fi
-#	if [ ! -d $(DESTDIR)$(mandir)/man3 ] ; then mkdir $(DESTDIR)$(mandir)/man3 ; fi
-#	if [ ! -d $(DESTDIR)$(datadir) ] ; then mkdir $(DESTDIR)$(datadir) ; fi
-#	if [ ! -d $(DESTDIR)$(datadir)/html ] ; then mkdir $(DESTDIR)$(datadir)/html ; fi
 
 installdirs : force
-	if [ ! -d $(DESTDIR)$(libdir) ] ; then mkdir $(DESTDIR)$(libdir) ; fi
-	if [ ! -d $(DESTDIR)$(includedir) ] ; then mkdir $(DESTDIR)$(includedir) ; fi
-	if [ ! -d $(DESTDIR)$(includedir)/cln ] ; then mkdir $(DESTDIR)$(includedir)/cln ; fi
-#	if [ ! -d $(DESTDIR)$(mandir) ] ; then mkdir $(DESTDIR)$(mandir) ; fi
-#	if [ ! -d $(DESTDIR)$(mandir)/man3 ] ; then mkdir $(DESTDIR)$(mandir)/man3 ; fi
-#	if [ ! -d $(DESTDIR)$(datadir) ] ; then mkdir $(DESTDIR)$(datadir) ; fi
-#	if [ ! -d $(DESTDIR)$(datadir)/html ] ; then mkdir $(DESTDIR)$(datadir)/html ; fi
+	$(MKDIR) $(DESTDIR)$(libdir)
+	$(MKDIR) $(DESTDIR)$(includedir)/cln
 
 uninstall : force
 	$(LIBTOOL_UNINSTALL) $(RM) $(DESTDIR)$(libdir)/libcln.la

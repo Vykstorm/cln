@@ -17,6 +17,7 @@ DESTDIR =
 CC = @CC@
 CFLAGS = @CFLAGS@
 RM = rm -f
+MKDIR = mkdir -p
 @SET_MAKE@
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -38,10 +39,9 @@ install : installdirs force
 
 installdirs : force
 	cd @subdir@; $(MAKE) installdirs
-	if [ ! -d $(DESTDIR)$(mandir) ] ; then mkdir $(DESTDIR)$(mandir) ; fi
-	if [ ! -d $(DESTDIR)$(mandir)/man1 ] ; then mkdir $(DESTDIR)$(mandir)/man1 ; fi
-	if [ ! -d $(DESTDIR)$(datadir)/aclocal ] ; then mkdir $(DESTDIR)$(datadir)/aclocal ; fi
-	if [ ! -d $(DESTDIR)$(bindir) ] ; then mkdir $(DESTDIR)$(bindir) ; fi
+	$(MKDIR) $(DESTDIR)$(mandir)/man1
+	$(MKDIR) $(DESTDIR)$(datadir)/aclocal
+	$(MKDIR) $(DESTDIR)$(bindir)
 
 uninstall : force
 	cd @subdir@; $(MAKE) uninstall
