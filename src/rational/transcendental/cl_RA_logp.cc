@@ -50,7 +50,7 @@ cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 				return cl_false;
 			// a1=1
 			var cl_RA l;
-			if (logp(a2,b,pl)) {
+			if (logp(a2,b,&l)) {
 				*pl = -l; return cl_true;
 			} else
 				return cl_false;

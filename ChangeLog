@@ -1,3 +1,8 @@
+2004-06-18  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* rational/transcendental/cl_RA_logp.cc: fix bug where base is
+	reciprocal of an integer.
+
 2004-06-10  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* examples/perfnum.cc: update to presumed 41st Mersenne prime.
