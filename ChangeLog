@@ -1,6 +1,11 @@
+2004-08-30  Bruno Haible  <bruno@clisp.org>
+
+	* benchmarks/timebench2.sh: Multiply all repeat counts by 100.
+	* benchmarks/timebench2.results: Add recent PowerPC G4 results.
+
 2004-08-26  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
-	* cln/examples/e.cc: remove extra semicolon.
+	* examples/e.cc: remove extra semicolon.
 
 2004-08-25  Bruno Haible  <bruno@clisp.org>
 
