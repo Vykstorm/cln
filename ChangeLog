@@ -1,7 +1,8 @@
-2003-02-21  Bruno Haible  <bruno@clisp.org>
+2003-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* src/base/random/cl_random_from.cc (random_state::random_state): Add
 	support for MacOS X.
+	* src/modinteger/cl_MI.cc: #undef _R.
 	Reported by Erann Gat <gat@jpl.nasa.gov>.
 
 2002-08-03  Joerg Arndt  <jj@suse.de>
