@@ -87,7 +87,24 @@ check(double,"double","double",equal_double,main_double)
 check(ldouble,"long_double","long double",equal_ldouble,main_ldouble)
 #endif
 
-
+/* Some systems (arm/linux) store doubles as little endian but with higher
+ * and lower word reversed. */
+static void flipped_double (void)
+{
+  typedef struct { unsigned lo, hi; } dfloat;
+  double x = 2;
+  dfloat test = *(dfloat*)&x;
+  if (test.lo==0 && test.hi!=0) {
+    printf("#define double_wordorder_bigendian_p 0\n");
+  } else if (test.lo!=0 && test.hi==0) {
+    printf("#define double_wordorder_bigendian_p 1\n");
+  } else {
+    /* Dazed and confused!  Better not define anything.
+	 * Code should rely on CL_CPU_BIG_ENDIAN_P instead. */
+  }
+  printf("\n");
+}
+	 
 int main()
 {
   header();
@@ -96,6 +113,7 @@ int main()
 #ifdef HAVE_LONGDOUBLE
   main_ldouble();
 #endif
+  flipped_double();
 
 #if defined(__cplusplus)
   if (ferror(stdout)) return 1;

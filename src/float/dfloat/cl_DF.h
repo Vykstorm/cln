@@ -21,10 +21,18 @@ typedef // 64-bit float in IEEE format
 	  uint64
 	#else
 	  // Sign/Exponent/MantissaHigh and MantissaLow
-	  #if CL_CPU_BIG_ENDIAN_P
-	    struct { uint32 semhi, mlo; }
+	  #if defined(double_wordorder_bigendian_p)
+	    #if double_wordorder_bigendian_p
+	      struct { uint32 semhi, mlo; }
+	    #else
+	      struct { uint32 mlo, semhi; }
+	    #endif
 	  #else
-	    struct { uint32 mlo, semhi; }
+	    #if CL_CPU_BIG_ENDIAN_P
+	      struct { uint32 semhi, mlo; }
+	    #else
+	      struct { uint32 mlo, semhi; }
+	    #endif
 	  #endif
 	#endif
 	dfloat;
