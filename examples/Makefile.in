@@ -87,7 +87,7 @@ lucaslehmer : $(patsubst %,%.o,$(MODULES_lucaslehmer))
 nextprime : $(patsubst %,%.o,$(MODULES_nextprime))
 perfnum : $(patsubst %,%.o,$(MODULES_perfnum))
 $(PROGRAMS) : % : $(LIBDEPS)
-	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LIBS) -o $@
+	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LDFLAGS) $(LIBS) -o $@
 
 
 install : all

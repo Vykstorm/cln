@@ -102,7 +102,7 @@ check : all
 mostlyclean : clean
 
 clean : force
-	$(RM) *~ *.aux *.toc *.cp *.fn *.ky *.pg *.tp *.vr *.my *.log core
+	$(RM) *~ *.aux *.toc *.cp *.fn *.ky *.pg *.tp *.vr *.my *.mys *.log core
 
 distclean : clean
 	$(RM) Makefile

@@ -87,7 +87,7 @@ timebench2a : $(patsubst %,%.o,$(MODULES_timebench2a))
 timebench2ap : $(patsubst %,%.o,$(MODULES_timebench2ap))
 timebench2b : $(patsubst %,%.o,$(MODULES_timebench2b))
 $(PROGRAMS) : % : $(LIBDEPS)
-	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LIBS) -o $@
+	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LDFLAGS) $(LIBS) -o $@
 
 
 install : all

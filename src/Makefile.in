@@ -26,6 +26,7 @@ CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
 INCLUDES = -I../include -I$(top_srcdir)/include
 CPPFLAGS += $(INCLUDES)
+LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
 LIBTOOL_LINK = $(LIBTOOL) --mode=link
@@ -38,6 +39,10 @@ MV = mv
 LN = ln
 RM = rm -f
 @SET_MAKE@
+# Libtool's library interface versions:
+CLN_CURRENT = @CLN_CURRENT@
+CLN_REVISION = @CLN_REVISION@
+CLN_AGE = @CLN_AGE@
 
 # Programs used by "make install":
 INSTALL = @INSTALL@
@@ -190,12 +195,8 @@ $(SUBDIRS_DIRDEP) : %.dirdep :
 
 ifeq ($(SUBDIR),.)
 
-../gmp/mpn/libmpn.la : $(LIBTOOL)
-	cd ../gmp && $(MAKE) mpn/libmpn.la mp_clz_tab.lo
-
-
 libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
-	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) $(ALLOBJECTS_LO)
+	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) -version-info $(CLN_CURRENT):$(CLN_REVISION):$(CLN_AGE) $(LIBS) $(ALLOBJECTS_LO)
 
 install : all force
 	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi

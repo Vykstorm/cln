@@ -160,7 +160,7 @@ timeUPMImul : $(patsubst %,%.o,$(MODULES_timeUPMImul))
 timesqrtmodp : $(patsubst %,%.o,$(MODULES_timesqrtmodp))
 main : $(patsubst %,%.o,$(MODULES_main))
 $(PROGRAMS) : % : $(LIBDEPS)
-	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LIBS) -o $@
+	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LDFLAGS) $(LIBS) -o $@
 
 
 install : all
