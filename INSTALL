@@ -29,9 +29,11 @@ to the CXXFLAGS. This will likely generate better code.
 
 If you use g++ from gcc-2.95.x on Sparc, add either "-O", "-O1" or
 "-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2", g++ miscompiles
-the division routines. Also, on OSF/1 or Tru64 using gcc-2.95.x, you should
-specify --disable-shared because of linker problems with duplicate symbols
-in shared libraries.
+the division routines. If you use g++ older than 2.95.3 on Sparc you should
+also specify --disable-shared because of bad code produced in the shared
+library. Also, on OSF/1 or Tru64 using gcc-2.95.x, you should specify
+--disable-shared because of linker problems with duplicate symbols in shared
+libraries.
 
 More detailed installation instructions can be found in the documentation,
 in the doc/ directory.

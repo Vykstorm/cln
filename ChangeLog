@@ -1,3 +1,7 @@
+2000-05-31  Richard Kreckel  <kreckel@ginac.de>
+
+        * Version 1.1.1 released.
+
 2001-05-28  Richard Kreckel  <kreckel@ginac.de>
 
         * cln/cln.tex: documented problems with shared library on Sparc
