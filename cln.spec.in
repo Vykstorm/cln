@@ -1,0 +1,75 @@
+%define name cln
+%define version @CL_VERSION@
+%define release 1
+
+Summary: Class Library for Numbers
+Name: %{name}
+Version: %{version}
+Release: %{release}
+Copyright: GPL
+Group: System Environment/Libraries
+Source: %{name}-%{version}.tar.gz
+URL: http://clisp.cons.org/~haible/packages-cln.html
+Prereq: /sbin/install-info
+BuildRoot: %{_tmppath}/%{name}-root
+Prefix: %{_prefix}
+
+%description
+A GPLed collection of math classes and functions, that will bring
+efficiency, type safety, algebraic syntax to everyone in a memory
+and speed efficient library.
+
+%package devel
+Summary: Development files for programs using the CLN library
+Group: Development/Libraries
+Requires: %{name} = %{version}
+
+%description devel
+This package is necessary if you wish to develop software based on
+the CLN library.
+
+%prep
+%setup -q
+
+%build
+CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS -fno-exceptions" ./configure --prefix=%{_prefix}
+make
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+make prefix=%{_prefix} DESTDIR=${RPM_BUILD_ROOT} install
+gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/cln.info*
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+
+%post
+/sbin/ldconfig
+
+%postun
+/sbin/ldconfig
+
+%post devel
+/sbin/install-info %{_infodir}/cln.info.gz %{_infodir}/dir
+
+%preun devel
+if [ "$1" = 0 ]; then
+  /sbin/install-info --del %{_infodir}/cln.info.gz %{_infodir}/dir
+fi
+
+%files
+%defattr(-,root,root)
+%doc COPYING ChangeLog FILES NEWS README TODO*
+%{_libdir}/*.so.*
+
+%files devel
+%defattr(-,root,root)
+%doc examples
+%{_libdir}/*.a
+%{_libdir}/*.la
+%{_libdir}/*.so
+%{_includedir}/*.h
+%{_infodir}/*.info*
+%{_bindir}/cln-config
+
+%changelog
