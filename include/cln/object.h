@@ -126,9 +126,15 @@ inline cl_uint cl_combine (cl_uint tag, cl_sint value)
 }
 // Keep the compiler happy.
 inline cl_uint cl_combine (cl_uint tag, unsigned int value)
-{ return cl_combine(tag,(cl_uint)value); }
+{ return cl_combine(tag, (cl_uint)value); }
 inline cl_uint cl_combine (cl_uint tag, int value)
-{ return cl_combine(tag,(cl_sint)value); }
+{ return cl_combine(tag, (cl_sint)value); }
+#ifdef HAVE_LONGLONG
+inline cl_uint cl_combine (cl_uint tag, unsigned long long value)
+{ return cl_combine(tag, (cl_uint)value); }
+inline cl_uint cl_combine (cl_uint tag, long long value)
+{ return cl_combine(tag, (cl_uint)value); }
+#endif
 
 // Definition of the tags.
 #if !defined(CL_WIDE_POINTERS)
