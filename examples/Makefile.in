@@ -50,7 +50,7 @@ OBJECTS = $(FILES_O)
 LIBS = ../src/libcln.la -lm
 LIBDEPS = ../src/libcln.la
 
-PROGRAMS = contfrac e fibonacci legendre lucaslehmer nextprime perfnum
+PROGRAMS = contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi
 MODULES_contfrac = contfrac
 MODULES_e = e
 MODULES_fibonacci = fibonacci
@@ -58,8 +58,9 @@ MODULES_legendre = legendre
 MODULES_lucaslehmer = lucaslehmer
 MODULES_nextprime = nextprime
 MODULES_perfnum = perfnum
+MODULES_pi = pi
 
-all : contfrac e fibonacci legendre lucaslehmer nextprime perfnum
+all : contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi
 
 %.s : %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
@@ -86,6 +87,7 @@ legendre : $(patsubst %,%.o,$(MODULES_legendre))
 lucaslehmer : $(patsubst %,%.o,$(MODULES_lucaslehmer))
 nextprime : $(patsubst %,%.o,$(MODULES_nextprime))
 perfnum : $(patsubst %,%.o,$(MODULES_perfnum))
+pi : $(patsubst %,%.o,$(MODULES_pi))
 $(PROGRAMS) : % : $(LIBDEPS)
 	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LDFLAGS) $(LIBS) -o $@
 
