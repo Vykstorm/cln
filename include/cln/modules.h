@@ -152,53 +152,91 @@
   #if defined(__ia64__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("br " #addr)
   #endif
-  #define CL_PROVIDE(module)  \
-    extern "C" void cl_module__##module##__firstglobalfun () {}		\
-    extern "C" void cl_module__##module##__ctorend (void);		\
-    extern "C" void cl_module__##module##__dtorend (void);		\
-    CL_GLOBALIZE_JUMP_LABEL(cl_module__##module##__ctorend)		\
-    CL_GLOBALIZE_JUMP_LABEL(cl_module__##module##__dtorend)		\
-    CL_GLOBALIZE_CTORDTOR_LABEL(					\
-               ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
-               "cl_module__" #module "__firstglobalfun")		\
-    CL_GLOBALIZE_CTORDTOR_LABEL(					\
-               ASM_UNDERSCORE_PREFIX CL_GLOBAL_DESTRUCTOR_PREFIX	\
-               "cl_module__" #module "__firstglobalfun")		\
-    static int cl_module__##module##__counter;				\
-    struct cl_module__##module##__controller {				\
-      inline cl_module__##module##__controller ()			\
-        { if (cl_module__##module##__counter++)				\
-            { CL_JUMP_TO(cl_module__##module##__ctorend); }		\
-        }								\
-      inline ~cl_module__##module##__controller ()			\
-        { CL_OUTPUT_LABEL (ASM_UNDERSCORE_PREFIX "cl_module__" #module "__dtorend"); } \
-    };									\
-    static cl_module__##module##__controller cl_module__##module##__ctordummy;
-  #define CL_PROVIDE_END(module)  \
-    struct cl_module__##module##__destroyer {				\
-      inline cl_module__##module##__destroyer ()			\
-        { CL_OUTPUT_LABEL (ASM_UNDERSCORE_PREFIX "cl_module__" #module "__ctorend"); } \
-      inline ~cl_module__##module##__destroyer ()			\
-        { if (--cl_module__##module##__counter)				\
-            { CL_JUMP_TO(cl_module__##module##__dtorend); }		\
-        }								\
-    };									\
-    static cl_module__##module##__destroyer cl_module__##module##__dtordummy;
-  #define CL_REQUIRE(module)  \
-    extern "C" void cl_module__##module##__ctor (void)			\
-      __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
-               "cl_module__" #module "__firstglobalfun");		\
-    extern "C" void cl_module__##module##__dtor (void)			\
-      __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_DESTRUCTOR_PREFIX	\
-               "cl_module__" #module "__firstglobalfun");		\
-    struct _CL_REQUIRE_CLASSNAME(module,__LINE__) {			\
-      inline _CL_REQUIRE_CLASSNAME(module,__LINE__) ()			\
-        { cl_module__##module##__ctor (); }				\
-      inline ~_CL_REQUIRE_CLASSNAME(module,__LINE__) ()			\
-        { cl_module__##module##__dtor (); }				\
-    };									\
-    static _CL_REQUIRE_CLASSNAME(module,__LINE__)			\
-      _CL_REQUIRE_CLASSNAME(module##_requirer,__LINE__);
+  #ifdef CL_GLOBAL_DESTRUCTOR_PREFIX
+    #define CL_PROVIDE(module)  \
+      extern "C" void cl_module__##module##__firstglobalfun () {}	\
+      extern "C" void cl_module__##module##__ctorend (void);		\
+      extern "C" void cl_module__##module##__dtorend (void);		\
+      CL_GLOBALIZE_JUMP_LABEL(cl_module__##module##__ctorend)		\
+      CL_GLOBALIZE_JUMP_LABEL(cl_module__##module##__dtorend)		\
+      CL_GLOBALIZE_CTORDTOR_LABEL(					\
+                 ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
+                 "cl_module__" #module "__firstglobalfun")		\
+      CL_GLOBALIZE_CTORDTOR_LABEL(					\
+                 ASM_UNDERSCORE_PREFIX CL_GLOBAL_DESTRUCTOR_PREFIX	\
+                 "cl_module__" #module "__firstglobalfun")		\
+      static int cl_module__##module##__counter;			\
+      struct cl_module__##module##__controller {			\
+        inline cl_module__##module##__controller ()			\
+          { if (cl_module__##module##__counter++)			\
+              { CL_JUMP_TO(cl_module__##module##__ctorend); }		\
+          }								\
+        inline ~cl_module__##module##__controller ()			\
+          { CL_OUTPUT_LABEL (ASM_UNDERSCORE_PREFIX "cl_module__" #module "__dtorend"); } \
+      };									\
+      static cl_module__##module##__controller cl_module__##module##__ctordummy;
+    #define CL_PROVIDE_END(module)  \
+      struct cl_module__##module##__destroyer {				\
+        inline cl_module__##module##__destroyer ()			\
+          { CL_OUTPUT_LABEL (ASM_UNDERSCORE_PREFIX "cl_module__" #module "__ctorend"); } \
+        inline ~cl_module__##module##__destroyer ()			\
+          { if (--cl_module__##module##__counter)			\
+              { CL_JUMP_TO(cl_module__##module##__dtorend); }		\
+          }								\
+      };								\
+      static cl_module__##module##__destroyer cl_module__##module##__dtordummy;
+    #define CL_REQUIRE(module)  \
+      extern "C" void cl_module__##module##__ctor (void)		\
+        __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
+                 "cl_module__" #module "__firstglobalfun");		\
+      extern "C" void cl_module__##module##__dtor (void)		\
+        __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_DESTRUCTOR_PREFIX	\
+                 "cl_module__" #module "__firstglobalfun");		\
+      struct _CL_REQUIRE_CLASSNAME(module,__LINE__) {			\
+        inline _CL_REQUIRE_CLASSNAME(module,__LINE__) ()		\
+          { cl_module__##module##__ctor (); }				\
+        inline ~_CL_REQUIRE_CLASSNAME(module,__LINE__) ()		\
+          { cl_module__##module##__dtor (); }				\
+      };								\
+      static _CL_REQUIRE_CLASSNAME(module,__LINE__)			\
+        _CL_REQUIRE_CLASSNAME(module##_requirer,__LINE__);
+  #else
+    // gcc-3.0 -fuse-cxa-atexit doesn't have a single per-module destructor
+    // function anymore. Instead, for each object's static constructor it
+    // executes, it pushes the corresponding object's destructor onto a list.
+    // Thus we need to hack the constructors only.
+    #define CL_PROVIDE(module)  \
+      extern "C" void cl_module__##module##__firstglobalfun () {}	\
+      extern "C" void cl_module__##module##__ctorend (void);		\
+      CL_GLOBALIZE_JUMP_LABEL(cl_module__##module##__ctorend)		\
+      CL_GLOBALIZE_CTORDTOR_LABEL(					\
+                 ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
+                 "cl_module__" #module "__firstglobalfun")		\
+      static int cl_module__##module##__counter;			\
+      struct cl_module__##module##__controller {			\
+        inline cl_module__##module##__controller ()			\
+          { if (cl_module__##module##__counter++)			\
+              { CL_JUMP_TO(cl_module__##module##__ctorend); }		\
+          }								\
+      };								\
+      static cl_module__##module##__controller cl_module__##module##__ctordummy;
+    #define CL_PROVIDE_END(module)  \
+      struct cl_module__##module##__destroyer {				\
+        inline cl_module__##module##__destroyer ()			\
+          { CL_OUTPUT_LABEL (ASM_UNDERSCORE_PREFIX "cl_module__" #module "__ctorend"); } \
+      };								\
+      static cl_module__##module##__destroyer cl_module__##module##__dtordummy;
+    #define CL_REQUIRE(module)  \
+      extern "C" void cl_module__##module##__ctor (void)		\
+        __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
+                 "cl_module__" #module "__firstglobalfun");		\
+      struct _CL_REQUIRE_CLASSNAME(module,__LINE__) {			\
+        inline _CL_REQUIRE_CLASSNAME(module,__LINE__) ()		\
+          { cl_module__##module##__ctor (); }				\
+      };								\
+      static _CL_REQUIRE_CLASSNAME(module,__LINE__)			\
+        _CL_REQUIRE_CLASSNAME(module##_requirer,__LINE__);
+  #endif
   #define _CL_REQUIRE_CLASSNAME(module,line) __CL_REQUIRE_CLASSNAME(module,line)
   #define __CL_REQUIRE_CLASSNAME(module,line) cl_module__##module##__##line
 #else

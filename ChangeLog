@@ -1,3 +1,12 @@
+2001-11-04  Bruno Haible  <haible@clisp.cons.org>
+
+	Interoperability with gcc-3.0 -fuse-cxa-atexit.
+	* autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add test whether
+	global destructors actually exist.
+	* include/cln/modules.h (CL_PROVIDE, CL_PROVIDE_END, CL_PROVIDE_END):
+	Don't hack the global destructors if there is no global destructors
+	function.
+
 2001-11-03  Richard Kreckel  <kreckel@ginac.de>
 
         * src/float/transcendental/cl_F_sinx.cc (sinx_naive): For small
