@@ -1031,9 +1031,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < size: >0, <=8, mit 2^(size-1) <= digit < 2^size
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define integerlength8(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit            */\
-      __asm__("bfffo %1{#0:#8},%0" : "=d" (zero_counter) : "dm" ((uint8)(digit)) ); \
-      size_zuweisung (8-zero_counter);                                              \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit            */\
+      __asm__("bfffo %1{#0:#8},%0" : "=d" (_zero_counter) : "dm" ((uint8)(digit)) ); \
+      size_zuweisung (8-_zero_counter);                                              \
     }
 #elif defined(__sparc__) && !defined(__sparc64__)
   #define integerlength8(digit,size_zuweisung)  \
@@ -1043,16 +1043,16 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     integerlength16((uint16)(digit),size_zuweisung)
 #else
   #define integerlength8(digit,size_zuweisung)  \
-    { var uintC bitsize = 1;					\
-      var uintL x8 = (uint8)(digit);				\
-      /* x8 hat höchstens 8 Bits.                             */\
-      if (x8 >= bit(4)) { x8 = x8>>4; bitsize += 4; }		\
-      /* x8 hat höchstens 4 Bits.                             */\
-      if (x8 >= bit(2)) { x8 = x8>>2; bitsize += 2; }		\
-      /* x8 hat höchstens 2 Bits.                             */\
-      if (x8 >= bit(1)) { /* x8 = x8>>1; */ bitsize += 1; }	\
-      /* x8 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein. */\
-      size_zuweisung bitsize;					\
+    { var uintC _bitsize = 1;					\
+      var uintL _x8 = (uint8)(digit);				\
+      /* _x8 hat höchstens 8 Bits.                             */\
+      if (_x8 >= bit(4)) { _x8 = _x8>>4; _bitsize += 4; }		\
+      /* _x8 hat höchstens 4 Bits.                             */\
+      if (_x8 >= bit(2)) { _x8 = _x8>>2; _bitsize += 2; }		\
+      /* _x8 hat höchstens 2 Bits.                             */\
+      if (_x8 >= bit(1)) { /* _x8 = _x8>>1; */ _bitsize += 1; }	\
+      /* _x8 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein. */\
+      size_zuweisung _bitsize;					\
     }
 #endif
 
@@ -1063,40 +1063,40 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < size: >0, <=16, mit 2^(size-1) <= digit < 2^size
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit              */\
-      __asm__("bfffo %1{#0:#16},%0" : "=d" (zero_counter) : "dm" ((uint16)(digit)) ); \
-      size_zuweisung (16-zero_counter);                                               \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit              */\
+      __asm__("bfffo %1{#0:#16},%0" : "=d" (_zero_counter) : "dm" ((uint16)(digit)) ); \
+      size_zuweisung (16-_zero_counter);                                               \
     }
 #elif defined(__sparc__) && !defined(__sparc64__)
   #define integerlength16(digit,size_zuweisung)  \
     integerlength32((uint32)(digit),size_zuweisung) // siehe unten
 #elif defined(__GNUC__) && defined(__i386__) && !defined(NO_ASM)
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintW one_position; /* Position der führenden 1                 */\
-      __asm__("bsrw %1,%0" : "=r" (one_position) : "r" ((uint16)(digit)) ); \
-      size_zuweisung (1+one_position);                                      \
+    { var uintW _one_position; /* Position der führenden 1                 */\
+      __asm__("bsrw %1,%0" : "=r" (_one_position) : "r" ((uint16)(digit)) ); \
+      size_zuweisung (1+_one_position);                                      \
     }
 // Die weiteren kommen von gcc/longlong.h :
 #elif defined(__GNUC__) && defined(__ibm032__) && !defined(NO_ASM) // RT/ROMP
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit   */\
-      __asm__("clz %0,%1" : "=r" (zero_counter) : "r" ((uint32)(digit)) ); \
-      size_zuweisung (16-zero_counter);                                    \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit   */\
+      __asm__("clz %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
+      size_zuweisung (16-_zero_counter);                                    \
     }
 #else
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintC bitsize = 1;						\
-      var uintWL x16 = (uint16)(digit);					\
-      /* x16 hat höchstens 16 Bits.                                   */\
-      if (x16 >= bit(8)) { x16 = x16>>8; bitsize += 8; }		\
-      /* x16 hat höchstens 8 Bits.                                    */\
-      if (x16 >= bit(4)) { x16 = x16>>4; bitsize += 4; }		\
-      /* x16 hat höchstens 4 Bits.                                    */\
-      if (x16 >= bit(2)) { x16 = x16>>2; bitsize += 2; }		\
-      /* x16 hat höchstens 2 Bits.                                    */\
-      if (x16 >= bit(1)) { /* x16 = x16>>1; */ bitsize += 1; }		\
-      /* x16 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
-      size_zuweisung bitsize;						\
+    { var uintC _bitsize = 1;						\
+      var uintWL _x16 = (uint16)(digit);					\
+      /* _x16 hat höchstens 16 Bits.                                   */\
+      if (_x16 >= bit(8)) { _x16 = _x16>>8; _bitsize += 8; }		\
+      /* _x16 hat höchstens 8 Bits.                                    */\
+      if (_x16 >= bit(4)) { _x16 = _x16>>4; _bitsize += 4; }		\
+      /* _x16 hat höchstens 4 Bits.                                    */\
+      if (_x16 >= bit(2)) { _x16 = _x16>>2; _bitsize += 2; }		\
+      /* _x16 hat höchstens 2 Bits.                                    */\
+      if (_x16 >= bit(1)) { /* _x16 = _x16>>1; */ _bitsize += 1; }		\
+      /* _x16 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
+      size_zuweisung _bitsize;						\
     }
 #endif
 
@@ -1107,9 +1107,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < size: >0, <=32, mit 2^(size-1) <= digit < 2^size
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit              */\
-      __asm__("bfffo %1{#0:#32},%0" : "=d" (zero_counter) : "dm" ((uint32)(digit)) ); \
-      size_zuweisung (32-zero_counter);                                               \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit              */\
+      __asm__("bfffo %1{#0:#32},%0" : "=d" (_zero_counter) : "dm" ((uint32)(digit)) ); \
+      size_zuweisung (32-_zero_counter);                                               \
     }
 #elif defined(__sparc__) && !defined(__sparc64__) && defined(FAST_DOUBLE)
   #define integerlength32(digit,size_zuweisung)  \
@@ -1126,9 +1126,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     }
 #elif defined(__GNUC__) && defined(__i386__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL one_position; /* Position der führenden 1                  */\
-      __asm__("bsrl %1,%0" : "=r" (one_position) : "rm" ((uint32)(digit)) ); \
-      size_zuweisung (1+one_position);                                       \
+    { var uintL _one_position; /* Position der führenden 1                  */\
+      __asm__("bsrl %1,%0" : "=r" (_one_position) : "rm" ((uint32)(digit)) ); \
+      size_zuweisung (1+_one_position);                                       \
     }
 #elif defined(__hppa__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
@@ -1137,62 +1137,62 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Die weiteren kommen von gcc/longlong.h :
 #elif defined(__GNUC__) && (defined(__a29k__) || defined(___AM29K__)) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit   */\
-      __asm__("clz %0,%1" : "=r" (zero_counter) : "r" ((uint32)(digit)) ); \
-      size_zuweisung (32-zero_counter);                                    \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit   */\
+      __asm__("clz %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
+      size_zuweisung (32-_zero_counter);                                    \
     }
 #elif defined(__GNUC__) && defined(__gmicro__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit      */\
-      __asm__("bsch/1 %1,%0" : "=g" (zero_counter) : "g" ((uint32)(digit)) ); \
-      size_zuweisung (32-zero_counter);                                       \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit      */\
+      __asm__("bsch/1 %1,%0" : "=g" (_zero_counter) : "g" ((uint32)(digit)) ); \
+      size_zuweisung (32-_zero_counter);                                       \
     }
 #elif defined(__GNUC__) && defined(__rs6000__) && !defined(NO_ASM)
  #ifdef _AIX
   // old assembler syntax
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit     */\
-      __asm__("cntlz %0,%1" : "=r" (zero_counter) : "r" ((uint32)(digit)) ); \
-      size_zuweisung (32-zero_counter);                                      \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit     */\
+      __asm__("cntlz %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
+      size_zuweisung (32-_zero_counter);                                      \
     }
  #else
   // new assembler syntax
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL zero_counter; /* zählt die führenden Nullbits in digit      */\
-      __asm__("cntlzw %0,%1" : "=r" (zero_counter) : "r" ((uint32)(digit)) ); \
-      size_zuweisung (32-zero_counter);                                       \
+    { var uintL _zero_counter; /* zählt die führenden Nullbits in digit      */\
+      __asm__("cntlzw %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
+      size_zuweisung (32-_zero_counter);                                       \
     }
  #endif
 #elif defined(__GNUC__) && defined(__m88k__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL one_position; /* Position der führenden 1                */\
-      __asm__("ff1 %0,%1" : "=r" (one_position) : "r" ((uint32)(digit)) ); \
-      size_zuweisung (1+one_position);                                     \
+    { var uintL _one_position; /* Position der führenden 1                */\
+      __asm__("ff1 %0,%1" : "=r" (_one_position) : "r" ((uint32)(digit)) ); \
+      size_zuweisung (1+_one_position);                                     \
     }
 #elif defined(__GNUC__) && defined(__ibm032__) && !defined(NO_ASM) // RT/ROMP
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL x32 = (uint32)(digit);				\
-      if (x32 >= bit(16))					\
-        { integerlength16(x32>>16,size_zuweisung 16 + ); }	\
+    { var uintL _x32 = (uint32)(digit);				\
+      if (_x32 >= bit(16))					\
+        { integerlength16(_x32>>16,size_zuweisung 16 + ); }	\
         else							\
-        { integerlength16(x32,size_zuweisung); }		\
+        { integerlength16(_x32,size_zuweisung); }		\
     }
 #else
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintC bitsize = 1;						\
-      var uintL x32 = (uint32)(digit);					\
-      /* x32 hat höchstens 32 Bits.                                   */\
-      if (x32 >= bit(16)) { x32 = x32>>16; bitsize += 16; }		\
-      /* x32 hat höchstens 16 Bits.                                   */\
-      if (x32 >= bit(8)) { x32 = x32>>8; bitsize += 8; }		\
-      /* x32 hat höchstens 8 Bits.                                    */\
-      if (x32 >= bit(4)) { x32 = x32>>4; bitsize += 4; }		\
-      /* x32 hat höchstens 4 Bits.                                    */\
-      if (x32 >= bit(2)) { x32 = x32>>2; bitsize += 2; }		\
-      /* x32 hat höchstens 2 Bits.                                    */\
-      if (x32 >= bit(1)) { /* x32 = x32>>1; */ bitsize += 1; }		\
-      /* x32 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
-      size_zuweisung bitsize;						\
+    { var uintC _bitsize = 1;						\
+      var uintL _x32 = (uint32)(digit);					\
+      /* _x32 hat höchstens 32 Bits.                                   */\
+      if (_x32 >= bit(16)) { _x32 = _x32>>16; _bitsize += 16; }		\
+      /* _x32 hat höchstens 16 Bits.                                   */\
+      if (_x32 >= bit(8)) { _x32 = _x32>>8; _bitsize += 8; }		\
+      /* _x32 hat höchstens 8 Bits.                                    */\
+      if (_x32 >= bit(4)) { _x32 = _x32>>4; _bitsize += 4; }		\
+      /* _x32 hat höchstens 4 Bits.                                    */\
+      if (_x32 >= bit(2)) { _x32 = _x32>>2; _bitsize += 2; }		\
+      /* _x32 hat höchstens 2 Bits.                                    */\
+      if (_x32 >= bit(1)) { /* _x32 = _x32>>1; */ _bitsize += 1; }		\
+      /* _x32 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
+      size_zuweisung _bitsize;						\
     }
 #endif
 
@@ -1202,22 +1202,22 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // > digit: ein uint64 >0
 // < size: >0, <=64, mit 2^(size-1) <= digit < 2^size
   #define integerlength64(digit,size_zuweisung)  \
-    { var uintC bitsize = 1;						\
-      var uint64 x64 = (uint64)(digit);					\
-      /* x64 hat höchstens 64 Bits.                                   */\
-      if (x64 >= bit(32)) { x64 = x64>>32; bitsize += 32; }		\
-      /* x64 hat höchstens 32 Bits.                                   */\
-      if (x64 >= bit(16)) { x64 = x64>>16; bitsize += 16; }		\
-      /* x64 hat höchstens 16 Bits.                                   */\
-      if (x64 >= bit(8)) { x64 = x64>>8; bitsize += 8; }		\
-      /* x64 hat höchstens 8 Bits.                                    */\
-      if (x64 >= bit(4)) { x64 = x64>>4; bitsize += 4; }		\
-      /* x64 hat höchstens 4 Bits.                                    */\
-      if (x64 >= bit(2)) { x64 = x64>>2; bitsize += 2; }		\
-      /* x64 hat höchstens 2 Bits.                                    */\
-      if (x64 >= bit(1)) { /* x64 = x64>>1; */ bitsize += 1; }		\
-      /* x64 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
-      size_zuweisung bitsize;						\
+    { var uintC _bitsize = 1;						\
+      var uint64 _x64 = (uint64)(digit);					\
+      /* _x64 hat höchstens 64 Bits.                                   */\
+      if (_x64 >= bit(32)) { _x64 = _x64>>32; _bitsize += 32; }		\
+      /* _x64 hat höchstens 32 Bits.                                   */\
+      if (_x64 >= bit(16)) { _x64 = _x64>>16; _bitsize += 16; }		\
+      /* _x64 hat höchstens 16 Bits.                                   */\
+      if (_x64 >= bit(8)) { _x64 = _x64>>8; _bitsize += 8; }		\
+      /* _x64 hat höchstens 8 Bits.                                    */\
+      if (_x64 >= bit(4)) { _x64 = _x64>>4; _bitsize += 4; }		\
+      /* _x64 hat höchstens 4 Bits.                                    */\
+      if (_x64 >= bit(2)) { _x64 = _x64>>2; _bitsize += 2; }		\
+      /* _x64 hat höchstens 2 Bits.                                    */\
+      if (_x64 >= bit(1)) { /* _x64 = _x64>>1; */ _bitsize += 1; }		\
+      /* _x64 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
+      size_zuweisung _bitsize;						\
     }
 
 // Hintere Nullbits eines 32-Bit-Wortes zählen:
@@ -1227,9 +1227,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < count: >=0, <32, mit 2^count | digit, digit/2^count ungerade
   #if defined(__GNUC__) && defined(__i386__) && !defined(NO_ASM)
     #define ord2_32(digit,count_zuweisung)  \
-      { var uintL one_position; /* Position der letzten 1                    */\
-        __asm__("bsfl %1,%0" : "=r" (one_position) : "rm" ((uint32)(digit)) ); \
-        count_zuweisung one_position;                                          \
+      { var uintL _one_position; /* Position der letzten 1                    */\
+        __asm__("bsfl %1,%0" : "=r" (_one_position) : "rm" ((uint32)(digit)) ); \
+        count_zuweisung _one_position;                                          \
       }
     #define FAST_ORD2
   #elif defined(__sparc__) && !defined(__sparc64__)
