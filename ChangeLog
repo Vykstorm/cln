@@ -1,3 +1,8 @@
+2002-01-20  Richard Kreckel  <kreckel@ginac.de>
+
+        * autoconf/config.{guess,sub}: Update to GNU version 2002-01-02.
+          (the old one was broken on Linux/Mips.)
+
 2002-01-04  Richard Kreckel  <kreckel@ginac.de>
 
         * autoconf/autoconf.m4f: get brutal in order to adhere to FHS.
