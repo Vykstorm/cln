@@ -1,3 +1,10 @@
+2004-10-22  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/conv/cl_I_to_digits (I_to_digits): Fix an elusive stack
+	overwriting problem. That was the real cause for Debian bug#246319.
+	* src/integer/output/cl_I_print.cc (print_integer): Revert workaround
+	for the bug fixed above.
+
 2004-10-20  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/types.h: Use 64 bit digits on x86_64 CPU.

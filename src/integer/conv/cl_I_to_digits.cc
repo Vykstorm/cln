@@ -306,7 +306,9 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           var uintD carry = 0;
           var int carrybits = 0;
           loop
-            { if (carrybits >= b)
+            { if (fixnump(X) && erg->LSBptr-erg_ptr>=cl_value_len)
+                break;
+              if (carrybits >= b)
                 { var uintD d = carry & (base-1);
                   next_digit(d);
                   carry = carry >> b; carrybits -= b;
@@ -340,6 +342,8 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
               var uintD rest = divu_loop_msp(b_hoch_k,MSDptr,len);
               // Zerlegen des Restes in seine k Ziffern:
               var uintC count = k_1;
+	      if (fixnump(X) && count>cl_value_len-1)
+		  count = cl_value_len-1;
               if ((intDsize>=11) || (count>0))
                 // (Bei intDsize>=11 ist wegen b<=36 zwangsläufig
                 // k = ceiling(intDsize*log(2)/log(b))-1 >= 2, also count = k_1 > 0.)
@@ -350,8 +354,7 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
                        divuD(0,rest,base,rest=,d=);
                      #endif
                      next_digit(d);
-                   }
-                   until (--count == 0);
+                } until (--count == 0);
               next_digit(rest); // letzte der k Ziffern ablegen
               // Quotienten normalisieren (max. 1 Digit streichen):
               if (mspref(MSDptr,0)==0) { msshrink(MSDptr); len--; if (len==0) break; }
