@@ -243,7 +243,7 @@ inline _class_::_classname_ (const _class_& x)			\
 {								\
 	cl_uint x_word = x.word;				\
 	cl_inc_refcount(x);					\
-	word = x_word;						\
+	this->word = x_word;					\
 }
 
 // The declaration of a copy constructor.
@@ -263,7 +263,7 @@ inline dest_class& dest_class::operator= (const src_class& x)	\
 	cl_uint x_word = x.word;				\
 	cl_inc_refcount(x);					\
 	cl_dec_refcount(*this);					\
-	word = x_word;						\
+	this->word = x_word;					\
 	return *this;						\
 }
 

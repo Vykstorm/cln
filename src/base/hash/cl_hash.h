@@ -17,7 +17,7 @@ template <class htentry> struct _cl_hashtable_iterator;
 
 template <class htentry>
 struct cl_heap_hashtable : public cl_heap {
-	friend struct _cl_hashtable_iterator<htentry>;
+    friend struct _cl_hashtable_iterator<htentry>;
 protected:
     typedef struct htxentry {
         long next;     // > 0: pseudo-list continues at next-1
@@ -43,7 +43,7 @@ public:
     void operator delete (void* ptr) { free_hook(ptr); }
     // Constructor: build a new, empty table.
     cl_heap_hashtable (long initial_size = 5) : cl_heap (),
-        _size (initial_size), _count (0), _garcol_fun (no_garcol)
+        _size (initial_size), _count (0), _garcol_fun (cl_heap_hashtable<htentry>::no_garcol)
     {
         _modulus = compute_modulus(_size);
         _total_vector = malloc_hook(_modulus*sizeof(long) + _size*sizeof(htxentry));

@@ -21,8 +21,8 @@ CL_PROVIDE(cl_MI)
 #include "cln/abort.h"
 #include "cl_alloca.h"
 
-# MacOS X does "#define _R 0x00040000L"
-# Grr...
+// MacOS X does "#define _R 0x00040000L"
+// Grr...
 #undef _R
 
 namespace cln {

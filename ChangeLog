@@ -1,3 +1,19 @@
+2003-06-29  Richard Kreckel  <kreckel@ginac.de>
+
+	Dependent base resolution needed for GCC-3.4
+	* include/cln/GV.h: Preceed inherited members with this->.
+	* include/cln/SV.h: Likewise.
+	* include/cln/object.h: Likewise.
+	* src/base/hash/cl_hash1.h: Likewise.
+	* src/base/hash/cl_hash1weak.h: Likewise.
+	* src/base/hash/cl_hash2.h: Likewise.
+	* src/base/hash/cl_hashuniq.h: Likewise.
+	* src/base/hash/cl_hash.h: Make lookup of static member function 
+	explicit.
+	* src/base/hash/cl_hash2weak.h: Likewise.
+	* src/base/hash/cl_hashuniqweak.h: Likewise.
+	* src/modinteger/cl_MI.cc: Make shell-comment a C-comment. Geez.
+
 2003-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* src/base/random/cl_random_from.cc (random_state::random_state): Add

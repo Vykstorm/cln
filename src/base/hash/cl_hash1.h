@@ -45,13 +45,13 @@ public:
     // if it is not NULL.
     value_type* get (const key1_type& key)
     {
-        var long index = _slots[hashcode(key) % _modulus] - 1;
+        var long index = this->_slots[hashcode(key) % this->_modulus] - 1;
         while (index >= 0) {
-            if (!(index < _size))
+            if (!(index < this->_size))
                 cl_abort();
-            if (equal(key,_entries[index].entry.key))
-                return &_entries[index].entry.val;
-            index = _entries[index].next - 1;
+            if (equal(key,this->_entries[index].entry.key))
+                return &this->_entries[index].entry.val;
+            index = this->_entries[index].next - 1;
         }
         return NULL;
     }
@@ -61,45 +61,45 @@ public:
         var unsigned long hcode = hashcode(key);
         // Search whether it is already there.
         {
-            var long index = _slots[hcode % _modulus] - 1;
+            var long index = this->_slots[hcode % this->_modulus] - 1;
             while (index >= 0) {
-                if (!(index < _size))
+                if (!(index < this->_size))
                     cl_abort();
-                if (equal(key,_entries[index].entry.key)) {
-                    _entries[index].entry.val = val;
+                if (equal(key,this->_entries[index].entry.key)) {
+                    this->_entries[index].entry.val = val;
                     return;
                 }
-                index = _entries[index].next - 1;
+                index = this->_entries[index].next - 1;
             }
         }
         // Put it into the table.
         prepare_store();
-        var long hindex = hcode % _modulus; // _modulus may have changed!
+        var long hindex = hcode % this->_modulus; // _modulus may have changed!
         var long index = get_free_index();
-        new (&_entries[index].entry) cl_htentry1<key1_type,value_type> (key,val);
-        _entries[index].next = _slots[hindex];
-        _slots[hindex] = 1+index;
-        _count++;
+        new (&this->_entries[index].entry) cl_htentry1<key1_type,value_type> (key,val);
+        this->_entries[index].next = this->_slots[hindex];
+        this->_slots[hindex] = 1+index;
+        this->_count++;
     }
     // Remove (htrem alias remhash).
     void remove (const key1_type& key)
     {
-        var long* _index = &_slots[hashcode(key) % _modulus];
+        var long* _index = &this->_slots[hashcode(key) % this->_modulus];
         while (*_index > 0) {
             var long index = *_index - 1;
-            if (!(index < _size))
+            if (!(index < this->_size))
                 cl_abort();
-            if (equal(key,_entries[index].entry.key)) {
+            if (equal(key,this->_entries[index].entry.key)) {
                 // Remove _entries[index].entry
-                *_index = _entries[index].next;
-                _entries[index].~htxentry();
+                *_index = this->_entries[index].next;
+                this->_entries[index].~htxentry();
                 // The entry is now free.
                 put_free_index(index);
                 // That's it.
-                _count--;
+                this->_count--;
                 return;
             }
-            _index = &_entries[index].next;
+            _index = &this->_entries[index].next;
         }
     }
     // Iterate through the table.
@@ -113,25 +113,25 @@ private:
     void prepare_store ()
     {
       #if !(defined(__sparc__) && !defined(__GNUC__))
-        if (_freelist < -1)
+        if (this->_freelist < -1)
             return;
         // Can we make room?
-        if (_garcol_fun(this))
-            if (_freelist < -1)
+        if (this->_garcol_fun(this))
+            if (this->_freelist < -1)
                 return;
         // No! Have to grow the hash table.
         grow();
       #else
         // workaround Sun C++ 4.1 inline function compiler bug
-        if (_freelist >= -1) {
-            if (!_garcol_fun(this) || (_freelist >= -1))
+        if (this->_freelist >= -1) {
+            if (!this->_garcol_fun(this) || (this->_freelist >= -1))
                 grow();
         }
       #endif
     }
     void grow ()
     {
-        var long new_size = _size + (_size >> 1) + 1; // _size*1.5
+        var long new_size = this->_size + (this->_size >> 1) + 1; // _size*1.5
         var long new_modulus = compute_modulus(new_size);
         var void* new_total_vector = malloc_hook(new_modulus*sizeof(long) + new_size*sizeof(htxentry));
         var long* new_slots = (long*) ((char*)new_total_vector + 0);
@@ -143,8 +143,8 @@ private:
             new_entries[i].next = free_list_head;
             free_list_head = -2-i;
         }
-        var htxentry* old_entries = _entries;
-        for (var long old_index = 0; old_index < _size; old_index++)
+        var htxentry* old_entries = this->_entries;
+        for (var long old_index = 0; old_index < this->_size; old_index++)
             if (old_entries[old_index].next >= 0) {
                 var key1_type& key = old_entries[old_index].entry.key;
                 var value_type& val = old_entries[old_index].entry.val;
@@ -156,13 +156,13 @@ private:
                 new_slots[hindex] = 1+index;
                 old_entries[old_index].~htxentry();
             }
-        free_hook(_total_vector);
-        _modulus = new_modulus;
-        _size = new_size;
-        _freelist = free_list_head;
-        _slots = new_slots;
-        _entries = new_entries;
-        _total_vector = new_total_vector;
+        free_hook(this->_total_vector);
+        this->_modulus = new_modulus;
+        this->_size = new_size;
+        this->_freelist = free_list_head;
+        this->_slots = new_slots;
+        this->_entries = new_entries;
+        this->_total_vector = new_total_vector;
     }
 };
 

@@ -221,16 +221,16 @@ public:
 	// Length.
 	uintL length () const
 	{
-		return ((const cl_heap_GV<T> *) pointer)->v.length();
+		return ((const cl_heap_GV<T> *) this->pointer)->v.length();
 	}
 	// Reference. Forbid modification of `const cl_GV&' arguments.
 	const cl_GV_constindex<T> operator[] (unsigned long index) const
 	{
-		return ((const cl_heap_GV<T> *) pointer)->v[index];
+		return ((const cl_heap_GV<T> *) this->pointer)->v[index];
 	}
 	const cl_GV_index<T> operator[] (unsigned long index)
 	{
-		return ((cl_heap_GV<T> *) pointer)->v[index];
+		return ((cl_heap_GV<T> *) this->pointer)->v[index];
 	}
 	const cl_GV_constindex<T> operator[] (long index) const
 	{ return operator[]((unsigned long)index); }
@@ -277,7 +277,7 @@ template <class T, class BASE>
 template <class T, class BASE>
 inline CL_GV(T,BASE)::operator cl_heap_GV<T>* () const
 {
-	cl_heap_GV<T>* hpointer = (cl_heap_GV<T>*)pointer;
+	cl_heap_GV<T>* hpointer = (cl_heap_GV<T>*)this->pointer;
 	cl_inc_refcount(*this);
 	return hpointer;
 }

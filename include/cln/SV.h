@@ -117,16 +117,16 @@ public:
 	// Length.
 	uintL length () const
 	{
-		return ((const cl_heap_SV<T> *) pointer)->v.length();
+		return ((const cl_heap_SV<T> *) this->pointer)->v.length();
 	}
 	// Reference. Forbid modification of `const cl_SV&' arguments.
 	const T & operator[] (unsigned long index) const
 	{
-		return ((const cl_heap_SV<T> *) pointer)->v[index];
+		return ((const cl_heap_SV<T> *) this->pointer)->v[index];
 	}
 	T & operator[] (unsigned long index)
 	{
-		return ((cl_heap_SV<T> *) pointer)->v[index];
+		return ((cl_heap_SV<T> *) this->pointer)->v[index];
 	}
 	// New ANSI C++ compilers also want the following.
 	const T & operator[] (unsigned int index) const
