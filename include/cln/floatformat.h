@@ -8,7 +8,7 @@
 namespace cln {
 
 // Float format specifier type. (Float mantissa precision in bits.)
-typedef enum float_format_t {
+enum float_format_t {
 	float_format_sfloat = 17,
 	float_format_ffloat = 24,
 	float_format_dfloat = 53,

@@ -1,3 +1,7 @@
+2004-05-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* include/cln/floatformat.h: Do define a type here.
+
 2004-06-27  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/modules.h (CL_JUMP_TO): Fix AMD64 brokenness.
