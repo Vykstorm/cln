@@ -1,3 +1,30 @@
+2004-11-03, version 1.1.9
+=========================
+
+Algorithmic changes
+-------------------
+
+* Input of numbers in bases 2, 4, 8, 16 and 32 is now done in linear bit
+  complexity as opposed to O(N^2). Useful for all kinds of persistency.
+
+Implementation changes
+----------------------
+
+* Fixed several bugs in the integer input and output routines that could be
+  blamed for random crashes in the following cases: output in base 32 for
+  quite large numbers, input in base 2 for fixnums and input in base 3 for
+  fixnums on a 64 bit target.
+
+* Fixed crash when radix specifiers were used in input streams.
+
+* Speed up on x86_64 and ia64 by adding some inline assembly.
+
+Other changes
+-------------
+
+* Fixes for compilation on MacOS X and little endian Mips.
+
+
 2004-07-01, version 1.1.8
 =========================
 

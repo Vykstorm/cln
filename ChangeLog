@@ -1,3 +1,7 @@
+2004-11-03  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* Version 1.1.9 released.
+
 2004-10-28  Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
 
 	* src/Makefile.in: Let config.status set LDFLAGS.
