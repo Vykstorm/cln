@@ -120,6 +120,7 @@ const cl_LF sinx_naive (const cl_LF& x)
 //  -1.4 = d/dk j(k) = (d/dj k(j))^-1 = - j^2/(d+j)*ln 2, also j^2=2(d+j),
 //  grob j=sqrt(2d) und damit k=sqrt(d).]
 // Aufwand: asymptotisch d^2.5 .
+
 	if (zerop(x))
 		return x;
 	var uintL actuallen = TheLfloat(x)->len;
