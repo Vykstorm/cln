@@ -11,9 +11,9 @@ $ make install
 You need GNU make. On HP-UX, you also need GNU sed.
 
 Known to work with:
-  - Linux/x86, gcc-2.7.0, gcc-2.7.2, gcc-2.8.0, egcs-1.1
-  - Solaris 2.4 (sparc), gcc-2.7.0, gcc-2.7.2, egcs-1.1
-  - OSF/1 V4.0 (alpha), egcs-1.1
+  - Linux/x86, gcc-2.7.0, gcc-2.7.2, gcc-2.8.0, egcs-1.1, gcc-2.95
+  - Solaris 2.4 (sparc), gcc-2.7.0, gcc-2.7.2, egcs-1.1, gcc-2.95
+  - OSF/1 V4.0 (alpha), egcs-1.1, gcc-2.95
   - Irix 5.3, CC 4
 
 The "make" step takes about 4 hours, on a 486 DX / 33 MHz / 8 MB.
