@@ -4917,7 +4917,7 @@ m4_ifset([AC_PACKAGE_BUGREPORT],
                          [@%:@
 @%:@ Report bugs to <AC_PACKAGE_BUGREPORT>.])])
 
-T13,4978
+T13,4980
 _AC_INIT_HELPm4_divert_push([HELP_BEGIN])dnl
 
 #
@@ -4969,15 +4969,15 @@ Fine tuning of the installation directories:
   --bindir=DIR           user executables [EPREFIX/bin]
   --sbindir=DIR          system admin executables [EPREFIX/sbin]
   --libexecdir=DIR       program executables [EPREFIX/libexec]
-  --datadir=DIR          read-only architecture-independent data [PREFIX/share]
+  --datadir=DATADIR      read-only architecture-independent data [PREFIX/share]
   --sysconfdir=DIR       read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR   modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR    modifiable single-machine data [PREFIX/var]
   --libdir=DIR           object code libraries [EPREFIX/lib]
   --includedir=DIR       C header files [PREFIX/include]
   --oldincludedir=DIR    C header files for non-gcc [/usr/include]
-  --infodir=DIR          info documentation [PREFIX/info]
-  --mandir=DIR           man documentation [PREFIX/man]
+  --infodir=DIR          info documentation [DATADIR/info]
+  --mandir=DIR           man documentation [DATADIR/man]
 EOF
 
   cat <<\EOF]
@@ -5247,7 +5247,7 @@ F3,3
 lenlen
 F5,6
 m4_ififelse
-T19,14262
+T19,14264
 _AC_INIT_PARSE_ARGSm4_divert_push([PARSE_ARGS])dnl
 
 # Initialize some variables set by options.
@@ -5285,8 +5285,8 @@ AC_SUBST([localstatedir],  ['${prefix}/var'])dnl
 AC_SUBST([libdir],         ['${exec_prefix}/lib'])dnl
 AC_SUBST([includedir],     ['${prefix}/include'])dnl
 AC_SUBST([oldincludedir],  ['/usr/include'])dnl
-AC_SUBST([infodir],        ['${prefix}/info'])dnl
-AC_SUBST([mandir],         ['${prefix}/man'])dnl
+AC_SUBST([infodir],        ['${datadir}/info'])dnl
+AC_SUBST([mandir],         ['${datadir}/man'])dnl
 
 # Identity of this package.
 AC_SUBST([PACKAGE_NAME],
