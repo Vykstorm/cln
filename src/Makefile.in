@@ -204,7 +204,7 @@ libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
 
 install : all force
 	$(MKDIR) $(DESTDIR)$(libdir)
-	$(LIBTOOL_INSTALL) $(INSTALL_DATA) libcln.la $(DESTDIR)$(libdir)/libcln.la
+	$(LIBTOOL_INSTALL) $(INSTALL_PROGRAM) libcln.la $(DESTDIR)$(libdir)/libcln.la
 	$(MKDIR) $(DESTDIR)$(includedir)/cln
 	$(INSTALL_DATA) $(top_srcdir)/include/cln/*.h $(DESTDIR)$(includedir)/cln
 	$(INSTALL_DATA) ../include/cln/*.h $(DESTDIR)$(includedir)/cln
