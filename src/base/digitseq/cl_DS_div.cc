@@ -12,33 +12,75 @@
 #include "cl_N.h"
 #include "cl_abort.h"
 
-// We observe the following timings:
-// Time for dividing 2*N digits by N digits, on a i486 33 MHz running Linux:
-//      N   standard  Newton
-//      10    0.0003  0.0012
-//      25    0.0013  0.0044
-//      50    0.0047  0.0125
-//     100    0.017   0.037
-//     250    0.108   0.146
-//     500    0.43    0.44
-//    1000    1.72    1.32
-//    2500   11.2     4.1
-//    5000   44.3     9.5
-//   10000  187      20.6
-//   -----> Newton faster for N >= 550.
-// Time for dividing 3*N digits by N digits, on a i486 33 MHz running Linux:
-//      N   standard  Newton
-//      10    0.0006  0.0025
-//      25    0.0026  0.0103
-//      50    0.0092  0.030
-//     100    0.035   0.089
-//     250    0.215   0.362
-//     500    0.85    1.10
-//    1000    3.44    3.21
-//    2500   23.3     7.9
-//    5000   89.0    15.6
-//   10000  362      33.1
-//   -----> Newton faster for N >= 740.
+// We observe the following timings in seconds:
+// Time for dividing a 2*n word number by a n word number:
+// OS: Linux 2.2, intDsize==32,        OS: TRU64/4.0, intDsize==64,
+// Machine: P-III/450MHz               Machine: EV5/300MHz:
+//      n   standard  Newton               standard  Newton
+//      10   0.000010  0.000024             0.000036  0.000058
+//      30   0.000026  0.000080             0.00012   0.00027
+//     100   0.00018   0.00048              0.00084   0.0016
+//     300   0.0013    0.0028               0.0062    0.0090
+//    1000   0.014     0.019                0.064     0.066  <-(~2200)
+//    2000   0.058     0.058  <-(~2000)     0.26      0.20
+//    3000   0.20      0.11                 0.57      0.24
+//   10000   2.3       0.50                 6.7       1.2
+//   30000  24.4       1.2                 62.0       2.8
+// Time for dividing a 3*n word number by a n word number:
+// OS: Linux 2.2, intDsize==32,        OS: TRU64/4.0, intDsize==64,
+// Machine: P-III/450MHz               Machine: EV5/300MHz:
+//      n   standard  Newton               standard  Newton
+//      10   0.000013  0.000040             0.000063   0.00011
+//      30   0.000046  0.00018              0.00024    0.00062
+//     100   0.00035   0.0012               0.0016     0.0040
+//     300   0.0027    0.0071               0.012      0.021
+//    1000   0.029     0.047                0.13       0.16
+//    2000   0.12      0.14  <-(~2200)      0.51       0.45  <-(~1600)
+//    3000   0.40      0.22                 1.1        0.52
+//   10000   4.5       0.76                13.2        2.0
+//   30000  42.0       2.8                123.0        6.0
+// Time for dividing m digits by n digits:
+// OS: Linux 2.2, intDsize==32,        OS: TRU64/4.0, intDsize==64,
+// Machine: P-III/450MHz               Machine: EV5/300MHz:
+//      n   Newton faster for:         Newton faster for:
+//    2-400 never                      never
+//    600   never                       670<m<900 (definitly negligible)
+//    800   never                       850<m<1500
+//   1000   never                      1030<m<2000
+//   1200   1400<m<1700                1230<m<2700
+//   1500   1590<m<2500                1530<m<5100, 6600<m (ridge negligible)
+//   2000   2060<m<3600                2030<m
+//   3000   3040<m                     3030<m
+//   4000   4030<m                     4030<m
+//   5000   5030<m                     5030<m
+//   8000   8030<m                     8030<m
+// Break-even-point, should be acceptable for both architectures.
+// When in doubt, prefer to choose the standard algorithm.
+#if CL_USE_GMP
+  static inline cl_boolean cl_recip_suitable (uintL m, uintL n) // m > n
+    { if (n < 900)
+        return cl_false;
+      else
+        if (n < 2200)
+          return (cl_boolean)((m >= n+50) && (m < 2*n-600));
+        else
+          return (cl_boolean)(m >= n+30);
+    }
+#else
+// Use the old default values from CLN version <= 1.0.3 as a crude estimate.
+// They came from the timings for dividing m digits by n digits on an i486/33:
+// Dividing 2*N digits by N digits:    Dividing 3*N digits by N digits:
+//      N   standard  Newton           standard  Newton
+//      10    0.0003  0.0012             0.0006  0.0025
+//      25    0.0013  0.0044             0.0026  0.0103
+//      50    0.0047  0.0125             0.0092  0.030
+//     100    0.017   0.037              0.035   0.089
+//     250    0.108   0.146              0.215   0.362
+//     500    0.43    0.44  <-(~550)     0.85    1.10
+//    1000    1.72    1.32               3.44    3.21  <-(~740)
+//    2500   11.2     4.1               23.3     7.9
+//    5000   44.3     9.5               89.0    15.6
+//   10000  187      20.6              362      33.1
 // Time for dividing m digits by n digits:
 //   n = 2,3,5,10,25,50,100,250: Newton never faster.
 //   n = 400: Newton faster for m >= 440, m < 600
@@ -52,7 +94,6 @@
 //   n = 2000: Newton faster for m >= 2020
 //   n = 2500: Newton faster for m >= 2520
 //   n = 5000: Newton faster for m >= 5020
-// Break-even-point. When in doubt, prefer to choose the standard algorithm.
   static inline cl_boolean cl_recip_suitable (uintL m, uintL n) // m > n
     { if (n < 500)
         return cl_false;
@@ -62,6 +103,7 @@
         else
           return (cl_boolean)(m >= n+20);
     }
+#endif
 
 // Dividiert zwei Unsigned Digit sequences durcheinander.
 // UDS_divide(a_MSDptr,a_len,a_LSDptr, b_MSDptr,b_len,b_LSDptr, &q,&r);

@@ -119,55 +119,55 @@
        } while (len > 0);
   }
 
-// Karatsuba-Multiplikation: O(n^(log 3 / log 2))
+// Karatsuba-multiplication: O(n^(log 3 / log 2))
   static void mulu_karatsuba (const uintD* sourceptr1, uintC len1,
                               const uintD* sourceptr2, uintC len2,
                               uintD* destptr);
   static void mulu_karatsuba_square (const uintD* sourceptr, uintC len,
                                      uintD* destptr);
 #include "cl_DS_mul_kara.h"
-  // karatsuba_threshold = Länge, ab der die Karatsuba-Multiplikation bevorzugt
-  // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
-  // Als Test dient (progn (time (! 5000)) nil), das viele kleine und einige
-  // ganz große Multiplikationen durchführt. Miß die Runtime.
-  // Unter Linux mit einem 80486:      Auf einer Sparc 2:
-  // threshold  time in 0.01 sec.
-  //      5        125   127
-  //      6        116   117
-  //      7        107   110
-  //      8        101   103
-  //      9         99   102
-  //     10         98   100
-  //     11         97   100
-  //     12         96    99
-  //     13         97    99
-  //     14         97   100
-  //     15         97    99
-  //     16         98   100
-  //     17         98   100
-  //     18         98   100
-  //     19         98   101
-  //     20         99   102
-  //     25        103   105
-  //     30        109   111
-  //     40        115   118
-  //     50        122   125
-  //     70        132   134
-  //    100        151   152
-  //    150        164   167
-  //    250        183   187
-  //    500        203   205
-  //   1000        203   205
-  //             (clisp)(cln)
-  // Das Optimum scheint bei karatsuba_threshold = 12 zu liegen.
-  // Da das Optimum aber vom Verhältnis
-  //         Zeit für uintD-Multiplikation / Zeit für uintD-Addition
-  // abhängt und die gemessenen Zeiten auf eine Unterschreitung des Optimums
-  // empfindlicher reagieren als auf eine Überschreitung des Optimums,
-  // sind wir vorsichtig und wählen einen Wert etwas über dem Optimum:
+  // karatsuba_threshold = length, from which on Karatsuba-multiplication is a
+  // gain and will be preferred.  The break-even point is determined from
+  // timings.  The test is (progn (time (! 5000)) nil), which does many small
+  // and some very large multiplications.  The measured runtimes are:
+  // OS: Linux 2.2, intDsize==32,        OS: TRU64/4.0, intDsize==64,
+  // Machine: P-III/450MHz               Machine: EV5/300MHz:
+  // threshold  time in 0.01 sec.        time in 0.01 sec.
+  //      5          3.55                     2.29
+  //     10          2.01                     1.71
+  //     15          1.61                     1.61
+  //     20          1.51                     1.60  <-
+  //     25          1.45                     1.63
+  //     30          1.39                     1.66
+  //     35          1.39  <-                 1.67
+  //     40          1.39                     1.71
+  //     45          1.40                     1.75
+  //     50          1.41                     1.78
+  //     55          1.41                     1.79
+  //     60          1.44                     1.84
+  //     65          1.44                     1.85
+  //     70          1.43                     1.85
+  //     75          1.45                     1.89
+  //     80          1.47                     1.91
+  //     90          1.51                     1.96
+  //    100          1.53                     1.97
+  //    150          1.62                     2.13
+  //    250          1.75                     2.19
+  //    500          1.87                     2.17
+  //   1000          1.87                     2.18
+  //   2000          1.88                     2.17
+  // The optimum appears to be between 20 and 40.  But since that optimum
+  // depends on the ratio time(uintD-mul)/time(uintD-add) and the measured
+  // times are more sensitive to a shift towards lower thresholds we are
+  // careful and choose a value at the upper end:
+#if CL_USE_GMP
+  const unsigned int cl_karatsuba_threshold = 35;
+#else
   const unsigned int cl_karatsuba_threshold = 16;
+  // (In CLN version <= 1.0.3 cl_karatsuba_threshold was always 16)
+#endif
 
-#if 0 // Lohnt sich nicht
+#if 0 // Doesn't seem to be worth the effort
 
 // FFT-Multiplikation nach Nussbaumer: O(n log n log log n)
 #include "cl_DS_mul_nuss.h"
@@ -246,58 +246,112 @@
 
 // FFT-Multiplikation in Z/pZ: O(n^1.29)
 #include "cl_DS_mul_fftm.h"
-  // fftm_threshold = Länge, ab der die FFT-Multiplikation mod m bevorzugt
-  // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
-  // Multiplikation zweier N-Wort-Zahlen unter
-  //  Linux mit einem 80486:               Solaris, Sparc 10/20:
+  // fftm_threshold = length, from which on FFT multiplication mod m is a gain
+  // and will be preferred.  The break-even point is determined from timings.
+  // The times to multiply two N-limb numbers are:
+  // OS: Linux 2.2, intDsize==32,        OS: TRU64/4.0, intDsize==64,
+  // Machine: P-III/450MHz               Machine: EV5/300MHz:
   //    N     kara   fftm  (time in sec.)    kara   fftm
-  //   1000    0.36   0.54                    0.08   0.10
-  //   5000    4.66   2.48                    1.01   0.51
-  //  25000   61.1   13.22                   13.23   2.73
-  //  32500   91.0   27.5                    20.0    5.8
-  //  35000  102.1   27.5                    21.5    5.6
-  //  50000  183     27.6                    40.7    5.6
-  // Multiplikation zweier N-Wort-Zahlen unter
-  //  Linux mit einem 80486:               Solaris, Sparc 10/20:
-  //    N     kara   fftm  (time in sec.)    kara   fftm
-  //   1000    0.36   0.54                    0.08   0.10
-  //   1260    0.52   0.50                    0.11   0.10
-  //   1590    0.79   0.51                    0.16   0.10
-  //   2000    1.09   1.07                    0.23   0.21
-  //   2520    1.57   1.08                    0.33   0.21
-  //   3180    2.32   1.08                    0.50   0.21
-  //   4000    3.29   2.22                    0.70   0.41
-  //   5040    4.74   2.44                    0.99   0.50
-  //    N1    N2    kara   fftm  (time in sec.)    kara   fftm
-  //   1250  1250    0.51   0.50                    0.11   0.10
-  //   1250  1580    0.70   0.50                    0.15   0.10
-  //   1250  2000    0.89   0.51                    0.18   0.10
-  //   1250  2250    0.99   0.51                    0.21   0.10
-  //   1250  2500    1.08   1.03     <---           0.22   0.21
-  //   1250  2800    1.20   1.07                    0.26   0.21
-  //   1250  3100    1.35   1.07                    0.28   0.21
-  // Es gibt also noch Werte von (len1,len2) mit 1250 <= len1 <= len2, bei
-  // denen "kara" schneller ist als "fftm", aber nicht viele und dort auch
-  // nur um 5%. Darum wählen wir ab hier die FFT-Multiplikation.
-  const unsigned int cl_fftm_threshold = 1250; // muß stets >= 6 sein (sonst Endlosrekursion!)
+  //   1000    0.005  0.016                   0.018  0.028
+  //   1500    0.009  0.012                   0.032  0.028
+  //   2000    0.015  0.025                   0.053  0.052  <-
+  //   2500    0.022  0.026                   0.067  0.052
+  //   3000    0.029  0.027  <-               0.093  0.053
+  //   3500    0.035  0.037                   0.12   0.031
+  //   4000    0.045  0.028                   0.16   0.12
+  //   5000    0.064  0.050                   0.20   0.11
+  //   7000    0.110  0.051                   0.37   0.20
+  //  10000    0.19   0.11                    0.61   0.26
+  //  20000    0.59   0.23                    1.85   0.55
+  //  30000    1.10   0.25                    3.79   0.56
+  //  50000    2.52   1.76                    8.15   1.37
+  //  70000    4.41   2.30                   14.09   2.94
+  // 100000    7.55   1.53                   24.48   2.96
+  // More playing around with timings reveals that there are some values where
+  // FFT multiplication is somewhat slower than Karatsuba, both for len1==len2
+  // and also if len1<len2.
+  // Here are the timigs from CLN version <= 1.0.3:
+  // //  Linux mit einem 80486:               Solaris, Sparc 10/20:
+  // //    N     kara   fftm  (time in sec.)    kara   fftm
+  // //   1000    0.36   0.54                    0.08   0.10
+  // //   5000    4.66   2.48                    1.01   0.51
+  // //  25000   61.1   13.22                   13.23   2.73
+  // //  32500   91.0   27.5                    20.0    5.8
+  // //  35000  102.1   27.5                    21.5    5.6
+  // //  50000  183     27.6                    40.7    5.6
+  // // Multiplikation zweier N-Wort-Zahlen unter
+  // //  Linux mit einem 80486:               Solaris, Sparc 10/20:
+  // //    N     kara   fftm  (time in sec.)    kara   fftm
+  // //   1000    0.36   0.54                    0.08   0.10
+  // //   1260    0.52   0.50                    0.11   0.10
+  // //   1590    0.79   0.51                    0.16   0.10
+  // //   2000    1.09   1.07                    0.23   0.21
+  // //   2520    1.57   1.08                    0.33   0.21
+  // //   3180    2.32   1.08                    0.50   0.21
+  // //   4000    3.29   2.22                    0.70   0.41
+  // //   5040    4.74   2.44                    0.99   0.50
+  // //    N1    N2    kara   fftm  (time in sec.)    kara   fftm
+  // //   1250  1250    0.51   0.50                    0.11   0.10
+  // //   1250  1580    0.70   0.50                    0.15   0.10
+  // //   1250  2000    0.89   0.51                    0.18   0.10
+  // //   1250  2250    0.99   0.51                    0.21   0.10
+  // //   1250  2500    1.08   1.03     <---           0.22   0.21
+  // //   1250  2800    1.20   1.07                    0.26   0.21
+  // //   1250  3100    1.35   1.07                    0.28   0.21
+  // // Es gibt also noch Werte von (len1,len2) mit 1250 <= len1 <= len2, bei
+  // // denen "kara" schneller ist als "fftm", aber nicht viele und dort auch
+  // // nur um 5%. Darum wählen wir ab hier die FFT-Multiplikation.
+  // // 140000: 4.15s  12.53  23.7
+  // // 14000:  4.16s
+  // // 11000:  4.16s
+  // // 9000:   1.47s
+  // // 7000:   1.48s
+  // // 1400:   1.42s   2.80   6.5
+#if CL_USE_GMP
+  const unsigned int cl_fftm_threshold = 2500;
+  // must be >= 6 (else infinite recursion)
+#else
+  // Use the old default value from CLN version <= 1.0.3 as a crude estimate.
+  const unsigned int cl_fftm_threshold = 1250;
+#endif
   // This is the threshold for multiplication of equally sized factors.
   // When the lengths differ much, the threshold varies:
-  //   len2 = 3000   len1 >= 800
-  //   len2 = 3500   len1 >= 700
-  //   len2 = 4000   len1 >= 580
-  //   len2 = 4500   len1 >= 430
-  //   len2 = 5000   len1 >= 370
-  //   len2 = 5500   len1 >= 320
-  //   len2 = 6000   len1 >= 500
-  //   len2 = 7000   len1 >= 370
-  //   len2 = 8000   len1 >= 330
-  //   len2 = 9000   len1 >= 420
-  //   len2 =10000   len1 >= 370
-  //   len2 =11000   len1 >= 330
-  //   len2 =12000   len1 >= 330
-  //   len2 =13000   len1 >= 350
+  //                OS: Linux 2.2, intDsize==32,  OS: TRU64/4.0, intDsize==64,
+  //                Machine: P-III/450MHz         Machine: EV5/300MHz:
+  // len2 =  3000   len1 >= 2600                  len1 >= 800
+  // len2 =  4000   len1 >= 1500                  len1 >= 700
+  // len2 =  5000   len1 >= 1100                  len1 >= 600
+  // len2 =  6000   len1 >= 1300                  len1 >= 700
+  // len2 =  7000   len1 >= 1100                  len1 >= 600
+  // len2 =  8000   len1 >= 900                   len1 >= 500
+  // len2 =  9000   len1 >= 1300                  len1 >= 600
+  // len2 = 10000   len1 >= 1100                  len1 >= 500
+  // len2 = 11000   len1 >= 1000                  len1 >= 500
+  // len2 = 12000   len1 >= 900                   len1 >= 700
+  // len2 = 13000   len1 >= 900                   len1 >= 500
+  // len2 = 14000   len1 >= 900                   len1 >= 600
+  // Here are the timigs from CLN version <= 1.0.3:
+  // //   len2 = 3000   len1 >= 800
+  // //   len2 = 3500   len1 >= 700
+  // //   len2 = 4000   len1 >= 580
+  // //   len2 = 4500   len1 >= 430
+  // //   len2 = 5000   len1 >= 370
+  // //   len2 = 5500   len1 >= 320
+  // //   len2 = 6000   len1 >= 500
+  // //   len2 = 7000   len1 >= 370
+  // //   len2 = 8000   len1 >= 330
+  // //   len2 = 9000   len1 >= 420
+  // //   len2 =10000   len1 >= 370
+  // //   len2 =11000   len1 >= 330
+  // //   len2 =12000   len1 >= 330
+  // //   len2 =13000   len1 >= 350
   // Let's choose the following condition:
+#if CL_USE_GMP
+  const unsigned int cl_fftm_threshold1 = 600;
+#else
+  // Use the old default values from CLN version <= 1.0.3 as a crude estimate.
   const unsigned int cl_fftm_threshold1 = 330;
+#endif
   const unsigned int cl_fftm_threshold2 = 2*cl_fftm_threshold;
   //   len1 > cl_fftm_threshold1 && len2 > cl_fftm_threshold2
   //   && len1 >= cl_fftm_threshold1 + cl_fftm_threshold/(len2-cl_fftm_threshold1)*(cl_fftm_threshold-cl_fftm_threshold1).
@@ -314,8 +368,8 @@
           }
       return cl_false;
     }
-
-#if 0 // Lohnt sich nicht
+    
+#if 0 // Doesn't seem to be worth the effort
 
 // FFT-Multiplikation über den komplexen Zahlen.
 #include "cl_DS_mul_fftc.h"
