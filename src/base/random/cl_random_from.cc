@@ -1,0 +1,101 @@
+// cl_random_state constructor.
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_random.h"
+
+
+// Implementation.
+
+#include "cl_base_config.h"
+#include "cl_low.h"
+
+#if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(_WIN32) && defined(__GNUC__))
+
+#include <sys/types.h>
+#include <unistd.h> // declares getpid()
+#include <stdlib.h> // declares rand()
+
+#if defined(HAVE_GETTIMEOFDAY)
+
+#include <sys/time.h>
+#ifdef GETTIMEOFDAY_DOTS
+  extern "C" int gettimeofday (struct timeval * tp, ...);
+#else
+  extern "C" int gettimeofday (struct timeval * tp, GETTIMEOFDAY_TZP_T tzp);
+#endif
+
+inline uint32 get_seed (void)
+{
+	var struct timeval tv;
+	gettimeofday(&tv,0);
+	return highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zufällige Bits
+}
+
+#elif defined(HAVE_FTIME)
+
+#include <sys/timeb.h>
+#ifdef _WIN32
+  extern "C" void ftime (struct timeb * tp);
+#else
+  extern "C" int ftime (struct timeb * tp);
+#endif
+
+inline uint32 get_seed (void)
+{
+	var struct timeb tb;
+	ftime(&tb);
+	return (tb.time << 10) | tb.millitm; // 22+10 zufällige Bits
+}
+
+#elif defined(HAVE_TIMES_CLOCK)
+
+#include <time.h>
+#ifndef CLK_TCK
+#include <sys/time.h>
+#endif
+#include <sys/times.h>
+extern "C" clock_t times (struct tms * buffer);
+
+inline uint32 get_seed (void)
+{
+	var struct tms tmsbuf;
+	var uint32 seed_lo = times(&tmsbuf);
+	return seed_lo + tmsbuf.tms_utime + tmsbuf.tms_stime;
+}
+
+#endif
+
+#endif
+
+// Counter, to avoid that two random-states created immediately one after
+// the other contain the same seed.
+static uint32 counter = 0;
+
+cl_random_state::cl_random_state ()
+{
+	var uint32 seed_hi;
+	var uint32 seed_lo;
+#if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(_WIN32) && defined(__GNUC__))
+	seed_lo = get_seed();
+	seed_hi = (rand() // zufällige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
+                          << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
+#elif defined(__atarist)
+	seed_lo = highlow32(GEMDOS_GetDate(),GEMDOS_GetTime()); // 16+16 zufällige Bits
+	seed_hi = XBIOS_Random(); // 24 Bit zufällig vom XBIOS, vorne 8 Nullbits
+#elif defined(amiga) || defined(AMIGA)
+	seed_lo = get_real_time(); // Uhrzeit
+	seed_hi = FindTask(NULL); // Pointer auf eigene Task
+#elif defined(__MSDOS__) || defined(__EMX__) || defined(__riscos)
+	// Keine Zufallszahlen, keine PID, nichts Zufälliges da.
+	seed_lo = get_real_time(); // Uhrzeit, 100 Hz
+	seed_hi = time(NULL);
+#else
+#error "Must implement cl_random_state constructor!"
+#endif
+	seed_hi ^= counter++ << 5;
+	seed.hi = seed_hi;
+	seed.lo = seed_lo;
+}

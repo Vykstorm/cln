@@ -1,0 +1,40 @@
+// cl_float_to_FF().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_FF.h"
+
+
+// Implementation.
+
+cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val_)
+{
+      var ffloat val = val_.eksplicit;
+      var uintL exp = (val >> FF_mant_len) & (bit(FF_exp_len)-1); // e
+      if (exp == 0) // e=0 ?
+        // vorzeichenbehaftete 0.0 oder subnormale Zahl
+        { if (!((val << 1) == 0) && underflow_allowed())
+            { cl_error_floating_point_underflow(); }
+            else
+            { return as_cl_private_thing(cl_FF_0); } // +/- 0.0 -> 0.0
+        }
+      elif (exp == 255) // e=255 ?
+        { if (!((val << (32-FF_mant_len)) == 0))
+            { cl_error_floating_point_nan(); } // NaN
+            else
+            { cl_error_floating_point_overflow(); } // Infinity, Overflow
+        }
+      else
+        { // Der Exponent muß um FF_exp_mid-126 erhöht werden.
+          if ((FF_exp_mid>126) && (exp > FF_exp_high-FF_exp_mid+126))
+            { cl_error_floating_point_overflow(); } // Overflow
+          val += (FF_exp_mid - 126) << FF_mant_len;
+          #if defined(CL_WIDE_POINTERS)
+          return as_cl_private_thing(allocate_ffloat(val));
+          #else
+          return (cl_private_thing)allocate_ffloat(val);
+          #endif
+        }
+}

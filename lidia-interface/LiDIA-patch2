@@ -1,0 +1,27 @@
+diff -r -c3 LiDIA-1.3/config/CONFIG LiDIA/config/CONFIG
+*** LiDIA-1.3/config/CONFIG	Mon Apr 15 15:00:47 1996
+--- LiDIA/config/CONFIG	Sun Nov 17 18:43:41 1996
+***************
+*** 49,57 ****
+  #                               default (no manager)
+  #
+  
+!                BIGINT = libI
+!                   GMM = default 
+  
+  
+  #
+  # The Compiler/Assembler/Linker Settings
+--- 49,60 ----
+  #                               default (no manager)
+  #
+  
+!                BIGINT = cln
+!                   GMM = default
+  
++               CLN_DIR = /home/bruno/cln
++         CLN_TARGETDIR = /home/bruno/cln/linuxelf
++          CLN_INCLUDES = -I$(CLN_TARGETDIR)/include -I$(CLN_DIR)/include -I$(CLN_DIR)/src/base -I$(CLN_DIR)/src/float -I$(CLN_DIR)/src/float/dfloat -I$(CLN_DIR)/src/io
+  
+  #
+  # The Compiler/Assembler/Linker Settings

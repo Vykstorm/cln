@@ -1,0 +1,17 @@
+LiDIA has an abstract interface to the underlying long integer implementation.
+Using CLN instead of the default libI, lip or gmp has the following
+advantages:
+
+  - Maximum speed on all CPUs, since CLN is based on the highly
+    optimized gmp-2.0.2.
+
+  - Very large integers profit from CLN's Schönhage-Strassen FFT multiplication
+    (asymptotic bit complexity: O(N log N log log N)).
+
+  - Copying integers is fast: no copying is actually involved, only a
+    reference count is manipulated.
+
+  - Small integers (absolute value < 2^29) are represented immediately,
+    thus no memory allocation/deallocation is involved when dealing with
+    small integers.
+

@@ -1,0 +1,240 @@
+# Makefile for cln/src
+
+#### Start of system configuration section. ####
+
+# Directories used by "make":
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+
+# Directories used by "make install":
+prefix = @prefix@
+local_prefix = /usr/local
+exec_prefix = @exec_prefix@
+datadir = @datadir@
+libdir = @libdir@
+includedir = @includedir@
+mandir = @mandir@
+
+# Programs used by "make":
+# C compiler
+CC = @CC@
+CFLAGS = @CFLAGS@
+CPP = @CPP@
+# C++ compiler
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+CXXCPP = @CXXCPP@
+INCLUDES = -I../include -I$(top_srcdir)/include
+GMP_INCLUDES = @GMP_INCLUDES@
+CPPFLAGS += $(INCLUDES)
+LIBTOOL = @LIBTOOL@
+LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
+LIBTOOL_LINK = $(LIBTOOL) --mode=link
+LIBTOOL_INSTALL = $(LIBTOOL) --mode=install
+LIBTOOL_UNINSTALL = $(LIBTOOL) --mode=uninstall
+AR = ar
+AR_FLAGS = rc
+RANLIB = @RANLIB@
+MV = mv
+LN = ln
+RM = rm -f
+@SET_MAKE@
+
+# Programs used by "make install":
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+#### End of system configuration section. ####
+
+SHELL = /bin/sh
+
+# Needed by $(LIBTOOL).
+top_builddir = ..
+
+# When this Makefile is called with SUBDIR=some_subdirectory, it builds
+# only the object files belonging to sources in that subdirectory. The
+# final library is built only if SUBDIR=.
+SUBDIR = .
+
+# Define the search path for sources.
+# The ":" below keeps config.status from removing this line.
+VPATH = $(srcdir)/$(SUBDIR) # :
+
+# Add subdirectory specific flags.
+include $(srcdir)/$(SUBDIR)/Makeflags
+CPPFLAGS += $(SUBDIR_INCLUDES)
+
+# Need to know the system name.
+SYSTEM := $(shell uname -s)
+
+FILES_CC := $(notdir $(wildcard $(srcdir)/$(SUBDIR)/*.cc))
+FILES_CC := $(filter-out %.i.cc, $(FILES_CC))
+ASMFILES_CC := $(patsubst cl_asm_@host_cpu@_%.cc,cl_asm_%.cc, $(filter cl_asm_@host_cpu@_%.cc, $(FILES_CC)))
+FILES_CC := $(filter-out cl_asm_%.cc, $(FILES_CC))
+
+FILES_I_CC := $(patsubst %.cc,%.i.cc,$(FILES_CC))
+
+FILES_S := $(patsubst %.cc,%.s,$(FILES_CC))
+
+FILES_LO := $(patsubst %.cc,%.lo,$(FILES_CC))
+
+ASMFILES_S := $(patsubst %.cc,%.s,$(ASMFILES_CC))
+
+ASMFILES_LO := $(patsubst %.cc,%.lo,$(ASMFILES_CC))
+
+OBJECTS_LO = $(FILES_LO) $(ASMFILES_LO)
+
+SUBDIRS := $(patsubst $(srcdir)/%/.,%,$(wildcard $(srcdir)/$(SUBDIR)/*/.))
+# Avoid certain subdirectories:
+#   private/ and old/ don't contain valid sources,
+#   CVS/ and RCS/ are created when people put the sources under version control,
+#   ii_files/ is created during "make" by SGI C++.
+SUBDIRS := $(filter-out old ./old private ./private CVS %/CVS RCS %/RCS ii_files ./ii_files,$(SUBDIRS))
+
+SUBDIRS_TARGET := $(patsubst %,%.target,$(SUBDIRS))
+SUBDIRS_DIRDEP := $(patsubst %,%.dirdep,$(SUBDIRS))
+
+ifeq ($(SUBDIR),.)
+ALLFILES_CC := $(notdir $(wildcard $(srcdir)/*.cc) $(foreach subdir,$(SUBDIRS), $(wildcard $(srcdir)/$(subdir)/*.cc) $(wildcard $(srcdir)/$(subdir)/*/*.cc) $(wildcard $(srcdir)/$(subdir)/*/*/*.cc)))
+ALLFILES_CC := $(filter-out %.i.cc, $(ALLFILES_CC))
+ALLASMFILES_CC := $(patsubst cl_asm_@host_cpu@_%.cc,cl_asm_%.cc, $(filter cl_asm_@host_cpu@_%.cc, $(ALLFILES_CC)))
+ALLFILES_CC := $(filter-out cl_asm_%.cc, $(ALLFILES_CC))
+ALLFILES_LO := $(patsubst %.cc,%.lo,$(ALLFILES_CC))
+ALLASMFILES_LO := $(patsubst %.cc,%.lo,$(ALLASMFILES_CC))
+ALLOBJECTS_LO = $(ALLFILES_LO) $(ALLASMFILES_LO)
+
+all : $(OBJECTS_LO) $(SUBDIRS_TARGET) libcln.la
+else
+all : $(OBJECTS_LO) $(SUBDIRS_TARGET)
+endif
+
+alls : $(FILES_S) $(ASMFILES_S)
+
+allo : $(FILES_LO) $(ASMFILES_LO)
+
+ASMFLAGS :=
+ifeq (@AS_UNDERSCORE@,true)
+ASMFLAGS += -DUNDERSCORE
+endif
+
+# Rules for normal compilation.
+
+%.lo : %.c
+	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $<
+
+%.lo : %.cc
+	$(LIBTOOL_COMPILE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $<
+
+# Rules for normal compilation, only needed for debugging.
+
+%.s : %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+
+%.s : %.cc
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+
+# Rules for preprocessing.
+
+%.i : %.c
+	$(CPP) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+
+%.i.cc : %.cc
+	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+
+# Rules for assembly language files,
+
+ifneq ($(ASMFILES_LO),)
+
+ifneq ($(filter @host_cpu@,sparc sparc64),)
+$(ASMFILES_S) : %.s : %.cc
+	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $(ASMFLAGS) $< | grep -v '^#' | grep -v '^ *#line' | sed -e 's/\([.%]\) /\1/g' -e 's/ , /,/g' -e 's/ :/:/g' -e 's/\$$/#/g' > $@
+else
+ifeq (@host_cpu@,m68k)
+$(ASMFILES_S) : %.s : %.cc
+ifeq (@AS_UNDERSCORE@,true)
+	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< | sed -e 's/\\#/#/g' -e 's/\$$//g' > $@
+else
+	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< | sed -e 's/\\#/#/g' -e 's/\$$/%/g' > $@
+endif
+else
+ifeq (@host_cpu@,hppa)
+$(ASMFILES_S) : %.s : %.cc
+	-$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< > $@
+else
+$(ASMFILES_S) : %.s : %.cc
+	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< > $@
+endif
+endif
+endif
+
+ifeq (@host_cpu@,hppa)
+# Only the native as groks the .SHORTDATA statements
+$(ASMFILES_LO) : %.lo : %.s
+	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $< \
+	|| COMPILER_PATH=/usr/ccs/bin $(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $< \
+	|| COMPILER_PATH=/bin $(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $<
+else
+$(ASMFILES_LO) : %.lo : %.s
+	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $<
+endif
+
+endif
+
+
+# Recurse into subdirectories
+$(SUBDIRS_TARGET) : %.target : %.dirdep
+	$(MAKE) SUBDIR=$*
+
+$(SUBDIRS_DIRDEP) : %.dirdep :
+
+
+ifeq ($(SUBDIR),.)
+
+../gmp/mpn/libmpn.la : $(LIBTOOL)
+	cd ../gmp && $(MAKE) mpn/libmpn.la mp_clz_tab.lo
+
+
+libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO) @GMP_OBJDEPS@
+	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) $(ALLOBJECTS_LO) @GMP_OBJS@
+
+install : all force
+	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi
+	$(LIBTOOL_INSTALL) $(INSTALL_DATA) libcln.la $(libdir)/libcln.la
+	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
+	$(INSTALL_DATA) $(top_srcdir)/include/*.h $(includedir)
+	$(INSTALL_DATA) ../include/*.h $(includedir)
+#	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
+#	if [ ! -d $(mandir)/man3 ] ; then mkdir $(mandir)/man3 ; fi
+#	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
+#	if [ ! -d $(datadir)/html ] ; then mkdir $(datadir)/html ; fi
+
+installdirs : force
+	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi
+	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
+#	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
+#	if [ ! -d $(mandir)/man3 ] ; then mkdir $(mandir)/man3 ; fi
+#	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
+#	if [ ! -d $(datadir)/html ] ; then mkdir $(datadir)/html ; fi
+
+uninstall : force
+	$(LIBTOOL_UNINSTALL) $(RM) $(libdir)/libcln.la
+	$(RM) $(addprefix $(includedir)/, $(notdir $(wildcard $(top_srcdir)/include/*.h)))
+	$(RM) $(addprefix $(includedir)/, $(notdir $(wildcard ../include/*.h)))
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.s *.o *.lo *.a *.la core
+	$(RM) -r .libs _libs
+
+distclean : clean
+	$(RM) config.status config.log config.cache Makefile
+
+maintainer-clean : distclean
+
+endif
+
+force :

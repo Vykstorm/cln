@@ -1,0 +1,115 @@
+# Makefile for cln/doc
+
+#### Start of system configuration section. ####
+
+# Directories used by "make":
+srcdir = @srcdir@
+
+# Directories used by "make install":
+prefix = @prefix@
+local_prefix = /usr/local
+exec_prefix = @exec_prefix@
+datadir = @datadir@
+infodir = @infodir@
+mandir = @mandir@
+htmldir = $(datadir)/html
+dvidir = $(datadir)/dvi
+
+# Programs used by "make":
+RM = rm -f
+@SET_MAKE@
+
+# Programs used by "make" if you have changed the documentation files:
+TEX = tex
+TEXI2DVI = texi2dvi
+DVIPS = dvips -D600
+MAKEINFO = LANGUAGE= makeinfo
+TEXI2HTML = texi2html
+EMACS = emacs
+
+# Programs used by "make install":
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+#### End of system configuration section. ####
+
+PACKAGE = cln
+
+SHELL = /bin/sh
+
+VPATH = $(srcdir)
+
+all : info dvi ps html
+
+
+info : $(srcdir)/$(PACKAGE).info
+
+$(srcdir)/$(PACKAGE).info : $(srcdir)/$(PACKAGE).texi
+	cd $(srcdir) && $(MAKEINFO) --no-split $(PACKAGE).texi
+
+$(srcdir)/$(PACKAGE).texi : $(srcdir)/$(PACKAGE).tex
+	cp $< $@
+	$(EMACS) -batch $@ -load addnodes.el -f save-buffer
+	mv $@ $@~
+	sed -e 's,@detailmenu,,g' -e 's,@end detailmenu,,g' < $@~ > $@
+	$(RM) $@~
+
+
+dvi : $(srcdir)/$(PACKAGE).dvi
+
+$(srcdir)/$(PACKAGE).dvi : $(srcdir)/$(PACKAGE).texi
+	cd $(srcdir) && $(TEXI2DVI) $(PACKAGE).texi
+
+
+ps : $(srcdir)/$(PACKAGE).ps
+
+$(srcdir)/$(PACKAGE).ps : $(srcdir)/$(PACKAGE).dvi
+	$(DVIPS) -o $@ $<
+
+
+html : $(PACKAGE).html $(PACKAGE)_toc.html
+
+$(PACKAGE).html : $(srcdir)/$(PACKAGE).texi
+	cd $(srcdir) && $(TEXI2HTML) -expandinfo -number -monolithic $(PACKAGE).texi
+
+$(PACKAGE)_toc.html : $(srcdir)/$(PACKAGE).texi
+	cd $(srcdir) && $(TEXI2HTML) -expandinfo -number -split_chapter $(PACKAGE).texi
+
+
+install : all force
+	if [ ! -d $(infodir) ] ; then mkdir $(infodir) ; fi
+	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).info $(infodir)/$(PACKAGE).info
+	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
+	if [ ! -d $(htmldir) ] ; then mkdir $(htmldir) ; fi
+	$(INSTALL_DATA) $(srcdir)/$(PACKAGE)_*.html $(htmldir)
+	if [ ! -d $(dvidir) ] ; then mkdir $(dvidir) ; fi
+	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(dvidir)/$(PACKAGE).dvi
+
+installdirs : force
+	if [ ! -d $(infodir) ] ; then mkdir $(infodir) ; fi
+	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
+	if [ ! -d $(htmldir) ] ; then mkdir $(htmldir) ; fi
+	if [ ! -d $(dvidir) ] ; then mkdir $(dvidir) ; fi
+
+uninstall : force
+	$(RM) $(infodir)/$(PACKAGE).info
+	$(RM) $(htmldir)/$(PACKAGE)_*.html
+	$(RM) $(dvidir)/$(PACKAGE).dvi
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *~ *.aux *.toc *.cp *.fn *.ky *.pg *.tp *.vr *.my *.log core
+
+distclean : clean
+	$(RM) Makefile
+
+maintainer-clean : distclean
+	$(RM) *.info *.dvi *.ps *.html
+	if [ -f $(PACKAGE).tex ] ; then $(RM) $(PACKAGE).texi ; fi
+
+force :
+

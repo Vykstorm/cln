@@ -1,0 +1,15 @@
+// cl_class_dfloat.
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_dfloat.h"
+
+
+// Implementation.
+
+cl_class cl_class_dfloat = {
+	NULL,		// empty destructor
+	cl_class_flags_subclass_complex | cl_class_flags_subclass_real | cl_class_flags_subclass_float
+};

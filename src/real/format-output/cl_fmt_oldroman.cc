@@ -1,0 +1,44 @@
+// format_old_roman().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_format.h"
+
+
+// Implementation.
+
+#include "cl_integer.h"
+#include "cl_integer_io.h"
+#include "cl_abort.h"
+
+void format_old_roman (cl_ostream stream, const cl_I& arg)
+{
+	if (!(0 < arg && arg < 5000)) {
+		fprint(cl_stderr, "format_old_roman: argument should be in the range 1 - 4999, not ");
+		fprint(cl_stderr, arg);
+		fprint(cl_stderr, ".\n");
+		cl_abort();
+	}
+	var uintL value = cl_I_to_UL(arg);
+	struct roman { char symbol; uintL value; };
+	static const roman scale[7] = {
+		{ 'I',    1 },
+		{ 'V',    5 },
+		{ 'X',   10 },
+		{ 'L',   50 },
+		{ 'C',  100 },
+		{ 'D',  500 },
+		{ 'M', 1000 },
+	};
+	for (int i = 6; value > 0 /* && i >= 0 */ ; i--) {
+		var const roman * p = &scale[i];
+		var uintL multiplicity = floor(value,p->value);
+		value = value % p->value;
+		while (multiplicity > 0) {
+			fprintchar(stream,p->symbol);
+			multiplicity--;
+		}
+	}
+}

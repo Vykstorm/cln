@@ -1,0 +1,4422 @@
+<HTML>
+<HEAD>
+<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+
+<TITLE>CLN, a Class Library for Numbers</TITLE>
+</HEAD>
+<BODY>
+<H1>CLN, a Class Library for Numbers</H1>
+<ADDRESS>by Bruno Haible</ADDRESS>
+<P>
+<P><HR><P>
+<H1>Table of Contents</H1>
+<UL>
+<LI><A NAME="TOC1" HREF="cln.html#SEC1">1. Introduction</A>
+<LI><A NAME="TOC2" HREF="cln.html#SEC2">2. Installation</A>
+<UL>
+<LI><A NAME="TOC3" HREF="cln.html#SEC3">2.1 Prerequisites</A>
+<UL>
+<LI><A NAME="TOC4" HREF="cln.html#SEC4">2.1.1 C++ compiler</A>
+<LI><A NAME="TOC5" HREF="cln.html#SEC5">2.1.2 Make utility</A>
+<LI><A NAME="TOC6" HREF="cln.html#SEC6">2.1.3 Sed utility</A>
+</UL>
+<LI><A NAME="TOC7" HREF="cln.html#SEC7">2.2 Building the library</A>
+<LI><A NAME="TOC8" HREF="cln.html#SEC8">2.3 Installing the library</A>
+<LI><A NAME="TOC9" HREF="cln.html#SEC9">2.4 Cleaning up</A>
+</UL>
+<LI><A NAME="TOC10" HREF="cln.html#SEC10">3. Ordinary number types</A>
+<UL>
+<LI><A NAME="TOC11" HREF="cln.html#SEC11">3.1 Exact numbers</A>
+<LI><A NAME="TOC12" HREF="cln.html#SEC12">3.2 Floating-point numbers</A>
+<LI><A NAME="TOC13" HREF="cln.html#SEC13">3.3 Complex numbers</A>
+<LI><A NAME="TOC14" HREF="cln.html#SEC14">3.4 Conversions</A>
+</UL>
+<LI><A NAME="TOC15" HREF="cln.html#SEC15">4. Functions on numbers</A>
+<UL>
+<LI><A NAME="TOC16" HREF="cln.html#SEC16">4.1 Constructing numbers</A>
+<UL>
+<LI><A NAME="TOC17" HREF="cln.html#SEC17">4.1.1 Constructing integers</A>
+<LI><A NAME="TOC18" HREF="cln.html#SEC18">4.1.2 Constructing rational numbers</A>
+<LI><A NAME="TOC19" HREF="cln.html#SEC19">4.1.3 Constructing floating-point numbers</A>
+<LI><A NAME="TOC20" HREF="cln.html#SEC20">4.1.4 Constructing complex numbers</A>
+</UL>
+<LI><A NAME="TOC21" HREF="cln.html#SEC21">4.2 Elementary functions</A>
+<LI><A NAME="TOC22" HREF="cln.html#SEC22">4.3 Elementary rational functions</A>
+<LI><A NAME="TOC23" HREF="cln.html#SEC23">4.4 Elementary complex functions</A>
+<LI><A NAME="TOC24" HREF="cln.html#SEC24">4.5 Comparisons</A>
+<LI><A NAME="TOC25" HREF="cln.html#SEC25">4.6 Rounding functions</A>
+<LI><A NAME="TOC26" HREF="cln.html#SEC26">4.7 Roots</A>
+<LI><A NAME="TOC27" HREF="cln.html#SEC27">4.8 Transcendental functions</A>
+<UL>
+<LI><A NAME="TOC28" HREF="cln.html#SEC28">4.8.1 Exponential and logarithmic functions</A>
+<LI><A NAME="TOC29" HREF="cln.html#SEC29">4.8.2 Trigonometric functions</A>
+<LI><A NAME="TOC30" HREF="cln.html#SEC30">4.8.3 Hyperbolic functions</A>
+<LI><A NAME="TOC31" HREF="cln.html#SEC31">4.8.4 Euler gamma</A>
+<LI><A NAME="TOC32" HREF="cln.html#SEC32">4.8.5 Riemann zeta</A>
+</UL>
+<LI><A NAME="TOC33" HREF="cln.html#SEC33">4.9 Functions on integers</A>
+<UL>
+<LI><A NAME="TOC34" HREF="cln.html#SEC34">4.9.1 Logical functions</A>
+<LI><A NAME="TOC35" HREF="cln.html#SEC35">4.9.2 Number theoretic functions</A>
+<LI><A NAME="TOC36" HREF="cln.html#SEC36">4.9.3 Combinatorial functions</A>
+</UL>
+<LI><A NAME="TOC37" HREF="cln.html#SEC37">4.10 Functions on floating-point numbers</A>
+<LI><A NAME="TOC38" HREF="cln.html#SEC38">4.11 Conversion functions</A>
+<UL>
+<LI><A NAME="TOC39" HREF="cln.html#SEC39">4.11.1 Conversion to floating-point numbers</A>
+<LI><A NAME="TOC40" HREF="cln.html#SEC40">4.11.2 Conversion to rational numbers</A>
+</UL>
+<LI><A NAME="TOC41" HREF="cln.html#SEC41">4.12 Random number generators</A>
+<LI><A NAME="TOC42" HREF="cln.html#SEC42">4.13 Obfuscating operators</A>
+</UL>
+<LI><A NAME="TOC43" HREF="cln.html#SEC43">5. Input/Output</A>
+<UL>
+<LI><A NAME="TOC44" HREF="cln.html#SEC44">5.1 Internal and printed representation</A>
+<LI><A NAME="TOC45" HREF="cln.html#SEC45">5.2 Input functions</A>
+<LI><A NAME="TOC46" HREF="cln.html#SEC46">5.3 Output functions</A>
+</UL>
+<LI><A NAME="TOC47" HREF="cln.html#SEC47">6. Rings</A>
+<LI><A NAME="TOC48" HREF="cln.html#SEC48">7. Modular integers</A>
+<UL>
+<LI><A NAME="TOC49" HREF="cln.html#SEC49">7.1 Modular integer rings</A>
+<LI><A NAME="TOC50" HREF="cln.html#SEC50">7.2 Functions on modular integers</A>
+</UL>
+<LI><A NAME="TOC51" HREF="cln.html#SEC51">8. Symbolic data types</A>
+<UL>
+<LI><A NAME="TOC52" HREF="cln.html#SEC52">8.1 Strings</A>
+<LI><A NAME="TOC53" HREF="cln.html#SEC53">8.2 Symbols</A>
+</UL>
+<LI><A NAME="TOC54" HREF="cln.html#SEC54">9. Univariate polynomials</A>
+<UL>
+<LI><A NAME="TOC55" HREF="cln.html#SEC55">9.1 Univariate polynomial rings</A>
+<LI><A NAME="TOC56" HREF="cln.html#SEC56">9.2 Functions on univariate polynomials</A>
+<LI><A NAME="TOC57" HREF="cln.html#SEC57">9.3 Special polynomials</A>
+</UL>
+<LI><A NAME="TOC58" HREF="cln.html#SEC58">10. Internals</A>
+<UL>
+<LI><A NAME="TOC59" HREF="cln.html#SEC59">10.1 Why C++ ?</A>
+<LI><A NAME="TOC60" HREF="cln.html#SEC60">10.2 Memory efficiency</A>
+<LI><A NAME="TOC61" HREF="cln.html#SEC61">10.3 Speed efficiency</A>
+<LI><A NAME="TOC62" HREF="cln.html#SEC62">10.4 Garbage collection</A>
+</UL>
+<LI><A NAME="TOC63" HREF="cln.html#SEC63">11. Using the library</A>
+<UL>
+<LI><A NAME="TOC64" HREF="cln.html#SEC64">11.1 Compiler options</A>
+<LI><A NAME="TOC65" HREF="cln.html#SEC65">11.2 Include files</A>
+<LI><A NAME="TOC66" HREF="cln.html#SEC66">11.3 An Example</A>
+<LI><A NAME="TOC67" HREF="cln.html#SEC67">11.4 Debugging support</A>
+</UL>
+<LI><A NAME="TOC68" HREF="cln.html#SEC68">12. Customizing</A>
+<UL>
+<LI><A NAME="TOC69" HREF="cln.html#SEC69">12.1 Error handling</A>
+<LI><A NAME="TOC70" HREF="cln.html#SEC70">12.2 Floating-point underflow</A>
+<LI><A NAME="TOC71" HREF="cln.html#SEC71">12.3 Customizing I/O</A>
+<LI><A NAME="TOC72" HREF="cln.html#SEC72">12.4 Customizing the memory allocator</A>
+</UL>
+<LI><A NAME="TOC73" HREF="cln.html#SEC73">Index</A>
+</UL>
+<P><HR><P>
+
+
+<H1><A NAME="SEC1" HREF="cln.html#TOC1">1. Introduction</A></H1>
+
+<P>
+CLN is a library for computations with all kinds of numbers.
+It has a rich set of number classes:
+
+
+
+<UL>
+<LI>
+
+Integers (with unlimited precision),
+
+<LI>
+
+Rational numbers,
+
+<LI>
+
+Floating-point numbers:
+
+
+<UL>
+<LI>
+
+Short float,
+<LI>
+
+Single float,
+<LI>
+
+Double float,
+<LI>
+
+Long float (with unlimited precision),
+</UL>
+
+<LI>
+
+Complex numbers,
+
+<LI>
+
+Modular integers (integers modulo a fixed integer),
+
+<LI>
+
+Univariate polynomials.
+</UL>
+
+<P>
+The subtypes of the complex numbers among these are exactly the
+types of numbers known to the Common Lisp language. Therefore
+<CODE>CLN</CODE> can be used for Common Lisp implementations, giving
+<SAMP>`CLN'</SAMP> another meaning: it becomes an abbreviation of
+"Common Lisp Numbers".
+
+
+<P>
+The CLN package implements
+
+
+
+<UL>
+<LI>
+
+Elementary functions (<CODE>+</CODE>, <CODE>-</CODE>, <CODE>*</CODE>, <CODE>/</CODE>, <CODE>sqrt</CODE>,
+comparisons, ...),
+
+<LI>
+
+Logical functions (logical <CODE>and</CODE>, <CODE>or</CODE>, <CODE>not</CODE>, ...),
+
+<LI>
+
+Transcendental functions (exponential, logarithmic, trigonometric, hyperbolic
+functions and their inverse functions).
+</UL>
+
+<P>
+CLN is a C++ library. Using C++ as an implementation language provides
+
+
+
+<UL>
+<LI>
+
+efficiency: it compiles to machine code,
+<LI>
+
+type safety: the C++ compiler knows about the number types and complains
+if, for example, you try to assign a float to an integer variable.
+<LI>
+
+algebraic syntax: You can use the <CODE>+</CODE>, <CODE>-</CODE>, <CODE>*</CODE>, <CODE>=</CODE>,
+<CODE>==</CODE>, ... operators as in C or C++.
+</UL>
+
+<P>
+CLN is memory efficient:
+
+
+
+<UL>
+<LI>
+
+Small integers and short floats are immediate, not heap allocated.
+<LI>
+
+Heap-allocated memory is reclaimed through an automatic, non-interruptive
+garbage collection.
+</UL>
+
+<P>
+CLN is speed efficient:
+
+
+
+<UL>
+<LI>
+
+The kernel of CLN has been written in assembly language for some CPUs
+(<CODE>i386</CODE>, <CODE>m68k</CODE>, <CODE>sparc</CODE>, <CODE>mips</CODE>, <CODE>arm</CODE>).
+<LI>
+
+On all CPUs, CLN uses the superefficient low-level routines from GNU
+GMP version 2.
+<LI>
+
+It uses Karatsuba multiplication, which is significantly faster
+for large numbers than the standard multiplication algorithm.
+<LI>
+
+For very large numbers (more than 12000 decimal digits), it uses
+Schönhage-Strassen
+multiplication, which is an asymptotically
+optimal multiplication algorithm, for multiplication, division and
+radix conversion.
+</UL>
+
+<P>
+CLN aims at being easily integrated into larger software packages:
+
+
+
+<UL>
+<LI>
+
+The garbage collection imposes no burden on the main application.
+<LI>
+
+The library provides hooks for memory allocation and exceptions.
+</UL>
+
+
+
+<H1><A NAME="SEC2" HREF="cln.html#TOC2">2. Installation</A></H1>
+
+<P>
+This section describes how to install the CLN package on your system.
+
+
+
+
+<H2><A NAME="SEC3" HREF="cln.html#TOC3">2.1 Prerequisites</A></H2>
+
+
+
+<H3><A NAME="SEC4" HREF="cln.html#TOC4">2.1.1 C++ compiler</A></H3>
+
+<P>
+To build CLN, you need a C++ compiler.
+Actually, you need GNU <CODE>g++ 2.7.0</CODE> or newer.
+On HPPA, you need GNU <CODE>g++ 2.8.0</CODE> or newer.
+I recommend GNU <CODE>egcs 1.1</CODE> or newer.
+
+
+<P>
+The following C++ features are used:
+classes, member functions,
+overloading of functions and operators,
+constructors and destructors, inline, const,
+multiple inheritance, templates.
+
+
+<P>
+The following C++ features are not used:
+<CODE>new</CODE>, <CODE>delete</CODE>, virtual inheritance,
+exceptions.
+
+
+<P>
+CLN relies on semi-automatic ordering of initializations
+of static and global variables, a feature which I could
+implement for GNU g++ only.
+
+
+
+
+<H3><A NAME="SEC5" HREF="cln.html#TOC5">2.1.2 Make utility</A></H3>
+
+<P>
+To build CLN, you also need to have GNU <CODE>make</CODE> installed.
+
+
+
+
+<H3><A NAME="SEC6" HREF="cln.html#TOC6">2.1.3 Sed utility</A></H3>
+
+<P>
+To build CLN on HP-UX, you also need to have GNU <CODE>sed</CODE> installed.
+This is because the libtool script, which creates the CLN library, relies
+on <CODE>sed</CODE>, and the vendor's <CODE>sed</CODE> utility on these systems is too
+limited.
+
+
+
+
+<H2><A NAME="SEC7" HREF="cln.html#TOC7">2.2 Building the library</A></H2>
+
+<P>
+As with any autoconfiguring GNU software, installation is as easy as this:
+
+
+
+<PRE>
+$ ./configure
+$ make
+$ make check
+</PRE>
+
+<P>
+If on your system, <SAMP>`make'</SAMP> is not GNU <CODE>make</CODE>, you have to use
+<SAMP>`gmake'</SAMP> instead of <SAMP>`make'</SAMP> above.
+
+
+<P>
+The <CODE>configure</CODE> command checks out some features of your system and
+C++ compiler and builds the <CODE>Makefile</CODE>s. The <CODE>make</CODE> command
+builds the library. This step may take 4 hours on an average workstation.
+The <CODE>make check</CODE> runs some test to check that no important subroutine
+has been miscompiled.
+
+
+<P>
+The <CODE>configure</CODE> command accepts options. To get a summary of them, try
+
+
+
+<PRE>
+$ ./configure --help
+</PRE>
+
+<P>
+Some of the options are explained in detail in the <SAMP>`INSTALL.generic'</SAMP> file.
+
+
+<P>
+You can specify the C compiler, the C++ compiler and their options through
+the following environment variables when running <CODE>configure</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE>CC</CODE>
+<DD>
+Specifies the C compiler.
+
+<DT><CODE>CFLAGS</CODE>
+<DD>
+Flags to be given to the C compiler when compiling programs (not when linking).
+
+<DT><CODE>CXX</CODE>
+<DD>
+Specifies the C++ compiler.
+
+<DT><CODE>CXXFLAGS</CODE>
+<DD>
+Flags to be given to the C++ compiler when compiling programs (not when linking).
+</DL>
+
+<P>
+Examples:
+
+
+
+<PRE>
+$ CC="gcc" CFLAGS="-O" CXX="g++" CXXFLAGS="-O" ./configure
+$ CC="gcc -V 2.7.2" CFLAGS="-O -g" \
+  CXX="g++ -V 2.7.2" CXXFLAGS="-O -g" ./configure
+$ CC="gcc -V 2.8.1" CFLAGS="-O -fno-exceptions" \
+  CXX="g++ -V 2.8.1" CXXFLAGS="-O -fno-exceptions" ./configure
+$ CC="gcc -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" \
+  CXX="g++ -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" ./configure
+</PRE>
+
+<P>
+Note that for these environment variables to take effect, you have to set
+them (assuming a Bourne-compatible shell) on the same line as the
+<CODE>configure</CODE> command. If you made the settings in earlier shell
+commands, you have to <CODE>export</CODE> the environment variables before
+calling <CODE>configure</CODE>. In a <CODE>csh</CODE> shell, you have to use the
+<SAMP>`setenv'</SAMP> command for setting each of the environment variables.
+
+
+<P>
+On Linux, <CODE>g++</CODE> needs 15 MB to compile the tests. So you should better
+have 17 MB swap space and 1 MB room in $TMPDIR.
+
+
+<P>
+If you use <CODE>g++</CODE> version 2.7.x, don't add <SAMP>`-O2'</SAMP> to the CXXFLAGS,
+because <SAMP>`g++ -O'</SAMP> generates better code for CLN than <SAMP>`g++ -O2'</SAMP>.
+
+
+<P>
+If you use <CODE>g++</CODE> version 2.8.x or egcs-2.91.x (a.k.a. egcs-1.1) or
+gcc-2.95.x, I recommend adding <SAMP>`-fno-exceptions'</SAMP> to the CXXFLAGS.
+This will likely generate better code.
+
+
+<P>
+If you use <CODE>g++</CODE> version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
+add either <SAMP>`-O'</SAMP> or <SAMP>`-O2 -fno-schedule-insns'</SAMP> to the CXXFLAGS.
+With full <SAMP>`-O2'</SAMP>, <CODE>g++</CODE> miscompiles the division routines. Also, for
+--enable-shared to work, you need egcs-1.1.2 or newer.
+
+
+<P>
+On MIPS (SGI Irix 6), pass option <CODE>--without-gmp</CODE> to configure. gmp does
+not work when compiled in <SAMP>`n32'</SAMP> binary format on Irix.
+
+
+<P>
+By default, only a static library is built. You can build CLN as a shared
+library too, by calling <CODE>configure</CODE> with the option <SAMP>`--enable-shared'</SAMP>.
+To get it built as a shared library only, call <CODE>configure</CODE> with the options
+<SAMP>`--enable-shared --disable-static'</SAMP>.
+
+
+<P>
+If you use <CODE>g++</CODE> version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
+use <SAMP>`--enable-shared'</SAMP> because <CODE>g++</CODE> would miscompile parts of the
+library.
+
+
+
+
+<H2><A NAME="SEC8" HREF="cln.html#TOC8">2.3 Installing the library</A></H2>
+
+<P>
+As with any autoconfiguring GNU software, installation is as easy as this:
+
+
+
+<PRE>
+$ make install
+</PRE>
+
+<P>
+The <SAMP>`make install'</SAMP> command installs the library and the include files
+into public places (<TT>`/usr/local/lib/'</TT> and <TT>`/usr/local/include/'</TT>,
+if you haven't specified a <CODE>--prefix</CODE> option to <CODE>configure</CODE>).
+This step may require superuser privileges.
+
+
+<P>
+If you have already built the library and wish to install it, but didn't
+specify <CODE>--prefix=...</CODE> at configure time, just re-run
+<CODE>configure</CODE>, giving it the same options as the first time, plus
+the <CODE>--prefix=...</CODE> option.
+
+
+
+
+<H2><A NAME="SEC9" HREF="cln.html#TOC9">2.4 Cleaning up</A></H2>
+
+<P>
+You can remove system-dependent files generated by <CODE>make</CODE> through
+
+
+
+<PRE>
+$ make clean
+</PRE>
+
+<P>
+You can remove all files generated by <CODE>make</CODE>, thus reverting to a
+virgin distribution of CLN, through
+
+
+
+<PRE>
+$ make distclean
+</PRE>
+
+
+
+<H1><A NAME="SEC10" HREF="cln.html#TOC10">3. Ordinary number types</A></H1>
+
+<P>
+CLN implements the following class hierarchy:
+
+
+
+<PRE>
+                        Number
+                       cl_number
+                     &#60;cl_number.h&#62;
+                          |
+                          |
+                 Real or complex number
+                        cl_N
+                     &#60;cl_complex.h&#62;
+                          |
+                          |
+                     Real number
+                        cl_R
+                      &#60;cl_real.h&#62;
+                          |
+      +-------------------+-------------------+
+      |                                       |
+Rational number                     Floating-point number
+    cl_RA                                   cl_F
+&#60;cl_rational.h&#62;                          &#60;cl_float.h&#62;
+      |                                       |
+      |                  +-------------+-------------+-------------+
+   Integer               |             |             |             |
+    cl_I            Short-Float   Single-Float  Double-Float   Long-Float
+ &#60;cl_integer.h&#62;        cl_SF         cl_FF         cl_DF         cl_LF
+                   &#60;cl_sfloat.h&#62; &#60;cl_ffloat.h&#62; &#60;cl_dfloat.h&#62; &#60;cl_lfloat.h&#62;
+</PRE>
+
+<P>
+The base class <CODE>cl_number</CODE> is an abstract base class.
+It is not useful to declare a variable of this type except if you want
+to completely disable compile-time type checking and use run-time type
+checking instead.
+
+
+<P>
+The class <CODE>cl_N</CODE> comprises real and complex numbers. There is
+no special class for complex numbers since complex numbers with imaginary
+part <CODE>0</CODE> are automatically converted to real numbers.
+
+
+<P>
+The class <CODE>cl_R</CODE> comprises real numbers of different kinds. It is an
+abstract class.
+
+
+<P>
+The class <CODE>cl_RA</CODE> comprises exact real numbers: rational numbers, including
+integers. There is no special class for non-integral rational numbers
+since rational numbers with denominator <CODE>1</CODE> are automatically converted
+to integers.
+
+
+<P>
+The class <CODE>cl_F</CODE> implements floating-point approximations to real numbers.
+It is an abstract class.
+
+
+
+
+<H2><A NAME="SEC11" HREF="cln.html#TOC11">3.1 Exact numbers</A></H2>
+
+<P>
+Some numbers are represented as exact numbers: there is no loss of information
+when such a number is converted from its mathematical value to its internal
+representation. On exact numbers, the elementary operations (<CODE>+</CODE>,
+<CODE>-</CODE>, <CODE>*</CODE>, <CODE>/</CODE>, comparisons, ...) compute the completely
+correct result.
+
+
+<P>
+In CLN, the exact numbers are:
+
+
+
+<UL>
+<LI>
+
+rational numbers (including integers),
+<LI>
+
+complex numbers whose real and imaginary parts are both rational numbers.
+</UL>
+
+<P>
+Rational numbers are always normalized to the form
+<CODE><VAR>numerator</VAR>/<VAR>denominator</VAR></CODE> where the numerator and denominator
+are coprime integers and the denominator is positive. If the resulting
+denominator is <CODE>1</CODE>, the rational number is converted to an integer.
+
+
+<P>
+Small integers (typically in the range <CODE>-2^30</CODE>...<CODE>2^30-1</CODE>,
+for 32-bit machines) are especially efficient, because they consume no heap
+allocation. Otherwise the distinction between these immediate integers
+(called "fixnums") and heap allocated integers (called "bignums")
+is completely transparent.
+
+
+
+
+<H2><A NAME="SEC12" HREF="cln.html#TOC12">3.2 Floating-point numbers</A></H2>
+
+<P>
+Not all real numbers can be represented exactly. (There is an easy mathematical
+proof for this: Only a countable set of numbers can be stored exactly in
+a computer, even if one assumes that it has unlimited storage. But there
+are uncountably many real numbers.) So some approximation is needed.
+CLN implements ordinary floating-point numbers, with mantissa and exponent.
+
+
+<P>
+The elementary operations (<CODE>+</CODE>, <CODE>-</CODE>, <CODE>*</CODE>, <CODE>/</CODE>, ...)
+only return approximate results. For example, the value of the expression
+<CODE>(cl_F) 0.3 + (cl_F) 0.4</CODE> prints as <SAMP>`0.70000005'</SAMP>, not as
+<SAMP>`0.7'</SAMP>. Rounding errors like this one are inevitable when computing
+with floating-point numbers.
+
+
+<P>
+Nevertheless, CLN rounds the floating-point results of the operations <CODE>+</CODE>,
+<CODE>-</CODE>, <CODE>*</CODE>, <CODE>/</CODE>, <CODE>sqrt</CODE> according to the "round-to-even"
+rule: It first computes the exact mathematical result and then returns the
+floating-point number which is nearest to this. If two floating-point numbers
+are equally distant from the ideal result, the one with a <CODE>0</CODE> in its least
+significant mantissa bit is chosen.
+
+
+<P>
+Similarly, testing floating point numbers for equality <SAMP>`x == y'</SAMP>
+is gambling with random errors. Better check for <SAMP>`abs(x - y) &#60; epsilon'</SAMP>
+for some well-chosen <CODE>epsilon</CODE>.
+
+
+<P>
+Floating point numbers come in four flavors:
+
+
+
+<UL>
+<LI>
+
+Short floats, type <CODE>cl_SF</CODE>.
+They have 1 sign bit, 8 exponent bits (including the exponent's sign),
+and 17 mantissa bits (including the "hidden" bit).
+They don't consume heap allocation.
+
+<LI>
+
+Single floats, type <CODE>cl_FF</CODE>.
+They have 1 sign bit, 8 exponent bits (including the exponent's sign),
+and 24 mantissa bits (including the "hidden" bit).
+In CLN, they are represented as IEEE single-precision floating point numbers.
+This corresponds closely to the C/C++ type <SAMP>`float'</SAMP>.
+
+<LI>
+
+Double floats, type <CODE>cl_DF</CODE>.
+They have 1 sign bit, 11 exponent bits (including the exponent's sign),
+and 53 mantissa bits (including the "hidden" bit).
+In CLN, they are represented as IEEE double-precision floating point numbers.
+This corresponds closely to the C/C++ type <SAMP>`double'</SAMP>.
+
+<LI>
+
+Long floats, type <CODE>cl_LF</CODE>.
+They have 1 sign bit, 32 exponent bits (including the exponent's sign),
+and n mantissa bits (including the "hidden" bit), where n &#62;= 64.
+The precision of a long float is unlimited, but once created, a long float
+has a fixed precision. (No "lazy recomputation".)
+</UL>
+
+<P>
+Of course, computations with long floats are more expensive than those
+with smaller floating-point formats.
+
+
+<P>
+CLN does not implement features like NaNs, denormalized numbers and
+gradual underflow. If the exponent range of some floating-point type
+is too limited for your application, choose another floating-point type
+with larger exponent range.
+
+
+<P>
+As a user of CLN, you can forget about the differences between the
+four floating-point types and just declare all your floating-point
+variables as being of type <CODE>cl_F</CODE>. This has the advantage that
+when you change the precision of some computation (say, from <CODE>cl_DF</CODE>
+to <CODE>cl_LF</CODE>), you don't have to change the code, only the precision
+of the initial values. Also, many transcendental functions have been
+declared as returning a <CODE>cl_F</CODE> when the argument is a <CODE>cl_F</CODE>,
+but such declarations are missing for the types <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>,
+<CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>. (Such declarations would be wrong if
+the floating point contagion rule happened to change in the future.)
+
+
+
+
+<H2><A NAME="SEC13" HREF="cln.html#TOC13">3.3 Complex numbers</A></H2>
+
+<P>
+Complex numbers, as implemented by the class <CODE>cl_N</CODE>, have a real
+part and an imaginary part, both real numbers. A complex number whose
+imaginary part is the exact number <CODE>0</CODE> is automatically converted
+to a real number.
+
+
+<P>
+Complex numbers can arise from real numbers alone, for example
+through application of <CODE>sqrt</CODE> or transcendental functions.
+
+
+
+
+<H2><A NAME="SEC14" HREF="cln.html#TOC14">3.4 Conversions</A></H2>
+
+<P>
+Conversions from any class to any its superclasses ("base classes" in
+C++ terminology) is done automatically.
+
+
+<P>
+Conversions from the C built-in types <SAMP>`long'</SAMP> and <SAMP>`unsigned long'</SAMP>
+are provided for the classes <CODE>cl_I</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_R</CODE>,
+<CODE>cl_N</CODE> and <CODE>cl_number</CODE>.
+
+
+<P>
+Conversions from the C built-in types <SAMP>`int'</SAMP> and <SAMP>`unsigned int'</SAMP>
+are provided for the classes <CODE>cl_I</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_R</CODE>,
+<CODE>cl_N</CODE> and <CODE>cl_number</CODE>. However, these conversions emphasize
+efficiency. Their range is therefore limited:
+
+
+
+<UL>
+<LI>
+
+The conversion from <SAMP>`int'</SAMP> works only if the argument is &#60; 2^29 and &#62; -2^29.
+<LI>
+
+The conversion from <SAMP>`unsigned int'</SAMP> works only if the argument is &#60; 2^29.
+</UL>
+
+<P>
+In a declaration like <SAMP>`cl_I x = 10;'</SAMP> the C++ compiler is able to
+do the conversion of <CODE>10</CODE> from <SAMP>`int'</SAMP> to <SAMP>`cl_I'</SAMP> at compile time
+already. On the other hand, code like <SAMP>`cl_I x = 1000000000;'</SAMP> is
+in error.
+So, if you want to be sure that an <SAMP>`int'</SAMP> whose magnitude is not guaranteed
+to be &#60; 2^29 is correctly converted to a <SAMP>`cl_I'</SAMP>, first convert it to a
+<SAMP>`long'</SAMP>. Similarly, if a large <SAMP>`unsigned int'</SAMP> is to be converted to a
+<SAMP>`cl_I'</SAMP>, first convert it to an <SAMP>`unsigned long'</SAMP>.
+
+
+<P>
+Conversions from the C built-in type <SAMP>`float'</SAMP> are provided for the classes
+<CODE>cl_FF</CODE>, <CODE>cl_F</CODE>, <CODE>cl_R</CODE>, <CODE>cl_N</CODE> and <CODE>cl_number</CODE>.
+
+
+<P>
+Conversions from the C built-in type <SAMP>`double'</SAMP> are provided for the classes
+<CODE>cl_DF</CODE>, <CODE>cl_F</CODE>, <CODE>cl_R</CODE>, <CODE>cl_N</CODE> and <CODE>cl_number</CODE>.
+
+
+<P>
+Conversions from <SAMP>`const char *'</SAMP> are provided for the classes
+<CODE>cl_I</CODE>, <CODE>cl_RA</CODE>,
+<CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>, <CODE>cl_F</CODE>,
+<CODE>cl_R</CODE>, <CODE>cl_N</CODE>.
+The easiest way to specify a value which is outside of the range of the
+C++ built-in types is therefore to specify it as a string, like this:
+
+<PRE>
+   cl_I order_of_rubiks_cube_group = "43252003274489856000";
+</PRE>
+
+<P>
+Note that this conversion is done at runtime, not at compile-time.
+
+
+<P>
+Conversions from <CODE>cl_I</CODE> to the C built-in types <SAMP>`int'</SAMP>,
+<SAMP>`unsigned int'</SAMP>, <SAMP>`long'</SAMP>, <SAMP>`unsigned long'</SAMP> are provided through
+the functions
+
+
+<DL COMPACT>
+
+<DT><CODE>int cl_I_to_int (const cl_I&#38; x)</CODE>
+<DD>
+<DT><CODE>unsigned int cl_I_to_uint (const cl_I&#38; x)</CODE>
+<DD>
+<DT><CODE>long cl_I_to_long (const cl_I&#38; x)</CODE>
+<DD>
+<DT><CODE>unsigned long cl_I_to_ulong (const cl_I&#38; x)</CODE>
+<DD>
+Returns <CODE>x</CODE> as element of the C type <VAR>ctype</VAR>. If <CODE>x</CODE> is not
+representable in the range of <VAR>ctype</VAR>, a runtime error occurs.
+</DL>
+
+<P>
+Conversions from the classes <CODE>cl_I</CODE>, <CODE>cl_RA</CODE>,
+<CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>, <CODE>cl_F</CODE> and
+<CODE>cl_R</CODE>
+to the C built-in types <SAMP>`float'</SAMP> and <SAMP>`double'</SAMP> are provided through
+the functions
+
+
+<DL COMPACT>
+
+<DT><CODE>float cl_float_approx (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE>double cl_double_approx (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns an approximation of <CODE>x</CODE> of C type <VAR>ctype</VAR>.
+If <CODE>abs(x)</CODE> is too close to 0 (underflow), 0 is returned.
+If <CODE>abs(x)</CODE> is too large (overflow), an IEEE infinity is returned.
+</DL>
+
+<P>
+Conversions from any class to any of its subclasses ("derived classes" in
+C++ terminology) are not provided. Instead, you can assert and check
+that a value belongs to a certain subclass, and return it as element of that
+class, using the <SAMP>`As'</SAMP> and <SAMP>`The'</SAMP> macros.
+<CODE>As(<VAR>type</VAR>)(<VAR>value</VAR>)</CODE> checks that <VAR>value</VAR> belongs to
+<VAR>type</VAR> and returns it as such.
+<CODE>The(<VAR>type</VAR>)(<VAR>value</VAR>)</CODE> assumes that <VAR>value</VAR> belongs to
+<VAR>type</VAR> and returns it as such. It is your responsibility to ensure
+that this assumption is valid.
+Example:
+
+
+
+<PRE>
+   cl_I x = ...;
+   if (!(x &#62;= 0)) abort();
+   cl_I ten_x = The(cl_I)(expt(10,x)); // If x &#62;= 0, 10^x is an integer.
+                // In general, it would be a rational number.
+</PRE>
+
+
+
+<H1><A NAME="SEC15" HREF="cln.html#TOC15">4. Functions on numbers</A></H1>
+
+<P>
+Each of the number classes declares its mathematical operations in the
+corresponding include file. For example, if your code operates with
+objects of type <CODE>cl_I</CODE>, it should <CODE>#include &#60;cl_integer.h&#62;</CODE>.
+
+
+
+
+<H2><A NAME="SEC16" HREF="cln.html#TOC16">4.1 Constructing numbers</A></H2>
+
+<P>
+Here is how to create number objects "from nothing".
+
+
+
+
+<H3><A NAME="SEC17" HREF="cln.html#TOC17">4.1.1 Constructing integers</A></H3>
+
+<P>
+<CODE>cl_I</CODE> objects are most easily constructed from C integers and from
+strings. See section <A HREF="cln.html#SEC14">3.4 Conversions</A>.
+
+
+
+
+<H3><A NAME="SEC18" HREF="cln.html#TOC18">4.1.2 Constructing rational numbers</A></H3>
+
+<P>
+<CODE>cl_RA</CODE> objects can be constructed from strings. The syntax
+for rational numbers is described in section <A HREF="cln.html#SEC44">5.1 Internal and printed representation</A>.
+Another standard way to produce a rational number is through application
+of <SAMP>`operator /'</SAMP> or <SAMP>`recip'</SAMP> on integers.
+
+
+
+
+<H3><A NAME="SEC19" HREF="cln.html#TOC19">4.1.3 Constructing floating-point numbers</A></H3>
+
+<P>
+<CODE>cl_F</CODE> objects with low precision are most easily constructed from
+C <SAMP>`float'</SAMP> and <SAMP>`double'</SAMP>. See section <A HREF="cln.html#SEC14">3.4 Conversions</A>.
+
+
+<P>
+To construct a <CODE>cl_F</CODE> with high precision, you can use the conversion
+from <SAMP>`const char *'</SAMP>, but you have to specify the desired precision
+within the string. (See section <A HREF="cln.html#SEC44">5.1 Internal and printed representation</A>.)
+Example:
+
+<PRE>
+   cl_F e = "0.271828182845904523536028747135266249775724709369996e+1_40";
+</PRE>
+
+<P>
+will set <SAMP>`e'</SAMP> to the given value, with a precision of 40 decimal digits.
+
+
+<P>
+The programmatic way to construct a <CODE>cl_F</CODE> with high precision is
+through the <CODE>cl_float</CODE> conversion function, see
+section <A HREF="cln.html#SEC39">4.11.1 Conversion to floating-point numbers</A>. For example, to compute
+<CODE>e</CODE> to 40 decimal places, first construct 1.0 to 40 decimal places
+and then apply the exponential function:
+
+<PRE>
+   cl_float_format_t precision = cl_float_format(40);
+   cl_F e = exp(cl_float(1,precision));
+</PRE>
+
+
+
+<H3><A NAME="SEC20" HREF="cln.html#TOC20">4.1.4 Constructing complex numbers</A></H3>
+
+<P>
+Non-real <CODE>cl_N</CODE> objects are normally constructed through the function
+
+<PRE>
+   cl_N complex (const cl_R&#38; realpart, const cl_R&#38; imagpart)
+</PRE>
+
+<P>
+See section <A HREF="cln.html#SEC23">4.4 Elementary complex functions</A>.
+
+
+
+
+<H2><A NAME="SEC21" HREF="cln.html#TOC21">4.2 Elementary functions</A></H2>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> operator + (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Addition.
+
+<DT><CODE><VAR>type</VAR> operator - (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Subtraction.
+
+<DT><CODE><VAR>type</VAR> operator - (const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Returns the negative of the argument.
+
+<DT><CODE><VAR>type</VAR> plus1 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>x + 1</CODE>.
+
+<DT><CODE><VAR>type</VAR> minus1 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>x - 1</CODE>.
+
+<DT><CODE><VAR>type</VAR> operator * (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Multiplication.
+
+<DT><CODE><VAR>type</VAR> square (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>x * x</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> operator / (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Division.
+
+<DT><CODE><VAR>type</VAR> recip (const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Returns the reciprocal of the argument.
+</DL>
+
+<P>
+The class <CODE>cl_I</CODE> doesn't define a <SAMP>`/'</SAMP> operation because
+in the C/C++ language this operator, applied to integral types,
+denotes the <SAMP>`floor'</SAMP> or <SAMP>`truncate'</SAMP> operation (which one of these,
+is implementation dependent). (See section <A HREF="cln.html#SEC25">4.6 Rounding functions</A>)
+Instead, <CODE>cl_I</CODE> defines an "exact quotient" function:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I exquo (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Checks that <CODE>y</CODE> divides <CODE>x</CODE>, and returns the quotient <CODE>x</CODE>/<CODE>y</CODE>.
+</DL>
+
+<P>
+The following exponentiation functions are defined:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I expt_pos (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_RA expt_pos (const cl_RA&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<CODE>y</CODE> must be &#62; 0. Returns <CODE>x^y</CODE>.
+
+<DT><CODE>cl_RA expt (const cl_RA&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_R expt (const cl_R&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_N expt (const cl_N&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Returns <CODE>x^y</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> abs (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the absolute value of <CODE>x</CODE>.
+This is <CODE>x</CODE> if <CODE>x &#62;= 0</CODE>, and <CODE>-x</CODE> if <CODE>x &#60;= 0</CODE>.
+</DL>
+
+<P>
+The class <CODE>cl_N</CODE> implements this as follows:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_R abs (const cl_N x)</CODE>
+<DD>
+Returns the absolute value of <CODE>x</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> signum (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the sign of <CODE>x</CODE>, in the same number format as <CODE>x</CODE>.
+This is defined as <CODE>x / abs(x)</CODE> if <CODE>x</CODE> is non-zero, and
+<CODE>x</CODE> if <CODE>x</CODE> is zero. If <CODE>x</CODE> is real, the value is either
+0 or 1 or -1.
+</DL>
+
+
+
+<H2><A NAME="SEC22" HREF="cln.html#TOC22">4.3 Elementary rational functions</A></H2>
+
+<P>
+Each of the classes <CODE>cl_RA</CODE>, <CODE>cl_I</CODE> defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I numerator (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the numerator of <CODE>x</CODE>.
+
+<DT><CODE>cl_I denominator (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the denominator of <CODE>x</CODE>.
+</DL>
+
+<P>
+The numerator and denominator of a rational number are normalized in such
+a way that they have no factor in common and the denominator is positive.
+
+
+
+
+<H2><A NAME="SEC23" HREF="cln.html#TOC23">4.4 Elementary complex functions</A></H2>
+
+<P>
+The class <CODE>cl_N</CODE> defines the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_N complex (const cl_R&#38; a, const cl_R&#38; b)</CODE>
+<DD>
+Returns the complex number <CODE>a+bi</CODE>, that is, the complex number with
+real part <CODE>a</CODE> and imaginary part <CODE>b</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE> defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_R realpart (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the real part of <CODE>x</CODE>.
+
+<DT><CODE>cl_R imagpart (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the imaginary part of <CODE>x</CODE>.
+
+<DT><CODE><VAR>type</VAR> conjugate (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the complex conjugate of <CODE>x</CODE>.
+</DL>
+
+<P>
+We have the relations
+
+
+
+<UL>
+<LI>
+
+<CODE>x = complex(realpart(x), imagpart(x))</CODE>
+<LI>
+
+<CODE>conjugate(x) = complex(realpart(x), -imagpart(x))</CODE>
+</UL>
+
+
+
+<H2><A NAME="SEC24" HREF="cln.html#TOC24">4.5 Comparisons</A></H2>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>bool operator == (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator != (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Comparison, as in C and C++.
+
+<DT><CODE>uint32 cl_equal_hashcode (const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Returns a 32-bit hash code that is the same for any two numbers which are
+the same according to <CODE>==</CODE>. This hash code depends on the number's value,
+not its type or precision.
+
+<DT><CODE>cl_boolean zerop (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Compare against zero: <CODE>x == 0</CODE>
+</DL>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_signean cl_compare (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Compares <CODE>x</CODE> and <CODE>y</CODE>. Returns +1 if <CODE>x</CODE>&#62;<CODE>y</CODE>,
+-1 if <CODE>x</CODE>&#60;<CODE>y</CODE>, 0 if <CODE>x</CODE>=<CODE>y</CODE>.
+
+<DT><CODE>bool operator &#60;= (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator &#60; (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator &#62;= (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator &#62; (const <VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+Comparison, as in C and C++.
+
+<DT><CODE>cl_boolean minusp (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Compare against zero: <CODE>x &#60; 0</CODE>
+
+<DT><CODE>cl_boolean plusp (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Compare against zero: <CODE>x &#62; 0</CODE>
+
+<DT><CODE><VAR>type</VAR> max (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Return the maximum of <CODE>x</CODE> and <CODE>y</CODE>.
+
+<DT><CODE><VAR>type</VAR> min (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Return the minimum of <CODE>x</CODE> and <CODE>y</CODE>.
+</DL>
+
+<P>
+When a floating point number and a rational number are compared, the float
+is first converted to a rational number using the function <CODE>rational</CODE>.
+Since a floating point number actually represents an interval of real numbers,
+the result might be surprising.
+For example, <CODE>(cl_F)(cl_R)"1/3" == (cl_R)"1/3"</CODE> returns false because
+there is no floating point number whose value is exactly <CODE>1/3</CODE>.
+
+
+
+
+<H2><A NAME="SEC25" HREF="cln.html#TOC25">4.6 Rounding functions</A></H2>
+
+<P>
+When a real number is to be converted to an integer, there is no "best"
+rounding. The desired rounding function depends on the application.
+The Common Lisp and ISO Lisp standards offer four rounding functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>floor(x)</CODE>
+<DD>
+This is the largest integer &#60;=<CODE>x</CODE>.
+
+<DT><CODE>ceiling(x)</CODE>
+<DD>
+This is the smallest integer &#62;=<CODE>x</CODE>.
+
+<DT><CODE>truncate(x)</CODE>
+<DD>
+Among the integers between 0 and <CODE>x</CODE> (inclusive) the one nearest to <CODE>x</CODE>.
+
+<DT><CODE>round(x)</CODE>
+<DD>
+The integer nearest to <CODE>x</CODE>. If <CODE>x</CODE> is exactly halfway between two
+integers, choose the even one.
+</DL>
+
+<P>
+These functions have different advantages:
+
+
+<P>
+<CODE>floor</CODE> and <CODE>ceiling</CODE> are translation invariant:
+<CODE>floor(x+n) = floor(x) + n</CODE> and <CODE>ceiling(x+n) = ceiling(x) + n</CODE>
+for every <CODE>x</CODE> and every integer <CODE>n</CODE>.
+
+
+<P>
+On the other hand, <CODE>truncate</CODE> and <CODE>round</CODE> are symmetric:
+<CODE>truncate(-x) = -truncate(x)</CODE> and <CODE>round(-x) = -round(x)</CODE>,
+and furthermore <CODE>round</CODE> is unbiased: on the "average", it rounds
+down exactly as often as it rounds up.
+
+
+<P>
+The functions are related like this:
+
+
+
+<UL>
+<LI>
+
+<CODE>ceiling(m/n) = floor((m+n-1)/n) = floor((m-1)/n)+1</CODE>
+for rational numbers <CODE>m/n</CODE> (<CODE>m</CODE>, <CODE>n</CODE> integers, <CODE>n</CODE>&#62;0), and
+<LI>
+
+<CODE>truncate(x) = sign(x) * floor(abs(x))</CODE>
+</UL>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I floor1 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>floor(x)</CODE>.
+<DT><CODE>cl_I ceiling1 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>ceiling(x)</CODE>.
+<DT><CODE>cl_I truncate1 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>truncate(x)</CODE>.
+<DT><CODE>cl_I round1 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns <CODE>round(x)</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I floor1 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Returns <CODE>floor(x/y)</CODE>.
+<DT><CODE>cl_I ceiling1 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Returns <CODE>ceiling(x/y)</CODE>.
+<DT><CODE>cl_I truncate1 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Returns <CODE>truncate(x/y)</CODE>.
+<DT><CODE>cl_I round1 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+Returns <CODE>round(x/y)</CODE>.
+</DL>
+
+<P>
+These functions are called <SAMP>`floor1'</SAMP>, ... here instead of
+<SAMP>`floor'</SAMP>, ..., because on some systems, system dependent include
+files define <SAMP>`floor'</SAMP> and <SAMP>`ceiling'</SAMP> as macros.
+
+
+<P>
+In many cases, one needs both the quotient and the remainder of a division.
+It is more efficient to compute both at the same time than to perform
+two divisions, one for quotient and the next one for the remainder.
+The following functions therefore return a structure containing both
+the quotient and the remainder. The suffix <SAMP>`2'</SAMP> indicates the number
+of "return values". The remainder is defined as follows:
+
+
+
+<UL>
+<LI>
+
+for the computation of <CODE>quotient = floor(x)</CODE>,
+<CODE>remainder = x - quotient</CODE>,
+<LI>
+
+for the computation of <CODE>quotient = floor(x,y)</CODE>,
+<CODE>remainder = x - quotient*y</CODE>,
+</UL>
+
+<P>
+and similarly for the other three operations.
+
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>struct <VAR>type</VAR>_div_t { cl_I quotient; <VAR>type</VAR> remainder; };</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t floor2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t ceiling2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t truncate2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t round2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+</DL>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>struct <VAR>type</VAR>_div_t { cl_I quotient; <VAR>type</VAR> remainder; };</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t floor2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t ceiling2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t truncate2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_div_t round2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+</DL>
+
+<P>
+Sometimes, one wants the quotient as a floating-point number (of the
+same format as the argument, if the argument is a float) instead of as
+an integer. The prefix <SAMP>`f'</SAMP> indicates this.
+
+
+<P>
+Each of the classes
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> ffloor (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR> fceiling (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR> ftruncate (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR> fround (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+</DL>
+
+<P>
+and similarly for class <CODE>cl_R</CODE>, but with return type <CODE>cl_F</CODE>.
+
+
+<P>
+The class <CODE>cl_R</CODE> defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F ffloor (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_F fceiling (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_F ftruncate (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_F fround (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+</DL>
+
+<P>
+These functions also exist in versions which return both the quotient
+and the remainder. The suffix <SAMP>`2'</SAMP> indicates this.
+
+
+<P>
+Each of the classes
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>struct <VAR>type</VAR>_fdiv_t { <VAR>type</VAR> quotient; <VAR>type</VAR> remainder; };</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t ffloor2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t fceiling2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t ftruncate2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t fround2 (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+</DL>
+<P>
+and similarly for class <CODE>cl_R</CODE>, but with quotient type <CODE>cl_F</CODE>.
+
+
+<P>
+The class <CODE>cl_R</CODE> defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>struct <VAR>type</VAR>_fdiv_t { cl_F quotient; cl_R remainder; };</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t ffloor2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t fceiling2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t ftruncate2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>_fdiv_t fround2 (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+</DL>
+
+<P>
+Other applications need only the remainder of a division.
+The remainder of <SAMP>`floor'</SAMP> and <SAMP>`ffloor'</SAMP> is called <SAMP>`mod'</SAMP>
+(abbreviation of "modulo"). The remainder <SAMP>`truncate'</SAMP> and
+<SAMP>`ftruncate'</SAMP> is called <SAMP>`rem'</SAMP> (abbreviation of "remainder").
+
+
+
+<UL>
+<LI>
+
+<CODE>mod(x,y) = floor2(x,y).remainder = x - floor(x/y)*y</CODE>
+<LI>
+
+<CODE>rem(x,y) = truncate2(x,y).remainder = x - truncate(x/y)*y</CODE>
+</UL>
+
+<P>
+If <CODE>x</CODE> and <CODE>y</CODE> are both &#62;= 0, <CODE>mod(x,y) = rem(x,y) &#62;= 0</CODE>.
+In general, <CODE>mod(x,y)</CODE> has the sign of <CODE>y</CODE> or is zero,
+and <CODE>rem(x,y)</CODE> has the sign of <CODE>x</CODE> or is zero.
+
+
+<P>
+The classes <CODE>cl_R</CODE>, <CODE>cl_I</CODE> define the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> mod (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR> rem (const <VAR>type</VAR>&#38; x, const <VAR>type</VAR>&#38; y)</CODE>
+<DD>
+</DL>
+
+
+
+<H2><A NAME="SEC26" HREF="cln.html#TOC26">4.7 Roots</A></H2>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> sqrt (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<CODE>x</CODE> must be &#62;= 0. This function returns the square root of <CODE>x</CODE>,
+normalized to be &#62;= 0. If <CODE>x</CODE> is the square of a rational number,
+<CODE>sqrt(x)</CODE> will be a rational number, else it will return a
+floating-point approximation.
+</DL>
+
+<P>
+The classes <CODE>cl_RA</CODE>, <CODE>cl_I</CODE> define the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_boolean sqrtp (const <VAR>type</VAR>&#38; x, <VAR>type</VAR>* root)</CODE>
+<DD>
+This tests whether <CODE>x</CODE> is a perfect square. If so, it returns true
+and the exact square root in <CODE>*root</CODE>, else it returns false.
+</DL>
+
+<P>
+Furthermore, for integers, similarly:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_boolean isqrt (const <VAR>type</VAR>&#38; x, <VAR>type</VAR>* root)</CODE>
+<DD>
+<CODE>x</CODE> should be &#62;= 0. This function sets <CODE>*root</CODE> to
+<CODE>floor(sqrt(x))</CODE> and returns the same value as <CODE>sqrtp</CODE>:
+the boolean value <CODE>(expt(*root,2) == x)</CODE>.
+</DL>
+
+<P>
+For <CODE>n</CODE>th roots, the classes <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>
+define the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_boolean rootp (const <VAR>type</VAR>&#38; x, const cl_I&#38; n, <VAR>type</VAR>* root)</CODE>
+<DD>
+<CODE>x</CODE> must be &#62;= 0. <CODE>n</CODE> must be &#62; 0.
+This tests whether <CODE>x</CODE> is an <CODE>n</CODE>th power of a rational number.
+If so, it returns true and the exact root in <CODE>*root</CODE>, else it returns
+false.
+</DL>
+
+<P>
+The only square root function which accepts negative numbers is the one
+for class <CODE>cl_N</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_N sqrt (const cl_N&#38; z)</CODE>
+<DD>
+Returns the square root of <CODE>z</CODE>, as defined by the formula
+<CODE>sqrt(z) = exp(log(z)/2)</CODE>. Conversion to a floating-point type
+or to a complex number are done if necessary. The range of the result is the
+right half plane <CODE>realpart(sqrt(z)) &#62;= 0</CODE>
+including the positive imaginary axis and 0, but excluding
+the negative imaginary axis.
+The result is an exact number only if <CODE>z</CODE> is an exact number.
+</DL>
+
+
+
+<H2><A NAME="SEC27" HREF="cln.html#TOC27">4.8 Transcendental functions</A></H2>
+
+<P>
+The transcendental functions return an exact result if the argument
+is exact and the result is exact as well. Otherwise they must return
+inexact numbers even if the argument is exact.
+For example, <CODE>cos(0) = 1</CODE> returns the rational number <CODE>1</CODE>.
+
+
+
+
+<H3><A NAME="SEC28" HREF="cln.html#TOC28">4.8.1 Exponential and logarithmic functions</A></H3>
+
+<DL COMPACT>
+
+<DT><CODE>cl_R exp (const cl_R&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_N exp (const cl_N&#38; x)</CODE>
+<DD>
+Returns the exponential function of <CODE>x</CODE>. This is <CODE>e^x</CODE> where
+<CODE>e</CODE> is the base of the natural logarithms. The range of the result
+is the entire complex plane excluding 0.
+
+<DT><CODE>cl_R ln (const cl_R&#38; x)</CODE>
+<DD>
+<CODE>x</CODE> must be &#62; 0. Returns the (natural) logarithm of x.
+
+<DT><CODE>cl_N log (const cl_N&#38; x)</CODE>
+<DD>
+Returns the (natural) logarithm of x. If <CODE>x</CODE> is real and positive,
+this is <CODE>ln(x)</CODE>. In general, <CODE>log(x) = log(abs(x)) + i*phase(x)</CODE>.
+The range of the result is the strip in the complex plane
+<CODE>-pi &#60; imagpart(log(x)) &#60;= pi</CODE>.
+
+<DT><CODE>cl_R phase (const cl_N&#38; x)</CODE>
+<DD>
+Returns the angle part of <CODE>x</CODE> in its polar representation as a
+complex number. That is, <CODE>phase(x) = atan(realpart(x),imagpart(x))</CODE>.
+This is also the imaginary part of <CODE>log(x)</CODE>.
+The range of the result is the interval <CODE>-pi &#60; phase(x) &#60;= pi</CODE>.
+The result will be an exact number only if <CODE>zerop(x)</CODE> or
+if <CODE>x</CODE> is real and positive.
+
+<DT><CODE>cl_R log (const cl_R&#38; a, const cl_R&#38; b)</CODE>
+<DD>
+<CODE>a</CODE> and <CODE>b</CODE> must be &#62; 0. Returns the logarithm of <CODE>a</CODE> with
+respect to base <CODE>b</CODE>. <CODE>log(a,b) = ln(a)/ln(b)</CODE>.
+The result can be exact only if <CODE>a = 1</CODE> or if <CODE>a</CODE> and <CODE>b</CODE>
+are both rational.
+
+<DT><CODE>cl_N log (const cl_N&#38; a, const cl_N&#38; b)</CODE>
+<DD>
+Returns the logarithm of <CODE>a</CODE> with respect to base <CODE>b</CODE>.
+<CODE>log(a,b) = log(a)/log(b)</CODE>.
+
+<DT><CODE>cl_N expt (const cl_N&#38; x, const cl_N&#38; y)</CODE>
+<DD>
+Exponentiation: Returns <CODE>x^y = exp(y*log(x))</CODE>.
+</DL>
+
+<P>
+The constant e = exp(1) = 2.71828... is returned by the following functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F cl_exp1 (cl_float_format_t f)</CODE>
+<DD>
+Returns e as a float of format <CODE>f</CODE>.
+
+<DT><CODE>cl_F cl_exp1 (const cl_F&#38; y)</CODE>
+<DD>
+Returns e in the float format of <CODE>y</CODE>.
+
+<DT><CODE>cl_F cl_exp1 (void)</CODE>
+<DD>
+Returns e as a float of format <CODE>cl_default_float_format</CODE>.
+</DL>
+
+
+
+<H3><A NAME="SEC29" HREF="cln.html#TOC29">4.8.2 Trigonometric functions</A></H3>
+
+<DL COMPACT>
+
+<DT><CODE>cl_R sin (const cl_R&#38; x)</CODE>
+<DD>
+Returns <CODE>sin(x)</CODE>. The range of the result is the interval
+<CODE>-1 &#60;= sin(x) &#60;= 1</CODE>.
+
+<DT><CODE>cl_N sin (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>sin(z)</CODE>. The range of the result is the entire complex plane.
+
+<DT><CODE>cl_R cos (const cl_R&#38; x)</CODE>
+<DD>
+Returns <CODE>cos(x)</CODE>. The range of the result is the interval
+<CODE>-1 &#60;= cos(x) &#60;= 1</CODE>.
+
+<DT><CODE>cl_N cos (const cl_N&#38; x)</CODE>
+<DD>
+Returns <CODE>cos(z)</CODE>. The range of the result is the entire complex plane.
+
+<DT><CODE>struct cl_cos_sin_t { cl_R cos; cl_R sin; };</CODE>
+<DD>
+<DT><CODE>cl_cos_sin_t cl_cos_sin (const cl_R&#38; x)</CODE>
+<DD>
+Returns both <CODE>sin(x)</CODE> and <CODE>cos(x)</CODE>. This is more efficient than
+computing them separately. The relation <CODE>cos^2 + sin^2 = 1</CODE> will
+hold only approximately.
+
+<DT><CODE>cl_R tan (const cl_R&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_N tan (const cl_N&#38; x)</CODE>
+<DD>
+Returns <CODE>tan(x) = sin(x)/cos(x)</CODE>.
+
+<DT><CODE>cl_N cis (const cl_R&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_N cis (const cl_N&#38; x)</CODE>
+<DD>
+Returns <CODE>exp(i*x)</CODE>. The name <SAMP>`cis'</SAMP> means "cos + i sin", because
+<CODE>e^(i*x) = cos(x) + i*sin(x)</CODE>.
+
+<DT><CODE>cl_N asin (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>arcsin(z)</CODE>. This is defined as
+<CODE>arcsin(z) = log(iz+sqrt(1-z^2))/i</CODE> and satisfies
+<CODE>arcsin(-z) = -arcsin(z)</CODE>.
+The range of the result is the strip in the complex domain
+<CODE>-pi/2 &#60;= realpart(arcsin(z)) &#60;= pi/2</CODE>, excluding the numbers
+with <CODE>realpart = -pi/2</CODE> and <CODE>imagpart &#60; 0</CODE> and the numbers
+with <CODE>realpart = pi/2</CODE> and <CODE>imagpart &#62; 0</CODE>.
+
+<DT><CODE>cl_N acos (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>arccos(z)</CODE>. This is defined as
+<CODE>arccos(z) = pi/2 - arcsin(z) = log(z+i*sqrt(1-z^2))/i</CODE>
+and satisfies <CODE>arccos(-z) = pi - arccos(z)</CODE>.
+The range of the result is the strip in the complex domain
+<CODE>0 &#60;= realpart(arcsin(z)) &#60;= pi</CODE>, excluding the numbers
+with <CODE>realpart = 0</CODE> and <CODE>imagpart &#60; 0</CODE> and the numbers
+with <CODE>realpart = pi</CODE> and <CODE>imagpart &#62; 0</CODE>.
+
+<DT><CODE>cl_R atan (const cl_R&#38; x, const cl_R&#38; y)</CODE>
+<DD>
+Returns the angle of the polar representation of the complex number
+<CODE>x+iy</CODE>. This is <CODE>atan(y/x)</CODE> if <CODE>x&#62;0</CODE>. The range of
+the result is the interval <CODE>-pi &#60; atan(x,y) &#60;= pi</CODE>. The result will
+be an exact number only if <CODE>x &#62; 0</CODE> and <CODE>y</CODE> is the exact <CODE>0</CODE>.
+WARNING: In Common Lisp, this function is called as <CODE>(atan y x)</CODE>,
+with reversed order of arguments.
+
+<DT><CODE>cl_R atan (const cl_R&#38; x)</CODE>
+<DD>
+Returns <CODE>arctan(x)</CODE>. This is the same as <CODE>atan(1,x)</CODE>. The range
+of the result is the interval <CODE>-pi/2 &#60; atan(x) &#60; pi/2</CODE>. The result
+will be an exact number only if <CODE>x</CODE> is the exact <CODE>0</CODE>.
+
+<DT><CODE>cl_N atan (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>arctan(z)</CODE>. This is defined as
+<CODE>arctan(z) = (log(1+iz)-log(1-iz)) / 2i</CODE> and satisfies
+<CODE>arctan(-z) = -arctan(z)</CODE>. The range of the result is
+the strip in the complex domain
+<CODE>-pi/2 &#60;= realpart(arctan(z)) &#60;= pi/2</CODE>, excluding the numbers
+with <CODE>realpart = -pi/2</CODE> and <CODE>imagpart &#62;= 0</CODE> and the numbers
+with <CODE>realpart = pi/2</CODE> and <CODE>imagpart &#60;= 0</CODE>.
+
+</DL>
+
+<P>
+The constant pi = 3.14... is returned by the following functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F cl_pi (cl_float_format_t f)</CODE>
+<DD>
+Returns pi as a float of format <CODE>f</CODE>.
+
+<DT><CODE>cl_F cl_pi (const cl_F&#38; y)</CODE>
+<DD>
+Returns pi in the float format of <CODE>y</CODE>.
+
+<DT><CODE>cl_F cl_pi (void)</CODE>
+<DD>
+Returns pi as a float of format <CODE>cl_default_float_format</CODE>.
+</DL>
+
+
+
+<H3><A NAME="SEC30" HREF="cln.html#TOC30">4.8.3 Hyperbolic functions</A></H3>
+
+<DL COMPACT>
+
+<DT><CODE>cl_R sinh (const cl_R&#38; x)</CODE>
+<DD>
+Returns <CODE>sinh(x)</CODE>.
+
+<DT><CODE>cl_N sinh (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>sinh(z)</CODE>. The range of the result is the entire complex plane.
+
+<DT><CODE>cl_R cosh (const cl_R&#38; x)</CODE>
+<DD>
+Returns <CODE>cosh(x)</CODE>. The range of the result is the interval
+<CODE>cosh(x) &#62;= 1</CODE>.
+
+<DT><CODE>cl_N cosh (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>cosh(z)</CODE>. The range of the result is the entire complex plane.
+
+<DT><CODE>struct cl_cosh_sinh_t { cl_R cosh; cl_R sinh; };</CODE>
+<DD>
+<DT><CODE>cl_cosh_sinh_t cl_cosh_sinh (const cl_R&#38; x)</CODE>
+<DD>
+Returns both <CODE>sinh(x)</CODE> and <CODE>cosh(x)</CODE>. This is more efficient than
+computing them separately. The relation <CODE>cosh^2 - sinh^2 = 1</CODE> will
+hold only approximately.
+
+<DT><CODE>cl_R tanh (const cl_R&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_N tanh (const cl_N&#38; x)</CODE>
+<DD>
+Returns <CODE>tanh(x) = sinh(x)/cosh(x)</CODE>.
+
+<DT><CODE>cl_N asinh (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>arsinh(z)</CODE>. This is defined as
+<CODE>arsinh(z) = log(z+sqrt(1+z^2))</CODE> and satisfies
+<CODE>arsinh(-z) = -arsinh(z)</CODE>.
+The range of the result is the strip in the complex domain
+<CODE>-pi/2 &#60;= imagpart(arsinh(z)) &#60;= pi/2</CODE>, excluding the numbers
+with <CODE>imagpart = -pi/2</CODE> and <CODE>realpart &#62; 0</CODE> and the numbers
+with <CODE>imagpart = pi/2</CODE> and <CODE>realpart &#60; 0</CODE>.
+
+<DT><CODE>cl_N acosh (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>arcosh(z)</CODE>. This is defined as
+<CODE>arcosh(z) = 2*log(sqrt((z+1)/2)+sqrt((z-1)/2))</CODE>.
+The range of the result is the half-strip in the complex domain
+<CODE>-pi &#60; imagpart(arcosh(z)) &#60;= pi, realpart(arcosh(z)) &#62;= 0</CODE>,
+excluding the numbers with <CODE>realpart = 0</CODE> and <CODE>-pi &#60; imagpart &#60; 0</CODE>.
+
+<DT><CODE>cl_N atanh (const cl_N&#38; z)</CODE>
+<DD>
+Returns <CODE>artanh(z)</CODE>. This is defined as
+<CODE>artanh(z) = (log(1+z)-log(1-z)) / 2</CODE> and satisfies
+<CODE>artanh(-z) = -artanh(z)</CODE>. The range of the result is
+the strip in the complex domain
+<CODE>-pi/2 &#60;= imagpart(artanh(z)) &#60;= pi/2</CODE>, excluding the numbers
+with <CODE>imagpart = -pi/2</CODE> and <CODE>realpart &#60;= 0</CODE> and the numbers
+with <CODE>imagpart = pi/2</CODE> and <CODE>realpart &#62;= 0</CODE>.
+</DL>
+
+
+
+<H3><A NAME="SEC31" HREF="cln.html#TOC31">4.8.4 Euler gamma</A></H3>
+
+<P>
+Euler's constant C = 0.577... is returned by the following functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F cl_eulerconst (cl_float_format_t f)</CODE>
+<DD>
+Returns Euler's constant as a float of format <CODE>f</CODE>.
+
+<DT><CODE>cl_F cl_eulerconst (const cl_F&#38; y)</CODE>
+<DD>
+Returns Euler's constant in the float format of <CODE>y</CODE>.
+
+<DT><CODE>cl_F cl_eulerconst (void)</CODE>
+<DD>
+Returns Euler's constant as a float of format <CODE>cl_default_float_format</CODE>.
+</DL>
+
+<P>
+Catalan's constant G = 0.915... is returned by the following functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F cl_catalanconst (cl_float_format_t f)</CODE>
+<DD>
+Returns Catalan's constant as a float of format <CODE>f</CODE>.
+
+<DT><CODE>cl_F cl_catalanconst (const cl_F&#38; y)</CODE>
+<DD>
+Returns Catalan's constant in the float format of <CODE>y</CODE>.
+
+<DT><CODE>cl_F cl_catalanconst (void)</CODE>
+<DD>
+Returns Catalan's constant as a float of format <CODE>cl_default_float_format</CODE>.
+</DL>
+
+
+
+<H3><A NAME="SEC32" HREF="cln.html#TOC32">4.8.5 Riemann zeta</A></H3>
+
+<P>
+Riemann's zeta function at an integral point <CODE>s&#62;1</CODE> is returned by the
+following functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F cl_zeta (int s, cl_float_format_t f)</CODE>
+<DD>
+Returns Riemann's zeta function at <CODE>s</CODE> as a float of format <CODE>f</CODE>.
+
+<DT><CODE>cl_F cl_zeta (int s, const cl_F&#38; y)</CODE>
+<DD>
+Returns Riemann's zeta function at <CODE>s</CODE> in the float format of <CODE>y</CODE>.
+
+<DT><CODE>cl_F cl_zeta (int s)</CODE>
+<DD>
+Returns Riemann's zeta function at <CODE>s</CODE> as a float of format
+<CODE>cl_default_float_format</CODE>.
+</DL>
+
+
+
+<H2><A NAME="SEC33" HREF="cln.html#TOC33">4.9 Functions on integers</A></H2>
+
+
+
+<H3><A NAME="SEC34" HREF="cln.html#TOC34">4.9.1 Logical functions</A></H3>
+
+<P>
+Integers, when viewed as in two's complement notation, can be thought as
+infinite bit strings where the bits' values eventually are constant.
+For example,
+
+<PRE>
+    17 = ......00010001
+    -6 = ......11111010
+</PRE>
+
+<P>
+The logical operations view integers as such bit strings and operate
+on each of the bit positions in parallel.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I lognot (const cl_I&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_I operator ~ (const cl_I&#38; x)</CODE>
+<DD>
+Logical not, like <CODE>~x</CODE> in C. This is the same as <CODE>-1-x</CODE>.
+
+<DT><CODE>cl_I logand (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_I operator &#38; (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Logical and, like <CODE>x &#38; y</CODE> in C.
+
+<DT><CODE>cl_I logior (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_I operator | (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Logical (inclusive) or, like <CODE>x | y</CODE> in C.
+
+<DT><CODE>cl_I logxor (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_I operator ^ (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Exclusive or, like <CODE>x ^ y</CODE> in C.
+
+<DT><CODE>cl_I logeqv (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Bitwise equivalence, like <CODE>~(x ^ y)</CODE> in C.
+
+<DT><CODE>cl_I lognand (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Bitwise not and, like <CODE>~(x &#38; y)</CODE> in C.
+
+<DT><CODE>cl_I lognor (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Bitwise not or, like <CODE>~(x | y)</CODE> in C.
+
+<DT><CODE>cl_I logandc1 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Logical and, complementing the first argument, like <CODE>~x &#38; y</CODE> in C.
+
+<DT><CODE>cl_I logandc2 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Logical and, complementing the second argument, like <CODE>x &#38; ~y</CODE> in C.
+
+<DT><CODE>cl_I logorc1 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Logical or, complementing the first argument, like <CODE>~x | y</CODE> in C.
+
+<DT><CODE>cl_I logorc2 (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Logical or, complementing the second argument, like <CODE>x | ~y</CODE> in C.
+</DL>
+
+<P>
+These operations are all available though the function
+<DL COMPACT>
+
+<DT><CODE>cl_I boole (cl_boole op, const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+</DL>
+<P>
+where <CODE>op</CODE> must have one of the 16 values (each one stands for a function
+which combines two bits into one bit): <CODE>boole_clr</CODE>, <CODE>boole_set</CODE>,
+<CODE>boole_1</CODE>, <CODE>boole_2</CODE>, <CODE>boole_c1</CODE>, <CODE>boole_c2</CODE>,
+<CODE>boole_and</CODE>, <CODE>boole_ior</CODE>, <CODE>boole_xor</CODE>, <CODE>boole_eqv</CODE>,
+<CODE>boole_nand</CODE>, <CODE>boole_nor</CODE>, <CODE>boole_andc1</CODE>, <CODE>boole_andc2</CODE>,
+<CODE>boole_orc1</CODE>, <CODE>boole_orc2</CODE>.
+
+
+<P>
+Other functions that view integers as bit strings:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_boolean logtest (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Returns true if some bit is set in both <CODE>x</CODE> and <CODE>y</CODE>, i.e. if
+<CODE>logand(x,y) != 0</CODE>.
+
+<DT><CODE>cl_boolean logbitp (const cl_I&#38; n, const cl_I&#38; x)</CODE>
+<DD>
+Returns true if the <CODE>n</CODE>th bit (from the right) of <CODE>x</CODE> is set.
+Bit 0 is the least significant bit.
+
+<DT><CODE>uintL logcount (const cl_I&#38; x)</CODE>
+<DD>
+Returns the number of one bits in <CODE>x</CODE>, if <CODE>x</CODE> &#62;= 0, or
+the number of zero bits in <CODE>x</CODE>, if <CODE>x</CODE> &#60; 0.
+</DL>
+
+<P>
+The following functions operate on intervals of bits in integers. 
+The type
+
+<PRE>
+struct cl_byte { uintL size; uintL position; };
+</PRE>
+
+<P>
+represents the bit interval containing the bits
+<CODE>position</CODE>...<CODE>position+size-1</CODE> of an integer.
+The constructor <CODE>cl_byte(size,position)</CODE> constructs a <CODE>cl_byte</CODE>.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I ldb (const cl_I&#38; n, const cl_byte&#38; b)</CODE>
+<DD>
+extracts the bits of <CODE>n</CODE> described by the bit interval <CODE>b</CODE>
+and returns them as a nonnegative integer with <CODE>b.size</CODE> bits.
+
+<DT><CODE>cl_boolean ldb_test (const cl_I&#38; n, const cl_byte&#38; b)</CODE>
+<DD>
+Returns true if some bit described by the bit interval <CODE>b</CODE> is set in
+<CODE>n</CODE>.
+
+<DT><CODE>cl_I dpb (const cl_I&#38; newbyte, const cl_I&#38; n, const cl_byte&#38; b)</CODE>
+<DD>
+Returns <CODE>n</CODE>, with the bits described by the bit interval <CODE>b</CODE>
+replaced by <CODE>newbyte</CODE>. Only the lowest <CODE>b.size</CODE> bits of
+<CODE>newbyte</CODE> are relevant.
+</DL>
+
+<P>
+The functions <CODE>ldb</CODE> and <CODE>dpb</CODE> implicitly shift. The following
+functions are their counterparts without shifting:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I mask_field (const cl_I&#38; n, const cl_byte&#38; b)</CODE>
+<DD>
+returns an integer with the bits described by the bit interval <CODE>b</CODE>
+copied from the corresponding bits in <CODE>n</CODE>, the other bits zero.
+
+<DT><CODE>cl_I deposit_field (const cl_I&#38; newbyte, const cl_I&#38; n, const cl_byte&#38; b)</CODE>
+<DD>
+returns an integer where the bits described by the bit interval <CODE>b</CODE>
+come from <CODE>newbyte</CODE> and the other bits come from <CODE>n</CODE>.
+</DL>
+
+<P>
+The following relations hold:
+
+
+
+<UL>
+<LI>
+
+<CODE>ldb (n, b) = mask_field(n, b) &#62;&#62; b.position</CODE>,
+<LI>
+
+<CODE>dpb (newbyte, n, b) = deposit_field (newbyte &#60;&#60; b.position, n, b)</CODE>,
+<LI>
+
+<CODE>deposit_field(newbyte,n,b) = n ^ mask_field(n,b) ^ mask_field(new_byte,b)</CODE>.
+</UL>
+
+<P>
+The following operations on integers as bit strings are efficient shortcuts
+for common arithmetic operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_boolean oddp (const cl_I&#38; x)</CODE>
+<DD>
+Returns true if the least significant bit of <CODE>x</CODE> is 1. Equivalent to
+<CODE>mod(x,2) != 0</CODE>.
+
+<DT><CODE>cl_boolean evenp (const cl_I&#38; x)</CODE>
+<DD>
+Returns true if the least significant bit of <CODE>x</CODE> is 0. Equivalent to
+<CODE>mod(x,2) == 0</CODE>.
+
+<DT><CODE>cl_I operator &#60;&#60; (const cl_I&#38; x, const cl_I&#38; n)</CODE>
+<DD>
+Shifts <CODE>x</CODE> by <CODE>n</CODE> bits to the left. <CODE>n</CODE> should be &#62;=0.
+Equivalent to <CODE>x * expt(2,n)</CODE>.
+
+<DT><CODE>cl_I operator &#62;&#62; (const cl_I&#38; x, const cl_I&#38; n)</CODE>
+<DD>
+Shifts <CODE>x</CODE> by <CODE>n</CODE> bits to the right. <CODE>n</CODE> should be &#62;=0.
+Bits shifted out to the right are thrown away.
+Equivalent to <CODE>floor(x / expt(2,n))</CODE>.
+
+<DT><CODE>cl_I ash (const cl_I&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Shifts <CODE>x</CODE> by <CODE>y</CODE> bits to the left (if <CODE>y</CODE>&#62;=0) or
+by <CODE>-y</CODE> bits to the right (if <CODE>y</CODE>&#60;=0). In other words, this
+returns <CODE>floor(x * expt(2,y))</CODE>.
+
+<DT><CODE>uintL integer_length (const cl_I&#38; x)</CODE>
+<DD>
+Returns the number of bits (excluding the sign bit) needed to represent <CODE>x</CODE>
+in two's complement notation. This is the smallest n &#62;= 0 such that
+-2^n &#60;= x &#60; 2^n. If x &#62; 0, this is the unique n &#62; 0 such that
+2^(n-1) &#60;= x &#60; 2^n.
+
+<DT><CODE>uintL ord2 (const cl_I&#38; x)</CODE>
+<DD>
+<CODE>x</CODE> must be non-zero. This function returns the number of 0 bits at the
+right of <CODE>x</CODE> in two's complement notation. This is the largest n &#62;= 0
+such that 2^n divides <CODE>x</CODE>.
+
+<DT><CODE>uintL power2p (const cl_I&#38; x)</CODE>
+<DD>
+<CODE>x</CODE> must be &#62; 0. This function checks whether <CODE>x</CODE> is a power of 2.
+If <CODE>x</CODE> = 2^(n-1), it returns n. Else it returns 0.
+(See also the function <CODE>logp</CODE>.)
+</DL>
+
+
+
+<H3><A NAME="SEC35" HREF="cln.html#TOC35">4.9.2 Number theoretic functions</A></H3>
+
+<DL COMPACT>
+
+<DT><CODE>uint32 gcd (uint32 a, uint32 b)</CODE>
+<DD>
+<DT><CODE>cl_I gcd (const cl_I&#38; a, const cl_I&#38; b)</CODE>
+<DD>
+This function returns the greatest common divisor of <CODE>a</CODE> and <CODE>b</CODE>,
+normalized to be &#62;= 0.
+
+<DT><CODE>cl_I xgcd (const cl_I&#38; a, const cl_I&#38; b, cl_I* u, cl_I* v)</CODE>
+<DD>
+This function ("extended gcd") returns the greatest common divisor <CODE>g</CODE> of
+<CODE>a</CODE> and <CODE>b</CODE> and at the same time the representation of <CODE>g</CODE>
+as an integral linear combination of <CODE>a</CODE> and <CODE>b</CODE>:
+<CODE>u</CODE> and <CODE>v</CODE> with <CODE>u*a+v*b = g</CODE>, <CODE>g</CODE> &#62;= 0.
+<CODE>u</CODE> and <CODE>v</CODE> will be normalized to be of smallest possible absolute
+value, in the following sense: If <CODE>a</CODE> and <CODE>b</CODE> are non-zero, and
+<CODE>abs(a) != abs(b)</CODE>, <CODE>u</CODE> and <CODE>v</CODE> will satisfy the inequalities
+<CODE>abs(u) &#60;= abs(b)/(2*g)</CODE>, <CODE>abs(v) &#60;= abs(a)/(2*g)</CODE>.
+
+<DT><CODE>cl_I lcm (const cl_I&#38; a, const cl_I&#38; b)</CODE>
+<DD>
+This function returns the least common multiple of <CODE>a</CODE> and <CODE>b</CODE>,
+normalized to be &#62;= 0.
+
+<DT><CODE>cl_boolean logp (const cl_I&#38; a, const cl_I&#38; b, cl_RA* l)</CODE>
+<DD>
+<DT><CODE>cl_boolean logp (const cl_RA&#38; a, const cl_RA&#38; b, cl_RA* l)</CODE>
+<DD>
+<CODE>a</CODE> must be &#62; 0. <CODE>b</CODE> must be &#62;0 and != 1. If log(a,b) is
+rational number, this function returns true and sets *l = log(a,b), else
+it returns false.
+</DL>
+
+
+
+<H3><A NAME="SEC36" HREF="cln.html#TOC36">4.9.3 Combinatorial functions</A></H3>
+
+<DL COMPACT>
+
+<DT><CODE>cl_I factorial (uintL n)</CODE>
+<DD>
+<CODE>n</CODE> must be a small integer &#62;= 0. This function returns the factorial
+<CODE>n</CODE>! = <CODE>1*2*...*n</CODE>.
+
+<DT><CODE>cl_I doublefactorial (uintL n)</CODE>
+<DD>
+<CODE>n</CODE> must be a small integer &#62;= 0. This function returns the 
+doublefactorial <CODE>n</CODE>!! = <CODE>1*3*...*n</CODE> or 
+<CODE>n</CODE>!! = <CODE>2*4*...*n</CODE>, respectively.
+
+<DT><CODE>cl_I binomial (uintL n, uintL k)</CODE>
+<DD>
+<CODE>n</CODE> and <CODE>k</CODE> must be small integers &#62;= 0. This function returns the
+binomial coefficient
+(<CODE>n</CODE> choose <CODE>k</CODE>) = <CODE>n</CODE>! / <CODE>k</CODE>! <CODE>(n-k)</CODE>!
+for 0 &#60;= k &#60;= n, 0 else.
+</DL>
+
+
+
+<H2><A NAME="SEC37" HREF="cln.html#TOC37">4.10 Functions on floating-point numbers</A></H2>
+
+<P>
+Recall that a floating-point number consists of a sign <CODE>s</CODE>, an
+exponent <CODE>e</CODE> and a mantissa <CODE>m</CODE>. The value of the number is
+<CODE>(-1)^s * 2^e * m</CODE>.
+
+
+<P>
+Each of the classes
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines the following operations.
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR> scale_float (const <VAR>type</VAR>&#38; x, sintL delta)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR> scale_float (const <VAR>type</VAR>&#38; x, const cl_I&#38; delta)</CODE>
+<DD>
+Returns <CODE>x*2^delta</CODE>. This is more efficient than an explicit multiplication
+because it copies <CODE>x</CODE> and modifies the exponent.
+</DL>
+
+<P>
+The following functions provide an abstract interface to the underlying
+representation of floating-point numbers.
+
+
+<DL COMPACT>
+
+<DT><CODE>sintL float_exponent (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the exponent <CODE>e</CODE> of <CODE>x</CODE>.
+For <CODE>x = 0.0</CODE>, this is 0. For <CODE>x</CODE> non-zero, this is the unique
+integer with <CODE>2^(e-1) &#60;= abs(x) &#60; 2^e</CODE>.
+
+<DT><CODE>sintL float_radix (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the base of the floating-point representation. This is always <CODE>2</CODE>.
+
+<DT><CODE><VAR>type</VAR> float_sign (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the sign <CODE>s</CODE> of <CODE>x</CODE> as a float. The value is 1 for
+<CODE>x</CODE> &#62;= 0, -1 for <CODE>x</CODE> &#60; 0.
+
+<DT><CODE>uintL float_digits (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the number of mantissa bits in the floating-point representation
+of <CODE>x</CODE>, including the hidden bit. The value only depends on the type
+of <CODE>x</CODE>, not on its value.
+
+<DT><CODE>uintL float_precision (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the number of significant mantissa bits in the floating-point
+representation of <CODE>x</CODE>. Since denormalized numbers are not supported,
+this is the same as <CODE>float_digits(x)</CODE> if <CODE>x</CODE> is non-zero, and
+0 if <CODE>x</CODE> = 0.
+</DL>
+
+<P>
+The complete internal representation of a float is encoded in the type
+<CODE>cl_decoded_float</CODE> (or <CODE>cl_decoded_sfloat</CODE>, <CODE>cl_decoded_ffloat</CODE>,
+<CODE>cl_decoded_dfloat</CODE>, <CODE>cl_decoded_lfloat</CODE>, respectively), defined by
+
+<PRE>
+struct cl_decoded_<VAR>type</VAR>float {
+        <VAR>type</VAR> mantissa; cl_I exponent; <VAR>type</VAR> sign;
+};
+</PRE>
+
+<P>
+and returned by the function
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_decoded_<VAR>type</VAR>float decode_float (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+For <CODE>x</CODE> non-zero, this returns <CODE>(-1)^s</CODE>, <CODE>e</CODE>, <CODE>m</CODE> with
+<CODE>x = (-1)^s * 2^e * m</CODE> and <CODE>0.5 &#60;= m &#60; 1.0</CODE>. For <CODE>x</CODE> = 0,
+it returns <CODE>(-1)^s</CODE>=1, <CODE>e</CODE>=0, <CODE>m</CODE>=0.
+<CODE>e</CODE> is the same as returned by the function <CODE>float_exponent</CODE>.
+</DL>
+
+<P>
+A complete decoding in terms of integers is provided as type
+
+<PRE>
+struct cl_idecoded_float {
+        cl_I mantissa; cl_I exponent; cl_I sign;
+};
+</PRE>
+
+<P>
+by the following function:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_idecoded_float integer_decode_float (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+For <CODE>x</CODE> non-zero, this returns <CODE>(-1)^s</CODE>, <CODE>e</CODE>, <CODE>m</CODE> with
+<CODE>x = (-1)^s * 2^e * m</CODE> and <CODE>m</CODE> an integer with <CODE>float_digits(x)</CODE>
+bits. For <CODE>x</CODE> = 0, it returns <CODE>(-1)^s</CODE>=1, <CODE>e</CODE>=0, <CODE>m</CODE>=0.
+WARNING: The exponent <CODE>e</CODE> is not the same as the one returned by
+the functions <CODE>decode_float</CODE> and <CODE>float_exponent</CODE>.
+</DL>
+
+<P>
+Some other function, implemented only for class <CODE>cl_F</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F float_sign (const cl_F&#38; x, const cl_F&#38; y)</CODE>
+<DD>
+This returns a floating point number whose precision and absolute value
+is that of <CODE>y</CODE> and whose sign is that of <CODE>x</CODE>. If <CODE>x</CODE> is
+zero, it is treated as positive. Same for <CODE>y</CODE>.
+</DL>
+
+
+
+<H2><A NAME="SEC38" HREF="cln.html#TOC38">4.11 Conversion functions</A></H2>
+
+
+
+<H3><A NAME="SEC39" HREF="cln.html#TOC39">4.11.1 Conversion to floating-point numbers</A></H3>
+
+<P>
+The type <CODE>cl_float_format_t</CODE> describes a floating-point format.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_float_format_t cl_float_format (uintL n)</CODE>
+<DD>
+Returns the smallest float format which guarantees at least <CODE>n</CODE>
+decimal digits in the mantissa (after the decimal point).
+
+<DT><CODE>cl_float_format_t cl_float_format (const cl_F&#38; x)</CODE>
+<DD>
+Returns the floating point format of <CODE>x</CODE>.
+
+<DT><CODE>cl_float_format_t cl_default_float_format</CODE>
+<DD>
+Global variable: the default float format used when converting rational numbers
+to floats.
+</DL>
+
+<P>
+To convert a real number to a float, each of the types
+<CODE>cl_R</CODE>, <CODE>cl_F</CODE>, <CODE>cl_I</CODE>, <CODE>cl_RA</CODE>,
+<CODE>int</CODE>, <CODE>unsigned int</CODE>, <CODE>float</CODE>, <CODE>double</CODE>
+defines the following operations:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F cl_float (const <VAR>type</VAR>&#38;x, cl_float_format_t f)</CODE>
+<DD>
+Returns <CODE>x</CODE> as a float of format <CODE>f</CODE>.
+<DT><CODE>cl_F cl_float (const <VAR>type</VAR>&#38;x, const cl_F&#38; y)</CODE>
+<DD>
+Returns <CODE>x</CODE> in the float format of <CODE>y</CODE>.
+<DT><CODE>cl_F cl_float (const <VAR>type</VAR>&#38;x)</CODE>
+<DD>
+Returns <CODE>x</CODE> as a float of format <CODE>cl_default_float_format</CODE> if
+it is an exact number, or <CODE>x</CODE> itself if it is already a float.
+</DL>
+
+<P>
+Of course, converting a number to a float can lose precision.
+
+
+<P>
+Every floating-point format has some characteristic numbers:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_F most_positive_float (cl_float_format_t f)</CODE>
+<DD>
+Returns the largest (most positive) floating point number in float format <CODE>f</CODE>.
+
+<DT><CODE>cl_F most_negative_float (cl_float_format_t f)</CODE>
+<DD>
+Returns the smallest (most negative) floating point number in float format <CODE>f</CODE>.
+
+<DT><CODE>cl_F least_positive_float (cl_float_format_t f)</CODE>
+<DD>
+Returns the least positive floating point number (i.e. &#62; 0 but closest to 0)
+in float format <CODE>f</CODE>.
+
+<DT><CODE>cl_F least_negative_float (cl_float_format_t f)</CODE>
+<DD>
+Returns the least negative floating point number (i.e. &#60; 0 but closest to 0)
+in float format <CODE>f</CODE>.
+
+<DT><CODE>cl_F float_epsilon (cl_float_format_t f)</CODE>
+<DD>
+Returns the smallest floating point number e &#62; 0 such that <CODE>1+e != 1</CODE>.
+
+<DT><CODE>cl_F float_negative_epsilon (cl_float_format_t f)</CODE>
+<DD>
+Returns the smallest floating point number e &#62; 0 such that <CODE>1-e != 1</CODE>.
+</DL>
+
+
+
+<H3><A NAME="SEC40" HREF="cln.html#TOC40">4.11.2 Conversion to rational numbers</A></H3>
+
+<P>
+Each of the classes <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_F</CODE>
+defines the following operation:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_RA rational (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Returns the value of <CODE>x</CODE> as an exact number. If <CODE>x</CODE> is already
+an exact number, this is <CODE>x</CODE>. If <CODE>x</CODE> is a floating-point number,
+the value is a rational number whose denominator is a power of 2.
+</DL>
+
+<P>
+In order to convert back, say, <CODE>(cl_F)(cl_R)"1/3"</CODE> to <CODE>1/3</CODE>, there is
+the function
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_RA rationalize (const cl_R&#38; x)</CODE>
+<DD>
+If <CODE>x</CODE> is a floating-point number, it actually represents an interval
+of real numbers, and this function returns the rational number with
+smallest denominator (and smallest numerator, in magnitude)
+which lies in this interval.
+If <CODE>x</CODE> is already an exact number, this function returns <CODE>x</CODE>.
+</DL>
+
+<P>
+If <CODE>x</CODE> is any float, one has
+
+
+
+<UL>
+<LI>
+
+<CODE>cl_float(rational(x),x) = x</CODE>
+<LI>
+
+<CODE>cl_float(rationalize(x),x) = x</CODE>
+</UL>
+
+
+
+<H2><A NAME="SEC41" HREF="cln.html#TOC41">4.12 Random number generators</A></H2>
+
+<P>
+A random generator is a machine which produces (pseudo-)random numbers.
+The include file <CODE>&#60;cl_random.h&#62;</CODE> defines a class <CODE>cl_random_state</CODE>
+which contains the state of a random generator. If you make a copy
+of the random number generator, the original one and the copy will produce
+the same sequence of random numbers.
+
+
+<P>
+The following functions return (pseudo-)random numbers in different formats.
+Calling one of these modifies the state of the random number generator in
+a complicated but deterministic way.
+
+
+<P>
+The global variable
+
+<PRE>
+cl_random_state cl_default_random_state
+</PRE>
+
+<P>
+contains a default random number generator. It is used when the functions
+below are called without <CODE>cl_random_state</CODE> argument.
+
+
+<DL COMPACT>
+
+<DT><CODE>uint32 random32 (cl_random_state&#38; randomstate)</CODE>
+<DD>
+<DT><CODE>uint32 random32 ()</CODE>
+<DD>
+Returns a random unsigned 32-bit number. All bits are equally random.
+
+<DT><CODE>cl_I random_I (cl_random_state&#38; randomstate, const cl_I&#38; n)</CODE>
+<DD>
+<DT><CODE>cl_I random_I (const cl_I&#38; n)</CODE>
+<DD>
+<CODE>n</CODE> must be an integer &#62; 0. This function returns a random integer <CODE>x</CODE>
+in the range <CODE>0 &#60;= x &#60; n</CODE>.
+
+<DT><CODE>cl_F random_F (cl_random_state&#38; randomstate, const cl_F&#38; n)</CODE>
+<DD>
+<DT><CODE>cl_F random_F (const cl_F&#38; n)</CODE>
+<DD>
+<CODE>n</CODE> must be a float &#62; 0. This function returns a random floating-point
+number of the same format as <CODE>n</CODE> in the range <CODE>0 &#60;= x &#60; n</CODE>.
+
+<DT><CODE>cl_R random_R (cl_random_state&#38; randomstate, const cl_R&#38; n)</CODE>
+<DD>
+<DT><CODE>cl_R random_R (const cl_R&#38; n)</CODE>
+<DD>
+Behaves like <CODE>random_I</CODE> if <CODE>n</CODE> is an integer and like <CODE>random_F</CODE>
+if <CODE>n</CODE> is a float.
+</DL>
+
+
+
+<H2><A NAME="SEC42" HREF="cln.html#TOC42">4.13 Obfuscating operators</A></H2>
+
+<P>
+The modifying C/C++ operators <CODE>+=</CODE>, <CODE>-=</CODE>, <CODE>*=</CODE>, <CODE>/=</CODE>,
+<CODE>&#38;=</CODE>, <CODE>|=</CODE>, <CODE>^=</CODE>, <CODE>&#60;&#60;=</CODE>, <CODE>&#62;&#62;=</CODE>
+are not available by default because their
+use tends to make programs unreadable. It is trivial to get away without
+them. However, if you feel that you absolutely need these operators
+to get happy, then add
+
+<PRE>
+#define WANT_OBFUSCATING_OPERATORS
+</PRE>
+
+<P>
+to the beginning of your source files, before the inclusion of any CLN
+include files. This flag will enable the following operators:
+
+
+<P>
+For the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR>&#38; operator += (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator -= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator *= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator /= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+</DL>
+
+<P>
+For the class <CODE>cl_I</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR>&#38; operator += (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator -= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator *= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator &#38;= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator |= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator ^= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator &#60;&#60;= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+<DT><CODE><VAR>type</VAR>&#38; operator &#62;&#62;= (<VAR>type</VAR>&#38;, const <VAR>type</VAR>&#38;)</CODE>
+<DD>
+</DL>
+
+<P>
+For the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE><VAR>type</VAR>&#38; operator ++ (<VAR>type</VAR>&#38; x)</CODE>
+<DD>
+The prefix operator <CODE>++x</CODE>.
+
+<DT><CODE>void operator ++ (<VAR>type</VAR>&#38; x, int)</CODE>
+<DD>
+The postfix operator <CODE>x++</CODE>.
+
+<DT><CODE><VAR>type</VAR>&#38; operator -- (<VAR>type</VAR>&#38; x)</CODE>
+<DD>
+The prefix operator <CODE>--x</CODE>.
+
+<DT><CODE>void operator -- (<VAR>type</VAR>&#38; x, int)</CODE>
+<DD>
+The postfix operator <CODE>x--</CODE>.
+</DL>
+
+<P>
+Note that by using these obfuscating operators, you wouldn't gain efficiency:
+In CLN <SAMP>`x += y;'</SAMP> is exactly the same as  <SAMP>`x = x+y;'</SAMP>, not more
+efficient.
+
+
+
+
+<H1><A NAME="SEC43" HREF="cln.html#TOC43">5. Input/Output</A></H1>
+
+
+
+<H2><A NAME="SEC44" HREF="cln.html#TOC44">5.1 Internal and printed representation</A></H2>
+
+<P>
+All computations deal with the internal representations of the numbers.
+
+
+<P>
+Every number has an external representation as a sequence of ASCII characters.
+Several external representations may denote the same number, for example,
+"20.0" and "20.000".
+
+
+<P>
+Converting an internal to an external representation is called "printing",
+converting an external to an internal representation is called "reading".
+In CLN, is it always true that conversion of an internal to an external
+representation and then back to an internal representation will yield the
+same internal representation. Symbolically: <CODE>read(print(x)) == x</CODE>.
+This is called "print-read consistency". 
+
+
+<P>
+Different types of numbers have different external representations (case
+is insignificant):
+
+
+<DL COMPACT>
+
+<DT>Integers
+<DD>
+External representation: <VAR>sign</VAR>{<VAR>digit</VAR>}+. The reader also accepts the
+Common Lisp syntaxes <VAR>sign</VAR>{<VAR>digit</VAR>}+<CODE>.</CODE> with a trailing dot
+for decimal integers
+and the <CODE>#<VAR>n</VAR>R</CODE>, <CODE>#b</CODE>, <CODE>#o</CODE>, <CODE>#x</CODE> prefixes.
+
+<DT>Rational numbers
+<DD>
+External representation: <VAR>sign</VAR>{<VAR>digit</VAR>}+<CODE>/</CODE>{<VAR>digit</VAR>}+.
+The <CODE>#<VAR>n</VAR>R</CODE>, <CODE>#b</CODE>, <CODE>#o</CODE>, <CODE>#x</CODE> prefixes are allowed
+here as well.
+
+<DT>Floating-point numbers
+<DD>
+External representation: <VAR>sign</VAR>{<VAR>digit</VAR>}*<VAR>exponent</VAR> or
+<VAR>sign</VAR>{<VAR>digit</VAR>}*<CODE>.</CODE>{<VAR>digit</VAR>}*<VAR>exponent</VAR> or
+<VAR>sign</VAR>{<VAR>digit</VAR>}*<CODE>.</CODE>{<VAR>digit</VAR>}+. A precision specifier
+of the form _<VAR>prec</VAR> may be appended. There must be at least
+one digit in the non-exponent part. The exponent has the syntax
+<VAR>expmarker</VAR> <VAR>expsign</VAR> {<VAR>digit</VAR>}+.
+The exponent marker is
+
+
+<UL>
+<LI>
+
+<SAMP>`s'</SAMP> for short-floats,
+<LI>
+
+<SAMP>`f'</SAMP> for single-floats,
+<LI>
+
+<SAMP>`d'</SAMP> for double-floats,
+<LI>
+
+<SAMP>`L'</SAMP> for long-floats,
+</UL>
+
+or <SAMP>`e'</SAMP>, which denotes a default float format. The precision specifying
+suffix has the syntax _<VAR>prec</VAR> where <VAR>prec</VAR> denotes the number of
+valid mantissa digits (in decimal, excluding leading zeroes), cf. also
+function <SAMP>`cl_float_format'</SAMP>.
+
+<DT>Complex numbers
+<DD>
+External representation:
+
+<UL>
+<LI>
+
+In algebraic notation: <CODE><VAR>realpart</VAR>+<VAR>imagpart</VAR>i</CODE>. Of course,
+if <VAR>imagpart</VAR> is negative, its printed representation begins with
+a <SAMP>`-'</SAMP>, and the <SAMP>`+'</SAMP> between <VAR>realpart</VAR> and <VAR>imagpart</VAR>
+may be omitted. Note that this notation cannot be used when the <VAR>imagpart</VAR>
+is rational and the rational number's base is &#62;18, because the <SAMP>`i'</SAMP>
+is then read as a digit.
+<LI>
+
+In Common Lisp notation: <CODE>#C(<VAR>realpart</VAR> <VAR>imagpart</VAR>)</CODE>.
+</UL>
+
+</DL>
+
+
+
+<H2><A NAME="SEC45" HREF="cln.html#TOC45">5.2 Input functions</A></H2>
+
+<P>
+Including <CODE>&#60;cl_io.h&#62;</CODE> defines a type <CODE>cl_istream</CODE>, which is
+the type of the first argument to all input functions. Unless you build
+and use CLN with the macro CL_IO_STDIO being defined, <CODE>cl_istream</CODE>
+is the same as <CODE>istream&#38;</CODE>.
+
+
+<P>
+The variable
+
+<UL>
+<LI>
+
+<CODE>cl_istream cl_stdin</CODE>
+</UL>
+
+<P>
+contains the standard input stream.
+
+
+<P>
+These are the simple input functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>int freadchar (cl_istream stream)</CODE>
+<DD>
+Reads a character from <CODE>stream</CODE>. Returns <CODE>cl_EOF</CODE> (not a <SAMP>`char'</SAMP>!)
+if the end of stream was encountered or an error occurred.
+
+<DT><CODE>int funreadchar (cl_istream stream, int c)</CODE>
+<DD>
+Puts back <CODE>c</CODE> onto <CODE>stream</CODE>. <CODE>c</CODE> must be the result of the
+last <CODE>freadchar</CODE> operation on <CODE>stream</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines, in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>, the following input function:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_istream operator&#62;&#62; (cl_istream stream, <VAR>type</VAR>&#38; result)</CODE>
+<DD>
+Reads a number from <CODE>stream</CODE> and stores it in the <CODE>result</CODE>.
+</DL>
+
+<P>
+The most flexible input functions, defined in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>,
+are the following:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_N read_complex (cl_istream stream, const cl_read_flags&#38; flags)</CODE>
+<DD>
+<DT><CODE>cl_R read_real (cl_istream stream, const cl_read_flags&#38; flags)</CODE>
+<DD>
+<DT><CODE>cl_F read_float (cl_istream stream, const cl_read_flags&#38; flags)</CODE>
+<DD>
+<DT><CODE>cl_RA read_rational (cl_istream stream, const cl_read_flags&#38; flags)</CODE>
+<DD>
+<DT><CODE>cl_I read_integer (cl_istream stream, const cl_read_flags&#38; flags)</CODE>
+<DD>
+Reads a number from <CODE>stream</CODE>. The <CODE>flags</CODE> are parameters which
+affect the input syntax. Whitespace before the number is silently skipped.
+
+<DT><CODE>cl_N read_complex (const cl_read_flags&#38; flags, const char * string, const char * string_limit, const char * * end_of_parse)</CODE>
+<DD>
+<DT><CODE>cl_R read_real (const cl_read_flags&#38; flags, const char * string, const char * string_limit, const char * * end_of_parse)</CODE>
+<DD>
+<DT><CODE>cl_F read_float (const cl_read_flags&#38; flags, const char * string, const char * string_limit, const char * * end_of_parse)</CODE>
+<DD>
+<DT><CODE>cl_RA read_rational (const cl_read_flags&#38; flags, const char * string, const char * string_limit, const char * * end_of_parse)</CODE>
+<DD>
+<DT><CODE>cl_I read_integer (const cl_read_flags&#38; flags, const char * string, const char * string_limit, const char * * end_of_parse)</CODE>
+<DD>
+Reads a number from a string in memory. The <CODE>flags</CODE> are parameters which
+affect the input syntax. The string starts at <CODE>string</CODE> and ends at
+<CODE>string_limit</CODE> (exclusive limit). <CODE>string_limit</CODE> may also be
+<CODE>NULL</CODE>, denoting the entire string, i.e. equivalent to
+<CODE>string_limit = string + strlen(string)</CODE>. If <CODE>end_of_parse</CODE> is
+<CODE>NULL</CODE>, the string in memory must contain exactly one number and nothing
+more, else a fatal error will be signalled. If <CODE>end_of_parse</CODE>
+is not <CODE>NULL</CODE>, <CODE>*end_of_parse</CODE> will be assigned a pointer past
+the last parsed character (i.e. <CODE>string_limit</CODE> if nothing came after
+the number). Whitespace is not allowed.
+</DL>
+
+<P>
+The structure <CODE>cl_read_flags</CODE> contains the following fields:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_read_syntax_t syntax</CODE>
+<DD>
+The possible results of the read operation. Possible values are
+<CODE>syntax_number</CODE>, <CODE>syntax_real</CODE>, <CODE>syntax_rational</CODE>,
+<CODE>syntax_integer</CODE>, <CODE>syntax_float</CODE>, <CODE>syntax_sfloat</CODE>,
+<CODE>syntax_ffloat</CODE>, <CODE>syntax_dfloat</CODE>, <CODE>syntax_lfloat</CODE>.
+
+<DT><CODE>cl_read_lsyntax_t lsyntax</CODE>
+<DD>
+Specifies the language-dependent syntax variant for the read operation.
+Possible values are
+
+<DL COMPACT>
+
+<DT><CODE>lsyntax_standard</CODE>
+<DD>
+accept standard algebraic notation only, no complex numbers,
+<DT><CODE>lsyntax_algebraic</CODE>
+<DD>
+accept the algebraic notation <CODE><VAR>x</VAR>+<VAR>y</VAR>i</CODE> for complex numbers,
+<DT><CODE>lsyntax_commonlisp</CODE>
+<DD>
+accept the <CODE>#b</CODE>, <CODE>#o</CODE>, <CODE>#x</CODE> syntaxes for binary, octal,
+hexadecimal numbers,
+<CODE>#<VAR>base</VAR>R</CODE> for rational numbers in a given base,
+<CODE>#c(<VAR>realpart</VAR> <VAR>imagpart</VAR>)</CODE> for complex numbers,
+<DT><CODE>lsyntax_all</CODE>
+<DD>
+accept all of these extensions.
+</DL>
+
+<DT><CODE>unsigned int rational_base</CODE>
+<DD>
+The base in which rational numbers are read.
+
+<DT><CODE>cl_float_format_t float_flags.default_float_format</CODE>
+<DD>
+The float format used when reading floats with exponent marker <SAMP>`e'</SAMP>.
+
+<DT><CODE>cl_float_format_t float_flags.default_lfloat_format</CODE>
+<DD>
+The float format used when reading floats with exponent marker <SAMP>`l'</SAMP>.
+
+<DT><CODE>cl_boolean float_flags.mantissa_dependent_float_format</CODE>
+<DD>
+When this flag is true, floats specified with more digits than corresponding
+to the exponent marker they contain, but without <VAR>_nnn</VAR> suffix, will get a
+precision corresponding to their number of significant digits.
+</DL>
+
+
+
+<H2><A NAME="SEC46" HREF="cln.html#TOC46">5.3 Output functions</A></H2>
+
+<P>
+Including <CODE>&#60;cl_io.h&#62;</CODE> defines a type <CODE>cl_ostream</CODE>, which is
+the type of the first argument to all output functions. Unless you build
+and use CLN with the macro CL_IO_STDIO being defined, <CODE>cl_ostream</CODE>
+is the same as <CODE>ostream&#38;</CODE>.
+
+
+<P>
+The variable
+
+<UL>
+<LI>
+
+<CODE>cl_ostream cl_stdout</CODE>
+</UL>
+
+<P>
+contains the standard output stream.
+
+
+<P>
+The variable
+
+<UL>
+<LI>
+
+<CODE>cl_ostream cl_stderr</CODE>
+</UL>
+
+<P>
+contains the standard error output stream.
+
+
+<P>
+These are the simple output functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>void fprintchar (cl_ostream stream, char c)</CODE>
+<DD>
+Prints the character <CODE>x</CODE> literally on the <CODE>stream</CODE>.
+
+<DT><CODE>void fprint (cl_ostream stream, const char * string)</CODE>
+<DD>
+Prints the <CODE>string</CODE> literally on the <CODE>stream</CODE>.
+
+<DT><CODE>void fprintdecimal (cl_ostream stream, int x)</CODE>
+<DD>
+<DT><CODE>void fprintdecimal (cl_ostream stream, const cl_I&#38; x)</CODE>
+<DD>
+Prints the integer <CODE>x</CODE> in decimal on the <CODE>stream</CODE>.
+
+<DT><CODE>void fprintbinary (cl_ostream stream, const cl_I&#38; x)</CODE>
+<DD>
+Prints the integer <CODE>x</CODE> in binary (base 2, without prefix)
+on the <CODE>stream</CODE>.
+
+<DT><CODE>void fprintoctal (cl_ostream stream, const cl_I&#38; x)</CODE>
+<DD>
+Prints the integer <CODE>x</CODE> in octal (base 8, without prefix)
+on the <CODE>stream</CODE>.
+
+<DT><CODE>void fprinthexadecimal (cl_ostream stream, const cl_I&#38; x)</CODE>
+<DD>
+Prints the integer <CODE>x</CODE> in hexadecimal (base 16, without prefix)
+on the <CODE>stream</CODE>.
+</DL>
+
+<P>
+Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
+<CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
+defines, in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>, the following output functions:
+
+
+<DL COMPACT>
+
+<DT><CODE>void fprint (cl_ostream stream, const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ostream operator&#60;&#60; (cl_ostream stream, const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+Prints the number <CODE>x</CODE> on the <CODE>stream</CODE>. The output may depend
+on the global printer settings in the variable <CODE>cl_default_print_flags</CODE>.
+The <CODE>ostream</CODE> flags and settings (flags, width and locale) are
+ignored.
+</DL>
+
+<P>
+The most flexible output function, defined in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>,
+are the following:
+
+<PRE>
+void print_complex  (cl_ostream stream, const cl_print_flags&#38; flags,
+                     const cl_N&#38; z);
+void print_real     (cl_ostream stream, const cl_print_flags&#38; flags,
+                     const cl_R&#38; z);
+void print_float    (cl_ostream stream, const cl_print_flags&#38; flags,
+                     const cl_F&#38; z);
+void print_rational (cl_ostream stream, const cl_print_flags&#38; flags,
+                     const cl_RA&#38; z);
+void print_integer  (cl_ostream stream, const cl_print_flags&#38; flags,
+                     const cl_I&#38; z);
+</PRE>
+
+<P>
+Prints the number <CODE>x</CODE> on the <CODE>stream</CODE>. The <CODE>flags</CODE> are
+parameters which affect the output.
+
+
+<P>
+The structure type <CODE>cl_print_flags</CODE> contains the following fields:
+
+
+<DL COMPACT>
+
+<DT><CODE>unsigned int rational_base</CODE>
+<DD>
+The base in which rational numbers are printed. Default is <CODE>10</CODE>.
+
+<DT><CODE>cl_boolean rational_readably</CODE>
+<DD>
+If this flag is true, rational numbers are printed with radix specifiers in
+Common Lisp syntax (<CODE>#<VAR>n</VAR>R</CODE> or <CODE>#b</CODE> or <CODE>#o</CODE> or <CODE>#x</CODE>
+prefixes, trailing dot). Default is false.
+
+<DT><CODE>cl_boolean float_readably</CODE>
+<DD>
+If this flag is true, type specific exponent markers have precedence over 'E'.
+Default is false.
+
+<DT><CODE>cl_float_format_t default_float_format</CODE>
+<DD>
+Floating point numbers of this format will be printed using the 'E' exponent
+marker. Default is <CODE>cl_float_format_ffloat</CODE>.
+
+<DT><CODE>cl_boolean complex_readably</CODE>
+<DD>
+If this flag is true, complex numbers will be printed using the Common Lisp
+syntax <CODE>#C(<VAR>realpart</VAR> <VAR>imagpart</VAR>)</CODE>. Default is false.
+
+<DT><CODE>cl_string univpoly_varname</CODE>
+<DD>
+Univariate polynomials with no explicit indeterminate name will be printed
+using this variable name. Default is <CODE>"x"</CODE>.
+</DL>
+
+<P>
+The global variable <CODE>cl_default_print_flags</CODE> contains the default values,
+used by the function <CODE>fprint</CODE>,
+
+
+
+
+<H1><A NAME="SEC47" HREF="cln.html#TOC47">6. Rings</A></H1>
+
+<P>
+CLN has a class of abstract rings.
+
+
+
+<PRE>
+                         Ring
+                       cl_ring
+                      &#60;cl_ring.h&#62;
+</PRE>
+
+<P>
+Rings can be compared for equality:
+
+
+<DL COMPACT>
+
+<DT><CODE>bool operator== (const cl_ring&#38;, const cl_ring&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator!= (const cl_ring&#38;, const cl_ring&#38;)</CODE>
+<DD>
+These compare two rings for equality.
+</DL>
+
+<P>
+Given a ring <CODE>R</CODE>, the following members can be used.
+
+
+<DL COMPACT>
+
+<DT><CODE>void R-&#62;fprint (cl_ostream stream, const cl_ring_element&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_boolean R-&#62;equal (const cl_ring_element&#38; x, const cl_ring_element&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;zero ()</CODE>
+<DD>
+<DT><CODE>cl_boolean R-&#62;zerop (const cl_ring_element&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;plus (const cl_ring_element&#38; x, const cl_ring_element&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;minus (const cl_ring_element&#38; x, const cl_ring_element&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;uminus (const cl_ring_element&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;one ()</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;canonhom (const cl_I&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;mul (const cl_ring_element&#38; x, const cl_ring_element&#38; y)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;square (const cl_ring_element&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ring_element R-&#62;expt_pos (const cl_ring_element&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+</DL>
+
+<P>
+The following rings are built-in.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_null_ring cl_0_ring</CODE>
+<DD>
+The null ring, containing only zero.
+
+<DT><CODE>cl_complex_ring cl_C_ring</CODE>
+<DD>
+The ring of complex numbers. This corresponds to the type <CODE>cl_N</CODE>.
+
+<DT><CODE>cl_real_ring cl_R_ring</CODE>
+<DD>
+The ring of real numbers. This corresponds to the type <CODE>cl_R</CODE>.
+
+<DT><CODE>cl_rational_ring cl_RA_ring</CODE>
+<DD>
+The ring of rational numbers. This corresponds to the type <CODE>cl_RA</CODE>.
+
+<DT><CODE>cl_integer_ring cl_I_ring</CODE>
+<DD>
+The ring of integers. This corresponds to the type <CODE>cl_I</CODE>.
+</DL>
+
+<P>
+Type tests can be performed for any of <CODE>cl_C_ring</CODE>, <CODE>cl_R_ring</CODE>,
+<CODE>cl_RA_ring</CODE>, <CODE>cl_I_ring</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_boolean instanceof (const cl_number&#38; x, const cl_number_ring&#38; R)</CODE>
+<DD>
+Tests whether the given number is an element of the number ring R.
+</DL>
+
+
+
+<H1><A NAME="SEC48" HREF="cln.html#TOC48">7. Modular integers</A></H1>
+
+
+
+<H2><A NAME="SEC49" HREF="cln.html#TOC49">7.1 Modular integer rings</A></H2>
+
+<P>
+CLN implements modular integers, i.e. integers modulo a fixed integer N.
+The modulus is explicitly part of every modular integer. CLN doesn't
+allow you to (accidentally) mix elements of different modular rings,
+e.g. <CODE>(3 mod 4) + (2 mod 5)</CODE> will result in a runtime error.
+(Ideally one would imagine a generic data type <CODE>cl_MI(N)</CODE>, but C++
+doesn't have generic types. So one has to live with runtime checks.)
+
+
+<P>
+The class of modular integer rings is
+
+
+
+<PRE>
+                         Ring
+                       cl_ring
+                      &#60;cl_ring.h&#62;
+                          |
+                          |
+                 Modular integer ring
+                    cl_modint_ring
+                   &#60;cl_modinteger.h&#62;
+</PRE>
+
+<P>
+and the class of all modular integers (elements of modular integer rings) is
+
+
+
+<PRE>
+                    Modular integer
+                         cl_MI
+                   &#60;cl_modinteger.h&#62;
+</PRE>
+
+<P>
+Modular integer rings are constructed using the function
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_modint_ring cl_find_modint_ring (const cl_I&#38; N)</CODE>
+<DD>
+This function returns the modular ring <SAMP>`Z/NZ'</SAMP>. It takes care
+of finding out about special cases of <CODE>N</CODE>, like powers of two
+and odd numbers for which Montgomery multiplication will be a win,
+and precomputes any necessary auxiliary data for computing modulo <CODE>N</CODE>.
+There is a cache table of rings, indexed by <CODE>N</CODE> (or, more precisely,
+by <CODE>abs(N)</CODE>). This ensures that the precomputation costs are reduced
+to a minimum.
+</DL>
+
+<P>
+Modular integer rings can be compared for equality:
+
+
+<DL COMPACT>
+
+<DT><CODE>bool operator== (const cl_modint_ring&#38;, const cl_modint_ring&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator!= (const cl_modint_ring&#38;, const cl_modint_ring&#38;)</CODE>
+<DD>
+These compare two modular integer rings for equality. Two different calls
+to <CODE>cl_find_modint_ring</CODE> with the same argument necessarily return the
+same ring because it is memoized in the cache table.
+</DL>
+
+
+
+<H2><A NAME="SEC50" HREF="cln.html#TOC50">7.2 Functions on modular integers</A></H2>
+
+<P>
+Given a modular integer ring <CODE>R</CODE>, the following members can be used.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_I R-&#62;modulus</CODE>
+<DD>
+This is the ring's modulus, normalized to be nonnegative: <CODE>abs(N)</CODE>.
+
+<DT><CODE>cl_MI R-&#62;zero()</CODE>
+<DD>
+This returns <CODE>0 mod N</CODE>.
+
+<DT><CODE>cl_MI R-&#62;one()</CODE>
+<DD>
+This returns <CODE>1 mod N</CODE>.
+
+<DT><CODE>cl_MI R-&#62;canonhom (const cl_I&#38; x)</CODE>
+<DD>
+This returns <CODE>x mod N</CODE>.
+
+<DT><CODE>cl_I R-&#62;retract (const cl_MI&#38; x)</CODE>
+<DD>
+This is a partial inverse function to <CODE>R-&#62;canonhom</CODE>. It returns the
+standard representative (<CODE>&#62;=0</CODE>, <CODE>&#60;N</CODE>) of <CODE>x</CODE>.
+
+<DT><CODE>cl_MI R-&#62;random(cl_random_state&#38; randomstate)</CODE>
+<DD>
+<DT><CODE>cl_MI R-&#62;random()</CODE>
+<DD>
+This returns a random integer modulo <CODE>N</CODE>.
+</DL>
+
+<P>
+The following operations are defined on modular integers.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_modint_ring x.ring ()</CODE>
+<DD>
+Returns the ring to which the modular integer <CODE>x</CODE> belongs.
+
+<DT><CODE>cl_MI operator+ (const cl_MI&#38;, const cl_MI&#38;)</CODE>
+<DD>
+Returns the sum of two modular integers. One of the arguments may also be
+a plain integer.
+
+<DT><CODE>cl_MI operator- (const cl_MI&#38;, const cl_MI&#38;)</CODE>
+<DD>
+Returns the difference of two modular integers. One of the arguments may also be
+a plain integer.
+
+<DT><CODE>cl_MI operator- (const cl_MI&#38;)</CODE>
+<DD>
+Returns the negative of a modular integer.
+
+<DT><CODE>cl_MI operator* (const cl_MI&#38;, const cl_MI&#38;)</CODE>
+<DD>
+Returns the product of two modular integers. One of the arguments may also be
+a plain integer.
+
+<DT><CODE>cl_MI square (const cl_MI&#38;)</CODE>
+<DD>
+Returns the square of a modular integer.
+
+<DT><CODE>cl_MI recip (const cl_MI&#38; x)</CODE>
+<DD>
+Returns the reciprocal <CODE>x^-1</CODE> of a modular integer <CODE>x</CODE>. <CODE>x</CODE>
+must be coprime to the modulus, otherwise an error message is issued.
+
+<DT><CODE>cl_MI div (const cl_MI&#38; x, const cl_MI&#38; y)</CODE>
+<DD>
+Returns the quotient <CODE>x*y^-1</CODE> of two modular integers <CODE>x</CODE>, <CODE>y</CODE>.
+<CODE>y</CODE> must be coprime to the modulus, otherwise an error message is issued.
+
+<DT><CODE>cl_MI expt_pos (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<CODE>y</CODE> must be &#62; 0. Returns <CODE>x^y</CODE>.
+
+<DT><CODE>cl_MI expt (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Returns <CODE>x^y</CODE>. If <CODE>y</CODE> is negative, <CODE>x</CODE> must be coprime to the
+modulus, else an error message is issued.
+
+<DT><CODE>cl_MI operator&#60;&#60; (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Returns <CODE>x*2^y</CODE>.
+
+<DT><CODE>cl_MI operator&#62;&#62; (const cl_MI&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+Returns <CODE>x*2^-y</CODE>. When <CODE>y</CODE> is positive, the modulus must be odd,
+or an error message is issued.
+
+<DT><CODE>bool operator== (const cl_MI&#38;, const cl_MI&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator!= (const cl_MI&#38;, const cl_MI&#38;)</CODE>
+<DD>
+Compares two modular integers, belonging to the same modular integer ring,
+for equality.
+
+<DT><CODE>cl_boolean zerop (const cl_MI&#38; x)</CODE>
+<DD>
+Returns true if <CODE>x</CODE> is <CODE>0 mod N</CODE>.
+</DL>
+
+<P>
+The following output functions are defined (see also the chapter on
+input/output).
+
+
+<DL COMPACT>
+
+<DT><CODE>void fprint (cl_ostream stream, const cl_MI&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ostream operator&#60;&#60; (cl_ostream stream, const cl_MI&#38; x)</CODE>
+<DD>
+Prints the modular integer <CODE>x</CODE> on the <CODE>stream</CODE>. The output may depend
+on the global printer settings in the variable <CODE>cl_default_print_flags</CODE>.
+</DL>
+
+
+
+<H1><A NAME="SEC51" HREF="cln.html#TOC51">8. Symbolic data types</A></H1>
+
+<P>
+CLN implements two symbolic (non-numeric) data types: strings and symbols.
+
+
+
+
+<H2><A NAME="SEC52" HREF="cln.html#TOC52">8.1 Strings</A></H2>
+
+<P>
+The class
+
+
+
+<PRE>
+                      String
+                     cl_string
+                    &#60;cl_string.h&#62;
+</PRE>
+
+<P>
+implements immutable strings.
+
+
+<P>
+Strings are constructed through the following constructors:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_string (const char * s)</CODE>
+<DD>
+Returns an immutable copy of the (zero-terminated) C string <CODE>s</CODE>.
+
+<DT><CODE>cl_string (const char * ptr, unsigned long len)</CODE>
+<DD>
+Returns an immutable copy of the <CODE>len</CODE> characters at
+<CODE>ptr[0]</CODE>, ..., <CODE>ptr[len-1]</CODE>. NUL characters are allowed.
+</DL>
+
+<P>
+The following functions are available on strings:
+
+
+<DL COMPACT>
+
+<DT><CODE>operator =</CODE>
+<DD>
+Assignment from <CODE>cl_string</CODE> and <CODE>const char *</CODE>.
+
+<DT><CODE>s.length()</CODE>
+<DD>
+<DT><CODE>strlen(s)</CODE>
+<DD>
+Returns the length of the string <CODE>s</CODE>.
+
+<DT><CODE>s[i]</CODE>
+<DD>
+Returns the <CODE>i</CODE>th character of the string <CODE>s</CODE>.
+<CODE>i</CODE> must be in the range <CODE>0 &#60;= i &#60; s.length()</CODE>.
+
+<DT><CODE>bool equal (const cl_string&#38; s1, const cl_string&#38; s2)</CODE>
+<DD>
+Compares two strings for equality. One of the arguments may also be a
+plain <CODE>const char *</CODE>.
+</DL>
+
+
+
+<H2><A NAME="SEC53" HREF="cln.html#TOC53">8.2 Symbols</A></H2>
+
+<P>
+Symbols are uniquified strings: all symbols with the same name are shared.
+This means that comparison of two symbols is fast (effectively just a pointer
+comparison), whereas comparison of two strings must in the worst case walk
+both strings until their end.
+Symbols are used, for example, as tags for properties, as names of variables
+in polynomial rings, etc.
+
+
+<P>
+Symbols are constructed through the following constructor:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_symbol (const cl_string&#38; s)</CODE>
+<DD>
+Looks up or creates a new symbol with a given name.
+</DL>
+
+<P>
+The following operations are available on symbols:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_string (const cl_symbol&#38; sym)</CODE>
+<DD>
+Conversion to <CODE>cl_string</CODE>: Returns the string which names the symbol
+<CODE>sym</CODE>.
+
+<DT><CODE>bool equal (const cl_symbol&#38; sym1, const cl_symbol&#38; sym2)</CODE>
+<DD>
+Compares two symbols for equality. This is very fast.
+</DL>
+
+
+
+<H1><A NAME="SEC54" HREF="cln.html#TOC54">9. Univariate polynomials</A></H1>
+
+
+
+<H2><A NAME="SEC55" HREF="cln.html#TOC55">9.1 Univariate polynomial rings</A></H2>
+
+<P>
+CLN implements univariate polynomials (polynomials in one variable) over an
+arbitrary ring. The indeterminate variable may be either unnamed (and will be
+printed according to <CODE>cl_default_print_flags.univpoly_varname</CODE>, which
+defaults to <SAMP>`x'</SAMP>) or carry a given name. The base ring and the
+indeterminate are explicitly part of every polynomial. CLN doesn't allow you to
+(accidentally) mix elements of different polynomial rings, e.g.
+<CODE>(a^2+1) * (b^3-1)</CODE> will result in a runtime error. (Ideally this should
+return a multivariate polynomial, but they are not yet implemented in CLN.)
+
+
+<P>
+The classes of univariate polynomial rings are
+
+
+
+<PRE>
+                           Ring
+                         cl_ring
+                        &#60;cl_ring.h&#62;
+                            |
+                            |
+                 Univariate polynomial ring
+                      cl_univpoly_ring
+                      &#60;cl_univpoly.h&#62;
+                            |
+           +----------------+-------------------+
+           |                |                   |
+ Complex polynomial ring    |    Modular integer polynomial ring
+ cl_univpoly_complex_ring   |        cl_univpoly_modint_ring
+  &#60;cl_univpoly_complex.h&#62;   |        &#60;cl_univpoly_modint.h&#62;
+                            |
+           +----------------+
+           |                |
+   Real polynomial ring     |
+   cl_univpoly_real_ring    |
+    &#60;cl_univpoly_real.h&#62;    |
+                            |
+           +----------------+
+           |                |
+ Rational polynomial ring   |
+ cl_univpoly_rational_ring  |
+  &#60;cl_univpoly_rational.h&#62;  |
+                            |
+           +----------------+
+           |
+ Integer polynomial ring
+ cl_univpoly_integer_ring
+  &#60;cl_univpoly_integer.h&#62;
+</PRE>
+
+<P>
+and the corresponding classes of univariate polynomials are
+
+
+
+<PRE>
+                   Univariate polynomial
+                          cl_UP
+                      &#60;cl_univpoly.h&#62;
+                            |
+           +----------------+-------------------+
+           |                |                   |
+   Complex polynomial       |      Modular integer polynomial
+        cl_UP_N             |                cl_UP_MI
+  &#60;cl_univpoly_complex.h&#62;   |        &#60;cl_univpoly_modint.h&#62;
+                            |
+           +----------------+
+           |                |
+     Real polynomial        |
+        cl_UP_R             |
+    &#60;cl_univpoly_real.h&#62;    |
+                            |
+           +----------------+
+           |                |
+   Rational polynomial      |
+        cl_UP_RA            |
+  &#60;cl_univpoly_rational.h&#62;  |
+                            |
+           +----------------+
+           |
+   Integer polynomial
+        cl_UP_I
+  &#60;cl_univpoly_integer.h&#62;
+</PRE>
+
+<P>
+Univariate polynomial rings are constructed using the functions
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_univpoly_ring cl_find_univpoly_ring (const cl_ring&#38; R)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_ring cl_find_univpoly_ring (const cl_ring&#38; R, const cl_symbol&#38; varname)</CODE>
+<DD>
+This function returns the polynomial ring <SAMP>`R[X]'</SAMP>, unnamed or named.
+<CODE>R</CODE> may be an arbitrary ring. This function takes care of finding out
+about special cases of <CODE>R</CODE>, such as the rings of complex numbers,
+real numbers, rational numbers, integers, or modular integer rings.
+There is a cache table of rings, indexed by <CODE>R</CODE> and <CODE>varname</CODE>.
+This ensures that two calls of this function with the same arguments will
+return the same polynomial ring.
+
+<DT><CODE>cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring&#38; R)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring&#38; R, const cl_symbol&#38; varname)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring&#38; R)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring&#38; R, const cl_symbol&#38; varname)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_rational_ring cl_find_univpoly_ring (const cl_rational_ring&#38; R)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_rational_ring cl_find_univpoly_ring (const cl_rational_ring&#38; R, const cl_symbol&#38; varname)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_integer_ring cl_find_univpoly_ring (const cl_integer_ring&#38; R)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_integer_ring cl_find_univpoly_ring (const cl_integer_ring&#38; R, const cl_symbol&#38; varname)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_modint_ring cl_find_univpoly_ring (const cl_modint_ring&#38; R)</CODE>
+<DD>
+<DT><CODE>cl_univpoly_modint_ring cl_find_univpoly_ring (const cl_modint_ring&#38; R, const cl_symbol&#38; varname)</CODE>
+<DD>
+These functions are equivalent to the general <CODE>cl_find_univpoly_ring</CODE>,
+only the return type is more specific, according to the base ring's type.
+</DL>
+
+
+
+<H2><A NAME="SEC56" HREF="cln.html#TOC56">9.2 Functions on univariate polynomials</A></H2>
+
+<P>
+Given a univariate polynomial ring <CODE>R</CODE>, the following members can be used.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_ring R-&#62;basering()</CODE>
+<DD>
+This returns the base ring, as passed to <SAMP>`cl_find_univpoly_ring'</SAMP>.
+
+<DT><CODE>cl_UP R-&#62;zero()</CODE>
+<DD>
+This returns <CODE>0 in R</CODE>, a polynomial of degree -1.
+
+<DT><CODE>cl_UP R-&#62;one()</CODE>
+<DD>
+This returns <CODE>1 in R</CODE>, a polynomial of degree &#60;= 0.
+
+<DT><CODE>cl_UP R-&#62;canonhom (const cl_I&#38; x)</CODE>
+<DD>
+This returns <CODE>x in R</CODE>, a polynomial of degree &#60;= 0.
+
+<DT><CODE>cl_UP R-&#62;monomial (const cl_ring_element&#38; x, uintL e)</CODE>
+<DD>
+This returns a sparse polynomial: <CODE>x * X^e</CODE>, where <CODE>X</CODE> is the
+indeterminate.
+
+<DT><CODE>cl_UP R-&#62;create (sintL degree)</CODE>
+<DD>
+Creates a new polynomial with a given degree. The zero polynomial has degree
+<CODE>-1</CODE>. After creating the polynomial, you should put in the coefficients,
+using the <CODE>set_coeff</CODE> member function, and then call the <CODE>finalize</CODE>
+member function.
+</DL>
+
+<P>
+The following are the only destructive operations on univariate polynomials.
+
+
+<DL COMPACT>
+
+<DT><CODE>void set_coeff (cl_UP&#38; x, uintL index, const cl_ring_element&#38; y)</CODE>
+<DD>
+This changes the coefficient of <CODE>X^index</CODE> in <CODE>x</CODE> to be <CODE>y</CODE>.
+After changing a polynomial and before applying any "normal" operation on it,
+you should call its <CODE>finalize</CODE> member function.
+
+<DT><CODE>void finalize (cl_UP&#38; x)</CODE>
+<DD>
+This function marks the endpoint of destructive modifications of a polynomial.
+It normalizes the internal representation so that subsequent computations have
+less overhead. Doing normal computations on unnormalized polynomials may
+produce wrong results or crash the program.
+</DL>
+
+<P>
+The following operations are defined on univariate polynomials.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_univpoly_ring x.ring ()</CODE>
+<DD>
+Returns the ring to which the univariate polynomial <CODE>x</CODE> belongs.
+
+<DT><CODE>cl_UP operator+ (const cl_UP&#38;, const cl_UP&#38;)</CODE>
+<DD>
+Returns the sum of two univariate polynomials.
+
+<DT><CODE>cl_UP operator- (const cl_UP&#38;, const cl_UP&#38;)</CODE>
+<DD>
+Returns the difference of two univariate polynomials.
+
+<DT><CODE>cl_UP operator- (const cl_UP&#38;)</CODE>
+<DD>
+Returns the negative of a univariate polynomial.
+
+<DT><CODE>cl_UP operator* (const cl_UP&#38;, const cl_UP&#38;)</CODE>
+<DD>
+Returns the product of two univariate polynomials. One of the arguments may
+also be a plain integer or an element of the base ring.
+
+<DT><CODE>cl_UP square (const cl_UP&#38;)</CODE>
+<DD>
+Returns the square of a univariate polynomial.
+
+<DT><CODE>cl_UP expt_pos (const cl_UP&#38; x, const cl_I&#38; y)</CODE>
+<DD>
+<CODE>y</CODE> must be &#62; 0. Returns <CODE>x^y</CODE>.
+
+<DT><CODE>bool operator== (const cl_UP&#38;, const cl_UP&#38;)</CODE>
+<DD>
+<DT><CODE>bool operator!= (const cl_UP&#38;, const cl_UP&#38;)</CODE>
+<DD>
+Compares two univariate polynomials, belonging to the same univariate
+polynomial ring, for equality.
+
+<DT><CODE>cl_boolean zerop (const cl_UP&#38; x)</CODE>
+<DD>
+Returns true if <CODE>x</CODE> is <CODE>0 in R</CODE>.
+
+<DT><CODE>sintL degree (const cl_UP&#38; x)</CODE>
+<DD>
+Returns the degree of the polynomial. The zero polynomial has degree <CODE>-1</CODE>.
+
+<DT><CODE>cl_ring_element coeff (const cl_UP&#38; x, uintL index)</CODE>
+<DD>
+Returns the coefficient of <CODE>X^index</CODE> in the polynomial <CODE>x</CODE>.
+
+<DT><CODE>cl_ring_element x (const cl_ring_element&#38; y)</CODE>
+<DD>
+Evaluation: If <CODE>x</CODE> is a polynomial and <CODE>y</CODE> belongs to the base ring,
+then <SAMP>`x(y)'</SAMP> returns the value of the substitution of <CODE>y</CODE> into
+<CODE>x</CODE>.
+
+<DT><CODE>cl_UP deriv (const cl_UP&#38; x)</CODE>
+<DD>
+Returns the derivative of the polynomial <CODE>x</CODE> with respect to the
+indeterminate <CODE>X</CODE>.
+</DL>
+
+<P>
+The following output functions are defined (see also the chapter on
+input/output).
+
+
+<DL COMPACT>
+
+<DT><CODE>void fprint (cl_ostream stream, const cl_UP&#38; x)</CODE>
+<DD>
+<DT><CODE>cl_ostream operator&#60;&#60; (cl_ostream stream, const cl_UP&#38; x)</CODE>
+<DD>
+Prints the univariate polynomial <CODE>x</CODE> on the <CODE>stream</CODE>. The output may
+depend on the global printer settings in the variable
+<CODE>cl_default_print_flags</CODE>.
+</DL>
+
+
+
+<H2><A NAME="SEC57" HREF="cln.html#TOC57">9.3 Special polynomials</A></H2>
+
+<P>
+The following functions return special polynomials.
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_UP_I cl_tschebychev (sintL n)</CODE>
+<DD>
+Returns the n-th Tchebychev polynomial (n &#62;= 0).
+
+<DT><CODE>cl_UP_I cl_hermite (sintL n)</CODE>
+<DD>
+Returns the n-th Hermite polynomial (n &#62;= 0).
+
+<DT><CODE>cl_UP_RA cl_legendre (sintL n)</CODE>
+<DD>
+Returns the n-th Legendre polynomial (n &#62;= 0).
+
+<DT><CODE>cl_UP_I cl_laguerre (sintL n)</CODE>
+<DD>
+Returns the n-th Laguerre polynomial (n &#62;= 0).
+</DL>
+
+<P>
+Information how to derive the differential equation satisfied by each
+of these polynomials from their definition can be found in the
+<CODE>doc/polynomial/</CODE> directory.
+
+
+
+
+<H1><A NAME="SEC58" HREF="cln.html#TOC58">10. Internals</A></H1>
+
+
+
+<H2><A NAME="SEC59" HREF="cln.html#TOC59">10.1 Why C++ ?</A></H2>
+
+<P>
+Using C++ as an implementation language provides
+
+
+
+<UL>
+<LI>
+
+Efficiency: It compiles to machine code.
+
+<LI>
+
+Portability: It runs on all platforms supporting a C++ compiler. Because
+of the availability of GNU C++, this includes all currently used 32-bit and
+64-bit platforms, independently of the quality of the vendor's C++ compiler.
+
+<LI>
+
+Type safety: The C++ compilers knows about the number types and complains if,
+for example, you try to assign a float to an integer variable. However,
+a drawback is that C++ doesn't know about generic types, hence a restriction
+like that <CODE>operation+ (const cl_MI&#38;, const cl_MI&#38;)</CODE> requires that both
+arguments belong to the same modular ring cannot be expressed as a compile-time
+information.
+
+<LI>
+
+Algebraic syntax: The elementary operations <CODE>+</CODE>, <CODE>-</CODE>, <CODE>*</CODE>,
+<CODE>=</CODE>, <CODE>==</CODE>, ... can be used in infix notation, which is more
+convenient than Lisp notation <SAMP>`(+ x y)'</SAMP> or C notation <SAMP>`add(x,y,&#38;z)'</SAMP>.
+</UL>
+
+<P>
+With these language features, there is no need for two separate languages,
+one for the implementation of the library and one in which the library's users
+can program. This means that a prototype implementation of an algorithm
+can be integrated into the library immediately after it has been tested and
+debugged. No need to rewrite it in a low-level language after having prototyped
+in a high-level language.
+
+
+
+
+<H2><A NAME="SEC60" HREF="cln.html#TOC60">10.2 Memory efficiency</A></H2>
+
+<P>
+In order to save memory allocations, CLN implements:
+
+
+
+<UL>
+<LI>
+
+Object sharing: An operation like <CODE>x+0</CODE> returns <CODE>x</CODE> without copying
+it.
+<LI>
+
+Garbage collection: A reference counting mechanism makes sure that any
+number object's storage is freed immediately when the last reference to the
+object is gone.
+<LI>
+
+Small integers are represented as immediate values instead of pointers
+to heap allocated storage. This means that integers <CODE>&#62; -2^29</CODE>,
+<CODE>&#60; 2^29</CODE> don't consume heap memory, unless they were explicitly allocated
+on the heap.
+</UL>
+
+
+
+<H2><A NAME="SEC61" HREF="cln.html#TOC61">10.3 Speed efficiency</A></H2>
+
+<P>
+Speed efficiency is obtained by the combination of the following tricks
+and algorithms:
+
+
+
+<UL>
+<LI>
+
+Small integers, being represented as immediate values, don't require
+memory access, just a couple of instructions for each elementary operation.
+<LI>
+
+The kernel of CLN has been written in assembly language for some CPUs
+(<CODE>i386</CODE>, <CODE>m68k</CODE>, <CODE>sparc</CODE>, <CODE>mips</CODE>, <CODE>arm</CODE>).
+<LI>
+
+On all CPUs, CLN uses the superefficient low-level routines from GNU
+GMP version 2.
+<LI>
+
+For large numbers, CLN uses, instead of the standard <CODE>O(N^2)</CODE>
+algorithm, the Karatsuba multiplication, which is an
+<CODE>O(N^1.6)</CODE>
+algorithm.
+<LI>
+
+For very large numbers (more than 12000 decimal digits), CLN uses
+Schönhage-Strassen
+multiplication, which is an asymptotically
+optimal multiplication algorithm.
+<LI>
+
+These fast multiplication algorithms also give improvements in the speed
+of division and radix conversion.
+</UL>
+
+
+
+<H2><A NAME="SEC62" HREF="cln.html#TOC62">10.4 Garbage collection</A></H2>
+
+<P>
+All the number classes are reference count classes: They only contain a pointer
+to an object in the heap. Upon construction, assignment and destruction of
+number objects, only the objects' reference count are manipulated.
+
+
+<P>
+Memory occupied by number objects are automatically reclaimed as soon as
+their reference count drops to zero.
+
+
+<P>
+For number rings, another strategy is implemented: There is a cache of,
+for example, the modular integer rings. A modular integer ring is destroyed
+only if its reference count dropped to zero and the cache is about to be
+resized. The effect of this strategy is that recently used rings remain
+cached, whereas undue memory consumption through cached rings is avoided.
+
+
+
+
+<H1><A NAME="SEC63" HREF="cln.html#TOC63">11. Using the library</A></H1>
+
+<P>
+For the following discussion, we will assume that you have installed
+the CLN source in <CODE>$CLN_DIR</CODE> and built it in <CODE>$CLN_TARGETDIR</CODE>.
+For example, for me it's <CODE>CLN_DIR="$HOME/cln"</CODE> and
+<CODE>CLN_TARGETDIR="$HOME/cln/linuxelf"</CODE>. You might define these as
+environment variables, or directly substitute the appropriate values.
+
+
+
+
+<H2><A NAME="SEC64" HREF="cln.html#TOC64">11.1 Compiler options</A></H2>
+
+<P>
+Until you have installed CLN in a public place, the following options are
+needed:
+
+
+<P>
+When you compile CLN application code, add the flags
+
+<PRE>
+   -I$CLN_DIR/include -I$CLN_TARGETDIR/include
+</PRE>
+
+<P>
+to the C++ compiler's command line (<CODE>make</CODE> variable CFLAGS or CXXFLAGS).
+When you link CLN application code to form an executable, add the flags
+
+<PRE>
+   $CLN_TARGETDIR/src/libcln.a
+</PRE>
+
+<P>
+to the C/C++ compiler's command line (<CODE>make</CODE> variable LIBS).
+
+
+<P>
+If you did a <CODE>make install</CODE>, the include files are installed in a
+public directory (normally <CODE>/usr/local/include</CODE>), hence you don't
+need special flags for compiling. The library has been installed to a
+public directory as well (normally <CODE>/usr/local/lib</CODE>), hence when
+linking a CLN application it is sufficient to give the flag <CODE>-lcln</CODE>.
+
+
+
+
+<H2><A NAME="SEC65" HREF="cln.html#TOC65">11.2 Include files</A></H2>
+
+<P>
+Here is a summary of the include files and their contents.
+
+
+<DL COMPACT>
+
+<DT><CODE>&#60;cl_object.h&#62;</CODE>
+<DD>
+General definitions, reference counting, garbage collection.
+<DT><CODE>&#60;cl_number.h&#62;</CODE>
+<DD>
+The class cl_number.
+<DT><CODE>&#60;cl_complex.h&#62;</CODE>
+<DD>
+Functions for class cl_N, the complex numbers.
+<DT><CODE>&#60;cl_real.h&#62;</CODE>
+<DD>
+Functions for class cl_R, the real numbers.
+<DT><CODE>&#60;cl_float.h&#62;</CODE>
+<DD>
+Functions for class cl_F, the floats.
+<DT><CODE>&#60;cl_sfloat.h&#62;</CODE>
+<DD>
+Functions for class cl_SF, the short-floats.
+<DT><CODE>&#60;cl_ffloat.h&#62;</CODE>
+<DD>
+Functions for class cl_FF, the single-floats.
+<DT><CODE>&#60;cl_dfloat.h&#62;</CODE>
+<DD>
+Functions for class cl_DF, the double-floats.
+<DT><CODE>&#60;cl_lfloat.h&#62;</CODE>
+<DD>
+Functions for class cl_LF, the long-floats.
+<DT><CODE>&#60;cl_rational.h&#62;</CODE>
+<DD>
+Functions for class cl_RA, the rational numbers.
+<DT><CODE>&#60;cl_integer.h&#62;</CODE>
+<DD>
+Functions for class cl_I, the integers.
+<DT><CODE>&#60;cl_io.h&#62;</CODE>
+<DD>
+Input/Output.
+<DT><CODE>&#60;cl_complex_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_N, the complex numbers.
+<DT><CODE>&#60;cl_real_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_R, the real numbers.
+<DT><CODE>&#60;cl_float_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_F, the floats.
+<DT><CODE>&#60;cl_sfloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_SF, the short-floats.
+<DT><CODE>&#60;cl_ffloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_FF, the single-floats.
+<DT><CODE>&#60;cl_dfloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_DF, the double-floats.
+<DT><CODE>&#60;cl_lfloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_LF, the long-floats.
+<DT><CODE>&#60;cl_rational_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_RA, the rational numbers.
+<DT><CODE>&#60;cl_integer_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_I, the integers.
+<DT><CODE>&#60;cl_input.h&#62;</CODE>
+<DD>
+Flags for customizing input operations.
+<DT><CODE>&#60;cl_output.h&#62;</CODE>
+<DD>
+Flags for customizing output operations.
+<DT><CODE>&#60;cl_malloc.h&#62;</CODE>
+<DD>
+<CODE>cl_malloc_hook</CODE>, <CODE>cl_free_hook</CODE>.
+<DT><CODE>&#60;cl_abort.h&#62;</CODE>
+<DD>
+<CODE>cl_abort</CODE>.
+<DT><CODE>&#60;cl_condition.h&#62;</CODE>
+<DD>
+Conditions/exceptions.
+<DT><CODE>&#60;cl_string.h&#62;</CODE>
+<DD>
+Strings.
+<DT><CODE>&#60;cl_symbol.h&#62;</CODE>
+<DD>
+Symbols.
+<DT><CODE>&#60;cl_proplist.h&#62;</CODE>
+<DD>
+Property lists.
+<DT><CODE>&#60;cl_ring.h&#62;</CODE>
+<DD>
+General rings.
+<DT><CODE>&#60;cl_null_ring.h&#62;</CODE>
+<DD>
+The null ring.
+<DT><CODE>&#60;cl_complex_ring.h&#62;</CODE>
+<DD>
+The ring of complex numbers.
+<DT><CODE>&#60;cl_real_ring.h&#62;</CODE>
+<DD>
+The ring of real numbers.
+<DT><CODE>&#60;cl_rational_ring.h&#62;</CODE>
+<DD>
+The ring of rational numbers.
+<DT><CODE>&#60;cl_integer_ring.h&#62;</CODE>
+<DD>
+The ring of integers.
+<DT><CODE>&#60;cl_numtheory.h&#62;</CODE>
+<DD>
+Number threory functions.
+<DT><CODE>&#60;cl_modinteger.h&#62;</CODE>
+<DD>
+Modular integers.
+<DT><CODE>&#60;cl_V.h&#62;</CODE>
+<DD>
+Vectors.
+<DT><CODE>&#60;cl_GV.h&#62;</CODE>
+<DD>
+General vectors.
+<DT><CODE>&#60;cl_GV_number.h&#62;</CODE>
+<DD>
+General vectors over cl_number.
+<DT><CODE>&#60;cl_GV_complex.h&#62;</CODE>
+<DD>
+General vectors over cl_N.
+<DT><CODE>&#60;cl_GV_real.h&#62;</CODE>
+<DD>
+General vectors over cl_R.
+<DT><CODE>&#60;cl_GV_rational.h&#62;</CODE>
+<DD>
+General vectors over cl_RA.
+<DT><CODE>&#60;cl_GV_integer.h&#62;</CODE>
+<DD>
+General vectors over cl_I.
+<DT><CODE>&#60;cl_GV_modinteger.h&#62;</CODE>
+<DD>
+General vectors of modular integers.
+<DT><CODE>&#60;cl_SV.h&#62;</CODE>
+<DD>
+Simple vectors.
+<DT><CODE>&#60;cl_SV_number.h&#62;</CODE>
+<DD>
+Simple vectors over cl_number.
+<DT><CODE>&#60;cl_SV_complex.h&#62;</CODE>
+<DD>
+Simple vectors over cl_N.
+<DT><CODE>&#60;cl_SV_real.h&#62;</CODE>
+<DD>
+Simple vectors over cl_R.
+<DT><CODE>&#60;cl_SV_rational.h&#62;</CODE>
+<DD>
+Simple vectors over cl_RA.
+<DT><CODE>&#60;cl_SV_integer.h&#62;</CODE>
+<DD>
+Simple vectors over cl_I.
+<DT><CODE>&#60;cl_SV_ringelt.h&#62;</CODE>
+<DD>
+Simple vectors of general ring elements.
+<DT><CODE>&#60;cl_univpoly.h&#62;</CODE>
+<DD>
+Univariate polynomials.
+<DT><CODE>&#60;cl_univpoly_integer.h&#62;</CODE>
+<DD>
+Univariate polynomials over the integers.
+<DT><CODE>&#60;cl_univpoly_rational.h&#62;</CODE>
+<DD>
+Univariate polynomials over the rational numbers.
+<DT><CODE>&#60;cl_univpoly_real.h&#62;</CODE>
+<DD>
+Univariate polynomials over the real numbers.
+<DT><CODE>&#60;cl_univpoly_complex.h&#62;</CODE>
+<DD>
+Univariate polynomials over the complex numbers.
+<DT><CODE>&#60;cl_univpoly_modint.h&#62;</CODE>
+<DD>
+Univariate polynomials over modular integer rings.
+<DT><CODE>&#60;cl_timing.h&#62;</CODE>
+<DD>
+Timing facilities.
+<DT><CODE>&#60;cln.h&#62;</CODE>
+<DD>
+Includes all of the above.
+</DL>
+
+
+
+<H2><A NAME="SEC66" HREF="cln.html#TOC66">11.3 An Example</A></H2>
+
+<P>
+A function which computes the nth Fibonacci number can be written as follows.
+
+
+
+<PRE>
+#include &#60;cl_integer.h&#62;
+#include &#60;cl_real.h&#62;
+
+// Returns F_n, computed as the nearest integer to
+// ((1+sqrt(5))/2)^n/sqrt(5). Assume n&#62;=0.
+const cl_I fibonacci (int n)
+{
+        // Need a precision of ((1+sqrt(5))/2)^-n.
+        cl_float_format_t prec = cl_float_format((int)(0.208987641*n+5));
+        cl_R sqrt5 = sqrt(cl_float(5,prec));
+        cl_R phi = (1+sqrt5)/2;
+        return round1( expt(phi,n)/sqrt5 );
+}
+</PRE>
+
+<P>
+Let's explain what is going on in detail.
+
+
+<P>
+The include file <CODE>&#60;cl_integer.h&#62;</CODE> is necessary because the type
+<CODE>cl_I</CODE> is used in the function, and the include file <CODE>&#60;cl_real.h&#62;</CODE>
+is needed for the type <CODE>cl_R</CODE> and the floating point number functions.
+The order of the include files does not matter.
+
+
+<P>
+Then comes the function declaration. The argument is an <CODE>int</CODE>, the
+result an integer. The return type is defined as <SAMP>`const cl_I'</SAMP>, not
+simply <SAMP>`cl_I'</SAMP>, because that allows the compiler to detect typos like
+<SAMP>`fibonacci(n) = 100'</SAMP>. It would be possible to declare the return
+type as <CODE>const cl_R</CODE> (real number) or even <CODE>const cl_N</CODE> (complex
+number). We use the most specialized possible return type because functions
+which call <SAMP>`fibonacci'</SAMP> will be able to profit from the compiler's type
+analysis: Adding two integers is slightly more efficient than adding the
+same objects declared as complex numbers, because it needs less type
+dispatch. Also, when linking to CLN as a non-shared library, this minimizes
+the size of the resulting executable program.
+
+
+<P>
+The result will be computed as expt(phi,n)/sqrt(5), rounded to the nearest
+integer. In order to get a correct result, the absolute error should be less
+than 1/2, i.e. the relative error should be less than sqrt(5)/(2*expt(phi,n)).
+To this end, the first line computes a floating point precision for sqrt(5)
+and phi.
+
+
+<P>
+Then sqrt(5) is computed by first converting the integer 5 to a floating point
+number and than taking the square root. The converse, first taking the square
+root of 5, and then converting to the desired precision, would not work in
+CLN: The square root would be computed to a default precision (normally
+single-float precision), and the following conversion could not help about
+the lacking accuracy. This is because CLN is not a symbolic computer algebra
+system and does not represent sqrt(5) in a non-numeric way.
+
+
+<P>
+The type <CODE>cl_R</CODE> for sqrt5 and, in the following line, phi is the only
+possible choice. You cannot write <CODE>cl_F</CODE> because the C++ compiler can
+only infer that <CODE>cl_float(5,prec)</CODE> is a real number. You cannot write
+<CODE>cl_N</CODE> because a <SAMP>`round1'</SAMP> does not exist for general complex
+numbers.
+
+
+<P>
+When the function returns, all the local variables in the function are
+automatically reclaimed (garbage collected). Only the result survives and
+gets passed to the caller.
+
+
+
+
+<H2><A NAME="SEC67" HREF="cln.html#TOC67">11.4 Debugging support</A></H2>
+
+<P>
+When debugging a CLN application with GNU <CODE>gdb</CODE>, two facilities are
+available from the library:
+
+
+
+<UL>
+<LI>The library does type checks, range checks, consistency checks at
+
+many places. When one of these fails, the function <CODE>cl_abort()</CODE> is
+called. Its default implementation is to perform an <CODE>exit(1)</CODE>, so
+you won't have a core dump. But for debugging, it is best to set a
+breakpoint at this function:
+
+<PRE>
+(gdb) break cl_abort
+</PRE>
+
+When this breakpoint is hit, look at the stack's backtrace:
+
+<PRE>
+(gdb) where
+</PRE>
+
+<LI>The debugger's normal <CODE>print</CODE> command doesn't know about
+
+CLN's types and therefore prints mostly useless hexadecimal addresses.
+CLN offers a function <CODE>cl_print</CODE>, callable from the debugger,
+for printing number objects. In order to get this function, you have
+to define the macro <SAMP>`CL_DEBUG'</SAMP> and then include all the header files
+for which you want <CODE>cl_print</CODE> debugging support. For example:
+
+<PRE>
+#define CL_DEBUG
+#include &#60;cl_string.h&#62;
+</PRE>
+
+Now, if you have in your program a variable <CODE>cl_string s</CODE>, and
+inspect it under <CODE>gdb</CODE>, the output may look like this:
+
+<PRE>
+(gdb) print s
+$7 = {&#60;cl_gcpointer&#62; = { = {pointer = 0x8055b60, heappointer = 0x8055b60,
+  word = 134568800}}, }
+(gdb) call cl_print(s)
+(cl_string) ""
+$8 = 134568800
+</PRE>
+
+Note that the output of <CODE>cl_print</CODE> goes to the program's error output,
+not to gdb's standard output.
+
+Note, however, that the above facility does not work with all CLN types,
+only with number objects and similar. Therefore CLN offers a member function
+<CODE>debug_print()</CODE> on all CLN types. The same macro <SAMP>`CL_DEBUG'</SAMP>
+is needed for this member function to be implemented. Under <CODE>gdb</CODE>,
+you call it like this:
+
+<PRE>
+(gdb) print s
+$7 = {&#60;cl_gcpointer&#62; = { = {pointer = 0x8055b60, heappointer = 0x8055b60,
+  word = 134568800}}, }
+(gdb) call s.debug_print()
+(cl_string) ""
+(gdb) define cprint
+&#62;call ($1).debug_print()
+&#62;end
+(gdb) cprint s
+(cl_string) ""
+</PRE>
+
+Unfortunately, this feature does not seem to work under all circumstances.
+</UL>
+
+
+
+<H1><A NAME="SEC68" HREF="cln.html#TOC68">12. Customizing</A></H1>
+
+
+
+<H2><A NAME="SEC69" HREF="cln.html#TOC69">12.1 Error handling</A></H2>
+
+<P>
+When a fatal error occurs, an error message is output to the standard error
+output stream, and the function <CODE>cl_abort</CODE> is called. The default
+version of this function (provided in the library) terminates the application.
+To catch such a fatal error, you need to define the function <CODE>cl_abort</CODE>
+yourself, with the prototype
+
+<PRE>
+#include &#60;cl_abort.h&#62;
+void cl_abort (void);
+</PRE>
+
+<P>
+This function must not return control to its caller.
+
+
+
+
+<H2><A NAME="SEC70" HREF="cln.html#TOC70">12.2 Floating-point underflow</A></H2>
+
+<P>
+Floating point underflow denotes the situation when a floating-point number
+is to be created which is so close to <CODE>0</CODE> that its exponent is too
+low to be represented internally. By default, this causes a fatal error.
+If you set the global variable
+
+<PRE>
+cl_boolean cl_inhibit_floating_point_underflow
+</PRE>
+
+<P>
+to <CODE>cl_true</CODE>, the error will be inhibited, and a floating-point zero
+will be generated instead.
+The default value of <CODE>cl_inhibit_floating_point_underflow</CODE> is
+<CODE>cl_false</CODE>.
+
+
+
+
+<H2><A NAME="SEC71" HREF="cln.html#TOC71">12.3 Customizing I/O</A></H2>
+
+<P>
+The output of the function <CODE>fprint</CODE> may be customized by changing the
+value of the global variable <CODE>cl_default_print_flags</CODE>.
+
+
+
+
+<H2><A NAME="SEC72" HREF="cln.html#TOC72">12.4 Customizing the memory allocator</A></H2>
+
+<P>
+Every memory allocation of CLN is done through the function pointer
+<CODE>cl_malloc_hook</CODE>. Freeing of this memory is done through the function
+pointer <CODE>cl_free_hook</CODE>. The default versions of these functions,
+provided in the library, call <CODE>malloc</CODE> and <CODE>free</CODE> and check
+the <CODE>malloc</CODE> result against <CODE>NULL</CODE>.
+If you want to provide another memory allocator, you need to define
+the variables <CODE>cl_malloc_hook</CODE> and <CODE>cl_free_hook</CODE> yourself,
+like this:
+
+<PRE>
+#include &#60;cl_malloc.h&#62;
+void* (*cl_malloc_hook) (size_t size) = ...;
+void (*cl_free_hook) (void* ptr)      = ...;
+</PRE>
+
+<P>
+The <CODE>cl_malloc_hook</CODE> function must not return a <CODE>NULL</CODE> pointer.
+
+
+<P>
+It is not possible to change the memory allocator at runtime, because
+it is already called at program startup by the constructors of some
+global variables.
+
+
+
+
+<H1><A NAME="SEC73" HREF="cln.html#TOC73">Index</A></H1>
+
+<P>
+Jump to:
+<P>
+
+
+<P><HR><P>
+This document was generated on 14 January 2000 using
+<A HREF="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>&nbsp;1.56k.
+</BODY>
+</HTML>

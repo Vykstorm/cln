@@ -1,0 +1,4 @@
+# This file contains additional flags for the main Makefile.
+
+include $(srcdir)/float/Makeflags
+SUBDIR_INCLUDES += -I$(srcdir)/rational -I$(srcdir)/integer -I$(srcdir)/base/string

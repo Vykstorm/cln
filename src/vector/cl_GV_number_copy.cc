@@ -1,0 +1,19 @@
+// copy().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#define CL_GV_NO_RANGECHECKS
+#include "cl_GV_number.h"
+
+
+// Implementation.
+
+const cl_GV_number copy (const cl_GV_number& v)
+{
+	var uintL len = v.length();
+	var cl_GV_number w = cl_GV_number(len);
+	cl_GV_number::copy_elements(v,0,w,0,len);
+	return w;
+}

@@ -1,0 +1,111 @@
+# Makefile for cln/examples
+# This is only needed while CLN has not been installed in a public place on
+# your system (such as /usr/local/include and /usr/local/lib). Once CLN is
+# installed, a simple C++ compiler command suffices.
+
+#### Start of system configuration section. ####
+
+# Directories used by "make":
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+
+# Programs used by "make":
+# C compiler
+CC = @CC@
+CFLAGS = @CFLAGS@
+CPP = @CPP@
+# C++ compiler
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+CXXCPP = @CXXCPP@
+INCLUDES = -I../include -I$(top_srcdir)/include -I$(srcdir)
+CPPFLAGS += $(INCLUDES)
+LIBTOOL = @LIBTOOL@
+LIBTOOL_LINK = $(LIBTOOL) --mode=link
+MV = mv
+LN = ln
+RM = rm -f
+@SET_MAKE@
+
+#### End of system configuration section. ####
+
+SHELL = /bin/sh
+
+# Needed by $(LIBTOOL).
+top_builddir = ..
+
+VPATH = $(srcdir)
+
+FILES_CC := $(notdir $(wildcard $(srcdir)/*.cc))
+FILES_CC := $(filter-out %.i.cc, $(FILES_CC))
+
+FILES_I_CC := $(patsubst %.cc,%.i.cc,$(FILES_CC))
+
+FILES_S := $(patsubst %.cc,%.s,$(FILES_CC))
+
+FILES_O := $(patsubst %.cc,%.o,$(FILES_CC))
+
+OBJECTS = $(FILES_O)
+
+LIBS = ../src/libcln.la -lm
+LIBDEPS = ../src/libcln.la
+
+PROGRAMS = contfrac e fibonacci legendre lucaslehmer nextprime perfnum
+MODULES_contfrac = contfrac
+MODULES_e = e
+MODULES_fibonacci = fibonacci
+MODULES_legendre = legendre
+MODULES_lucaslehmer = lucaslehmer
+MODULES_nextprime = nextprime
+MODULES_perfnum = perfnum
+
+all : contfrac e fibonacci legendre lucaslehmer nextprime perfnum
+
+%.s : %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+
+%.s : %.cc
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+
+%.o : %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+%.o : %.cc
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+
+%.i : %.c
+	$(CPP) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+
+%.i.cc : %.cc
+	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+
+contfrac : $(patsubst %,%.o,$(MODULES_contfrac))
+e : $(patsubst %,%.o,$(MODULES_e))
+fibonacci : $(patsubst %,%.o,$(MODULES_fibonacci))
+legendre : $(patsubst %,%.o,$(MODULES_legendre))
+lucaslehmer : $(patsubst %,%.o,$(MODULES_lucaslehmer))
+nextprime : $(patsubst %,%.o,$(MODULES_nextprime))
+perfnum : $(patsubst %,%.o,$(MODULES_perfnum))
+$(PROGRAMS) : % : $(LIBDEPS)
+	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LIBS) -o $@
+
+
+install : all
+
+installdirs :
+
+uninstall :
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.s *.o *.a $(PROGRAMS) a.out core
+
+distclean : clean
+	$(RM) config.status config.log config.cache Makefile
+
+maintainer-clean : distclean
+
+force :

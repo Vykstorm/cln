@@ -1,0 +1,27 @@
+// mod().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_real.h"
+
+
+// Implementation.
+
+#include "cl_R.h"
+#include "cl_integer.h"
+
+const cl_R mod (const cl_R& x, const cl_R& y)
+{
+// Methode:
+// Beides Integers -> mod(x,y).
+// Sonst: floor2(x/y) -> (q,r). Liefere x-y*q=y*r.
+	if (integerp(x))
+		if (integerp(y)) {
+			DeclareType(cl_I,x);
+			DeclareType(cl_I,y);
+			return mod(x,y);
+		}
+	return y * floor2(x/y).remainder;
+}

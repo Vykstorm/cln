@@ -1,0 +1,29 @@
+// cl_LF_RA_div().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_LF.h"
+
+
+// Implementation.
+
+#include "cl_lfloat.h"
+#include "cl_rational.h"
+#include "cl_RA.h"
+
+const cl_LF cl_LF_RA_div (const cl_LF& x, const cl_RA& y)
+{
+// Method:
+// Write y = u/v. Return (x*v)/u.
+	if (integerp(y)) {
+		DeclareType(cl_I,y);
+		return cl_LF_I_div(x,y);
+	} else {
+		DeclareType(cl_RT,y);
+		var const cl_I& u = TheRatio(y)->numerator; // u /= 0
+		var const cl_I& v = TheRatio(y)->denominator; // v /= 0
+		return cl_LF_I_div(The(cl_LF)(cl_LF_I_mul(x,v)),u);
+	}
+}

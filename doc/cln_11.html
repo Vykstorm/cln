@@ -1,0 +1,413 @@
+<HTML>
+<HEAD>
+<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+
+<TITLE>CLN, a Class Library for Numbers - 11. Using the library</TITLE>
+</HEAD>
+<BODY>
+Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_10.html">previous</A>, <A HREF="cln_12.html">next</A>, <A HREF="cln_13.html">last</A> section, <A HREF="cln_toc.html">table of contents</A>.
+<P><HR><P>
+
+
+<H1><A NAME="SEC63" HREF="cln_toc.html#TOC63">11. Using the library</A></H1>
+
+<P>
+For the following discussion, we will assume that you have installed
+the CLN source in <CODE>$CLN_DIR</CODE> and built it in <CODE>$CLN_TARGETDIR</CODE>.
+For example, for me it's <CODE>CLN_DIR="$HOME/cln"</CODE> and
+<CODE>CLN_TARGETDIR="$HOME/cln/linuxelf"</CODE>. You might define these as
+environment variables, or directly substitute the appropriate values.
+
+
+
+
+<H2><A NAME="SEC64" HREF="cln_toc.html#TOC64">11.1 Compiler options</A></H2>
+
+<P>
+Until you have installed CLN in a public place, the following options are
+needed:
+
+
+<P>
+When you compile CLN application code, add the flags
+
+<PRE>
+   -I$CLN_DIR/include -I$CLN_TARGETDIR/include
+</PRE>
+
+<P>
+to the C++ compiler's command line (<CODE>make</CODE> variable CFLAGS or CXXFLAGS).
+When you link CLN application code to form an executable, add the flags
+
+<PRE>
+   $CLN_TARGETDIR/src/libcln.a
+</PRE>
+
+<P>
+to the C/C++ compiler's command line (<CODE>make</CODE> variable LIBS).
+
+
+<P>
+If you did a <CODE>make install</CODE>, the include files are installed in a
+public directory (normally <CODE>/usr/local/include</CODE>), hence you don't
+need special flags for compiling. The library has been installed to a
+public directory as well (normally <CODE>/usr/local/lib</CODE>), hence when
+linking a CLN application it is sufficient to give the flag <CODE>-lcln</CODE>.
+
+
+
+
+<H2><A NAME="SEC65" HREF="cln_toc.html#TOC65">11.2 Include files</A></H2>
+
+<P>
+Here is a summary of the include files and their contents.
+
+
+<DL COMPACT>
+
+<DT><CODE>&#60;cl_object.h&#62;</CODE>
+<DD>
+General definitions, reference counting, garbage collection.
+<DT><CODE>&#60;cl_number.h&#62;</CODE>
+<DD>
+The class cl_number.
+<DT><CODE>&#60;cl_complex.h&#62;</CODE>
+<DD>
+Functions for class cl_N, the complex numbers.
+<DT><CODE>&#60;cl_real.h&#62;</CODE>
+<DD>
+Functions for class cl_R, the real numbers.
+<DT><CODE>&#60;cl_float.h&#62;</CODE>
+<DD>
+Functions for class cl_F, the floats.
+<DT><CODE>&#60;cl_sfloat.h&#62;</CODE>
+<DD>
+Functions for class cl_SF, the short-floats.
+<DT><CODE>&#60;cl_ffloat.h&#62;</CODE>
+<DD>
+Functions for class cl_FF, the single-floats.
+<DT><CODE>&#60;cl_dfloat.h&#62;</CODE>
+<DD>
+Functions for class cl_DF, the double-floats.
+<DT><CODE>&#60;cl_lfloat.h&#62;</CODE>
+<DD>
+Functions for class cl_LF, the long-floats.
+<DT><CODE>&#60;cl_rational.h&#62;</CODE>
+<DD>
+Functions for class cl_RA, the rational numbers.
+<DT><CODE>&#60;cl_integer.h&#62;</CODE>
+<DD>
+Functions for class cl_I, the integers.
+<DT><CODE>&#60;cl_io.h&#62;</CODE>
+<DD>
+Input/Output.
+<DT><CODE>&#60;cl_complex_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_N, the complex numbers.
+<DT><CODE>&#60;cl_real_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_R, the real numbers.
+<DT><CODE>&#60;cl_float_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_F, the floats.
+<DT><CODE>&#60;cl_sfloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_SF, the short-floats.
+<DT><CODE>&#60;cl_ffloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_FF, the single-floats.
+<DT><CODE>&#60;cl_dfloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_DF, the double-floats.
+<DT><CODE>&#60;cl_lfloat_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_LF, the long-floats.
+<DT><CODE>&#60;cl_rational_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_RA, the rational numbers.
+<DT><CODE>&#60;cl_integer_io.h&#62;</CODE>
+<DD>
+Input/Output for class cl_I, the integers.
+<DT><CODE>&#60;cl_input.h&#62;</CODE>
+<DD>
+Flags for customizing input operations.
+<DT><CODE>&#60;cl_output.h&#62;</CODE>
+<DD>
+Flags for customizing output operations.
+<DT><CODE>&#60;cl_malloc.h&#62;</CODE>
+<DD>
+<CODE>cl_malloc_hook</CODE>, <CODE>cl_free_hook</CODE>.
+<DT><CODE>&#60;cl_abort.h&#62;</CODE>
+<DD>
+<CODE>cl_abort</CODE>.
+<DT><CODE>&#60;cl_condition.h&#62;</CODE>
+<DD>
+Conditions/exceptions.
+<DT><CODE>&#60;cl_string.h&#62;</CODE>
+<DD>
+Strings.
+<DT><CODE>&#60;cl_symbol.h&#62;</CODE>
+<DD>
+Symbols.
+<DT><CODE>&#60;cl_proplist.h&#62;</CODE>
+<DD>
+Property lists.
+<DT><CODE>&#60;cl_ring.h&#62;</CODE>
+<DD>
+General rings.
+<DT><CODE>&#60;cl_null_ring.h&#62;</CODE>
+<DD>
+The null ring.
+<DT><CODE>&#60;cl_complex_ring.h&#62;</CODE>
+<DD>
+The ring of complex numbers.
+<DT><CODE>&#60;cl_real_ring.h&#62;</CODE>
+<DD>
+The ring of real numbers.
+<DT><CODE>&#60;cl_rational_ring.h&#62;</CODE>
+<DD>
+The ring of rational numbers.
+<DT><CODE>&#60;cl_integer_ring.h&#62;</CODE>
+<DD>
+The ring of integers.
+<DT><CODE>&#60;cl_numtheory.h&#62;</CODE>
+<DD>
+Number threory functions.
+<DT><CODE>&#60;cl_modinteger.h&#62;</CODE>
+<DD>
+Modular integers.
+<DT><CODE>&#60;cl_V.h&#62;</CODE>
+<DD>
+Vectors.
+<DT><CODE>&#60;cl_GV.h&#62;</CODE>
+<DD>
+General vectors.
+<DT><CODE>&#60;cl_GV_number.h&#62;</CODE>
+<DD>
+General vectors over cl_number.
+<DT><CODE>&#60;cl_GV_complex.h&#62;</CODE>
+<DD>
+General vectors over cl_N.
+<DT><CODE>&#60;cl_GV_real.h&#62;</CODE>
+<DD>
+General vectors over cl_R.
+<DT><CODE>&#60;cl_GV_rational.h&#62;</CODE>
+<DD>
+General vectors over cl_RA.
+<DT><CODE>&#60;cl_GV_integer.h&#62;</CODE>
+<DD>
+General vectors over cl_I.
+<DT><CODE>&#60;cl_GV_modinteger.h&#62;</CODE>
+<DD>
+General vectors of modular integers.
+<DT><CODE>&#60;cl_SV.h&#62;</CODE>
+<DD>
+Simple vectors.
+<DT><CODE>&#60;cl_SV_number.h&#62;</CODE>
+<DD>
+Simple vectors over cl_number.
+<DT><CODE>&#60;cl_SV_complex.h&#62;</CODE>
+<DD>
+Simple vectors over cl_N.
+<DT><CODE>&#60;cl_SV_real.h&#62;</CODE>
+<DD>
+Simple vectors over cl_R.
+<DT><CODE>&#60;cl_SV_rational.h&#62;</CODE>
+<DD>
+Simple vectors over cl_RA.
+<DT><CODE>&#60;cl_SV_integer.h&#62;</CODE>
+<DD>
+Simple vectors over cl_I.
+<DT><CODE>&#60;cl_SV_ringelt.h&#62;</CODE>
+<DD>
+Simple vectors of general ring elements.
+<DT><CODE>&#60;cl_univpoly.h&#62;</CODE>
+<DD>
+Univariate polynomials.
+<DT><CODE>&#60;cl_univpoly_integer.h&#62;</CODE>
+<DD>
+Univariate polynomials over the integers.
+<DT><CODE>&#60;cl_univpoly_rational.h&#62;</CODE>
+<DD>
+Univariate polynomials over the rational numbers.
+<DT><CODE>&#60;cl_univpoly_real.h&#62;</CODE>
+<DD>
+Univariate polynomials over the real numbers.
+<DT><CODE>&#60;cl_univpoly_complex.h&#62;</CODE>
+<DD>
+Univariate polynomials over the complex numbers.
+<DT><CODE>&#60;cl_univpoly_modint.h&#62;</CODE>
+<DD>
+Univariate polynomials over modular integer rings.
+<DT><CODE>&#60;cl_timing.h&#62;</CODE>
+<DD>
+Timing facilities.
+<DT><CODE>&#60;cln.h&#62;</CODE>
+<DD>
+Includes all of the above.
+</DL>
+
+
+
+<H2><A NAME="SEC66" HREF="cln_toc.html#TOC66">11.3 An Example</A></H2>
+
+<P>
+A function which computes the nth Fibonacci number can be written as follows.
+
+
+
+<PRE>
+#include &#60;cl_integer.h&#62;
+#include &#60;cl_real.h&#62;
+
+// Returns F_n, computed as the nearest integer to
+// ((1+sqrt(5))/2)^n/sqrt(5). Assume n&#62;=0.
+const cl_I fibonacci (int n)
+{
+        // Need a precision of ((1+sqrt(5))/2)^-n.
+        cl_float_format_t prec = cl_float_format((int)(0.208987641*n+5));
+        cl_R sqrt5 = sqrt(cl_float(5,prec));
+        cl_R phi = (1+sqrt5)/2;
+        return round1( expt(phi,n)/sqrt5 );
+}
+</PRE>
+
+<P>
+Let's explain what is going on in detail.
+
+
+<P>
+The include file <CODE>&#60;cl_integer.h&#62;</CODE> is necessary because the type
+<CODE>cl_I</CODE> is used in the function, and the include file <CODE>&#60;cl_real.h&#62;</CODE>
+is needed for the type <CODE>cl_R</CODE> and the floating point number functions.
+The order of the include files does not matter.
+
+
+<P>
+Then comes the function declaration. The argument is an <CODE>int</CODE>, the
+result an integer. The return type is defined as <SAMP>`const cl_I'</SAMP>, not
+simply <SAMP>`cl_I'</SAMP>, because that allows the compiler to detect typos like
+<SAMP>`fibonacci(n) = 100'</SAMP>. It would be possible to declare the return
+type as <CODE>const cl_R</CODE> (real number) or even <CODE>const cl_N</CODE> (complex
+number). We use the most specialized possible return type because functions
+which call <SAMP>`fibonacci'</SAMP> will be able to profit from the compiler's type
+analysis: Adding two integers is slightly more efficient than adding the
+same objects declared as complex numbers, because it needs less type
+dispatch. Also, when linking to CLN as a non-shared library, this minimizes
+the size of the resulting executable program.
+
+
+<P>
+The result will be computed as expt(phi,n)/sqrt(5), rounded to the nearest
+integer. In order to get a correct result, the absolute error should be less
+than 1/2, i.e. the relative error should be less than sqrt(5)/(2*expt(phi,n)).
+To this end, the first line computes a floating point precision for sqrt(5)
+and phi.
+
+
+<P>
+Then sqrt(5) is computed by first converting the integer 5 to a floating point
+number and than taking the square root. The converse, first taking the square
+root of 5, and then converting to the desired precision, would not work in
+CLN: The square root would be computed to a default precision (normally
+single-float precision), and the following conversion could not help about
+the lacking accuracy. This is because CLN is not a symbolic computer algebra
+system and does not represent sqrt(5) in a non-numeric way.
+
+
+<P>
+The type <CODE>cl_R</CODE> for sqrt5 and, in the following line, phi is the only
+possible choice. You cannot write <CODE>cl_F</CODE> because the C++ compiler can
+only infer that <CODE>cl_float(5,prec)</CODE> is a real number. You cannot write
+<CODE>cl_N</CODE> because a <SAMP>`round1'</SAMP> does not exist for general complex
+numbers.
+
+
+<P>
+When the function returns, all the local variables in the function are
+automatically reclaimed (garbage collected). Only the result survives and
+gets passed to the caller.
+
+
+
+
+<H2><A NAME="SEC67" HREF="cln_toc.html#TOC67">11.4 Debugging support</A></H2>
+
+<P>
+When debugging a CLN application with GNU <CODE>gdb</CODE>, two facilities are
+available from the library:
+
+
+
+<UL>
+<LI>The library does type checks, range checks, consistency checks at
+
+many places. When one of these fails, the function <CODE>cl_abort()</CODE> is
+called. Its default implementation is to perform an <CODE>exit(1)</CODE>, so
+you won't have a core dump. But for debugging, it is best to set a
+breakpoint at this function:
+
+<PRE>
+(gdb) break cl_abort
+</PRE>
+
+When this breakpoint is hit, look at the stack's backtrace:
+
+<PRE>
+(gdb) where
+</PRE>
+
+<LI>The debugger's normal <CODE>print</CODE> command doesn't know about
+
+CLN's types and therefore prints mostly useless hexadecimal addresses.
+CLN offers a function <CODE>cl_print</CODE>, callable from the debugger,
+for printing number objects. In order to get this function, you have
+to define the macro <SAMP>`CL_DEBUG'</SAMP> and then include all the header files
+for which you want <CODE>cl_print</CODE> debugging support. For example:
+
+<PRE>
+#define CL_DEBUG
+#include &#60;cl_string.h&#62;
+</PRE>
+
+Now, if you have in your program a variable <CODE>cl_string s</CODE>, and
+inspect it under <CODE>gdb</CODE>, the output may look like this:
+
+<PRE>
+(gdb) print s
+$7 = {&#60;cl_gcpointer&#62; = { = {pointer = 0x8055b60, heappointer = 0x8055b60,
+  word = 134568800}}, }
+(gdb) call cl_print(s)
+(cl_string) ""
+$8 = 134568800
+</PRE>
+
+Note that the output of <CODE>cl_print</CODE> goes to the program's error output,
+not to gdb's standard output.
+
+Note, however, that the above facility does not work with all CLN types,
+only with number objects and similar. Therefore CLN offers a member function
+<CODE>debug_print()</CODE> on all CLN types. The same macro <SAMP>`CL_DEBUG'</SAMP>
+is needed for this member function to be implemented. Under <CODE>gdb</CODE>,
+you call it like this:
+
+<PRE>
+(gdb) print s
+$7 = {&#60;cl_gcpointer&#62; = { = {pointer = 0x8055b60, heappointer = 0x8055b60,
+  word = 134568800}}, }
+(gdb) call s.debug_print()
+(cl_string) ""
+(gdb) define cprint
+&#62;call ($1).debug_print()
+&#62;end
+(gdb) cprint s
+(cl_string) ""
+</PRE>
+
+Unfortunately, this feature does not seem to work under all circumstances.
+</UL>
+
+<P><HR><P>
+Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_10.html">previous</A>, <A HREF="cln_12.html">next</A>, <A HREF="cln_13.html">last</A> section, <A HREF="cln_toc.html">table of contents</A>.
+</BODY>
+</HTML>

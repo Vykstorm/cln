@@ -1,0 +1,75 @@
+// jacobi().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_numtheory.h"
+
+
+// Implementation.
+
+#include "cl_abort.h"
+#include "cl_xmacros.h"
+
+// Assume 0 <= a < b.
+inline int jacobi_aux (uint32 a, uint32 b)
+{
+	var int v = 1;
+	for (;;) {
+		// (a/b) * v is invariant.
+		if (b == 1)
+			// b=1 implies (a/b) = 1.
+			return v;
+		if (a == 0)
+			// b>1 and a=0 imply (a/b) = 0.
+			return 0;
+		if (a > (b >> 1)) {
+			// a > b/2, so (a/b) = (-1/b) * ((b-a)/b),
+			// and (-1/b) = -1 if b==3 mod 4.
+			a = b-a;
+			switch (b % 4) {
+				case 1: break;
+				case 3: v = -v; break;
+				default: cl_abort();
+			}
+			continue;
+		}
+		if ((a & 1) == 0) {
+			// b>1 and a=2a', so (a/b) = (2/b) * (a'/b),
+			// and (2/b) = -1 if b==3,5 mod 8.
+			a = a>>1;
+			switch (b % 8) {
+				case 1: case 7: break;
+				case 3: case 5: v = -v; break;
+				default: cl_abort();
+			}
+			continue;
+		}
+		// a and b odd, 0 < a < b/2 < b, so apply quadratic reciprocity
+		// law  (a/b) = (-1)^((a-1)/2)((b-1)/2) * (b/a).
+		if ((a & b & 3) == 3)
+			v = -v;
+		swap(sint32, a,b);
+		// Now a > 2*b, set a := a mod b.
+		if ((a >> 3) >= b)
+			a = a % b;
+		else
+			{ a = a-b; do { a = a-b; } while (a >= b); }
+	}
+}
+
+int jacobi (sint32 a, sint32 b)
+{
+	// Check b > 0, b odd.
+	if (!(b > 0))
+		cl_abort();
+	if ((b & 1) == 0)
+		cl_abort();
+	// Ensure 0 <= a < b.
+	if (a >= 0)
+		a = (uint32)a % (uint32)b;
+	else
+		a = b-1-((uint32)(~a) % (uint32)b);
+	return jacobi_aux(a,b);
+}

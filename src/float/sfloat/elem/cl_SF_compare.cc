@@ -1,0 +1,48 @@
+// cl_compare().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_sfloat.h"
+
+
+// Implementation.
+
+#undef MAYBE_INLINE
+#define MAYBE_INLINE inline
+#include "cl_SF_minusp.cc"
+
+cl_signean cl_compare (const cl_SF& x, const cl_SF& y)
+{
+// Methode:
+// x und y haben verschiedenes Vorzeichen ->
+//    x < 0 -> x < y
+//    x >= 0 -> x > y
+// x und y haben gleiches Vorzeichen ->
+//    x >=0 -> vergleiche x und y (die rechten 24 Bits)
+//    x <0 -> vergleiche y und x (die rechten 24 Bits)
+      if (!minusp(y))
+        // y>=0
+        { if (!minusp(x))
+            // y>=0, x>=0
+            { if (x.word < y.word) return signean_minus; // x<y
+              if (x.word > y.word) return signean_plus; // x>y
+              return signean_null;
+            }
+            else
+            // y>=0, x<0
+            { return signean_minus; } // x<y
+        }
+        else
+        { if (!minusp(x))
+            // y<0, x>=0
+            { return signean_plus; } // x>y
+            else
+            // y<0, x<0
+            { if (x.word > y.word) return signean_minus; // |x|>|y| -> x<y
+              if (x.word < y.word) return signean_plus; // |x|<|y| -> x>y
+              return signean_null;
+            }
+        }
+}

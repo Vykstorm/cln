@@ -1,0 +1,22 @@
+// cl_F_to_FF().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_float.h"
+
+
+// Implementation.
+
+#include "cl_F.h"
+
+const cl_FF cl_F_to_FF (const cl_F& x)
+{
+	floatcase(x
+	,	return cl_SF_to_FF(x);
+	,	return x;
+	,	return cl_DF_to_FF(x);
+	,	return cl_LF_to_FF(x);
+	);
+}

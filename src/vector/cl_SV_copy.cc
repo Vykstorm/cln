@@ -1,0 +1,25 @@
+// copy().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#define CL_SV_NO_RANGECHECKS
+#include "cl_SV.h"
+
+
+// Implementation.
+
+#include "cl_malloc.h"
+
+const cl_SV_any copy (const cl_SV_any& src)
+{
+	var uintL len = src.length();
+	var cl_heap_SV_any* hv = (cl_heap_SV_any*) cl_malloc_hook(sizeof(cl_heap_SV_any)+sizeof(cl_gcobject)*len);
+	hv->refcount = 1;
+	hv->type = src.pointer_type();
+	new (&hv->v) cl_SV_inner<cl_gcobject> (len);
+	for (var uintL i = 0; i < len; i++)
+		init1(cl_gcobject, hv->v[i]) (src[i]);
+	return hv;
+}

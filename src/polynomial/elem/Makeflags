@@ -1,0 +1,5 @@
+# This file contains additional flags for the main Makefile.
+
+include $(srcdir)/polynomial/Makeflags
+SUBDIR_INCLUDES += -I$(srcdir)/base/hash -I$(srcdir)/base/digitseq -I$(srcdir)/base/digit -Ibase $(GMP_INCLUDES)
+

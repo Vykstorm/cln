@@ -1,0 +1,19 @@
+// plus1().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_lfloat.h"
+
+
+// Implementation.
+
+#include "cl_LF.h"
+
+ALL_cl_LF_OPERATIONS_SAME_PRECISION()
+
+const cl_LF plus1 (const cl_LF& x)
+{
+	return x + cl_I_to_LF(cl_I(1),TheLfloat(x)->len);
+}

@@ -1,0 +1,28 @@
+// unary operator -
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_lfloat.h"
+
+
+// Implementation.
+
+#include "cl_LF.h"
+#include "cl_LF_impl.h"
+#include "cl_DS.h"
+
+const cl_LF operator- (const cl_LF& x)
+{
+// Methode:
+// Falls x=0.0, fertig. Sonst Vorzeichenbit umdrehen und Pointer beibehalten.
+      if (TheLfloat(x)->expo == 0)
+        { return x; }
+        else
+        { var uintC len = TheLfloat(x)->len;
+          var Lfloat mx = allocate_lfloat(len, TheLfloat(x)->expo, ~ TheLfloat(x)->sign);
+          copy_loop_up(&TheLfloat(x)->data[0],&TheLfloat(mx)->data[0],len);
+          return mx;
+        }
+}

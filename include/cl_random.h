@@ -1,0 +1,43 @@
+// Public random number operations.
+
+#ifndef _CL_RANDOM_H
+#define _CL_RANDOM_H
+
+#include "cl_types.h"
+#include "cl_modules.h"
+
+class cl_random_state {
+public:
+	struct { uint32 hi; uint32 lo; } seed;
+// Constructor:
+	cl_random_state ();
+};
+
+// random32(randomstate) liefert eine neue Zufallszahl.
+// > randomstate: ein Random-State, wird verändert
+// < ergebnis: eine 32-Bit-Zufallszahl
+extern uint32 random32 (cl_random_state& randomstate);
+
+#if defined(HAVE_FAST_LONGLONG)
+// random64(randomstate) liefert eine neue Zufallszahl.
+// > randomstate: ein Random-State, wird verändert
+// < ergebnis: eine 64-Bit-Zufallszahl
+inline uint64 random64 (cl_random_state& randomstate)
+{
+	return ((uint64)random32(randomstate) << 32)
+	       | (uint64)random32(randomstate);
+}
+#endif
+
+// Ein globaler Zufallszahlengenerator.
+extern cl_random_state cl_default_random_state;
+CL_REQUIRE(cl_random_def)
+// Das ist der Default-Generator.
+inline uint32 random32 (void)
+	{ return random32(cl_default_random_state); }
+#if defined(HAVE_FAST_LONGLONG)
+inline uint64 random64 (void)
+	{ return random64(cl_default_random_state); }
+#endif
+
+#endif /* _CL_RANDOM_H */

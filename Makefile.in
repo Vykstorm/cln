@@ -1,0 +1,63 @@
+# Makefile for cln
+
+#### Start of system configuration section. ####
+
+# Directories used by "make install":
+prefix = @prefix@
+local_prefix = /usr/local
+exec_prefix = @exec_prefix@
+datadir = @datadir@
+libdir = @libdir@
+includedir = @includedir@
+mandir = @mandir@
+
+# Programs used by "make":
+CC = @CC@
+CFLAGS = @CFLAGS@
+RM = rm -f
+@SET_MAKE@
+
+#### End of system configuration section. ####
+
+SHELL = /bin/sh
+
+all : force
+	if test -f gmp/Makefile; then cd gmp && $(MAKE) mpn/libmpn.la mp_clz_tab.lo CC='$(CC)' CFLAGS='$(CFLAGS)' LIBTOOL=../libtool; fi
+	cd @subdir@; $(MAKE) all
+
+install : force
+	cd @subdir@; $(MAKE) install
+
+installdirs : force
+	cd @subdir@; $(MAKE) installdirs
+
+uninstall : force
+	cd @subdir@; $(MAKE) uninstall
+
+check : force
+	cd @subdir@; $(MAKE) check
+
+mostlyclean : force
+	if test -f gmp/Makefile; then cd gmp; $(MAKE) mostlyclean; fi
+	cd @subdir@; $(MAKE) mostlyclean
+
+clean : force
+	if test -f gmp/Makefile; then cd gmp; $(MAKE) clean; fi
+	cd @subdir@; $(MAKE) clean
+
+distclean : force
+	if test -f gmp/Makefile; then cd gmp; $(MAKE) distclean; fi
+	cd @subdir@; if test -f Makefile; then $(MAKE) distclean; fi
+	$(RM) config.status config.log config.cache Makefile
+	$(RM) libtool
+	$(RM) include/cl_config.h include/cl_intparam.h include/cl_floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
+
+maintainer-clean : force
+	if test -f gmp/Makefile; then cd gmp; $(MAKE) maintainer-clean; fi
+	cd @subdir@; if test -f Makefile; then $(MAKE) maintainer-clean; fi
+	$(RM) config.status config.log config.cache Makefile
+	$(RM) libtool
+	$(RM) include/cl_config.h include/cl_intparam.h include/cl_floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
+
+force :
+

@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+
+<TITLE>CLN, a Class Library for Numbers - 8. Symbolic data types</TITLE>
+</HEAD>
+<BODY>
+Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_7.html">previous</A>, <A HREF="cln_9.html">next</A>, <A HREF="cln_13.html">last</A> section, <A HREF="cln_toc.html">table of contents</A>.
+<P><HR><P>
+
+
+<H1><A NAME="SEC51" HREF="cln_toc.html#TOC51">8. Symbolic data types</A></H1>
+
+<P>
+CLN implements two symbolic (non-numeric) data types: strings and symbols.
+
+
+
+
+<H2><A NAME="SEC52" HREF="cln_toc.html#TOC52">8.1 Strings</A></H2>
+
+<P>
+The class
+
+
+
+<PRE>
+                      String
+                     cl_string
+                    &#60;cl_string.h&#62;
+</PRE>
+
+<P>
+implements immutable strings.
+
+
+<P>
+Strings are constructed through the following constructors:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_string (const char * s)</CODE>
+<DD>
+Returns an immutable copy of the (zero-terminated) C string <CODE>s</CODE>.
+
+<DT><CODE>cl_string (const char * ptr, unsigned long len)</CODE>
+<DD>
+Returns an immutable copy of the <CODE>len</CODE> characters at
+<CODE>ptr[0]</CODE>, ..., <CODE>ptr[len-1]</CODE>. NUL characters are allowed.
+</DL>
+
+<P>
+The following functions are available on strings:
+
+
+<DL COMPACT>
+
+<DT><CODE>operator =</CODE>
+<DD>
+Assignment from <CODE>cl_string</CODE> and <CODE>const char *</CODE>.
+
+<DT><CODE>s.length()</CODE>
+<DD>
+<DT><CODE>strlen(s)</CODE>
+<DD>
+Returns the length of the string <CODE>s</CODE>.
+
+<DT><CODE>s[i]</CODE>
+<DD>
+Returns the <CODE>i</CODE>th character of the string <CODE>s</CODE>.
+<CODE>i</CODE> must be in the range <CODE>0 &#60;= i &#60; s.length()</CODE>.
+
+<DT><CODE>bool equal (const cl_string&#38; s1, const cl_string&#38; s2)</CODE>
+<DD>
+Compares two strings for equality. One of the arguments may also be a
+plain <CODE>const char *</CODE>.
+</DL>
+
+
+
+<H2><A NAME="SEC53" HREF="cln_toc.html#TOC53">8.2 Symbols</A></H2>
+
+<P>
+Symbols are uniquified strings: all symbols with the same name are shared.
+This means that comparison of two symbols is fast (effectively just a pointer
+comparison), whereas comparison of two strings must in the worst case walk
+both strings until their end.
+Symbols are used, for example, as tags for properties, as names of variables
+in polynomial rings, etc.
+
+
+<P>
+Symbols are constructed through the following constructor:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_symbol (const cl_string&#38; s)</CODE>
+<DD>
+Looks up or creates a new symbol with a given name.
+</DL>
+
+<P>
+The following operations are available on symbols:
+
+
+<DL COMPACT>
+
+<DT><CODE>cl_string (const cl_symbol&#38; sym)</CODE>
+<DD>
+Conversion to <CODE>cl_string</CODE>: Returns the string which names the symbol
+<CODE>sym</CODE>.
+
+<DT><CODE>bool equal (const cl_symbol&#38; sym1, const cl_symbol&#38; sym2)</CODE>
+<DD>
+Compares two symbols for equality. This is very fast.
+</DL>
+
+<P><HR><P>
+Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_7.html">previous</A>, <A HREF="cln_9.html">next</A>, <A HREF="cln_13.html">last</A> section, <A HREF="cln_toc.html">table of contents</A>.
+</BODY>
+</HTML>

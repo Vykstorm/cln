@@ -1,0 +1,103 @@
+// I/O of integers.
+
+#ifndef _CL_INTEGER_IO_H
+#define _CL_INTEGER_IO_H
+
+#include "cl_number_io.h"
+#include "cl_integer_class.h"
+
+
+// Undocumented input functions
+
+// Wandelt eine Zeichenkette mit Integer-Syntax in ein Integer um.
+// Punkte werden ¸berlesen.
+// read_integer(base,sign,string,index1,index2)
+// > base: Lesebasis (>=2, <=36)
+// > sign: Vorzeichen (/=0 falls negativ)
+// > string: Simple-String (enth‰lt Ziffern mit Wert <base und evtl. Punkt)
+// > index1: Index der ersten Ziffer
+// > index2: Index nach der letzten Ziffer
+//   (also index2-index1 Ziffern, incl. evtl. Dezimalpunkt am Schluﬂ)
+// < ergebnis: Integer
+extern const cl_I read_integer (unsigned int base,
+                  cl_signean sign, const char * string, uintL index1, uintL index2);
+
+// The following does strictly the same as the general read_complex.
+// It is here only so that you don't need the rational, complex and float number
+// readers in order to read an integer. ("Treeshaking")
+extern const cl_I read_integer (const cl_read_flags& flags, const char * string, const char * string_limit, const char * * end_of_parse);
+extern const cl_I read_integer (cl_istream stream, const cl_read_flags& flags);
+
+// Documented input functions
+
+inline cl_istream operator>> (cl_istream stream, cl_I& result)
+{
+	extern cl_read_flags cl_I_read_flags;
+	result = read_integer(stream,cl_I_read_flags);
+	return stream;
+}
+
+
+// Undocumented output functions
+
+// Liefert zu einem Integer >=0  (write-to-string integer :base 10 :radix nil),
+// also die Ziffernfolge als String.
+// Mit cl_malloc_hook() alloziert, mit cl_free_hook() freizugeben.
+extern char * cl_decimal_string (const cl_I& x);
+
+// Gibt ein Integer aus.
+// print_integer(stream,base,z);
+// > z: Integer
+// > base: Basis (>=2, <=36)
+// > stream: Stream
+extern void print_integer (cl_ostream stream, unsigned int base, const cl_I& z);
+// Dasselbe als String. Mit cl_malloc_hook() alloziert, mit cl_free_hook() freizugeben.
+extern char * print_integer_to_string (unsigned int base, const cl_I& z);
+
+
+// Documented output functions
+
+inline void fprintdecimal (cl_ostream stream, const cl_I& x)
+{
+	print_integer(stream,10,x);
+}
+
+inline void fprintbinary (cl_ostream stream, const cl_I& x)
+{
+	print_integer(stream,2,x);
+}
+
+inline void fprintoctal (cl_ostream stream, const cl_I& x)
+{
+	print_integer(stream,8,x);
+}
+
+inline void fprinthexadecimal (cl_ostream stream, const cl_I& x)
+{
+	print_integer(stream,16,x);
+}
+
+// Gibt eine Zahl aus.
+// print_integer(stream,flags,z);
+// > z: Zahl
+// > stream: Stream
+// > flags: Ausgabe-Parameter
+extern void print_integer (cl_ostream stream, const cl_print_flags& flags, const cl_I& z);
+extern void print_integer (cl_ostream stream, const cl_print_number_flags& flags, const cl_I& z);
+extern void print_integer (cl_ostream stream, const cl_print_real_flags& flags, const cl_I& z);
+extern void print_integer (cl_ostream stream, const cl_print_rational_flags& flags, const cl_I& z);
+
+// The following does strictly the same as the general `fprint' for numbers.
+// It is here only so that you don't need the rational number printer
+// in order to print an integer. ("Treeshaking")
+
+inline void fprint (cl_ostream stream, const cl_I& x)
+{
+	extern cl_print_flags cl_default_print_flags;
+	print_integer(stream,cl_default_print_flags,x);
+}
+
+CL_DEFINE_PRINT_OPERATOR(cl_I)
+
+
+#endif /* _CL_INTEGER_IO_H */

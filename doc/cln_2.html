@@ -1,0 +1,255 @@
+<HTML>
+<HEAD>
+<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+
+<TITLE>CLN, a Class Library for Numbers - 2. Installation</TITLE>
+</HEAD>
+<BODY>
+Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_1.html">previous</A>, <A HREF="cln_3.html">next</A>, <A HREF="cln_13.html">last</A> section, <A HREF="cln_toc.html">table of contents</A>.
+<P><HR><P>
+
+
+<H1><A NAME="SEC2" HREF="cln_toc.html#TOC2">2. Installation</A></H1>
+
+<P>
+This section describes how to install the CLN package on your system.
+
+
+
+
+<H2><A NAME="SEC3" HREF="cln_toc.html#TOC3">2.1 Prerequisites</A></H2>
+
+
+
+<H3><A NAME="SEC4" HREF="cln_toc.html#TOC4">2.1.1 C++ compiler</A></H3>
+
+<P>
+To build CLN, you need a C++ compiler.
+Actually, you need GNU <CODE>g++ 2.7.0</CODE> or newer.
+On HPPA, you need GNU <CODE>g++ 2.8.0</CODE> or newer.
+I recommend GNU <CODE>egcs 1.1</CODE> or newer.
+
+
+<P>
+The following C++ features are used:
+classes, member functions,
+overloading of functions and operators,
+constructors and destructors, inline, const,
+multiple inheritance, templates.
+
+
+<P>
+The following C++ features are not used:
+<CODE>new</CODE>, <CODE>delete</CODE>, virtual inheritance,
+exceptions.
+
+
+<P>
+CLN relies on semi-automatic ordering of initializations
+of static and global variables, a feature which I could
+implement for GNU g++ only.
+
+
+
+
+<H3><A NAME="SEC5" HREF="cln_toc.html#TOC5">2.1.2 Make utility</A></H3>
+
+<P>
+To build CLN, you also need to have GNU <CODE>make</CODE> installed.
+
+
+
+
+<H3><A NAME="SEC6" HREF="cln_toc.html#TOC6">2.1.3 Sed utility</A></H3>
+
+<P>
+To build CLN on HP-UX, you also need to have GNU <CODE>sed</CODE> installed.
+This is because the libtool script, which creates the CLN library, relies
+on <CODE>sed</CODE>, and the vendor's <CODE>sed</CODE> utility on these systems is too
+limited.
+
+
+
+
+<H2><A NAME="SEC7" HREF="cln_toc.html#TOC7">2.2 Building the library</A></H2>
+
+<P>
+As with any autoconfiguring GNU software, installation is as easy as this:
+
+
+
+<PRE>
+$ ./configure
+$ make
+$ make check
+</PRE>
+
+<P>
+If on your system, <SAMP>`make'</SAMP> is not GNU <CODE>make</CODE>, you have to use
+<SAMP>`gmake'</SAMP> instead of <SAMP>`make'</SAMP> above.
+
+
+<P>
+The <CODE>configure</CODE> command checks out some features of your system and
+C++ compiler and builds the <CODE>Makefile</CODE>s. The <CODE>make</CODE> command
+builds the library. This step may take 4 hours on an average workstation.
+The <CODE>make check</CODE> runs some test to check that no important subroutine
+has been miscompiled.
+
+
+<P>
+The <CODE>configure</CODE> command accepts options. To get a summary of them, try
+
+
+
+<PRE>
+$ ./configure --help
+</PRE>
+
+<P>
+Some of the options are explained in detail in the <SAMP>`INSTALL.generic'</SAMP> file.
+
+
+<P>
+You can specify the C compiler, the C++ compiler and their options through
+the following environment variables when running <CODE>configure</CODE>:
+
+
+<DL COMPACT>
+
+<DT><CODE>CC</CODE>
+<DD>
+Specifies the C compiler.
+
+<DT><CODE>CFLAGS</CODE>
+<DD>
+Flags to be given to the C compiler when compiling programs (not when linking).
+
+<DT><CODE>CXX</CODE>
+<DD>
+Specifies the C++ compiler.
+
+<DT><CODE>CXXFLAGS</CODE>
+<DD>
+Flags to be given to the C++ compiler when compiling programs (not when linking).
+</DL>
+
+<P>
+Examples:
+
+
+
+<PRE>
+$ CC="gcc" CFLAGS="-O" CXX="g++" CXXFLAGS="-O" ./configure
+$ CC="gcc -V 2.7.2" CFLAGS="-O -g" \
+  CXX="g++ -V 2.7.2" CXXFLAGS="-O -g" ./configure
+$ CC="gcc -V 2.8.1" CFLAGS="-O -fno-exceptions" \
+  CXX="g++ -V 2.8.1" CXXFLAGS="-O -fno-exceptions" ./configure
+$ CC="gcc -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" \
+  CXX="g++ -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" ./configure
+</PRE>
+
+<P>
+Note that for these environment variables to take effect, you have to set
+them (assuming a Bourne-compatible shell) on the same line as the
+<CODE>configure</CODE> command. If you made the settings in earlier shell
+commands, you have to <CODE>export</CODE> the environment variables before
+calling <CODE>configure</CODE>. In a <CODE>csh</CODE> shell, you have to use the
+<SAMP>`setenv'</SAMP> command for setting each of the environment variables.
+
+
+<P>
+On Linux, <CODE>g++</CODE> needs 15 MB to compile the tests. So you should better
+have 17 MB swap space and 1 MB room in $TMPDIR.
+
+
+<P>
+If you use <CODE>g++</CODE> version 2.7.x, don't add <SAMP>`-O2'</SAMP> to the CXXFLAGS,
+because <SAMP>`g++ -O'</SAMP> generates better code for CLN than <SAMP>`g++ -O2'</SAMP>.
+
+
+<P>
+If you use <CODE>g++</CODE> version 2.8.x or egcs-2.91.x (a.k.a. egcs-1.1) or
+gcc-2.95.x, I recommend adding <SAMP>`-fno-exceptions'</SAMP> to the CXXFLAGS.
+This will likely generate better code.
+
+
+<P>
+If you use <CODE>g++</CODE> version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
+add either <SAMP>`-O'</SAMP> or <SAMP>`-O2 -fno-schedule-insns'</SAMP> to the CXXFLAGS.
+With full <SAMP>`-O2'</SAMP>, <CODE>g++</CODE> miscompiles the division routines. Also, for
+--enable-shared to work, you need egcs-1.1.2 or newer.
+
+
+<P>
+On MIPS (SGI Irix 6), pass option <CODE>--without-gmp</CODE> to configure. gmp does
+not work when compiled in <SAMP>`n32'</SAMP> binary format on Irix.
+
+
+<P>
+By default, only a static library is built. You can build CLN as a shared
+library too, by calling <CODE>configure</CODE> with the option <SAMP>`--enable-shared'</SAMP>.
+To get it built as a shared library only, call <CODE>configure</CODE> with the options
+<SAMP>`--enable-shared --disable-static'</SAMP>.
+
+
+<P>
+If you use <CODE>g++</CODE> version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
+use <SAMP>`--enable-shared'</SAMP> because <CODE>g++</CODE> would miscompile parts of the
+library.
+
+
+
+
+<H2><A NAME="SEC8" HREF="cln_toc.html#TOC8">2.3 Installing the library</A></H2>
+
+<P>
+As with any autoconfiguring GNU software, installation is as easy as this:
+
+
+
+<PRE>
+$ make install
+</PRE>
+
+<P>
+The <SAMP>`make install'</SAMP> command installs the library and the include files
+into public places (<TT>`/usr/local/lib/'</TT> and <TT>`/usr/local/include/'</TT>,
+if you haven't specified a <CODE>--prefix</CODE> option to <CODE>configure</CODE>).
+This step may require superuser privileges.
+
+
+<P>
+If you have already built the library and wish to install it, but didn't
+specify <CODE>--prefix=...</CODE> at configure time, just re-run
+<CODE>configure</CODE>, giving it the same options as the first time, plus
+the <CODE>--prefix=...</CODE> option.
+
+
+
+
+<H2><A NAME="SEC9" HREF="cln_toc.html#TOC9">2.4 Cleaning up</A></H2>
+
+<P>
+You can remove system-dependent files generated by <CODE>make</CODE> through
+
+
+
+<PRE>
+$ make clean
+</PRE>
+
+<P>
+You can remove all files generated by <CODE>make</CODE>, thus reverting to a
+virgin distribution of CLN, through
+
+
+
+<PRE>
+$ make distclean
+</PRE>
+
+<P><HR><P>
+Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_1.html">previous</A>, <A HREF="cln_3.html">next</A>, <A HREF="cln_13.html">last</A> section, <A HREF="cln_toc.html">table of contents</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+// cl_hypot().
+
+// General includes.
+#include "cl_sysdep.h"
+
+// Specification.
+#include "cl_C.h"
+
+
+// Implementation.
+
+#include "cl_lfloat.h"
+#include "cl_LF.h"
+#include "cl_LF_impl.h"
+
+#undef MAYBE_INLINE
+#define MAYBE_INLINE inline
+#include "cl_LF_minusp.cc"
+
+ALL_cl_LF_OPERATIONS_SAME_PRECISION()
+
+const cl_LF cl_hypot (const cl_LF& a, const cl_LF& b)
+{
+//  Zuerst a und b auf gleiche Länge bringen: den längeren runden.
+//  a=0.0 -> liefere abs(b).
+//  b=0.0 -> liefere abs(a).
+//  e:=max(exponent(a),exponent(b)).
+//  a':=a/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren a':=a/2^e
+//      oder beim Quadrieren a'*a':  2*(e-exponent(a))>exp_mid-exp_low-1
+//      d.h. exponent(b)-exponent(a)>floor((exp_mid-exp_low-1)/2) ).
+//  b':=b/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren b':=b/2^e
+//      oder beim Quadrieren b'*b':  2*(e-exponent(b))>exp_mid-exp_low-1
+//      d.h. exponent(a)-exponent(b)>floor((exp_mid-exp_low-1)/2) ).
+//  c':=a'*a'+b'*b', c':=sqrt(c'), liefere 2^e*c'.
+ {	Mutable(cl_LF,a);
+	Mutable(cl_LF,b);
+	{
+		var uintC a_len = TheLfloat(a)->len;
+		var uintC b_len = TheLfloat(b)->len;
+		if (!(a_len == b_len)) {
+			if (a_len < b_len)
+				b = shorten(b,a_len);
+			else
+				a = shorten(a,b_len);
+		}
+	}
+	var sintL a_exp;
+	var sintL b_exp;
+	{
+		// Exponenten von a holen:
+		var uintL uexp = TheLfloat(a)->expo;
+		if (uexp == 0)
+			// a=0.0 -> liefere (abs b) :
+			return (minusp(b) ? -b : b);
+		a_exp = (sintL)(uexp - LF_exp_mid);
+	}
+	{
+		// Exponenten von b holen:
+		var uintL uexp = TheLfloat(b)->expo;
+		if (uexp == 0)
+			// b=0.0 -> liefere (abs a) :
+			return (minusp(a) ? -a : a);
+		b_exp = (sintL)(uexp - LF_exp_mid);
+	}
+	// Nun a_exp = float_exponent(a), b_exp = float_exponent(b).
+	var sintL e = (a_exp > b_exp ? a_exp : b_exp); // Maximum der Exponenten
+	// a und b durch 2^e dividieren:
+	var cl_LF na = ((b_exp > a_exp) && ((uintL)(b_exp-a_exp) > (uintL)floor(LF_exp_mid-LF_exp_low-1,2)) ? encode_LF0(TheLfloat(a)->len) : scale_float(a,-e));
+	var cl_LF nb = ((a_exp > b_exp) && ((uintL)(a_exp-b_exp) > (uintL)floor(LF_exp_mid-LF_exp_low-1,2)) ? encode_LF0(TheLfloat(b)->len) : scale_float(b,-e));
+	// c' := a'*a'+b'*b' berechnen:
+	var cl_LF nc = square(na) + square(nb);
+	return scale_float(sqrt(nc),e); // c' := sqrt(c'), 2^e*c'
+}}

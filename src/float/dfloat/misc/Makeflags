@@ -1,0 +1,4 @@
+# This file contains additional flags for the main Makefile.
+
+include $(srcdir)/float/dfloat/Makeflags
+SUBDIR_INCLUDES += -I$(srcdir)/float/dfloat/elem -I$(srcdir)/integer -I$(srcdir)/base/digitseq -I$(srcdir)/base/digit -Ibase $(GMP_INCLUDES)

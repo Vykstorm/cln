@@ -1,0 +1,57 @@
+This directory contains an interface to the LiDIA library, version 1.3.1.
+It is already contained in LiDIA-1.3.1 and LiDIA-1.4a1, and is reproduced
+here only as a sample for the use of CLN.
+
+LiDIA is available from
+          ftp://ftp.informatik.th-darmstadt.de/pub/TI/systems/LiDIA
+(The LiDIA group has also a nice Web page.)
+
+LiDIA has an abstract interface to the underlying long integer implementation.
+Using CLN instead of the default libI, lip or gmp has the following
+advantages:
+
+  - Maximum speed on all CPUs, since CLN is based on the highly
+    optimized gmp-2.0.2.
+
+  - Very large integers profit from CLN's Schönhage-Strassen FFT multiplication
+    (asymptotic bit complexity: O(N log N log log N)).
+
+  - Copying integers is fast: no copying is actually involved, only a
+    reference count is manipulated.
+
+  - Small integers (absolute value < 2^29) are represented immediately,
+    thus no memory allocation/deallocation is involved when dealing with
+    small integers.
+
+CLN does all this automatically.
+
+INSTALLATION
+------------
+
+1. Build CLN.
+
+2. Apply the first patch to LiDIA:
+   $ cd .../LiDIA
+   $ patch -p1 < .../cln/lidia-interface/LiDIA-patch1
+
+3. Configure LiDIA as described in its manual.
+
+4. Apply the second patch to LiDIA:
+   $ cd .../LiDIA
+   $ patch -p1 < .../cln/lidia-interface/LiDIA-patch2
+   You may have to do this by hand, if the patch fails.
+
+5. Make two symbolic links
+   $ ln -s .../cln/lidia-interface/interfaces/integers/cln \
+           .../LiDIA/src/interfaces/integers/cln
+   $ ln -s .../cln/BUILDDIR/src .../LiDIA/src/kernel/integers/cln
+   where .../cln/BUILDDIR is the directory in which you have built
+   cln (i.e. there is a file .../cln/BUILDDIR/src/libcln.a).
+
+6. Modify the definitions of the variables CLN_DIR and CLN_TARGETDIR in
+   the file .../LiDIA/config/CONFIG :
+   CLN_DIR must point to .../cln,
+   CLN_TARGETDIR must point to .../cln/BUILDDIR.
+
+7. Build LiDIA as described in its manual.
+

@@ -1,0 +1,6 @@
+This directory contains a special version of CLN, trimmed down for LiDIA.
+It was prepared from CLN version 1.0, found on ftp://ftp.santafe.edu/pub/gnu/,
+by
+  1. removing many unnecessary files (including many source files, the test
+     suite and the documentation),
+  2. adding the file README.LiDIA

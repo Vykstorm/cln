@@ -1,0 +1,4 @@
+# This file contains additional flags for the main Makefile.
+
+include $(srcdir)/real/Makeflags
+SUBDIR_INCLUDES += 
