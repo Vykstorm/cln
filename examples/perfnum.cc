@@ -8,8 +8,8 @@ using namespace cln;
 
 int main ()
 {
-	// previous ones were 1257787, 1398269, 2976221, 3021377, 6972593, 13466917
-	int p = 20996011;
+	// previous ones were 1257787, 1398269, 2976221, 3021377, 6972593, 13466917, 20996011
+	int p = 24036583;
 	cl_I x = (((cl_I)1 << p) - 1) << (p-1);
 	cout << x << endl;
 }
