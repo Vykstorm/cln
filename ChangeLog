@@ -16,6 +16,12 @@
 
 2004-06-17  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
+	* src/complex/input/cl_N_read.cc, src/float/input/cl_F_read.cc,
+	src/integer/input/cl_I_read.cc, src/rational/input/cl_RA_read.cc,
+	src/real/input/cl_R_read.cc:  Remove unused labels.
+
+2004-06-17  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
 	* benchmarks/timebench1.cc, benchmarks/timebench2a.LiDIA.cc,
 	benchmarks/timebench2a.cc, benchmarks/timebench2ap.cc,
 	benchmarks/timebench2b.LiDIA.cc, benchmarks/timebench2b.cc,

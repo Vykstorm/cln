@@ -259,7 +259,6 @@ not_rational_syntax:
 		return read_float(float_base,prec,sign,ptr_after_sign,0,ptr_after_fracpart-ptr_after_sign,ptr_after_exponent-ptr_after_sign,ptr_before_fracpart-ptr_after_sign);
 	}
 not_float_syntax:
-bad_syntax:
 	if (flags.syntax & syntax_maybe_bad) {
 		ASSERT(end_of_parse);
 		*end_of_parse = string;

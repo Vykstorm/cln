@@ -122,7 +122,6 @@ const cl_I read_integer (const cl_read_flags& flags, const char * string, const 
 		}
 	}
 not_integer_syntax:
-bad_syntax:
 	if (flags.syntax & syntax_maybe_bad) {
 		ASSERT(end_of_parse);
 		*end_of_parse = string;

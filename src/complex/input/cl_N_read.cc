@@ -292,7 +292,6 @@ not_float_syntax:
 		return complex(realpart,imagpart);
 	}
 not_complex_syntax:
-bad_syntax:
 	if (flags.syntax & syntax_maybe_bad) {
 		ASSERT(end_of_parse);
 		*end_of_parse = string;

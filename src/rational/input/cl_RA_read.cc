@@ -141,7 +141,6 @@ const cl_RA read_rational (const cl_read_flags& flags, const char * string, cons
 		}
 	}
 not_rational_syntax:
-bad_syntax:
 	if (flags.syntax & syntax_maybe_bad) {
 		ASSERT(end_of_parse);
 		*end_of_parse = string;
