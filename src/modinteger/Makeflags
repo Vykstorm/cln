@@ -1,3 +1,3 @@
 # This file contains additional flags for the main Makefile.
 
-SUBDIR_INCLUDES = -I$(srcdir)/integer/hash -I$(srcdir)/integer -I$(srcdir)/base/hash -I$(srcdir)/base/digitseq -I$(srcdir)/base/digit -Ibase -I$(srcdir)/base $(GMP_INCLUDES)
+SUBDIR_INCLUDES = -I$(srcdir)/integer/hash -I$(srcdir)/integer -I$(srcdir)/base/hash -I$(srcdir)/base/digitseq -I$(srcdir)/base/digit -Ibase -I$(srcdir)/base

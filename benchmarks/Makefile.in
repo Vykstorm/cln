@@ -15,7 +15,7 @@ CPP = @CPP@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
-INCLUDES = -I../include -I$(top_srcdir)/include -I$(top_srcdir)/src @GMP_INCLUDES@ -I$(srcdir)
+INCLUDES = -I../include -I$(top_srcdir)/include -I$(top_srcdir)/src -I$(srcdir)
 CPPFLAGS += $(INCLUDES)
 LIBTOOL = @LIBTOOL@
 LIBTOOL_LINK = $(LIBTOOL) --mode=link

@@ -67,6 +67,20 @@ dnl
 PACKAGE=cln
 AM_DISABLE_SHARED
 AM_PROG_LIBTOOL
+dnl CLN library version information.
+dnl
+dnl Making new releases:
+dnl   CLN_MICRO_VERSION += 1;
+dnl   CLN_INTERFACE_AGE += 1;
+dnl   CLN_BINARY_AGE += 1;
+dnl if any functions have been added, set CLN_INTERFACE_AGE to 0.
+dnl if backwards compatibility has been broken,
+dnl set CLN_BINARY_AGE and CLN_INTERFACE_AGE to 0.
+dnl CLN_MAJOR_VERSION=1
+dnl CLN_MINOR_VERSION=0
+dnl CLN_MICRO_VERSION=4
+dnl CLN_INTERFACE_AGE=1
+dnl CLN_BINARY_AGE=1
                       dnl sets variable LIBTOOL
 dnl
 dnl           checks for compiler characteristics
@@ -119,29 +133,19 @@ CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,include/c
 CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,include/cl_floatparam.h,cl_cv_file_floatparam_h)
                       dnl builds include/cl_floatparam.h
 dnl
-dnl           interfacing to GNU gmp
+dnl           interfacing to GNU gmp (must be at least version 3)
 dnl
-AC_ARG_WITH(gmp, [  --with-gmp              use fast GNU gmp low-level functions])
-if test -z "$with_gmp"; then
-  if test -d "${srcdir}/gmp"; then
-    with_gmp=yes
-  else
-    with_gmp=no
-  fi
+AC_ARG_WITH(gmp, [  --with-gmp              use external fast GNU gmp low-level functions])
+if test "$with_gmp" = yes; then
+  AC_CHECK_HEADER(gmp.h, , with_gmp="no")
+dnl mpn_divexact_by3 was introduced in gmp3 and the symbol has a leading `__g':
+  AC_CHECK_LIB(gmp, __gmpn_divexact_by3, , with_gmp="no")
 fi
 if test "$with_gmp" = yes; then
   AC_DEFINE(CL_USE_GMP)
-  GMP_INCLUDES='-I$(top_srcdir)/gmp'
-  GMP_OBJDEPS='../gmp/mpn/libmpn.la'
-  GMP_OBJS='../gmp/mpn/*.lo ../gmp/*.lo'
 else
-  GMP_INCLUDES=''
-  GMP_OBJDEPS=''
-  GMP_OBJS=''
+  AC_MSG_WARN([disabling external gmp])
 fi
-AC_SUBST(GMP_INCLUDES)
-AC_SUBST(GMP_OBJDEPS)
-AC_SUBST(GMP_OBJS)
 dnl
 dnl           That's it.
 dnl
@@ -156,6 +160,3 @@ changequote([,])dnl
   fi
 done
 AC_OUTPUT(Makefile src/Makefile tests/Makefile benchmarks/Makefile examples/Makefile doc/Makefile)
-if test "$with_gmp" = yes; then
-  AC_OUTPUT_SUBDIRS(gmp)
-fi

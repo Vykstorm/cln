@@ -1,4 +1,4 @@
 # This file contains additional flags for the main Makefile.
 
 include $(srcdir)/base/Makeflags
-SUBDIR_INCLUDES += -I$(srcdir)/base/digit -I$(srcdir)/base/random -Ibase $(GMP_INCLUDES)
+SUBDIR_INCLUDES += -I$(srcdir)/base/digit -I$(srcdir)/base/random -Ibase

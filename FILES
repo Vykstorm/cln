@@ -9,8 +9,6 @@ Files in this package:
     Source files:
         src/
 
-        gmp             slimmed down version of GNU gmp-2.0.2
-                        (optional)
         base            base routines of all of CLN
                         (mandatory)
         integer         integer numbers

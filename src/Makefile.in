@@ -25,7 +25,6 @@ CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
 INCLUDES = -I../include -I$(top_srcdir)/include
-GMP_INCLUDES = @GMP_INCLUDES@
 CPPFLAGS += $(INCLUDES)
 LIBTOOL = @LIBTOOL@
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
@@ -195,8 +194,8 @@ ifeq ($(SUBDIR),.)
 	cd ../gmp && $(MAKE) mpn/libmpn.la mp_clz_tab.lo
 
 
-libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO) @GMP_OBJDEPS@
-	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) $(ALLOBJECTS_LO) @GMP_OBJS@
+libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
+	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) $(ALLOBJECTS_LO)
 
 install : all force
 	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi

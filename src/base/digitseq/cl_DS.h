@@ -516,6 +516,28 @@ inline uintD mulusub_loop_up (uintD digit, const uintD* sourceptr, uintD* destpt
 
 #define MUL_LOOPS
 
+inline uintD divu_loop_up (uintD digit, uintD* ptr, uintC len)
+{
+	return mpn_divrem_1(ptr,0,ptr,len,digit);
+}
+
+inline uintD divu_loop_down (uintD digit, uintD* ptr, uintC len)
+{
+	return mpn_divrem_1(ptr-len,0,ptr-len,len,digit);
+}
+
+inline uintD divucopy_loop_up (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
+{
+	return mpn_divrem_1(destptr,0,sourceptr,len,digit);
+}
+
+inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
+{
+	return mpn_divrem_1(destptr-len,0,sourceptr-len,len,digit);
+}
+
+#define DIV_LOOPS
+
 #endif // defined(CL_USE_GMP)
 
 
