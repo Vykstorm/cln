@@ -1,3 +1,10 @@
+2002-08-03  Joerg Arndt  <jj@suse.de>
+
+	* include/cln/config.h.in: Add support for x86_64 CPU.
+	* include/cln/modules.h: Likewise.
+	* include/cln/types.h: Likewise.
+	* include/cln/object.h: Likewise.
+
 2002-06-08  Richard Kreckel  <kreckel@ginac.de>
 
 	* src/base/digitseq/cl_asm.h: ensure intCsize==16 when including
