@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 uintL cl_digits_need (const cl_I& x, uintL base)
 {
   if (fixnump(x))
@@ -60,3 +62,5 @@ uintL cl_digits_need (const cl_I& x, uintL base)
       return need;
     }
 }
+
+}  // namespace cln

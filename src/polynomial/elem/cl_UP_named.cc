@@ -1,4 +1,4 @@
-// cl_find_univpoly_ring().
+// find_univpoly_ring().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -6,12 +6,14 @@
 CL_PROVIDE(cl_UP_named)
 
 // Specification.
-#include "cl_univpoly.h"
+#include "cln/univpoly.h"
 
 
 // Implementation.
 
 #include "cl_UP.h"
+
+namespace cln {
 
 // Create a new univariate polynomial ring with a named variable.
 
@@ -22,11 +24,14 @@ static inline cl_heap_univpoly_ring* cl_make_univpoly_ring (const cl_ring& r, co
 	return UPR;
 }
 
+}  // namespace cln
 
 // The table of univariate polynomial rings with named variable.
 // A weak hash table (cl_ring,cl_symbol) -> cl_univpoly_ring.
 
 #include "cl_rcpointer2_hashweak_rcpointer.h"
+
+namespace cln {
 
 // An entry can be collected when the value (the ring) isn't referenced any more
 // except from the hash table, and when the keys (the base ring and the name)
@@ -57,7 +62,7 @@ static inline void store_univpoly_ring (const cl_univpoly_ring& R)
 }
 
 
-const cl_univpoly_ring cl_find_univpoly_ring (const cl_ring& r, const cl_symbol& varname)
+const cl_univpoly_ring find_univpoly_ring (const cl_ring& r, const cl_symbol& varname)
 {
 	var cl_univpoly_ring* ring_in_table = get_univpoly_ring(r,varname);
 	if (!ring_in_table) {
@@ -69,5 +74,7 @@ const cl_univpoly_ring cl_find_univpoly_ring (const cl_ring& r, const cl_symbol&
 	}
 	return *ring_in_table;
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_UP_named)

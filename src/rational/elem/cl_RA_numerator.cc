@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
@@ -13,7 +13,11 @@
 #include "cl_RA.h"
 #undef numerator
 
+namespace cln {
+
 const cl_I numerator (const cl_RA& r)
 {
 	return inline_numerator(r);
 }
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational_io.h"
+#include "cln/rational_io.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_RA.h"
 #include "cl_I.h"
 #include "cl_N.h"
+
+namespace cln {
 
 const cl_RA read_rational (unsigned int base, cl_signean sign, const char * string, uintL index1, uintL index3, uintL index2)
 {
@@ -26,3 +28,5 @@ const cl_RA read_rational (unsigned int base, cl_signean sign, const char * stri
 		num = -num; // incl. Vorzeichen
 	return I_posI_div_RA(num,den);
 }
+
+}  // namespace cln

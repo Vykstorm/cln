@@ -6,10 +6,9 @@ GPL
 
 Features:
 - Rich set of number classes:
-  Integer (unlimited precision), rational,
-  short float, single float, double float,
-  long float (unlimited precision), complex,
-  modular integer, univariate polynomial.
+  Integer (unlimited precision), rational, short float, 
+  single float, double float, long float (unlimited 
+  precision), complex, modular integer, univariate polynomial.
 - Elementary, logical, transcendental functions.
 - C++ as implementation language brings
     - efficiency,
@@ -29,13 +28,10 @@ Features:
 
 Requires: C++ compiler g++.
 The following C++ features are used:
-classes, member functions,
-overloading of functions and operators,
-constructors and destructors, inline, const,
-multiple inheritance, templates.
+classes, member functions, overloading of functions and operators,
+constructors and destructors, inline, const, multiple inheritance,
+templates and namespaces.
 The following C++ features are not used:
-new, delete, virtual inheritance,
-exceptions.
+new, delete, virtual inheritance, exceptions.
 
 Homepage: http://clisp.cons.org/~haible/packages-cln.html
-

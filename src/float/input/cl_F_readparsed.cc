@@ -4,27 +4,29 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float_io.h"
+#include "cln/float_io.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
-#include "cl_float.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/float.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 #include "cl_F.h"
 #include "cl_SF.h"
 #include "cl_FF.h"
 #include "cl_DF.h"
 #include "cl_LF.h"
 
-const cl_F read_float (unsigned int base, cl_float_format_t prec, cl_signean sign, const char * string, uintL index1, uintL index4, uintL index2, uintL index3)
+namespace cln {
+
+const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, const char * string, uintL index1, uintL index4, uintL index2, uintL index3)
 {
 	var cl_I exponent;
 	{
@@ -91,3 +93,5 @@ const cl_F read_float (unsigned int base, cl_float_format_t prec, cl_signean sig
 		}
 	);
 }
+
+}  // namespace cln

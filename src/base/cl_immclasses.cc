@@ -4,10 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_object.h"
+#include "cln/object.h"
 
 
 // Implementation.
 
+namespace cln {
+
 const struct cl_class * cl_immediate_classes [1<<cl_tag_len];
 // Zero-initialized.
+
+}  // namespace cln

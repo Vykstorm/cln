@@ -4,10 +4,10 @@
 #define _CL_SYSDEP_H
 
 // CPU and other
-#include "cl_config.h"
+#include "cln/config.h"
 
 // char_bitsize, short_bitsize, long_bitsize, long_long_bitsize
-#include "cl_intparam.h"
+#include "cln/intparam.h"
 
 // The CPU's endianness
 #if defined(short_little_endian) || defined(int_little_endian) || defined(long_little_endian)
@@ -56,9 +56,9 @@
 #include "cl_macros.h"
 
 // Elementary types.
-#include "cl_types.h"
+#include "cln/types.h"
 
 // Dependencies among modules.
-#include "cl_modules.h"
+#include "cln/modules.h"
 
 #endif /* _CL_SYSDEP_H */

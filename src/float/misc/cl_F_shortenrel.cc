@@ -10,7 +10,9 @@
 // Implementation.
 
 #include "cl_LF.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y)
 {
@@ -46,3 +48,5 @@ const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y)
 			return x;
 	);
 }
+
+}  // namespace cln

@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_modinteger.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
+#include "cln/modinteger.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -27,5 +29,7 @@ void cl_MI::debug_print () const
 	fprint(cl_debugout, "\n");
 }
 
-// This dummy links in this module when <cl_modinteger.h> requires it.
+// This dummy links in this module when <cln/modinteger.h> requires it.
 int cl_MI_debug_module;
+
+}  // namespace cln

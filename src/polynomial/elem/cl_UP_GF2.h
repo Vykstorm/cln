@@ -1,11 +1,12 @@
 // Univariate Polynomials over the ring GF(2) = Z/2Z.
 
-#include "cl_GV_modinteger.h"
-#include "cl_modinteger.h"
-#include "cl_GV_integer.h"
+#include "cln/GV_modinteger.h"
+#include "cln/modinteger.h"
+#include "cln/GV_integer.h"
 #include "cl_DS.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 
+namespace cln {
 
 // This is actually defined in cl_GV_I.cc (*ugh*).
 struct cl_heap_GV_I_bits1 : public cl_heap_GV_I {
@@ -1042,3 +1043,5 @@ public:
 	cl_heap_gf2_univpoly_ring (const cl_ring& r)
 		: cl_heap_univpoly_ring (r, &gf2_setops, &gf2_addops, &gf2_mulops, &gf2_modulops, &gf2_polyops) {}
 };
+
+}  // namespace cln

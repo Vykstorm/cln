@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
 
 #undef MAYBE_INLINE2
 #define MAYBE_INLINE2 inline
@@ -17,6 +17,8 @@
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_exponent.cc"
+
+namespace cln {
 
 const cl_LF cl_LF_shortenwith (const cl_LF& x, const cl_LF& y)
 {
@@ -47,3 +49,5 @@ const cl_LF cl_LF_shortenwith (const cl_LF& x, const cl_LF& y)
 	} else
 		return x;
 }
+
+}  // namespace cln

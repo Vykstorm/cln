@@ -4,18 +4,20 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
 #include "cl_RA.h"
-#include "cl_io.h"
-#include "cl_real_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/real_io.h"
+#include "cln/abort.h"
 
-const cl_R random_R (cl_random_state& r, const cl_R& n)
+namespace cln {
+
+const cl_R random_R (random_state& r, const cl_R& n)
 {
 	// n muß eine reelle Zahl sein, >0 und Float oder Integer
 	if (plusp(n)) {
@@ -30,8 +32,10 @@ const cl_R random_R (cl_random_state& r, const cl_R& n)
 			}
 		}
 	}
-	fprint(cl_stderr, "random: argument should be positive and an integer or float: ");
-	fprint(cl_stderr, n);
-	fprint(cl_stderr, "\n");
+	fprint(stderr, "random: argument should be positive and an integer or float: ");
+	fprint(stderr, n);
+	fprint(stderr, "\n");
 	cl_abort();
 }
+
+}  // namespace cln

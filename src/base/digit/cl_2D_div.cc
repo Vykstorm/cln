@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 uintD div2adic (uintD a, uintD b)
 {
 // Methode:
@@ -42,3 +44,5 @@ uintD div2adic (uintD a, uintD b)
      }
 #endif
 }
+
+}  // namespace cln

@@ -1,10 +1,10 @@
-// cl_equal().
+// equal().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,7 +12,9 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 
-cl_boolean cl_equal (const cl_I& x, const cl_I& y)
+namespace cln {
+
+cl_boolean equal (const cl_I& x, const cl_I& y)
 {
 // Methode:
 // x und y haben gleiches Vorzeichen ->
@@ -52,3 +54,5 @@ cl_boolean cl_equal (const cl_I& x, const cl_I& y)
                 return cl_false;
             }
 }
+
+}  // namespace cln

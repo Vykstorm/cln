@@ -9,16 +9,18 @@
 
 // Implementation.
 
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_F_tran.h"
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
-#include "cl_float.h"
+#include "cln/float.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_F_from_R_def.cc"
+
+namespace cln {
 
 // Hilfsfunktion für asinh und asin: u+iv := arsinh(x+iy). Liefert cl_C_R(u,v).
 
@@ -84,18 +86,18 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 				DeclareType(cl_I,y);
 				// y Integer
 				if (eq(y,1)) // x=0, y=1 -> v = pi/2
-					return cl_C_R(0,scale_float(cl_pi(),-1));
+					return cl_C_R(0,scale_float(pi(),-1));
 				if (eq(y,-1)) // x=0, y=-1 -> v = -pi/2
-					return cl_C_R(0,-scale_float(cl_pi(),-1));
+					return cl_C_R(0,-scale_float(pi(),-1));
 				yf = cl_float(y); // y in Float umwandeln
 			} else {
 				DeclareType(cl_RT,y);
 				// y Ratio
 				if (eq(denominator(y),2)) { // Nenner = 2 ?
 					if (eq(numerator(y),1)) // x=0, y=1/2 -> v = pi/6
-						return cl_C_R(0,cl_pi()/6);
+						return cl_C_R(0,pi()/6);
 					if (eq(numerator(y),-1)) // x=0, y=-1/2 -> v = -pi/6
-						return cl_C_R(0,-(cl_pi()/6));
+						return cl_C_R(0,-(pi()/6));
 				}
 				yf = cl_float(y); // y in Float umwandeln
 			}
@@ -124,7 +126,7 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 				temp = temp + y;
 			// temp = sqrt(y^2-1)+|y|, ein Float >1
 			var cl_F u = ln(temp); // ln(|y|+sqrt(y^2-1)), ein Float >0
-			var cl_F v = scale_float(cl_pi(),-1); // (scale-float pi -1) = pi/2
+			var cl_F v = scale_float(pi(),-1); // (scale-float pi -1) = pi/2
 			if (!minusp(y))
 				return cl_C_R(u,v); // y>1 -> v = pi/2
 			else
@@ -170,3 +172,5 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 	DeclareType(cl_F,v);
 	return cl_C_R(scale_float(u,1),scale_float(v,1)); // u:=2*u, v:=2*v
 }}}
+
+}  // namespace cln

@@ -9,15 +9,17 @@
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 #include "cl_LF_tran.h"
 #include "cl_alloca.h"
 
 #undef floor
-#include <math.h>
+#include <cmath>
 #define floor cln_floor
+
+namespace cln {
 
 // Method:
 // See examples/atan_recip.cc for a comparison of the algorithms.
@@ -27,7 +29,7 @@ const cl_LF cl_atan_recip (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m+1;
-	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(cl_double_approx(m2))) + 1;
+	var uintL N = (uintL)(0.69314718*intDsize*actuallen/::log(double_approx(m2))) + 1;
 	CL_ALLOCA_STACK;
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
@@ -48,3 +50,5 @@ const cl_LF cl_atan_recip (cl_I m, uintC len)
 	return shorten(result,len);
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
+
+}  // namespace cln

@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 28 August 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 2. Installation</TITLE>
 </HEAD>
@@ -25,23 +25,21 @@ This section describes how to install the CLN package on your system.
 
 <P>
 To build CLN, you need a C++ compiler.
-Actually, you need GNU <CODE>g++ 2.7.0</CODE> or newer.
-On HPPA, you need GNU <CODE>g++ 2.8.0</CODE> or newer.
+Actually, you need GNU <CODE>g++ 2.90</CODE> or newer, the EGCS compilers will
+do.
 I recommend GNU <CODE>g++ 2.95</CODE> or newer.
 
 
 <P>
 The following C++ features are used:
-classes, member functions,
-overloading of functions and operators,
-constructors and destructors, inline, const,
-multiple inheritance, templates.
+classes, member functions, overloading of functions and operators,
+constructors and destructors, inline, const, multiple inheritance,
+templates and namespaces.
 
 
 <P>
 The following C++ features are not used:
-<CODE>new</CODE>, <CODE>delete</CODE>, virtual inheritance,
-exceptions.
+<CODE>new</CODE>, <CODE>delete</CODE>, virtual inheritance, exceptions.
 
 
 <P>
@@ -54,7 +52,7 @@ implement for GNU g++ only.
 
 <H3><A NAME="SEC5" HREF="cln_toc.html#TOC5">2.1.2 Make utility</A></H3>
 <P>
-<A NAME="IDX3"></A>
+<A NAME="IDX4"></A>
 
 
 <P>
@@ -65,7 +63,7 @@ To build CLN, you also need to have GNU <CODE>make</CODE> installed.
 
 <H3><A NAME="SEC6" HREF="cln_toc.html#TOC6">2.1.3 Sed utility</A></H3>
 <P>
-<A NAME="IDX4"></A>
+<A NAME="IDX5"></A>
 
 
 <P>
@@ -147,12 +145,10 @@ Examples:
 
 <PRE>
 $ CC="gcc" CFLAGS="-O" CXX="g++" CXXFLAGS="-O" ./configure
-$ CC="gcc -V 2.7.2" CFLAGS="-O -g" \
-  CXX="g++ -V 2.7.2" CXXFLAGS="-O -g" ./configure
-$ CC="gcc -V 2.8.1" CFLAGS="-O -fno-exceptions" \
-  CXX="g++ -V 2.8.1" CXXFLAGS="-O -fno-exceptions" ./configure
-$ CC="gcc -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" \
-  CXX="g++ -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" ./configure
+$ CC="gcc -V egcs-2.91.60" CFLAGS="-O -g" \
+  CXX="g++ -V egcs-2.91.60" CXXFLAGS="-O -g" ./configure
+$ CC="gcc -V 2.95.2" CFLAGS="-O2 -fno-exceptions" \
+  CXX="g++ -V 2.95.2" CFLAGS="-O2 -fno-exceptions" ./configure
 </PRE>
 
 <P>
@@ -165,13 +161,9 @@ calling <CODE>configure</CODE>. In a <CODE>csh</CODE> shell, you have to use the
 
 
 <P>
-On Linux, <CODE>g++</CODE> needs 15 MB to compile the tests. So you should better
-have 17 MB swap space and 1 MB room in $TMPDIR.
-
-
-<P>
-If you use <CODE>g++</CODE> version 2.7.x, don't add <SAMP>`-O2'</SAMP> to the CXXFLAGS,
-because <SAMP>`g++ -O'</SAMP> generates better code for CLN than <SAMP>`g++ -O2'</SAMP>.
+Currently CLN works only with the GNU <CODE>g++</CODE> compiler, and only in
+optimizing mode. So you should specify at least <CODE>-O</CODE> in the CXXFLAGS,
+or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use <CODE>-O</CODE>.)
 
 
 <P>
@@ -203,7 +195,7 @@ libraries so runtime-critical applications should be linked statically.
 
 <H3><A NAME="SEC8" HREF="cln_toc.html#TOC8">2.2.1 Using the GNU MP Library</A></H3>
 <P>
-<A NAME="IDX5"></A>
+<A NAME="IDX6"></A>
 
 
 <P>
@@ -232,7 +224,7 @@ $ CC="gcc" CFLAGS="-O2" CXX="g++" CXXFLAGS="-O2 -fno-exceptions" \
 
 <H2><A NAME="SEC9" HREF="cln_toc.html#TOC9">2.3 Installing the library</A></H2>
 <P>
-<A NAME="IDX6"></A>
+<A NAME="IDX7"></A>
 
 
 <P>

@@ -1,13 +1,13 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
 #include "cl_DS.h"
 #include "cl_2DS.h"
-#include <cl_random.h>
+#include <cln/random.h>
 #include "cl_random_impl.h"
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {
@@ -26,7 +26,7 @@ int main (int argc, char * argv[])
 	uintD* b_LSDptr;
 	num_stack_alloc(len,a_MSDptr=,a_LSDptr=);
 	num_stack_alloc(len,b_MSDptr=,b_LSDptr=);
-	random_UDS(cl_default_random_state,a_MSDptr,len);
+	random_UDS(default_random_state,a_MSDptr,len);
 	lspref(a_LSDptr,0) |= 1; // force a to be odd
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)

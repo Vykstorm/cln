@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
 
 #include "cl_SF.h"
+
+namespace cln {
 
 const cl_SF ftruncate (const cl_SF& x)
 {
@@ -32,3 +34,5 @@ const cl_SF ftruncate (const cl_SF& x)
             }
         }
 }
+
+}  // namespace cln

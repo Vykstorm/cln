@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 #ifdef NEED_VAR_divu_16_rest
 uint16 divu_16_rest;
 #endif
@@ -304,3 +306,4 @@ uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
 }   } }
 #endif
 
+}  // namespace cln

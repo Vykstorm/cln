@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_R atan (const cl_R& x)
 {
@@ -15,3 +17,5 @@ const cl_R atan (const cl_R& x)
 // arctan(x) = arctan(X=1,Y=x).
 	return atan(1,x);
 }
+
+}  // namespace cln

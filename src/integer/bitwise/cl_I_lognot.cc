@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_I_log.h"
+
+namespace cln {
 
 const cl_I lognot (const cl_I& x)
     { if (fixnump(x)) // Fixnum -> ganz einfach:
@@ -32,3 +34,5 @@ const cl_I lognot (const cl_I& x)
           // und die ersten intDsize+1 Bit nicht alle gleich sind.
           return NDS_to_I(MSDptr,n); // Ergebnis als Integer
     }   }
+
+}  // namespace cln

@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_boolean ldb_extract_test (const cl_I& x, uintL p, uintL q)
     { var const uintD* MSDptr;
@@ -55,3 +57,4 @@ cl_boolean ldb_extract_test (const cl_I& x, uintL p, uintL q)
       if (DS_test_loop(MSDptr,len,LSDptr)) { return cl_true; } else { return cl_false; }
     }
 
+}  // namespace cln

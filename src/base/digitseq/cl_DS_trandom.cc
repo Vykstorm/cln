@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_random.h"
+#include "cln/random.h"
 #include "cl_DS.h"
 #include "cl_low.h"
 
-void testrandom_UDS (cl_random_state& randomstate, uintD* MSDptr, uintC len)
+namespace cln {
+
+void testrandom_UDS (random_state& randomstate, uintD* MSDptr, uintC len)
 {
   // Idea from Torbjörn Granlund, see his "random2.c" file in gmp 2.0.
   var uintD* ptr = MSDptr mspop len;
@@ -43,3 +45,5 @@ void testrandom_UDS (cl_random_state& randomstate, uintD* MSDptr, uintC len)
       ran = ran >> (log2_intDsize+1); ran_bits -= log2_intDsize+1;
     }
 }
+
+}  // namespace cln

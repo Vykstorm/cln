@@ -4,16 +4,18 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F_tran.h"
 #include "cl_F.h"
-#include "cl_integer.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_F sin (const cl_F& x)
 {
@@ -100,3 +102,5 @@ const cl_F sin (const cl_F& x)
 // 1000    48      64
 // 2500   243     261
 // ==> ratseries faster for N >= 2750.
+
+}  // namespace cln

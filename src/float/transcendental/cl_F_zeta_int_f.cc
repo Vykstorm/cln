@@ -1,10 +1,10 @@
-// cl_zeta().
+// zeta().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -13,12 +13,16 @@
 #include "cl_F_tran.h"
 #include "cl_LF.h"
 
-const cl_F cl_zeta (int s, cl_float_format_t f)
+namespace cln {
+
+const cl_F zeta (int s, float_format_t f)
 {
 	floatformatcase((uintL)f
-	,	return cl_LF_to_SF(cl_zeta(s,LF_minlen));
-	,	return cl_LF_to_FF(cl_zeta(s,LF_minlen));
-	,	return cl_LF_to_DF(cl_zeta(s,LF_minlen));
-	,	return cl_zeta(s,len);
+	,	return cl_LF_to_SF(zeta(s,LF_minlen));
+	,	return cl_LF_to_FF(zeta(s,LF_minlen));
+	,	return cl_LF_to_DF(zeta(s,LF_minlen));
+	,	return zeta(s,len);
 	);
 }
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_boolean logbitp (uintL x, const cl_I& y)
 {
@@ -35,3 +37,5 @@ cl_boolean logbitp (uintL x, const cl_I& y)
 	    else
 	    return cl_false;
 }
+
+}  // namespace cln

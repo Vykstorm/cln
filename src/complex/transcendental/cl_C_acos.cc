@@ -4,25 +4,27 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
-#include "cl_float.h"
+#include "cln/float.h"
 
-inline const cl_F cl_pi (const cl_R& v)
+namespace cln {
+
+inline const cl_F pi (const cl_R& v)
 {
 	if (rationalp(v))
-		return cl_pi();
+		return pi();
 	else {
 		DeclareType(cl_F,v);
-		return cl_pi(v);
+		return pi(v);
 	}
 }
 
@@ -56,20 +58,20 @@ const cl_N acos (const cl_N& z)
 				DeclareType(cl_I,x);
 				// x Integer
 				if (eq(x,0)) // x=0 -> Ergebnis pi/2
-					return scale_float(cl_pi(),-1);
+					return scale_float(pi(),-1);
 				if (eq(x,1)) // x=1 -> Ergebnis 0
 					return 0;
 				if (eq(x,-1)) // x=-1 -> Ergebnis pi
-					return cl_pi();
+					return pi();
 				xf = cl_float(x);
 			} else {
 				DeclareType(cl_RT,x);
 				// x Ratio
 				if (eq(denominator(x),2)) { // Nenner = 2 ?
 					if (eq(numerator(x),1)) // x=1/2 -> Ergebnis pi/3
-						return cl_pi()/3;
+						return pi()/3;
 					if (eq(numerator(x),-1)) // x=-1/2 -> Ergebnis 2pi/3
-						return scale_float(cl_pi(),1)/3;
+						return scale_float(pi(),1)/3;
 				}
 				xf = cl_float(x);
 			}
@@ -89,6 +91,8 @@ const cl_N acos (const cl_N& z)
 	}
 	var cl_R& u = u_v.realpart;
 	var cl_R& v = u_v.imagpart;
-	var cl_F pi = cl_pi(v); // pi im Float-Format von v
-	return complex(scale_float(pi,-1)-v,u); // (pi/2-v)+iu
+	var cl_F archimedes = pi(v); // pi im Float-Format von v
+	return complex(scale_float(archimedes,-1)-v,u); // (pi/2-v)+iu
 }
+
+}  // namespace cln

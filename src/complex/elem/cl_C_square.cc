@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 const cl_N square (const cl_N& x)
 {
@@ -27,3 +29,5 @@ const cl_N square (const cl_N& x)
 		return complex_C(square(a)-square(b),2*a*b);
 	}
 }
+
+}  // namespace cln

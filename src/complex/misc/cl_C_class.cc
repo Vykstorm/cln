@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
+
+namespace cln {
 
 static void complex_destructor (cl_heap* pointer)
 {
@@ -20,3 +22,5 @@ cl_class cl_class_complex = {
 	complex_destructor,
 	cl_class_flags_subclass_complex
 };
+
+}  // namespace cln

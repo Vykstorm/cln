@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer_io.h"
+#include "cln/integer_io.h"
 
 
 // Implementation.
 
-#include "cl_output.h"
+#include "cln/output.h"
+
+namespace cln {
 
 void print_integer (cl_ostream stream, const cl_print_rational_flags& flags, const cl_I& z)
 {
@@ -45,3 +47,5 @@ void print_integer (cl_ostream stream, const cl_print_rational_flags& flags, con
 	// Integer in Basis base ausgeben:
 	print_integer(stream,base,z);
 }
+
+}  // namespace cln

@@ -11,6 +11,8 @@
 
 #include "cl_DS.h"
 
+namespace cln {
+
 // Tabelle: enthält zu jeder Basis b (2 <= b <= 36)
 // - eine Kettenbruchapproximation num/den von intDsize*log(2)/log(b)
 //   (num/den >= intDsize*log(2)/log(b), mit num <= 2^10)
@@ -214,8 +216,8 @@
 	cached_power_table () {}
 	~cached_power_table () {}
 	// Allocation and deallocation.
-	void* operator new (size_t size) { return cl_malloc_hook(size); }
-	void operator delete (void* ptr) { cl_free_hook(ptr); }
+	void* operator new (size_t size) { return malloc_hook(size); }
+	void operator delete (void* ptr) { free_hook(ptr); }
   };
   static cached_power_table* ctable [36-2+1] =
     { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -409,3 +411,4 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
 }
 // Bit complexity (N := length(X)): O(log(N)*M(N)).
 
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
@@ -13,10 +13,12 @@
 #define MAYBE_INLINE inline
 #include "cl_st_make0.cc"
 
+namespace cln {
+
 const cl_string operator+ (const cl_string& str1, const char* str2)
 {
     unsigned long len1 = strlen(str1);
-    unsigned long len2 = strlen(str2);
+    unsigned long len2 = ::strlen(str2);
     var cl_heap_string* str = cl_make_heap_string(len1+len2);
     var char * ptr = &str->data[0];
     {
@@ -32,3 +34,5 @@ const cl_string operator+ (const cl_string& str1, const char* str2)
     *ptr++ = '\0';
     return str;
 }
+
+}  // namespace cln

@@ -1,17 +1,17 @@
 // Benchmarks from the LiDIA home page
 
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_float.h>
-#include <cl_float_io.h>
-#include <cl_real.h>
-#include <cl_real_io.h>
-#include <cl_complex.h>
-#include <cl_complex_io.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/float.h>
+#include <cln/float_io.h>
+#include <cln/real.h>
+#include <cln/real_io.h>
+#include <cln/complex.h>
+#include <cln/complex_io.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 // Timings on Linux i486 33 MHz, 1000 decimal places = 104 32-bit words.
 // Function              LiDIA       Pari       CLISP         CLN
@@ -61,42 +61,42 @@ int main (int argc, char * argv[])
 	if (argc < 1)
 		exit(1);
 
-	fprint(cl_stderr, "Number of repetitions: ");
-	fprintdecimal(cl_stderr, repetitions);
-	fprint(cl_stderr, "\n");
+	fprint(stderr, "Number of repetitions: ");
+	fprintdecimal(stderr, repetitions);
+	fprint(stderr, "\n");
 
-	cl_float_format_t prec = cl_float_format(1000);
+	float_format_t prec = float_format(1000);
 
-	fprint(cl_stderr, "pi\n");
+	fprint(stderr, "pi\n");
 	{ cl_F p;
-	  { CL_TIMING; p = cl_pi(prec); }
+	  { CL_TIMING; p = pi(prec); }
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_F p = cl_pi(prec); }
+	      { cl_F p = pi(prec); }
 	  }
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "gamma\n");
+	fprint(stderr, "gamma\n");
 	{ cl_F p;
-	  { CL_TIMING; p = cl_eulerconst(prec); }
+	  { CL_TIMING; p = eulerconst(prec); }
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_F p = cl_eulerconst(prec); }
+	      { cl_F p = eulerconst(prec); }
 	  }
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "e\n");
-	{ cl_F p = cl_exp1(prec);
+	fprint(stderr, "e\n");
+	{ cl_F p = exp1(prec);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_F p = cl_exp1(prec); }
+	      { cl_F p = exp1(prec); }
 	  }
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "sqrt(3)\n");
+	fprint(stderr, "sqrt(3)\n");
 	{ cl_R p = sqrt(cl_float(3,prec));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -105,7 +105,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "exp(log(2))\n");
+	fprint(stderr, "exp(log(2))\n");
 	{ cl_N p = exp(log(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -114,7 +114,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "log(exp(2))\n");
+	fprint(stderr, "log(exp(2))\n");
 	{ cl_N p = log(exp(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -123,25 +123,25 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "sin(pi/3)\n");
-	{ cl_R p = sin(cl_pi(prec)/3);
+	fprint(stderr, "sin(pi/3)\n");
+	{ cl_R p = sin(pi(prec)/3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_R p = sin(cl_pi(prec)/3); }
+	      { cl_R p = sin(pi(prec)/3); }
 	  }
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "cos(pi/3)\n");
-	{ cl_R p = cos(cl_pi(prec)/3);
+	fprint(stderr, "cos(pi/3)\n");
+	{ cl_R p = cos(pi(prec)/3);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_R p = cos(cl_pi(prec)/3); }
+	      { cl_R p = cos(pi(prec)/3); }
 	  }
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "arcsin(sqrt(3)/2)\n");
+	fprint(stderr, "arcsin(sqrt(3)/2)\n");
 	{ cl_N p = asin(sqrt(cl_float(3,prec))/2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -150,7 +150,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "arccos(sqrt(3)/2)\n");
+	fprint(stderr, "arccos(sqrt(3)/2)\n");
 	{ cl_N p = acos(sqrt(cl_float(3,prec))/2);
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -159,7 +159,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "sinh(log(2))\n");
+	fprint(stderr, "sinh(log(2))\n");
 	{ cl_N p = sinh(log(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -168,7 +168,7 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "cosh(log(2))\n");
+	fprint(stderr, "cosh(log(2))\n");
 	{ cl_N p = cosh(log(cl_float(2,prec)));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
@@ -177,20 +177,20 @@ int main (int argc, char * argv[])
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "arsinh(pi)\n");
-	{ cl_N p = asinh(cl_pi(prec));
+	fprint(stderr, "arsinh(pi)\n");
+	{ cl_N p = asinh(pi(prec));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_N p = asinh(cl_pi(prec)); }
+	      { cl_N p = asinh(pi(prec)); }
 	  }
 	  cout << p << endl << endl;
 	}
 
-	fprint(cl_stderr, "arcosh(pi)\n");
-	{ cl_N p = acosh(cl_pi(prec));
+	fprint(stderr, "arcosh(pi)\n");
+	{ cl_N p = acosh(pi(prec));
 	  { CL_TIMING;
 	    for (int rep = repetitions; rep > 0; rep--)
-	      { cl_N p = acosh(cl_pi(prec)); }
+	      { cl_N p = acosh(pi(prec)); }
 	  }
 	  cout << p << endl << endl;
 	}

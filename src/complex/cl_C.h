@@ -3,14 +3,16 @@
 #ifndef _CL_C_H
 #define _CL_C_H
 
-#include "cl_number.h"
-#include "cl_complex.h"
-#include "cl_sfloat_class.h"
-#include "cl_ffloat_class.h"
-#include "cl_dfloat_class.h"
-#include "cl_lfloat_class.h"
+#include "cln/number.h"
+#include "cln/complex.h"
+#include "cln/sfloat_class.h"
+#include "cln/ffloat_class.h"
+#include "cln/dfloat_class.h"
+#include "cln/lfloat_class.h"
 #include "cl_macros.h"
-#include "cl_malloc.h"
+#include "cln/malloc.h"
+
+namespace cln {
 
 struct cl_heap_complex : cl_heap {
 	cl_R realpart;
@@ -24,7 +26,7 @@ inline cl_heap_complex* TheComplex (const cl_number& obj)
 
 inline cl_heap_complex* allocate_complex (const cl_R& real, const cl_R& imag)
 {
-	cl_heap_complex* p = (cl_heap_complex*) cl_malloc_hook(sizeof(cl_heap_complex));
+	cl_heap_complex* p = (cl_heap_complex*) malloc_hook(sizeof(cl_heap_complex));
 	p->refcount = 1;
 	p->type = &cl_class_complex;
 	p->realpart.pointer = real.pointer;	cl_inc_refcount(real);
@@ -186,5 +188,6 @@ extern const cl_C_R atanh (const cl_R& x, const cl_R& y);
 // Hilfsfunktion für asinh und asin: u+iv := arsinh(x+iy). Liefert cl_C_R(u,v).
 extern const cl_C_R asinh (const cl_R& x, const cl_R& y);
 
+}  // namespace cln
 
 #endif /* _CL_C_H */

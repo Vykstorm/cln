@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
+
+namespace cln {
 
 cl_class cl_class_ffloat = {
 #ifdef CL_WIDE_POINTERS
@@ -24,3 +26,5 @@ AT_INITIALIZATION(ini_class_ffloat)
 	cl_immediate_classes[cl_FF_tag] = &cl_class_ffloat;
 }
 #endif
+
+}  // namespace cln

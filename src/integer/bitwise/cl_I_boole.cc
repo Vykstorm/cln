@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_I boole (cl_boole op, const cl_I& x, const cl_I& y)
 {
@@ -48,3 +50,5 @@ const cl_I boole (cl_boole op, const cl_I& x, const cl_I& y)
 			NOTREACHED
 	}
 }
+
+}  // namespace cln

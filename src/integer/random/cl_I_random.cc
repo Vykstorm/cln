@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -13,7 +13,9 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 
-const cl_I random_I (cl_random_state& randomstate, const cl_I& n)
+namespace cln {
+
+const cl_I random_I (random_state& randomstate, const cl_I& n)
 {
 	CL_ALLOCA_STACK;
 	var const uintD* n_MSDptr;
@@ -32,3 +34,5 @@ const cl_I random_I (cl_random_state& randomstate, const cl_I& n)
 	// Rest in Integer umwandeln:
 	return NUDS_to_I(r.MSDptr,r.len);
 }
+
+}  // namespace cln

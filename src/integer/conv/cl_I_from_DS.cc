@@ -9,12 +9,14 @@
 
 // Implementation.
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_DS.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_I_from_NDS.cc"
+
+namespace cln {
 
 MAYBE_INLINE2
 const cl_I DS_to_I (const uintD* MSDptr, uintC len)
@@ -39,3 +41,5 @@ const cl_I DS_to_I (const uintD* MSDptr, uintC len)
       // aber NDS_to_I wird auch damit fertig.
       return NDS_to_I(MSDptr,len);
 }
+
+}  // namespace cln

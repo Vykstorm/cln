@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
+
+namespace cln {
 
 ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
@@ -69,3 +71,5 @@ const cl_C_LF cl_C_recip (const cl_LF& a, const cl_LF& b)
 	// 2^(-e)*a'/c' + i * -2^(-e)*b'/c'
 	return cl_C_LF(scale_float(na/nc,-e), scale_float(-(nb/nc),-e));
 }}
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_R mod (const cl_R& x, const cl_R& y)
 {
@@ -25,3 +27,5 @@ const cl_R mod (const cl_R& x, const cl_R& y)
 		}
 	return y * floor2(x/y).remainder;
 }
+
+}  // namespace cln

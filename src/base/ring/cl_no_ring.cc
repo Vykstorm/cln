@@ -6,29 +6,31 @@
 CL_PROVIDE(cl_no_ring)
 
 // Specification.
-#include "cl_ring.h"
+#include "cln/ring.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 nonreturning_function(static, uninitialized_ring, (void));
 static void uninitialized_ring ()
 {
-	fprint(cl_stderr, "Uninitialized ring operation called\n");
+	fprint(stderr, "Uninitialized ring operation called\n");
 	cl_abort();
 }
 
 nonreturning_function(static, uninitialized_error, (const _cl_ring_element&));
 static void uninitialized_error (const _cl_ring_element& obj)
 {
-	fprint(cl_stderr, "Uninitialized ring element @0x");
-	fprinthexadecimal(cl_stderr, (unsigned long)(void*)&obj);
-	fprint(cl_stderr, ": 0x");
-        fprinthexadecimal(cl_stderr, (unsigned long)obj.rep.word);
-	fprint(cl_stderr, "\n");
+	fprint(stderr, "Uninitialized ring element @0x");
+	fprinthexadecimal(stderr, (unsigned long)(void*)&obj);
+	fprint(stderr, ": 0x");
+        fprinthexadecimal(stderr, (unsigned long)obj.rep.word);
+	fprint(stderr, "\n");
 	cl_abort();
 }
 
@@ -143,5 +145,7 @@ cl_class cl_class_no_ring = {
 };
 
 const cl_ring cl_no_ring = cl_ring (new cl_heap_no_ring());
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_no_ring)

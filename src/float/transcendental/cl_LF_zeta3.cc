@@ -1,4 +1,4 @@
-// cl_zeta3().
+// zeta3().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -9,13 +9,15 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_alloca.h"
 
-const cl_LF cl_zeta3 (uintC len)
+namespace cln {
+
+const cl_LF zeta3 (uintC len)
 {
 	// Method:
 	//            /infinity                                  \ 
@@ -81,3 +83,5 @@ const cl_LF cl_zeta3 (uintC len)
 // 50000                          3723
 // asymp.    FAST     N^2    FAST    FAST
 // (FAST means O(log(N)^2*M(N)))
+
+}  // namespace cln

@@ -4,20 +4,22 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 #include "cl_SF.h"
 #include "cl_FF.h"
 #include "cl_DF.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_F_div_t truncate2 (const cl_F& x)
 {
@@ -28,3 +30,5 @@ const cl_F_div_t truncate2 (const cl_F& x)
 	,	var cl_LF q = ftruncate(x); return cl_F_div_t(cl_LF_to_I(q),LF_LF_minus_LF(x,q));
 	);
 }
+
+}  // namespace cln

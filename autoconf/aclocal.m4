@@ -948,7 +948,7 @@ AC_DEFUN(CL_GMP_H_VERSION,
 cl_cv_new_gmp_h="yes", cl_cv_new_gmp_h="no")
 ])])dnl
 
-# Does libgmp feature 3.0 functionality?
+# Does libgmp provide some functionality introduced in version 3.0?
 AC_DEFUN(CL_GMP_CHECK,
 [AC_CACHE_CHECK([for working libgmp], cl_cv_new_libgmp, [
     SAVELIBS=$LIBS

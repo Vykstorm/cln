@@ -6,13 +6,14 @@
 CL_PROVIDE(cl_SV_number)
 
 // Specification.
-#include "cl_SV_number.h"
+#include "cln/SV_number.h"
 
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
 
+namespace cln {
 
 static void cl_svector_number_destructor (cl_heap* pointer)
 {
@@ -30,7 +31,7 @@ cl_class cl_class_svector_number = {
 
 cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintL len)
 {
-	var cl_heap_SV_number* hv = (cl_heap_SV_number*) cl_malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
+	var cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_number;
 	new (&hv->v) cl_SV_inner<cl_number> (len);
@@ -40,7 +41,7 @@ cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintL len)
 
 cl_heap_SV_number* cl_make_heap_SV_number (uintL len)
 {
-	var cl_heap_SV_number* hv = (cl_heap_SV_number*) cl_malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
+	var cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_number;
 	new (&hv->v) cl_SV_inner<cl_number> (len);
@@ -51,5 +52,7 @@ cl_heap_SV_number* cl_make_heap_SV_number (uintL len)
 
 // An empty vector.
 const cl_SV_number cl_null_SV_number = cl_SV_number((uintL)0);
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_SV_number)

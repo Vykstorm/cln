@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
@@ -14,6 +14,8 @@
 #include "cl_LF.h"
 
 #if 0
+
+namespace cln {
 
 const cl_LF cl_R_to_LF (const cl_R& x, uintC len)
 {
@@ -26,10 +28,14 @@ const cl_LF cl_R_to_LF (const cl_R& x, uintC len)
 	}
 }
 
+}  // namespace cln
+
 #else // fully inlined, faster
 
 #include "cl_RA.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_LF cl_R_to_LF (const cl_R& x, uintC len)
 {
@@ -42,5 +48,7 @@ const cl_LF cl_R_to_LF (const cl_R& x, uintC len)
 	,	return LF_to_LF(x,len);
 	);
 }
+
+}  // namespace cln
 
 #endif

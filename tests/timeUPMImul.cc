@@ -1,11 +1,11 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_modinteger.h>
-#include <cl_univpoly.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/modinteger.h>
+#include <cln/univpoly.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {
@@ -21,14 +21,14 @@ int main (int argc, char * argv[])
 	cl_I m = 100001;
 	int i;
 
-	cl_modint_ring R1 = cl_find_modint_ring(m);
-	cl_univpoly_ring PR1 = cl_find_univpoly_ring(R1);
+	cl_modint_ring R1 = find_modint_ring(m);
+	cl_univpoly_ring PR1 = find_univpoly_ring(R1);
 	cl_UP p1 = PR1->create(n-1);
 	for (i = 0; i < n; i++)
 		p1.set_coeff(i, R1->canonhom((int)(1.618033989*i*i)));
 	p1.finalize();
 
-	cl_stdout << p1 << endl;
+	stdout << p1 << endl;
 
 	cl_UP sp1 = PR1->zero();
 	{ CL_TIMING;
@@ -36,7 +36,7 @@ int main (int argc, char * argv[])
 	    { sp1 = square(p1); }
 	}
 
-	cl_stdout << sp1 << endl;
+	stdout << sp1 << endl;
 }
 
 // Time:

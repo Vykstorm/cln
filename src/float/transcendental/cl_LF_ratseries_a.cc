@@ -9,10 +9,12 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/lfloat.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 // Subroutine.
 // Evaluates S = sum(N1 <= n < N2, a(n)/b(n) * (p(N1)...p(n))/(q(N1)...q(n)))
@@ -74,3 +76,5 @@ const cl_LF eval_rational_series (uintL N, const cl_a_series& args, uintC len)
 }
 // Bit complexity (if p(n), q(n), a(n), b(n) have length O(log(n))):
 // O(log(N)^2*M(N)).
+
+}  // namespace cln

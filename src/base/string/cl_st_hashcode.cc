@@ -1,13 +1,15 @@
-// cl_string hashcode().
+// cln/string.hashcode().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
+
+namespace cln {
 
 unsigned long hashcode (const cl_string& str)
 {
@@ -25,3 +27,5 @@ unsigned long hashcode (const cl_string& str)
     }
     return code;
 }
+
+}  // namespace cln

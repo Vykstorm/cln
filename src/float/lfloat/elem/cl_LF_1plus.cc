@@ -14,6 +14,8 @@
 #include "cl_F.h"
 #include "cl_xmacros.h"
 
+namespace cln {
+
 const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
 {
 // Methode (nach [Knuth, II, Seminumerical Algorithms, Abschnitt 4.2.1., S.200]):
@@ -238,3 +240,5 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
       // y fertig.
       return y;
 }
+
+}  // namespace cln

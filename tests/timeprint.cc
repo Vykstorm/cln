@@ -1,13 +1,13 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_integer_io.h>
-#include <cl_random.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
-#include <cl_malloc.h>
-#include <cl_abort.h>
+#include <cln/timing.h>
+#include <cln/malloc.h>
+#include <cln/abort.h>
 
 int main (int argc, char * argv[])
 {
@@ -24,11 +24,11 @@ int main (int argc, char * argv[])
 	// One run to fill the cache.
 	{
 		char* p = cl_decimal_string(a);
-		cl_free_hook(p);
+		free_hook(p);
 	}
 	// Now start the timing.
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)
-	    { char* p = cl_decimal_string(a); cl_free_hook(p); }
+	    { char* p = cl_decimal_string(a); free_hook(p); }
 	}
 }

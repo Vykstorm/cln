@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 28 August 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 12. Customizing</TITLE>
 </HEAD>
@@ -9,14 +9,14 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_11.html">previous</A>, <A
 <P><HR><P>
 
 
-<H1><A NAME="SEC69" HREF="cln_toc.html#TOC69">12. Customizing</A></H1>
+<H1><A NAME="SEC70" HREF="cln_toc.html#TOC70">12. Customizing</A></H1>
 <P>
-<A NAME="IDX327"></A>
+<A NAME="IDX342"></A>
 
 
 
 
-<H2><A NAME="SEC70" HREF="cln_toc.html#TOC70">12.1 Error handling</A></H2>
+<H2><A NAME="SEC71" HREF="cln_toc.html#TOC71">12.1 Error handling</A></H2>
 
 <P>
 When a fatal error occurs, an error message is output to the standard error
@@ -26,20 +26,20 @@ To catch such a fatal error, you need to define the function <CODE>cl_abort</COD
 yourself, with the prototype
 
 <PRE>
-#include &#60;cl_abort.h&#62;
+#include &#60;cln/abort.h&#62;
 void cl_abort (void);
 </PRE>
 
 <P>
-<A NAME="IDX328"></A>
+<A NAME="IDX343"></A>
 This function must not return control to its caller.
 
 
 
 
-<H2><A NAME="SEC71" HREF="cln_toc.html#TOC71">12.2 Floating-point underflow</A></H2>
+<H2><A NAME="SEC72" HREF="cln_toc.html#TOC72">12.2 Floating-point underflow</A></H2>
 <P>
-<A NAME="IDX329"></A>
+<A NAME="IDX344"></A>
 
 
 <P>
@@ -60,37 +60,39 @@ will be generated instead.  The default value of
 
 
 
-<H2><A NAME="SEC72" HREF="cln_toc.html#TOC72">12.3 Customizing I/O</A></H2>
+<H2><A NAME="SEC73" HREF="cln_toc.html#TOC73">12.3 Customizing I/O</A></H2>
 
 <P>
 The output of the function <CODE>fprint</CODE> may be customized by changing the
-value of the global variable <CODE>cl_default_print_flags</CODE>.
-<A NAME="IDX330"></A>
+value of the global variable <CODE>default_print_flags</CODE>.
+<A NAME="IDX345"></A>
 
 
 
 
-<H2><A NAME="SEC73" HREF="cln_toc.html#TOC73">12.4 Customizing the memory allocator</A></H2>
+<H2><A NAME="SEC74" HREF="cln_toc.html#TOC74">12.4 Customizing the memory allocator</A></H2>
 
 <P>
 Every memory allocation of CLN is done through the function pointer
-<CODE>cl_malloc_hook</CODE>. Freeing of this memory is done through the function
-pointer <CODE>cl_free_hook</CODE>. The default versions of these functions,
+<CODE>malloc_hook</CODE>. Freeing of this memory is done through the function
+pointer <CODE>free_hook</CODE>. The default versions of these functions,
 provided in the library, call <CODE>malloc</CODE> and <CODE>free</CODE> and check
 the <CODE>malloc</CODE> result against <CODE>NULL</CODE>.
 If you want to provide another memory allocator, you need to define
-the variables <CODE>cl_malloc_hook</CODE> and <CODE>cl_free_hook</CODE> yourself,
+the variables <CODE>malloc_hook</CODE> and <CODE>free_hook</CODE> yourself,
 like this:
 
 <PRE>
-#include &#60;cl_malloc.h&#62;
-void* (*cl_malloc_hook) (size_t size) = ...;
-void (*cl_free_hook) (void* ptr)      = ...;
+#include &#60;cln/malloc.h&#62;
+namespace cln {
+        void* (*malloc_hook) (size_t size) = ...;
+        void (*free_hook) (void* ptr)      = ...;
+}
 </PRE>
 
 <P>
-<A NAME="IDX331"></A>
-<A NAME="IDX332"></A>
+<A NAME="IDX346"></A>
+<A NAME="IDX347"></A>
 The <CODE>cl_malloc_hook</CODE> function must not return a <CODE>NULL</CODE> pointer.
 
 

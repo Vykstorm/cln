@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 const cl_N cosh (const cl_N& x)
 {
@@ -25,10 +27,12 @@ const cl_N cosh (const cl_N& x)
 		// x=a+bi
 		var const cl_R& a = realpart(x);
 		var const cl_R& b = imagpart(x);
-		var cl_cos_sin_t trig_b = cl_cos_sin(b); // cos(b), sin(b) errechnen
-		var cl_cosh_sinh_t hyp_a = cl_cosh_sinh(a); // cosh(a), sinh(a) errechnen
+		var cos_sin_t trig_b = cos_sin(b); // cos(b), sin(b) errechnen
+		var cosh_sinh_t hyp_a = cosh_sinh(a); // cosh(a), sinh(a) errechnen
 		return complex(hyp_a.cosh * trig_b.cos, // cosh(a)*cos(b)
 			       hyp_a.sinh * trig_b.sin // sinh(a)*sin(b)
 			      );
 	}
 }
+
+}  // namespace cln

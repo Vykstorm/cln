@@ -11,7 +11,9 @@
 
 #include "cl_F.h"
 
-const cl_F cl_ln10 (cl_float_format_t f)
+namespace cln {
+
+const cl_F cl_ln10 (float_format_t f)
 {
 	floatformatcase((uintL)f
 	,	return cl_SF_ln10;
@@ -20,3 +22,5 @@ const cl_F cl_ln10 (cl_float_format_t f)
 	,	return cl_ln10(len);
 	);
 }
+
+}  // namespace cln

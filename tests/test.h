@@ -1,76 +1,43 @@
-#include <cl_io.h>
+#include <cln/io.h>
+using namespace std;
+using namespace cln;
 
 #define ASSERT(expr)  \
   if (!(expr)) {					\
-	fprint(cl_stderr,"Assertion failed! File ");	\
-	fprint(cl_stderr,__FILE__);			\
-	fprint(cl_stderr,", line ");			\
-	fprintdecimal(cl_stderr,__LINE__);		\
-	fprint(cl_stderr,".\n");			\
+	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;	\
 	error = 1;					\
   }
 
 #define ASSERT1(expr,a)  \
   if (!(expr)) {					\
-	fprint(cl_stderr,"Assertion failed! File ");	\
-	fprint(cl_stderr,__FILE__);			\
-	fprint(cl_stderr,", line ");			\
-	fprintdecimal(cl_stderr,__LINE__);		\
-	fprint(cl_stderr,".\n");			\
-	fprint(cl_stderr,#a" = ");			\
-	fprint(cl_stderr,a);				\
-	fprint(cl_stderr,"\n");				\
+	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;	\
+	stderr << #a" = " << a << endl;			\
 	error = 1;					\
   }
 
 #define ASSERT2(expr,a,b)  \
   if (!(expr)) {					\
-	fprint(cl_stderr,"Assertion failed! File ");	\
-	fprint(cl_stderr,__FILE__);			\
-	fprint(cl_stderr,", line ");			\
-	fprintdecimal(cl_stderr,__LINE__);		\
-	fprint(cl_stderr,".\n");			\
-	fprint(cl_stderr,#a" = ");			\
-	fprint(cl_stderr,a);				\
-	fprint(cl_stderr,"\n"#b" = ");			\
-	fprint(cl_stderr,b);				\
-	fprint(cl_stderr,"\n");				\
+	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;	\
+	stderr << #a" = " << a << endl;			\
+	stderr << #b" = " << b << endl;			\
 	error = 1;					\
   }
 
 #define ASSERT3(expr,a,b,c)  \
   if (!(expr)) {					\
-	fprint(cl_stderr,"Assertion failed! File ");	\
-	fprint(cl_stderr,__FILE__);			\
-	fprint(cl_stderr,", line ");			\
-	fprintdecimal(cl_stderr,__LINE__);		\
-	fprint(cl_stderr,".\n");			\
-	fprint(cl_stderr,#a" = ");			\
-	fprint(cl_stderr,a);				\
-	fprint(cl_stderr,"\n"#b" = ");			\
-	fprint(cl_stderr,b);				\
-	fprint(cl_stderr,"\n"#c" = ");			\
-	fprint(cl_stderr,c);				\
-	fprint(cl_stderr,"\n");				\
+	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;	\
+	stderr << #a" = " << a << endl;			\
+	stderr << #b" = " << b << endl;			\
+	stderr << #c" = " << c << endl;			\
 	error = 1;					\
   }
 
 #define ASSERT4(expr,a,b,c,d)  \
   if (!(expr)) {					\
-	fprint(cl_stderr,"Assertion failed! File ");	\
-	fprint(cl_stderr,__FILE__);			\
-	fprint(cl_stderr,", line ");			\
-	fprintdecimal(cl_stderr,__LINE__);		\
-	fprint(cl_stderr,".\n");			\
-	fprint(cl_stderr,#a" = ");			\
-	fprint(cl_stderr,a);				\
-	fprint(cl_stderr,"\n"#b" = ");			\
-	fprint(cl_stderr,b);				\
-	fprint(cl_stderr,"\n"#c" = ");			\
-	fprint(cl_stderr,c);				\
-	fprint(cl_stderr,"\n"#d" = ");			\
-	fprint(cl_stderr,d);				\
-	fprint(cl_stderr,"\n");				\
+	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;	\
+	stderr << #a" = " << a << endl;			\
+	stderr << #b" = " << b << endl;			\
+	stderr << #c" = " << c << endl;			\
+	stderr << #d" = " << d << endl;			\
 	error = 1;					\
   }
-

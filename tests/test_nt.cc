@@ -1,9 +1,9 @@
-#include <cl_io.h>
+#include <iostream>
 
 extern int test_nt_jacobi (int iterations);
 
 #define RUN(tester,iterations)  \
-	fprint(cl_stdout,"Testing "#tester"...\n"); \
+	std::cout << "Testing "#tester"..." << std::endl; \
 	error |= tester (iterations);
 
 int test_nt (int iterations)

@@ -6,6 +6,7 @@
 prefix = @prefix@
 local_prefix = /usr/local
 exec_prefix = @exec_prefix@
+bindir = @bindir@
 datadir = @datadir@
 libdir = @libdir@
 includedir = @includedir@
@@ -16,6 +17,9 @@ CC = @CC@
 CFLAGS = @CFLAGS@
 RM = rm -f
 @SET_MAKE@
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+UNINSTALL_PROGRAM = @UNINSTALL_PROGRAM@
 
 #### End of system configuration section. ####
 
@@ -26,12 +30,16 @@ all : force
 
 install : force
 	cd @subdir@; $(MAKE) install
+	if [ ! -d $(bindir) ] ; then mkdir $(bindir) ; fi
+	$(INSTALL_PROGRAM) cln-config $(bindir)/cln-config
 
 installdirs : force
 	cd @subdir@; $(MAKE) installdirs
+	if [ ! -d $(bindir) ] ; then mkdir $(bindir) ; fi
 
 uninstall : force
 	cd @subdir@; $(MAKE) uninstall
+	$(RM) $(bindir)/cln-config
 
 check : force
 	cd @subdir@; $(MAKE) check
@@ -45,14 +53,15 @@ clean : force
 distclean : force
 	cd @subdir@; if test -f Makefile; then $(MAKE) distclean; fi
 	$(RM) config.status config.log config.cache Makefile
+	$(RM) cln-config
 	$(RM) libtool
-	$(RM) include/cl_config.h include/cl_intparam.h include/cl_floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
+	$(RM) include/cln/config.h include/cln/intparam.h include/cln/floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
 
 maintainer-clean : force
 	cd @subdir@; if test -f Makefile; then $(MAKE) maintainer-clean; fi
 	$(RM) config.status config.log config.cache Makefile
+	$(RM) cln-config
 	$(RM) libtool
-	$(RM) include/cl_config.h include/cl_intparam.h include/cl_floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
+	$(RM) include/cln/config.h include/cln/intparam.h include/cln/floatparam.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h
 
 force :
-

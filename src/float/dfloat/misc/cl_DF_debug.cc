@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_dfloat.h"
-#include "cl_io.h"
-#include "cl_float_io.h"
+#include "cln/dfloat.h"
+#include "cln/io.h"
+#include "cln/float_io.h"
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -21,5 +23,7 @@ static void dprint (cl_heap* pointer)
 AT_INITIALIZATION(dprint_DF)
 { cl_register_type_printer(cl_class_dfloat,dprint); }
 
-// This dummy links in this module when <cl_dfloat.h> requires it.
+// This dummy links in this module when <cln/dfloat.h> requires it.
 int cl_DF_debug_module;
+
+}  // namespace cln

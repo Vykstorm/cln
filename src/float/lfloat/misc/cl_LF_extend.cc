@@ -12,6 +12,8 @@
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
 
+namespace cln {
+
 const cl_LF extend (const cl_LF& x, uintC len)
 {
       var Lfloat y = allocate_lfloat(len,TheLfloat(x)->expo,TheLfloat(x)->sign); // neues LF
@@ -23,3 +25,5 @@ const cl_LF extend (const cl_LF& x, uintC len)
       }
       return y;
 }
+
+}  // namespace cln

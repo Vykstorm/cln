@@ -12,6 +12,8 @@
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
 
+namespace cln {
+
 const cl_LF LF_LF_minus_LF (const cl_LF& x1, const cl_LF& x2)
 {
 // Methode:
@@ -25,3 +27,5 @@ const cl_LF LF_LF_minus_LF (const cl_LF& x1, const cl_LF& x2)
           return LF_LF_plus_LF(x1,mx2);
         }
 }
+
+}  // namespace cln

@@ -4,21 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_io.h"
+#include "cln/io.h"
 
 
 // Implementation.
 
-#if defined(CL_IO_STDIO)
-
-void fprinthexadecimal (cl_ostream stream, unsigned long x)
-{
-	fprintf(stream,"%lX",x);
-}
-
-#endif
-
-#if defined(CL_IO_IOSTREAM)
+namespace cln {
 
 void fprinthexadecimal (cl_ostream stream, unsigned long x)
 {
@@ -36,8 +27,6 @@ void fprinthexadecimal (cl_ostream stream, unsigned long x)
 	#undef bufsize
 }
 
-#endif
-
 void fprinthexadecimal (cl_ostream stream, long x)
 {
 	if (x >= 0)
@@ -47,3 +36,5 @@ void fprinthexadecimal (cl_ostream stream, long x)
 		fprintdecimal(stream,(unsigned long)(-1-x)+1);
 	}
 }
+
+}  // namespace cln

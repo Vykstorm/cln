@@ -6,13 +6,15 @@
 CL_PROVIDE(cl_I_doublefactorial)
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_I_combin.h"
+
+namespace cln {
 
   // Method:
   // n <= 19 -> Get result (Fixnum) from table
@@ -134,6 +136,8 @@ const cl_I doublefactorial (uintL n) // assume n >= 0 small
         }
 }
 // Bit complexity (N := n): O(log(N)^2*M(N)).
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_I_doublefactorial)
 

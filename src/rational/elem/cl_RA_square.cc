@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_RA square (const cl_RA& r)
 {
@@ -28,3 +30,5 @@ const cl_RA square (const cl_RA& r)
 		return I_I_to_RT(square(a),square(b));
 	}
 }
+
+}  // namespace cln

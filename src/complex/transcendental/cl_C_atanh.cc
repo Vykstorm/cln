@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 // Methode:
 // Wert und Branch Cuts nach der Formel CLTL2, S. 315:
@@ -58,3 +60,5 @@ const cl_N atanh (const cl_N& z)
 	var cl_R& v = u_v.imagpart;
 	return complex(u,v);
 }
+
+}  // namespace cln

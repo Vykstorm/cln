@@ -1,18 +1,20 @@
-// cl_legendre().
+// legendre().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_univpoly_rational.h"
+#include "cln/univpoly_rational.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_rational.h"
+#include "cln/integer.h"
+#include "cln/rational.h"
 
-const cl_UP_RA cl_legendre (sintL n)
+namespace cln {
+
+const cl_UP_RA legendre (sintL n)
 {
 // The Legendre polynomials P_n(x) are defined as
 //
@@ -42,7 +44,7 @@ const cl_UP_RA cl_legendre (sintL n)
 //
 // P_n(x) = sum(j=0..floor(n/2), (-1)^j (2n-2j)!/j!(n-2j)!(n-j)! 2^-n x^(n-2j))
 //
-	var cl_univpoly_rational_ring R = cl_find_univpoly_ring(cl_RA_ring);
+	var cl_univpoly_rational_ring R = find_univpoly_ring(cl_RA_ring);
 	var cl_UP_RA p = R->create(n);
 	var cl_I denom = ash(1,n);
 	var sintL k = n;
@@ -58,3 +60,5 @@ const cl_UP_RA cl_legendre (sintL n)
 	p.finalize();
 	return p;
 }
+
+}  // namespace cln

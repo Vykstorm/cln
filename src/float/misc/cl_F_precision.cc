@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -18,6 +18,8 @@
 #include "cl_DF_precision.cc"
 #include "cl_LF_precision.cc"
 
+namespace cln {
+
 uintL float_precision (const cl_F& x)
 {
 	floatcase(x
@@ -27,3 +29,5 @@ uintL float_precision (const cl_F& x)
 	,	return float_precision(x);
 	);
 }
+
+}  // namespace cln

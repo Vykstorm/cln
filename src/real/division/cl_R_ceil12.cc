@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
+
+namespace cln {
 
 const cl_I ceiling1 (const cl_R& x, const cl_R& y)
 {
@@ -25,3 +27,5 @@ const cl_I ceiling1 (const cl_R& x, const cl_R& y)
 		}
 	return ceiling1(x/y);
 }
+
+}  // namespace cln

@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 uintC cl_LF_len_incsqrt (uintC n)
 {
 // Methode bei intDsize=16:
@@ -51,3 +53,5 @@ uintC cl_LF_len_incsqrt (uintC n)
 	  // No TEST(14), because NMAX(1UL<<14) is already out of range.
 	  n_max;
 }
+
+}  // namespace cln

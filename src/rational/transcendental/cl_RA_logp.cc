@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 {
@@ -101,3 +103,5 @@ cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 		return cl_false;
 	}
 }
+
+}  // namespace cln

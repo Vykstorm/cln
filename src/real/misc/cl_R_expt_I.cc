@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_rational.h"
-#include "cl_integer.h"
+#include "cln/rational.h"
+#include "cln/integer.h"
 #include "cl_I.h"
+
+namespace cln {
 
 // Methode:
 // Für y>0:
@@ -54,3 +56,5 @@ const cl_R expt (const cl_R& x, const cl_I& y)
 	var cl_R z = expt_pos(x,abs_y); // (expt x (abs y))
 	return (y_negative ? recip(z) : z); // evtl. noch Kehrwert nehmen
 }
+
+}  // namespace cln

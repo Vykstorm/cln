@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
@@ -12,8 +12,11 @@
 #include "cl_FF.h"
 #include "cl_F.h"
 #include "cl_ieee.h"
-NEED_IEEE_FLOATS()
 #include "cl_xmacros.h"
+
+namespace cln {
+
+NEED_IEEE_FLOATS()
 
 const cl_FF operator+ (const cl_FF& x1, const cl_FF& x2)
 {
@@ -134,3 +137,5 @@ const cl_FF operator+ (const cl_FF& x1, const cl_FF& x2)
       return encode_FF(sign1,exp1,mant1);
   #endif
 }
+
+}  // namespace cln

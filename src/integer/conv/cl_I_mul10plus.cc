@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_I mul_10_plus_x (const cl_I& y, unsigned char x)
 {
@@ -24,3 +26,5 @@ const cl_I mul_10_plus_x (const cl_I& y, unsigned char x)
 		{ lsprefnext(MSDptr) = carry; len++; }
 	return UDS_to_I(MSDptr,len); // UDS als Integer zurück
 }
+
+}  // namespace cln

@@ -3,8 +3,10 @@
 #ifndef _CL_I_BYTE_H
 #define _CL_I_BYTE_H
 
-#include "cl_number.h"
-#include "cl_integer_class.h"
+#include "cln/number.h"
+#include "cln/integer_class.h"
+
+namespace cln {
 
 // cl_fullbyte(p,q) liefert zu p,q die Zahl 2^q-2^p als Integer,
 // wobei p und q uintL sind. Bei p<=q ist das Ergebnis also
@@ -25,5 +27,7 @@ extern cl_boolean ldb_extract_test (const cl_I& x, uintL p, uintL q);
 // wobei 0 <= p <= q <= l = (integer-length x).
 // Ergebnis (wie bei MASK-FIELD) ein Integer >=0.
 extern const cl_I mkf_extract (const cl_I& x, uintL p, uintL q);
+
+}  // namespace cln
 
 #endif /* _CL_I_BYTE_H */

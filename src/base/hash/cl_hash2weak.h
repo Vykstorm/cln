@@ -5,6 +5,8 @@
 
 #include "cl_hash2.h"
 
+namespace cln {
+
 // This is a hash table in which an entry can be removed when a user-defined
 // condition is fulfilled (e.g. the value is not referenced any more).
 // We don't remove unused entries immediately, only when the hash table
@@ -20,9 +22,9 @@
 template <class key1_type, class key2_type, class value_type>
 struct cl_heap_weak_hashtable_2 : public cl_heap_hashtable_2 <key1_type,key2_type,value_type> {
 	// Allocation.
-	void* operator new (size_t size) { return cl_malloc_hook(size); }
+	void* operator new (size_t size) { return malloc_hook(size); }
 	// Deallocation.
-	void operator delete (void* ptr) { cl_free_hook(ptr); }
+	void operator delete (void* ptr) { free_hook(ptr); }
 public:
 	// Function which tells when an unused entry may be garbage collected.
 	cl_boolean (* const _maygc_htentry) (const cl_htentry2<key1_type,key2_type,value_type>&);
@@ -89,5 +91,7 @@ private:
 		return cl_false;
 	}
 };
+
+}  // namespace cln
 
 #endif /* _CL_HASH2WEAK_H */

@@ -9,12 +9,14 @@
 
 // Implementation.
 
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 #include "cl_DF.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_DF_minusp.cc"
+
+namespace cln {
 
 const cl_DF cl_hypot (const cl_DF& a, const cl_DF& b)
 {
@@ -55,3 +57,5 @@ const cl_DF cl_hypot (const cl_DF& a, const cl_DF& b)
 	var cl_DF nc = square(na) + square(nb);
 	return scale_float(sqrt(nc),e); // c' := sqrt(c'), 2^e*c'
 }
+
+}  // namespace cln

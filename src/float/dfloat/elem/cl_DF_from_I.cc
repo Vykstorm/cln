@@ -9,10 +9,12 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_DF cl_I_to_DF (const cl_I& x)
 {
@@ -133,3 +135,5 @@ const cl_DF cl_I_to_DF (const cl_I& x)
       return encode_DF(sign,(sintL)exp,manthi,mantlo);
       #endif
 }
+
+}  // namespace cln

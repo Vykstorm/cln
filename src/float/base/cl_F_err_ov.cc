@@ -9,11 +9,15 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_error_floating_point_overflow (void)
 {
-	fprint(cl_stderr, "Floating point overflow.\n");
+	fprint(stderr, "Floating point overflow.\n");
 	cl_abort();
 }
+
+}  // namespace cln

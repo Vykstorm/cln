@@ -3,10 +3,12 @@
 #ifndef _CL_SPUSHSTRING_H
 #define _CL_SPUSHSTRING_H
 
-#include "cl_object.h"
-#include "cl_malloc.h"
+#include "cln/object.h"
+#include "cln/malloc.h"
 #include "cl_sstring.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 class cl_spushstring {
 protected:
@@ -24,7 +26,7 @@ public:
 	void push (char);
 // Adds several characters at the end at once.
 	void append (const char * ptr, uintL len);
-// Get the contents as a string. Free it using cl_free_hook() when done.
+// Get the contents as a string. Free it using free_hook() when done.
 	char* contents ();
 // Look at the contents.
 	uintL length () const;
@@ -33,12 +35,12 @@ public:
 inline cl_spushstring::cl_spushstring ()
 {
 	alloc = 20; // Must be > 0.
-	buffer = (char *) cl_malloc_hook(alloc);
+	buffer = (char *) malloc_hook(alloc);
 	index = 0;
 }
 inline cl_spushstring::~cl_spushstring ()
 {
-	cl_free_hook(buffer);
+	free_hook(buffer);
 }
 inline void cl_spushstring::reset ()
 {
@@ -57,5 +59,7 @@ inline char cl_spushstring::operator[] (uintL i) const
 	if (!(i < index)) cl_abort();
 	return buffer[i];
 }
+
+}  // namespace cln
 
 #endif /* _CL_SPUSHSTRING_H */

@@ -1,4 +1,4 @@
-// cl_catalanconst().
+// catalanconst().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_alloca.h"
+
+namespace cln {
 
 const cl_LF compute_catalanconst_ramanujan (uintC len)
 {
@@ -37,7 +39,7 @@ const cl_LF compute_catalanconst_ramanujan (uintC len)
 	var cl_LF fsum = scale_float(cl_I_to_LF(sum,actuallen),-scale);
 	var cl_LF g =
 	  scale_float(The(cl_LF)(3*fsum)
-	              + The(cl_LF)(cl_pi(actuallen))
+	              + The(cl_LF)(pi(actuallen))
 	                * ln(cl_I_to_LF(2,actuallen)+sqrt(cl_I_to_LF(3,actuallen))),
 	              -3);
 	return shorten(g,len); // verkürzen und fertig
@@ -79,7 +81,7 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 	}
 	var cl_LF g =
 	  scale_float(The(cl_LF)(3*fsum)
-	              + The(cl_LF)(cl_pi(actuallen))
+	              + The(cl_LF)(pi(actuallen))
 	                * ln(cl_I_to_LF(2,actuallen)+sqrt(cl_I_to_LF(3,actuallen))),
 	              -3);
 	return shorten(g,len); // verkürzen und fertig
@@ -254,7 +256,7 @@ const cl_LF compute_catalanconst (uintC len)
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).
 
-const cl_LF cl_catalanconst (uintC len)
+const cl_LF catalanconst (uintC len)
 {
 	var uintC oldlen = TheLfloat(cl_LF_catalanconst)->len; // vorhandene Länge
 	if (len < oldlen)
@@ -273,3 +275,5 @@ const cl_LF cl_catalanconst (uintC len)
 	cl_LF_catalanconst = compute_catalanconst(newlen);
 	return (len < newlen ? shorten(cl_LF_catalanconst,len) : cl_LF_catalanconst);
 }
+
+}  // namespace cln

@@ -1,8 +1,10 @@
 #ifndef _EXAM_H
 #define _EXAM_H
 
-#include <cl_number.h>
-#include <cl_io.h>
+#include <cln/number.h>
+#include <cln/io.h>
+using namespace std;
+using namespace cln;
 
 // Michael Stoll  23. 3. 1993
 // C++ version: Bruno Haible 1.11.1995
@@ -51,16 +53,9 @@ static int test_##typename##_##opname (void)				\
 		rtype computed_result = arg1 op arg2;			\
 		rtype result = rtype(test.result);			\
 		if (computed_result != result) {			\
-			fprint(cl_stderr, "Error in " #typename "_" #opname "_tests["); \
-			fprintdecimal(cl_stderr, i);			\
-			fprint(cl_stderr, "] !\n");			\
-			fprint(cl_stderr, "Result should be: ");	\
-			fprint(cl_stderr, result);			\
-			fprint(cl_stderr, "\n");			\
-			fprint(cl_stderr, "Result computed : ");	\
-			fprint(cl_stderr, computed_result);		\
-			fprint(cl_stderr, "\n");			\
-			fprint(cl_stderr, "\n");			\
+			stderr << "Error in " #typename "_" #opname "_tests[" << i << "] !" << endl; \
+			stderr << "Result should be: " << result << endl;	\
+			stderr << "Result computed : " << computed_result << endl << endl;	\
 			error = 1;					\
 		}							\
 	}								\
@@ -79,20 +74,9 @@ static int test_##typename##_floor (void)				\
 		cl_I result1 = cl_I(test.result1);			\
 		type result2 = type(test.result2);			\
 		if ((computed_result.quotient != result1) || (computed_result.remainder != result2)) { \
-			fprint(cl_stderr, "Error in " #typename "_floor_tests["); \
-			fprintdecimal(cl_stderr, i);			\
-			fprint(cl_stderr, "] !\n");			\
-			fprint(cl_stderr, "Results should be: ");	\
-			fprint(cl_stderr, result1);			\
-			fprint(cl_stderr, ", ");			\
-			fprint(cl_stderr, result2);			\
-			fprint(cl_stderr, "\n");			\
-			fprint(cl_stderr, "Results computed : ");	\
-			fprint(cl_stderr, computed_result.quotient);	\
-			fprint(cl_stderr, ", ");			\
-			fprint(cl_stderr, computed_result.remainder);	\
-			fprint(cl_stderr, "\n");			\
-			fprint(cl_stderr, "\n");			\
+			stderr << "Error in " #typename "_floor_tests[" << i << endl; \
+			stderr << "Results should be: " << result1 << ", " << result2 << endl;	\
+			stderr << "Results computed : " << computed_result.quotient << ", " << computed_result.remainder << endl << endl;	\
 			error = 1;					\
 		}							\
 	}								\

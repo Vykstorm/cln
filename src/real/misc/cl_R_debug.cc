@@ -8,7 +8,9 @@
 
 // Implementation.
 
-// This dummy links in this module when <cl_real.h> requires it.
+namespace cln {
+
+// This dummy links in this module when <cln/real.h> requires it.
 int cl_R_debug_module;
 
 extern int cl_SF_debug_module;
@@ -23,3 +25,5 @@ static void* dummy[] = { &dummy,
 	&cl_LF_debug_module,
 	&cl_RA_debug_module
 };
+
+}  // namespace cln

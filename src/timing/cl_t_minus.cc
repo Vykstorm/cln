@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_timing.h"
+#include "cln/timing.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_time_duration operator- (const cl_timespec& a, const cl_timespec& b)
 {
@@ -22,3 +24,5 @@ const cl_time_duration operator- (const cl_timespec& a, const cl_timespec& b)
 	}
 	return cl_time_duration(sec,nsec);
 }
+
+}  // namespace cln

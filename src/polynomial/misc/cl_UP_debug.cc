@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_univpoly.h"
+#include "cln/univpoly.h"
 #include "cl_UP.h"
-#include "cl_io.h"
+#include "cln/io.h"
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -29,3 +31,5 @@ void cl_UP::debug_print () const
 
 // This dummy links in this module when <cl_univpoly_ring.h> requires it.
 int cl_UP_debug_module;
+
+}  // namespace cln

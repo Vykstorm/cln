@@ -4,15 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
 
-#ifdef CL_IO_IOSTREAM
-
-#include "cl_io.h"
+#include "cln/io.h"
 #include "cl_spushstring.h"
+
+namespace cln {
 
 const cl_string cl_fgetline (cl_istream stream, char delim)
 {
@@ -21,7 +21,7 @@ const cl_string cl_fgetline (cl_istream stream, char delim)
 	while (stream.good()) {
 		var int c = stream.get();
 		if (c==EOF)
-			break;	// ios::eofbit already set
+			break;	// std::ios::eofbit already set
 		if (c==delim)
 			break;
 		buffer.push(c);
@@ -29,4 +29,4 @@ const cl_string cl_fgetline (cl_istream stream, char delim)
 	return buffer.contents();
 }
 
-#endif
+}  // namespace cln

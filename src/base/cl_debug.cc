@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_object.h"
+#include "cln/object.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // The default printer function.
 void cl_dprint_unknown (cl_heap* pointer)
@@ -49,11 +51,7 @@ void* cl_print (cl_uint word)
 		else
 			cl_dprint_unknown_immediate(pointer);
 	}
-	#ifdef CL_IO_IOSTREAM
-	cl_debugout << endl; // newline and flush output
-	#else
-	fprint(cl_debugout, "\n");
-	#endif
+	cl_debugout << std::endl; // newline and flush output
 	return pointer;
 }
 
@@ -76,3 +74,5 @@ void cl_rcpointer::debug_print () const
 {
 	cl_print(word);
 }
+
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I exquopos (const cl_I& x, const cl_I& y)
 {
@@ -22,3 +24,5 @@ const cl_I exquopos (const cl_I& x, const cl_I& y)
   if (!zerop(q_r.remainder)) { cl_error_exquo(x,y); }
   return q_r.quotient;
 }
+
+}  // namespace cln

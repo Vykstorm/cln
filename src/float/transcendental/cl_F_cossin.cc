@@ -1,21 +1,23 @@
-// cl_cos_sin().
+// cos_sin().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F_tran.h"
 #include "cl_F.h"
-#include "cl_integer.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 
-const cl_cos_sin_t cl_cos_sin (const cl_F& x)
+namespace cln {
+
+const cos_sin_t cos_sin (const cl_F& x)
 {
 // Methode:
 // Genauigkeit erhöhen,
@@ -78,10 +80,12 @@ const cl_cos_sin_t cl_cos_sin (const cl_F& x)
 	}
 	// evtl. Vorzeichenwechsel oder Vertauschen:
 	switch (cl_I_to_UL(logand(q,3))) { // q mod 4
-		case 0: return cl_cos_sin_t(cos_r,sin_r);
-		case 1: return cl_cos_sin_t(-sin_r,cos_r);
-		case 2: return cl_cos_sin_t(-cos_r,-sin_r);
-		case 3: return cl_cos_sin_t(sin_r,-cos_r);
+		case 0: return cos_sin_t(cos_r,sin_r);
+		case 1: return cos_sin_t(-sin_r,cos_r);
+		case 2: return cos_sin_t(-cos_r,-sin_r);
+		case 3: return cos_sin_t(sin_r,-cos_r);
 		default: NOTREACHED
 	}
 }
+
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_numtheory.h"
+#include "cln/numtheory.h"
 
 
 // Implementation.
 
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 const cl_I nextprobprime (const cl_R& x)
 {
@@ -29,3 +31,5 @@ const cl_I nextprobprime (const cl_R& x)
 		n = n+2;
 	}
 }
+
+}  // namespace cln

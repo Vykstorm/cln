@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_numtheory.h"
+#include "cln/numtheory.h"
 
 
 // Implementation.
 
 #include "cl_IF.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 cl_boolean isprobprime (const cl_I& n)
 {
@@ -53,3 +55,5 @@ cl_boolean isprobprime (const cl_I& n)
 	// Step 2: Miller-Rabin test.
 	return cl_miller_rabin_test(n,count,NULL);
 }
+
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
 
 #include "cl_DF.h"
+
+namespace cln {
 
 const cl_DF_div_t floor2 (const cl_DF& x, const cl_DF& y)
 {
@@ -20,3 +22,5 @@ const cl_DF_div_t floor2 (const cl_DF& x, const cl_DF& y)
 	var cl_DF& r = q_r.remainder;
 	return cl_DF_div_t(q,y*r);
 }
+
+}  // namespace cln

@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_RA expt (const cl_RA& x, sintL y)
 {
@@ -22,3 +24,5 @@ const cl_RA expt (const cl_RA& x, sintL y)
 	else // y < 0
 		return recip(expt_pos(x,(uintL)(-y)));
 }
+
+}  // namespace cln

@@ -1,4 +1,4 @@
-#include <cl_io.h>
+#include <iostream>
 #include "cl_macros.h"
 
 extern int test_MI_canonhom (int iterations);
@@ -10,7 +10,7 @@ extern int test_MI_div (int iterations);
 extern int test_MI_expt (int iterations);
 
 #define RUN(tester,iterations)  \
-	fprint(cl_stdout,"Testing "#tester"...\n"); \
+	std::cout << "Testing "#tester"..." << std::endl; \
 	error |= tester (iterations);
 
 int test_MI (int iterations)

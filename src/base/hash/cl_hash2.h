@@ -6,6 +6,8 @@
 #include "cl_hash.h"
 #include "cl_iterator.h"
 
+namespace cln {
+
 // Requirements:
 // - function  bool equal (key1_type,key1_type);
 // - function  bool equal (key2_type,key2_type);
@@ -28,9 +30,9 @@ struct cl_htentry2 {
 template <class key1_type, class key2_type, class value_type>
 struct cl_heap_hashtable_2 : public cl_heap_hashtable <cl_htentry2 <key1_type,key2_type,value_type> > {
     // Allocation.
-    void* operator new (size_t size) { return cl_malloc_hook(size); }
+    void* operator new (size_t size) { return malloc_hook(size); }
     // Deallocation.
-    void operator delete (void* ptr) { cl_free_hook(ptr); }
+    void operator delete (void* ptr) { free_hook(ptr); }
 public:
     // Lookup (htref alias gethash).
     // Returns a pointer which you should immediately dereference
@@ -128,7 +130,7 @@ private:
     {
         var long new_size = _size + (_size >> 1) + 1; // _size*1.5
         var long new_modulus = compute_modulus(new_size);
-        var void* new_total_vector = cl_malloc_hook(new_modulus*sizeof(long) + new_size*sizeof(htxentry));
+        var void* new_total_vector = malloc_hook(new_modulus*sizeof(long) + new_size*sizeof(htxentry));
         var long* new_slots = (long*) ((char*)new_total_vector + 0);
         var htxentry* new_entries = (htxentry *) ((char*)new_total_vector + new_modulus*sizeof(long));
         for (var long hi = new_modulus-1; hi >= 0; hi--)
@@ -152,7 +154,7 @@ private:
                 new_slots[hindex] = 1+index;
                 old_entries[old_index].~htxentry();
             }
-        cl_free_hook(_total_vector);
+        free_hook(_total_vector);
         _modulus = new_modulus;
         _size = new_size;
         _freelist = free_list_head;
@@ -161,5 +163,7 @@ private:
         _total_vector = new_total_vector;
     }
 };
+
+}  // namespace cln
 
 #endif /* _CL_HASH2_H */

@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_random.h"
+#include "cln/random.h"
 #include "cl_DS.h"
 #include "cl_low.h"
 
-void random_UDS (cl_random_state& randomstate, uintD* ptr, uintC len)
+namespace cln {
+
+void random_UDS (random_state& randomstate, uintD* ptr, uintC len)
 {
 	var uintC count;
 	#if (intDsize==64)
@@ -31,3 +33,5 @@ void random_UDS (cl_random_state& randomstate, uintD* ptr, uintC len)
 	  }
 	#endif
 }
+
+}  // namespace cln

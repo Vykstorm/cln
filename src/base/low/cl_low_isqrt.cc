@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 // Zieht die Ganzzahl-Wurzel aus einer 32-Bit-Zahl und
 // liefert eine 16-Bit-Wurzel.
 // isqrt(x)
@@ -58,3 +60,5 @@ uintL isqrt (uintL x)
          }
      }}
 }
+
+}  // namespace cln

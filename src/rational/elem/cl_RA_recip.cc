@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_RA.h"
 #include "cl_N.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_RA recip (const cl_RA& r)
 {
@@ -31,3 +33,5 @@ const cl_RA recip (const cl_RA& r)
 		// a<0
 		return I_I_to_RA(-b,-a);
 }
+
+}  // namespace cln

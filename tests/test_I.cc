@@ -1,4 +1,4 @@
-#include <cl_io.h>
+#include <iostream>
 
 // Elementary operations.
 extern int test_I_abs (int iterations);
@@ -46,8 +46,9 @@ extern int test_I_sqrtp (int iterations);
 extern int test_I_GV (int iterations);
 
 #define RUN(tester,iterations)  \
-	fprint(cl_stdout,"Testing "#tester"...\n"); \
+	std::cout << "Testing "#tester"..." << std::endl; \
 	error |= tester (iterations);
+
 
 int test_I (int iterations)
 {

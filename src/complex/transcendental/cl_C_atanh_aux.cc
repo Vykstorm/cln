@@ -10,13 +10,15 @@
 // Implementation.
 
 #include "cl_N.h"
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_F_tran.h"
 #include "cl_R.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_F_from_R_def.cc"
+
+namespace cln {
 
 // Hilfsfunktion für atanh und atan: u+iv := artanh(x+iy). Liefert cl_C_R(u,v).
 
@@ -74,7 +76,7 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 		} else {
 			// (1+x)/(1-x) < 0 -> Betrag nehmen, Imaginärteil berechnen:
 			xx = - xx;
-			v = scale_float(cl_pi(),-1); // (scale-float pi -1) = pi/2
+			v = scale_float(pi(),-1); // (scale-float pi -1) = pi/2
 			if (minusp(xx_den))
 				// 1-x<0 -> dann -pi/2
 				v = -v;
@@ -125,3 +127,5 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 	}
 	return cl_C_R(u,v);
 }
+
+}  // namespace cln

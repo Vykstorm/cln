@@ -1,9 +1,12 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
+
+using namespace std;
+using namespace cln;
 
 int main (int argc, char * argv[])
 {
@@ -25,12 +28,8 @@ int main (int argc, char * argv[])
 	if (argc < 1)
 		exit(1);
 
-	fprint(cl_stderr, "Limit: ");
-	fprintdecimal(cl_stderr, limit);
-	fprint(cl_stderr, "\n");
-	fprint(cl_stderr, "Number of repetitions: ");
-	fprintdecimal(cl_stderr, repetitions);
-	fprint(cl_stderr, "\n");
+	stderr << "Limit: " << limit << endl;
+	stderr << "Number of repetitions: " << repetitions << endl;
 
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)

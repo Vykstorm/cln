@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 const cl_LF LF_to_LF (const cl_LF& x, uintC len)
 {
       var uintC oldlen = TheLfloat(x)->len;
@@ -17,3 +19,5 @@ const cl_LF LF_to_LF (const cl_LF& x, uintC len)
       // len = oldlen
       return x;
 }
+
+}  // namespace cln

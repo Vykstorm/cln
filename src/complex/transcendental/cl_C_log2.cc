@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
 #include "cl_N.h"
+
+namespace cln {
 
 const cl_N log (const cl_N& a, const cl_N& b)
 {
@@ -94,3 +96,5 @@ const cl_N log (const cl_N& a, const cl_N& b)
 	// normaler komplexer Fall
 	return log(a) / log(b);
 }
+
+}  // namespace cln

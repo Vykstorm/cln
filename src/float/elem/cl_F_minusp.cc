@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -18,6 +18,8 @@
 #include "cl_DF_minusp.cc"
 #include "cl_LF_minusp.cc"
 
+namespace cln {
+
 cl_boolean minusp (const cl_F& x)
 {
 	floatcase(x
@@ -27,3 +29,5 @@ cl_boolean minusp (const cl_F& x)
 	,	return minusp(x);
 	);
 }
+
+}  // namespace cln

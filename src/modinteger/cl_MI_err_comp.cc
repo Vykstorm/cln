@@ -9,10 +9,14 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 cl_composite_condition* cl_notify_composite (const cl_modint_ring& R, const cl_I& nonunit)
 {
 	return new cl_composite_condition(R->modulus,gcd(R->modulus,nonunit));
 }
+
+}  // namespace cln

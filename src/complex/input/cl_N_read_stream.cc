@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex_io.h"
+#include "cln/complex_io.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
+#include "cln/io.h"
 #include "cl_spushstring.h"
-#include "cl_input.h"
+#include "cln/input.h"
+
+namespace cln {
 
 // We read an entire token (or even more, if it begins with #C) into a
 // buffer and then call read_complex() on the buffer.
@@ -112,3 +114,5 @@ syntax:	read_number_bad_syntax(buffer.start_pointer(),buffer.end_pointer());
 	// Handle premature EOF.
 eof:	read_number_eof();
 }
+
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
+
+namespace cln {
 
 inline cl_boolean cl_LF_p (const cl_number& x)
 {
@@ -27,3 +29,5 @@ const cl_LF& as_cl_LF (const cl_number& x, const char * filename, int line)
 	} else
 		cl_as_error(x,"a long-float number",filename,line);
 }
+
+}  // namespace cln

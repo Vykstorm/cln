@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_proplist.h"
+#include "cln/proplist.h"
 
 
 // Implementation.
+
+namespace cln {
 
 cl_property_list::~cl_property_list ()
 {
@@ -17,3 +19,5 @@ cl_property_list::~cl_property_list ()
 		delete l;
 	}
 }
+
+}  // namespace cln

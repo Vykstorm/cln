@@ -3,10 +3,12 @@
 #ifndef _CL_HASH_H
 #define _CL_HASH_H
 
-#include "cl_object.h"
-#include "cl_malloc.h"
-#include "cl_abort.h"
+#include "cln/object.h"
+#include "cln/malloc.h"
+#include "cln/abort.h"
 #include "cl_iterator.h"
+
+namespace cln {
 
 const long htentry_last = 0; // means that there is no next entry
 
@@ -35,15 +37,15 @@ protected:
                                // a normal hash table into a "weak" hash table.
 public:
     // Allocation.
-    void* operator new (size_t size) { return cl_malloc_hook(size); }
+    void* operator new (size_t size) { return malloc_hook(size); }
     // Deallocation.
-    void operator delete (void* ptr) { cl_free_hook(ptr); }
+    void operator delete (void* ptr) { free_hook(ptr); }
     // Constructor: build a new, empty table.
     cl_heap_hashtable (long initial_size = 5) : cl_heap (),
         _size (initial_size), _count (0), _garcol_fun (no_garcol)
     {
         _modulus = compute_modulus(_size);
-        _total_vector = cl_malloc_hook(_modulus*sizeof(long) + _size*sizeof(htxentry));
+        _total_vector = malloc_hook(_modulus*sizeof(long) + _size*sizeof(htxentry));
         _slots = (long*) ((char*)_total_vector + 0);
         _entries = (htxentry *) ((char*)_total_vector + _modulus*sizeof(long));
         for (var long hi = _modulus-1; hi >= 0; hi--)
@@ -61,7 +63,7 @@ public:
         for (long i = 0; i < _size; i++)
             if (_entries[i].next >= 0)
                 _entries[i].~htxentry();
-        cl_free_hook(_total_vector);
+        free_hook(_total_vector);
     }
     // Count number of entries.
     long num_entries ()
@@ -186,5 +188,6 @@ inline _cl_hashtable_iterator<htentry> cl_heap_hashtable<htentry>::iterator ()
 #endif
 }
 
+}  // namespace cln
 
 #endif /* _CL_HASH_H */

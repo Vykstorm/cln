@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
 #include "cl_I.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_RA signum (const cl_RA& x)
@@ -19,3 +21,5 @@ const cl_RA signum (const cl_RA& x)
 	elif (zerop(x)) { return 0; } // x=0 -> 0
 	else { return 1; } // x>0 -> +1
 }
+
+}  // namespace cln

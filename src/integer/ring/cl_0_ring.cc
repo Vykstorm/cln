@@ -6,12 +6,14 @@
 CL_PROVIDE(cl_0_ring)
 
 // Specification.
-#include "cl_null_ring.h"
+#include "cln/null_ring.h"
 
 
 // Implementation.
 
-#include "cl_integer_class.h"
+#include "cln/integer_class.h"
+
+namespace cln {
 
 static const _cl_ring_element null_op0 (cl_heap_ring* R)
 {
@@ -125,5 +127,7 @@ inline cl_null_ring::cl_null_ring ()
 	: cl_ring (new cl_heap_null_ring()) {}
 
 const cl_null_ring cl_0_ring;
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_0_ring)

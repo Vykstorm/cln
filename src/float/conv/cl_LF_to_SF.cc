@@ -14,6 +14,8 @@
 #include "cl_SF.h"
 #include "cl_DS.h"
 
+namespace cln {
+
 const cl_SF cl_LF_to_SF (const cl_LF& x)
 {
 	// x entpacken:
@@ -49,3 +51,5 @@ const cl_SF cl_LF_to_SF (const cl_LF& x)
 	  }
 	return encode_SF(sign,exp,mant);
 }
+
+}  // namespace cln

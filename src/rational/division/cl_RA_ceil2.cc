@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_RA_div_t ceiling2 (const cl_RA& x)
 {
@@ -33,3 +35,5 @@ const cl_RA_div_t ceiling2 (const cl_RA& x)
 		return cl_RA_div_t(q,I_I_to_RT(r,b));
 	}
 }
+
+}  // namespace cln

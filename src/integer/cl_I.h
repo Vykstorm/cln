@@ -3,14 +3,15 @@
 #ifndef _CL_I_H
 #define _CL_I_H
 
-#include "cl_number.h"
-#include "cl_integer.h"
+#include "cln/number.h"
+#include "cln/integer.h"
 #include "cl_macros.h"
-#include "cl_malloc.h"
-#include "cl_abort.h"
+#include "cln/malloc.h"
+#include "cln/abort.h"
 #include "cl_offsetof.h"
 #include "cl_DS.h"
 
+namespace cln {
 
 // maximal needed length of a digit sequence for a fixnum
   #define FN_maxlength  ceiling(cl_value_len,intDsize)
@@ -52,7 +53,7 @@ inline cl_heap_bignum* TheBignum (const cl_number& obj)
 
 inline cl_heap_bignum* allocate_bignum (unsigned int length)
 {
-	cl_heap_bignum* p = (cl_heap_bignum*) cl_malloc_hook(offsetofa(cl_heap_bignum,data)+sizeof(uintD)*length);
+	cl_heap_bignum* p = (cl_heap_bignum*) malloc_hook(offsetofa(cl_heap_bignum,data)+sizeof(uintD)*length);
 	p->refcount = 1;
 	p->type = &cl_class_bignum;
 	p->length = length;
@@ -655,5 +656,7 @@ inline cl_boolean minusp (const cl_BN& x)
 }
 inline cl_boolean zerop (const cl_BN& x)
 	{ unused x; return cl_false; }
+
+}  // namespace cln
 
 #endif /* _CL_I_H */

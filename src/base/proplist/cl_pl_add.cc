@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_proplist.h"
+#include "cln/proplist.h"
 
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // This tells the compiler to put the `cl_property' vtable into this file.
 void cl_property::dummy () {}
@@ -21,3 +23,5 @@ void cl_property_list::add_property (cl_property* new_property)
 	new_property->next = list;
 	list = new_property;
 }
+
+}  // namespace cln

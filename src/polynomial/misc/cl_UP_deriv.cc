@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_univpoly.h"
+#include "cln/univpoly.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_UP deriv (const cl_UP& x)
 {
@@ -28,3 +30,5 @@ const cl_UP deriv (const cl_UP& x)
 		return y;
 	}
 }
+
+}  // namespace cln

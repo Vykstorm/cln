@@ -4,18 +4,20 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
 #include "cl_I.h"
 #include "cl_N.h"
+
+namespace cln {
 
 // Methode:
 // Falls y rational:
@@ -216,3 +218,5 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 	}
 	return exp(log(x)*y);
 }
+
+}  // namespace cln

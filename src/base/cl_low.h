@@ -3,6 +3,7 @@
 #ifndef _CL_LOW_H
 #define _CL_LOW_H
 
+namespace cln {
 
 // Determines the sign of a 16-bit number.
 // sign_of(wert)
@@ -1310,5 +1311,6 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       /* x64 besteht aus 1 16-Bit-Zähler (0,...,64).                         */\
     )
 
+}  // namespace cln
 
 #endif /* _CL_LOW_H */

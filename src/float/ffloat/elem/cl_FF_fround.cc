@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
 
 #include "cl_FF.h"
+
+namespace cln {
 
 const cl_FF fround (const cl_FF& x)
 {
@@ -76,3 +78,5 @@ const cl_FF fround (const cl_FF& x)
               }   }
         }
 }
+
+}  // namespace cln

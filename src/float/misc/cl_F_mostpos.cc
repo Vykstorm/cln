@@ -6,7 +6,7 @@
 CL_PROVIDE(cl_F_mostpos)
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 // Implementation.
 
@@ -16,6 +16,8 @@ CL_PROVIDE(cl_F_mostpos)
 #include "cl_DF.h"
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
+
+namespace cln {
 
 // Exponent so groß wie möglich, Mantisse 1...1, Vorzeichen +.
 
@@ -39,7 +41,7 @@ inline const cl_LF most_positive_LF (uintC len)
 	return erg;
 }
 
-const cl_F most_positive_float (cl_float_format_t f)
+const cl_F most_positive_float (float_format_t f)
 {
 	floatformatcase((uintL)f
 	,	return most_positive_SF;
@@ -48,5 +50,7 @@ const cl_F most_positive_float (cl_float_format_t f)
 	,	return most_positive_LF(len);
 	);
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_F_mostpos)

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_DS.h"
 #include "cl_2DS.h"
 #include "cl_I_log.h"
+
+namespace cln {
 
 const cl_I cl_div2adic (uintL n, const cl_I& x, const cl_I& y)
 {
@@ -48,3 +50,4 @@ const cl_I cl_div2adic (uintL n, const cl_I& x, const cl_I& y)
 }
 // Bit complexity (N := n): O(M(N)).
 
+}  // namespace cln

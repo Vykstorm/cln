@@ -3,10 +3,17 @@
 #ifndef _CL_DF_H
 #define _CL_DF_H
 
-#include "cl_number.h"
-#include "cl_malloc.h"
+#include "cln/number.h"
+#include "cln/malloc.h"
 #include "cl_low.h"
 #include "cl_F.h"
+
+#ifdef FAST_DOUBLE
+#include "cl_N.h"
+#include "cl_F.h"
+#endif
+
+namespace cln {
 
 typedef // 64-bit float in IEEE format
 	#if (cl_word_size==64)
@@ -61,7 +68,7 @@ extern cl_class cl_class_dfloat;
 #if (cl_word_size==64)
 inline cl_heap_dfloat* allocate_dfloat (dfloat eksplicit)
 {
-	cl_heap_dfloat* p = (cl_heap_dfloat*) cl_malloc_hook(sizeof(cl_heap_dfloat));
+	cl_heap_dfloat* p = (cl_heap_dfloat*) malloc_hook(sizeof(cl_heap_dfloat));
 	p->refcount = 1;
 	p->type = &cl_class_dfloat;
 	p->representation.eksplicit = eksplicit;
@@ -70,7 +77,7 @@ inline cl_heap_dfloat* allocate_dfloat (dfloat eksplicit)
 #else
 inline cl_heap_dfloat* allocate_dfloat (uint32 semhi, uint32 mlo)
 {
-	cl_heap_dfloat* p = (cl_heap_dfloat*) cl_malloc_hook(sizeof(cl_heap_dfloat));
+	cl_heap_dfloat* p = (cl_heap_dfloat*) malloc_hook(sizeof(cl_heap_dfloat));
 	p->refcount = 1;
 	p->type = &cl_class_dfloat;
 	p->representation.eksplicit.semhi = semhi;
@@ -210,8 +217,6 @@ inline double DF_to_double (const cl_DF& obj)
 //   maybe_underflow: Ergebnis sehr klein und /=0, liefert IEEE-Null
 //   maybe_divide_0: Ergebnis unbestimmt, liefert IEEE-Infinity
 //   maybe_nan: Ergebnis unbestimmt, liefert IEEE-NaN
-  #include "cl_N.h"
-  #include "cl_F.h"
 #if (cl_word_size==64)
   #define double_to_DF(expr,ergebnis_zuweisung,maybe_overflow,maybe_subnormal,maybe_underflow,maybe_divide_0,maybe_nan)  \
     { var dfloatjanus _erg; _erg.machine_double = (expr);		\
@@ -304,5 +309,7 @@ inline const cl_DF cl_double_to_DF (const dfloatjanus& val)
 // cl_DF_to_double(obj,&val);
 // wandelt ein Double-Float obj in ein IEEE-Double-Float val um.
 extern void cl_DF_to_double (const cl_DF& obj, dfloatjanus* val_);
+
+}  // namespace cln
 
 #endif /* _CL_DF_H */

@@ -4,17 +4,19 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_numtheory.h"
+#include "cln/numtheory.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 
 #undef floor
-#include <math.h>
+#include <cmath>
 #define floor cln_floor
+
+namespace cln {
 
 // Algorithm 1 (for very small p only):
 // Try different values.
@@ -73,7 +75,7 @@ static const sqrt_mod_p_t cantor_zassenhaus_sqrt (const cl_modint_ring& R, const
 		}
 		const pol2 square (const pol2& u)
 		{
-			return pol2(::square(u.c0) + ::square(u.c1)*a, (u.c0*u.c1)<<1);
+			return pol2(cln::square(u.c0) + cln::square(u.c1)*a, (u.c0*u.c1)<<1);
 		}
 		const pol2 expt_pos (const pol2& x, const cl_I& y)
 		{
@@ -119,7 +121,7 @@ static const sqrt_mod_p_t cantor_zassenhaus_sqrt (const cl_modint_ring& R, const
 			if (c1inv.condition)
 				return c1inv.condition;
 			var cl_MI z = -u.c0*c1inv;
-			if (::square(z) == a)
+			if (cln::square(z) == a)
 				return gcd_result(1,z);
 			else
 				return gcd_result(0);
@@ -298,10 +300,12 @@ const sqrt_mod_p_t sqrt_mod_p (const cl_modint_ring& R, const cl_MI& a)
 	var uintL l = integer_length(p);
 	var uintL e = ord2(p-1);
 	//if (e > 30 && e > l/(log((double)l)*0.72-1))
-	if (e > 30 && e > l/(log((double)l)*0.92-2.41))
+	if (e > 30 && e > l/(::log((double)l)*0.92-2.41))
 		// Algorithm 2.
 		return cantor_zassenhaus_sqrt(R,a);
 	else
 		// Algorithm 3.
 		return tonelli_shanks_sqrt(R,a);
 }
+
+}  // namespace cln

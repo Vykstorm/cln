@@ -7,7 +7,7 @@ int test_MI_mul (int iterations)
 	// Check commutativity.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI b = R->canonhom(testrandom_I());
 		ASSERT3(a*b == b*a, m,a,b);
@@ -15,7 +15,7 @@ int test_MI_mul (int iterations)
 	// Check associativity.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI b = R->canonhom(testrandom_I());
 		cl_MI c = R->canonhom(testrandom_I());
@@ -24,7 +24,7 @@ int test_MI_mul (int iterations)
 	// Check second binomial formula.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI b = R->canonhom(testrandom_I());
 		ASSERT3((a+b)*(a-b) == a*a-b*b, m,a,b);
@@ -32,7 +32,7 @@ int test_MI_mul (int iterations)
 	// Check distributive formula.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI b = R->canonhom(testrandom_I());
 		cl_MI c = R->canonhom(testrandom_I());
@@ -41,7 +41,7 @@ int test_MI_mul (int iterations)
 	// Check special cases 0, 1, -1.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI z = R->zero();
 		cl_MI o = R->one();

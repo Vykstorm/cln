@@ -31,8 +31,8 @@
 **
 **/
 
-#include <LiDIA/kernel/cl_number.h>
-#include <LiDIA/kernel/cl_integer.h>
+#include <LiDIA/kernel/cln/number.h>
+#include <LiDIA/kernel/cln/integer.h>
 
 #define integer_type_name       cl_I
 #define base_digit       uintD

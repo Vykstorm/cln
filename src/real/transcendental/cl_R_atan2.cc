@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_F_tran.h"
 #include "cl_N.h"
 #include "cl_R.h"
+
+namespace cln {
 
 const cl_R atan (const cl_R& x, const cl_R& y)
 {
@@ -34,7 +36,7 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 		if (zerop(x)) // x=0 -> Error
 			{ cl_error_division_by_0(); }
 		if (minusp(x)) // x<0 -> pi in Default-Float-Genauigkeit
-			{ return cl_pi(); }
+			{ return pi(); }
 		return 0; // x>0 -> 0
 	}
 	elif (eq(x,0)) {
@@ -42,8 +44,8 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 		if (zerop(y)) // y=0 -> Error
 			{ cl_error_division_by_0(); }
 		if (minusp(y)) // y<0 -> -pi/2
-			{ return - scale_float(cl_pi(),-1); }
-		return scale_float(cl_pi(),-1); // y>0 -> pi/2
+			{ return - scale_float(pi(),-1); }
+		return scale_float(pi(),-1); // y>0 -> pi/2
 	} else {
 		Mutable(cl_R,x);
 		Mutable(cl_R,y);
@@ -63,10 +65,10 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 				// x<0 -> pi bzw. -pi addieren:
 				if (!minusp(y))
 					// y>=0 -> atan(y/x) + pi
-					return z + cl_pi(z);
+					return z + pi(z);
 				else
 					// y<0 -> atan(y/x) - pi
-					return z - cl_pi(z);
+					return z - pi(z);
 			else
 				return z;
 		} else {
@@ -75,10 +77,12 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 			// von pi/2 bzw. -pi/2 subtrahieren:
 			if (!minusp(y))
 				// y>=0 -> pi/2 - atan(x/y)
-				return scale_float(cl_pi(z),-1) - z;
+				return scale_float(pi(z),-1) - z;
 			else
 				// y<0 -> -pi/2 - atan(x/y)
-				return - scale_float(cl_pi(z),-1) - z;
+				return - scale_float(pi(z),-1) - z;
 		}
 	}
 }
+
+}  // namespace cln

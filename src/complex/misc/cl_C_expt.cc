@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 // Methode:
 // Für y>0:
@@ -50,3 +52,5 @@ const cl_N expt (const cl_N& x, sintL y)
 	var cl_N z = expt_pos(x,abs_y); // (expt x (abs y))
 	return (y<0 ? recip(z) : z); // evtl. noch Kehrwert nehmen
 }
+
+}  // namespace cln

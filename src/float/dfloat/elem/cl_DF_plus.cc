@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
@@ -12,8 +12,11 @@
 #include "cl_DF.h"
 #include "cl_F.h"
 #include "cl_ieee.h"
-NEED_IEEE_FLOATS()
 #include "cl_xmacros.h"
+
+namespace cln {
+
+NEED_IEEE_FLOATS()
 
 const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
 {
@@ -258,3 +261,5 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
 #endif
 #endif
 }
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer_io.h"
+#include "cln/integer_io.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_sstring.h"
+
+namespace cln {
 
 char * print_integer_to_string (unsigned int base, const cl_I& z)
 {
@@ -38,3 +40,5 @@ char * print_integer_to_string (unsigned int base, const cl_I& z)
 	var char* result = cl_sstring(ergptr,erglen); // Ziffern in String schreiben
 	return result;
 }
+
+}  // namespace cln

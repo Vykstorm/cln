@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_SF cl_I_to_SF (const cl_I& x)
 {
@@ -112,3 +114,5 @@ const cl_SF cl_I_to_SF (const cl_I& x)
       #endif
       return encode_SF(sign,(sintL)exp,mant);
 }
+
+}  // namespace cln

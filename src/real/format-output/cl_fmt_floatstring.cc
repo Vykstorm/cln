@@ -14,12 +14,14 @@ CL_PROVIDE(cl_fmt_floatstring)
 // BUGS:
 // - This is slow.
 
-#include "cl_output.h"
-#include "cl_malloc.h"
-#include "cl_float.h"
-#include "cl_integer.h"
+#include "cln/output.h"
+#include "cln/malloc.h"
+#include "cln/float.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_spushstring.h"
+
+namespace cln {
 
 // format_float_to_string(arg,width,d,k,dmin)
 // ergibt einen String zum Floating-point arg:
@@ -39,7 +41,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 			if (places >= width)
 				places = width-1;
 		// ein Punkt und places Nullen
-		var char* string = (char *) cl_malloc_hook(1+places+1);
+		var char* string = (char *) malloc_hook(1+places+1);
 		string[0] = '.';
 		for (sintL i = 1; i <= places; i++) string[i] = '0';
 		string[1+places] = '\0';
@@ -250,5 +252,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 			point_pos
 		);
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_fmt_floatstring)

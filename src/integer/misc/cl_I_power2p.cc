@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 uintL power2p (const cl_I& x) // x > 0
 {
@@ -38,3 +40,5 @@ uintL power2p (const cl_I& x) // x > 0
 	    return intDsize*(uintL)(len-1) + msdlen; // integer_length(x) als Ergebnis
 	  }}
 }
+
+}  // namespace cln

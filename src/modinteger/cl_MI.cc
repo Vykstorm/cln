@@ -6,7 +6,7 @@
 CL_PROVIDE(cl_MI)
 
 // Specification.
-#include "cl_modinteger.h"
+#include "cln/modinteger.h"
 
 
 // Implementation.
@@ -14,13 +14,14 @@ CL_PROVIDE(cl_MI)
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_2DS.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
 #include "cl_N.h"
 #include "cl_MI.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 #include "cl_alloca.h"
 
+namespace cln {
 
 cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_modint_addops* addopv, cl_modint_mulops* mulopv)
 	: setops (setopv), addops (addopv), mulops (mulopv), modulus (m)
@@ -28,7 +29,7 @@ cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_m
 	refcount = 0; // will be incremented by the `cl_modint_ring' constructor
 	type = &cl_class_modint_ring;
 	if (minusp(m)) cl_abort();
-	if (!::zerop(m)) {
+	if (!cln::zerop(m)) {
 		var uintL b = integer_length(m-1);
 		// m <= 2^b, hence one needs b bits for a representative mod m.
 		if (b <= 1) {
@@ -63,9 +64,10 @@ void cl_heap_modint_ring::dummy () {}
 static cl_boolean modint_equal (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
 	unused R;
-	return cl_equal(x.rep,y.rep);
+	return equal(x.rep,y.rep);
 }
 
+}  // namespace cln
 #include "cl_MI_int.h"
 #include "cl_MI_std.h"
 #include "cl_MI_fix16.h"
@@ -79,6 +81,7 @@ static cl_boolean modint_equal (cl_heap_modint_ring* R, const _cl_MI& x, const _
 #include "cl_MI_pow2m1.h"
 #include "cl_MI_pow2p1.h"
 #include "cl_MI_montgom.h"
+namespace cln {
 
 
 static inline cl_heap_modint_ring* make_modint_ring (const cl_I& m) // m >= 0
@@ -129,7 +132,9 @@ static inline cl_heap_modint_ring* make_modint_ring (const cl_I& m) // m >= 0
 // A weak hash table cl_I -> cl_modint_ring.
 // (It could also be a weak hashuniq table cl_I -> cl_modint_ring.)
 
+}  // namespace cln
 #include "cl_I_hashweak_rcpointer.h"
+namespace cln {
 
 // An entry can be collected when the value (the ring) isn't referenced any more
 // except from the hash table, and when the key (the modulus) isn't referenced
@@ -157,7 +162,7 @@ static inline void store_modint_ring (const cl_modint_ring& R)
 }
 
 
-const cl_modint_ring cl_find_modint_ring (const cl_I& m)
+const cl_modint_ring find_modint_ring (const cl_I& m)
 {
  {	Mutable(cl_I,m);
 	m = abs(m);
@@ -173,6 +178,8 @@ const cl_modint_ring cl_find_modint_ring (const cl_I& m)
 }}
 
 
-const cl_modint_ring cl_modint0_ring = cl_find_modint_ring(0);
+const cl_modint_ring cl_modint0_ring = find_modint_ring(0);
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_MI)

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I dpb (const cl_I& newbyte, const cl_I& n, const cl_byte& b)
 {
@@ -19,3 +21,5 @@ const cl_I dpb (const cl_I& newbyte, const cl_I& n, const cl_byte& b)
       // = (DEPOSIT-FIELD (ASH newbyte p) (byte s p) integer)
       return deposit_field(ash(newbyte,b.position),n,b);
 }
+
+}  // namespace cln

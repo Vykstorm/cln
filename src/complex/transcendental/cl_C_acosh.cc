@@ -4,21 +4,23 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
-#include "cl_float.h"
+#include "cln/float.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_F_from_R_def.cc"
+
+namespace cln {
 
 const cl_N acosh (const cl_N& z)
 {
@@ -58,19 +60,19 @@ const cl_N acosh (const cl_N& z)
 				DeclareType(cl_I,x);
 				// x Integer
 				if (eq(x,0)) // x=0 -> Ergebnis pi/2 i
-					return complex_C(0,scale_float(cl_pi(),-1));
+					return complex_C(0,scale_float(pi(),-1));
 				if (eq(x,1)) // x=1 -> Ergebnis 0
 					return 0;
 				if (eq(x,-1)) // x=-1 -> Ergebnis pi i
-					return complex_C(0,cl_pi());
+					return complex_C(0,pi());
 			} else {
 				DeclareType(cl_RT,x);
 				// x Ratio
 				if (eq(denominator(x),2)) { // Nenner = 2 ?
 					if (eq(numerator(x),1)) // x=1/2 -> Ergebnis pi/3 i
-						return complex_C(0,cl_pi()/3);
+						return complex_C(0,pi()/3);
 					if (eq(numerator(x),-1)) // x=-1/2 -> Ergebnis 2pi/3 i
-						return complex_C(0,scale_float(cl_pi(),1)/3);
+						return complex_C(0,scale_float(pi(),1)/3);
 				}
 			}
 		}
@@ -80,8 +82,10 @@ const cl_N acosh (const cl_N& z)
 			var cl_F& x = xf;
 			// x Float <= -1
 			// log(sqrt(x^2-1)-x), ein Float >=0, Imaginärteil pi
-			return complex_C(ln(sqrt(square(x)-1)-x),cl_pi());
+			return complex_C(ln(sqrt(square(x)-1)-x),pi());
 		}
 	}
 	return 4 * atanh( sqrt(minus1(z)/2) / plus1(sqrt(plus1(z)/2)) );
 }
+
+}  // namespace cln

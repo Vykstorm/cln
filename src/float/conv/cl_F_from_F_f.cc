@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
 
-const cl_F cl_float (const cl_F& x, cl_float_format_t f)
+namespace cln {
+
+const cl_F cl_float (const cl_F& x, float_format_t f)
 {
 	floatformatcase((uintL)f
 	,	return cl_F_to_SF(x);
@@ -20,3 +22,5 @@ const cl_F cl_float (const cl_F& x, cl_float_format_t f)
 	,	return cl_F_to_LF(x,len);
 	);
 }
+
+}  // namespace cln

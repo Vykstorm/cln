@@ -1,17 +1,19 @@
-// cl_tschebychev().
+// tschebychev().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_univpoly_integer.h"
+#include "cln/univpoly_integer.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 
-const cl_UP_I cl_tschebychev (sintL n)
+namespace cln {
+
+const cl_UP_I tschebychev (sintL n)
 {
 // The Tschebychev polynomials (of the 1st kind) T_n(x) are defined
 // through the recurrence relation
@@ -37,7 +39,7 @@ const cl_UP_I cl_tschebychev (sintL n)
 //
 // T_n(x) = sum(j=0..floor(n/2), (-1)^j (n-j-1)!n/j!(n-2j)! 2^(n-2j-1) x^(n-2j))
 //
-	var cl_univpoly_integer_ring R = cl_find_univpoly_ring(cl_I_ring);
+	var cl_univpoly_integer_ring R = find_univpoly_ring(cl_I_ring);
 	if (n == 0)
 		return R->one();
 	var cl_UP_I t = R->create(n);
@@ -54,3 +56,5 @@ const cl_UP_I cl_tschebychev (sintL n)
 	t.finalize();
 	return t;
 }
+
+}  // namespace cln

@@ -1,4 +1,4 @@
-// cl_exp1().
+// exp1().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -9,15 +9,17 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_alloca.h"
 
 #undef floor
-#include <math.h>
+#include <cmath>
 #define floor cln_floor
+
+namespace cln {
 
 const cl_LF compute_exp1 (uintC len)
 {
@@ -37,8 +39,8 @@ const cl_LF compute_exp1 (uintC len)
 	//   N2 = ceiling(M*log(2)/(log(N1)-1)), slightly too large.
 	//   N = N2+2, two more terms for safety.
 	var uintL N0 = intDsize*actuallen;
-	var uintL N1 = (uintL)(0.693147*intDsize*actuallen/(log((double)N0)-1.0));
-	var uintL N2 = (uintL)(0.693148*intDsize*actuallen/(log((double)N1)-1.0))+1;
+	var uintL N1 = (uintL)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0));
+	var uintL N2 = (uintL)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0))+1;
 	var uintL N = N2+2;
 	CL_ALLOCA_STACK;
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
@@ -73,7 +75,7 @@ const cl_LF compute_exp1 (uintC len)
 // 25000   111
 // 50000   254
 
-const cl_LF cl_exp1 (uintC len)
+const cl_LF exp1 (uintC len)
 {
 	var uintC oldlen = TheLfloat(cl_LF_exp1)->len; // vorhandene Länge
 	if (len < oldlen)
@@ -92,3 +94,5 @@ const cl_LF cl_exp1 (uintC len)
 	cl_LF_exp1 = compute_exp1(newlen); // (exp 1)
 	return (len < newlen ? shorten(cl_LF_exp1,len) : cl_LF_exp1);
 }
+
+}  // namespace cln

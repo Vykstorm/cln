@@ -6,7 +6,7 @@
 CL_PROVIDE(cl_LF_globals)
 
 // Specification.
-#include "cl_number.h"
+#include "cln/number.h"
 
 
 // Implementation.
@@ -14,7 +14,11 @@ CL_PROVIDE(cl_LF_globals)
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
 
+namespace cln {
+
 // Only needed for the default constructor of cl_LF.
 const cl_LF cl_LF_0 = encode_LF0(LF_minlen); // 0.0L0
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_LF_globals)

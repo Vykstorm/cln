@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_LF cl_F_to_LF (const cl_F& x, uintC len)
 {
@@ -21,3 +23,5 @@ const cl_LF cl_F_to_LF (const cl_F& x, uintC len)
 	,	return LF_to_LF(x,len);
 	);
 }
+
+}  // namespace cln

@@ -9,13 +9,15 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_minusp.cc"
+
+namespace cln {
 
 ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
@@ -71,3 +73,5 @@ const cl_LF cl_hypot (const cl_LF& a, const cl_LF& b)
 	var cl_LF nc = square(na) + square(nb);
 	return scale_float(sqrt(nc),e); // c' := sqrt(c'), 2^e*c'
 }}
+
+}  // namespace cln

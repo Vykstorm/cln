@@ -1,18 +1,18 @@
 // Compute and print the n-th Fibonacci number.
 
 // We work with integers and real numbers.
-#include <cl_integer.h>
-#include <cl_real.h>
+#include <cln/integer.h>
+#include <cln/real.h>
 
 // We do I/O.
-#include <cl_io.h>
-#include <cl_integer_io.h>
+#include <cln/io.h>
+#include <cln/integer_io.h>
 
 // We use the timing functions.
-#include <cl_timing.h>
+#include <cln/timing.h>
 
-// Declare the exit() function.
-#include <stdlib.h>
+using namespace std;
+using namespace cln;
 
 // F_n is defined through the recurrence relation
 //      F_0 = 0, F_1 = 1, F_(n+2) = F_(n+1) + F_n.
@@ -79,12 +79,42 @@ const cl_I fibonacci (int n)
 	}
 }
 
+// The next routine is a variation of the above.  It is mathematically
+// equivalent but implemented in a non-recursive way.
+const cl_I fibonacci_compact (int n)
+{
+	if (n==0)
+		return 0;
+	cl_I u = 0;
+	cl_I v = 1;
+	cl_I m = n/2; // floor(n/2)
+	for (uintL bit=integer_length(m); bit>0; --bit) {
+		// Since a squaring is cheaper than a multiplication, better use
+		// three squarings instead of one multiplication and two squarings.
+		cl_I u2 = square(u);
+		cl_I v2 = square(v);
+		if (logbitp(bit-1, m)) {
+			v = square(u + v) - u2;
+			u = u2 + v2;
+		} else {
+			u = v2 - square(v - u);
+			v = u2 + v2;
+		}
+	}
+	if (n==2*m)
+		// Here we don't use the squaring formula because
+		// one multiplication is cheaper than two squarings.
+		return u * ((v << 1) - u);
+	else
+		return square(u) + square(v);
+}
+
 // Returns just F_n, computed as the nearest integer to
 // ((1+sqrt(5))/2)^n/sqrt(5). Assume n>=0.
 const cl_I fibonacci_slow (int n)
 {
 	// Need a precision of ((1+sqrt(5))/2)^-n.
-	cl_float_format_t prec = cl_float_format((int)(0.208987641*n+5));
+	float_format_t prec = float_format((int)(0.208987641*n+5));
 	cl_R sqrt5 = sqrt(cl_float(5,prec));
 	cl_R phi = (1+sqrt5)/2;
 	return round1( expt(phi,n)/sqrt5 );
@@ -95,49 +125,47 @@ const cl_I fibonacci_slow (int n)
 int main (int argc, char* argv[])
 {
 	if (argc != 2) {
-		fprint(cl_stderr, "Usage: fibonacci n\n");
-		exit(1);
+		stderr << "Usage: fibonacci n" << endl;
+		return(1);
 	}
 	int n = atoi(argv[1]);
-	fprint(cl_stdout, "fib(");
-	fprintdecimal(cl_stdout, n);
-	fprint(cl_stdout, ") = ");
-	fprint(cl_stdout, fibonacci(n));
-	fprint(cl_stdout, "\n");
+	stdout << "fib(" << n << ") = " << fibonacci(n) << endl;
+	return(0);
 }
 
 #else // TIMING
 
 int main (int argc, char* argv[])
 {
-	int repetitions = 1;
+	int repetitions = 100;
 	if ((argc >= 3) && !strcmp(argv[1],"-r")) {
 		repetitions = atoi(argv[2]);
 		argc -= 2; argv += 2;
 	}
 	if (argc != 2) {
-		fprint(cl_stderr, "Usage: fibonacci n\n");
-		exit(1);
+		stderr << "Usage: fibonacci n" << endl;
+		return(1);
 	}
 	int n = atoi(argv[1]);
 	{ CL_TIMING;
-		fprint(cl_stdout, "fib(");
-		fprintdecimal(cl_stdout, n);
-		fprint(cl_stdout, ") = ");
+		stdout << "fib(" << n << ") = ";
 		for (int rep = repetitions-1; rep > 0; rep--)
 			fibonacci(n);
-		fprint(cl_stdout, fibonacci(n));
-		fprint(cl_stdout, "\n");
+		stdout << fibonacci(n) << endl;
 	}
 	{ CL_TIMING;
-		fprint(cl_stdout, "fib(");
-		fprintdecimal(cl_stdout, n);
-		fprint(cl_stdout, ") = ");
+		stdout << "fib(" << n << ") = ";
+		for (int rep = repetitions-1; rep > 0; rep--)
+			fibonacci_compact(n);
+		stdout << fibonacci_compact(n) << endl;
+	}
+	{ CL_TIMING;
+		stdout << "fib(" << n << ") = ";
 		for (int rep = repetitions-1; rep > 0; rep--)
 			fibonacci_slow(n);
-		fprint(cl_stdout, fibonacci_slow(n));
-		fprint(cl_stdout, "\n");
+		stdout << fibonacci_slow(n) << endl;
 	}
+	return(0);
 }
 
 #endif

@@ -1,6 +1,6 @@
 #include "exam.h"
-#include <cl_lfloat.h>
-#include <cl_lfloat_io.h>
+#include <cln/lfloat.h>
+#include <cln/lfloat_io.h>
 
 static div_test lfloat_div_tests[] = {
 

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 uintL integer_length (const cl_I& x)
 {
@@ -36,3 +38,5 @@ uintL integer_length (const cl_I& x)
             return bitcount; // 0 <= bitcount < intDsize*2^intCsize.
           }
 }
+
+}  // namespace cln

@@ -1,4 +1,4 @@
-// cl_pi().
+// pi().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_alloca.h"
+
+namespace cln {
 
 ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
@@ -76,8 +78,8 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 		a = new_a;
 		k++;
 	}
-	var cl_LF pi = square(a)/t; // a^2/t
-	return shorten(pi,len); // verkürzen und fertig
+	var cl_LF pires = square(a)/t; // a^2/t
+	return shorten(pires,len); // verkürzen und fertig
 }
 // Bit complexity (N := len): O(log(N)*M(N)).
 
@@ -132,8 +134,8 @@ const cl_LF compute_pi_brent_salamin_quartic (uintC len)
 		b = new_b; wb = new_wb;
 		k += 2;
 	}
-	var cl_LF pi = square(a)/t;
-	return shorten(pi,len); // verkürzen und fertig
+	var cl_LF pires = square(a)/t;
+	return shorten(pires,len); // verkürzen und fertig
 }
 // Bit complexity (N := len): O(log(N)*M(N)).
 
@@ -174,8 +176,8 @@ const cl_LF compute_pi_ramanujan_163 (uintC len)
 	}
 	var cl_LF fsum = scale_float(cl_I_to_LF(sum,actuallen),-scale);
 	static const cl_I J3 = "262537412640768000"; // -1728*J
-	var cl_LF pi = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
-	return shorten(pi,len); // verkürzen und fertig
+	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
+	return shorten(pires,len); // verkürzen und fertig
 }
 // Bit complexity (N := len): O(N^2).
 
@@ -230,8 +232,8 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 		qv[n].~cl_I();
 	}
 	static const cl_I J3 = "262537412640768000"; // -1728*J
-	var cl_LF pi = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
-	return shorten(pi,len); // verkürzen und fertig
+	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
+	return shorten(pires,len); // verkürzen und fertig
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).
 
@@ -256,7 +258,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 //     it using binary splitting, is an O(log N * M(N)) algorithm, and
 //     outperforms all of the others.
 
-const cl_LF cl_pi (uintC len)
+const cl_LF pi (uintC len)
 {
 	var uintC oldlen = TheLfloat(cl_LF_pi)->len; // vorhandene Länge
 	if (len < oldlen)
@@ -275,3 +277,5 @@ const cl_LF cl_pi (uintC len)
 	cl_LF_pi = compute_pi_ramanujan_163_fast(newlen);
 	return (len < newlen ? shorten(cl_LF_pi,len) : cl_LF_pi);
 }
+
+}  // namespace cln

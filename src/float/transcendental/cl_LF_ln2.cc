@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 static inline const cl_LF compute_ln2_old (uintC len)
 {
@@ -91,3 +93,5 @@ const cl_LF cl_ln2 (uintC len)
 	cl_LF_ln2 = compute_ln2(newlen);
 	return (len < newlen ? shorten(cl_LF_ln2,len) : cl_LF_ln2);
 }
+
+}  // namespace cln

@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_hash1weak.h"
 
+namespace cln {
+
 static void cl_weak_hashtable_from_integer_to_rcpointer_destructor (cl_heap* pointer)
 {
 #if (defined(__mips__) || defined(__mips64__)) && !defined(__GNUC__) // workaround SGI CC bug
@@ -46,3 +48,4 @@ void cl_wht_from_integer_to_rcpointer::put (const cl_I& x, const cl_rcpointer& y
 	((cl_heap_weak_hashtable_from_integer_to_rcpointer*)pointer)->put(x,y);
 }
 
+}  // namespace cln

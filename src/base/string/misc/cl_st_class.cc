@@ -4,12 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
+
+namespace cln {
 
 cl_class cl_class_string = {
 	NULL,		// empty destructor
 	0
 };
+
+}  // namespace cln

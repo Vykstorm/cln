@@ -3,9 +3,11 @@
 #ifndef _CL_RCPOINTER2_HASHWEAK_RCPOINTER_H
 #define _CL_RCPOINTER2_HASHWEAK_RCPOINTER_H
 
-#include "cl_object.h"
+#include "cln/object.h"
 
 #include "cl_hash2weak.h"
+
+namespace cln {
 
 // Equality.
 static inline bool equal (const cl_rcpointer& x, const cl_rcpointer& y)
@@ -40,5 +42,7 @@ struct cl_wht_from_rcpointer2_to_rcpointer : public cl_rcpointer {
 	// Store.
 	void put (const cl_rcpointer& x, const cl_rcpointer& y, const cl_rcpointer& z) const;
 };
+
+}  // namespace cln
 
 #endif /* _CL_RCPOINTER2_HASHWEAK_RCPOINTER_H */

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -13,7 +13,9 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 
-const cl_I testrandom_I (cl_random_state& randomstate)
+namespace cln {
+
+const cl_I testrandom_I (random_state& randomstate)
 {
   var uint32 ran = random32(randomstate);
   var cl_boolean negative = (cl_boolean)(ran & 1);
@@ -39,3 +41,5 @@ const cl_I testrandom_I (cl_random_state& randomstate)
   var cl_I x = UDS_to_I(MSDptr,len);
   return (negative ? -x : x);
 }
+
+}  // namespace cln

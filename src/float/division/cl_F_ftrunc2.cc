@@ -4,17 +4,19 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_F_fdiv_t ftruncate2 (const cl_F& x)
 {
@@ -30,3 +32,5 @@ const cl_F_fdiv_t ftruncate2 (const cl_F& x)
 	);
 #endif
 }
+
+}  // namespace cln

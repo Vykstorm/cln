@@ -1,10 +1,10 @@
-// cl_exp1().
+// exp1().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -12,12 +12,16 @@
 #include "cl_F.h"
 #include "cl_F_tran.h"
 
-const cl_F cl_exp1 (void)
+namespace cln {
+
+const cl_F exp1 (void)
 {
-	floatformatcase(cl_default_float_format
+	floatformatcase(default_float_format
 	,	return cl_SF_exp1;
 	,	return cl_FF_exp1;
 	,	return cl_DF_exp1;
-	,	return cl_exp1(len);
+	,	return exp1(len);
 	);
 }
+
+}  // namespace cln

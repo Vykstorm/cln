@@ -1,4 +1,4 @@
-// cl_zeta().
+// zeta().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -9,12 +9,14 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
 #include "cl_alloca.h"
+
+namespace cln {
 
 const cl_LF compute_zeta_exp (int s, uintC len)
 {
@@ -132,7 +134,7 @@ const cl_LF compute_zeta_cvz2 (int s, uintC len)
 //
 // The break-even point between cvz1 and cvz2 seems to grow linearly with s.
 
-const cl_LF cl_zeta (int s, uintC len)
+const cl_LF zeta (int s, uintC len)
 {
 	if (!(s > 1))
 		cl_abort();
@@ -142,3 +144,5 @@ const cl_LF cl_zeta (int s, uintC len)
 		return compute_zeta_cvz2(s,len);
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
+
+}  // namespace cln

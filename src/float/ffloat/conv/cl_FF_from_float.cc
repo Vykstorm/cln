@@ -6,6 +6,7 @@
 // Specification.
 #include "cl_FF.h"
 
+namespace cln {
 
 // Implementation.
 
@@ -38,3 +39,5 @@ cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val_)
           #endif
         }
 }
+
+}  // namespace cln

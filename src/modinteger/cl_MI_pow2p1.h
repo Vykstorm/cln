@@ -1,5 +1,7 @@
 // m > 0, m = 2^m1 + 1 (m1 > 1)
 
+namespace cln {
+
 class cl_heap_modint_ring_pow2p1 : public cl_heap_modint_ring {
 	SUBCLASS_cl_heap_modint_ring()
 public:
@@ -11,11 +13,7 @@ public:
 	uintL m1;
 };
 
-static
-#if !(defined(__GNUC__) && (__GNUC__ == 2) && (__GNUC_MINOR__ <= 90)) // workaround g++-2.7.2 and egcs-1.0.2-prerelease bug
-inline
-#endif
-const cl_I pow2p1_reduce_modulo (cl_heap_modint_ring* _R, const cl_I& x)
+static inline const cl_I pow2p1_reduce_modulo (cl_heap_modint_ring* _R, const cl_I& x)
 {
 	var cl_heap_modint_ring_pow2p1* R = (cl_heap_modint_ring_pow2p1*)_R;
 	// Method:
@@ -94,3 +92,5 @@ static cl_modint_mulops pow2p1_mulops = {
 // Constructor.
 inline cl_heap_modint_ring_pow2p1::cl_heap_modint_ring_pow2p1 (const cl_I& m, uintL _m1)
 	: cl_heap_modint_ring (m, &std_setops, &pow2p1_addops, &pow2p1_mulops), m1 (_m1) {}
+
+}  // namespace cln

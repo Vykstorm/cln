@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_st_make0.cc"
+
+namespace cln {
 
 const cl_string operator+ (const cl_string& str1, const cl_string& str2)
 {
@@ -32,3 +34,5 @@ const cl_string operator+ (const cl_string& str1, const cl_string& str2)
     *ptr++ = '\0';
     return str;
 }
+
+}  // namespace cln

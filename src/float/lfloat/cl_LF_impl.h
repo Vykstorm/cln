@@ -3,11 +3,13 @@
 #ifndef _CL_LF_IMPL_H
 #define _CL_LF_IMPL_H
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_LF.h"
-#include "cl_malloc.h"
+#include "cln/malloc.h"
 #include "cl_offsetof.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 extern cl_class cl_class_lfloat;
 
@@ -19,7 +21,7 @@ extern cl_class cl_class_lfloat;
 // The long-float is only complete when the mantissa has been filled in!
 inline cl_heap_lfloat* allocate_lfloat (uintC len, uint32 expo, cl_signean sign)
 {
-	cl_heap_lfloat* p = (cl_heap_lfloat*) cl_malloc_hook(offsetofa(cl_heap_lfloat,data)+sizeof(uintD)*len);
+	cl_heap_lfloat* p = (cl_heap_lfloat*) malloc_hook(offsetofa(cl_heap_lfloat,data)+sizeof(uintD)*len);
 	p->refcount = 1;
 	p->type = &cl_class_lfloat;
 	p->len = len;
@@ -145,5 +147,7 @@ inline const cl_LF encode_LF (cl_signean sign, sintL exp, const uintD* mantMSDpt
 // Der Exponent wird nicht auf Überlauf/Unterlauf getestet.
 #define encode_LF_array(sign,exp,mantarr,mantlen)  \
   encode_LF(sign,exp,arrayMSDptr(mantarr,mantlen),mantlen)
+
+}  // namespace cln
 
 #endif /* _CL_LF_IMPL_H */

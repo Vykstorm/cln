@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -13,7 +13,9 @@
 #include "cl_DS.h"
 #include "cl_I.h"
 
-const cl_F random_F (cl_random_state& randomstate, const cl_F& n)
+namespace cln {
+
+const cl_F random_F (random_state& randomstate, const cl_F& n)
 {
 	var uintL d = float_digits(n); // d = (float-digits n) > 0
 	// Bilde neue UDS mit d Zufallsbits:
@@ -35,3 +37,5 @@ const cl_F random_F (cl_random_state& randomstate, const cl_F& n)
 		{ result = cl_float(0,result); }
 	return result;
 }
+
+}  // namespace cln

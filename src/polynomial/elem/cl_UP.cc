@@ -8,13 +8,15 @@ CL_PROVIDE(cl_UP)
 // Specification.
 #define CL_GV_NO_RANGECHECKS
 #define CL_SV_NO_RANGECHECKS
-#include "cl_univpoly.h"
+#include "cln/univpoly.h"
 #include "cl_UP.h"
 
 
 // Implementation.
 
-#include "cl_output.h"
+#include "cln/output.h"
+
+namespace cln {
 
 cl_symbol cl_univpoly_varname_key = (cl_symbol)(cl_string)"variable name";
 
@@ -26,11 +28,15 @@ cl_symbol cl_univpoly_varname_key = (cl_symbol)(cl_string)"variable name";
     type& __tmp_##x = *(type*) &(x).rep;				\
     type& x = __tmp_##x;
 
+}  // namespace cln
+
 // Four different implementations of the polynomial operations, for efficiency:
 #include "cl_UP_number.h"  // polynomials over number rings
 #include "cl_UP_MI.h"      // polynomials over modular integer rings
 #include "cl_UP_GF2.h"     // polynomials over the modular integer ring GF(2)
 #include "cl_UP_gen.h"     // polynomials over all other rings
+
+namespace cln {
 
 cl_heap_univpoly_ring::cl_heap_univpoly_ring (const cl_ring& r, cl_univpoly_setops* setopv, cl_univpoly_addops* addopv, cl_univpoly_mulops* mulopv, cl_univpoly_modulops* modulopv, cl_univpoly_polyops* polyopv)
 	: setops (setopv), addops (addopv), mulops (mulopv), modulops (modulopv), polyops (polyopv),
@@ -69,5 +75,7 @@ cl_heap_univpoly_ring* cl_make_univpoly_ring (const cl_ring& r)
 	} else
 		return new cl_heap_gen_univpoly_ring(r);
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_UP)

@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_D.h"
+
+namespace cln {
 
 void partial_gcd (uintD z1, uintD z2, partial_gcd_result* erg)
   { var uintD x1 = 1;
@@ -57,3 +59,5 @@ void partial_gcd (uintD z1, uintD z2, partial_gcd_result* erg)
     // Keine Subtraktion mehr möglich.
     erg->x1 = x1; erg->y1 = y1; erg->x2 = x2; erg->y2 = y2; // Ergebnis
   }
+
+}  // namespace cln

@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 const char * const cl_format_tens [10] = {
 	NULL,
 	NULL,
@@ -21,3 +23,5 @@ const char * const cl_format_tens [10] = {
 	"eighty",
 	"ninety",
 };
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_I_log.h"
+
+namespace cln {
 
 // Logische Operationen auf Integers:
 // Methode: aus den Längen der beiden Argumente eine obere Schranke für
@@ -38,3 +40,5 @@ const cl_I logior (const cl_I& x, const cl_I& y)
           or_loop_msp(xptr,yptr,n); // mit OR verknüpfen
           return DS_to_I(zptr,n); // Ergebnis als Integer
     }   }}
+
+}  // namespace cln

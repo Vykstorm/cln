@@ -6,24 +6,26 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real_io.h"
+#include "cln/real_io.h"
 
 
 // Implementation.
 
 #include <string.h>
-#include "cl_input.h"
-#include "cl_rational_io.h"
-#include "cl_integer_io.h"
-#include "cl_float_io.h"
-#include "cl_integer.h"
+#include "cln/input.h"
+#include "cln/rational_io.h"
+#include "cln/integer_io.h"
+#include "cln/float_io.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_F.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 
 #undef floor
-#include <math.h>
+#include <cmath>
 #define floor cln_floor
+
+namespace cln {
 
 // Step forward over all digits, to the end of string or to the next non-digit.
 static const char * skip_digits (const char * ptr, const char * string_limit, unsigned int base)
@@ -60,7 +62,7 @@ const cl_R read_real (const cl_read_flags& flags, const char * string, const cha
 	ASSERT((flags.syntax & ~(syntax_real|syntax_maybe_bad)) == 0);
 	// If no string_limit is given, it defaults to the end of the string.
 	if (!string_limit)
-		string_limit = string + strlen(string);
+		string_limit = string + ::strlen(string);
 	if (flags.syntax & syntax_rational) {
 		// Check for rational number syntax.
 		var unsigned int rational_base = flags.rational_base;
@@ -87,9 +89,9 @@ const cl_R read_real (const cl_read_flags& flags, const char * string, const cha
 						goto not_rational_syntax;
 					var cl_I base = read_integer(10,0,ptr,0,base_end_ptr-ptr);
 					if (!((base >= 2) && (base <= 36))) {
-						fprint(cl_stderr, "Base must be an integer in the range from 2 to 36, not ");
-						fprint(cl_stderr, base);
-						fprint(cl_stderr, "\n");
+						fprint(stderr, "Base must be an integer in the range from 2 to 36, not ");
+						fprint(stderr, base);
+						fprint(stderr, "\n");
 						cl_abort();
 					}
 					rational_base = FN_to_UL(base); ptr = base_end_ptr;
@@ -211,21 +213,21 @@ not_rational_syntax:
 		}
 		ptr = ptr_after_exponent;
 		var const char * ptr_after_prec = ptr;
-		var cl_float_format_t prec;
+		var float_format_t prec;
 		if ((ptr != string_limit) && (*ptr == '_')) {
 			ptr++;
 			ptr_after_prec = skip_digits(ptr,string_limit,10);
 			if (ptr_after_prec == ptr) goto not_float_syntax;
 			var cl_I prec1 = digits_to_I(ptr,ptr_after_prec-ptr,10);
 			var uintL prec2 = cl_I_to_UL(prec1);
-			prec = (float_base==10 ? cl_float_format(prec2)
-			                       : (cl_float_format_t)((uintL)((1+prec2)*log((double)float_base)*1.442695041)+1)
+			prec = (float_base==10 ? float_format(prec2)
+			                       : (float_format_t)((uintL)((1+prec2)*::log((double)float_base)*1.442695041)+1)
 			       );
 		} else {
 			switch (exponent_marker) {
-				case 'S': prec = cl_float_format_sfloat; break;
-				case 'F': prec = cl_float_format_ffloat; break;
-				case 'D': prec = cl_float_format_dfloat; break;
+				case 'S': prec = float_format_sfloat; break;
+				case 'F': prec = float_format_ffloat; break;
+				case 'D': prec = float_format_dfloat; break;
 				case 'L': prec = flags.float_flags.default_lfloat_format; break;
 				case 'E': prec = flags.float_flags.default_float_format; break;
 				default: NOTREACHED
@@ -237,9 +239,9 @@ not_rational_syntax:
 				var uintL num_significant_digits =
 				  (ptr_after_fracpart - ptr) - (ptr_before_fracpart > ptr ? 1 : 0);
 				var uintL prec2 = (num_significant_digits>=2 ? num_significant_digits-2 : 0);
-				var cl_float_format_t precx =
-				  (float_base==10 ? cl_float_format(prec2)
-				                  : (cl_float_format_t)((uintL)((1+prec2)*log((double)float_base)*1.442695041)+1)
+				var float_format_t precx =
+				  (float_base==10 ? float_format(prec2)
+				                  : (float_format_t)((uintL)((1+prec2)*::log((double)float_base)*1.442695041)+1)
 				  );
 				if ((uintL)precx > (uintL)prec)
 					prec = precx;
@@ -264,3 +266,5 @@ bad_syntax:
 	}
 	read_number_bad_syntax(string,string_limit);
 }
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
 
 #include "cl_DF.h"
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_DF scale_float (const cl_DF& x, sintL delta)
 {
@@ -61,3 +63,5 @@ const cl_DF scale_float (const cl_DF& x, sintL delta)
               { return cl_DF_0; }
         }
 }
+
+}  // namespace cln

@@ -3,8 +3,10 @@
 #ifndef _CL_IF_H
 #define _CL_IF_H
 
-#include "cl_number.h"
-#include "cl_integer.h"
+#include "cln/number.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 // Table of primes > 2, < 2^16
 const uint32 cl_small_prime_table_limit = 65536;
@@ -48,5 +50,6 @@ extern uint32 cl_trialdivision (const cl_I& n, uint32 d1, uint32 d2);
 // nontrivial factor or 0.
 extern cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor);
 
+}  // namespace cln
 
 #endif /* _CL_IF_H */

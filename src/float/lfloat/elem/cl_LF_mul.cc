@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -13,6 +13,8 @@
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
 {
@@ -107,3 +109,4 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
 }
 // Bit complexity (N = max(length(x1),length(x2))): O(M(N)).
 
+}  // namespace cln

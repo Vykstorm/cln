@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
@@ -14,9 +14,11 @@
 
 #if 0 // 2 type dispatches
 
-#include "cl_rational.h"
-#include "cl_float.h"
+#include "cln/rational.h"
+#include "cln/float.h"
 #include "cl_R_div_t.h"
+
+namespace cln {
 
 const cl_R_fdiv_t fceiling2 (const cl_R& x)
 {
@@ -32,15 +34,19 @@ const cl_R_fdiv_t fceiling2 (const cl_R& x)
 	}
 }
 
+}  // namespace cln
+
 #else // 1 type dispatch
 
 #include "cl_RA.h"
-#include "cl_integer.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_R_fdiv_t fceiling2 (const cl_R& x)
 {
@@ -58,5 +64,7 @@ const cl_R_fdiv_t fceiling2 (const cl_R& x)
 	,	var cl_LF q = fceiling(x); return cl_R_fdiv_t(q,LF_LF_minus_LF(x,q));
 	);
 }
+
+}  // namespace cln
 
 #endif

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
@@ -21,9 +21,13 @@
 #include "cl_DF_zerop.cc"
 #include "cl_LF_zerop.cc"
 
+namespace cln {
+
 cl_boolean zerop (const cl_R& x)
 #if 0
 GEN_R_OP1_2(x, zerop, return)
 #else // fully inlined, faster
 GEN_R_OP1_7(x, zerop, return)
 #endif
+
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
 
 #include "cl_FF.h"
+
+namespace cln {
 
 const cl_FF_div_t ceiling2 (const cl_FF& x, const cl_FF& y)
 {
@@ -20,3 +22,5 @@ const cl_FF_div_t ceiling2 (const cl_FF& x, const cl_FF& y)
 	var cl_FF& r = q_r.remainder;
 	return cl_FF_div_t(q,y*r);
 }
+
+}  // namespace cln

@@ -11,6 +11,8 @@
 
 #include "cl_I.h"
 
+namespace cln {
+
 const cl_RA I_I_to_RA (const cl_I& a, const cl_I& b)
 {
 // Methode:
@@ -20,3 +22,5 @@ const cl_RA I_I_to_RA (const cl_I& a, const cl_I& b)
 	else
 		return allocate_ratio(a,b);
 }
+
+}  // namespace cln

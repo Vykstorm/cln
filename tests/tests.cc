@@ -1,10 +1,13 @@
 #include <stdlib.h>
 #include <string.h>
-#include <cl_io.h>
+#include <cln/io.h>
 
 extern int test_I (int iterations);
 extern int test_MI (int iterations);
 extern int test_nt (int iterations);
+
+using namespace std;
+using namespace cln;
 
 int test_all (int iterations)
 {
@@ -26,10 +29,10 @@ int main (int argc, char* argv[])
 		exit(1);
 
 	if (!test_all(iterations)) {
-		fprint (cl_stdout, "Tests passed.\n");
+		cout << "Tests passed." << endl;
 		exit(0);
 	} else {
-		fprint (cl_stdout, "Tests failed.\n");
+		cout << "Tests failed." << endl;
 		exit(1);
 	}
 }

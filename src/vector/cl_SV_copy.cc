@@ -5,17 +5,19 @@
 
 // Specification.
 #define CL_SV_NO_RANGECHECKS
-#include "cl_SV.h"
+#include "cln/SV.h"
 
 
 // Implementation.
 
-#include "cl_malloc.h"
+#include "cln/malloc.h"
+
+namespace cln {
 
 const cl_SV_any copy (const cl_SV_any& src)
 {
 	var uintL len = src.length();
-	var cl_heap_SV_any* hv = (cl_heap_SV_any*) cl_malloc_hook(sizeof(cl_heap_SV_any)+sizeof(cl_gcobject)*len);
+	var cl_heap_SV_any* hv = (cl_heap_SV_any*) malloc_hook(sizeof(cl_heap_SV_any)+sizeof(cl_gcobject)*len);
 	hv->refcount = 1;
 	hv->type = src.pointer_type();
 	new (&hv->v) cl_SV_inner<cl_gcobject> (len);
@@ -23,3 +25,5 @@ const cl_SV_any copy (const cl_SV_any& src)
 		init1(cl_gcobject, hv->v[i]) (src[i]);
 	return hv;
 }
+
+}  // namespace cln

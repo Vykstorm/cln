@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_integer_io.h"
+#include "cln/integer_io.h"
 #include <string.h>
 #include "cl_I.h"
+
+namespace cln {
 
 void format_integer (cl_ostream stream, const cl_I& arg,
 	unsigned int base, sintL mincol, char padchar,
@@ -24,12 +26,12 @@ void format_integer (cl_ostream stream, const cl_I& arg,
 		return;
 	}
 	var char* oldstring = print_integer_to_string(base,arg);
-	var uintL oldstring_length = strlen(oldstring);
+	var uintL oldstring_length = ::strlen(oldstring);
 	var uintL number_of_digits = (minusp(arg) ? oldstring_length-1 : oldstring_length);
 	var uintL number_of_commas = (commaflag ? floor(number_of_digits-1,commainterval) : 0);
 	var cl_boolean positive_sign = (cl_boolean) (positive_sign_flag && (arg > 0));
 	var uintL newstring_length = (positive_sign ? 1 : 0) + oldstring_length + number_of_commas;
-	var char* newstring = (char *) cl_malloc_hook(newstring_length+1);
+	var char* newstring = (char *) malloc_hook(newstring_length+1);
 	newstring[newstring_length] = '\0'; // newstring termination
 	// newstring füllen:
 	{
@@ -60,6 +62,8 @@ void format_integer (cl_ostream stream, const cl_I& arg,
 		format_padding(stream,mincol-newstring_length,padchar);
 	fprint(stream,newstring);
 #endif
-	cl_free_hook(newstring);
-	cl_free_hook(oldstring);
+	free_hook(newstring);
+	free_hook(oldstring);
 }
+
+}  // namespace cln

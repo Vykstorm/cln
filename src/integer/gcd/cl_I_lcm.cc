@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I lcm (const cl_I& a, const cl_I& b)
 {
@@ -30,3 +32,5 @@ const cl_I lcm (const cl_I& a, const cl_I& b)
       return a*b;
      }
 }
+
+}  // namespace cln

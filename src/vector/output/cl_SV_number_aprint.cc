@@ -4,16 +4,18 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_SV_complex.h"
-#include "cl_SV_real.h"
-#include "cl_SV_rational.h"
-#include "cl_SV_integer.h"
+#include "cln/SV_complex.h"
+#include "cln/SV_real.h"
+#include "cln/SV_rational.h"
+#include "cln/SV_integer.h"
 #include "cl_SV_io.h"
 
 
 // Implementation.
 
-#include "cl_output.h"
+#include "cln/output.h"
+
+namespace cln {
 
 void print_vector (cl_ostream stream, const cl_print_flags& flags, void (* printfun) (cl_ostream, const cl_print_flags&, const cl_number&), const cl_SV_number& vector)
 {
@@ -36,3 +38,5 @@ void print_vector (cl_ostream stream, const cl_print_flags& flags, void (* print
 	else
 		fprintchar(stream,']');
 }
+
+}  // namespace cln

@@ -6,14 +6,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real_io.h"
+#include "cln/real_io.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
+#include "cln/io.h"
 #include "cl_spushstring.h"
-#include "cl_input.h"
+#include "cln/input.h"
+
+namespace cln {
 
 // We read an entire token (or even more, if it begins with #C) into a
 // buffer and then call read_real() on the buffer.
@@ -102,3 +104,5 @@ syntax1:	buffer.push(c);
 	// Handle premature EOF.
 eof:	read_number_eof();
 }
+
+}  // namespace cln

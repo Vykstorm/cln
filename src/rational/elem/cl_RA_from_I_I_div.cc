@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_N.h"
 
+namespace cln {
+
 const cl_RA I_I_div_RA (const cl_I& a, const cl_I& b)
 {
 // Methode:
@@ -25,3 +27,5 @@ const cl_RA I_I_div_RA (const cl_I& a, const cl_I& b)
 	else
 		return I_posI_div_RA(a,b);
 }
+
+}  // namespace cln

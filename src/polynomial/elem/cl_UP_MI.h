@@ -1,8 +1,10 @@
 // Univariate Polynomials over a ring of modular integers.
 
-#include "cl_GV_modinteger.h"
-#include "cl_modinteger.h"
-#include "cl_abort.h"
+#include "cln/GV_modinteger.h"
+#include "cln/modinteger.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Assume a ring is a modint ring.
   inline cl_heap_modint_ring* TheModintRing (const cl_ring& R)
@@ -469,3 +471,5 @@ public:
 	cl_heap_modint_univpoly_ring (const cl_ring& r)
 		: cl_heap_univpoly_ring (r, &modint_setops, &modint_addops, &modint_mulops, &modint_modulops, &modint_polyops) {}
 };
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float_io.h"
+#include "cln/float_io.h"
 
 
 // Implementation.
@@ -31,16 +31,18 @@
 CL_REQUIRE(cl_F_ln2_var)
 CL_REQUIRE(cl_F_ln10_var)
 #include <string.h>
-#include "cl_output.h"
+#include "cln/output.h"
 #include "cl_sstring.h"
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_F.h"
 #include "cl_LF.h"
 #include "cl_F_tran.h"
-#include "cl_rational.h"
-#include "cl_integer.h"
-#include "cl_integer_io.h"
+#include "cln/rational.h"
+#include "cln/integer.h"
+#include "cln/integer_io.h"
 #include "cl_I.h"
+
+namespace cln {
 
 // Hauptfunktion zur Umwandlung von Floats ins Dezimalsystem:
 // Zu einem Float x werden ein String as und drei Integers k,e,s
@@ -144,7 +146,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // e*log(2)-d*log(10) nötig. Dazu mit l'=integerlength(e)
     // für log(2): g+7+l' Bits abs. Gen., g+7+l' Bits rel. Gen.,
     // für log(10): g+7+l' Bits abs. Gen., g+7+l'+2 Bist rel. Gen.
-    var cl_float_format_t gen = (cl_float_format_t)(g + integer_length(e) + 9); // Genauigkeit
+    var float_format_t gen = (float_format_t)(g + integer_length(e) + 9); // Genauigkeit
     var cl_F f2g = exp(The(cl_F)(e * cl_ln2(gen)) - The(cl_F)(d * cl_ln10(gen))); // f/2^g
     // Das so berechnete f/2^g ist >1, <100.
     // Mit 2^g multiplizieren und auf eine ganze Zahl runden:
@@ -315,7 +317,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // Nun a in einen Dezimalstring umwandeln
     // und dann Nullen am Schluß streichen:
     var char* as = cl_decimal_string(a); // Ziffernfolge zu a>0
-    var uintL las = strlen(as); // Länge der Ziffernfolge
+    var uintL las = ::strlen(as); // Länge der Ziffernfolge
     var uintL k = las; // Länge ohne die gestrichenen Nullen am Schluß
     var cl_I ee = k+d; // a * 10^d = a * 10^(-k+ee)
     while (as[k-1] == '0') // eine 0 am Schluß?
@@ -353,7 +355,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     }
   }
   var char* as = cl_decimal_string(a); // Ziffernfolge zu a>0
-  var uintL k = strlen(as);
+  var uintL k = ::strlen(as);
   ASSERT(as[k-1] != '0');
   return cl_decimal_decoded_float(as,k,k+d,sign);
 }
@@ -438,5 +440,7 @@ void print_float (cl_ostream stream, const cl_print_float_flags& flags, const cl
     print_integer(stream,10,expo);
   }
   // Fertig. Aufräumen.
-  cl_free_hook(mantstring);
+  free_hook(mantstring);
 }
+
+}  // namespace cln

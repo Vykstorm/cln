@@ -6,14 +6,16 @@
 CL_PROVIDE(cl_RA_ring)
 
 // Specification.
-#include "cl_rational_ring.h"
+#include "cln/rational_ring.h"
 
 
 // Implementation.
 
-#include "cl_rational.h"
-#include "cl_rational_io.h"
+#include "cln/rational.h"
+#include "cln/rational_io.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 static void RA_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
 {
@@ -24,7 +26,7 @@ static void RA_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_elemen
 static cl_boolean RA_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
-	return cl_equal(The(cl_RA)(x),The(cl_RA)(y));
+	return equal(The(cl_RA)(x),The(cl_RA)(y));
 }
 
 static const _cl_ring_element RA_zero (cl_heap_ring* R)
@@ -108,7 +110,7 @@ static cl_ring_mulops RA_mulops = {
 
 static cl_number_ring_ops<cl_RA> RA_ops = {
 	cl_RA_p,
-	cl_equal,
+	equal,
 	zerop,
 	operator+,
 	operator-,
@@ -152,5 +154,7 @@ inline cl_rational_ring::cl_specialized_number_ring ()
 	: cl_number_ring (new cl_heap_rational_ring()) {}
 
 const cl_rational_ring cl_RA_ring;
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_RA_ring)

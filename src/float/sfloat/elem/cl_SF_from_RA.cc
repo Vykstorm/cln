@@ -10,8 +10,10 @@
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_SF cl_RA_to_SF (const cl_RA& x)
 {
@@ -102,3 +104,5 @@ const cl_SF cl_RA_to_SF (const cl_RA& x)
       // Fertig.
       return encode_SF(sign,lendiff,mant);
 }}
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -13,8 +13,10 @@
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
 
+namespace cln {
+
 MAYBE_INLINE
-uint32 cl_equal_hashcode (const cl_LF& x)
+uint32 equal_hashcode (const cl_LF& x)
 {
 	var cl_signean sign;
 	var sintL exp;
@@ -27,3 +29,5 @@ uint32 cl_equal_hashcode (const cl_LF& x)
 	#endif
 	return equal_hashcode_low(msd,exp,sign);
 }
+
+}  // namespace cln

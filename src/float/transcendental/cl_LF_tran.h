@@ -3,9 +3,10 @@
 #ifndef _CL_LF_TRAN_H
 #define _CL_LF_TRAN_H
 
-#include "cl_integer.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/lfloat.h"
 
+namespace cln {
 
 // Subroutine for evaluating
 // sum(0 <= n < N, a(n)/b(n) * (p(0)...p(n))/(q(0)...q(n)))
@@ -258,5 +259,6 @@ extern void eval_pqd_series_aux (uintL N, cl_pqd_series_term* args, cl_pqd_serie
 // Ditto, but returns U/S.
 extern const cl_LF eval_pqd_series (uintL N, cl_pqd_series_term* args, uintC len);
 
+}  // namespace cln
 
 #endif /* _CL_LF_TRAN_H */

@@ -27,18 +27,20 @@
  *   conversion to decimal: real time: 54507.003 s, run time: 40063.510 s
  */
 
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_integer_io.h>
-#include <cl_float.h>
-#include <cl_float_io.h>
-#include <cl_real.h>
-#include <cl_complex.h>
-#include <stdlib.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
+#include <cln/float.h>
+#include <cln/float_io.h>
+#include <cln/real.h>
+#include <cln/complex.h>
 #include <string.h>
-#include <cl_timing.h>
-#include <math.h>
+#include <cln/timing.h>
+#include <cmath>
+
+using namespace std;
+using namespace cln;
 
 void
 sum_exp1 (uintL a, uintL b, cl_I & first, cl_I & second)
@@ -69,15 +71,19 @@ sum_exp1 (uintL a, uintL b, cl_I & first, cl_I & second)
     }
 }
 
+namespace cln {
+  extern cl_LF cl_I_to_LF(const cl_I&, uintC);
+};
+
 void
 const_exp1 (cl_LF & result, uintL dec)
 {
-  uintL c = (uintL) (dec * log (10));
+  uintL c = (uintL) (dec * ::log (10));
   uintL n = dec;
   uintC actuallen = (uintC)(3.321928094 * dec / intDsize);
-  n = (uintL) ((n + c) / log ((double)n));
-  n = (uintL) ((n + c) / log ((double)n));
-  n = (uintL) ((n + c) / log ((double)n));
+  n = (uintL) ((n + c) / ::log ((double)n));
+  n = (uintL) ((n + c) / ::log ((double)n));
+  n = (uintL) ((n + c) / ::log ((double)n));
 
   n += 2;
   actuallen += 2;
@@ -87,7 +93,6 @@ const_exp1 (cl_LF & result, uintL dec)
   cl_I p, q;
   sum_exp1 (0, n, p, q);
   cout << "sum_exp1 ends ok" << endl;
-  extern cl_LF cl_I_to_LF(const cl_I&, uintC);
   result = The(cl_LF)(cl_I_to_LF (p, actuallen) / cl_I_to_LF (q, actuallen));
   cout << "const_exp1 returns ok" << endl;
 }
@@ -105,7 +110,7 @@ main (int argc, char *argv[])
         break;
     }
     if (argc < 1)
-        exit(1);
+        return(1);
 
   cl_LF c1;
   long l = digits;
@@ -118,4 +123,5 @@ main (int argc, char *argv[])
     cout << c1 << endl;
     cout << "@" << endl;
   }
+  return(0);
 }

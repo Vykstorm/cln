@@ -4,12 +4,13 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_timing.h"
+#include "cln/timing.h"
 
 
 // Implementation.
 
 #include "cl_t_config.h"
+
 
 #if defined(HAVE_GETTIMEOFDAY)
   #include <sys/time.h>
@@ -35,6 +36,8 @@
   extern "C" int perror (const char *);
 #endif
 
+namespace cln {
+
 const cl_timespec cl_current_time ()
 {
 #if defined(HAVE_GETTIMEOFDAY)
@@ -56,3 +59,5 @@ const cl_timespec cl_current_time ()
 	return cl_timespec(time(NULL),0);
 #endif
 }
+
+}  // namespace cln

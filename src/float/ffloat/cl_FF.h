@@ -3,10 +3,17 @@
 #ifndef _CL_FF_H
 #define _CL_FF_H
 
-#include "cl_number.h"
-#include "cl_malloc.h"
+#include "cln/number.h"
+#include "cln/malloc.h"
 #include "cl_low.h"
 #include "cl_F.h"
+
+#ifdef FAST_FLOAT
+#include "cl_N.h"
+#include "cl_F.h"
+#endif
+
+namespace cln {
 
 typedef uint32 ffloat; // 32-bit float in IEEE format
 
@@ -67,7 +74,7 @@ inline const cl_FF allocate_ffloat (ffloat eksplicit)
 #else
 inline cl_heap_ffloat* allocate_ffloat (ffloat eksplicit)
 {
-	cl_heap_ffloat* p = (cl_heap_ffloat*) cl_malloc_hook(sizeof(cl_heap_ffloat));
+	cl_heap_ffloat* p = (cl_heap_ffloat*) malloc_hook(sizeof(cl_heap_ffloat));
 	p->refcount = 1;
 	p->type = &cl_class_ffloat;
 	p->representation.eksplicit = eksplicit;
@@ -176,8 +183,6 @@ inline float FF_to_float (const cl_FF& obj)
 //   maybe_underflow: Ergebnis sehr klein und /=0, liefert IEEE-Null
 //   maybe_divide_0: Ergebnis unbestimmt, liefert IEEE-Infinity
 //   maybe_nan: Ergebnis unbestimmt, liefert IEEE-NaN
-  #include "cl_N.h"
-  #include "cl_F.h"
   #define float_to_FF(expr,ergebnis_zuweisung,maybe_overflow,maybe_subnormal,maybe_underflow,maybe_divide_0,maybe_nan)  \
     { var ffloatjanus _erg; _erg.machine_float = (expr);		\
       if ((_erg.eksplicit & ((uint32)bit(FF_exp_len+FF_mant_len)-bit(FF_mant_len))) == 0) /* e=0 ? */\
@@ -240,5 +245,7 @@ inline const cl_FF cl_float_to_FF (const ffloatjanus& val)
 // cl_FF_to_float(obj,&val);
 // wandelt ein Single-Float obj in ein IEEE-Single-Float val um.
 extern void cl_FF_to_float (const cl_FF& obj, ffloatjanus* val_);
+
+}  // namespace cln
 
 #endif /* _CL_FF_H */

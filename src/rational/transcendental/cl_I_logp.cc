@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_RA.h"
 #include "cl_xmacros.h"
+
+namespace cln {
 
 cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
 {
@@ -68,3 +70,5 @@ cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
 	// a=1 -> c=0,d=1 -> Ergebnis ud/vd
 	*l = I_I_to_RA(UL_to_I(ud),UL_to_I(vd)); return cl_true;
 }}
+
+}  // namespace cln

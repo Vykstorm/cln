@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
+
+namespace cln {
 
 // Cf. cl_I_p in cl_I_ring.cc.
 // But here, for better inlining in g++, it is preferrable to finish every
@@ -36,3 +38,5 @@ const cl_I& as_cl_I (const cl_number& x, const char * filename, int line)
 	} else
 		cl_as_error(x,"an integer",filename,line);
 }
+
+}  // namespace cln

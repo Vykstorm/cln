@@ -12,6 +12,8 @@
 #include "cl_F.h"
 #include "cl_LF.h"
 
+namespace cln {
+
 const cl_F cl_ln10 (const cl_F& y)
 {
 	floattypecase(y
@@ -21,3 +23,5 @@ const cl_F cl_ln10 (const cl_F& y)
 	,	return cl_ln10(TheLfloat(y)->len);
 	);
 }
+
+}  // namespace cln

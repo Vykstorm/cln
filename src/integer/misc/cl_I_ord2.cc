@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 // Methode 1a:
 //   Sei n = ord2(x). Dann ist logxor(x,x-1) = 2^n + (2^n-1) = 2^(n+1)-1.
@@ -42,3 +44,5 @@ uintL ord2 (const cl_I& x) // x /= 0
 	    return bitcount;
           }
 }
+
+}  // namespace cln

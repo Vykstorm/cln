@@ -1,10 +1,10 @@
-// cl_random_state constructor.
+// random_state constructor.
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_random.h"
+#include "cln/random.h"
 
 
 // Implementation.
@@ -31,7 +31,7 @@ inline uint32 get_seed (void)
 {
 	var struct timeval tv;
 	gettimeofday(&tv,0);
-	return highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zufällige Bits
+	return cln::highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zufällige Bits
 }
 
 #elif defined(HAVE_FTIME)
@@ -70,16 +70,18 @@ inline uint32 get_seed (void)
 
 #endif
 
+namespace cln {
+
 // Counter, to avoid that two random-states created immediately one after
 // the other contain the same seed.
 static uint32 counter = 0;
 
-cl_random_state::cl_random_state ()
+random_state::random_state ()
 {
 	var uint32 seed_hi;
 	var uint32 seed_lo;
 #if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(_WIN32) && defined(__GNUC__))
-	seed_lo = get_seed();
+	seed_lo = ::get_seed();
 	seed_hi = (rand() // zufällige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
                           << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
 #elif defined(__atarist)
@@ -93,9 +95,11 @@ cl_random_state::cl_random_state ()
 	seed_lo = get_real_time(); // Uhrzeit, 100 Hz
 	seed_hi = time(NULL);
 #else
-#error "Must implement cl_random_state constructor!"
+#error "Must implement random_state constructor!"
 #endif
 	seed_hi ^= counter++ << 5;
 	seed.hi = seed_hi;
 	seed.lo = seed_lo;
 }
+
+}  // namespace cln

@@ -141,6 +141,7 @@ Internals
 Using the library
 
 * Compiler options::
+* Compatibility to old CLN versions::
 * Include files::
 * An Example::
 * Debugging support::
@@ -236,6 +237,9 @@ CLN aims at being easily integrated into larger software packages:
 
    * The library provides hooks for memory allocation and exceptions.
 
+   * All non-macro identifiers are hidden in namespace `cln' in order
+     to avoid name clashes.
+
 
 File: cln.info,  Node: Installation,  Next: Ordinary number types,  Prev: Introduction,  Up: Top
 
@@ -270,12 +274,12 @@ C++ compiler
 ------------
 
 To build CLN, you need a C++ compiler.  Actually, you need GNU `g++
-2.7.0' or newer.  On HPPA, you need GNU `g++ 2.8.0' or newer.  I
-recommend GNU `g++ 2.95' or newer.
+2.90' or newer, the EGCS compilers will do.  I recommend GNU `g++ 2.95'
+or newer.
 
 The following C++ features are used: classes, member functions,
 overloading of functions and operators, constructors and destructors,
-inline, const, multiple inheritance, templates.
+inline, const, multiple inheritance, templates and namespaces.
 
 The following C++ features are not used: `new', `delete', virtual
 inheritance, exceptions.
@@ -350,12 +354,10 @@ through the following environment variables when running `configure':
 Examples:
 
      $ CC="gcc" CFLAGS="-O" CXX="g++" CXXFLAGS="-O" ./configure
-     $ CC="gcc -V 2.7.2" CFLAGS="-O -g" \
-       CXX="g++ -V 2.7.2" CXXFLAGS="-O -g" ./configure
-     $ CC="gcc -V 2.8.1" CFLAGS="-O -fno-exceptions" \
-       CXX="g++ -V 2.8.1" CXXFLAGS="-O -fno-exceptions" ./configure
-     $ CC="gcc -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" \
-       CXX="g++ -V egcs-2.91.60" CFLAGS="-O2 -fno-exceptions" ./configure
+     $ CC="gcc -V egcs-2.91.60" CFLAGS="-O -g" \
+       CXX="g++ -V egcs-2.91.60" CXXFLAGS="-O -g" ./configure
+     $ CC="gcc -V 2.95.2" CFLAGS="-O2 -fno-exceptions" \
+       CXX="g++ -V 2.95.2" CFLAGS="-O2 -fno-exceptions" ./configure
 
 Note that for these environment variables to take effect, you have to
 set them (assuming a Bourne-compatible shell) on the same line as the
@@ -364,11 +366,9 @@ commands, you have to `export' the environment variables before calling
 `configure'. In a `csh' shell, you have to use the `setenv' command for
 setting each of the environment variables.
 
-On Linux, `g++' needs 15 MB to compile the tests. So you should better
-have 17 MB swap space and 1 MB room in $TMPDIR.
-
-If you use `g++' version 2.7.x, don't add `-O2' to the CXXFLAGS,
-because `g++ -O' generates better code for CLN than `g++ -O2'.
+Currently CLN works only with the GNU `g++' compiler, and only in
+optimizing mode. So you should specify at least `-O' in the CXXFLAGS,
+or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use `-O'.)
 
 If you use `g++' version 2.8.x or egcs-2.91.x (a.k.a. egcs-1.1) or
 gcc-2.95.x, I recommend adding `-fno-exceptions' to the CXXFLAGS.  This
@@ -457,30 +457,30 @@ Ordinary number types
 CLN implements the following class hierarchy:
 
                              Number
-                            cl_number
-                          <cl_number.h>
+                           cl_number
+                         <cln/number.h>
                                |
                                |
                       Real or complex number
                              cl_N
-                          <cl_complex.h>
+                         <cln/complex.h>
                                |
                                |
                           Real number
                              cl_R
-                           <cl_real.h>
+                          <cln/real.h>
                                |
            +-------------------+-------------------+
            |                                       |
      Rational number                     Floating-point number
          cl_RA                                   cl_F
-     <cl_rational.h>                          <cl_float.h>
+     <cln/rational.h>                         <cln/float.h>
            |                                       |
-           |                  +-------------+-------------+-------------+
-        Integer               |             |             |             |
-         cl_I            Short-Float   Single-Float  Double-Float   Long-Float
-      <cl_integer.h>        cl_SF         cl_FF         cl_DF         cl_LF
-                        <cl_sfloat.h> <cl_ffloat.h> <cl_dfloat.h> <cl_lfloat.h>
+           |                +--------------+--------------+--------------+
+        Integer             |              |              |              |
+         cl_I          Short-Float    Single-Float   Double-Float    Long-Float
+     <cln/integer.h>      cl_SF          cl_FF          cl_DF          cl_LF
+                      <cln/sfloat.h> <cln/ffloat.h> <cln/dfloat.h> <cln/lfloat.h>
 
 The base class `cl_number' is an abstract base class.  It is not useful
 to declare a variable of this type except if you want to completely
@@ -684,8 +684,8 @@ Conversions from the classes `cl_I', `cl_RA', `cl_SF', `cl_FF',
 `cl_DF', `cl_LF', `cl_F' and `cl_R' to the C built-in types `float' and
 `double' are provided through the functions
 
-`float cl_float_approx (const TYPE& x)'
-`double cl_double_approx (const TYPE& x)'
+`float float_approx (const TYPE& x)'
+`double double_approx (const TYPE& x)'
      Returns an approximation of `x' of C type CTYPE.  If `abs(x)' is
      too close to 0 (underflow), 0 is returned.  If `abs(x)' is too
      large (overflow), an IEEE infinity is returned.
@@ -711,7 +711,7 @@ Functions on numbers
 
 Each of the number classes declares its mathematical operations in the
 corresponding include file. For example, if your code operates with
-objects of type `cl_I', it should `#include <cl_integer.h>'.
+objects of type `cl_I', it should `#include <cln/integer.h>'.
 
 * Menu:
 
@@ -937,7 +937,7 @@ Each of the classes `cl_N', `cl_R', `cl_RA', `cl_I', `cl_F', `cl_SF',
 `bool operator != (const TYPE&, const TYPE&)'
      Comparison, as in C and C++.
 
-`uint32 cl_equal_hashcode (const TYPE&)'
+`uint32 equal_hashcode (const TYPE&)'
      Returns a 32-bit hash code that is the same for any two numbers
      which are the same according to `=='. This hash code depends on
      the number's value, not its type or precision.
@@ -948,7 +948,7 @@ Each of the classes `cl_N', `cl_R', `cl_RA', `cl_I', `cl_F', `cl_SF',
 Each of the classes `cl_R', `cl_RA', `cl_I', `cl_F', `cl_SF', `cl_FF',
 `cl_DF', `cl_LF' defines the following operations:
 
-`cl_signean cl_compare (const TYPE& x, const TYPE& y)'
+`cl_signean compare (const TYPE& x, const TYPE& y)'
      Compares `x' and `y'. Returns +1 if `x'>`y', -1 if `x'<`y', 0 if
      `x'=`y'.
 
@@ -1252,14 +1252,14 @@ Exponential and logarithmic functions
 The constant e = exp(1) = 2.71828... is returned by the following
 functions:
 
-`cl_F cl_exp1 (cl_float_format_t f)'
+`cl_F exp1 (cl_float_format_t f)'
      Returns e as a float of format `f'.
 
-`cl_F cl_exp1 (const cl_F& y)'
+`cl_F exp1 (const cl_F& y)'
      Returns e in the float format of `y'.
 
-`cl_F cl_exp1 (void)'
-     Returns e as a float of format `cl_default_float_format'.
+`cl_F exp1 (void)'
+     Returns e as a float of format `default_float_format'.
 
 
 File: cln.info,  Node: Trigonometric functions,  Next: Hyperbolic functions,  Prev: Exponential and logarithmic functions,  Up: Transcendental functions
@@ -1283,8 +1283,8 @@ Trigonometric functions
      Returns `cos(z)'. The range of the result is the entire complex
      plane.
 
-`struct cl_cos_sin_t { cl_R cos; cl_R sin; };'
-`cl_cos_sin_t cl_cos_sin (const cl_R& x)'
+`struct cos_sin_t { cl_R cos; cl_R sin; };'
+`cos_sin_t cos_sin (const cl_R& x)'
      Returns both `sin(x)' and `cos(x)'. This is more efficient than
      computing them separately. The relation `cos^2 + sin^2 = 1' will
      hold only approximately.
@@ -1338,14 +1338,14 @@ Trigonometric functions
 Archimedes' constant pi = 3.14... is returned by the following
 functions:
 
-`cl_F cl_pi (cl_float_format_t f)'
+`cl_F pi (cl_float_format_t f)'
      Returns pi as a float of format `f'.
 
-`cl_F cl_pi (const cl_F& y)'
+`cl_F pi (const cl_F& y)'
      Returns pi in the float format of `y'.
 
-`cl_F cl_pi (void)'
-     Returns pi as a float of format `cl_default_float_format'.
+`cl_F pi (void)'
+     Returns pi as a float of format `default_float_format'.
 
 
 File: cln.info,  Node: Hyperbolic functions,  Next: Euler gamma,  Prev: Trigonometric functions,  Up: Transcendental functions
@@ -1368,8 +1368,8 @@ Hyperbolic functions
      Returns `cosh(z)'. The range of the result is the entire complex
      plane.
 
-`struct cl_cosh_sinh_t { cl_R cosh; cl_R sinh; };'
-`cl_cosh_sinh_t cl_cosh_sinh (const cl_R& x)'
+`struct cosh_sinh_t { cl_R cosh; cl_R sinh; };'
+`cosh_sinh_t cosh_sinh (const cl_R& x)'
      Returns both `sinh(x)' and `cosh(x)'. This is more efficient than
      computing them separately. The relation `cosh^2 - sinh^2 = 1' will
      hold only approximately.
@@ -1409,27 +1409,27 @@ Euler gamma
 
 Euler's constant C = 0.577... is returned by the following functions:
 
-`cl_F cl_eulerconst (cl_float_format_t f)'
+`cl_F eulerconst (cl_float_format_t f)'
      Returns Euler's constant as a float of format `f'.
 
-`cl_F cl_eulerconst (const cl_F& y)'
+`cl_F eulerconst (const cl_F& y)'
      Returns Euler's constant in the float format of `y'.
 
-`cl_F cl_eulerconst (void)'
+`cl_F eulerconst (void)'
      Returns Euler's constant as a float of format
-     `cl_default_float_format'.
+     `default_float_format'.
 
 Catalan's constant G = 0.915... is returned by the following functions:
 
-`cl_F cl_catalanconst (cl_float_format_t f)'
+`cl_F catalanconst (cl_float_format_t f)'
      Returns Catalan's constant as a float of format `f'.
 
-`cl_F cl_catalanconst (const cl_F& y)'
+`cl_F catalanconst (const cl_F& y)'
      Returns Catalan's constant in the float format of `y'.
 
-`cl_F cl_catalanconst (void)'
+`cl_F catalanconst (void)'
      Returns Catalan's constant as a float of format
-     `cl_default_float_format'.
+     `default_float_format'.
 
 
 File: cln.info,  Node: Riemann zeta,  Prev: Euler gamma,  Up: Transcendental functions
@@ -1440,15 +1440,15 @@ Riemann zeta
 Riemann's zeta function at an integral point `s>1' is returned by the
 following functions:
 
-`cl_F cl_zeta (int s, cl_float_format_t f)'
+`cl_F zeta (int s, cl_float_format_t f)'
      Returns Riemann's zeta function at `s' as a float of format `f'.
 
-`cl_F cl_zeta (int s, const cl_F& y)'
+`cl_F zeta (int s, const cl_F& y)'
      Returns Riemann's zeta function at `s' in the float format of `y'.
 
-`cl_F cl_zeta (int s)'
+`cl_F zeta (int s)'
      Returns Riemann's zeta function at `s' as a float of format
-     `cl_default_float_format'.
+     `default_float_format'.
 
 
 File: cln.info,  Node: Functions on integers,  Next: Functions on floating-point numbers,  Prev: Transcendental functions,  Up: Functions on numbers
@@ -1714,15 +1714,15 @@ representation of floating-point numbers.
      non-zero, and 0 if `x' = 0.
 
 The complete internal representation of a float is encoded in the type
-`cl_decoded_float' (or `cl_decoded_sfloat', `cl_decoded_ffloat',
-`cl_decoded_dfloat', `cl_decoded_lfloat', respectively), defined by
-     struct cl_decoded_TYPEfloat {
+`decoded_float' (or `decoded_sfloat', `decoded_ffloat',
+`decoded_dfloat', `decoded_lfloat', respectively), defined by
+     struct decoded_TYPEfloat {
              TYPE mantissa; cl_I exponent; TYPE sign;
      };
 
 and returned by the function
 
-`cl_decoded_TYPEfloat decode_float (const TYPE& x)'
+`decoded_TYPEfloat decode_float (const TYPE& x)'
      For `x' non-zero, this returns `(-1)^s', `e', `m' with `x = (-1)^s
      * 2^e * m' and `0.5 <= m < 1.0'. For `x' = 0, it returns
      `(-1)^s'=1, `e'=0, `m'=0.  `e' is the same as returned by the
@@ -1774,7 +1774,7 @@ The type `cl_float_format_t' describes a floating-point format.
 `cl_float_format_t cl_float_format (const cl_F& x)'
      Returns the floating point format of `x'.
 
-`cl_float_format_t cl_default_float_format'
+`cl_float_format_t default_float_format'
      Global variable: the default float format used when converting
      rational numbers to floats.
 
@@ -1789,8 +1789,8 @@ following operations:
      Returns `x' in the float format of `y'.
 
 `cl_F cl_float (const TYPE&x)'
-     Returns `x' as a float of format `cl_default_float_format' if it
-     is an exact number, or `x' itself if it is already a float.
+     Returns `x' as a float of format `default_float_format' if it is
+     an exact number, or `x' itself if it is already a float.
 
 Of course, converting a number to a float can lose precision.
 
@@ -1857,37 +1857,37 @@ Random number generators
 ========================
 
 A random generator is a machine which produces (pseudo-)random numbers.
-The include file `<cl_random.h>' defines a class `cl_random_state'
-which contains the state of a random generator. If you make a copy of
-the random number generator, the original one and the copy will produce
-the same sequence of random numbers.
+The include file `<cln/random.h>' defines a class `random_state' which
+contains the state of a random generator. If you make a copy of the
+random number generator, the original one and the copy will produce the
+same sequence of random numbers.
 
 The following functions return (pseudo-)random numbers in different
 formats.  Calling one of these modifies the state of the random number
 generator in a complicated but deterministic way.
 
 The global variable
-     cl_random_state cl_default_random_state
+     random_state default_random_state
 contains a default random number generator. It is used when the
-functions below are called without `cl_random_state' argument.
+functions below are called without `random_state' argument.
 
-`uint32 random32 (cl_random_state& randomstate)'
+`uint32 random32 (random_state& randomstate)'
 `uint32 random32 ()'
      Returns a random unsigned 32-bit number. All bits are equally
      random.
 
-`cl_I random_I (cl_random_state& randomstate, const cl_I& n)'
+`cl_I random_I (random_state& randomstate, const cl_I& n)'
 `cl_I random_I (const cl_I& n)'
      `n' must be an integer > 0. This function returns a random integer
      `x' in the range `0 <= x < n'.
 
-`cl_F random_F (cl_random_state& randomstate, const cl_F& n)'
+`cl_F random_F (random_state& randomstate, const cl_F& n)'
 `cl_F random_F (const cl_F& n)'
      `n' must be a float > 0. This function returns a random
      floating-point number of the same format as `n' in the range `0 <=
      x < n'.
 
-`cl_R random_R (cl_random_state& randomstate, const cl_R& n)'
+`cl_R random_R (random_state& randomstate, const cl_R& n)'
 `cl_R random_R (const cl_R& n)'
      Behaves like `random_I' if `n' is an integer and like `random_F'
      if `n' is a float.
@@ -2024,13 +2024,12 @@ File: cln.info,  Node: Input functions,  Next: Output functions,  Prev: Internal
 Input functions
 ===============
 
-Including `<cl_io.h>' defines a type `cl_istream', which is the type of
-the first argument to all input functions. Unless you build and use CLN
-with the macro CL_IO_STDIO being defined, `cl_istream' is the same as
-`istream&'.
+Including `<cln/io.h>' defines a type `cl_istream', which is the type
+of the first argument to all input functions. `cl_istream' is the same
+as `std::istream&'.
 
 The variable
-     `cl_istream cl_stdin'
+     `cl_istream stdin'
 contains the standard input stream.
 
 These are the simple input functions:
@@ -2044,14 +2043,14 @@ These are the simple input functions:
      `freadchar' operation on `stream'.
 
 Each of the classes `cl_N', `cl_R', `cl_RA', `cl_I', `cl_F', `cl_SF',
-`cl_FF', `cl_DF', `cl_LF' defines, in `<cl_TYPE_io.h>', the following
+`cl_FF', `cl_DF', `cl_LF' defines, in `<cln/TYPE_io.h>', the following
 input function:
 
 `cl_istream operator>> (cl_istream stream, TYPE& result)'
      Reads a number from `stream' and stores it in the `result'.
 
-The most flexible input functions, defined in `<cl_TYPE_io.h>', are the
-following:
+The most flexible input functions, defined in `<cln/TYPE_io.h>', are
+the following:
 
 `cl_N read_complex (cl_istream stream, const cl_read_flags& flags)'
 `cl_R read_real (cl_istream stream, const cl_read_flags& flags)'
@@ -2125,17 +2124,16 @@ File: cln.info,  Node: Output functions,  Prev: Input functions,  Up: Input/Outp
 Output functions
 ================
 
-Including `<cl_io.h>' defines a type `cl_ostream', which is the type of
-the first argument to all output functions. Unless you build and use
-CLN with the macro CL_IO_STDIO being defined, `cl_ostream' is the same
-as `ostream&'.
+Including `<cln/io.h>' defines a type `cl_ostream', which is the type
+of the first argument to all output functions. `cl_ostream' is the same
+as `std::ostream&'.
 
 The variable
-     `cl_ostream cl_stdout'
+     `cl_ostream stdout'
 contains the standard output stream.
 
 The variable
-     `cl_ostream cl_stderr'
+     `cl_ostream stderr'
 contains the standard error output stream.
 
 These are the simple output functions:
@@ -2163,18 +2161,18 @@ These are the simple output functions:
      the `stream'.
 
 Each of the classes `cl_N', `cl_R', `cl_RA', `cl_I', `cl_F', `cl_SF',
-`cl_FF', `cl_DF', `cl_LF' defines, in `<cl_TYPE_io.h>', the following
+`cl_FF', `cl_DF', `cl_LF' defines, in `<cln/TYPE_io.h>', the following
 output functions:
 
 `void fprint (cl_ostream stream, const TYPE& x)'
 `cl_ostream operator<< (cl_ostream stream, const TYPE& x)'
      Prints the number `x' on the `stream'. The output may depend on
-     the global printer settings in the variable
-     `cl_default_print_flags'.  The `ostream' flags and settings
-     (flags, width and locale) are ignored.
+     the global printer settings in the variable `default_print_flags'.
+     The `ostream' flags and settings (flags, width and locale) are
+     ignored.
 
-The most flexible output function, defined in `<cl_TYPE_io.h>', are the
-following:
+The most flexible output function, defined in `<cln/TYPE_io.h>', are
+the following:
      void print_complex  (cl_ostream stream, const cl_print_flags& flags,
                           const cl_N& z);
      void print_real     (cl_ostream stream, const cl_print_flags& flags,
@@ -2214,8 +2212,8 @@ The structure type `cl_print_flags' contains the following fields:
      Univariate polynomials with no explicit indeterminate name will be
      printed using this variable name. Default is `"x"'.
 
-The global variable `cl_default_print_flags' contains the default
-values, used by the function `fprint'.
+The global variable `default_print_flags' contains the default values,
+used by the function `fprint'.
 
 
 File: cln.info,  Node: Rings,  Next: Modular integers,  Prev: Input/Output,  Up: Top
@@ -2227,7 +2225,7 @@ CLN has a class of abstract rings.
 
                               Ring
                             cl_ring
-                           <cl_ring.h>
+                          <cln/ring.h>
 
 Rings can be compared for equality:
 
@@ -2300,23 +2298,23 @@ The class of modular integer rings is
 
                               Ring
                             cl_ring
-                           <cl_ring.h>
+                          <cln/ring.h>
                                |
                                |
                       Modular integer ring
                          cl_modint_ring
-                        <cl_modinteger.h>
+                       <cln/modinteger.h>
 
 and the class of all modular integers (elements of modular integer
 rings) is
 
                          Modular integer
                               cl_MI
-                        <cl_modinteger.h>
+                        <cln/modinteger.h>
 
 Modular integer rings are constructed using the function
 
-`cl_modint_ring cl_find_modint_ring (const cl_I& N)'
+`cl_modint_ring find_modint_ring (const cl_I& N)'
      This function returns the modular ring `Z/NZ'. It takes care of
      finding out about special cases of `N', like powers of two and odd
      numbers for which Montgomery multiplication will be a win, and
@@ -2330,7 +2328,7 @@ Modular integer rings can be compared for equality:
 `bool operator== (const cl_modint_ring&, const cl_modint_ring&)'
 `bool operator!= (const cl_modint_ring&, const cl_modint_ring&)'
      These compare two modular integer rings for equality. Two
-     different calls to `cl_find_modint_ring' with the same argument
+     different calls to `find_modint_ring' with the same argument
      necessarily return the same ring because it is memoized in the
      cache table.
 
@@ -2358,7 +2356,7 @@ Given a modular integer ring `R', the following members can be used.
      This is a partial inverse function to `R->canonhom'. It returns the
      standard representative (`>=0', `<N') of `x'.
 
-`cl_MI R->random(cl_random_state& randomstate)'
+`cl_MI R->random(random_state& randomstate)'
 `cl_MI R->random()'
      This returns a random integer modulo `N'.
 
@@ -2423,7 +2421,7 @@ input/output).
 `cl_ostream operator<< (cl_ostream stream, const cl_MI& x)'
      Prints the modular integer `x' on the `stream'. The output may
      depend on the global printer settings in the variable
-     `cl_default_print_flags'.
+     `default_print_flags'.
 
 
 File: cln.info,  Node: Symbolic data types,  Next: Univariate polynomials,  Prev: Modular integers,  Up: Top
@@ -2449,7 +2447,7 @@ The class
 
                            String
                           cl_string
-                         <cl_string.h>
+                        <cln/string.h>
 
 implements immutable strings.
 
@@ -2527,9 +2525,9 @@ Univariate polynomial rings
 CLN implements univariate polynomials (polynomials in one variable)
 over an arbitrary ring. The indeterminate variable may be either
 unnamed (and will be printed according to
-`cl_default_print_flags.univpoly_varname', which defaults to `x') or
-carry a given name. The base ring and the indeterminate are explicitly
-part of every polynomial. CLN doesn't allow you to (accidentally) mix
+`default_print_flags.univpoly_varname', which defaults to `x') or carry
+a given name. The base ring and the indeterminate are explicitly part
+of every polynomial. CLN doesn't allow you to (accidentally) mix
 elements of different polynomial rings, e.g.  `(a^2+1) * (b^3-1)' will
 result in a runtime error. (Ideally this should return a multivariate
 polynomial, but they are not yet implemented in CLN.)
@@ -2538,71 +2536,71 @@ The classes of univariate polynomial rings are
 
                                 Ring
                               cl_ring
-                             <cl_ring.h>
+                            <cln/ring.h>
                                  |
                                  |
                       Univariate polynomial ring
                            cl_univpoly_ring
-                           <cl_univpoly.h>
+                           <cln/univpoly.h>
                                  |
                 +----------------+-------------------+
                 |                |                   |
       Complex polynomial ring    |    Modular integer polynomial ring
       cl_univpoly_complex_ring   |        cl_univpoly_modint_ring
-       <cl_univpoly_complex.h>   |        <cl_univpoly_modint.h>
+      <cln/univpoly_complex.h>   |        <cln/univpoly_modint.h>
                                  |
                 +----------------+
                 |                |
         Real polynomial ring     |
         cl_univpoly_real_ring    |
-         <cl_univpoly_real.h>    |
+        <cln/univpoly_real.h>    |
                                  |
                 +----------------+
                 |                |
       Rational polynomial ring   |
       cl_univpoly_rational_ring  |
-       <cl_univpoly_rational.h>  |
+      <cln/univpoly_rational.h>  |
                                  |
                 +----------------+
                 |
       Integer polynomial ring
       cl_univpoly_integer_ring
-       <cl_univpoly_integer.h>
+      <cln/univpoly_integer.h>
 
 and the corresponding classes of univariate polynomials are
 
                         Univariate polynomial
                                cl_UP
-                           <cl_univpoly.h>
+                           <cln/univpoly.h>
                                  |
                 +----------------+-------------------+
                 |                |                   |
         Complex polynomial       |      Modular integer polynomial
              cl_UP_N             |                cl_UP_MI
-       <cl_univpoly_complex.h>   |        <cl_univpoly_modint.h>
+      <cln/univpoly_complex.h>   |        <cln/univpoly_modint.h>
                                  |
                 +----------------+
                 |                |
           Real polynomial        |
              cl_UP_R             |
-         <cl_univpoly_real.h>    |
+       <cln/univpoly_real.h>     |
                                  |
                 +----------------+
                 |                |
         Rational polynomial      |
              cl_UP_RA            |
-       <cl_univpoly_rational.h>  |
+      <cln/univpoly_rational.h>  |
                                  |
                 +----------------+
                 |
         Integer polynomial
              cl_UP_I
-       <cl_univpoly_integer.h>
+      <cln/univpoly_integer.h>
 
 Univariate polynomial rings are constructed using the functions
 
-`cl_univpoly_ring cl_find_univpoly_ring (const cl_ring& R)'
-`cl_univpoly_ring cl_find_univpoly_ring (const cl_ring& R, const cl_symbol& varname)'
+`cl_univpoly_ring find_univpoly_ring (const cl_ring& R)'
+`cl_univpoly_ring find_univpoly_ring (const cl_ring& R, const cl_symbol& varname)'
      This function returns the polynomial ring `R[X]', unnamed or named.
      `R' may be an arbitrary ring. This function takes care of finding
      out about special cases of `R', such as the rings of complex
@@ -2611,19 +2609,19 @@ Univariate polynomial rings are constructed using the functions
      and `varname'.  This ensures that two calls of this function with
      the same arguments will return the same polynomial ring.
 
-`cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R)'
-`cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R, const cl_symbol& varname)'
-`cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring& R)'
-`cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring& R, const cl_symbol& varname)'
-`cl_univpoly_rational_ring cl_find_univpoly_ring (const cl_rational_ring& R)'
-`cl_univpoly_rational_ring cl_find_univpoly_ring (const cl_rational_ring& R, const cl_symbol& varname)'
-`cl_univpoly_integer_ring cl_find_univpoly_ring (const cl_integer_ring& R)'
-`cl_univpoly_integer_ring cl_find_univpoly_ring (const cl_integer_ring& R, const cl_symbol& varname)'
-`cl_univpoly_modint_ring cl_find_univpoly_ring (const cl_modint_ring& R)'
-`cl_univpoly_modint_ring cl_find_univpoly_ring (const cl_modint_ring& R, const cl_symbol& varname)'
-     These functions are equivalent to the general
-     `cl_find_univpoly_ring', only the return type is more specific,
-     according to the base ring's type.
+`cl_univpoly_complex_ring find_univpoly_ring (const cl_complex_ring& R)'
+`cl_univpoly_complex_ring find_univpoly_ring (const cl_complex_ring& R, const cl_symbol& varname)'
+`cl_univpoly_real_ring find_univpoly_ring (const cl_real_ring& R)'
+`cl_univpoly_real_ring find_univpoly_ring (const cl_real_ring& R, const cl_symbol& varname)'
+`cl_univpoly_rational_ring find_univpoly_ring (const cl_rational_ring& R)'
+`cl_univpoly_rational_ring find_univpoly_ring (const cl_rational_ring& R, const cl_symbol& varname)'
+`cl_univpoly_integer_ring find_univpoly_ring (const cl_integer_ring& R)'
+`cl_univpoly_integer_ring find_univpoly_ring (const cl_integer_ring& R, const cl_symbol& varname)'
+`cl_univpoly_modint_ring find_univpoly_ring (const cl_modint_ring& R)'
+`cl_univpoly_modint_ring find_univpoly_ring (const cl_modint_ring& R, const cl_symbol& varname)'
+     These functions are equivalent to the general `find_univpoly_ring',
+     only the return type is more specific, according to the base
+     ring's type.
 
 
 File: cln.info,  Node: Functions on univariate polynomials,  Next: Special polynomials,  Prev: Univariate polynomial rings,  Up: Univariate polynomials
@@ -2635,7 +2633,7 @@ Given a univariate polynomial ring `R', the following members can be
 used.
 
 `cl_ring R->basering()'
-     This returns the base ring, as passed to `cl_find_univpoly_ring'.
+     This returns the base ring, as passed to `find_univpoly_ring'.
 
 `cl_UP R->zero()'
      This returns `0 in R', a polynomial of degree -1.
@@ -2727,7 +2725,7 @@ input/output).
 `cl_ostream operator<< (cl_ostream stream, const cl_UP& x)'
      Prints the univariate polynomial `x' on the `stream'. The output
      may depend on the global printer settings in the variable
-     `cl_default_print_flags'.
+     `default_print_flags'.
 
 
 File: cln.info,  Node: Special polynomials,  Prev: Functions on univariate polynomials,  Up: Univariate polynomials
@@ -2737,16 +2735,16 @@ Special polynomials
 
 The following functions return special polynomials.
 
-`cl_UP_I cl_tschebychev (sintL n)'
-     Returns the n-th Tchebychev polynomial (n >= 0).
+`cl_UP_I tschebychev (sintL n)'
+     Returns the n-th Chebyshev polynomial (n >= 0).
 
-`cl_UP_I cl_hermite (sintL n)'
+`cl_UP_I hermite (sintL n)'
      Returns the n-th Hermite polynomial (n >= 0).
 
-`cl_UP_RA cl_legendre (sintL n)'
+`cl_UP_RA legendre (sintL n)'
      Returns the n-th Legendre polynomial (n >= 0).
 
-`cl_UP_I cl_laguerre (sintL n)'
+`cl_UP_I laguerre (sintL n)'
      Returns the n-th Laguerre polynomial (n >= 0).
 
 Information how to derive the differential equation satisfied by each
@@ -2887,12 +2885,13 @@ environment variables, or directly substitute the appropriate values.
 * Menu:
 
 * Compiler options::
+* Compatibility to old CLN versions::
 * Include files::
 * An Example::
 * Debugging support::
 
 
-File: cln.info,  Node: Compiler options,  Next: Include files,  Prev: Using the library,  Up: Using the library
+File: cln.info,  Node: Compiler options,  Next: Compatibility to old CLN versions,  Prev: Using the library,  Up: Using the library
 
 Compiler options
 ================
@@ -2914,191 +2913,220 @@ directory as well (normally `/usr/local/lib'), hence when linking a CLN
 application it is sufficient to give the flag `-lcln'.
 
 
-File: cln.info,  Node: Include files,  Next: An Example,  Prev: Compiler options,  Up: Using the library
+File: cln.info,  Node: Compatibility to old CLN versions,  Next: Include files,  Prev: Compiler options,  Up: Using the library
+
+Compatibility to old CLN versions
+=================================
+
+As of CLN version 1.1 all non-macro identifiers were hidden in namespace
+`cln' in order to avoid potential name clashes with other C++
+libraries. If you have an old application, you will have to manually
+port it to the new scheme. The following principles will help during
+the transition:
+   * All headers are now in a separate subdirectory. Instead of
+     including `cl_'SOMETHING`.h', include `cln/'SOMETHING`.h' now.
+
+   * All public identifiers (typenames and functions) have lost their
+     `cl_' prefix.  Exceptions are all the typenames of number types,
+     (cl_N, cl_I, cl_MI, ...), rings, symbolic types (cl_string,
+     cl_symbol) and polynomials (cl_UP_TYPE).  (This is because their
+     names would not be mnemonic enough once the namespace `cln' is
+     imported. Even in a namespace we favor `cl_N' over `N'.)
+
+   * All public _functions_ that had by a `cl_' in their name still
+     carry that `cl_' if it is intrinsic part of a typename (as in
+     `cl_I_to_int ()').
+When developing other libraries, please keep in mind not to import the
+namespace `cln' in one of your public header files by saying `using
+namespace cln;'. This would propagate to other applications and can
+cause name clashes there.
+
+
+File: cln.info,  Node: Include files,  Next: An Example,  Prev: Compatibility to old CLN versions,  Up: Using the library
 
 Include files
 =============
 
 Here is a summary of the include files and their contents.
 
-`<cl_object.h>'
+`<cln/object.h>'
      General definitions, reference counting, garbage collection.
 
-`<cl_number.h>'
+`<cln/number.h>'
      The class cl_number.
 
-`<cl_complex.h>'
+`<cln/complex.h>'
      Functions for class cl_N, the complex numbers.
 
-`<cl_real.h>'
+`<cln/real.h>'
      Functions for class cl_R, the real numbers.
 
-`<cl_float.h>'
+`<cln/float.h>'
      Functions for class cl_F, the floats.
 
-`<cl_sfloat.h>'
+`<cln/sfloat.h>'
      Functions for class cl_SF, the short-floats.
 
-`<cl_ffloat.h>'
+`<cln/ffloat.h>'
      Functions for class cl_FF, the single-floats.
 
-`<cl_dfloat.h>'
+`<cln/dfloat.h>'
      Functions for class cl_DF, the double-floats.
 
-`<cl_lfloat.h>'
+`<cln/lfloat.h>'
      Functions for class cl_LF, the long-floats.
 
-`<cl_rational.h>'
+`<cln/rational.h>'
      Functions for class cl_RA, the rational numbers.
 
-`<cl_integer.h>'
+`<cln/integer.h>'
      Functions for class cl_I, the integers.
 
-`<cl_io.h>'
+`<cln/io.h>'
      Input/Output.
 
-`<cl_complex_io.h>'
+`<cln/complex_io.h>'
      Input/Output for class cl_N, the complex numbers.
 
-`<cl_real_io.h>'
+`<cln/real_io.h>'
      Input/Output for class cl_R, the real numbers.
 
-`<cl_float_io.h>'
+`<cln/float_io.h>'
      Input/Output for class cl_F, the floats.
 
-`<cl_sfloat_io.h>'
+`<cln/sfloat_io.h>'
      Input/Output for class cl_SF, the short-floats.
 
-`<cl_ffloat_io.h>'
+`<cln/ffloat_io.h>'
      Input/Output for class cl_FF, the single-floats.
 
-`<cl_dfloat_io.h>'
+`<cln/dfloat_io.h>'
      Input/Output for class cl_DF, the double-floats.
 
-`<cl_lfloat_io.h>'
+`<cln/lfloat_io.h>'
      Input/Output for class cl_LF, the long-floats.
 
-`<cl_rational_io.h>'
+`<cln/rational_io.h>'
      Input/Output for class cl_RA, the rational numbers.
 
-`<cl_integer_io.h>'
+`<cln/integer_io.h>'
      Input/Output for class cl_I, the integers.
 
-`<cl_input.h>'
+`<cln/input.h>'
      Flags for customizing input operations.
 
-`<cl_output.h>'
+`<cln/output.h>'
      Flags for customizing output operations.
 
-`<cl_malloc.h>'
-     `cl_malloc_hook', `cl_free_hook'.
+`<cln/malloc.h>'
+     `malloc_hook', `free_hook'.
 
-`<cl_abort.h>'
+`<cln/abort.h>'
      `cl_abort'.
 
-`<cl_condition.h>'
+`<cln/condition.h>'
      Conditions/exceptions.
 
-`<cl_string.h>'
+`<cln/string.h>'
      Strings.
 
-`<cl_symbol.h>'
+`<cln/symbol.h>'
      Symbols.
 
-`<cl_proplist.h>'
+`<cln/proplist.h>'
      Property lists.
 
-`<cl_ring.h>'
+`<cln/ring.h>'
      General rings.
 
-`<cl_null_ring.h>'
+`<cln/null_ring.h>'
      The null ring.
 
-`<cl_complex_ring.h>'
+`<cln/complex_ring.h>'
      The ring of complex numbers.
 
-`<cl_real_ring.h>'
+`<cln/real_ring.h>'
      The ring of real numbers.
 
-`<cl_rational_ring.h>'
+`<cln/rational_ring.h>'
      The ring of rational numbers.
 
-`<cl_integer_ring.h>'
+`<cln/integer_ring.h>'
      The ring of integers.
 
-`<cl_numtheory.h>'
+`<cln/numtheory.h>'
      Number threory functions.
 
-`<cl_modinteger.h>'
+`<cln/modinteger.h>'
      Modular integers.
 
-`<cl_V.h>'
+`<cln/V.h>'
      Vectors.
 
-`<cl_GV.h>'
+`<cln/GV.h>'
      General vectors.
 
-`<cl_GV_number.h>'
+`<cln/GV_number.h>'
      General vectors over cl_number.
 
-`<cl_GV_complex.h>'
+`<cln/GV_complex.h>'
      General vectors over cl_N.
 
-`<cl_GV_real.h>'
+`<cln/GV_real.h>'
      General vectors over cl_R.
 
-`<cl_GV_rational.h>'
+`<cln/GV_rational.h>'
      General vectors over cl_RA.
 
-`<cl_GV_integer.h>'
+`<cln/GV_integer.h>'
      General vectors over cl_I.
 
-`<cl_GV_modinteger.h>'
+`<cln/GV_modinteger.h>'
      General vectors of modular integers.
 
-`<cl_SV.h>'
+`<cln/SV.h>'
      Simple vectors.
 
-`<cl_SV_number.h>'
+`<cln/SV_number.h>'
      Simple vectors over cl_number.
 
-`<cl_SV_complex.h>'
+`<cln/SV_complex.h>'
      Simple vectors over cl_N.
 
-`<cl_SV_real.h>'
+`<cln/SV_real.h>'
      Simple vectors over cl_R.
 
-`<cl_SV_rational.h>'
+`<cln/SV_rational.h>'
      Simple vectors over cl_RA.
 
-`<cl_SV_integer.h>'
+`<cln/SV_integer.h>'
      Simple vectors over cl_I.
 
-`<cl_SV_ringelt.h>'
+`<cln/SV_ringelt.h>'
      Simple vectors of general ring elements.
 
-`<cl_univpoly.h>'
+`<cln/univpoly.h>'
      Univariate polynomials.
 
-`<cl_univpoly_integer.h>'
+`<cln/univpoly_integer.h>'
      Univariate polynomials over the integers.
 
-`<cl_univpoly_rational.h>'
+`<cln/univpoly_rational.h>'
      Univariate polynomials over the rational numbers.
 
-`<cl_univpoly_real.h>'
+`<cln/univpoly_real.h>'
      Univariate polynomials over the real numbers.
 
-`<cl_univpoly_complex.h>'
+`<cln/univpoly_complex.h>'
      Univariate polynomials over the complex numbers.
 
-`<cl_univpoly_modint.h>'
+`<cln/univpoly_modint.h>'
      Univariate polynomials over modular integer rings.
 
-`<cl_timing.h>'
+`<cln/timing.h>'
      Timing facilities.
 
-`<cln.h>'
+`<cln/cln.h>'
      Includes all of the above.
 
 
@@ -3110,8 +3138,9 @@ An Example
 A function which computes the nth Fibonacci number can be written as
 follows.
 
-     #include <cl_integer.h>
-     #include <cl_real.h>
+     #include <cln/integer.h>
+     #include <cln/real.h>
+     using namespace cln;
      
      // Returns F_n, computed as the nearest integer to
      // ((1+sqrt(5))/2)^n/sqrt(5). Assume n>=0.
@@ -3126,10 +3155,11 @@ follows.
 
 Let's explain what is going on in detail.
 
-The include file `<cl_integer.h>' is necessary because the type `cl_I'
-is used in the function, and the include file `<cl_real.h>' is needed
+The include file `<cln/integer.h>' is necessary because the type `cl_I'
+is used in the function, and the include file `<cln/real.h>' is needed
 for the type `cl_R' and the floating point number functions.  The order
-of the include files does not matter.
+of the include files does not matter.  In order not to write out
+`cln::'FOO we can safely import the whole namespace `cln'.
 
 Then comes the function declaration. The argument is an `int', the
 result an integer. The return type is defined as `const cl_I', not
@@ -3195,7 +3225,7 @@ available from the library:
      to define the macro `CL_DEBUG' and then include all the header
      files for which you want `cl_print' debugging support. For example:
           #define CL_DEBUG
-          #include <cl_string.h>
+          #include <cln/string.h>
      Now, if you have in your program a variable `cl_string s', and
      inspect it under `gdb', the output may look like this:
           (gdb) print s
@@ -3249,7 +3279,7 @@ error output stream, and the function `cl_abort' is called. The default
 version of this function (provided in the library) terminates the
 application.  To catch such a fatal error, you need to define the
 function `cl_abort' yourself, with the prototype
-     #include <cl_abort.h>
+     #include <cln/abort.h>
      void cl_abort (void);
 This function must not return control to its caller.
 
@@ -3275,7 +3305,7 @@ Customizing I/O
 ===============
 
 The output of the function `fprint' may be customized by changing the
-value of the global variable `cl_default_print_flags'.
+value of the global variable `default_print_flags'.
 
 
 File: cln.info,  Node: Customizing the memory allocator,  Prev: Customizing I/O,  Up: Customizing
@@ -3284,15 +3314,17 @@ Customizing the memory allocator
 ================================
 
 Every memory allocation of CLN is done through the function pointer
-`cl_malloc_hook'. Freeing of this memory is done through the function
-pointer `cl_free_hook'. The default versions of these functions,
-provided in the library, call `malloc' and `free' and check the
-`malloc' result against `NULL'.  If you want to provide another memory
-allocator, you need to define the variables `cl_malloc_hook' and
-`cl_free_hook' yourself, like this:
-     #include <cl_malloc.h>
-     void* (*cl_malloc_hook) (size_t size) = ...;
-     void (*cl_free_hook) (void* ptr)      = ...;
+`malloc_hook'. Freeing of this memory is done through the function
+pointer `free_hook'. The default versions of these functions, provided
+in the library, call `malloc' and `free' and check the `malloc' result
+against `NULL'.  If you want to provide another memory allocator, you
+need to define the variables `malloc_hook' and `free_hook' yourself,
+like this:
+     #include <cln/malloc.h>
+     namespace cln {
+             void* (*malloc_hook) (size_t size) = ...;
+             void (*free_hook) (void* ptr)      = ...;
+     }
 The `cl_malloc_hook' function must not return a `NULL' pointer.
 
 It is not possible to change the memory allocator at runtime, because
@@ -3340,72 +3372,48 @@ Index
 * boole_set:                             Logical functions.
 * boole_xor:                             Logical functions.
 * canonhom () <1>:                       Functions on univariate polynomials.
-* canonhom ():                           Functions on modular integers.
+* canonhom () <2>:                       Functions on modular integers.
+* canonhom ():                           Rings.
 * Catalan's constant:                    Euler gamma.
+* catalanconst ():                       Euler gamma.
 * ceiling1 ():                           Rounding functions.
 * ceiling2 ():                           Rounding functions.
+* Chebyshev polynomial:                  Special polynomials.
 * cis ():                                Trigonometric functions.
 * cl_abort ():                           Error handling.
 * cl_byte:                               Logical functions.
-* cl_catalanconst ():                    Euler gamma.
-* cl_compare ():                         Comparisons.
-* cl_cos_sin ():                         Trigonometric functions.
-* cl_cos_sin_t:                          Trigonometric functions.
-* cl_cosh_sinh ():                       Hyperbolic functions.
-* cl_cosh_sinh_t:                        Hyperbolic functions.
 * CL_DEBUG:                              Debugging support.
-* cl_decoded_dfloat:                     Functions on floating-point numbers.
-* cl_decoded_ffloat:                     Functions on floating-point numbers.
-* cl_decoded_float:                      Functions on floating-point numbers.
-* cl_decoded_lfloat:                     Functions on floating-point numbers.
-* cl_decoded_sfloat:                     Functions on floating-point numbers.
-* cl_default_float_format:               Conversion to floating-point numbers.
-* cl_default_print_flags:                Customizing I/O.
-* cl_default_random_state:               Random number generators.
 * cl_DF:                                 Floating-point numbers.
 * cl_DF_fdiv_t:                          Rounding functions.
-* cl_double_approx ():                   Conversions.
-* cl_equal_hashcode ():                  Comparisons.
-* cl_eulerconst ():                      Euler gamma.
 * cl_F <1>:                              Floating-point numbers.
 * cl_F:                                  Ordinary number types.
 * cl_F_fdiv_t:                           Rounding functions.
 * cl_FF:                                 Floating-point numbers.
 * cl_FF_fdiv_t:                          Rounding functions.
-* cl_find_modint_ring ():                Modular integer rings.
-* cl_find_univpoly_ring ():              Univariate polynomial rings.
 * cl_float ():                           Conversion to floating-point numbers.
-* cl_float_approx ():                    Conversions.
 * cl_float_format ():                    Conversion to floating-point numbers.
 * cl_float_format_t:                     Conversion to floating-point numbers.
-* cl_free_hook ():                       Customizing the memory allocator.
-* cl_hermite ():                         Special polynomials.
 * cl_I_to_int ():                        Conversions.
 * cl_I_to_long ():                       Conversions.
 * cl_I_to_uint ():                       Conversions.
 * cl_I_to_ulong ():                      Conversions.
 * cl_idecoded_float:                     Functions on floating-point numbers.
-* cl_laguerre ():                        Special polynomials.
-* cl_legendre ():                        Special polynomials.
 * cl_LF:                                 Floating-point numbers.
 * cl_LF_fdiv_t:                          Rounding functions.
-* cl_malloc_hook ():                     Customizing the memory allocator.
 * cl_modint_ring:                        Modular integer rings.
 * cl_N:                                  Ordinary number types.
 * cl_number:                             Ordinary number types.
-* cl_pi ():                              Trigonometric functions.
 * cl_R:                                  Ordinary number types.
 * cl_R_fdiv_t:                           Rounding functions.
 * cl_RA:                                 Ordinary number types.
-* cl_random_state:                       Random number generators.
 * cl_SF:                                 Floating-point numbers.
 * cl_SF_fdiv_t:                          Rounding functions.
-* cl_string ():                          Strings.
-* cl_symbol ():                          Symbols.
-* cl_tschebychev ():                     Special polynomials.
-* cl_zeta ():                            Riemann zeta.
+* cl_string:                             Strings.
+* cl_symbol:                             Symbols.
 * coeff ():                              Functions on univariate polynomials.
+* compare ():                            Comparisons.
 * comparison:                            Comparisons.
+* compatibility:                         Compatibility to old CLN versions.
 * compiler options:                      Compiler options.
 * complex ():                            Elementary complex functions.
 * complex number <1>:                    Complex numbers.
@@ -3414,22 +3422,38 @@ Index
 * conversion <1>:                        Conversion functions.
 * conversion:                            Conversions.
 * cos ():                                Trigonometric functions.
+* cos_sin ():                            Trigonometric functions.
+* cos_sin_t:                             Trigonometric functions.
 * cosh ():                               Hyperbolic functions.
+* cosh_sinh ():                          Hyperbolic functions.
+* cosh_sinh_t:                           Hyperbolic functions.
 * create ():                             Functions on univariate polynomials.
 * customizing:                           Customizing.
 * debug_print ():                        Debugging support.
 * debugging:                             Debugging support.
 * decode_float ():                       Functions on floating-point numbers.
+* decoded_dfloat:                        Functions on floating-point numbers.
+* decoded_ffloat:                        Functions on floating-point numbers.
+* decoded_float:                         Functions on floating-point numbers.
+* decoded_lfloat:                        Functions on floating-point numbers.
+* decoded_sfloat:                        Functions on floating-point numbers.
+* default_float_format:                  Conversion to floating-point numbers.
+* default_print_flags:                   Customizing I/O.
+* default_random_state:                  Random number generators.
 * degree ():                             Functions on univariate polynomials.
 * denominator ():                        Elementary rational functions.
 * deposit_field ():                      Logical functions.
 * deriv ():                              Functions on univariate polynomials.
 * div ():                                Functions on modular integers.
+* double_approx ():                      Conversions.
 * doublefactorial ():                    Combinatorial functions.
 * dpb ():                                Logical functions.
 * equal () <1>:                          Symbols.
-* equal ():                              Strings.
+* equal () <2>:                          Strings.
+* equal ():                              Rings.
+* equal_hashcode ():                     Comparisons.
 * Euler's constant:                      Euler gamma.
+* eulerconst ():                         Euler gamma.
 * evenp ():                              Logical functions.
 * exact number:                          Exact numbers.
 * exp ():                                Exponential and logarithmic functions.
@@ -3439,6 +3463,7 @@ Index
 * expt ():                               Elementary functions.
 * expt_pos () <1>:                       Functions on univariate polynomials.
 * expt_pos () <2>:                       Functions on modular integers.
+* expt_pos () <3>:                       Rings.
 * expt_pos ():                           Elementary functions.
 * exquo ():                              Elementary functions.
 * factorial ():                          Combinatorial functions.
@@ -3448,6 +3473,9 @@ Index
 * ffloor2 ():                            Rounding functions.
 * Fibonacci number:                      An Example.
 * finalize ():                           Functions on univariate polynomials.
+* find_modint_ring ():                   Modular integer rings.
+* find_univpoly_ring ():                 Univariate polynomial rings.
+* float_approx ():                       Conversions.
 * float_digits ():                       Functions on floating-point numbers.
 * float_epsilon ():                      Conversion to floating-point numbers.
 * float_exponent ():                     Functions on floating-point numbers.
@@ -3459,7 +3487,9 @@ Index
 * floor1 ():                             Rounding functions.
 * floor2 ():                             Rounding functions.
 * fprint () <1>:                         Functions on univariate polynomials.
-* fprint ():                             Functions on modular integers.
+* fprint () <2>:                         Functions on modular integers.
+* fprint ():                             Rings.
+* free_hook ():                          Customizing the memory allocator.
 * fround ():                             Rounding functions.
 * fround2 ():                            Rounding functions.
 * ftruncate ():                          Rounding functions.
@@ -3470,6 +3500,7 @@ Index
 * GMP <1>:                               Using the GNU MP Library.
 * GMP:                                   Introduction.
 * header files:                          Include files.
+* hermite ():                            Special polynomials.
 * Hermite polynomial:                    Special polynomials.
 * imagpart ():                           Elementary complex functions.
 * include files:                         Include files.
@@ -3480,6 +3511,7 @@ Index
 * integer_decode_float ():               Functions on floating-point numbers.
 * integer_length ():                     Logical functions.
 * isqrt ():                              Roots.
+* laguerre ():                           Special polynomials.
 * Laguerre polynomial:                   Special polynomials.
 * lcm ():                                Number theoretic functions.
 * ldb ():                                Logical functions.
@@ -3487,6 +3519,7 @@ Index
 * least_negative_float ():               Conversion to floating-point numbers.
 * least_positive_float ():               Conversion to floating-point numbers.
 * Legende polynomial:                    Special polynomials.
+* legendre ():                           Special polynomials.
 * length ():                             Strings.
 * ln ():                                 Exponential and logarithmic functions.
 * log ():                                Exponential and logarithmic functions.
@@ -3506,9 +3539,11 @@ Index
 * logtest ():                            Logical functions.
 * logxor ():                             Logical functions.
 * make:                                  Make utility.
+* malloc_hook ():                        Customizing the memory allocator.
 * mask_field ():                         Logical functions.
 * max ():                                Comparisons.
 * min ():                                Comparisons.
+* minus ():                              Rings.
 * minus1 ():                             Elementary functions.
 * minusp ():                             Comparisons.
 * mod ():                                Rounding functions.
@@ -3519,10 +3554,14 @@ Index
 * Montgomery multiplication:             Modular integer rings.
 * most_negative_float ():                Conversion to floating-point numbers.
 * most_positive_float ():                Conversion to floating-point numbers.
+* mul ():                                Rings.
+* namespace <1>:                         Compatibility to old CLN versions.
+* namespace:                             Introduction.
 * numerator ():                          Elementary rational functions.
 * oddp ():                               Logical functions.
 * one () <1>:                            Functions on univariate polynomials.
-* one ():                                Functions on modular integers.
+* one () <2>:                            Functions on modular integers.
+* one ():                                Rings.
 * operator != () <1>:                    Functions on univariate polynomials.
 * operator != () <2>:                    Functions on modular integers.
 * operator != () <3>:                    Modular integer rings.
@@ -3570,6 +3609,8 @@ Index
 * ord2 ():                               Logical functions.
 * phase ():                              Exponential and logarithmic functions.
 * pi:                                    Trigonometric functions.
+* pi ():                                 Trigonometric functions.
+* plus ():                               Rings.
 * plus1 ():                              Elementary functions.
 * plusp ():                              Comparisons.
 * polynomial:                            Univariate polynomials.
@@ -3581,6 +3622,7 @@ Index
 * random_F ():                           Random number generators.
 * random_I ():                           Random number generators.
 * random_R ():                           Random number generators.
+* random_state:                          Random number generators.
 * rational ():                           Conversion to rational numbers.
 * rational number:                       Ordinary number types.
 * rationalize ():                        Conversion to rational numbers.
@@ -3615,6 +3657,7 @@ Index
 * sqrtp ():                              Roots.
 * square () <1>:                         Functions on univariate polynomials.
 * square () <2>:                         Functions on modular integers.
+* square () <3>:                         Rings.
 * square ():                             Elementary functions.
 * string:                                Strings.
 * strlen ():                             Strings.
@@ -3626,94 +3669,99 @@ Index
 * transcendental functions:              Transcendental functions.
 * truncate1 ():                          Rounding functions.
 * truncate2 ():                          Rounding functions.
-* Tschebychev polynomial:                Special polynomials.
+* tschebychev ():                        Special polynomials.
+* uminus ():                             Rings.
 * underflow:                             Floating-point underflow.
 * univariate polynomial:                 Univariate polynomials.
 * WANT_OBFUSCATING_OPERATORS:            Obfuscating operators.
 * xgcd ():                               Number theoretic functions.
 * zero () <1>:                           Functions on univariate polynomials.
-* zero ():                               Functions on modular integers.
+* zero () <2>:                           Functions on modular integers.
+* zero ():                               Rings.
 * zerop () <1>:                          Functions on univariate polynomials.
 * zerop () <2>:                          Functions on modular integers.
+* zerop () <3>:                          Rings.
 * zerop ():                              Comparisons.
+* zeta ():                               Riemann zeta.
 
 
 
 Tag Table:
 Node: Top931
-Node: Introduction3153
-Node: Installation5675
-Node: Prerequisites5969
-Node: C++ compiler6167
-Node: Make utility6882
-Node: Sed utility7068
-Node: Building the library7388
-Node: Using the GNU MP Library10776
-Node: Installing the library11652
-Node: Cleaning up12375
-Node: Ordinary number types12700
-Node: Exact numbers15047
-Node: Floating-point numbers16212
-Node: Complex numbers19791
-Node: Conversions20288
-Node: Functions on numbers23754
-Node: Constructing numbers24457
-Node: Constructing integers24829
-Node: Constructing rational numbers25119
-Node: Constructing floating-point numbers25594
-Node: Constructing complex numbers26714
-Node: Elementary functions27078
-Node: Elementary rational functions29547
-Node: Elementary complex functions30119
-Node: Comparisons30947
-Node: Rounding functions32846
-Node: Roots38623
-Node: Transcendental functions40504
-Node: Exponential and logarithmic functions41060
-Node: Trigonometric functions43077
-Node: Hyperbolic functions46428
-Node: Euler gamma48501
-Node: Riemann zeta49417
-Node: Functions on integers49973
-Node: Logical functions50261
-Node: Number theoretic functions56214
-Node: Combinatorial functions57581
-Node: Functions on floating-point numbers58259
-Node: Conversion functions61490
-Node: Conversion to floating-point numbers61770
-Node: Conversion to rational numbers63993
-Node: Random number generators65047
-Node: Obfuscating operators66721
-Node: Input/Output68451
-Node: Internal and printed representation68661
-Node: Input functions71203
-Node: Output functions75754
-Node: Rings79490
-Node: Modular integers81414
-Node: Modular integer rings81614
-Node: Functions on modular integers83704
-Node: Symbolic data types86714
-Node: Strings86977
-Node: Symbols88042
-Node: Univariate polynomials88944
-Node: Univariate polynomial rings89202
-Node: Functions on univariate polynomials94156
-Node: Special polynomials97937
-Node: Internals98657
-Node: Why C++ ?98871
-Node: Memory efficiency100371
-Node: Speed efficiency101069
-Node: Garbage collection102153
-Node: Using the library102980
-Node: Compiler options103514
-Node: Include files104432
-Node: An Example108073
-Node: Debugging support111223
-Node: Customizing113573
-Node: Error handling113801
-Node: Floating-point underflow114375
-Node: Customizing I/O115014
-Node: Customizing the memory allocator115307
-Node: Index116264
+Node: Introduction3191
+Node: Installation5812
+Node: Prerequisites6106
+Node: C++ compiler6304
+Node: Make utility7016
+Node: Sed utility7202
+Node: Building the library7522
+Node: Using the GNU MP Library10745
+Node: Installing the library11621
+Node: Cleaning up12344
+Node: Ordinary number types12669
+Node: Exact numbers15022
+Node: Floating-point numbers16187
+Node: Complex numbers19766
+Node: Conversions20263
+Node: Functions on numbers23723
+Node: Constructing numbers24427
+Node: Constructing integers24799
+Node: Constructing rational numbers25089
+Node: Constructing floating-point numbers25564
+Node: Constructing complex numbers26684
+Node: Elementary functions27048
+Node: Elementary rational functions29517
+Node: Elementary complex functions30089
+Node: Comparisons30917
+Node: Rounding functions32810
+Node: Roots38587
+Node: Transcendental functions40468
+Node: Exponential and logarithmic functions41024
+Node: Trigonometric functions43029
+Node: Hyperbolic functions46359
+Node: Euler gamma48423
+Node: Riemann zeta49315
+Node: Functions on integers49859
+Node: Logical functions50147
+Node: Number theoretic functions56100
+Node: Combinatorial functions57467
+Node: Functions on floating-point numbers58145
+Node: Conversion functions61355
+Node: Conversion to floating-point numbers61635
+Node: Conversion to rational numbers63852
+Node: Random number generators64906
+Node: Obfuscating operators66557
+Node: Input/Output68287
+Node: Internal and printed representation68497
+Node: Input functions71039
+Node: Output functions75524
+Node: Rings79184
+Node: Modular integers81108
+Node: Modular integer rings81308
+Node: Functions on modular integers83393
+Node: Symbolic data types86397
+Node: Strings86660
+Node: Symbols87725
+Node: Univariate polynomials88627
+Node: Univariate polynomial rings88885
+Node: Functions on univariate polynomials93801
+Node: Special polynomials97576
+Node: Internals98283
+Node: Why C++ ?98497
+Node: Memory efficiency99997
+Node: Speed efficiency100695
+Node: Garbage collection101779
+Node: Using the library102606
+Node: Compiler options103178
+Node: Compatibility to old CLN versions104116
+Node: Include files105537
+Node: An Example109252
+Node: Debugging support112518
+Node: Customizing114869
+Node: Error handling115097
+Node: Floating-point underflow115672
+Node: Customizing I/O116311
+Node: Customizing the memory allocator116601
+Node: Index117585
 
 End Tag Table

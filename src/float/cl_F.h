@@ -3,10 +3,11 @@
 #ifndef _CL_F_H
 #define _CL_F_H
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_macros.h"
-#include "cl_float.h"
+#include "cln/float.h"
 
+namespace cln {
 
 nonreturning_function(extern, cl_error_floating_point_overflow, (void));
 nonreturning_function(extern, cl_error_floating_point_underflow, (void));
@@ -266,16 +267,17 @@ extern const cl_F cl_F_extendsqrtx (const cl_F& x);
 extern const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y);
 
 
-// Macro: dispatches according to a cl_float_format_t value.
+// Macro: dispatches according to a float_format_t value.
 // floatformatcase(value, SF_statement,FF_statement,DF_statement,LF_statement)
 // LF_statement darf auf `len' zugreifen, die zu `value' korrespondierende
 // Mantissenlänge (gemessen in Digits).
   #define floatformatcase(value, SF_statement,FF_statement,DF_statement,LF_statement)  \
-    { if ((value) <= cl_float_format_sfloat) { SF_statement }		\
-      elif ((value) <= cl_float_format_ffloat) { FF_statement }		\
-      elif ((value) <= cl_float_format_dfloat) { DF_statement }		\
+    { if ((value) <= float_format_sfloat) { SF_statement }		\
+      elif ((value) <= float_format_ffloat) { FF_statement }		\
+      elif ((value) <= float_format_dfloat) { DF_statement }		\
       else { var uintL len = ceiling((uintL)(value),intDsize); LF_statement } \
     }
 
+}  // namespace cln
 
 #endif /* _CL_F_H */

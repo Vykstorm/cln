@@ -6,23 +6,30 @@
 CL_PROVIDE(cl_prin_globals)
 
 // Specification.
-#include "cl_output.h"
+#include "cln/output.h"
 
 
 // Implementation.
 
-cl_print_flags cl_default_print_flags;
+namespace cln {
+
+cl_ostream stdout = std::cout;
+cl_ostream stderr = std::cerr;
+
+cl_print_flags default_print_flags;
 #if 0 // The default constructors already do this.
-AT_INITIALIZATION(cl_default_print_flags)
+AT_INITIALIZATION(default_print_flags)
 {
-	cl_default_print_flags.rational_base = 10;
-	cl_default_print_flags.rational_readably = cl_false;
-	cl_default_print_flags.float_readably = cl_false;
-	cl_default_print_flags.default_float_format = cl_float_format_ffloat;
-	cl_default_print_flags.complex_readably = cl_false;
-	cl_default_print_flags.vector_syntax = vsyntax_pretty;
-	cl_default_print_flags.univpoly_varname = "x";
+	default_print_flags.rational_base = 10;
+	default_print_flags.rational_readably = cl_false;
+	default_print_flags.float_readably = cl_false;
+	default_print_flags.default_float_format = float_format_ffloat;
+	default_print_flags.complex_readably = cl_false;
+	default_print_flags.vector_syntax = vsyntax_pretty;
+	default_print_flags.univpoly_varname = "x";
 }
 #endif
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_prin_globals)

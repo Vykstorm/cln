@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_malloc.h"
+#include "cln/malloc.h"
+
+namespace cln {
 
 char * cl_sstring (const char * ptr, uintL len)
 {
-	var char * string = (char *) cl_malloc_hook(len+1);
+	var char * string = (char *) malloc_hook(len+1);
 	{
 		var const char* ptr1 = ptr;
 		var char* ptr2 = string;
@@ -24,3 +26,5 @@ char * cl_sstring (const char * ptr, uintL len)
 	}
 	return string;
 }
+
+}  // namespace cln

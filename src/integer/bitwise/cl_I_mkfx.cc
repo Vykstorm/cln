@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_I mkf_extract (const cl_I& x, uintL p, uintL q)
 {
@@ -48,3 +50,5 @@ const cl_I mkf_extract (const cl_I& x, uintL p, uintL q)
       // Jetzt enthält die UDS newMSDptr/len/.. die extrahierten Bits.
       return UDS_to_I(newMSDptr,len);
 }
+
+}  // namespace cln

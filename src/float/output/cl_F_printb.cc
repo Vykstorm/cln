@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float_io.h"
+#include "cln/float_io.h"
 
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_F.h"
-#include "cl_integer_io.h"
+#include "cln/integer_io.h"
 #include "cl_I.h"
+
+namespace cln {
 
 void print_float_binary (cl_ostream stream, const cl_F& z)
 {
@@ -40,3 +42,5 @@ void print_float_binary (cl_ostream stream, const cl_F& z)
 	// Exponenten dezimal ausgeben:
 	print_integer(stream,10,cl_I(float_exponent(z)));
 }
+
+}  // namespace cln

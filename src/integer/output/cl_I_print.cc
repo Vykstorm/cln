@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer_io.h"
+#include "cln/integer_io.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
+#include "cln/io.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 void print_integer (cl_ostream stream, unsigned int base, const cl_I& z)
 {
@@ -34,3 +36,5 @@ void print_integer (cl_ostream stream, unsigned int base, const cl_I& z)
 		do { fprintchar(stream,*ptr++); } until (--count==0);
 	}
 }
+
+}  // namespace cln

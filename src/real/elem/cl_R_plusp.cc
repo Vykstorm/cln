@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
+
+namespace cln {
 
 cl_boolean plusp (const cl_R& x)
 {
@@ -18,3 +20,5 @@ cl_boolean plusp (const cl_R& x)
 	else
 		return cl_true; // sonst ist x>0.
 }
+
+}  // namespace cln

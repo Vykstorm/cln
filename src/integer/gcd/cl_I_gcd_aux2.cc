@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_D.h"
+
+namespace cln {
 
 // Dasselbe wie partial_gcd(z1,z2,erg), nur daﬂ z1 und z2 Doppelworte sind.
 // Bevor im Ergebnis erg ein ‹berlauf eintritt, wird abgebrochen.
@@ -451,3 +453,5 @@ void partial_gcd (uintD z1hi, uintD z1lo, uintD z2hi, uintD z2lo, partial_gcd_re
 }
 
 #endif
+
+}  // namespace cln

@@ -4,21 +4,23 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F_tran.h"
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
+
+namespace cln {
 
 // Division durch ln(2).
 inline const cl_F_div_t cl_floor_ln2 (const cl_F& x)
@@ -60,3 +62,5 @@ const cl_F exp (const cl_F& x)
 		return cl_float(scale_float(expx_naive(r),q),x);
 	}
 }
+
+}  // namespace cln

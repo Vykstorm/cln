@@ -9,17 +9,19 @@
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_low.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_zerop.cc"
 #include "cl_LF_exponent.cc"
+
+namespace cln {
 
 // sinhxbyx is mainly for cl_SF, cl_FF, cl_DF, where we want to avoid underflow.
 
@@ -204,3 +206,4 @@ const cl_LF sinhx_naive (const cl_LF& x)
 //     naive3 fastest for 6 <= N <= 500,
 //     exp&recip (which uses exp's own ratseries) fastest for N >= 500.
 
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_I round1 (const cl_RA& x, const cl_RA& y)
 {
@@ -45,3 +47,5 @@ const cl_I round1 (const cl_RA& x, const cl_RA& y)
 		}
 	}
 }
+
+}  // namespace cln

@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
+#include "cln/integer.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -24,5 +26,7 @@ AT_INITIALIZATION(dprint_I)
 	cl_register_type_printer(cl_class_bignum,dprint);
 }
 
-// This dummy links in this module when <cl_integer.h> requires it.
+// This dummy links in this module when <cln/integer.h> requires it.
 int cl_I_debug_module;
+
+}  // namespace cln

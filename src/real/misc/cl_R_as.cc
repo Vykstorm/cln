@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
+
+namespace cln {
 
 // Cf. cl_R_p in cl_R_ring.cc.
 // But here, for better inlining in g++, it is preferrable to finish every
@@ -40,3 +42,5 @@ const cl_R& as_cl_R (const cl_number& x, const char * filename, int line)
 	} else
 		cl_as_error(x,"a real number",filename,line);
 }
+
+}  // namespace cln

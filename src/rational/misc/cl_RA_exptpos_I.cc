@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_RA expt_pos (const cl_RA& x, const cl_I& y)
 {
@@ -27,3 +29,5 @@ const cl_RA expt_pos (const cl_RA& x, const cl_I& y)
 		return I_I_to_RT(expt_pos(a,y),expt_pos(b,y));
 	}
 }
+
+}  // namespace cln

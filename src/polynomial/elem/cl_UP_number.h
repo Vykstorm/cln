@@ -1,9 +1,11 @@
 // Univariate Polynomials over some subring of the numbers.
 
-#include "cl_SV_number.h"
-#include "cl_number.h"
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/SV_number.h"
+#include "cln/number.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Assume a ring is a number ring.
   inline cl_heap_number_ring* TheNumberRing (const cl_ring& R)
@@ -451,3 +453,5 @@ public:
 	cl_heap_num_univpoly_ring (const cl_ring& r)
 		: cl_heap_univpoly_ring (r, &num_setops, &num_addops, &num_mulops, &num_modulops, &num_polyops) {}
 };
+
+}  // namespace cln

@@ -8,8 +8,10 @@
 
 // Implementation.
 
-#include "cl_GV_integer.h"
-#include "cl_io.h"
+#include "cln/GV_integer.h"
+#include "cln/io.h"
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -20,5 +22,7 @@ static void dprint (cl_heap* pointer)
 AT_INITIALIZATION(dprint_GV_I)
 { cl_register_type_printer(cl_class_gvector_integer,dprint); }
 
-// This dummy links in this module when <cl_GV_integer.h> requires it.
+// This dummy links in this module when <cln/GV_integer.h> requires it.
 int cl_GV_I_debug_module;
+
+}  // namespace cln

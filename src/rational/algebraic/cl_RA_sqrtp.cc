@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 cl_boolean sqrtp (const cl_RA& x, cl_RA* w)
 {
@@ -35,3 +37,5 @@ cl_boolean sqrtp (const cl_RA& x, cl_RA* w)
 	// beides Quadratzahlen -> Quotient der Wurzeln bilden
 	*w = I_I_to_RT(c,d); return cl_true;
 }}
+
+}  // namespace cln

@@ -3,10 +3,11 @@
 #ifndef _CL_GV_IO_H
 #define _CL_GV_IO_H
 
-#include "cl_number_io.h"
-#include "cl_GV.h"
-#include "cl_GV_complex.h"
+#include "cln/number_io.h"
+#include "cln/GV.h"
+#include "cln/GV_complex.h"
 
+namespace cln {
 
 // Gibt einen Vektor aus.
 // print_vector(stream,flags,fun,z);
@@ -16,5 +17,6 @@
 // > vector: Vektor
 extern void print_vector (cl_ostream stream, const cl_print_flags& flags, void (* fun) (cl_ostream, const cl_print_flags&, const cl_number&), const cl_GV_number& vector);
 
+}  // namespace cln
 
 #endif /* _CL_GV_IO_H */

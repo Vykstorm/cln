@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 cl_heap_dfloat* cl_double_to_DF_pointer (const dfloatjanus& val_)
 {
       var dfloat val = val_.eksplicit;
@@ -58,3 +60,5 @@ cl_heap_dfloat* cl_double_to_DF_pointer (const dfloatjanus& val_)
         }
       #endif
 }
+
+}  // namespace cln

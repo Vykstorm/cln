@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_I expt_pos (const cl_I& x, uintL y)
 {
@@ -52,3 +54,4 @@ const cl_I expt_pos (const cl_I& x, uintL y)
 }
 // Bit complexity (x of length N): O(M(N*y)).
 
+}  // namespace cln

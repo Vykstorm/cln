@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
@@ -15,6 +15,8 @@
 #define MAYBE_INLINE inline
 #include "cl_SF_zerop.cc"
 
+namespace cln {
+
 const cl_SF operator- (const cl_SF& x1, const cl_SF& x2)
 {
 // Methode:
@@ -24,3 +26,5 @@ const cl_SF operator- (const cl_SF& x1, const cl_SF& x2)
 	else
 		return x1 + cl_SF_from_word(x2.word ^ bit(SF_sign_shift));
 }
+
+}  // namespace cln

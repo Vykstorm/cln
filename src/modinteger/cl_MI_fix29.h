@@ -1,6 +1,8 @@
 // 1 < m < 2^(cl_value_len-1), standard representation
 // Assuming (cl_value_len <= 32).
 
+namespace cln {
+
 static const _cl_MI fix29_plus (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
 	var uint32 zr = FN_to_UL(x.rep) + FN_to_UL(y.rep);
@@ -76,3 +78,5 @@ public:
 	// Virtual destructor.
 	~cl_heap_modint_ring_fix29 () {}
 };
+
+}  // namespace cln

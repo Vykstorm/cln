@@ -1,12 +1,15 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_float.h>
-#include <cl_float_io.h>
-#include <cl_real.h>
-#include <cl_random.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/float.h>
+#include <cln/float_io.h>
+#include <cln/real.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
+
+using namespace std;
+using namespace cln;
 
 int main (int argc, char * argv[])
 {
@@ -47,11 +50,11 @@ int main (int argc, char * argv[])
 #else
 	// Here the argument is N *decimal* digits, not N*32 bits!
 	int n = atoi(argv[1]);
-	cl_float_format_t prec = cl_float_format(n);
+	float_format_t prec = float_format(n);
 	cl_F p;
-	fprint(cl_stderr, "Computing pi\n");
-	{ CL_TIMING; p = cl_pi(prec); }
-	fprint(cl_stderr, "Converting pi to decimal\n");
+	stderr << "Computing pi" << endl;
+	{ CL_TIMING; p = pi(prec); }
+	stderr << "Converting pi to decimal" << endl;
 	{ CL_TIMING; cout << p << endl << endl; }
 #endif
 }

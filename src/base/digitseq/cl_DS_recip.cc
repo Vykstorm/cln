@@ -9,7 +9,9 @@
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Compute the reciprocal value of a digit sequence.
 // Input: UDS a_MSDptr/a_len/.. of length a_len,
@@ -158,3 +160,5 @@
         shiftrightcopy_loop_msp(y_MSDptr,b_MSDptr,b_len+1,1,0);
     }
 // Bit complexity (N := b_len): O(M(N)).
+
+}  // namespace cln

@@ -1,5 +1,7 @@
 // m > 1, standard representation, no tricks
 
+namespace cln {
+
 static void std_fprint (cl_heap_modint_ring* R, cl_ostream stream, const _cl_MI &x)
 {
 	fprint(stream,R->_retract(x));
@@ -23,7 +25,7 @@ static const cl_I std_retract (cl_heap_modint_ring* R, const _cl_MI& x)
 	return x.rep;
 }
 
-static const _cl_MI std_random (cl_heap_modint_ring* R, cl_random_state& randomstate)
+static const _cl_MI std_random (cl_heap_modint_ring* R, random_state& randomstate)
 {
 	return _cl_MI(R, random_I(randomstate,R->modulus));
 }
@@ -348,3 +350,5 @@ public:
 	// Virtual destructor.
 	~cl_heap_modint_ring_std () {}
 };
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 cl_boolean zerop (const cl_N& x)
 {
@@ -28,3 +30,5 @@ cl_boolean zerop (const cl_N& x)
 		return cl_false;
 	}
 }
+
+}  // namespace cln

@@ -4,21 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
 
-#ifdef CL_IO_IOSTREAM
-
-#include "cl_io.h"
+#include "cln/io.h"
 #include "cl_spushstring.h"
 #include <ctype.h>
 
-#if ((defined(__sparc__) || defined(__rs6000__) || defined(__mips__)) && !defined(__GNUC__))
-// Sun C++ doesn't have istream::unget().
-  #define unget()  putback(c)
-#endif
+namespace cln {
 
 cl_istream operator>> (cl_istream stream, cl_string& str)
 {
@@ -62,4 +57,4 @@ cl_istream operator>> (cl_istream stream, cl_string& str)
 	return stream;
 }
 
-#endif
+}  // namespace cln

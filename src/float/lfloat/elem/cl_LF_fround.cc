@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_LF fround (const cl_LF& x)
 {
@@ -132,3 +134,5 @@ const cl_LF fround (const cl_LF& x)
         }
 #endif
 }
+
+}  // namespace cln

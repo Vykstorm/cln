@@ -1,6 +1,18 @@
 2000-06-xx, version 1.1.0
 =========================
 
+Functional changes
+------------------
+
+* ISO/IEC 14882 fashion adjustments:
+  Put everything into namespace cln.  All funcamental data types still
+  carry their old names.  Other non-macro identifiers are now written as 
+  cln::foo instead of cl_foo, except where the cl_ comes from a data type
+  (as in cl_I_to_int()).  Headers are installed into a separate
+  directory, #include <cln/foo.h> instead of <cl_foo.h>.  Applications
+  must be manually ported to the new style.  We apologizes for the
+  inconvenience.
+
 Implementation changes
 ----------------------
 
@@ -9,6 +21,8 @@ Implementation changes
 
 * Adjusted several break-even points to make better use of a faster libgmp and
   better match present-day CPUs.
+
+* Fix compilation errors with gcc-2.96.
 
 
 2000-01-13, version 1.0.3

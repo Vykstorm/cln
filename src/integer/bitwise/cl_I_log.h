@@ -3,9 +3,11 @@
 #ifndef _CL_I_LOG_H
 #define _CL_I_LOG_H
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 // Liefert die Anzahl Digits, die ein Integer als DS bräuchte.
 // (Leicht aufgerundet.)
@@ -30,5 +32,7 @@ inline uintC I_to_DS_need (const cl_I& x)
      ptr_zuweisung I_to_DS_n_aux(obj,n,destptr);			\
     }
   extern uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr);
+
+}  // namespace cln
 
 #endif /* _CL_I_LOG_H */

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
@@ -15,9 +15,13 @@
 #define MAYBE_INLINE inline
 #include "cl_FF_zerop.cc"
 
+namespace cln {
+
 MAYBE_INLINE2
 uintL float_precision (const cl_FF& x)
 {
 	if (zerop(x)) return 0;
 	return FF_mant_len+1; // 24
 }
+
+}  // namespace cln

@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
-#include "cl_rational.h"
+#include "cln/lfloat.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 const cl_LF cl_LF_RA_div (const cl_LF& x, const cl_RA& y)
 {
@@ -27,3 +29,5 @@ const cl_LF cl_LF_RA_div (const cl_LF& x, const cl_RA& y)
 		return cl_LF_I_div(The(cl_LF)(cl_LF_I_mul(x,v)),u);
 	}
 }
+
+}  // namespace cln

@@ -4,26 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_io.h"
+#include "cln/io.h"
 
 
 // Implementation.
 
-#if defined(CL_IO_STDIO)
-
-void fprintdecimal (cl_ostream stream, unsigned long x)
-{
-	fprintf(stream,"%lu",x);
-}
-
-void fprintdecimal (cl_ostream stream, long x)
-{
-	fprintf(stream,"%ld",x);
-}
-
-#endif
-
-#if defined(CL_IO_IOSTREAM)
+namespace cln {
 
 // We don't use `stream << x' or `stream << dec << x', because an ostream
 // carries so many attributes, and we don't want to modifies these attributes.
@@ -54,4 +40,4 @@ void fprintdecimal (cl_ostream stream, long x)
 	}
 }
 
-#endif
+}  // namespace cln

@@ -4,10 +4,10 @@ int test_MI_expt (int iterations)
 {
 	int error = 0;
 	int i;
-	// Check special cases 0, 1, 2.
+	// Check special caSes 0, 1, 2.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		ASSERT2(expt(a,0) == R->one(), m,a);
 		ASSERT2(expt(a,1) == a, m,a);
@@ -16,7 +16,7 @@ int test_MI_expt (int iterations)
 	// Check special cases -1, -2.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_I ai = testrandom_I();
 		if (gcd(m,ai)==1) {
 			cl_MI a = R->canonhom(ai);
@@ -29,7 +29,7 @@ int test_MI_expt (int iterations)
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
 		if (!zerop(m)) { // avoid generating huge numbers
-			cl_modint_ring R = cl_find_modint_ring(m);
+			cl_modint_ring R = find_modint_ring(m);
 			cl_MI a = R->canonhom(testrandom_I());
 			cl_MI b = R->canonhom(testrandom_I());
 			cl_I e = abs(testrandom_I());
@@ -40,7 +40,7 @@ int test_MI_expt (int iterations)
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
 		if (!zerop(m)) { // avoid generating huge numbers
-			cl_modint_ring R = cl_find_modint_ring(m);
+			cl_modint_ring R = find_modint_ring(m);
 			cl_MI a = R->canonhom(testrandom_I());
 			cl_I e = abs(testrandom_I());
 			cl_I f = abs(testrandom_I());

@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I cl_fullbyte (uintL p, uintL q)
 {
@@ -19,3 +21,5 @@ const cl_I cl_fullbyte (uintL p, uintL q)
 	else
 		return ash(-1,UL_to_I(p)) + ash(1,UL_to_I(q));
 }
+
+}  // namespace cln

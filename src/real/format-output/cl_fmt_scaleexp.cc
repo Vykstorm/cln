@@ -11,14 +11,16 @@ CL_PROVIDE(cl_fmt_scaleexp)
 
 // Implementation.
 
-#include "cl_real.h"
-#include "cl_integer.h"
-#include "cl_float.h"
+#include "cln/real.h"
+#include "cln/integer.h"
+#include "cln/float.h"
 #include "cl_F.h"
 #include "cl_SF.h"
 #include "cl_FF.h"
 #include "cl_DF.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 // NOTE: This may introduce roundoff-errors, through the use of *, /, expt.
 // But this doesn't matter since format_float_to_string() works with
@@ -69,7 +71,7 @@ static const float_format_params get_float_params (const cl_F& arg)
 	);
 }
 
-const cl_decoded_float format_scale_exponent (const cl_F& arg)
+const decoded_float format_scale_exponent (const cl_F& arg)
 {
 	// Get float format parameters.
 	var const float_format_params params = get_float_params(arg);
@@ -80,9 +82,9 @@ const cl_decoded_float format_scale_exponent (const cl_F& arg)
 	var const cl_F& lg2 = params.lg2;
 	// Decode arg.
 	if (zerop(arg))
-		return cl_decoded_float(zero,0,one);
+		return decoded_float(zero,0,one);
 	var cl_F abs_arg = abs(arg);
-	var cl_decoded_float decoded = decode_float(abs_arg);
+	var decoded_float decoded = decode_float(abs_arg);
 	var cl_I& expon = decoded.exponent;
 	var cl_I expon10a = truncate1(expon*lg2); // nicht round, um Überlauf zu vermeiden
 	var cl_F signif10a = abs_arg / expt(ten,expon10a);
@@ -108,7 +110,9 @@ const cl_decoded_float format_scale_exponent (const cl_F& arg)
 			tenpow = tenpow * ten;
 		}
 	}
-	return cl_decoded_float(signif10c,expon10c,float_sign(arg));
+	return decoded_float(signif10c,expon10c,float_sign(arg));
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_fmt_scaleexp)

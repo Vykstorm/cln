@@ -3,8 +3,10 @@
 #ifndef _CL_UP_H
 #define _CL_UP_H
 
-#include "cl_univpoly.h"
-#include "cl_output.h"
+#include "cln/univpoly.h"
+#include "cln/output.h"
+
+namespace cln {
 
 extern cl_heap_univpoly_ring* cl_make_univpoly_ring (const cl_ring& r);
 
@@ -25,7 +27,9 @@ static inline const cl_string get_varname (cl_heap_univpoly_ring* UPR)
 	if (p)
 		return ((cl_varname_property*)p)->varname;
 	else
-		return cl_default_print_flags.univpoly_varname;
+		return default_print_flags.univpoly_varname;
 }
+
+}  // namespace cln
 
 #endif /* _CL_UP_H */

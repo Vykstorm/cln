@@ -4,16 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
@@ -21,6 +21,8 @@
 #include "cl_FF_minusp.cc"
 #include "cl_DF_minusp.cc"
 #include "cl_LF_minusp.cc"
+
+namespace cln {
 
 const cl_F abs (const cl_F& x)
 {
@@ -32,3 +34,5 @@ const cl_F abs (const cl_F& x)
 	,	if (minusp(x)) return -x; else return x;
 	);
 }
+
+}  // namespace cln

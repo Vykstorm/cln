@@ -9,16 +9,18 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_alloca.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 
 #undef floor
-#include <math.h>
+#include <cmath>
 #define floor cln_floor
+
+namespace cln {
 
 // Computing cos(x) = sqrt(1-sin(x)^2) instead of computing separately
 // by a power series evaluation brings 20% speedup, even more for small lengths.
@@ -64,8 +66,8 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintL lq, uintC len)
 	//   N2 = ceiling(M*log(2)/(log(N1)-1+lp*log(2))), slightly too large.
 	//   N = N2+2, two more terms for safety.
 	var uintL N0 = intDsize*actuallen;
-	var uintL N1 = (uintL)(0.693147*intDsize*actuallen/(log((double)N0)-1.0+0.693148*lp));
-	var uintL N2 = (uintL)(0.693148*intDsize*actuallen/(log((double)N1)-1.0+0.693147*lp))+1;
+	var uintL N1 = (uintL)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0+0.693148*lp));
+	var uintL N2 = (uintL)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0+0.693147*lp))+1;
 	var uintL N = N2+2;
 	N = ceiling(N,2);
 	CL_ALLOCA_STACK;
@@ -115,3 +117,4 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintL lq, uintC len)
 // Bit complexity (N = len, and if p has length O(log N) and ql = O(log N)):
 // O(log(N)*M(N)).
 
+}  // namespace cln

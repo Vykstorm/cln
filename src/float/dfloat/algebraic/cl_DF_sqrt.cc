@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
@@ -13,6 +13,8 @@
 #include "cl_F.h"
 #include "cl_low.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_DF sqrt (const cl_DF& x)
 {
@@ -146,3 +148,5 @@ const cl_DF sqrt (const cl_DF& x)
       return encode_DF(0,exp,manthi,mantlo);
 #endif
 }
+
+}  // namespace cln

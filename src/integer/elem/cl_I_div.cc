@@ -11,6 +11,8 @@
 
 #include "cl_N.h"
 
+namespace cln {
+
 // Dividiert zwei Integers x,y >=0 und liefert Quotient und Rest
 // der Division x/y. Bei y=0 Error.
 // cl_divide(x,y)
@@ -86,3 +88,4 @@
     }
 // Bit complexity (N = length(x)): O(M(N)).
 
+}  // namespace cln

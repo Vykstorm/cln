@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 const cl_R cl_RA_LF_div (const cl_RA& x, const cl_LF& y)
 {
@@ -59,3 +61,5 @@ const cl_R cl_RA_LF_div (const cl_RA& x, const cl_LF& y)
 //       5000     0.55 1.94   0.98 2.30   1.70 3.33   4.90 7.74   11.94 19.29
 //
 // We see that the first approach is always better than the second.
+
+}  // namespace cln

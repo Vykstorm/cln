@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -13,6 +13,8 @@
 #include "cl_DS.h"
 #include "cl_D.h"
 #include "cl_xmacros.h"
+
+namespace cln {
 
 #define GCD_ALGO 3  // 1: binär, 2: Schulmethode, 3: Lehmer
 
@@ -58,7 +60,7 @@
         { *u = ua; *v = va; return a; }
       if (eq(a,0)) // a=0 -> g=b, (u,v) = (ub,vb)
         { *u = ub; *v = vb; return b; }
-      { var cl_signean vergleich = cl_compare(a,b);
+      { var cl_signean vergleich = compare(a,b);
         if (vergleich == 0) // a=b -> fertig
           { *u = ua; *v = va; return a; }
         if (vergleich < 0) // a<b -> a,b vertauschen
@@ -528,3 +530,5 @@
     }
 
 #endif /* GCD_ALGO == 3 */
+
+}  // namespace cln

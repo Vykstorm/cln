@@ -1,8 +1,10 @@
 // Univariate Polynomials over a general ring.
 
-#include "cl_SV_ringelt.h"
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/SV_ringelt.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Assume a ring is a ring.
   inline cl_heap_ring* TheRing (const cl_ring& R)
@@ -449,3 +451,5 @@ public:
 	cl_heap_gen_univpoly_ring (const cl_ring& r)
 		: cl_heap_univpoly_ring (r, &gen_setops, &gen_addops, &gen_mulops, &gen_modulops, &gen_polyops) {}
 };
+
+}  // namespace cln

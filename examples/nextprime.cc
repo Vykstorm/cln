@@ -2,24 +2,24 @@
 // command line.
 
 // We work with real numbers and integers.
-#include <cl_real.h>
-#include <cl_integer.h>
+#include <cln/real.h>
+#include <cln/integer.h>
 
 // We do I/O.
-#include <cl_io.h>
-#include <cl_integer_io.h>
+#include <cln/io.h>
+#include <cln/integer_io.h>
 
 // The function nextprobprime() is part of the number theory package.
-#include <cl_numtheory.h>
+#include <cln/numtheory.h>
 
 int main (int argc, char* argv[])
 {
 	if (argc != 2) {
-		fprint(cl_stderr, "Usage: nextprime x\n");
-		exit(1);
+		cln::stderr << "Usage: nextprime x" << std::endl;
+		return(1);
 	}
-	cl_R x = (cl_R)argv[1];
-	cl_I p = nextprobprime(x);
-	fprint(cl_stdout, p);
-	fprint(cl_stdout, "\n");
+	cln::cl_R x = (cln::cl_R)argv[1];
+	cln::cl_I p = cln::nextprobprime(x);
+	cln::stdout << p << std::endl;
+	return(0);
 }

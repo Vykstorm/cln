@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_I_ash.h"
+
+namespace cln {
 
 const cl_I ash (const cl_I& x, sintL y)
 {
@@ -86,3 +88,5 @@ const cl_I ash (const cl_I& x, sintL y)
 sign:	// Ergebnis ist 0, falls x>=0, und -1, falls x<0:
 	return (minusp(x) ? cl_I(-1) : cl_I(0));
 }
+
+}  // namespace cln

@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F_tran.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_F sinh (const cl_F& x)
 {
@@ -31,7 +33,7 @@ const cl_F sinh (const cl_F& x)
 			if (TheLfloat(x)->len >= infty) {
 				var cl_LF xx = extend(x,TheLfloat(x)->len+1);
 				var cl_LF_cosh_sinh_t hyp = cl_coshsinh_ratseries(xx);
-				return cl_float(hyp.sinh,x);
+				return cln/float.hyp.sinh,x);
 			} else
 			#endif
 			if ((TheLfloat(x)->len >= 500)
@@ -75,3 +77,5 @@ const cl_F sinh (const cl_F& x)
 // 1000    59      61
 // 2500   297     247
 // ==> ratseries faster for N >= 1300.
+
+}  // namespace cln

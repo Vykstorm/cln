@@ -9,11 +9,15 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_error_floating_point_nan (void)
 {
-	fprint(cl_stderr, "floating point NaN occurred.\n");
+	fprint(stderr, "floating point NaN occurred.\n");
 	cl_abort();
 }
+
+}  // namespace cln

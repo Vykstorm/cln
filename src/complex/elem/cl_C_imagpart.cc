@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
+
+namespace cln {
 
 const cl_R imagpart (const cl_N& x)
 {
@@ -20,3 +22,5 @@ const cl_R imagpart (const cl_N& x)
 		return imagpart(x);
 	}
 }
+
+}  // namespace cln

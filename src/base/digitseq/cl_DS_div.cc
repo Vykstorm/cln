@@ -10,7 +10,9 @@
 // Implementation.
 
 #include "cl_N.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // We observe the following timings in seconds:
 // Time for dividing a 2*n word number by a n word number:
@@ -416,3 +418,4 @@
     }
 // Bit complexity (N = a_len): O(M(N)).
 
+}  // namespace cln

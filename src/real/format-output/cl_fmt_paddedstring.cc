@@ -11,9 +11,11 @@
 
 #include <string.h>
 
+namespace cln {
+
 void format_padded_string (cl_ostream stream, sintL mincol, sintL colinc, sintL minpad, char padchar, cl_boolean padleftflag, const char * str)
 {
-	var sintL need = strlen(str) + minpad; // so viele Zeichen mindestens
+	var sintL need = ::strlen(str) + minpad; // so viele Zeichen mindestens
 	var uintL auxpad = (need < mincol
 			    ? ceiling((uintL)(mincol - need), colinc) * colinc
 			    : 0
@@ -24,3 +26,5 @@ void format_padded_string (cl_ostream stream, sintL mincol, sintL colinc, sintL 
 	if (padleftflag)
 		fprint(stream,str);
 }
+
+}  // namespace cln

@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_number.h"
+#include "cln/number.h"
 
 #ifdef intQsize
 
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_private_thing cl_I_constructor_from_UQ (uint64 wert)
 {
@@ -150,5 +152,7 @@ cl_private_thing cl_I_constructor_from_UQ (uint64 wert)
 	#undef IF_LENGTH
 	#undef UQ_maxlength
 }
+
+}  // namespace cln
 
 #endif

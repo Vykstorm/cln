@@ -4,7 +4,10 @@
 //  Seminumerical Algorithms, second edition. Section 4.5.4, p. 391.]
 
 // We work with integers.
-#include <cl_integer.h>
+#include <cln/integer.h>
+
+using namespace std;
+using namespace cln;
 
 // Checks whether 2^q-1 is prime, q an odd prime.
 bool mersenne_prime_p (int q)
@@ -33,13 +36,13 @@ bool mersenne_prime_p_opt (int q)
 }
 
 // Now we work with modular integers.
-#include <cl_modinteger.h>
+#include <cln/modinteger.h>
 
 // Same thing, but using modular integers.
 bool mersenne_prime_p_modint (int q)
 {
 	cl_I m = ((cl_I)1 << q) - 1;
-	cl_modint_ring R = cl_find_modint_ring(m); // Z/mZ
+	cl_modint_ring R = find_modint_ring(m); // Z/mZ
 	int i;
 	cl_MI L_i;
 	for (i = 0, L_i = R->canonhom(4); i < q-2; i++)
@@ -47,33 +50,30 @@ bool mersenne_prime_p_modint (int q)
 	return R->equal(L_i,R->zero());
 }
 
-#include <cl_io.h> // we do I/O
+#include <cln/io.h> // we do I/O
 #include <stdlib.h> // declares exit()
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char* argv[])
 {
 	if (!(argc == 2)) {
-		fprint(cl_stderr, "Usage: lucaslehmer exponent\n");
+		cerr << "Usage: lucaslehmer exponent" << endl;
 		exit(1);
 	}
 	int q = atoi(argv[1]);
 	if (!(q >= 2 && ((q % 2)==1))) {
-		fprint(cl_stderr, "Usage: lucaslehmer q  with q odd prime\n");
+		cerr << "Usage: lucaslehmer q  with q odd prime" << endl;
 		exit(1);
 	}
 	bool isprime;
 	{ CL_TIMING; isprime = mersenne_prime_p(q); }
 	{ CL_TIMING; isprime = mersenne_prime_p_opt(q); }
 	{ CL_TIMING; isprime = mersenne_prime_p_modint(q); }
-	fprint(cl_stdout, "2^");
-	fprintdecimal(cl_stdout, q);
-	fprint(cl_stdout, "-1 is ");
+	cout << "2^" << q << "-1 is ";
 	if (isprime)
-		fprint(cl_stdout, "prime");
+		cout << "prime" << endl;
 	else
-		fprint(cl_stdout, "composite");
-	fprint(cl_stdout, "\n");
+		cout << "composite" << endl;
 }
 
 // Computing time on a i486, 33 MHz:

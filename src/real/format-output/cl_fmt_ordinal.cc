@@ -9,7 +9,9 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 static const char * const cl_format_ordinal_ones [20] = {
 	NULL,
@@ -81,3 +83,5 @@ void format_ordinal (cl_ostream stream, const cl_I& argument)
 		}
 	}
 }
+
+}  // namespace cln

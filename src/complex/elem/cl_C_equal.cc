@@ -1,18 +1,20 @@
-// cl_equal().
+// equal().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
 
-cl_boolean cl_equal (const cl_N& x, const cl_N& y)
+namespace cln {
+
+cl_boolean equal (const cl_N& x, const cl_N& y)
 {
 // Methode:
 // Falls beide reell, klar.
@@ -24,13 +26,13 @@ cl_boolean cl_equal (const cl_N& x, const cl_N& y)
 		if (realp(y)) {
 			DeclareType(cl_R,y);
 			// x,y beide reell
-			return cl_equal(x,y);
+			return equal(x,y);
 		} else {
 			DeclareType(cl_C,y);
 			// x reell, y komplex
 			if (!zerop(imagpart(y)))
 				return cl_false;
-			return cl_equal(x,realpart(y));
+			return equal(x,realpart(y));
 		}
 	} else {
 		DeclareType(cl_C,x);
@@ -39,15 +41,17 @@ cl_boolean cl_equal (const cl_N& x, const cl_N& y)
 			// x komplex, y reell
 			if (!zerop(imagpart(x)))
 				return cl_false;
-			return cl_equal(realpart(x),y);
+			return equal(realpart(x),y);
 		} else {
 			DeclareType(cl_C,y);
 			// x,y beide komplex
-			if (!cl_equal(realpart(x),realpart(y)))
+			if (!equal(realpart(x),realpart(y)))
 				return cl_false;
-			if (!cl_equal(imagpart(x),imagpart(y)))
+			if (!equal(imagpart(x),imagpart(y)))
 				return cl_false;
 			return cl_true;
 		}
 	}
 }
+
+}  // namespace cln

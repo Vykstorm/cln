@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_low.h"
+
+namespace cln {
 
 const cl_I square (const cl_I& x)
 {
@@ -49,3 +51,4 @@ const cl_I square (const cl_I& x)
 }
 // Bit complexity (x of length N): O(M(N)).
 
+}  // namespace cln

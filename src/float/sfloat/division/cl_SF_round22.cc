@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
 
 #include "cl_SF.h"
+
+namespace cln {
 
 const cl_SF_div_t round2 (const cl_SF& x, const cl_SF& y)
 {
@@ -20,3 +22,5 @@ const cl_SF_div_t round2 (const cl_SF& x, const cl_SF& y)
 	var cl_SF& r = q_r.remainder;
 	return cl_SF_div_t(q,y*r);
 }
+
+}  // namespace cln

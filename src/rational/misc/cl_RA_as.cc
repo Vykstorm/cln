@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
+
+namespace cln {
 
 // Cf. cl_RA_p in cl_RA_ring.cc.
 // But here, for better inlining in g++, it is preferrable to finish every
@@ -36,3 +38,5 @@ const cl_RA& as_cl_RA (const cl_number& x, const char * filename, int line)
 	} else
 		cl_as_error(x,"a rational number",filename,line);
 }
+
+}  // namespace cln

@@ -11,6 +11,8 @@
 
 #include "cl_DS.h"
 
+namespace cln {
+
 const cl_I digits_to_I (const char * MSBptr, uintL len, uintD base)
 {
       CL_ALLOCA_STACK;
@@ -84,3 +86,5 @@ const cl_I digits_to_I (const char * MSBptr, uintL len, uintD base)
         }
       return NUDS_to_I(erg_MSDptr,erg_len);
 }
+
+}  // namespace cln

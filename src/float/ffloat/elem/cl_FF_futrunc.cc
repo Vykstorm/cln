@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 const cl_FF futruncate (const cl_FF& x)
 {
 // Methode:
@@ -43,3 +45,5 @@ const cl_FF futruncate (const cl_FF& x)
                 );
         }   }
 }
+
+}  // namespace cln

@@ -10,10 +10,12 @@
 // Implementation.
 
 #include "cl_LF_impl.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
 {
@@ -114,3 +116,5 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
       }
       return y;
 }
+
+}  // namespace cln

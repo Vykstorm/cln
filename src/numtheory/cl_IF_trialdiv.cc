@@ -15,6 +15,8 @@
 #error "intDsize too small for trialdivision!"
 #endif
 
+namespace cln {
+
 uint32 cl_trialdivision (const cl_I& n, uint32 d1, uint32 d2)
 {
 	var uintL i = cl_small_prime_table_search(d1);
@@ -38,3 +40,5 @@ uint32 cl_trialdivision (const cl_I& n, uint32 d1, uint32 d2)
 	}
 	return 0;
 }
+
+}  // namespace cln

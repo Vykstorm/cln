@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_I_byte.h"
+
+namespace cln {
 
 cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
 {
@@ -46,3 +48,5 @@ cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
           return ldb_extract_test(n,p,ps);
         }
 }
+
+}  // namespace cln

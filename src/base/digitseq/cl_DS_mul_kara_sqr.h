@@ -1,4 +1,3 @@
-
   // Eine vereinfachte Version von mulu_karatsuba für den Fall
   // sourceptr1 == sourceptr2 && len1 == len2.
   // Weniger Variablen, eine Additionsschleife weniger, eine Kopierschleife

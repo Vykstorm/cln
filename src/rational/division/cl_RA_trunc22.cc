@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 const cl_RA_div_t truncate2 (const cl_RA& x, const cl_RA& y)
 {
@@ -68,3 +70,5 @@ const cl_RA_div_t truncate2 (const cl_RA& x, const cl_RA& y)
 	return cl_RA_div_t(q,y*r);
 #endif
 }
+
+}  // namespace cln

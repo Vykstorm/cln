@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_boolean logtest (const cl_I& x, const cl_I& y)
 {
@@ -93,3 +95,5 @@ cl_boolean logtest (const cl_I& x, const cl_I& y)
             return and_test_loop_msp(xMSDptr,yMSDptr,xlen);
           }
 }
+
+}  // namespace cln

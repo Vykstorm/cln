@@ -9,7 +9,9 @@
 
 // Implementation.
 
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_R abs (const cl_C& x)
@@ -18,3 +20,5 @@ const cl_R abs (const cl_C& x)
 	var const cl_R& b = imagpart(x);
 	return cl_hypot(a,b);
 }
+
+}  // namespace cln

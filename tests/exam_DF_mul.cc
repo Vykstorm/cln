@@ -1,6 +1,6 @@
 #include "exam.h"
-#include <cl_dfloat.h>
-#include <cl_dfloat_io.h>
+#include <cln/dfloat.h>
+#include <cln/dfloat_io.h>
 
 static mul_test dfloat_mul_tests[] = {
 

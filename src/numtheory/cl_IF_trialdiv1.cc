@@ -11,6 +11,8 @@
 
 #include "cl_low.h"
 
+namespace cln {
+
 uint32 cl_trialdivision (uint32 n, uint32 d1, uint32 d2)
 {
 	var uintL i = cl_small_prime_table_search(d1);
@@ -25,3 +27,5 @@ uint32 cl_trialdivision (uint32 n, uint32 d1, uint32 d2)
 	}
 	return 0;
 }
+
+}  // namespace cln

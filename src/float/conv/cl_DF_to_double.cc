@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
 
 #include "cl_DF.h"
 
-double cl_double_approx (const cl_DF& obj)
+namespace cln {
+
+double double_approx (const cl_DF& obj)
 {
 	union { dfloat eksplicit; double machine_double; } u;
 	#define val u.eksplicit
@@ -51,3 +53,5 @@ double cl_double_approx (const cl_DF& obj)
 	#undef val
 	return u.machine_double;
 }
+
+}  // namespace cln

@@ -6,13 +6,13 @@
 // Specification.
 #include "cl_F_tran.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_low.h"
 
 #undef MAYBE_INLINE
@@ -20,6 +20,8 @@
 #include "cl_LF_zerop.cc"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
+
+namespace cln {
 
 // cl_F atanhx (const cl_F& x)
 // cl_LF atanhx (const cl_LF& x)
@@ -183,3 +185,5 @@ const cl_F atanhx (const cl_F& x)
 //  500    35.5    24.2     9.7
 // 1000   168     116      29.6
 // ==> using ln faster for N >= 34.
+
+}  // namespace cln

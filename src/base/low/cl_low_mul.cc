@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 #ifdef NEED_VAR_mulu32_high
 uint32 mulu32_high;
 #endif
@@ -69,3 +71,5 @@ uint64 mulu64_ (uint64 x, uint64 y)
 	mulu64_high = hi; return lo;
 }
 #endif
+
+}  // namespace cln

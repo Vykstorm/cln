@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I_div_t truncate2 (const cl_I& x, const cl_I& y)
 {
@@ -28,3 +30,5 @@ const cl_I_div_t truncate2 (const cl_I& x, const cl_I& y)
     { q = -q; }
   return q_r;
 }
+
+}  // namespace cln

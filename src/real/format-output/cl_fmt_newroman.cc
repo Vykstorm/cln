@@ -9,16 +9,18 @@
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/integer.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void format_new_roman (cl_ostream stream, const cl_I& arg)
 {
 	if (!(0 < arg && arg < 4000)) {
-		fprint(cl_stderr, "format_new_roman: argument should be in the range 1 - 3999, not ");
-		fprint(cl_stderr, arg);
-		fprint(cl_stderr, ".\n");
+		fprint(stderr, "format_new_roman: argument should be in the range 1 - 3999, not ");
+		fprint(stderr, arg);
+		fprint(stderr, ".\n");
 		cl_abort();
 	}
 	var uintL value = cl_I_to_UL(arg);
@@ -52,3 +54,5 @@ void format_new_roman (cl_ostream stream, const cl_I& arg)
 		}
 	}
 }
+
+}  // namespace cln

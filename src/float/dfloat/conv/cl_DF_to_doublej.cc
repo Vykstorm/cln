@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 void cl_DF_to_double (const cl_DF& obj, dfloatjanus* val_)
 {
 	var dfloat val = TheDfloat(obj)->dfloat_value;
@@ -46,3 +48,5 @@ void cl_DF_to_double (const cl_DF& obj, dfloatjanus* val_)
 	  #endif
 	val_->eksplicit = val;
 }
+
+}  // namespace cln

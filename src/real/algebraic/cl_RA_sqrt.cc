@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
-#include "cl_rational.h"
-#include "cl_float.h"
+#include "cln/rational.h"
+#include "cln/float.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_R sqrt (const cl_RA& x)
@@ -22,3 +24,5 @@ const cl_R sqrt (const cl_RA& x)
 		// x in Float umwandeln, dann die Wurzel ziehen:
 		return sqrt(cl_float(x));
 }
+
+}  // namespace cln

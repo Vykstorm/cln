@@ -1,10 +1,10 @@
-// cl_compare().
+// compare().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,7 +12,9 @@
 #include "cl_I.h"
 #include "cl_DS.h"
 
-cl_signean cl_compare (const cl_I& x, const cl_I& y)
+namespace cln {
+
+cl_signean compare (const cl_I& x, const cl_I& y)
 {
       // Methode:
       // x und y haben verschiedenes Vorzeichen ->
@@ -101,3 +103,5 @@ cl_signean cl_compare (const cl_I& x, const cl_I& y)
                     return (xlen > ylen ? signean_minus : signean_plus);
                 }
 }
+
+}  // namespace cln

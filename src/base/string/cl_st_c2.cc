@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
+
+namespace cln {
 
 extern cl_heap_string* cl_make_heap_string (const char * ptr, unsigned long len);
 
@@ -15,3 +17,5 @@ cl_string::cl_string (const char * ptr, unsigned long len)
 {
 	pointer = cl_make_heap_string(ptr,len);
 }
+
+}  // namespace cln

@@ -6,14 +6,16 @@
 CL_PROVIDE(cl_C_ring)
 
 // Specification.
-#include "cl_complex_ring.h"
+#include "cln/complex_ring.h"
 
 
 // Implementation.
 
-#include "cl_complex.h"
-#include "cl_complex_io.h"
+#include "cln/complex.h"
+#include "cln/complex_io.h"
 #include "cl_C.h"
+
+namespace cln {
 
 static void N_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
 {
@@ -24,7 +26,7 @@ static void N_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element
 static cl_boolean N_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
-	return cl_equal(The(cl_N)(x),The(cl_N)(y));
+	return equal(The(cl_N)(x),The(cl_N)(y));
 }
 
 static const _cl_ring_element N_zero (cl_heap_ring* R)
@@ -111,7 +113,7 @@ static cl_ring_mulops N_mulops = {
 
 static cl_number_ring_ops<cl_N> N_ops = {
 	cl_N_p,
-	cl_equal,
+	equal,
 	exact_zerop,
 	operator+,
 	operator-,
@@ -155,5 +157,7 @@ inline cl_complex_ring::cl_specialized_number_ring ()
 	: cl_number_ring (new cl_heap_complex_ring()) {}
 
 const cl_complex_ring cl_C_ring;
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_C_ring)

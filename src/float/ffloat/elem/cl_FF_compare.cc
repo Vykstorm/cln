@@ -1,17 +1,19 @@
-// cl_compare().
+// compare().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
 
 #include "cl_FF.h"
 
-cl_signean cl_compare (const cl_FF& x, const cl_FF& y)
+namespace cln {
+
+cl_signean compare (const cl_FF& x, const cl_FF& y)
 {
 // Methode:
 // x und y haben verschiedenes Vorzeichen ->
@@ -46,3 +48,5 @@ cl_signean cl_compare (const cl_FF& x, const cl_FF& y)
             }
         }
 }
+
+}  // namespace cln

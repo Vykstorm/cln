@@ -1,8 +1,8 @@
 #include "exam.h"
-#include <cl_ffloat.h>
-#include <cl_ffloat_io.h>
-#include <cl_integer.h>
-#include <cl_integer_io.h>
+#include <cln/ffloat.h>
+#include <cln/ffloat_io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
 
 static floor_test ffloat_floor_tests[] = {
 

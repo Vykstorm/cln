@@ -5,10 +5,12 @@
 
 // Specification.
 #define CL_GV_NO_RANGECHECKS
-#include "cl_GV_integer.h"
+#include "cln/GV_integer.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_GV_I copy (const cl_GV_I& v)
 {
@@ -17,3 +19,5 @@ const cl_GV_I copy (const cl_GV_I& v)
 	cl_GV_I::copy_elements(v,0,w,0,len);
 	return w;
 }
+
+}  // namespace cln

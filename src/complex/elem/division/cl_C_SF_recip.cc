@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 #include "cl_SF.h"
+
+namespace cln {
 
 const cl_C_SF cl_C_recip (const cl_SF& a, const cl_SF& b)
 {
@@ -53,3 +55,5 @@ const cl_C_SF cl_C_recip (const cl_SF& a, const cl_SF& b)
 	// 2^(-e)*a'/c' + i * -2^(-e)*b'/c'
 	return cl_C_SF(scale_float(na/nc,-e), scale_float(-(nb/nc),-e));
 }
+
+}  // namespace cln

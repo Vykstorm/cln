@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 const cl_RA rational (const cl_F& x)
 {
@@ -47,3 +49,5 @@ const cl_RA rational (const cl_F& x)
 #endif
 	}
 }
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -13,6 +13,8 @@
 #include "cl_DS.h"
 #include "cl_2D.h"
 #include "cl_2DS.h"
+
+namespace cln {
 
 // Stellt fest, ob ein Integer >=0 eine n-te Potenz ist.
 // rootp(x,n,&w)
@@ -194,3 +196,5 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
         return cl_true;
       }
 }
+
+}  // namespace cln

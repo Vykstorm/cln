@@ -11,6 +11,8 @@
 
 #include "cl_I.h"
 
+namespace cln {
+
 const cl_I cl_I_prod_ungerade (uintL a, uintL b)
 {
 	var uintL diff = b-a; // Anzahl der Faktoren
@@ -30,3 +32,5 @@ const cl_I cl_I_prod_ungerade (uintL a, uintL b)
 		return cl_I_prod_ungerade(a,c) * cl_I_prod_ungerade(c,b); // zwei Teilprodukte
 	}
 }
+
+}  // namespace cln

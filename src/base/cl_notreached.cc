@@ -9,16 +9,20 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_notreached_abort (const char* filename, int lineno)
 {
-	fprint(cl_stderr, "Internal error: statement in file ");
-	fprint(cl_stderr, filename);
-	fprint(cl_stderr, ", line ");
-	fprintdecimal(cl_stderr, lineno);
-	fprint(cl_stderr, " has been reached!!\n");
-	fprint(cl_stderr, "Please send the authors of the program a description how you produced this error!\n");
+	fprint(stderr, "Internal error: statement in file ");
+	fprint(stderr, filename);
+	fprint(stderr, ", line ");
+	fprintdecimal(stderr, lineno);
+	fprint(stderr, " has been reached!!\n");
+	fprint(stderr, "Please send the authors of the program a description how you produced this error!\n");
 	cl_abort();
 }
+
+}  // namespace cln

@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/integer.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 static const char * const cl_format_ones [20] = {
 	NULL,
@@ -105,9 +107,9 @@ void format_cardinal (cl_ostream stream, const cl_I& argument)
 		var uintL * small_piece_ptr = &small_pieces[0];
 		do {
 			if (*illion_ptr == NULL) {
-				fprint(cl_stderr, "format_cardinal: argument too large: ");
-				fprint(cl_stderr, argument);
-				fprint(cl_stderr, "\n");
+				fprint(stderr, "format_cardinal: argument too large: ");
+				fprint(stderr, argument);
+				fprint(stderr, "\n");
 				cl_abort();
 			}
 			var cl_I_div_t div = floor2(arg,1000);
@@ -132,3 +134,5 @@ void format_cardinal (cl_ostream stream, const cl_I& argument)
 		} until (illion_ptr == &illions[0]);
 	}
 }
+
+}  // namespace cln

@@ -13,6 +13,8 @@
 #include "cl_DS.h"
 #include "cl_F.h"
 
+namespace cln {
+
 const cl_LF shorten (const cl_LF& x, uintC len)
 {
       // x = 0.0 braucht nicht abgefangen zu werden, da bei Mantisse 0 dann
@@ -42,3 +44,5 @@ const cl_LF shorten (const cl_LF& x, uintC len)
       }
       return y;
 }
+
+}  // namespace cln

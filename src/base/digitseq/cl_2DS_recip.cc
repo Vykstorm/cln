@@ -20,6 +20,8 @@ const unsigned int recip2adic_threshold = 620;
 const unsigned int recip2adic_threshold = 380;
 #endif
 
+namespace cln {
+
 void recip2adic (uintC len, const uintD* a_LSDptr, uintD* dest_LSDptr)
 {
 	// Method:
@@ -64,3 +66,4 @@ void recip2adic (uintC len, const uintD* a_LSDptr, uintD* dest_LSDptr)
 }
 // Bit complexity (N := len): O(M(N)).
 
+}  // namespace cln

@@ -10,7 +10,9 @@
 // Implementation.
 
 #include "cl_low.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Compute the reciprocal square root of a digit sequence.
 // Input: UDS a_MSDptr/a_len/.. of length a_len,
@@ -162,3 +164,4 @@
 }
 // Bit complexity (N := b_len): O(M(N)).
 
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -13,6 +13,8 @@
 #include "cl_DS.h"
 #include "cl_D.h"
 #include "cl_low.h"
+
+namespace cln {
 
 uintL logcount (const cl_I& x)
 {
@@ -35,3 +37,5 @@ uintL logcount (const cl_I& x)
             return bitcount;
           }
 }
+
+}  // namespace cln

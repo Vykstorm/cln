@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_R.h"
 
 #if 0
+
+namespace cln {
 
 const cl_F cl_float (const cl_R& x, const cl_F& y)
 {
@@ -24,10 +26,14 @@ const cl_F cl_float (const cl_R& x, const cl_F& y)
 	}
 }
 
+}  // namespace cln
+
 #else // less type dispatch overhead
 
 #include "cl_F.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_F cl_float (const cl_R& x, const cl_F& y)
 {
@@ -38,5 +44,7 @@ const cl_F cl_float (const cl_R& x, const cl_F& y)
 	,	return cl_R_to_LF(x,TheLfloat(y)->len);
 	);
 }
+
+}  // namespace cln
 
 #endif

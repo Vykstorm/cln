@@ -3,9 +3,11 @@
 #ifndef _CL_FORMAT_H
 #define _CL_FORMAT_H
 
-#include "cl_number.h"
-#include "cl_io.h"
-#include "cl_float.h"
+#include "cln/number.h"
+#include "cln/io.h"
+#include "cln/float.h"
+
+namespace cln {
 
 // gibt arg als römische Zahl auf stream aus, z.B. 4 als IIII.
 extern void format_old_roman (cl_ostream stream, const cl_I& arg);
@@ -49,7 +51,7 @@ extern void format_integer (cl_ostream stream, const cl_I& arg, unsigned int bas
 // ganzem n und mantissa floating-point, 0.1 <= mantissa < 1,
 // arg = mantissa * 10^n * sign (also 10^(n-1) <= abs(arg) < 10^n ).
 // (Bei arg=0.0: 0.0 und n=0.)
-extern const cl_decoded_float format_scale_exponent (const cl_F& arg);
+extern const decoded_float format_scale_exponent (const cl_F& arg);
 CL_REQUIRE(cl_fmt_scaleexp)
 
 // format_float_to_string(arg,width,d,k,dmin)
@@ -58,7 +60,7 @@ CL_REQUIRE(cl_fmt_scaleexp)
 // und höchstens die Länge width (width<=0 -> keine Einschränkung).
 // Trotzdem wird nicht auf weniger als dmin Stellen gerundet.
 struct digits_with_dot {
-	char * string; // Mit cl_malloc_hook() alloziert, mit cl_free_hook() freizugeben.
+	char * string; // Mit malloc_hook() alloziert, mit free_hook() freizugeben.
 	uintL length; // strlen(string)
 	cl_boolean dot_comes_first; // string[0] == '.' ?
 	cl_boolean dot_comes_last; // string[strlen(string)-1] == '.' ?
@@ -70,5 +72,6 @@ struct digits_with_dot {
 extern const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width, const sintL d, const sintL k, const sintL dmin);
 CL_REQUIRE(cl_fmt_floatstring)
 
+}  // namespace cln
 
 #endif /* _CL_FORMAT_H */

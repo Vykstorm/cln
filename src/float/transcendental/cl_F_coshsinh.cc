@@ -1,20 +1,22 @@
-// cl_cosh_sinh().
+// cosh_sinh().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F_tran.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 
-const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
+namespace cln {
+
+const cosh_sinh_t cosh_sinh (const cl_F& x)
 {
 // Methode:
 // Genauigkeit erhöhen,
@@ -36,7 +38,7 @@ const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
 		// e<0
 		if (zerop(x) || (e <= (1-(sintL)float_digits(x))>>1))
 			// e <= (1-d)/2 <==> e <= -ceiling((d-1)/2)
-			return cl_cosh_sinh_t(cl_float(1,x),x);
+			return cosh_sinh_t(cl_float(1,x),x);
 		// Rechengenauigkeit erhöhen
 		if (longfloatp(x)) {
 			DeclareType(cl_LF,x);
@@ -44,9 +46,9 @@ const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
 			if (TheLfloat(x)->len >= infty) {
 				var cl_LF xx = extend(x,TheLfloat(x)->len+1);
 				var cl_LF_cosh_sinh_t hyp = cl_coshsinh_ratseries(xx);
-				return cl_cosh_sinh_t(
-					cl_float(hyp.cosh,x),
-					cl_float(hyp.sinh,x)
+				return cosh_sinh_t(
+					cln/float.hyp.cosh,x),
+					cln/float.hyp.sinh,x)
 				       );
 			} else
 			#endif
@@ -55,7 +57,7 @@ const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
 				var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintL)(-e),intDsize));
 				var cl_F y = exp(xx);
 				var cl_F y_inv = recip(y);
-				return cl_cosh_sinh_t(
+				return cosh_sinh_t(
 					cl_float(scale_float(y + y_inv, -1), x),
 					cl_float(scale_float(y - y_inv, -1), x)
 				       );
@@ -65,7 +67,7 @@ const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
 				var cl_LF z = sqrt(y);
 				if (minusp(xx))
 					z = -z;
-				return cl_cosh_sinh_t(
+				return cosh_sinh_t(
 					cl_float(sqrt(1+y),x), // sqrt(1+y)
 					cl_float(z,x)
 				       );
@@ -73,7 +75,7 @@ const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
 		} else {
 			var cl_F xx = cl_F_extendsqrt(x);
 			var cl_F y = sinhxbyx_naive(xx);
-			return cl_cosh_sinh_t(
+			return cosh_sinh_t(
 				cl_float(sqrt(1+square(xx)*y),x), // sqrt(1+x^2*y)
 				cl_float(xx*sqrt(y),x)
 			       );
@@ -82,9 +84,11 @@ const cl_cosh_sinh_t cl_cosh_sinh (const cl_F& x)
 		// e>=0 -> verwende exp(x)
 		var cl_F y = exp(x);
 		var cl_F y_inv = recip(y);
-		return cl_cosh_sinh_t(
+		return cosh_sinh_t(
 			scale_float(y+y_inv,-1),
 			scale_float(y-y_inv,-1)
 		       );
 	}
 }
+
+}  // namespace cln

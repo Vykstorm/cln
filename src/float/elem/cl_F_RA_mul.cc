@@ -4,21 +4,23 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 #include "cl_F.h"
 #include "cl_SF.h"
 #include "cl_FF.h"
 #include "cl_DF.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_R cl_F_RA_mul (const cl_F& x, const cl_RA& y)
 {
@@ -30,3 +32,5 @@ const cl_R cl_F_RA_mul (const cl_F& x, const cl_RA& y)
 	, /* LF */	return cl_LF_RA_mul(x,y);
 	);
 }
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
@@ -15,11 +15,14 @@
 #include "cl_low.h"
 #include "cl_DS.h"
 #include "cl_ieee.h"
-NEED_IEEE_FLOATS()
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_DF_zerop.cc"
+
+namespace cln {
+
+NEED_IEEE_FLOATS()
 
 const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
 {
@@ -220,3 +223,5 @@ const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
       #endif
 #endif
 }
+
+}  // namespace cln

@@ -3,6 +3,8 @@
 #ifndef _CL_2DS_H
 #define _CL_2DS_H
 
+namespace cln {
+
 // div2adic(a_len,a_LSDptr,b_len,b_LSDptr,dest_LSDptr);
 // dividiert die UDS a_LSDptr[-a_len..-1] mod 2^(intDsize*b_len)
 // durch die ungerade UDS b_LSDptr[-b_len..-1] mod 2^(intDsize*b_len)
@@ -23,5 +25,7 @@
 // bildet den Kehrwert der ungeraden UDS a_LSDptr[-len..-1] mod 2^(intDsize*len)
 // (len>0) und liefert sie als UDS dest_LSDptr[-len..-1] mod 2^(intDsize*len).
   extern void recip2adic (uintC len, const uintD* a_LSDptr, uintD* dest_LSDptr);
+
+}  // namespace cln
 
 #endif /* _CL_2DS_H */

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -15,17 +15,7 @@
 #include "cl_F.h"
 #include "cl_N.h"
 
-// Workaround gcc-2.7.0 bug on i386.
-#if defined(__GNUC__)
-  #if (__GNUC__ == 2)
-    #if (__GNUC_MINOR__ == 7)
-      #define workaround_gcc_bug()  *&uexp1 = *&uexp1;
-    #endif
-  #endif
-#endif
-#ifndef workaround_gcc_bug
-  #define workaround_gcc_bug()
-#endif
+namespace cln {
 
 const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
 {
@@ -60,13 +50,11 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
       // (uexp1-LF_exp_mid) - (uexp2-LF_exp_mid) = (uexp1-uexp2+LF_exp_mid)-LF_exp_mid
       if (uexp1 >= uexp2)
         { uexp1 = uexp1 - uexp2; // kein Carry
-          workaround_gcc_bug();
           if (uexp1 > LF_exp_high-LF_exp_mid) { cl_error_floating_point_overflow(); }
           uexp1 = uexp1 + LF_exp_mid;
         }
         else
         { uexp1 = uexp1 - uexp2; // Carry
-          workaround_gcc_bug();
           if (uexp1 < (uintL)(LF_exp_low-1-LF_exp_mid))
             { if (underflow_allowed())
                 { cl_error_floating_point_underflow(); }
@@ -165,3 +153,4 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
 }
 // Bit complexity (N := max(length(x1),length(x2))): O(M(N)).
 
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer_io.h"
+#include "cln/integer_io.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I read_integer (unsigned int base, cl_signean sign, const char * string, uintL index1, uintL index2)
 {
@@ -19,3 +21,5 @@ const cl_I read_integer (unsigned int base, cl_signean sign, const char * string
 	else
 		return -x; // negatives Vorzeichen -> Vorzeichenwechsel
 }
+
+}  // namespace cln

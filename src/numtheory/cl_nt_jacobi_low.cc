@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_numtheory.h"
+#include "cln/numtheory.h"
 
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
 #include "cl_xmacros.h"
+
+namespace cln {
 
 // Assume 0 <= a < b.
 inline int jacobi_aux (uint32 a, uint32 b)
@@ -73,3 +75,5 @@ int jacobi (sint32 a, sint32 b)
 		a = b-1-((uint32)(~a) % (uint32)b);
 	return jacobi_aux(a,b);
 }
+
+}  // namespace cln

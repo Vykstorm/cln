@@ -9,13 +9,15 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_impl.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_F.h"
 #include "cl_N.h"
+
+namespace cln {
 
 const cl_R cl_I_LF_div (const cl_I& x, const cl_LF& y)
 {
@@ -31,3 +33,5 @@ const cl_R cl_I_LF_div (const cl_I& x, const cl_LF& y)
 	return cl_I_to_LF(x,len) / y;
 }
 // Bit complexity (N = max(length(x),length(y))): O(M(N)).
+
+}  // namespace cln

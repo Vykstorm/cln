@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_I signum (const cl_I& x)
@@ -18,3 +20,5 @@ const cl_I signum (const cl_I& x)
 	elif (zerop(x)) { return 0; } // x=0 -> 0
 	else { return 1; } // x>0 -> +1
 }
+
+}  // namespace cln

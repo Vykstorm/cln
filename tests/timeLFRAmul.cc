@@ -1,14 +1,14 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_lfloat.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/lfloat.h>
 #include "cl_LF.h"
-#include <cl_rational.h>
-#include <cl_float_io.h>
-#include <cl_random.h>
+#include <cln/rational.h>
+#include <cln/float_io.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {

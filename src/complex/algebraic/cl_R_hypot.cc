@@ -9,15 +9,17 @@
 
 // Implementation.
 
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
 #include "cl_F.h"
 #include "cl_SF.h"
 #include "cl_FF.h"
 #include "cl_DF.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_R cl_hypot (const cl_R& a, const cl_R& b)
 {
@@ -86,3 +88,5 @@ const cl_R cl_hypot (const cl_R& a, const cl_R& b)
 		}
 	}
 }
+
+}  // namespace cln

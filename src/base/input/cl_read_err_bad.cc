@@ -4,19 +4,23 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_number_io.h"
+#include "cln/number_io.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void read_number_bad_syntax (const char * string, const char * string_limit)
 {
-	fprint(cl_stderr, "Illegal number syntax: \"");
+	fprint(stderr, "Illegal number syntax: \"");
 	for (const char * ptr = string; ptr != string_limit; ptr++)
-		fprintchar(cl_stderr, *ptr);
-	fprint(cl_stderr, "\"\n");
+		fprintchar(stderr, *ptr);
+	fprint(stderr, "\"\n");
 	cl_abort();
 }
+
+}  // namespace cln

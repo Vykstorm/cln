@@ -1,8 +1,8 @@
 #include "exam.h"
-#include <cl_dfloat.h>
-#include <cl_dfloat_io.h>
-#include <cl_integer.h>
-#include <cl_integer_io.h>
+#include <cln/dfloat.h>
+#include <cln/dfloat_io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
 
 static floor_test dfloat_floor_tests[] = {
 

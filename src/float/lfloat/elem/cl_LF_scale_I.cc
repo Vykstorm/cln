@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -13,6 +13,8 @@
 #include "cl_LF_impl.h"
 #include "cl_F.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 {
@@ -105,3 +107,5 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
         var uintC len = TheLfloat(x)->len;
         return encode_LFu(TheLfloat(x)->sign,uexp,arrayMSDptr(TheLfloat(x)->data,len),len);
 }
+
+}  // namespace cln

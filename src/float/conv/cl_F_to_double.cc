@@ -4,23 +4,27 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 
-double cl_double_approx (const cl_F& x)
+namespace cln {
+
+double double_approx (const cl_F& x)
 {
 	floatcase(x
-	,	return cl_double_approx(x);
-	,	return cl_double_approx(x);
-	,	return cl_double_approx(x);
-	,	return cl_double_approx(x);
+	,	return double_approx(x);
+	,	return double_approx(x);
+	,	return double_approx(x);
+	,	return double_approx(x);
 	);
 }
+
+}  // namespace cln

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
 
 #include "cl_FF.h"
+
+namespace cln {
 
 MAYBE_INLINE
 uintL float_digits (const cl_FF& x)
@@ -17,3 +19,5 @@ uintL float_digits (const cl_FF& x)
 	unused x;
 	return FF_mant_len+1; // 24
 }
+
+}  // namespace cln

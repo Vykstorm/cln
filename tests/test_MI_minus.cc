@@ -7,7 +7,7 @@ int test_MI_minus (int iterations)
 	// Check anti-commutativity.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI b = R->canonhom(testrandom_I());
 		cl_MI z = R->zero();
@@ -16,7 +16,7 @@ int test_MI_minus (int iterations)
 	// Check associativity.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI b = R->canonhom(testrandom_I());
 		cl_MI c = R->canonhom(testrandom_I());
@@ -25,7 +25,7 @@ int test_MI_minus (int iterations)
 	// Check special case 0.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_MI a = R->canonhom(testrandom_I());
 		cl_MI z = R->zero();
 		ASSERT2(a-z == a, m,a);

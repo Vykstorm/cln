@@ -3,8 +3,10 @@
 #ifndef _CL_SF_H
 #define _CL_SF_H
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_F.h"
+
+namespace cln {
 
 // The immediate word contains:
 //   |..|.......|..........................|....|
@@ -129,5 +131,7 @@ extern const cl_SF cl_I_to_SF (const cl_I& x);
 // cl_RA_to_SF(x) wandelt eine rationale Zahl x in ein Short-Float um
 // und rundet dabei.
 extern const cl_SF cl_RA_to_SF (const cl_RA& x);
+
+}  // namespace cln
 
 #endif /* _CL_SF_H */

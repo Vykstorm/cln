@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_rational.h"
-#include "cl_float.h"
+#include "cln/rational.h"
+#include "cln/float.h"
+
+namespace cln {
 
 const cl_R operator- (const cl_R& x, const cl_R& y)
 {
@@ -21,3 +23,5 @@ const cl_R operator- (const cl_R& x, const cl_R& y)
 #define minus(a,b) a-b
 GEN_R_OP2_2(x,y, minus, return)
 }
+
+}  // namespace cln

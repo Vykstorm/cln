@@ -6,14 +6,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float_io.h"
+#include "cln/float_io.h"
 
 
 // Implementation.
 
-#include "cl_input.h"
-#include "cl_io.h"
+#include "cln/input.h"
+#include "cln/io.h"
 #include "cl_spushstring.h"
+
+namespace cln {
 
 // We read an entire token (or even more, if it begins with #C) into a
 // buffer and then call read_float() on the buffer.
@@ -102,3 +104,5 @@ syntax1:	buffer.push(c);
 	// Handle premature EOF.
 eof:	read_number_eof();
 }
+
+}  // namespace cln

@@ -3,10 +3,10 @@
 #ifndef _CL_D_H
 #define _CL_D_H
 
-#include "cl_types.h"
+#include "cln/types.h"
 #include "cl_low.h"
 
-// Aus cl_types.h importiere:
+// Aus cln/types.h importiere:
 // intDsize        Anzahl Bits in einem Digit
 // uintD, sintD    Integer-Typen für ein Digit
 // log2_intDsize   log2(intDsize)
@@ -24,6 +24,7 @@
   #endif
 #endif
 
+namespace cln {
 
 // Vorzeichen eines Digit bestimmen
 // sign_of_sintD(wert)
@@ -219,5 +220,7 @@ inline sint32 sign_of_sintD (sintD wert)
 #if (intDsize==64)
   inline uint64 logcountD (uint64 x64) { logcount_64(); return x64; }
 #endif
+
+}  // namespace cln
 
 #endif /* _CL_D_H */

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_R.h"
+
+namespace cln {
 
 const cl_R sinh (const cl_R& x)
 {
@@ -28,3 +30,5 @@ const cl_R sinh (const cl_R& x)
 		return sinh(x);
 	}
 }
+
+}  // namespace cln

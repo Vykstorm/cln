@@ -4,21 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
 
-#ifdef CL_IO_IOSTREAM
-
-#include "cl_io.h"
+#include "cln/io.h"
 #include "cl_spushstring.h"
 
-#if ((defined(__sparc__) || defined(__rs6000__) || defined(__mips__)) && !defined(__GNUC__))
-// Sun C++ doesn't have istream::unget() and istream::set().
-  #define unget()  putback(c)
-  #define set(x)  setf(x)
-#endif
+namespace cln {
 
 const cl_string cl_fget (cl_istream stream, int n, char delim)
 {
@@ -34,11 +28,7 @@ const cl_string cl_fget (cl_istream stream, int n, char delim)
 		}
 		if (--n <= 0) {
 			stream.unget();
-			#if defined(__GNUG__) && (__GNUC_MINOR__ < 8)
-			stream.set(ios::failbit);
-			#else // new ANSI C++
-			stream.setstate(ios::failbit);
-			#endif
+			stream.setstate(std::ios::failbit);
 			break;
 		}
 		buffer.push(c);
@@ -46,4 +36,4 @@ const cl_string cl_fget (cl_istream stream, int n, char delim)
 	return buffer.contents();
 }
 
-#endif
+}  // namespace cln

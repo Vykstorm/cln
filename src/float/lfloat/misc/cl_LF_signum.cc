@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -17,6 +17,8 @@
 #include "cl_LF_minusp.cc"
 #include "cl_LF_zerop.cc"
 
+namespace cln {
+
 MAYBE_INLINE2
 const cl_LF signum (const cl_LF& x)
 {
@@ -24,3 +26,5 @@ const cl_LF signum (const cl_LF& x)
 	else // je nach Vorzeichen von x
 	{ return encode_LF1s(TheLfloat(x)->sign,TheLfloat(x)->len); }
 }
+
+}  // namespace cln

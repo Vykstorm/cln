@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 // Methode:
 // Falls x=0 oder x=1: x = x^n -> JA, x als Ergebnis.
@@ -25,3 +27,5 @@ cl_boolean rootp (const cl_I& x, uintL n, cl_I* w)
 	  { return cl_false; }
 	return cl_rootp_aux(x,n,w);
 }
+
+}  // namespace cln

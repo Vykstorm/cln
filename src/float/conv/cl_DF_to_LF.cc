@@ -14,6 +14,8 @@
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
 
+namespace cln {
+
 const cl_LF cl_DF_to_LF (const cl_DF& x, uintC len)
 {
 	// x entpacken:
@@ -45,3 +47,5 @@ const cl_LF cl_DF_to_LF (const cl_DF& x, uintC len)
 	clear_loop_msp(ptr mspop ceiling(DF_mant_len+1,intDsize),len-ceiling(DF_mant_len+1,intDsize));
 	return y;
 }
+
+}  // namespace cln

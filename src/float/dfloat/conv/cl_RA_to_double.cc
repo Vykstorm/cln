@@ -1,26 +1,28 @@
-// cl_double_approx().
+// double_approx().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_DF.h"
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_F.h"
 
-double cl_double_approx (const cl_RA& x)
+namespace cln {
+
+double double_approx (const cl_RA& x)
 {
 // Method: same as cl_RA_to_DF().
       if (integerp(x)) {
         DeclareType(cl_I,x);
-        return cl_double_approx(x);
+        return double_approx(x);
       }
  {    // x Ratio
       DeclareType(cl_RT,x);
@@ -184,3 +186,5 @@ double cl_double_approx (const cl_RA& x)
       return u.machine_double;
       #endif
 }}
+
+}  // namespace cln

@@ -12,6 +12,8 @@
 #include "cl_I.h"
 #include "cl_hash1.h"
 
+namespace cln {
+
 static void cl_hashtable_from_integer_to_rcobject_destructor (cl_heap* pointer)
 {
 #if (defined(__mips__) || defined(__mips64__)) && !defined(__GNUC__) // workaround SGI CC bug
@@ -46,3 +48,4 @@ void cl_ht_from_integer_to_rcobject::put (const cl_I& x, const cl_rcobject& y) c
 	((cl_heap_hashtable_from_integer_to_rcobject*)pointer)->put(x,y);
 }
 
+}  // namespace cln

@@ -1,6 +1,6 @@
 #include "exam.h"
-#include <cl_integer.h>
-#include <cl_integer_io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
 
 static mul_test integer_mul_tests[] = {
 

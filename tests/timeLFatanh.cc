@@ -1,15 +1,15 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_float.h>
-#include <cl_lfloat.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/float.h>
+#include <cln/lfloat.h>
 #include "cl_LF.h"
-#include <cl_complex.h>
-#include <cl_complex_io.h>
-#include <cl_real.h>
-#include <cl_random.h>
+#include <cln/complex.h>
+#include <cln/complex_io.h>
+#include <cln/real.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {

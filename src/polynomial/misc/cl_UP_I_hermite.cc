@@ -1,17 +1,19 @@
-// cl_hermite().
+// hermite().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_univpoly_integer.h"
+#include "cln/univpoly_integer.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 
-const cl_UP_I cl_hermite (sintL n)
+namespace cln {
+
+const cl_UP_I hermite (sintL n)
 {
 // The Hermite polynomials H_n(x) are defined as
 //
@@ -41,7 +43,7 @@ const cl_UP_I cl_hermite (sintL n)
 //
 //    H_n(x) = sum(j=0..floor(n/2), (-1)^j n!/j!(n-2j)! 2^(n-2j) x^(n-2j))
 //
-	var cl_univpoly_integer_ring R = cl_find_univpoly_ring(cl_I_ring);
+	var cl_univpoly_integer_ring R = find_univpoly_ring(cl_I_ring);
 	var cl_UP_I h = R->create(n);
 	var sintL k = n;
 	var cl_I c_k = ash(1,n);
@@ -56,3 +58,5 @@ const cl_UP_I cl_hermite (sintL n)
 	h.finalize();
 	return h;
 }
+
+}  // namespace cln

@@ -4,12 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
+
+namespace cln {
 
 const cl_FF min (const cl_FF& x, const cl_FF& y)
 {
 	return (x <= y ? x : y);
 }
+
+}  // namespace cln

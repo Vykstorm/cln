@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_private_thing cl_I_constructor_from_UL2 (uint32 wert_hi, uint32 wert_lo)
 {
@@ -100,3 +102,5 @@ cl_private_thing cl_I_constructor_from_UL2 (uint32 wert_hi, uint32 wert_lo)
 	#undef IF_LENGTH
 	#undef UL2_maxlength
 }
+
+}  // namespace cln

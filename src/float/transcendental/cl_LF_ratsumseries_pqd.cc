@@ -9,10 +9,12 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/lfloat.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_LF eval_pqd_series (uintL N, cl_pqd_series_term* args, uintC len)
 {
@@ -26,3 +28,5 @@ const cl_LF eval_pqd_series (uintL N, cl_pqd_series_term* args, uintC len)
 	return
 	  cl_I_to_LF(sums.V,len) / The(cl_LF)(sums.D * cl_I_to_LF(sums.T,len));
 }
+
+}  // namespace cln

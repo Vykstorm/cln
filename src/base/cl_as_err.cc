@@ -9,26 +9,30 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_as_error (const cl_number& obj, const char * typestring, const char * filename, int line)
 {
-	fprint(cl_stderr, "Type assertion failed: in file ");
-	fprint(cl_stderr, filename);
-	fprint(cl_stderr, ", line ");
-	fprintdecimal(cl_stderr, line);
-	fprint(cl_stderr, ", not ");
-	fprint(cl_stderr, typestring);
-	fprint(cl_stderr, ": ");
+	fprint(stderr, "Type assertion failed: in file ");
+	fprint(stderr, filename);
+	fprint(stderr, ", line ");
+	fprintdecimal(stderr, line);
+	fprint(stderr, ", not ");
+	fprint(stderr, typestring);
+	fprint(stderr, ": ");
 #if 0 // This brings in a dependency from the complex and float printer and all the float stuff.
-	fprint(cl_stderr, obj);
+	fprint(stderr, obj);
 #else
-	fprint(cl_stderr, "@0x");
-	fprinthexadecimal(cl_stderr, (unsigned long)(void*)&obj);
-	fprint(cl_stderr, ": 0x");
-	fprinthexadecimal(cl_stderr, (unsigned long)obj.word);
+	fprint(stderr, "@0x");
+	fprinthexadecimal(stderr, (unsigned long)(void*)&obj);
+	fprint(stderr, ": 0x");
+	fprinthexadecimal(stderr, (unsigned long)obj.word);
 #endif
-	fprint(cl_stderr, "\n");
+	fprint(stderr, "\n");
 	cl_abort();
 }
+
+}  // namespace cln

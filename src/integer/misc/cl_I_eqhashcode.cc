@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -12,7 +12,9 @@
 #include "cl_N.h"
 #include "cl_I.h"
 
-inline uint32 cl_equal_hashcode (const cl_FN& x)
+namespace cln {
+
+inline uint32 equal_hashcode (const cl_FN& x)
 {
 	var cl_signean sign;
 	var uint32 x32 = FN_to_L(x); // x als 32-Bit-Zahl
@@ -31,7 +33,7 @@ inline uint32 cl_equal_hashcode (const cl_FN& x)
 	return equal_hashcode_low(msd,exp,sign);
 }
 
-inline uint32 cl_equal_hashcode (const cl_BN& x)
+inline uint32 equal_hashcode (const cl_BN& x)
 {
 	var const uintD* MSDptr;
 	var uintC len;
@@ -121,13 +123,15 @@ inline uint32 cl_equal_hashcode (const cl_BN& x)
 }
 
 MAYBE_INLINE
-uint32 cl_equal_hashcode (const cl_I& x)
+uint32 equal_hashcode (const cl_I& x)
 {
 	if (fixnump(x)) {
 		DeclareType(cl_FN,x);
-		return cl_equal_hashcode(x);
+		return equal_hashcode(x);
 	} else {
 		DeclareType(cl_BN,x);
-		return cl_equal_hashcode(x);
+		return equal_hashcode(x);
 	}
 }
+
+}  // namespace cln

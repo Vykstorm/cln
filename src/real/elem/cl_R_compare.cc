@@ -1,19 +1,21 @@
-// cl_compare().
+// compare().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_rational.h"
-#include "cl_float.h"
+#include "cln/rational.h"
+#include "cln/float.h"
 
-cl_signean cl_compare (const cl_R& x, const cl_R& y)
+namespace cln {
+
+cl_signean compare (const cl_R& x, const cl_R& y)
 {
   // Methode:
   // Beide rational oder beide Floats -> klar.
@@ -24,21 +26,23 @@ cl_signean cl_compare (const cl_R& x, const cl_R& y)
 	realcase2(x
 	,	realcase2(y
 		,	// beides rationale Zahlen
-			return cl_compare(x,y);
+			return compare(x,y);
 		,	// x rational, y Float -> x in Float umwandeln
-			var cl_signean result = cl_compare(cl_float(x,y),y);
+			var cl_signean result = compare(cl_float(x,y),y);
 			if (result != signean_null)
 				return result;
-			return cl_compare(x,rational(y));
+			return compare(x,rational(y));
 		);
 	,	realcase2(y
 		,	// x Float, y rational -> y in Float umwandeln
-			var cl_signean result = cl_compare(x,cl_float(y,x));
+			var cl_signean result = compare(x,cl_float(y,x));
 			if (result != signean_null)
 				return result;
-			return cl_compare(rational(x),y);
+			return compare(rational(x),y);
 		,	// beides Floats
-			return cl_compare(x,y);
+			return compare(x,y);
 		);
 	);
 }
+
+}  // namespace cln

@@ -8,8 +8,10 @@
 
 // Implementation.
 
-#include "cl_SV_ringelt.h"
-#include "cl_io.h"
+#include "cln/SV_ringelt.h"
+#include "cln/io.h"
+
+namespace cln {
 
 extern void cl_dprint_unknown (cl_heap* pointer);
 static void dprint (cl_heap* pointer)
@@ -21,5 +23,7 @@ static void dprint (cl_heap* pointer)
 AT_INITIALIZATION(dprint_SV_ringelt)
 { cl_register_type_printer(cl_class_svector_ringelt,dprint); }
 
-// This dummy links in this module when <cl_SV_ringelt.h> requires it.
+// This dummy links in this module when <cln/SV_ringelt.h> requires it.
 int cl_SV_ringelt_debug_module;
+
+}  // namespace cln

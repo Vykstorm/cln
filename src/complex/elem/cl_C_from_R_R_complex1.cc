@@ -11,6 +11,8 @@
 
 #include "cl_R.h"
 
+namespace cln {
+
 const cl_N complex (const cl_R& a, const cl_R& b)
 {
 // Methode:
@@ -20,3 +22,5 @@ const cl_N complex (const cl_R& a, const cl_R& b)
 	else
 		return allocate_complex(a,b);
 }
+
+}  // namespace cln

@@ -9,11 +9,13 @@
 
 // Implementation.
 
-#include "cl_number.h"
+#include "cln/number.h"
 
 #if (cl_value_len < 32)
 
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_private_thing cl_I_constructor_from_L (sint32 wert)
 {
@@ -100,5 +102,7 @@ cl_private_thing cl_I_constructor_from_L (sint32 wert)
 		#undef IF_LENGTH
 	}
 }
+
+}  // namespace cln
 
 #endif

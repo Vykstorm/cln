@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 const cl_F_div_t cl_round_pi2 (const cl_F& x)
 {
 	if (float_exponent(x) < 0)
@@ -16,5 +18,7 @@ const cl_F_div_t cl_round_pi2 (const cl_F& x)
 		return cl_F_div_t(0,x); // Quotient 0, Rest x
 	else
 		// x durch pi/2 (mit hinreichender Genauigkeit) dividieren
-		return round2(x,scale_float(cl_pi(x),-1));
+		return round2(x,scale_float(pi(x),-1));
 }
+
+}  // namespace cln

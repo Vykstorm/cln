@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
 
 #include "cl_SF.h"
 #include "cl_xmacros.h"
+
+namespace cln {
 
 const cl_SF operator+ (const cl_SF& x1, const cl_SF& x2)
 {
@@ -122,3 +124,5 @@ const cl_SF operator+ (const cl_SF& x1, const cl_SF& x2)
       return encode_SF(sign1,exp1,mant1);
      }
 }
+
+}  // namespace cln

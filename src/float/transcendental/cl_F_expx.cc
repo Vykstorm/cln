@@ -9,17 +9,19 @@
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_low.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_zerop.cc"
 #include "cl_LF_exponent.cc"
+
+namespace cln {
 
 // cl_F expx_naive (const cl_F& x)
 // cl_LF expx_naive (const cl_LF& x)
@@ -188,3 +190,5 @@ const cl_LF expx_ratseries (const cl_LF& x)
 //  500    16.3     9.3
 // 1000    68      29
 // ==> ratseries faster for N >= 84.
+
+}  // namespace cln

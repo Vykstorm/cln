@@ -4,12 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_timing.h"
+#include "cln/timing.h"
 
 
 // Implementation.
+
+namespace cln {
 
 cl_timing::~cl_timing ()
 {
 	report_fn(*this);
 }
+
+}  // namespace cln

@@ -4,49 +4,57 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
 #include "cl_F.h"
-#include "cl_integer.h"
-#include "cl_rational.h"
-#include "cl_float.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/rational.h"
+#include "cln/float.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 
 #if 0
 
-float cl_float_approx (const cl_R& x)
+namespace cln {
+
+float float_approx (const cl_R& x)
 {
 	if (rationalp(x)) {
 		DeclareType(cl_RA,x);
-		return cl_float_approx(x);
+		return float_approx(x);
 	} else {
 		DeclareType(cl_F,x);
-		return cl_float_approx(x);
+		return float_approx(x);
 	}
 }
+
+}  // namespace cln
 
 #else // fully inlined, faster
 
 #include "cl_RA.h"
 #include "cl_I.h"
 
-float cl_float_approx (const cl_R& x)
+namespace cln {
+
+float float_approx (const cl_R& x)
 {
 	realcase6(x
-	,	return cl_float_approx(x);
-	,	return cl_float_approx(x);
-	,	return cl_float_approx(x);
-	,	return cl_float_approx(x);
-	,	return cl_float_approx(x);
-	,	return cl_float_approx(x);
+	,	return float_approx(x);
+	,	return float_approx(x);
+	,	return float_approx(x);
+	,	return float_approx(x);
+	,	return float_approx(x);
+	,	return float_approx(x);
 	);
 }
+
+}  // namespace cln
 
 #endif

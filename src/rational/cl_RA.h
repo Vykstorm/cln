@@ -3,11 +3,13 @@
 #ifndef _CL_RA_H
 #define _CL_RA_H
 
-#include "cl_number.h"
-#include "cl_rational.h"
+#include "cln/number.h"
+#include "cln/rational.h"
 #include "cl_macros.h"
-#include "cl_malloc.h"
+#include "cln/malloc.h"
 #include "cl_I.h"
+
+namespace cln {
 
 struct cl_heap_ratio : cl_heap {
 	cl_I numerator;
@@ -21,7 +23,7 @@ inline cl_heap_ratio* TheRatio (const cl_number& obj)
 
 inline cl_heap_ratio* allocate_ratio (const cl_I& num, const cl_I& den)
 {
-	cl_heap_ratio* p = (cl_heap_ratio*) cl_malloc_hook(sizeof(cl_heap_ratio));
+	cl_heap_ratio* p = (cl_heap_ratio*) malloc_hook(sizeof(cl_heap_ratio));
 	p->refcount = 1;
 	p->type = &cl_class_ratio;
 	p->numerator.pointer = num.pointer;	cl_inc_refcount(num);
@@ -168,5 +170,6 @@ inline const cl_I denominator (const cl_RA& r)
         }								\
     }
 
+}  // namespace cln
 
 #endif /* _CL_RA_H */

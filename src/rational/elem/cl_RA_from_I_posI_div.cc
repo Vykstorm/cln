@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_RA I_posI_div_RA (const cl_I& a, const cl_I& b)
 {
@@ -24,3 +26,5 @@ const cl_RA I_posI_div_RA (const cl_I& a, const cl_I& b)
 	else
 		return I_I_to_RA(exquo(a,d),exquopos(b,d));
 }
+
+}  // namespace cln

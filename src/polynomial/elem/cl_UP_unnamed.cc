@@ -1,4 +1,4 @@
-// cl_find_univpoly_ring().
+// find_univpoly_ring().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -6,7 +6,7 @@
 CL_PROVIDE(cl_UP_unnamed)
 
 // Specification.
-#include "cl_univpoly.h"
+#include "cln/univpoly.h"
 
 
 // Implementation.
@@ -18,6 +18,8 @@ CL_PROVIDE(cl_UP_unnamed)
 // (It could also be a weak hashuniq table cl_ring -> cl_univpoly_ring.)
 
 #include "cl_rcpointer_hashweak_rcpointer.h"
+
+namespace cln {
 
 // An entry can be collected when the value (the ring) isn't referenced any more
 // except from the hash table, and when the key (the base ring) isn't referenced
@@ -45,7 +47,7 @@ static inline void store_univpoly_ring (const cl_univpoly_ring& R)
 }
 
 
-const cl_univpoly_ring cl_find_univpoly_ring (const cl_ring& r)
+const cl_univpoly_ring find_univpoly_ring (const cl_ring& r)
 {
 	var cl_univpoly_ring* ring_in_table = get_univpoly_ring(r);
 	if (!ring_in_table) {
@@ -57,5 +59,7 @@ const cl_univpoly_ring cl_find_univpoly_ring (const cl_ring& r)
 	}
 	return *ring_in_table;
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_UP_unnamed)

@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_numtheory.h"
+#include "cln/numtheory.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 // [Cohen], section 1.5.2, algorithm 1.5.3.
 // For proofs refer to [F. Morain, J.-L. Nicolas: On Cornacchia's algorithm
@@ -85,7 +87,7 @@ const cornacchia_t cornacchia4 (const cl_I& d, const cl_I& p)
 			break;
 	}
 	// Compute x with x^2+d == 0 mod p.
-	var cl_modint_ring R = cl_find_modint_ring(p);
+	var cl_modint_ring R = find_modint_ring(p);
 	var sqrt_mod_p_t init = sqrt_mod_p(R,R->canonhom(-d));
 	if (init.condition)
 		return init.condition;
@@ -113,3 +115,5 @@ const cornacchia_t cornacchia4 (const cl_I& d, const cl_I& p)
 		return cornacchia_t(0);
 	return cornacchia_t(1, x,y);
 }
+
+}  // namespace cln

@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
 #include "cl_R.h"
-#include "cl_rational.h"
-#include "cl_float.h"
+#include "cln/rational.h"
+#include "cln/float.h"
+
+namespace cln {
 
 const cl_R log (const cl_R& a, const cl_R& b)
 {
@@ -49,3 +51,5 @@ const cl_R log (const cl_R& a, const cl_R& b)
 	// Nun a,b beide Floats.
 	return ln(The(cl_F)(a)) / ln(The(cl_F)(b));
 }}
+
+}  // namespace cln

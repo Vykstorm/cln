@@ -4,20 +4,24 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
 const cl_F operator- (const cl_F& x, const cl_F& y)
 #define minus(a,b) a-b
 GEN_F_OP2(x,y, minus, 1, 0, return)
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
 #include "cl_R_div_t.h"
+
+namespace cln {
 
 const cl_R_fdiv_t ffloor2 (const cl_R& x, const cl_R& y)
 {
@@ -32,3 +34,5 @@ const cl_R_fdiv_t ffloor2 (const cl_R& x, const cl_R& y)
 	var cl_R& r = q_r.remainder;
 	return cl_R_fdiv_t(q,y*r);
 }
+
+}  // namespace cln

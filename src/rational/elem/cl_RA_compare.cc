@@ -1,18 +1,20 @@
-// cl_compare().
+// compare().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 
-cl_signean cl_compare (const cl_RA& r, const cl_RA& s)
+namespace cln {
+
+cl_signean compare (const cl_RA& r, const cl_RA& s)
 {
 // Methode:
 // r,s Integer -> klar
@@ -25,7 +27,7 @@ cl_signean cl_compare (const cl_RA& r, const cl_RA& s)
 	if (integerp(r) && integerp(s)) {
 		DeclareType(cl_I,r);
 		DeclareType(cl_I,s);
-		return cl_compare(r,s);
+		return compare(r,s);
 	}
 	// r,s nicht beide Integers.
 	// 2. Schritt: Test, ob die Vorzeichen bereits das Ergebnis hergeben:
@@ -45,7 +47,7 @@ cl_signean cl_compare (const cl_RA& r, const cl_RA& s)
 		var const cl_I& a = r;
 		var const cl_I& b = numerator(s);
 		var const cl_I& c = denominator(s);
-		return cl_compare(a*c,b);
+		return compare(a*c,b);
 	}
 	elif (integerp(s)) {
 		DeclareType(cl_I,s);
@@ -54,7 +56,7 @@ cl_signean cl_compare (const cl_RA& r, const cl_RA& s)
 		var const cl_I& a = numerator(r);
 		var const cl_I& b = denominator(r);
 		var const cl_I& c = s;
-		return cl_compare(a,b*c);
+		return compare(a,b*c);
 	}
 	else {
 		DeclareType(cl_RT,r);
@@ -64,7 +66,9 @@ cl_signean cl_compare (const cl_RA& r, const cl_RA& s)
 		var const cl_I& b = denominator(r);
 		var const cl_I& c = numerator(s);
 		var const cl_I& d = denominator(s);
-		return cl_compare(a*d,b*c);
+		return compare(a*d,b*c);
 	}
 }
 // Beschleunigung durch Konversion zu Short-Floats diese zuerst vergleichen??
+
+}  // namespace cln

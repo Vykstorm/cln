@@ -6,15 +6,17 @@
 CL_PROVIDE(cl_R_ring)
 
 // Specification.
-#include "cl_real_ring.h"
+#include "cln/real_ring.h"
 
 
 // Implementation.
 
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
-#include "cl_io.h"
-#include "cl_real_io.h"
+#include "cln/io.h"
+#include "cln/real_io.h"
+
+namespace cln {
 
 static void R_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
 {
@@ -25,7 +27,7 @@ static void R_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element
 static cl_boolean R_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
-	return cl_equal(The(cl_R)(x),The(cl_R)(y));
+	return equal(The(cl_R)(x),The(cl_R)(y));
 }
 
 static const _cl_ring_element R_zero (cl_heap_ring* R)
@@ -112,7 +114,7 @@ static cl_ring_mulops R_mulops = {
 
 static cl_number_ring_ops<cl_R> R_ops = {
 	cl_R_p,
-	cl_equal,
+	equal,
 	exact_zerop,
 	operator+,
 	operator-,
@@ -156,5 +158,7 @@ inline cl_real_ring::cl_specialized_number_ring ()
 	: cl_number_ring (new cl_heap_real_ring()) {}
 
 const cl_real_ring cl_R_ring;
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_R_ring)

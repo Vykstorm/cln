@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 28 August 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 11. Using the library</TITLE>
 </HEAD>
@@ -23,7 +23,7 @@ environment variables, or directly substitute the appropriate values.
 
 <H2><A NAME="SEC65" HREF="cln_toc.html#TOC65">11.1 Compiler options</A></H2>
 <P>
-<A NAME="IDX320"></A>
+<A NAME="IDX333"></A>
 
 
 <P>
@@ -60,10 +60,53 @@ linking a CLN application it is sufficient to give the flag <CODE>-lcln</CODE>.
 
 
 
-<H2><A NAME="SEC66" HREF="cln_toc.html#TOC66">11.2 Include files</A></H2>
+<H2><A NAME="SEC66" HREF="cln_toc.html#TOC66">11.2 Compatibility to old CLN versions</A></H2>
 <P>
-<A NAME="IDX321"></A>
-<A NAME="IDX322"></A>
+<A NAME="IDX334"></A>
+<A NAME="IDX335"></A>
+
+
+<P>
+As of CLN version 1.1 all non-macro identifiers were hidden in namespace
+<CODE>cln</CODE> in order to avoid potential name clashes with other C++
+libraries. If you have an old application, you will have to manually
+port it to the new scheme. The following principles will help during
+the transition:
+
+<UL>
+<LI>
+
+All headers are now in a separate subdirectory. Instead of including
+<CODE>cl_</CODE><VAR>something</VAR><CODE>.h</CODE>, include
+<CODE>cln/</CODE><VAR>something</VAR><CODE>.h</CODE> now.
+<LI>
+
+All public identifiers (typenames and functions) have lost their
+<CODE>cl_</CODE> prefix.  Exceptions are all the typenames of number types,
+(cl_N, cl_I, cl_MI, ...), rings, symbolic types (cl_string,
+cl_symbol) and polynomials (cl_UP_<VAR>type</VAR>).  (This is because their
+names would not be mnemonic enough once the namespace <CODE>cln</CODE> is
+imported. Even in a namespace we favor <CODE>cl_N</CODE> over <CODE>N</CODE>.)
+<LI>
+
+All public <EM>functions</EM> that had by a <CODE>cl_</CODE> in their name still
+carry that <CODE>cl_</CODE> if it is intrinsic part of a typename (as in
+<CODE>cl_I_to_int ()</CODE>).
+</UL>
+
+<P>
+When developing other libraries, please keep in mind not to import the
+namespace <CODE>cln</CODE> in one of your public header files by saying
+<CODE>using namespace cln;</CODE>. This would propagate to other applications
+and can cause name clashes there.
+
+
+
+
+<H2><A NAME="SEC67" HREF="cln_toc.html#TOC67">11.3 Include files</A></H2>
+<P>
+<A NAME="IDX336"></A>
+<A NAME="IDX337"></A>
 
 
 <P>
@@ -72,201 +115,202 @@ Here is a summary of the include files and their contents.
 
 <DL COMPACT>
 
-<DT><CODE>&#60;cl_object.h&#62;</CODE>
+<DT><CODE>&#60;cln/object.h&#62;</CODE>
 <DD>
 General definitions, reference counting, garbage collection.
-<DT><CODE>&#60;cl_number.h&#62;</CODE>
+<DT><CODE>&#60;cln/number.h&#62;</CODE>
 <DD>
 The class cl_number.
-<DT><CODE>&#60;cl_complex.h&#62;</CODE>
+<DT><CODE>&#60;cln/complex.h&#62;</CODE>
 <DD>
 Functions for class cl_N, the complex numbers.
-<DT><CODE>&#60;cl_real.h&#62;</CODE>
+<DT><CODE>&#60;cln/real.h&#62;</CODE>
 <DD>
 Functions for class cl_R, the real numbers.
-<DT><CODE>&#60;cl_float.h&#62;</CODE>
+<DT><CODE>&#60;cln/float.h&#62;</CODE>
 <DD>
 Functions for class cl_F, the floats.
-<DT><CODE>&#60;cl_sfloat.h&#62;</CODE>
+<DT><CODE>&#60;cln/sfloat.h&#62;</CODE>
 <DD>
 Functions for class cl_SF, the short-floats.
-<DT><CODE>&#60;cl_ffloat.h&#62;</CODE>
+<DT><CODE>&#60;cln/ffloat.h&#62;</CODE>
 <DD>
 Functions for class cl_FF, the single-floats.
-<DT><CODE>&#60;cl_dfloat.h&#62;</CODE>
+<DT><CODE>&#60;cln/dfloat.h&#62;</CODE>
 <DD>
 Functions for class cl_DF, the double-floats.
-<DT><CODE>&#60;cl_lfloat.h&#62;</CODE>
+<DT><CODE>&#60;cln/lfloat.h&#62;</CODE>
 <DD>
 Functions for class cl_LF, the long-floats.
-<DT><CODE>&#60;cl_rational.h&#62;</CODE>
+<DT><CODE>&#60;cln/rational.h&#62;</CODE>
 <DD>
 Functions for class cl_RA, the rational numbers.
-<DT><CODE>&#60;cl_integer.h&#62;</CODE>
+<DT><CODE>&#60;cln/integer.h&#62;</CODE>
 <DD>
 Functions for class cl_I, the integers.
-<DT><CODE>&#60;cl_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/io.h&#62;</CODE>
 <DD>
 Input/Output.
-<DT><CODE>&#60;cl_complex_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/complex_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_N, the complex numbers.
-<DT><CODE>&#60;cl_real_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/real_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_R, the real numbers.
-<DT><CODE>&#60;cl_float_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/float_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_F, the floats.
-<DT><CODE>&#60;cl_sfloat_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/sfloat_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_SF, the short-floats.
-<DT><CODE>&#60;cl_ffloat_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/ffloat_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_FF, the single-floats.
-<DT><CODE>&#60;cl_dfloat_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/dfloat_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_DF, the double-floats.
-<DT><CODE>&#60;cl_lfloat_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/lfloat_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_LF, the long-floats.
-<DT><CODE>&#60;cl_rational_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/rational_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_RA, the rational numbers.
-<DT><CODE>&#60;cl_integer_io.h&#62;</CODE>
+<DT><CODE>&#60;cln/integer_io.h&#62;</CODE>
 <DD>
 Input/Output for class cl_I, the integers.
-<DT><CODE>&#60;cl_input.h&#62;</CODE>
+<DT><CODE>&#60;cln/input.h&#62;</CODE>
 <DD>
 Flags for customizing input operations.
-<DT><CODE>&#60;cl_output.h&#62;</CODE>
+<DT><CODE>&#60;cln/output.h&#62;</CODE>
 <DD>
 Flags for customizing output operations.
-<DT><CODE>&#60;cl_malloc.h&#62;</CODE>
+<DT><CODE>&#60;cln/malloc.h&#62;</CODE>
 <DD>
-<CODE>cl_malloc_hook</CODE>, <CODE>cl_free_hook</CODE>.
-<DT><CODE>&#60;cl_abort.h&#62;</CODE>
+<CODE>malloc_hook</CODE>, <CODE>free_hook</CODE>.
+<DT><CODE>&#60;cln/abort.h&#62;</CODE>
 <DD>
 <CODE>cl_abort</CODE>.
-<DT><CODE>&#60;cl_condition.h&#62;</CODE>
+<DT><CODE>&#60;cln/condition.h&#62;</CODE>
 <DD>
 Conditions/exceptions.
-<DT><CODE>&#60;cl_string.h&#62;</CODE>
+<DT><CODE>&#60;cln/string.h&#62;</CODE>
 <DD>
 Strings.
-<DT><CODE>&#60;cl_symbol.h&#62;</CODE>
+<DT><CODE>&#60;cln/symbol.h&#62;</CODE>
 <DD>
 Symbols.
-<DT><CODE>&#60;cl_proplist.h&#62;</CODE>
+<DT><CODE>&#60;cln/proplist.h&#62;</CODE>
 <DD>
 Property lists.
-<DT><CODE>&#60;cl_ring.h&#62;</CODE>
+<DT><CODE>&#60;cln/ring.h&#62;</CODE>
 <DD>
 General rings.
-<DT><CODE>&#60;cl_null_ring.h&#62;</CODE>
+<DT><CODE>&#60;cln/null_ring.h&#62;</CODE>
 <DD>
 The null ring.
-<DT><CODE>&#60;cl_complex_ring.h&#62;</CODE>
+<DT><CODE>&#60;cln/complex_ring.h&#62;</CODE>
 <DD>
 The ring of complex numbers.
-<DT><CODE>&#60;cl_real_ring.h&#62;</CODE>
+<DT><CODE>&#60;cln/real_ring.h&#62;</CODE>
 <DD>
 The ring of real numbers.
-<DT><CODE>&#60;cl_rational_ring.h&#62;</CODE>
+<DT><CODE>&#60;cln/rational_ring.h&#62;</CODE>
 <DD>
 The ring of rational numbers.
-<DT><CODE>&#60;cl_integer_ring.h&#62;</CODE>
+<DT><CODE>&#60;cln/integer_ring.h&#62;</CODE>
 <DD>
 The ring of integers.
-<DT><CODE>&#60;cl_numtheory.h&#62;</CODE>
+<DT><CODE>&#60;cln/numtheory.h&#62;</CODE>
 <DD>
 Number threory functions.
-<DT><CODE>&#60;cl_modinteger.h&#62;</CODE>
+<DT><CODE>&#60;cln/modinteger.h&#62;</CODE>
 <DD>
 Modular integers.
-<DT><CODE>&#60;cl_V.h&#62;</CODE>
+<DT><CODE>&#60;cln/V.h&#62;</CODE>
 <DD>
 Vectors.
-<DT><CODE>&#60;cl_GV.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV.h&#62;</CODE>
 <DD>
 General vectors.
-<DT><CODE>&#60;cl_GV_number.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV_number.h&#62;</CODE>
 <DD>
 General vectors over cl_number.
-<DT><CODE>&#60;cl_GV_complex.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV_complex.h&#62;</CODE>
 <DD>
 General vectors over cl_N.
-<DT><CODE>&#60;cl_GV_real.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV_real.h&#62;</CODE>
 <DD>
 General vectors over cl_R.
-<DT><CODE>&#60;cl_GV_rational.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV_rational.h&#62;</CODE>
 <DD>
 General vectors over cl_RA.
-<DT><CODE>&#60;cl_GV_integer.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV_integer.h&#62;</CODE>
 <DD>
 General vectors over cl_I.
-<DT><CODE>&#60;cl_GV_modinteger.h&#62;</CODE>
+<DT><CODE>&#60;cln/GV_modinteger.h&#62;</CODE>
 <DD>
 General vectors of modular integers.
-<DT><CODE>&#60;cl_SV.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV.h&#62;</CODE>
 <DD>
 Simple vectors.
-<DT><CODE>&#60;cl_SV_number.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV_number.h&#62;</CODE>
 <DD>
 Simple vectors over cl_number.
-<DT><CODE>&#60;cl_SV_complex.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV_complex.h&#62;</CODE>
 <DD>
 Simple vectors over cl_N.
-<DT><CODE>&#60;cl_SV_real.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV_real.h&#62;</CODE>
 <DD>
 Simple vectors over cl_R.
-<DT><CODE>&#60;cl_SV_rational.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV_rational.h&#62;</CODE>
 <DD>
 Simple vectors over cl_RA.
-<DT><CODE>&#60;cl_SV_integer.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV_integer.h&#62;</CODE>
 <DD>
 Simple vectors over cl_I.
-<DT><CODE>&#60;cl_SV_ringelt.h&#62;</CODE>
+<DT><CODE>&#60;cln/SV_ringelt.h&#62;</CODE>
 <DD>
 Simple vectors of general ring elements.
-<DT><CODE>&#60;cl_univpoly.h&#62;</CODE>
+<DT><CODE>&#60;cln/univpoly.h&#62;</CODE>
 <DD>
 Univariate polynomials.
-<DT><CODE>&#60;cl_univpoly_integer.h&#62;</CODE>
+<DT><CODE>&#60;cln/univpoly_integer.h&#62;</CODE>
 <DD>
 Univariate polynomials over the integers.
-<DT><CODE>&#60;cl_univpoly_rational.h&#62;</CODE>
+<DT><CODE>&#60;cln/univpoly_rational.h&#62;</CODE>
 <DD>
 Univariate polynomials over the rational numbers.
-<DT><CODE>&#60;cl_univpoly_real.h&#62;</CODE>
+<DT><CODE>&#60;cln/univpoly_real.h&#62;</CODE>
 <DD>
 Univariate polynomials over the real numbers.
-<DT><CODE>&#60;cl_univpoly_complex.h&#62;</CODE>
+<DT><CODE>&#60;cln/univpoly_complex.h&#62;</CODE>
 <DD>
 Univariate polynomials over the complex numbers.
-<DT><CODE>&#60;cl_univpoly_modint.h&#62;</CODE>
+<DT><CODE>&#60;cln/univpoly_modint.h&#62;</CODE>
 <DD>
 Univariate polynomials over modular integer rings.
-<DT><CODE>&#60;cl_timing.h&#62;</CODE>
+<DT><CODE>&#60;cln/timing.h&#62;</CODE>
 <DD>
 Timing facilities.
-<DT><CODE>&#60;cln.h&#62;</CODE>
+<DT><CODE>&#60;cln/cln.h&#62;</CODE>
 <DD>
 Includes all of the above.
 </DL>
 
 
 
-<H2><A NAME="SEC67" HREF="cln_toc.html#TOC67">11.3 An Example</A></H2>
+<H2><A NAME="SEC68" HREF="cln_toc.html#TOC68">11.4 An Example</A></H2>
 
 <P>
 A function which computes the nth Fibonacci number can be written as follows.
-<A NAME="IDX323"></A>
+<A NAME="IDX338"></A>
 
 
 
 <PRE>
-#include &#60;cl_integer.h&#62;
-#include &#60;cl_real.h&#62;
+#include &#60;cln/integer.h&#62;
+#include &#60;cln/real.h&#62;
+using namespace cln;
 
 // Returns F_n, computed as the nearest integer to
 // ((1+sqrt(5))/2)^n/sqrt(5). Assume n&#62;=0.
@@ -285,10 +329,11 @@ Let's explain what is going on in detail.
 
 
 <P>
-The include file <CODE>&#60;cl_integer.h&#62;</CODE> is necessary because the type
-<CODE>cl_I</CODE> is used in the function, and the include file <CODE>&#60;cl_real.h&#62;</CODE>
+The include file <CODE>&#60;cln/integer.h&#62;</CODE> is necessary because the type
+<CODE>cl_I</CODE> is used in the function, and the include file <CODE>&#60;cln/real.h&#62;</CODE>
 is needed for the type <CODE>cl_R</CODE> and the floating point number functions.
-The order of the include files does not matter.
+The order of the include files does not matter.  In order not to write out
+<CODE>cln::</CODE><VAR>foo</VAR> we can safely import the whole namespace <CODE>cln</CODE>.
 
 
 <P>
@@ -344,9 +389,9 @@ contains this implementation together with an even faster algorithm.
 
 
 
-<H2><A NAME="SEC68" HREF="cln_toc.html#TOC68">11.4 Debugging support</A></H2>
+<H2><A NAME="SEC69" HREF="cln_toc.html#TOC69">11.5 Debugging support</A></H2>
 <P>
-<A NAME="IDX324"></A>
+<A NAME="IDX339"></A>
 
 
 <P>
@@ -380,11 +425,11 @@ CLN offers a function <CODE>cl_print</CODE>, callable from the debugger,
 for printing number objects. In order to get this function, you have
 to define the macro <SAMP>`CL_DEBUG'</SAMP> and then include all the header files
 for which you want <CODE>cl_print</CODE> debugging support. For example:
-<A NAME="IDX325"></A>
+<A NAME="IDX340"></A>
 
 <PRE>
 #define CL_DEBUG
-#include &#60;cl_string.h&#62;
+#include &#60;cln/string.h&#62;
 </PRE>
 
 Now, if you have in your program a variable <CODE>cl_string s</CODE>, and
@@ -407,7 +452,7 @@ only with number objects and similar. Therefore CLN offers a member function
 <CODE>debug_print()</CODE> on all CLN types. The same macro <SAMP>`CL_DEBUG'</SAMP>
 is needed for this member function to be implemented. Under <CODE>gdb</CODE>,
 you call it like this:
-<A NAME="IDX326"></A>
+<A NAME="IDX341"></A>
 
 <PRE>
 (gdb) print s

@@ -4,14 +4,18 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational_io.h"
+#include "cln/rational_io.h"
 
 
 // Implementation.
 
-#include "cl_output.h"
+#include "cln/output.h"
+
+namespace cln {
 
 void print_rational (cl_ostream stream, const cl_print_real_flags& flags, const cl_RA& z)
 {
 	print_rational(stream,(const cl_print_rational_flags&)flags,z);
 }
+
+}  // namespace cln

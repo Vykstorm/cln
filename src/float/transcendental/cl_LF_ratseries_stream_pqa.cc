@@ -9,10 +9,12 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/lfloat.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 static void eval_pqa_series_aux (uintL N1, uintL N2,
                                  cl_pqa_series_stream& args,
@@ -96,3 +98,5 @@ const cl_LF eval_rational_series (uintL N, cl_pqa_series_stream& args, uintC len
 	eval_pqa_series_aux(0,N,args,NULL,&Q,&T);
 	return cl_I_to_LF(T,len) / cl_I_to_LF(Q,len);
 }
+
+}  // namespace cln

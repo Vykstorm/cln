@@ -6,16 +6,17 @@
 CL_PROVIDE(cl_GV_I)
 
 // Specification.
-#include "cl_GV_integer.h"
+#include "cln/GV_integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 #include "cl_offsetof.h"
 
+namespace cln {
 
 // Memory-efficient integer vectors: If all entries are known in advance to
 // be >= 0 and < 2^m, we reserve only m bits for each entry. (m=1,2,4,8,16,32).
@@ -123,7 +124,7 @@ static cl_GV_I_vectorops general_vectorops = {{
 
 cl_heap_GV_I* cl_make_heap_GV_I (uintL len)
 {
-	var cl_heap_GV_I_general* hv = (cl_heap_GV_I_general*) cl_malloc_hook(offsetofa(cl_heap_GV_I_general,data)+sizeof(cl_I)*len);
+	var cl_heap_GV_I_general* hv = (cl_heap_GV_I_general*) malloc_hook(offsetofa(cl_heap_GV_I_general,data)+sizeof(cl_I)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_gvector_integer;
 	new (&hv->v) cl_GV_inner<cl_I> (len,&general_vectorops.ops);
@@ -469,7 +470,7 @@ cl_heap_GV_I* cl_make_heap_GV_I (uintL len, sintL m)
 	// For room allocation purposes, be pessimistic: assume the uintD case (since intDsize>=32).
 	var uintL words = // ceiling(len*2^log2_bits,intDsize)
 	  (((sintL)len-1)>>(log2_intDsize-log2_bits))+1;
-	var cl_heap_GV_I_bits32* hv = (cl_heap_GV_I_bits32*) cl_malloc_hook(offsetofa(cl_heap_GV_I_bits32,data)+sizeof(uintD)*words);
+	var cl_heap_GV_I_bits32* hv = (cl_heap_GV_I_bits32*) malloc_hook(offsetofa(cl_heap_GV_I_bits32,data)+sizeof(uintD)*words);
 	hv->refcount = 1;
 	hv->type = &cl_class_gvector_integer;
 	new (&hv->v) cl_GV_inner<cl_I> (len,&bits_vectorops[log2_bits]->ops);
@@ -488,5 +489,7 @@ sintL cl_heap_GV_I::maxbits () const
 
 // An empty vector.
 const cl_GV_I cl_null_GV_I = cl_GV_I((uintL)0);
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_GV_I)

@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
 
 #include "cl_FF.h"
 
-float cl_float_approx (const cl_FF& obj)
+namespace cln {
+
+float float_approx (const cl_FF& obj)
 {
 	union { ffloat eksplicit; float machine_float; } u;
 	#define val u.eksplicit
@@ -33,3 +35,5 @@ float cl_float_approx (const cl_FF& obj)
 	#undef val
 	return u.machine_float;
 }
+
+}  // namespace cln

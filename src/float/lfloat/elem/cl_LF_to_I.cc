@@ -9,13 +9,15 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_minusp.cc"
+
+namespace cln {
 
 const cl_I cl_LF_to_I (const cl_LF& x)
 {
@@ -43,3 +45,5 @@ const cl_I cl_LF_to_I (const cl_LF& x)
                  minus(uexp, LF_exp_mid + intDsize*(uintL)len)
                 );
 }
+
+}  // namespace cln

@@ -9,16 +9,20 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_error_exquo (const cl_I& x, const cl_I& y)
 {
-	fprint(cl_stderr, "Quotient ");
-	fprint(cl_stderr, x);
-	fprint(cl_stderr, " / ");
-	fprint(cl_stderr, y);
-	fprint(cl_stderr, " is not an integer.\n");
+	fprint(stderr, "Quotient ");
+	fprint(stderr, x);
+	fprint(stderr, " / ");
+	fprint(stderr, y);
+	fprint(stderr, " is not an integer.\n");
 	cl_abort();
 }
+
+}  // namespace cln

@@ -46,7 +46,11 @@ AT_INITIALIZATION(ieee)
 
 #endif
 
+namespace cln {
+
 // This dummy links in this module whenever some module needs IEEE floats.
 int cl_ieee_module;
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_ieee)

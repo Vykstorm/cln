@@ -6,14 +6,16 @@
 CL_PROVIDE(cl_I_ring)
 
 // Specification.
-#include "cl_integer_ring.h"
+#include "cln/integer_ring.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_integer_io.h"
+#include "cln/integer.h"
+#include "cln/integer_io.h"
 #include "cl_I.h"
+
+namespace cln {
 
 static void I_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element& x)
 {
@@ -24,7 +26,7 @@ static void I_fprint (cl_heap_ring* R, cl_ostream stream, const _cl_ring_element
 static cl_boolean I_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
-	return cl_equal(The(cl_I)(x),The(cl_I)(y));
+	return equal(The(cl_I)(x),The(cl_I)(y));
 }
 
 static const _cl_ring_element I_zero (cl_heap_ring* R)
@@ -108,7 +110,7 @@ static cl_ring_mulops I_mulops = {
 
 static cl_number_ring_ops<cl_I> I_ops = {
 	cl_I_p,
-	cl_equal,
+	equal,
 	zerop,
 	operator+,
 	operator-,
@@ -152,5 +154,7 @@ inline cl_integer_ring::cl_specialized_number_ring ()
 	: cl_number_ring (new cl_heap_integer_ring()) {}
 
 const cl_integer_ring cl_I_ring;
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_I_ring)

@@ -6,14 +6,15 @@
 CL_PROVIDE(cl_GV_number)
 
 // Specification.
-#include "cl_GV_number.h"
+#include "cln/GV_number.h"
 
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
 #include "cl_offsetof.h"
 
+namespace cln {
 
 static void cl_gvector_number_destructor (cl_heap* pointer)
 {
@@ -98,7 +99,7 @@ static cl_GV_vectorops<cl_number> general_vectorops = {
 
 cl_heap_GV_number* cl_make_heap_GV_number (uintL len)
 {
-	var cl_heap_GV_number_general* hv = (cl_heap_GV_number_general*) cl_malloc_hook(offsetofa(cl_heap_GV_number_general,data)+sizeof(cl_number)*len);
+	var cl_heap_GV_number_general* hv = (cl_heap_GV_number_general*) malloc_hook(offsetofa(cl_heap_GV_number_general,data)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_gvector_number;
 	new (&hv->v) cl_GV_inner<cl_number> (len,&general_vectorops);
@@ -109,5 +110,7 @@ cl_heap_GV_number* cl_make_heap_GV_number (uintL len)
 
 // An empty vector.
 const cl_GV_number cl_null_GV_number = cl_GV_number((uintL)0);
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_GV_number)

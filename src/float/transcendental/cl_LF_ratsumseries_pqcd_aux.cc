@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_integer.h"
-#include "cl_abort.h"
+#include "cln/integer.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void eval_pqcd_series_aux (uintL N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, cl_boolean rightmost)
 {
@@ -77,3 +79,5 @@ void eval_pqcd_series_aux (uintL N, cl_pqcd_series_term* args, cl_pqcd_series_re
 		}
 	}
 }
+
+}  // namespace cln

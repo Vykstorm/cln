@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_I ldb_extract (const cl_I& x, uintL p, uintL q)
     { CL_ALLOCA_STACK;
@@ -54,3 +56,5 @@ const cl_I ldb_extract (const cl_I& x, uintL p, uintL q)
       // Jetzt enthält die UDS newMSDptr/len/.. die extrahierten Bits.
       return UDS_to_I(newMSDptr,len); // UDS in Integer umwandeln
     }
+
+}  // namespace cln

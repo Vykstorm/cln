@@ -12,6 +12,8 @@
 #include "cl_SF.h"
 #include "cl_FF.h"
 
+namespace cln {
+
 const cl_FF cl_SF_to_FF (const cl_SF& x)
 {
 	// x entpacken:
@@ -22,3 +24,5 @@ const cl_FF cl_SF_to_FF (const cl_SF& x)
 	// Mantisse um 23-16=7 Bits nach links schieben:
 	return encode_FF(sign,exp,mant<<(FF_mant_len-SF_mant_len));
 }
+
+}  // namespace cln

@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational_io.h"
+#include "cln/rational_io.h"
 
 
 // Implementation.
 
-#include "cl_integer_io.h"
-#include "cl_rational.h"
+#include "cln/integer_io.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 void print_rational (cl_ostream stream, unsigned int base, const cl_RA& z)
 {
@@ -28,3 +30,5 @@ void print_rational (cl_ostream stream, unsigned int base, const cl_RA& z)
 		print_integer(stream,base,den); // Nenner ausgeben
 	}
 }
+
+}  // namespace cln

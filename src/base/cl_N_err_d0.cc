@@ -9,11 +9,15 @@
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_error_division_by_0 (void)
 {
-	fprint(cl_stderr, "Division by zero.\n");
+	fprint(stderr, "Division by zero.\n");
 	cl_abort();
 }
+
+}  // namespace cln

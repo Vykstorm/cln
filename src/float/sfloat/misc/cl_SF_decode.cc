@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
@@ -12,18 +12,22 @@
 #include "cl_SF.h"
 #include "cl_I.h"
 
-const cl_decoded_sfloat decode_float (const cl_SF& x)
+namespace cln {
+
+const decoded_sfloat decode_float (const cl_SF& x)
 {
 	// x entpacken:
 	var cl_signean sign;
 	var sintL exp;
 	var uint32 mant;
-	SF_decode(x, { return cl_decoded_sfloat(SF_0, 0, SF_1); },
+	SF_decode(x, { return decoded_sfloat(SF_0, 0, SF_1); },
 		     sign=,exp=,mant=
 		 );
-	return cl_decoded_sfloat(
+	return decoded_sfloat(
 		encode_SF(0,0,mant), // (-1)^0 * 2^0 * m erzeugen
 		L_to_FN(exp), // e als Fixnum
 		encode_SF(sign,1,bit(SF_mant_len)) // (-1)^s erzeugen
 	       );
 }
+
+}  // namespace cln

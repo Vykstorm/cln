@@ -1,10 +1,10 @@
-// cl_compare().
+// compare().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -16,7 +16,9 @@
 #define MAYBE_INLINE inline
 #include "cl_LF_minusp.cc"
 
-cl_signean cl_compare (const cl_LF& x, const cl_LF& y)
+namespace cln {
+
+cl_signean compare (const cl_LF& x, const cl_LF& y)
 {
 // Methode:
 // x und y haben verschiedenes Vorzeichen ->
@@ -101,3 +103,5 @@ cl_signean cl_compare (const cl_LF& x, const cl_LF& y)
             } }
         }
 }
+
+}  // namespace cln

@@ -6,12 +6,14 @@
 CL_PROVIDE(cl_symbol)
 
 // Specification.
-#include "cl_symbol.h"
+#include "cln/symbol.h"
 
 
 // Implementation.
 
 #include "cl_hashuniqweak.h"
+
+namespace cln {
 
 inline const cl_string hashkey (const cl_symbol& sym)
 {
@@ -96,5 +98,7 @@ cl_symbol::cl_symbol (const cl_string& s)
 	cl_inc_pointer_refcount(p);
 	pointer = p;
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_symbol)

@@ -9,18 +9,20 @@
 
 // Implementation.
 
-#include "cl_float.h"
+#include "cln/float.h"
 #include "cl_low.h"
 #include "cl_F.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 #undef MAYBE_INLINE
 #define MAYBE_INLINE inline
 #include "cl_LF_zerop.cc"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
+
+namespace cln {
 
 // cl_F atanx_naive (const cl_F& x)
 // cl_LF atanx_naive (const cl_LF& x)
@@ -256,3 +258,4 @@ const cl_F atanx (const cl_F& x)
 }
 // Bit complexity (N = length(x)): O(log(N)^2*M(N)).
 
+}  // namespace cln

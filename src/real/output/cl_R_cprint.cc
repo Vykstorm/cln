@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real_io.h"
+#include "cln/real_io.h"
 
 
 // Implementation.
 
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_R.h"
-#include "cl_rational_io.h"
-#include "cl_float_io.h"
+#include "cln/rational_io.h"
+#include "cln/float_io.h"
+
+namespace cln {
 
 void print_real (cl_ostream stream, const cl_print_real_flags& flags, const cl_R& z)
 {
@@ -26,3 +28,5 @@ void print_real (cl_ostream stream, const cl_print_real_flags& flags, const cl_R
 		print_float(stream,flags,z);
 	}
 }
+
+}  // namespace cln

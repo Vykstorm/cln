@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_modinteger.h"
+#include "cln/modinteger.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_N.h"
 #include "cl_MI.h"
+
+namespace cln {
 
 const cl_MI operator>> (const cl_MI& x, sintL y) // assume 0 <= y < 2^31
 {
@@ -40,3 +42,5 @@ const cl_MI operator>> (const cl_MI& x, sintL y) // assume 0 <= y < 2^31
 #endif
 		return R->div(x, expt_pos(R->canonhom(2), (cl_I)(long)y));
 }
+
+}  // namespace cln

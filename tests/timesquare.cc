@@ -1,10 +1,10 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_random.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {
@@ -21,12 +21,12 @@ int main (int argc, char * argv[])
 	cl_I M2 = (cl_I)1 << (intDsize*m2);
 	cl_I a = random_I(M1);
 	cl_I b = random_I(M2);
-	fprint(cl_stderr, "Squaring:       ");
+	fprint(stderr, "Squaring:       ");
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)
 	    { cl_I p = a * a; }
 	}
-	fprint(cl_stderr, "Multiplication: ");
+	fprint(stderr, "Multiplication: ");
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)
 	    { cl_I p = a * b; }

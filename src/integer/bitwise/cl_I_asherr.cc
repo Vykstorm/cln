@@ -9,15 +9,19 @@
 
 // Implementation.
 
-#include "cl_number.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/number.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 void cl_ash_error (const cl_I& badamount)
 {
-	fprint(cl_stderr, "ash: too large shift amount: ");
-	fprint(cl_stderr, badamount);
-	fprint(cl_stderr, "\n");
+	fprint(stderr, "ash: too large shift amount: ");
+	fprint(stderr, badamount);
+	fprint(stderr, "\n");
 	cl_abort();
 }
+
+}  // namespace cln

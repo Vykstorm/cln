@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_F float_sign (const cl_F& x, const cl_F& y)
 {
@@ -20,3 +22,5 @@ const cl_F float_sign (const cl_F& x, const cl_F& y)
 	else
 		return y;
 }
+
+}  // namespace cln

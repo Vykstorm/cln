@@ -3,17 +3,11 @@
 #ifndef _CL_I_HASH_GCPOINTER_H
 #define _CL_I_HASH_GCPOINTER_H
 
-#include "cl_number.h"
-#include "cl_integer.h"
-
-// For the sake of gcc-2.7.x, this declaration must come before cl_hash1.h.
-extern unsigned long hashcode (const cl_I& x);
-
+#include "cln/number.h"
+#include "cln/integer.h"
 #include "cl_hash1.h"
 
-// Equality.
-static inline bool equal (const cl_I& x, const cl_I& y)
-{ return (bool)cl_equal(x,y); }
+namespace cln {
 
 typedef cl_htentry1<cl_I,cl_gcpointer> cl_htentry_from_integer_to_gcpointer;
 
@@ -35,5 +29,7 @@ struct cl_ht_from_integer_to_gcpointer : public cl_gcpointer {
 	// Store.
 	void put (const cl_I& x, const cl_gcpointer& y) const;
 };
+
+}  // namespace cln
 
 #endif /* _CL_I_HASH_GCPOINTER_H */

@@ -3,9 +3,11 @@
 #ifndef _CL_R_DIV_T_H
 #define _CL_R_DIV_T_H
 
-#include "cl_real.h"
+#include "cln/real.h"
 #include "cl_RA.h"
-#include "cl_float.h"
+#include "cln/float.h"
+
+namespace cln {
 
 inline cl_R_div_t::cl_R_div_t (const cl_I_div_t& result)
 	: quotient(result.quotient), remainder(result.remainder) {}
@@ -18,5 +20,7 @@ inline cl_R_div_t::cl_R_div_t (const cl_F_div_t& result)
 
 inline cl_R_fdiv_t::cl_R_fdiv_t (const cl_F_fdiv_t& result)
 	: quotient(result.quotient), remainder(result.remainder) {}
+
+}  // namespace cln
 
 #endif /* _CL_R_DIV_T_H */

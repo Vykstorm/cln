@@ -11,9 +11,11 @@
 
 #include "cl_LF_impl.h"
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
 {
@@ -140,3 +142,5 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
 //            num_length < 2*len && den_length < len
 // whereas cl_I_to_LF(numerator,len)/cl_I_to_LF(denominator,len) is faster if
 //            num_length > 2*len || den_length > len
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -12,9 +12,11 @@
 #include "cl_F_tran.h"
 #include "cl_F.h"
 #include "cl_SF.h"
-#include "cl_integer.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
+
+namespace cln {
 
 const cl_F ln (const cl_F& x)
 {
@@ -28,7 +30,7 @@ const cl_F ln (const cl_F& x)
 	// Rechengenauigkeit erhöhen und m,e,s bestimmen:
 	if (longfloatp(x) && (TheLfloat(x)->len >= 110)) {
 		DeclareType(cl_LF,x);
-		var cl_decoded_lfloat m_e_s = decode_float(extend(x,TheLfloat(x)->len+1));
+		var decoded_lfloat m_e_s = decode_float(extend(x,TheLfloat(x)->len+1));
 		var cl_LF& m = m_e_s.mantissa;
 		var cl_I& e = m_e_s.exponent;
 		if (m < make_SF(0,0+SF_exp_mid,floor(bit(SF_mant_len+2),3))) { // Short-Float 2/3
@@ -40,7 +42,7 @@ const cl_F ln (const cl_F& x)
 			res = res + cl_float(e,m)*cl_ln2(m); // ln(m)+e*ln(2)
 		return cl_float(res,x);
 	} else {
-		var cl_decoded_float m_e_s = decode_float(cl_F_extendsqrtx(x));
+		var decoded_float m_e_s = decode_float(cl_F_extendsqrtx(x));
 		var cl_F& m = m_e_s.mantissa;
 		var cl_I& e = m_e_s.exponent;
 		if (m < make_SF(0,0+SF_exp_mid,floor(bit(SF_mant_len+2),3))) { // Short-Float 2/3
@@ -53,3 +55,5 @@ const cl_F ln (const cl_F& x)
 		return cl_float(res,x);
 	}
 }
+
+}  // namespace cln

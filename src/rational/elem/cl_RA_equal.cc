@@ -1,18 +1,20 @@
-// cl_equal().
+// equal().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 
-cl_boolean cl_equal (const cl_RA& r, const cl_RA& s)
+namespace cln {
+
+cl_boolean equal (const cl_RA& r, const cl_RA& s)
 {
 // Methode:
 // r,s Integer -> klar
@@ -24,7 +26,7 @@ cl_boolean cl_equal (const cl_RA& r, const cl_RA& s)
 			// r,s beide Integer
 			DeclareType(cl_I,r);
 			DeclareType(cl_I,s);
-			return cl_equal(r,s);
+			return equal(r,s);
 		} else
 			// r Integer, s Ratio
 			return cl_false;
@@ -36,10 +38,12 @@ cl_boolean cl_equal (const cl_RA& r, const cl_RA& s)
 			DeclareType(cl_RT,r);
 			DeclareType(cl_RT,s);
 			// r,s Ratios
-			if (!cl_equal(numerator(r),numerator(s)))
+			if (!equal(numerator(r),numerator(s)))
 				return cl_false;
-			if (!cl_equal(denominator(r),denominator(s)))
+			if (!equal(denominator(r),denominator(s)))
 				return cl_false;
 			return cl_true;
 		}
 }
+
+}  // namespace cln

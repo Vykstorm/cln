@@ -1,13 +1,13 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_lfloat.h>
-#include <cl_rational.h>
-#include <cl_float_io.h>
-#include <cl_random.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/lfloat.h>
+#include <cln/rational.h>
+#include <cln/float_io.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {
@@ -23,7 +23,7 @@ int main (int argc, char * argv[])
 	cl_I M2 = (cl_I)1 << (intDsize*m2);
 	cl_I m3 = cl_I(argv[3]);
 	cl_I M3 = (cl_I)1 << (intDsize*m3);
-	cl_float_format_t M1 = (cl_float_format_t)(m1*intDsize);
+	float_format_t M1 = (float_format_t)(m1*intDsize);
 	cl_I u;
 	cl_I v;
 	do { u = random_I(M2); } while (zerop(u));

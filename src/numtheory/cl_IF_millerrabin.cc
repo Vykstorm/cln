@@ -9,12 +9,14 @@
 
 // Implementation.
 
-#include "cl_modinteger.h"
+#include "cln/modinteger.h"
+
+namespace cln {
 
 cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 {
 	// [Cohen], section 8.2, algorithm 8.2.2.
-	var cl_modint_ring R = cl_find_modint_ring(n); // Z/nZ
+	var cl_modint_ring R = find_modint_ring(n); // Z/nZ
 	var cl_I m = n-1;
 	var uintL e = ord2(m);
 	m = m>>e;
@@ -61,3 +63,5 @@ cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 	}
 	return cl_true;
 }
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex.h"
+#include "cln/complex.h"
 
 
 // Implementation.
 
 #include "cl_C.h"
-#include "cl_real.h"
+#include "cln/real.h"
+
+namespace cln {
 
 const cl_N exp (const cl_N& x)
 {
@@ -26,9 +28,11 @@ const cl_N exp (const cl_N& x)
 		// x=a+bi
 		var const cl_R& a = realpart(x);
 		var const cl_R& b = imagpart(x);
-		var cl_cos_sin_t unitvec = cl_cos_sin(b); // (cos b), (sin b)
+		var cos_sin_t unitvec = cos_sin(b); // (cos b), (sin b)
 		// Da b nicht = Fixnum 0 ist, ist auch sin(b) nicht = Fixnum 0.
 		var cl_R exp_a = exp(a); // (exp a)
 		return complex_C(exp_a * unitvec.cos, exp_a * unitvec.sin);
 	}
 }
+
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
@@ -12,6 +12,8 @@
 #include "cl_FF.h"
 #include "cl_F.h"
 #include "cl_low.h"
+
+namespace cln {
 
 const cl_FF sqrt (const cl_FF& x)
 {
@@ -63,3 +65,5 @@ const cl_FF sqrt (const cl_FF& x)
         }
       return encode_FF(0,exp,mant);
 }
+
+}  // namespace cln

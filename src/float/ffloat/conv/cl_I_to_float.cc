@@ -1,10 +1,10 @@
-// cl_float_approx().
+// float_approx().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -14,7 +14,9 @@
 #include "cl_DS.h"
 #include "cl_F.h"
 
-float cl_float_approx (const cl_I& x)
+namespace cln {
+
+float float_approx (const cl_I& x)
 {
 // Method: same as cl_I_to_FF().
       if (eq(x,0)) { return 0.0; }
@@ -106,3 +108,5 @@ float cl_float_approx (const cl_I& x)
         { u.eksplicit = make_FF_word(sign,(sintL)exp+FF_exp_mid,mant); }
       return u.machine_float;
 }
+
+}  // namespace cln

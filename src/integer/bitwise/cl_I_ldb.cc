@@ -4,14 +4,16 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_I_byte.h"
+
+namespace cln {
 
 const cl_I ldb (const cl_I& n, const cl_byte& b)
 {
@@ -46,3 +48,5 @@ const cl_I ldb (const cl_I& n, const cl_byte& b)
             return erg;
         }
 }
+
+}  // namespace cln

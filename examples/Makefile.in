@@ -102,6 +102,7 @@ mostlyclean : clean
 
 clean : force
 	$(RM) *.s *.o *.a $(PROGRAMS) a.out core
+	$(RM) -r .libs _libs
 
 distclean : clean
 	$(RM) config.status config.log config.cache Makefile

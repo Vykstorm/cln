@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
@@ -12,7 +12,9 @@
 #include "cl_FF.h"
 #include "cl_DF.h"
 
-double cl_double_approx (const cl_FF& x)
+namespace cln {
+
+double double_approx (const cl_FF& x)
 {
 	// x entpacken:
 	var cl_signean sign;
@@ -62,3 +64,5 @@ double cl_double_approx (const cl_FF& x)
 	#endif
 	return u.machine_double;
 }
+
+}  // namespace cln

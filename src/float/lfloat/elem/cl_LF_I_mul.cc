@@ -10,10 +10,12 @@
 // Implementation.
 
 #include "cl_LF_impl.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_DS.h"
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 {
@@ -86,3 +88,4 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 }
 // Bit complexity (N = max(length(x),length(y))): O(M(N)).
 
+}  // namespace cln

@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
@@ -12,7 +12,9 @@
 #include "cl_DF.h"
 #include "cl_FF.h"
 
-float cl_float_approx (const cl_DF& x)
+namespace cln {
+
+float float_approx (const cl_DF& x)
 {
 	union { ffloat eksplicit; float machine_float; } u;
 	// x entpacken:
@@ -70,3 +72,5 @@ float cl_float_approx (const cl_DF& x)
 	  { u.eksplicit = make_FF_word(sign,exp+FF_exp_mid,mant); }
 	return u.machine_float;
 }
+
+}  // namespace cln

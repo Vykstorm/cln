@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -19,12 +19,16 @@
 #include "cl_DF_eqhashcode.cc"
 #include "cl_LF_eqhashcode.cc"
 
-uint32 cl_equal_hashcode (const cl_F& x)
+namespace cln {
+
+uint32 equal_hashcode (const cl_F& x)
 {
 	floatcase(x
-	,	return cl_equal_hashcode(x);
-	,	return cl_equal_hashcode(x);
-	,	return cl_equal_hashcode(x);
-	,	return cl_equal_hashcode(x);
+	,	return equal_hashcode(x);
+	,	return equal_hashcode(x);
+	,	return equal_hashcode(x);
+	,	return equal_hashcode(x);
 	);
 }
+
+}  // namespace cln

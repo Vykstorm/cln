@@ -1,6 +1,6 @@
 #include "exam.h"
-#include <cl_sfloat.h>
-#include <cl_sfloat_io.h>
+#include <cln/sfloat.h>
+#include <cln/sfloat_io.h>
 
 static minus_test sfloat_minus_tests[] = {
 

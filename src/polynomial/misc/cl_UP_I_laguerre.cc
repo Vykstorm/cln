@@ -1,17 +1,19 @@
-// cl_laguerre().
+// laguerre().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_univpoly_integer.h"
+#include "cln/univpoly_integer.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 
-const cl_UP_I cl_laguerre (sintL n)
+namespace cln {
+
+const cl_UP_I laguerre (sintL n)
 {
 // The Laguerre polynomials L_n(x) are defined as
 //
@@ -40,7 +42,7 @@ const cl_UP_I cl_laguerre (sintL n)
 //
 //       L_n(x) = sum(j=0..n, (-1)^(n-j) n!^2/j!(n-j)!^2 x^(n-j))
 //
-	var cl_univpoly_integer_ring R = cl_find_univpoly_ring(cl_I_ring);
+	var cl_univpoly_integer_ring R = find_univpoly_ring(cl_I_ring);
 	var cl_UP_I l = R->create(n);
 	var sintL k = n;
 	var cl_I c_k = (evenp(n) ? 1 : -1);
@@ -55,3 +57,5 @@ const cl_UP_I cl_laguerre (sintL n)
 	l.finalize();
 	return l;
 }
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_boolean oddp (const cl_I& x)
 {
@@ -28,3 +30,5 @@ cl_boolean oddp (const cl_I& x)
 			return cl_false;
 	}
 }
+
+}  // namespace cln

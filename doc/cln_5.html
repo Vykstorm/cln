@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 28 August 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 5. Input/Output</TITLE>
 </HEAD>
@@ -11,14 +11,14 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_4.html">previous</A>, <A 
 
 <H1><A NAME="SEC44" HREF="cln_toc.html#TOC44">5. Input/Output</A></H1>
 <P>
-<A NAME="IDX236"></A>
+<A NAME="IDX237"></A>
 
 
 
 
 <H2><A NAME="SEC45" HREF="cln_toc.html#TOC45">5.1 Internal and printed representation</A></H2>
 <P>
-<A NAME="IDX237"></A>
+<A NAME="IDX238"></A>
 
 
 <P>
@@ -33,9 +33,9 @@ Several external representations may denote the same number, for example,
 
 <P>
 Converting an internal to an external representation is called "printing",
-<A NAME="IDX238"></A>
-converting an external to an internal representation is called "reading".
 <A NAME="IDX239"></A>
+converting an external to an internal representation is called "reading".
+<A NAME="IDX240"></A>
 In CLN, it is always true that conversion of an internal to an external
 representation and then back to an internal representation will yield the
 same internal representation. Symbolically: <CODE>read(print(x)) == x</CODE>.
@@ -118,10 +118,9 @@ In Common Lisp notation: <CODE>#C(<VAR>realpart</VAR> <VAR>imagpart</VAR>)</CODE
 <H2><A NAME="SEC46" HREF="cln_toc.html#TOC46">5.2 Input functions</A></H2>
 
 <P>
-Including <CODE>&#60;cl_io.h&#62;</CODE> defines a type <CODE>cl_istream</CODE>, which is
-the type of the first argument to all input functions. Unless you build
-and use CLN with the macro CL_IO_STDIO being defined, <CODE>cl_istream</CODE>
-is the same as <CODE>istream&#38;</CODE>.
+Including <CODE>&#60;cln/io.h&#62;</CODE> defines a type <CODE>cl_istream</CODE>, which is
+the type of the first argument to all input functions. <CODE>cl_istream</CODE>
+is the same as <CODE>std::istream&#38;</CODE>.
 
 
 <P>
@@ -130,7 +129,7 @@ The variable
 <UL>
 <LI>
 
-<CODE>cl_istream cl_stdin</CODE>
+<CODE>cl_istream stdin</CODE>
 </UL>
 
 <P>
@@ -157,7 +156,7 @@ last <CODE>freadchar</CODE> operation on <CODE>stream</CODE>.
 <P>
 Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
 <CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
-defines, in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>, the following input function:
+defines, in <CODE>&#60;cln/<VAR>type</VAR>_io.h&#62;</CODE>, the following input function:
 
 
 <DL COMPACT>
@@ -168,7 +167,7 @@ Reads a number from <CODE>stream</CODE> and stores it in the <CODE>result</CODE>
 </DL>
 
 <P>
-The most flexible input functions, defined in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>,
+The most flexible input functions, defined in <CODE>&#60;cln/<VAR>type</VAR>_io.h&#62;</CODE>,
 are the following:
 
 
@@ -270,10 +269,9 @@ precision corresponding to their number of significant digits.
 <H2><A NAME="SEC47" HREF="cln_toc.html#TOC47">5.3 Output functions</A></H2>
 
 <P>
-Including <CODE>&#60;cl_io.h&#62;</CODE> defines a type <CODE>cl_ostream</CODE>, which is
-the type of the first argument to all output functions. Unless you build
-and use CLN with the macro CL_IO_STDIO being defined, <CODE>cl_ostream</CODE>
-is the same as <CODE>ostream&#38;</CODE>.
+Including <CODE>&#60;cln/io.h&#62;</CODE> defines a type <CODE>cl_ostream</CODE>, which is
+the type of the first argument to all output functions. <CODE>cl_ostream</CODE>
+is the same as <CODE>std::ostream&#38;</CODE>.
 
 
 <P>
@@ -282,7 +280,7 @@ The variable
 <UL>
 <LI>
 
-<CODE>cl_ostream cl_stdout</CODE>
+<CODE>cl_ostream stdout</CODE>
 </UL>
 
 <P>
@@ -295,7 +293,7 @@ The variable
 <UL>
 <LI>
 
-<CODE>cl_ostream cl_stderr</CODE>
+<CODE>cl_ostream stderr</CODE>
 </UL>
 
 <P>
@@ -341,7 +339,7 @@ on the <CODE>stream</CODE>.
 <P>
 Each of the classes <CODE>cl_N</CODE>, <CODE>cl_R</CODE>, <CODE>cl_RA</CODE>, <CODE>cl_I</CODE>,
 <CODE>cl_F</CODE>, <CODE>cl_SF</CODE>, <CODE>cl_FF</CODE>, <CODE>cl_DF</CODE>, <CODE>cl_LF</CODE>
-defines, in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>, the following output functions:
+defines, in <CODE>&#60;cln/<VAR>type</VAR>_io.h&#62;</CODE>, the following output functions:
 
 
 <DL COMPACT>
@@ -351,13 +349,13 @@ defines, in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>, the following output
 <DT><CODE>cl_ostream operator&#60;&#60; (cl_ostream stream, const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
 Prints the number <CODE>x</CODE> on the <CODE>stream</CODE>. The output may depend
-on the global printer settings in the variable <CODE>cl_default_print_flags</CODE>.
+on the global printer settings in the variable <CODE>default_print_flags</CODE>.
 The <CODE>ostream</CODE> flags and settings (flags, width and locale) are
 ignored.
 </DL>
 
 <P>
-The most flexible output function, defined in <CODE>&#60;cl_<VAR>type</VAR>_io.h&#62;</CODE>,
+The most flexible output function, defined in <CODE>&#60;cln/<VAR>type</VAR>_io.h&#62;</CODE>,
 are the following:
 
 <PRE>
@@ -416,7 +414,7 @@ using this variable name. Default is <CODE>"x"</CODE>.
 </DL>
 
 <P>
-The global variable <CODE>cl_default_print_flags</CODE> contains the default values,
+The global variable <CODE>default_print_flags</CODE> contains the default values,
 used by the function <CODE>fprint</CODE>.
 
 

@@ -1,6 +1,6 @@
 // Includes the CPU specific cl_asm_*.cc file.
 
-#include "cl_config.h"
+#include "cln/config.h"
 #include "cl_DS_endian.h"
 
 #ifdef __m68k__

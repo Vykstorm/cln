@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr)
     { // Nun sind unterhalb von destptr n Digits Platz.
@@ -51,3 +53,6 @@ uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr)
       // destptr zeigt nun aufs untere Ende der DS.
       return destptr;
     }
+
+}  // namespace cln
+

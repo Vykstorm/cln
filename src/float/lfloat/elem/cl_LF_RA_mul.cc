@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_RA.h"
+
+namespace cln {
 
 const cl_R cl_LF_RA_mul (const cl_LF& x, const cl_RA& y)
 {
@@ -47,3 +49,5 @@ const cl_R cl_LF_RA_mul (const cl_LF& x, const cl_RA& y)
 // We see that the first approach is always better than the second, except if
 //    den_length = x_length && x_length <= num_length <= 2*x_length
 // when both are equally fast.
+
+}  // namespace cln

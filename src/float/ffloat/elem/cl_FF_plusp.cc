@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
@@ -16,6 +16,8 @@
 #include "cl_FF_minusp.cc"
 #include "cl_FF_zerop.cc"
 
+namespace cln {
+
 MAYBE_INLINE2
 cl_boolean plusp (const cl_FF& x)
 {
@@ -26,3 +28,5 @@ cl_boolean plusp (const cl_FF& x)
 	else
 		return cl_true; // sonst ist x>0.
 }
+
+}  // namespace cln

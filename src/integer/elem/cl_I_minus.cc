@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 const cl_I operator- (const cl_I& x, const cl_I& y)
 {
@@ -204,3 +206,5 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
                 }
         }   }
 }
+
+}  // namespace cln

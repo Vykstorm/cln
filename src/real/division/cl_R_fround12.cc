@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
+
+namespace cln {
 
 const cl_F fround (const cl_R& x, const cl_R& y)
 {
@@ -25,3 +27,5 @@ const cl_F fround (const cl_R& x, const cl_R& y)
 		}
 	return fround(x/y);
 }
+
+}  // namespace cln

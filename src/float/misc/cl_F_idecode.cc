@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -18,6 +18,8 @@
 #include "cl_DF_idecode.cc"
 #include "cl_LF_idecode.cc"
 
+namespace cln {
+
 const cl_idecoded_float integer_decode_float (const cl_F& x)
 {
 	floatcase(x
@@ -27,3 +29,5 @@ const cl_idecoded_float integer_decode_float (const cl_F& x)
 	,	return integer_decode_float(x);
 	);
 }
+
+}  // namespace cln

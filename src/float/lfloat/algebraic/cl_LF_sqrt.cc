@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 
 
 // Implementation.
@@ -13,7 +13,9 @@
 #include "cl_LF_impl.h"
 #include "cl_F.h"
 #include "cl_DS.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 const cl_LF sqrt (const cl_LF& x)
 {
@@ -128,3 +130,4 @@ const cl_LF sqrt (const cl_LF& x)
 }
 // Bit complexity (N := length(x)): O(M(N)).
 
+}  // namespace cln

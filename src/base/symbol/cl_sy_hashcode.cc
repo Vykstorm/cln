@@ -1,15 +1,17 @@
-// cl_symbol hashcode().
+// cln/symbol.hashcode().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_symbol.h"
+#include "cln/symbol.h"
 
 
 // Implementation.
 
 #include "cl_offsetof.h"
+
+namespace cln {
 
 #define declare_alignof(where,type)  \
   struct CONCAT(aligndummy,__LINE__) { char slot1; type slot2; }; \
@@ -22,3 +24,5 @@ unsigned long hashcode (const cl_symbol& s)
 	return (unsigned long)(s.pointer)
 	       / (string_alignment & -string_alignment); // divide by power of 2
 }
+
+}  // namespace cln

@@ -1,4 +1,4 @@
-// cl_eulerconst().
+// eulerconst().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -9,12 +9,14 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_alloca.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 #if 0 // works, but besselintegral4 is always faster
 
@@ -498,7 +500,7 @@ const cl_LF compute_eulerconst (uintC len)
 		return compute_eulerconst_besselintegral1(len);
 }
 
-const cl_LF cl_eulerconst (uintC len)
+const cl_LF eulerconst (uintC len)
 {
 	var uintC oldlen = TheLfloat(cl_LF_eulerconst)->len; // vorhandene Länge
 	if (len < oldlen)
@@ -517,3 +519,5 @@ const cl_LF cl_eulerconst (uintC len)
 	cl_LF_eulerconst = compute_eulerconst(newlen);
 	return (len < newlen ? shorten(cl_LF_eulerconst,len) : cl_LF_eulerconst);
 }
+
+}  // namespace cln

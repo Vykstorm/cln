@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I_combin.h"
+
+namespace cln {
 
 const cl_I binomial (uintL n, uintL k)
 {
@@ -54,3 +56,5 @@ const cl_I binomial (uintL n, uintL k)
 	prod = prod << (k + logcount(m) - logcount(n));
 	return exquopos(prod,factorial(k));
 }
+
+}  // namespace cln

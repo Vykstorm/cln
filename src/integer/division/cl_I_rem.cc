@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I rem (const cl_I& x, const cl_I& y)
 {
@@ -21,3 +23,5 @@ const cl_I rem (const cl_I& x, const cl_I& y)
   var cl_I r = cl_divide(abs(x),abs(y)).remainder;
   if (minusp(x)) { return -r; } else { return r; }
 }
+
+}  // namespace cln

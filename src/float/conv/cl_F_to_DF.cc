@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_F.h"
+
+namespace cln {
 
 const cl_DF cl_F_to_DF (const cl_F& x)
 {
@@ -20,3 +22,5 @@ const cl_DF cl_F_to_DF (const cl_F& x)
 	,	return cl_LF_to_DF(x);
 	);
 }
+
+}  // namespace cln

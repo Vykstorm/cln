@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_complex_io.h"
+#include "cln/complex_io.h"
 
 
 // Implementation.
 
-#include "cl_output.h"
-#include "cl_complex.h"
+#include "cln/output.h"
+#include "cln/complex.h"
 #include "cl_C.h"
-#include "cl_real_io.h"
+#include "cln/real_io.h"
+
+namespace cln {
 
 void print_complex (cl_ostream stream, const cl_print_number_flags& flags, const cl_N& z)
 {
@@ -58,3 +60,5 @@ void print_complex (cl_ostream stream, const cl_print_number_flags& flags, const
 		}
 	}
 }
+
+}  // namespace cln

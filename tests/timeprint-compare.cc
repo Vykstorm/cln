@@ -1,13 +1,13 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_random.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/random.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 #include <cl_print.h>
-#include <cl_malloc.h>
-#include <cl_abort.h>
+#include <cln/malloc.h>
+#include <cln/abort.h>
 
 int main (int argc, char * argv[])
 {
@@ -27,18 +27,18 @@ int main (int argc, char * argv[])
 		char* p = (cl_digits_algo = 0, cl_decimal_string(a));
 		char* q = (cl_digits_algo = 1, cl_decimal_string(a));
 		if (strcmp(p,q)) cl_abort();
-		cl_free_hook(p);
-		cl_free_hook(q);
+		free_hook(p);
+		free_hook(q);
 	}
 	// Now start the timing.
 	cl_digits_algo = 0;
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)
-	    { char* p = cl_decimal_string(a); cl_free_hook(p); }
+	    { char* p = cl_decimal_string(a); free_hook(p); }
 	}
 	cl_digits_algo = 1;
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)
-	    { char* p = cl_decimal_string(a); cl_free_hook(p); }
+	    { char* p = cl_decimal_string(a); free_hook(p); }
 	}
 }

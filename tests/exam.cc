@@ -1,6 +1,9 @@
 #include <stdlib.h>
-#include <cl_io.h>
-#include <cl_real.h>
+#include <cln/io.h>
+#include <cln/real.h>
+
+using namespace std;
+using namespace cln;
 
 extern int test_integer();
 extern int test_rational();
@@ -38,10 +41,10 @@ int test_all (void)
 int main ()
 {
 	if (!test_all()) {
-		fprint (cl_stdout, "Tests passed.\n");
+		cout << "Tests passed." << endl;
 		exit(0);
 	} else {
-		fprint (cl_stdout, "Tests failed.\n");
+		cout << "Tests failed" << endl;
 		exit(1);
 	}
 }

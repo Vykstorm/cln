@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_modinteger.h"
+#include "cln/modinteger.h"
 
 
 // Implementation.
 
-#include "cl_io.h"
-#include "cl_integer_io.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+
+namespace cln {
 
 const char * cl_composite_condition::name () const
 { return "cl_composite_condition"; }
@@ -28,3 +30,5 @@ void cl_composite_condition::print (cl_ostream strm) const
 	}
 	fprint(strm, "\n");
 }
+
+}  // namespace cln

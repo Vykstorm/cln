@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
@@ -13,7 +13,11 @@
 #include "cl_RA.h"
 #undef zerop
 
+namespace cln {
+
 cl_boolean zerop (const cl_RA& x)
 {
 	return inline_zerop(x);
 }
+
+}  // namespace cln

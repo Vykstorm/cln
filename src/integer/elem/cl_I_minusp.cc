@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -13,7 +13,11 @@
 #include "cl_I.h"
 #undef minusp
 
+namespace cln {
+
 cl_boolean minusp (const cl_I& x)
 {
 	return inline_minusp(x);
 }
+
+}  // namespace cln

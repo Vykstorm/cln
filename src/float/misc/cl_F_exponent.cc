@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -18,6 +18,8 @@
 #include "cl_DF_exponent.cc"
 #include "cl_LF_exponent.cc"
 
+namespace cln {
+
 sintL float_exponent (const cl_F& x)
 {
 	floatcase(x
@@ -27,3 +29,5 @@ sintL float_exponent (const cl_F& x)
 	,	return float_exponent(x);
 	);
 }
+
+}  // namespace cln

@@ -4,19 +4,21 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_random.h"
+#include "cln/random.h"
 
 
 // Implementation.
 
 #include "cl_low.h"
 
+namespace cln {
+
 // Zufallszahlengenerator nach [Knuth: The Art of Computer Programming, Vol. II,
 // Seminumerical Algorithms, 3.3.4., Table 1, Line 30], nach C. Haynes:
 // X eine 64-Bit-Zahl. Iteration X := (a*X+c) mod m
 // mit m=2^64, a=6364136223846793005, c=1.
 
-uint32 random32 (cl_random_state& randomstate)
+uint32 random32 (random_state& randomstate)
 {
 #ifdef HAVE_FAST_LONGLONG
 	// Multiplikator a=6364136223846793005 = 0x5851F42D4C957F2D :
@@ -54,3 +56,5 @@ uint32 random32 (cl_random_state& randomstate)
 	return highlow32(low16(newseed_hi),high16(newseed_lo));
 #endif
 }
+
+}  // namespace cln

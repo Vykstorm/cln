@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
@@ -15,6 +15,8 @@
 #define MAYBE_INLINE inline
 #include "cl_SF_minusp.cc"
 
+namespace cln {
+
 const cl_SF fceiling (const cl_SF& x)
 {
 	if (minusp(x))
@@ -22,3 +24,5 @@ const cl_SF fceiling (const cl_SF& x)
 	else
 		return futruncate(x);
 }
+
+}  // namespace cln

@@ -1,8 +1,8 @@
 #include "exam.h"
-#include <cl_rational.h>
-#include <cl_rational_io.h>
-#include <cl_integer.h>
-#include <cl_integer_io.h>
+#include <cln/rational.h>
+#include <cln/rational_io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
 
 static floor_test rational_floor_tests[] = {
 

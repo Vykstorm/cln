@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_timing.h"
+#include "cln/timing.h"
 
 
 // Implementation.
@@ -28,6 +28,8 @@
 #else
   extern "C" int perror (const char *);
 #endif
+
+namespace cln {
 
 const cl_time_consumption cl_current_time_consumption ()
 {
@@ -64,3 +66,5 @@ const cl_time_consumption cl_current_time_consumption ()
 
 	return result;
 }
+
+}  // namespace cln

@@ -6,13 +6,14 @@
 CL_PROVIDE(cl_SV_ringelt)
 
 // Specification.
-#include "cl_SV_ringelt.h"
+#include "cln/SV_ringelt.h"
 
 
 // Implementation.
 
-#include "cl_abort.h"
+#include "cln/abort.h"
 
+namespace cln {
 
 static void cl_svector_ringelt_destructor (cl_heap* pointer)
 {
@@ -30,7 +31,7 @@ cl_class cl_class_svector_ringelt = {
 
 cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintL len)
 {
-	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) cl_malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
+	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_ringelt;
 	new (&hv->v) cl_SV_inner<_cl_ring_element> (len);
@@ -40,7 +41,7 @@ cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintL len)
 
 cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (uintL len)
 {
-	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) cl_malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
+	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_ringelt;
 	new (&hv->v) cl_SV_inner<_cl_ring_element> (len);
@@ -51,5 +52,7 @@ cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (uintL len)
 
 // An empty vector.
 const cl_SV_ringelt cl_null_SV_ringelt = cl_SV_ringelt((uintL)0);
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_SV_ringelt)

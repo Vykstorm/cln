@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_rational.h"
-#include "cl_io.h"
-#include "cl_rational_io.h"
+#include "cln/rational.h"
+#include "cln/io.h"
+#include "cln/rational_io.h"
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -21,10 +23,12 @@ static void dprint (cl_heap* pointer)
 AT_INITIALIZATION(dprint_RA)
 { cl_register_type_printer(cl_class_ratio,dprint); }
 
-// This dummy links in this module when <cl_rational.h> requires it.
+// This dummy links in this module when <cln/rational.h> requires it.
 int cl_RA_debug_module;
 
 extern int cl_I_debug_module;
 static void* dummy[] = { &dummy,
 	&cl_I_debug_module
 };
+
+}  // namespace cln

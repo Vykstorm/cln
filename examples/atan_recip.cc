@@ -1,20 +1,21 @@
 // Computation of arctan(1/m) (m integer) to high precision.
 
-#include "cl_integer.h"
-#include "cl_rational.h"
-#include "cl_real.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/rational.h"
+#include "cln/real.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 #include "cl_LF_tran.h"
 #include "cl_alloca.h"
 #include <stdlib.h>
 #include <string.h>
-#include "cl_timing.h"
+#include "cln/timing.h"
 
 #undef floor
 #include <math.h>
 #define floor cln_floor
 
+using namespace cln;
 
 // Method 1: atan(1/m) = sum(n=0..infty, (-1)^n/(2n+1) * 1/m^(2n+1))
 // Method 2: atan(1/m) = sum(n=0..infty, 4^n*n!^2/(2n+1)! * m/(m^2+1)^(n+1))
@@ -65,7 +66,7 @@ const cl_LF atan_recip_1c (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m;
-	var sintL N = (sintL)(0.69314718*intDsize/2*actuallen/log(cl_double_approx(m))) + 1;
+	var sintL N = (sintL)(0.69314718*intDsize/2*actuallen/log(double_approx(m))) + 1;
 	var cl_I num = 0, den = 1; // "lazy rational number"
 	for (sintL n = N-1; n>=0; n--) {
 		// Multiply sum with 1/m^2:
@@ -86,7 +87,7 @@ const cl_LF atan_recip_1d (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m;
-	var uintL N = (uintL)(0.69314718*intDsize/2*actuallen/log(cl_double_approx(m))) + 1;
+	var uintL N = (uintL)(0.69314718*intDsize/2*actuallen/log(double_approx(m))) + 1;
 	CL_ALLOCA_STACK;
 	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
@@ -141,7 +142,7 @@ const cl_LF atan_recip_2c (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m+1;
-	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(cl_double_approx(m2))) + 1;
+	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(double_approx(m2))) + 1;
 	var cl_I num = 0, den = 1; // "lazy rational number"
 	for (uintL n = N; n>0; n--) {
 		// Multiply sum with (2n)/(2n+1)(m^2+1):
@@ -160,7 +161,7 @@ const cl_LF atan_recip_2d (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m+1;
-	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(cl_double_approx(m2))) + 1;
+	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(double_approx(m2))) + 1;
 	CL_ALLOCA_STACK;
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));

@@ -3,8 +3,10 @@
 #ifndef _CL_2D_H
 #define _CL_2D_H
 
-#include "cl_types.h"
+#include "cln/types.h"
 #include "cl_D.h"
+
+namespace cln {
 
 // Multipliziert zwei Zahlen mod 2^intDsize.
 // mul2adic(a,b)
@@ -36,5 +38,7 @@
 // > uintD b: ungerade Zahl mod 2^intDsize
 // < ergebnis: Zahl c mod 2^intDsize mit b*c == a mod 2^intDsize
   extern uintD div2adic (uintD a, uintD b);
+
+}  // namespace cln
 
 #endif /* _CL_2D_H */

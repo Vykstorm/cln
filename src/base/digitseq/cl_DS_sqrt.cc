@@ -10,7 +10,9 @@
 // Implementation.
 
 #include "cl_low.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // We observe the following timings:
 // Time for square root of a_len = 2*N by b_len = N digits,
@@ -47,18 +49,6 @@
 //   -----> Newton faster for 1570 <= N <= 1790 and for N >= 2100.
   static inline cl_boolean cl_recipsqrt_suitable (uintL n)
   { return (cl_boolean)(n >= 2100); }
-#endif
-
-// Workaround gcc-2.7.0 bug on i386.
-#if defined(__GNUC__)
-  #if (__GNUC__ == 2)
-    #if (__GNUC_MINOR__ == 7)
-      #define workaround_gcc_bug()  *&b_stern = *&b_stern;
-    #endif
-  #endif
-#endif
-#ifndef workaround_gcc_bug
-  #define workaround_gcc_bug()
 #endif
 
 // Bildet zu einer Unsigned Digit sequence a die Wurzel
@@ -337,7 +327,6 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
                 if ( dec_loop_lsp(a_lptr lspop 2,j+1) ==0) goto b_stern_ok;
                 // Subtraktion von b*^2 lieferte negativen Carry
                 b_stern = b_stern-1; // b* := b* - 1
-                workaround_gcc_bug();
                 // erhöhe [a[2n-j-1],...,a[2n-2j-2]] um [b[n],...,b[n-j],0] + 2 * b* + 1
                 if ((sintD)b_stern < 0) { mspref(b_ptr,-1) |= bit(0); } // höchstes Bit von b* in b[n-j] ablegen
                 mspref(b_ptr,0) = (uintD)(b_stern<<1)+1; // niedrige Bits von b* und eine 1 als b[n-j-1] ablegen
@@ -372,3 +361,4 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
 }
 // Bit complexity (N := a_len): O(M(N)).
 
+}  // namespace cln

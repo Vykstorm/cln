@@ -12,6 +12,8 @@
 #include "cl_SF.h"
 #include "cl_LF.h"
 
+namespace cln {
+
 const cl_F cl_F_extendsqrtx (const cl_F& x)
 {
 // Methode:
@@ -26,3 +28,5 @@ const cl_F cl_F_extendsqrtx (const cl_F& x)
 	,	return extend(x,cl_LF_len_incsqrtx(TheLfloat(x)->len));
 	);
 }
+
+}  // namespace cln

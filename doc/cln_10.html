@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 28 August 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 10. Internals</TITLE>
 </HEAD>
@@ -15,7 +15,7 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_9.html">previous</A>, <A 
 
 <H2><A NAME="SEC60" HREF="cln_toc.html#TOC60">10.1 Why C++ ?</A></H2>
 <P>
-<A NAME="IDX314"></A>
+<A NAME="IDX327"></A>
 
 
 <P>
@@ -30,7 +30,7 @@ Efficiency: It compiles to machine code.
 
 <LI>
 
-<A NAME="IDX315"></A>
+<A NAME="IDX328"></A>
 Portability: It runs on all platforms supporting a C++ compiler. Because
 of the availability of GNU C++, this includes all currently used 32-bit and
 64-bit platforms, independently of the quality of the vendor's C++ compiler.
@@ -76,8 +76,8 @@ Object sharing: An operation like <CODE>x+0</CODE> returns <CODE>x</CODE> withou
 it.
 <LI>
 
-<A NAME="IDX316"></A>
-<A NAME="IDX317"></A>
+<A NAME="IDX329"></A>
+<A NAME="IDX330"></A>
 Garbage collection: A reference counting mechanism makes sure that any
 number object's storage is freed immediately when the last reference to the
 object is gone.
@@ -122,7 +122,7 @@ algorithm.
 
 For very large numbers (more than 12000 decimal digits), CLN uses
 Schönhage-Strassen
-<A NAME="IDX318"></A>
+<A NAME="IDX331"></A>
 multiplication, which is an asymptotically optimal multiplication 
 algorithm.
 <LI>
@@ -135,7 +135,7 @@ of division and radix conversion.
 
 <H2><A NAME="SEC63" HREF="cln_toc.html#TOC63">10.4 Garbage collection</A></H2>
 <P>
-<A NAME="IDX319"></A>
+<A NAME="IDX332"></A>
 
 
 <P>

@@ -3,8 +3,10 @@
 #ifndef _CL_R_H
 #define _CL_R_H
 
-#include "cl_number.h"
-#include "cl_real.h"
+#include "cln/number.h"
+#include "cln/real.h"
+
+namespace cln {
 
 extern cl_class cl_class_bignum;
 extern cl_class cl_class_ratio;
@@ -201,5 +203,7 @@ inline const cl_F cl_somefloat (const cl_R& x, const cl_F& y)
 		return x;
 	}
 }
+
+}  // namespace cln
 
 #endif /* _CL_R_H */

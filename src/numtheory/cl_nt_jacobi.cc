@@ -4,15 +4,17 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_numtheory.h"
+#include "cln/numtheory.h"
 
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 #include "cl_xmacros.h"
+
+namespace cln {
 
 int jacobi (const cl_I& a, const cl_I& b)
 {
@@ -66,3 +68,5 @@ int jacobi (const cl_I& a, const cl_I& b)
 			{ a = a-b; do { a = a-b; } while (a >= b); }
 	}
 }}
+
+}  // namespace cln

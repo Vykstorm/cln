@@ -1,10 +1,10 @@
-// cl_double_approx().
+// double_approx().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
@@ -14,7 +14,9 @@
 #include "cl_DS.h"
 #include "cl_F.h"
 
-double cl_double_approx (const cl_I& x)
+namespace cln {
+
+double double_approx (const cl_I& x)
 {
 // Method: same as cl_I_to_DF().
       if (eq(x,0)) { return 0.0; }
@@ -147,3 +149,5 @@ double cl_double_approx (const cl_I& x)
       return u.machine_double;
       #endif
 }
+
+}  // namespace cln

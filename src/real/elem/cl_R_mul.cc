@@ -4,26 +4,28 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_rational.h"
+#include "cln/rational.h"
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_F.h"
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 #include "cl_SF.h"
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 #include "cl_FF.h"
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 #include "cl_DF.h"
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
 #include "cl_N.h"
+
+namespace cln {
 
 ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
@@ -90,3 +92,5 @@ const cl_R operator* (const cl_R& x, const cl_R& y)
 			);
 	);
 }
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
 
 #include "cl_SF.h"
 #include "cl_I.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_idecoded_float integer_decode_float (const cl_SF& x)
@@ -28,3 +30,5 @@ const cl_idecoded_float integer_decode_float (const cl_SF& x)
 		(sign>=0 ? cl_I(1) : cl_I(-1)) // (-1)^s erzeugen
 	       );
 }
+
+}  // namespace cln

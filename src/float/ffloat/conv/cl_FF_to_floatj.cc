@@ -6,6 +6,7 @@
 // Specification.
 #include "cl_FF.h"
 
+namespace cln {
 
 // Implementation.
 
@@ -28,3 +29,5 @@ void cl_FF_to_float (const cl_FF& obj, ffloatjanus* val_)
 	  }
 	val_->eksplicit = val;
 }
+
+}  // namespace cln

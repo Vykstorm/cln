@@ -8,9 +8,11 @@
 
 // Implementation.
 
-#include "cl_string.h"
-#include "cl_io.h"
+#include "cln/string.h"
+#include "cln/io.h"
 #include <ctype.h>
+
+namespace cln {
 
 static void dprint (cl_heap* pointer)
 {
@@ -45,5 +47,7 @@ static void dprint (cl_heap* pointer)
 AT_INITIALIZATION(dprint_string)
 { cl_register_type_printer(cl_class_string,dprint); }
 
-// This dummy links in this module when <cl_string.h> requires it.
+// This dummy links in this module when <cln/string.h> requires it.
 int cl_string_debug_module;
+
+}  // namespace cln

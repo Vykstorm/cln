@@ -4,17 +4,19 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
-#include "cl_float.h"
-#include "cl_rational.h"
-#include "cl_integer.h"
+#include "cln/float.h"
+#include "cln/rational.h"
+#include "cln/integer.h"
 #include "cl_RA.h"
 #include "cl_I.h"
+
+namespace cln {
 
 // Methode (rekursiv dargestellt):
 // Falls x rational ist: x.
@@ -111,3 +113,5 @@ inline const cl_RA rationalize (const cl_F& x)
 
 const cl_RA rationalize (const cl_R& x)
 GEN_R_OP1_2(x, rationalize, return)
+
+}  // namespace cln

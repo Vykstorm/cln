@@ -1,21 +1,20 @@
-#include <cl_integer.h>
-#include <cl_integer_io.h>
-#include <cl_io.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
+#include <cln/io.h>
+
+using namespace std;
+using namespace cln;
 
 #define ASSERT(expr)  \
-  if (!(expr)) { 							\
-	fprint(cl_stderr,"Assertion failed! File ");			\
-	fprint(cl_stderr,__FILE__);					\
-	fprint(cl_stderr,", line ");					\
-	fprintdecimal(cl_stderr,__LINE__);				\
-	fprint(cl_stderr,".\n");					\
-	error = 1;							\
+  if (!(expr)) {                                        \
+	stderr << "Assertion failed! File " << __FILE__ << ", line " << __LINE__ << endl;    \
+	error = 1;                                      \
   }
 
 struct gcd_test {
 	const char * arg1;
-        const char * arg2;
-        const char * result;
+	const char * arg2;
+	const char * result;
 };
 
 #define num_elements(array)  (sizeof(array)/sizeof(array[0]))
@@ -32,16 +31,9 @@ static int test_##typename##_##opname (void)				\
 		rtype computed_result = opname(arg1,arg2);		\
 		rtype result = rtype(test.result);			\
 		if (computed_result != result) {			\
-			fprint(cl_stderr, "Error in " #typename "_" #opname "_tests["); \
-			fprintdecimal(cl_stderr, i);			\
-			fprint(cl_stderr, "] !\n");			\
-			fprint(cl_stderr, "Result should be: ");	\
-			fprint(cl_stderr, result);			\
-			fprint(cl_stderr, "\n");			\
-			fprint(cl_stderr, "Result computed : ");	\
-			fprint(cl_stderr, computed_result);		\
-			fprint(cl_stderr, "\n");			\
-			fprint(cl_stderr, "\n");			\
+			stderr << "Error in " #typename "_" #opname "_tests[" << i << "] !" << endl;	\
+			stderr << "Result should be: " << result << endl;	\
+			stderr << "Result computed : " << computed_result << endl << endl;	\
 			error = 1;					\
 		}							\
 	}								\

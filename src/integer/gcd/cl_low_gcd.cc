@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
+
+namespace cln {
 
 // Liefert den ggT zweier Integers.
 // gcd(a,b)
@@ -89,3 +91,5 @@
       // a=b>0
       return a;
 }
+
+}  // namespace cln

@@ -1,10 +1,10 @@
-#include <cl_number.h>
-#include <cl_io.h>
-#include <cl_integer.h>
-#include <cl_modinteger.h>
+#include <cln/number.h>
+#include <cln/io.h>
+#include <cln/integer.h>
+#include <cln/modinteger.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cl_timing.h>
+#include <cln/timing.h>
 
 int main (int argc, char * argv[])
 {
@@ -16,7 +16,7 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	uintL len = atoi(argv[1]);
-	cl_modint_ring R = cl_find_modint_ring((cl_I)1 << (intDsize*len));
+	cl_modint_ring R = find_modint_ring((cl_I)1 << (intDsize*len));
 	cl_MI a;
 	do { a = R->random(); } while (!oddp(R->retract(a)));
 	{ CL_TIMING;

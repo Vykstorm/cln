@@ -6,7 +6,7 @@
 CL_PROVIDE(cl_F_epsneg)
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 // Implementation.
 
@@ -16,6 +16,8 @@ CL_PROVIDE(cl_F_epsneg)
 #include "cl_DF.h"
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
+
+namespace cln {
 
 // Bei Floats mit d Bits (incl. Hiddem Bit, also d = ?F_mant_len+1)
 // ist ?F_negative_epsilon = 2^(-d-1)*(1+2^(1-d)),
@@ -50,7 +52,7 @@ inline const cl_LF LF_negative_epsilon (uintC len)
 	return erg;
 }
 
-const cl_F float_negative_epsilon (cl_float_format_t f)
+const cl_F float_negative_epsilon (float_format_t f)
 {
 	floatformatcase((uintL)f
 	,	return SF_negative_epsilon;
@@ -59,5 +61,7 @@ const cl_F float_negative_epsilon (cl_float_format_t f)
 	,	return LF_negative_epsilon(len);
 	);
 }
+
+}  // namespace cln
 
 CL_PROVIDE_END(cl_F_epsneg)

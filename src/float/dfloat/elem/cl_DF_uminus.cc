@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
 
 #include "cl_DF.h"
+
+namespace cln {
 
 const cl_DF operator- (const cl_DF& x)
 {
@@ -30,3 +32,5 @@ const cl_DF operator- (const cl_DF& x)
         return allocate_dfloat( semhi ^ bit(31), mlo );
 #endif
 }
+
+}  // namespace cln

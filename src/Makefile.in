@@ -202,8 +202,9 @@ install : all force
 	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi
 	$(LIBTOOL_INSTALL) $(INSTALL_DATA) libcln.la $(libdir)/libcln.la
 	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
-	$(INSTALL_DATA) $(top_srcdir)/include/*.h $(includedir)
-	$(INSTALL_DATA) ../include/*.h $(includedir)
+	if [ ! -d $(includedir)/cln ] ; then mkdir $(includedir)/cln ; fi
+	$(INSTALL_DATA) $(top_srcdir)/include/cln/*.h $(includedir)/cln
+	$(INSTALL_DATA) ../include/cln/*.h $(includedir)/cln
 #	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
 #	if [ ! -d $(mandir)/man3 ] ; then mkdir $(mandir)/man3 ; fi
 #	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
@@ -212,6 +213,7 @@ install : all force
 installdirs : force
 	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi
 	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
+	if [ ! -d $(includedir)/cln ] ; then mkdir $(includedir)/cln ; fi
 #	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
 #	if [ ! -d $(mandir)/man3 ] ; then mkdir $(mandir)/man3 ; fi
 #	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
@@ -219,8 +221,7 @@ installdirs : force
 
 uninstall : force
 	$(LIBTOOL_UNINSTALL) $(RM) $(libdir)/libcln.la
-	$(RM) $(addprefix $(includedir)/, $(notdir $(wildcard $(top_srcdir)/include/*.h)))
-	$(RM) $(addprefix $(includedir)/, $(notdir $(wildcard ../include/*.h)))
+	$(RM) -r $(includedir)/cln
 
 check : all
 

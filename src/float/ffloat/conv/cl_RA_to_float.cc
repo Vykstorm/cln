@@ -1,26 +1,28 @@
-// cl_float_approx().
+// float_approx().
 
 // General includes.
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational.h"
+#include "cln/rational.h"
 
 
 // Implementation.
 
 #include "cl_FF.h"
 #include "cl_RA.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
 #include "cl_F.h"
 
-float cl_float_approx (const cl_RA& x)
+namespace cln {
+
+float float_approx (const cl_RA& x)
 {
 // Method: same as cl_RA_to_FF().
       if (integerp(x)) {
         DeclareType(cl_I,x);
-        return cl_float_approx(x);
+        return float_approx(x);
       }
  {    // x Ratio
       DeclareType(cl_RT,x);
@@ -102,3 +104,5 @@ float cl_float_approx (const cl_RA& x)
         { u.eksplicit = make_FF_word(sign,lendiff+FF_exp_mid,mant); }
       return u.machine_float;
 }}
+
+}  // namespace cln

@@ -12,6 +12,8 @@
 #include "cl_DF.h"
 #include "cl_FF.h"
 
+namespace cln {
+
 const cl_FF cl_DF_to_FF (const cl_DF& x)
 {
 	// x entpacken:
@@ -62,3 +64,5 @@ const cl_FF cl_DF_to_FF (const cl_DF& x)
 	return encode_FF(sign,exp,manthi);
 	#endif
 }
+
+}  // namespace cln

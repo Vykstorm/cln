@@ -4,24 +4,18 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_io.h"
+#include "cln/io.h"
 
 
 // Implementation.
 
 // Just assume that the debugger runs on /dev/tty, independently of
-// cl_stdin, cl_stdout, cl_stderr.
+// stdin, stdout, stderr.
 
-#if defined(CL_IO_STDIO)
+#include <fstream>
 
-FILE* cl_debugout = fopen("/dev/tty","a");
+namespace cln {
 
-#endif
+std::ostream * cl_debugout_stream = new std::ofstream ("/dev/tty");
 
-#if defined(CL_IO_IOSTREAM)
-
-#include <fstream.h>
-
-ostream* cl_debugout_stream = new ofstream ("/dev/tty");
-
-#endif
+}  // namespace cln

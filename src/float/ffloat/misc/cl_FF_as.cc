@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_ffloat.h"
+#include "cln/ffloat.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
+
+namespace cln {
 
 inline cl_boolean cl_FF_p (const cl_number& x)
 {
@@ -33,3 +35,5 @@ const cl_FF& as_cl_FF (const cl_number& x, const char * filename, int line)
 	} else
 		cl_as_error(x,"a single-float number",filename,line);
 }
+
+}  // namespace cln

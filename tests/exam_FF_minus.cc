@@ -1,6 +1,6 @@
 #include "exam.h"
-#include <cl_ffloat.h>
-#include <cl_ffloat_io.h>
+#include <cln/ffloat.h>
+#include <cln/ffloat_io.h>
 
 static minus_test ffloat_minus_tests[] = {
 

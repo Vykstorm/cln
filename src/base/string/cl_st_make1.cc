@@ -4,18 +4,20 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_string.h"
+#include "cln/string.h"
 
 
 // Implementation.
 
-#include "cl_malloc.h"
+#include "cln/malloc.h"
 #include "cl_offsetof.h"
+
+namespace cln {
 
 cl_heap_string* cl_make_heap_string (const char * s)
 {
-	var unsigned long len = strlen(s);
-	var cl_heap_string* str = (cl_heap_string*) cl_malloc_hook(offsetofa(cl_heap_string,data)+sizeof(char)*(len+1));
+	var unsigned long len = ::strlen(s);
+	var cl_heap_string* str = (cl_heap_string*) malloc_hook(offsetofa(cl_heap_string,data)+sizeof(char)*(len+1));
 	str->refcount = 1;
 	str->type = &cl_class_string;
 	str->length = len;
@@ -29,3 +31,5 @@ cl_heap_string* cl_make_heap_string (const char * s)
 	}
 	return str;
 }
+
+}  // namespace cln

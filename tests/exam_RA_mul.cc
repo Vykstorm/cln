@@ -1,6 +1,6 @@
 #include "exam.h"
-#include <cl_rational.h>
-#include <cl_rational_io.h>
+#include <cln/rational.h>
+#include <cln/rational_io.h>
 
 static mul_test rational_mul_tests[] = {
 

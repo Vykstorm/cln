@@ -7,7 +7,7 @@ int test_MI_recip (int iterations)
 	// Check against multiplication.
 	for (i = iterations; i > 0; i--) {
 		cl_I m = testrandom_I();
-		cl_modint_ring R = cl_find_modint_ring(m);
+		cl_modint_ring R = find_modint_ring(m);
 		cl_I ai = testrandom_I();
 		if (gcd(m,ai)==1) {
 			cl_MI a = R->canonhom(ai);

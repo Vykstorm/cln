@@ -1,5 +1,7 @@
 // m = 0 : Z/mZ \isomorph Z
 
+namespace cln {
+
 static void int_fprint (cl_heap_modint_ring* R, cl_ostream stream, const _cl_MI &x)
 {
 	fprint(stream,R->_retract(x));
@@ -25,11 +27,11 @@ static const cl_I int_retract (cl_heap_modint_ring* R, const _cl_MI& x)
 }
 
 // This is the only case where random yields an error.
-static const _cl_MI int_random (cl_heap_modint_ring* R, cl_random_state& randomstate)
+static const _cl_MI int_random (cl_heap_modint_ring* R, random_state& randomstate)
 {
 	unused R;
 	unused randomstate;
-	fprint(cl_stderr, "Z / 0 Z not a finite set - no equidistributed random function.\n");
+	fprint(stderr, "Z / 0 Z not a finite set - no equidistributed random function.\n");
 	cl_abort();
 #if ((defined(__sparc__) || defined(__sparc64__)) && !defined(__GNUC__)) // Sun CC wants a return value
 	return _cl_MI(R, 0);
@@ -147,3 +149,5 @@ public:
 	// Virtual destructor.
 	~cl_heap_modint_ring_int () {}
 };
+
+}  // namespace cln

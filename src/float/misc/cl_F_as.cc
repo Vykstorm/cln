@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
 
 #include "cl_N.h"
+
+namespace cln {
 
 inline cl_boolean cl_F_p (const cl_number& x)
 {
@@ -35,3 +37,5 @@ const cl_F& as_cl_F (const cl_number& x, const char * filename, int line)
 	} else
 		cl_as_error(x,"a floating-point number",filename,line);
 }
+
+}  // namespace cln

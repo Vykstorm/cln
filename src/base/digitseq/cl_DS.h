@@ -3,11 +3,13 @@
 #ifndef _CL_DS_H
 #define _CL_DS_H
 
-#include "cl_types.h"
+#include "cln/types.h"
 #include "cl_gmpconfig.h"
 #include "cl_D.h"
 #include "cl_DS_endian.h"
 #include "cl_alloca.h"
+
+namespace cln {
 
 // Digit Sequence (DS)
 // a memory range with n digits (n an uintC),
@@ -349,7 +351,9 @@ extern void shiftxor_loop_up (uintD* xptr, const uintD* yptr, uintC count, uintC
 // Supersede the functions by wrappers around calls to gmp mpn,
 // for those functions where gmp is believed to be faster.
 
+extern "C" {
 #include <gmp.h>
+}
 
 #if 0 // not worth it, since gmp's mpn_cmp is not optimized
 inline cl_signean compare_loop_down (const uintD* xptr, const uintD* yptr, uintC count)
@@ -2671,5 +2675,6 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
   extern void cl_UDS_recipsqrt (const uintD* a_MSDptr, uintC a_len,
                                 uintD* b_MSDptr, uintC b_len);
 
+}  // namespace cln
 
 #endif /* _CL_DS_H */

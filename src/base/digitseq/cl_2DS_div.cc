@@ -11,7 +11,9 @@
 
 #include "cl_2D.h"
 #include "cl_DS.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Time for dividing a n word number by a n word number, this is the common
 // case and therefore the important one:
@@ -162,3 +164,4 @@ void div2adic (uintC a_len, const uintD* a_LSDptr, uintC b_len, const uintD* b_L
 }
 // Bit complexity (N = max(a_len,b_len)): O(M(N)).
 
+}  // namespace cln

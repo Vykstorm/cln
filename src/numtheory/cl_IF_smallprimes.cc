@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 uint16 cl_small_prime_table[cl_small_prime_table_size] = {
       3,     5,     7,    11,    13,    17,    19,    23,    29,    31,
      37,    41,    43,    47,    53,    59,    61,    67,    71,    73,
@@ -666,3 +668,5 @@ uint16 cl_small_prime_table[cl_small_prime_table_size] = {
   65407, 65413, 65419, 65423, 65437, 65447, 65449, 65479, 65497, 65519,
   65521,
 };
+
+}  // namespace cln

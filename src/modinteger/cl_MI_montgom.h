@@ -1,5 +1,7 @@
 // m > 1 odd, Montgomery representation
 
+namespace cln {
+
 // We use Montgomery's modular multiplication trick
 // [Peter L. Montgomery: Modular multiplication without trial division,
 //  Mathematics of Computation 44 (1985), 519-521.]
@@ -220,3 +222,5 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 	var cl_I V = V_N >> n;
 	return new cl_heap_modint_ring_montgom(M,m,n,V);
 }
+
+}  // namespace cln

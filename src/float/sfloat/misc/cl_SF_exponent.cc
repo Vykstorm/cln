@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_sfloat.h"
+#include "cln/sfloat.h"
 
 
 // Implementation.
 
 #include "cl_SF.h"
+
+namespace cln {
 
 MAYBE_INLINE
 sintL float_exponent (const cl_SF& x)
@@ -18,3 +20,5 @@ sintL float_exponent (const cl_SF& x)
 	if (uexp==0) { return 0; }
 	return (sintL)(uexp - SF_exp_mid);
 }
+
+}  // namespace cln

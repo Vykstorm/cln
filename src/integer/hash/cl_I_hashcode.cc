@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 unsigned long hashcode (const cl_I& x)
 {
 	var unsigned long code = 0x814BE3A5;
@@ -36,3 +38,5 @@ unsigned long hashcode (const cl_I& x)
 	}
 	return code;
 }
+
+}  // namespace cln

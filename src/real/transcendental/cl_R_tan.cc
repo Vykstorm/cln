@@ -4,16 +4,20 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_R tan (const cl_R& x)
 {
 // Methode:
 // (/ (sin x) (cos x))
-	var cl_cos_sin_t trig = cl_cos_sin(x);
+	var cos_sin_t trig = cos_sin(x);
 	return trig.sin / trig.cos;
 }
+
+}  // namespace cln

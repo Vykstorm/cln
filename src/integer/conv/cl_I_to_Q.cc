@@ -11,11 +11,13 @@
 
 #ifdef intQsize
 
-#include "cl_number.h"
+#include "cln/number.h"
 #include "cl_DS.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 sint64 cl_I_to_Q (const cl_I& obj)
 {
@@ -129,11 +131,13 @@ sint64 cl_I_to_Q (const cl_I& obj)
 		#undef IF_LENGTH
 	}
 	bad: // unpassendes Objekt
-	fprint(cl_stderr, "Not a 64-bit integer: ");
-	fprint(cl_stderr, obj);
-	fprint(cl_stderr, "\n");
+	fprint(stderr, "Not a 64-bit integer: ");
+	fprint(stderr, obj);
+	fprint(stderr, "\n");
 	cl_abort();
     }
 }
+
+}  // namespace cln
 
 #endif

@@ -1,28 +1,28 @@
 //#define WANT_OBFUSCATING_OPERATORS
-#include <cl_number.h>
-#include <cl_io.h>
-//#include <cl_complex.h>
-//#include <cl_real.h>
-//#include <cl_real_io.h>
-//#include <cl_output.h>
-//#include <cl_ffloat.h>
-#include <cl_integer.h>
-#include <cl_integer_io.h>
-//#include <cl_modinteger.h>
-//#include <cl_numtheory.h>
-#include <cl_timing.h>
+#include <cln/number.h>
+#include <cln/io.h>
+//#include <cln/complex.h>
+//#include <cln/real.h>
+//#include <cln/real_io.h>
+//#include <cln/output.h>
+//#include <cln/ffloat.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
+//#include <cln/modinteger.h>
+//#include <cln/numtheory.h>
+#include <cln/timing.h>
 
 #define DUMP(expr)  \
-	fprint(cl_stdout, #expr" = "); fprint(cl_stdout, expr); fprint(cl_stdout, "\n");
+	fprint(stdout, #expr" = "); fprint(stdout, expr); fprint(stdout, "\n");
 
 int main (int argc, char* argv[])
 {
 	(void)argc; (void)argv;
 
 #if 0
-	cl_F pi = cl_pi((cl_float_format_t)10000);
-	fprint(cl_stdout, pi);
-	fprint(cl_stdout, "\n");
+	cl_F archimedes = pi((float_format_t)10000);
+	fprint(stdout, archimedes);
+	fprint(stdout, "\n");
 #endif
 
 #if 0
@@ -30,11 +30,11 @@ int main (int argc, char* argv[])
 	cl_FF x1 = "-0.2173f0";
 	cl_FF x2 = "5.5084f9";
 	cl_FF y = "-1.19698f9";
-	fprint(cl_stdout, "x1 = "); print_float_binary(cl_stdout,x1); fprint(cl_stdout, " = "); fprint(cl_stdout,x1); fprint(cl_stdout, "\n");
-	fprint(cl_stdout, "x2 = "); print_float_binary(cl_stdout,x2); fprint(cl_stdout, " = "); fprint(cl_stdout,x2); fprint(cl_stdout, "\n");
-	fprint(cl_stdout, "y = "); print_float_binary(cl_stdout,y); fprint(cl_stdout, " = "); fprint(cl_stdout,y); fprint(cl_stdout, "\n");
+	fprint(stdout, "x1 = "); print_float_binary(stdout,x1); fprint(stdout, " = "); fprint(stdout,x1); fprint(stdout, "\n");
+	fprint(stdout, "x2 = "); print_float_binary(stdout,x2); fprint(stdout, " = "); fprint(stdout,x2); fprint(stdout, "\n");
+	fprint(stdout, "y = "); print_float_binary(stdout,y); fprint(stdout, " = "); fprint(stdout,y); fprint(stdout, "\n");
 	cl_FF x = x1*x2;
-	fprint(cl_stdout, "x1*x2 = "); print_float_binary(cl_stdout,x); fprint(cl_stdout, " = "); fprint(cl_stdout,x); fprint(cl_stdout, "\n");
+	fprint(stdout, "x1*x2 = "); print_float_binary(stdout,x); fprint(stdout, " = "); fprint(stdout,x); fprint(stdout, "\n");
 #endif
 
 #if 0
@@ -42,8 +42,8 @@ int main (int argc, char* argv[])
 	cl_I y = ++x;
 	x *= 2;
 	x++;
-	fprint(cl_stdout, "x = "); fprint(cl_stdout, x); fprint(cl_stdout, "\n");
-	fprint(cl_stdout, "y = "); fprint(cl_stdout, y); fprint(cl_stdout, "\n");
+	fprint(stdout, "x = "); fprint(stdout, x); fprint(stdout, "\n");
+	fprint(stdout, "y = "); fprint(stdout, y); fprint(stdout, "\n");
 #endif
 
 #if 0
@@ -59,7 +59,7 @@ int main (int argc, char* argv[])
 #if 0
 	cl_I m = "79228162513111556826425457664";
 	cl_I a = "19787815858762768436681494528";
-	cl_modint_ring R = cl_find_modint_ring(m);
+	cl_modint_ring R = find_modint_ring(m);
 	cl_I b = R->retract(R->canonhom(a));
 	cl_I c = mod(a,abs(m));
 	DUMP(b);
@@ -80,14 +80,14 @@ int main (int argc, char* argv[])
 #endif
 
 #if 0
-	cl_float_format_t f = cl_float_format(atoi(argv[1]));
-	extern cl_LF cl_zeta3 (uintC len);
+	float_format_t f = float_format(atoi(argv[1]));
+	extern cl_LF zeta3 (uintC len);
 	uintC len = (uintL)f/intDsize+1;
-	{ CL_TIMING; cout << cl_zeta(2,f) << endl; }
-	{ CL_TIMING; cout << expt(cl_pi(f),2)/6 << endl; }
-	{ CL_TIMING; cout << cl_zeta(3,f) << endl; }
-	{ CL_TIMING; cout << cl_zeta3(len) << endl; }
-	{ CL_TIMING; cout << cl_zeta(4,f) << endl; }
+	{ CL_TIMING; cout << zeta(2,f) << endl; }
+	{ CL_TIMING; cout << expt(pi(f),2)/6 << endl; }
+	{ CL_TIMING; cout << zeta(3,f) << endl; }
+	{ CL_TIMING; cout << zeta3(len) << endl; }
+	{ CL_TIMING; cout << zeta(4,f) << endl; }
 #endif
 
 	cl_I a = cl_I(argv[1]);

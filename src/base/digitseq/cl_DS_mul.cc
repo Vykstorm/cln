@@ -10,8 +10,10 @@
 // Implementation.
 
 #include "cl_low.h"
-#include "cl_malloc.h"
-#include "cl_abort.h"
+#include "cln/malloc.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 // Multiplikations-Doppelschleife:
 // Multipliziert zwei UDS und legt das Ergebnis in einer dritten UDS ab.
@@ -120,9 +122,6 @@
   }
 
 // Karatsuba-multiplication: O(n^(log 3 / log 2))
-  static void mulu_karatsuba (const uintD* sourceptr1, uintC len1,
-                              const uintD* sourceptr2, uintC len2,
-                              uintD* destptr);
   static void mulu_karatsuba_square (const uintD* sourceptr, uintC len,
                                      uintD* destptr);
 #include "cl_DS_mul_kara.h"
@@ -525,3 +524,5 @@
             mulu_fft_modm(sourceptr,len,sourceptr,len,destptr);
       }
   }
+
+}  // namespace cln

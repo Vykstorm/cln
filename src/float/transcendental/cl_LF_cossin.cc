@@ -9,9 +9,11 @@
 
 // Implementation.
 
-#include "cl_lfloat.h"
+#include "cln/lfloat.h"
 #include "cl_LF.h"
-#include "cl_integer.h"
+#include "cln/integer.h"
+
+namespace cln {
 
 inline const cl_LF_cos_sin_t operator* (const cl_LF_cos_sin_t& a, const cl_LF_cos_sin_t& b)
 {
@@ -53,3 +55,5 @@ const cl_LF_cos_sin_t cl_cossin_ratseries (const cl_LF& x)
 		return product;
 }
 // Bit complexity (N = length(x)): O(log(N)^2*M(N)).
+
+}  // namespace cln

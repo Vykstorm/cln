@@ -72,7 +72,9 @@
 // Denotes a point where control flow can never arrive.
 // NOTREACHED
   #define NOTREACHED  cl_notreached_abort(__FILE__,__LINE__);
+namespace cln {
   nonreturning_function(extern,cl_notreached_abort, (const char* filename, int lineno));
+}  // namespace cln
 
 // Check an arithmetic expression.
 // ASSERT(expr)
@@ -137,7 +139,7 @@
 // floor(a,b) for a>=0, b>0 returns floor(a/b).
 // b should be a constant expression.
   #define floor(a_from_floor,b_from_floor)  ((a_from_floor) / (b_from_floor))
-// Save the macro in case we need to include <math.h>.
+// Save the macro in case we need to include <cmath>.
   #define cln_floor(a_from_floor,b_from_floor)  ((a_from_floor) / (b_from_floor))
 
 // ceiling(a,b) for a>=0, b>0 returns ceiling(a/b) = floor((a+b-1)/b).
@@ -224,17 +226,17 @@
 #define ALLOCATE_ANYWHERE(classname)  \
     /* Ability to place an object at a given address. */		\
 public:									\
-    void* operator new (size_t size) { return cl_malloc_hook(size); }	\
+    void* operator new (size_t size) { return malloc_hook(size); }	\
     void* operator new (size_t size, classname* ptr) { unused size; return ptr; } \
-    void operator delete (void* ptr) { cl_free_hook(ptr); }
+    void operator delete (void* ptr) { free_hook(ptr); }
 #else
 // For some compilers, work around template problem with "classname".
 #define ALLOCATE_ANYWHERE(classname)  \
     /* Ability to place an object at a given address. */		\
 public:									\
-    void* operator new (size_t size) { return cl_malloc_hook(size); }	\
+    void* operator new (size_t size) { return malloc_hook(size); }	\
     void* operator new (size_t size, void* ptr) { unused size; return ptr; } \
-    void operator delete (void* ptr) { cl_free_hook(ptr); }
+    void operator delete (void* ptr) { free_hook(ptr); }
 #endif
 
 // init1(type, object) (value);

@@ -4,24 +4,26 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
-#include "cl_number.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/number.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+
+namespace cln {
 
 cl_boolean isqrt (const cl_I& x, cl_I* w)
 {
 	if (minusp(x)) {
-		fprint(cl_stderr, "isqrt: applied to negative number: ");
-		fprint(cl_stderr, x);
-		fprint(cl_stderr, "\n");
+		fprint(stderr, "isqrt: applied to negative number: ");
+		fprint(stderr, x);
+		fprint(stderr, "\n");
 		cl_abort();
 	}
 	CL_ALLOCA_STACK;
@@ -37,3 +39,4 @@ cl_boolean isqrt (const cl_I& x, cl_I* w)
 }
 // Bit complexity (x of length N): O(M(N)).
 
+}  // namespace cln

@@ -5,6 +5,8 @@
 
 #include "cl_hashuniq.h"
 
+namespace cln {
+
 // This is a hashuniq table in which an entry can be removed when the
 // value is not referenced any more.
 // Best example: string -> symbol uniquification. When a symbol is not
@@ -22,9 +24,9 @@
 template <class key1_type, class value_type>
 struct cl_heap_weak_hashtable_uniq : public cl_heap_hashtable_uniq <key1_type,value_type> {
 	// Allocation.
-	void* operator new (size_t size) { return cl_malloc_hook(size); }
+	void* operator new (size_t size) { return malloc_hook(size); }
 	// Deallocation.
-	void operator delete (void* ptr) { cl_free_hook(ptr); }
+	void operator delete (void* ptr) { free_hook(ptr); }
 public:
 	// Constructor.
 	cl_heap_weak_hashtable_uniq ()
@@ -89,5 +91,7 @@ private:
 		return cl_false;
 	}
 };
+
+}  // namespace cln
 
 #endif /* _CL_HASHUNIQWEAK_H */

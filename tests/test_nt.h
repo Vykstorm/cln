@@ -1,5 +1,5 @@
-#include <cl_integer.h>
-#include <cl_integer_io.h>
-#include <cl_numtheory.h>
+#include <cln/integer.h>
+#include <cln/integer_io.h>
+#include <cln/numtheory.h>
 #include "test.h"
 

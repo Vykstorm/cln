@@ -4,7 +4,8 @@ dnl
 dnl  configure.in ---<autoconf>--->> configure
 dnl
 dnl  configure    ---<sh>--->> config.status
-dnl                      --->> include/cl_config.h
+dnl                      --->> include/cln/config.h
+dnl        cln-config.in --->> cln-config
 dnl          Makefile.in --->> Makefile
 dnl      src/Makefile.in --->> src/Makefile
 dnl
@@ -12,7 +13,7 @@ dnl  Makefile   ---<make>--->> libcln.a
 dnl
 dnl
 AC_INIT(src/integer/gcd/cl_I_gcd.cc)
-AC_CONFIG_HEADER(include/cl_config.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h)
+AC_CONFIG_HEADER(include/cln/config.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h)
 AC_PROG_MAKE_SET
 dnl This piece of sed script replaces every line containing '@subdir@'
 dnl by several consecutive lines, each referencing one subdir.
@@ -64,8 +65,13 @@ CL_CANONICAL_HOST_CPU
 dnl
 dnl           check for build configuration
 dnl
+LIBS=-lm
+                      dnl libcln depends on libm
 PACKAGE=cln
+                      dnl libtool wants PACKAGE
 AM_PROG_LIBTOOL
+                      dnl sets variable LIBTOOL
+
 dnl Libtool's library version information for CLN.
 dnl (Not to be confused with CLN's release version.)
 dnl Making new releases:
@@ -82,15 +88,18 @@ AC_SUBST(CL_CURRENT)
 AC_SUBST(CL_REVISION)
 AC_SUBST(CL_AGE)
 dnl release version
-CL_VERSION=1
+CL_VERSION_MAJOR=1
 CL_VERSION_MINOR=1
 CL_VERSION_PATCHLEVEL=0
-dnl release version for cl_config.h, so it can be tested by the preprocessor
-AC_DEFINE_UNQUOTED(CL_VERSION, $CL_VERSION)
+dnl release version for cln/config.h, so it can be tested by the preprocessor
+AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_PATCHLEVEL, $CL_VERSION_PATCHLEVEL)
+dnl concateneted release version
+CL_VERSION=$CL_VERSION_MAJOR.$CL_VERSION_MINOR.$CL_VERSION_PATCHLEVEL
+AC_DEFINE_UNQUOTED(CL_VERSION, $CL_VERSION)
+AC_SUBST(CL_VERSION)
 
-                      dnl sets variable LIBTOOL
 dnl
 dnl           checks for compiler characteristics
 dnl
@@ -137,10 +146,10 @@ dnl
 CL_CHAR_UNSIGNED
                       dnl DEFS __CHAR_UNSIGNED__ if char is unsigned
 test -d 'include' || mkdir 'include'
-CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,include/cl_intparam.h,cl_cv_file_intparam_h)
-                      dnl builds include/cl_intparam.h
-CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,include/cl_floatparam.h,cl_cv_file_floatparam_h)
-                      dnl builds include/cl_floatparam.h
+CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,include/cln/intparam.h,cl_cv_file_intparam_h)
+                      dnl builds include/cln/intparam.h
+CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,include/cln/floatparam.h,cl_cv_file_floatparam_h)
+                      dnl builds include/cln/floatparam.h
 dnl
 dnl           interfacing to GNU gmp (must be at least version 3)
 dnl
@@ -172,4 +181,4 @@ changequote([,])dnl
     cp "$srcdir/$f" "$f"
   fi
 done
-AC_OUTPUT(Makefile src/Makefile tests/Makefile benchmarks/Makefile examples/Makefile doc/Makefile)
+AC_OUTPUT([Makefile src/Makefile tests/Makefile benchmarks/Makefile examples/Makefile doc/Makefile cln-config], [chmod +x cln-config])

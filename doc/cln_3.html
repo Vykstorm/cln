@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 28 August 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 3. Ordinary number types</TITLE>
 </HEAD>
@@ -18,35 +18,35 @@ CLN implements the following class hierarchy:
 
 <PRE>
                         Number
-                       cl_number
-                     &#60;cl_number.h&#62;
+                      cl_number
+                    &#60;cln/number.h&#62;
                           |
                           |
                  Real or complex number
                         cl_N
-                     &#60;cl_complex.h&#62;
+                    &#60;cln/complex.h&#62;
                           |
                           |
                      Real number
                         cl_R
-                      &#60;cl_real.h&#62;
+                     &#60;cln/real.h&#62;
                           |
       +-------------------+-------------------+
       |                                       |
 Rational number                     Floating-point number
     cl_RA                                   cl_F
-&#60;cl_rational.h&#62;                          &#60;cl_float.h&#62;
+&#60;cln/rational.h&#62;                         &#60;cln/float.h&#62;
       |                                       |
-      |                  +-------------+-------------+-------------+
-   Integer               |             |             |             |
-    cl_I            Short-Float   Single-Float  Double-Float   Long-Float
- &#60;cl_integer.h&#62;        cl_SF         cl_FF         cl_DF         cl_LF
-                   &#60;cl_sfloat.h&#62; &#60;cl_ffloat.h&#62; &#60;cl_dfloat.h&#62; &#60;cl_lfloat.h&#62;
+      |                +--------------+--------------+--------------+
+   Integer             |              |              |              |
+    cl_I          Short-Float    Single-Float   Double-Float    Long-Float
+&#60;cln/integer.h&#62;      cl_SF          cl_FF          cl_DF          cl_LF
+                 &#60;cln/sfloat.h&#62; &#60;cln/ffloat.h&#62; &#60;cln/dfloat.h&#62; &#60;cln/lfloat.h&#62;
 </PRE>
 
 <P>
-<A NAME="IDX7"></A>
 <A NAME="IDX8"></A>
+<A NAME="IDX9"></A>
 The base class <CODE>cl_number</CODE> is an abstract base class.
 It is not useful to declare a variable of this type except if you want
 to completely disable compile-time type checking and use run-time type
@@ -54,24 +54,24 @@ checking instead.
 
 
 <P>
-<A NAME="IDX9"></A>
 <A NAME="IDX10"></A>
 <A NAME="IDX11"></A>
+<A NAME="IDX12"></A>
 The class <CODE>cl_N</CODE> comprises real and complex numbers. There is
 no special class for complex numbers since complex numbers with imaginary
 part <CODE>0</CODE> are automatically converted to real numbers.
 
 
 <P>
-<A NAME="IDX12"></A>
+<A NAME="IDX13"></A>
 The class <CODE>cl_R</CODE> comprises real numbers of different kinds. It is an
 abstract class.
 
 
 <P>
-<A NAME="IDX13"></A>
 <A NAME="IDX14"></A>
 <A NAME="IDX15"></A>
+<A NAME="IDX16"></A>
 The class <CODE>cl_RA</CODE> comprises exact real numbers: rational numbers, including
 integers. There is no special class for non-integral rational numbers
 since rational numbers with denominator <CODE>1</CODE> are automatically converted
@@ -79,7 +79,7 @@ to integers.
 
 
 <P>
-<A NAME="IDX16"></A>
+<A NAME="IDX17"></A>
 The class <CODE>cl_F</CODE> implements floating-point approximations to real numbers.
 It is an abstract class.
 
@@ -88,7 +88,7 @@ It is an abstract class.
 
 <H2><A NAME="SEC12" HREF="cln_toc.html#TOC12">3.1 Exact numbers</A></H2>
 <P>
-<A NAME="IDX17"></A>
+<A NAME="IDX18"></A>
 
 
 <P>
@@ -132,7 +132,7 @@ is completely transparent.
 
 <H2><A NAME="SEC13" HREF="cln_toc.html#TOC13">3.2 Floating-point numbers</A></H2>
 <P>
-<A NAME="IDX18"></A>
+<A NAME="IDX19"></A>
 
 
 <P>
@@ -144,7 +144,7 @@ CLN implements ordinary floating-point numbers, with mantissa and exponent.
 
 
 <P>
-<A NAME="IDX19"></A>
+<A NAME="IDX20"></A>
 The elementary operations (<CODE>+</CODE>, <CODE>-</CODE>, <CODE>*</CODE>, <CODE>/</CODE>, ...)
 only return approximate results. For example, the value of the expression
 <CODE>(cl_F) 0.3 + (cl_F) 0.4</CODE> prints as <SAMP>`0.70000005'</SAMP>, not as
@@ -175,7 +175,7 @@ Floating point numbers come in four flavors:
 <UL>
 <LI>
 
-<A NAME="IDX20"></A>
+<A NAME="IDX21"></A>
 Short floats, type <CODE>cl_SF</CODE>.
 They have 1 sign bit, 8 exponent bits (including the exponent's sign),
 and 17 mantissa bits (including the "hidden" bit).
@@ -183,7 +183,7 @@ They don't consume heap allocation.
 
 <LI>
 
-<A NAME="IDX21"></A>
+<A NAME="IDX22"></A>
 Single floats, type <CODE>cl_FF</CODE>.
 They have 1 sign bit, 8 exponent bits (including the exponent's sign),
 and 24 mantissa bits (including the "hidden" bit).
@@ -192,7 +192,7 @@ This corresponds closely to the C/C++ type <SAMP>`float'</SAMP>.
 
 <LI>
 
-<A NAME="IDX22"></A>
+<A NAME="IDX23"></A>
 Double floats, type <CODE>cl_DF</CODE>.
 They have 1 sign bit, 11 exponent bits (including the exponent's sign),
 and 53 mantissa bits (including the "hidden" bit).
@@ -201,7 +201,7 @@ This corresponds closely to the C/C++ type <SAMP>`double'</SAMP>.
 
 <LI>
 
-<A NAME="IDX23"></A>
+<A NAME="IDX24"></A>
 Long floats, type <CODE>cl_LF</CODE>.
 They have 1 sign bit, 32 exponent bits (including the exponent's sign),
 and n mantissa bits (including the "hidden" bit), where n &#62;= 64.
@@ -222,7 +222,7 @@ with larger exponent range.
 
 
 <P>
-<A NAME="IDX24"></A>
+<A NAME="IDX25"></A>
 As a user of CLN, you can forget about the differences between the
 four floating-point types and just declare all your floating-point
 variables as being of type <CODE>cl_F</CODE>. This has the advantage that
@@ -239,7 +239,7 @@ the floating point contagion rule happened to change in the future.)
 
 <H2><A NAME="SEC14" HREF="cln_toc.html#TOC14">3.3 Complex numbers</A></H2>
 <P>
-<A NAME="IDX25"></A>
+<A NAME="IDX26"></A>
 
 
 <P>
@@ -258,7 +258,7 @@ through application of <CODE>sqrt</CODE> or transcendental functions.
 
 <H2><A NAME="SEC15" HREF="cln_toc.html#TOC15">3.4 Conversions</A></H2>
 <P>
-<A NAME="IDX26"></A>
+<A NAME="IDX27"></A>
 
 
 <P>
@@ -317,7 +317,7 @@ Conversions from <SAMP>`const char *'</SAMP> are provided for the classes
 <CODE>cl_R</CODE>, <CODE>cl_N</CODE>.
 The easiest way to specify a value which is outside of the range of the
 C++ built-in types is therefore to specify it as a string, like this:
-<A NAME="IDX27"></A>
+<A NAME="IDX28"></A>
 
 <PRE>
    cl_I order_of_rubiks_cube_group = "43252003274489856000";
@@ -337,16 +337,16 @@ the functions
 
 <DT><CODE>int cl_I_to_int (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX28"></A>
+<A NAME="IDX29"></A>
 <DT><CODE>unsigned int cl_I_to_uint (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX29"></A>
+<A NAME="IDX30"></A>
 <DT><CODE>long cl_I_to_long (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX30"></A>
+<A NAME="IDX31"></A>
 <DT><CODE>unsigned long cl_I_to_ulong (const cl_I&#38; x)</CODE>
 <DD>
-<A NAME="IDX31"></A>
+<A NAME="IDX32"></A>
 Returns <CODE>x</CODE> as element of the C type <VAR>ctype</VAR>. If <CODE>x</CODE> is not
 representable in the range of <VAR>ctype</VAR>, a runtime error occurs.
 </DL>
@@ -361,12 +361,12 @@ the functions
 
 <DL COMPACT>
 
-<DT><CODE>float cl_float_approx (const <VAR>type</VAR>&#38; x)</CODE>
-<DD>
-<A NAME="IDX32"></A>
-<DT><CODE>double cl_double_approx (const <VAR>type</VAR>&#38; x)</CODE>
+<DT><CODE>float float_approx (const <VAR>type</VAR>&#38; x)</CODE>
 <DD>
 <A NAME="IDX33"></A>
+<DT><CODE>double double_approx (const <VAR>type</VAR>&#38; x)</CODE>
+<DD>
+<A NAME="IDX34"></A>
 Returns an approximation of <CODE>x</CODE> of C type <VAR>ctype</VAR>.
 If <CODE>abs(x)</CODE> is too close to 0 (underflow), 0 is returned.
 If <CODE>abs(x)</CODE> is too large (overflow), an IEEE infinity is returned.
@@ -377,10 +377,10 @@ Conversions from any class to any of its subclasses ("derived classes" in
 C++ terminology) are not provided. Instead, you can assert and check
 that a value belongs to a certain subclass, and return it as element of that
 class, using the <SAMP>`As'</SAMP> and <SAMP>`The'</SAMP> macros.
-<A NAME="IDX34"></A>
+<A NAME="IDX35"></A>
 <CODE>As(<VAR>type</VAR>)(<VAR>value</VAR>)</CODE> checks that <VAR>value</VAR> belongs to
 <VAR>type</VAR> and returns it as such.
-<A NAME="IDX35"></A>
+<A NAME="IDX36"></A>
 <CODE>The(<VAR>type</VAR>)(<VAR>value</VAR>)</CODE> assumes that <VAR>value</VAR> belongs to
 <VAR>type</VAR> and returns it as such. It is your responsibility to ensure
 that this assumption is valid.

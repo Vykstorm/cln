@@ -11,6 +11,8 @@
 
 #include "cl_LF.h"
 
+namespace cln {
+
 const cl_R contagion (const cl_R& x, const cl_R& y)
 {
 #define X  { return x; }
@@ -41,3 +43,5 @@ const cl_R contagion (const cl_R& x, const cl_R& y)
 	);
 #endif
 }
+
+}  // namespace cln

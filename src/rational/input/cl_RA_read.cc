@@ -7,21 +7,19 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_rational_io.h"
+#include "cln/rational_io.h"
 
 
 // Implementation.
 
 #include <string.h>
-#include "cl_input.h"
-#include "cl_integer.h"
-#include "cl_integer_io.h"
+#include "cln/input.h"
+#include "cln/integer.h"
+#include "cln/integer_io.h"
 #include "cl_I.h"
-#include "cl_abort.h"
+#include "cln/abort.h"
 
-#undef floor
-#include <math.h>
-#define floor cln_floor
+namespace cln {
 
 // Step forward over all digits, to the end of string or to the next non-digit.
 static const char * skip_digits (const char * ptr, const char * string_limit, unsigned int base)
@@ -58,7 +56,7 @@ const cl_RA read_rational (const cl_read_flags& flags, const char * string, cons
 	ASSERT((flags.syntax & ~(syntax_rational|syntax_maybe_bad)) == 0);
 	// If no string_limit is given, it defaults to the end of the string.
 	if (!string_limit)
-		string_limit = string + strlen(string);
+		string_limit = string + ::strlen(string);
 	if (flags.syntax & syntax_rational) {
 		// Check for rational number syntax.
 		var unsigned int rational_base = flags.rational_base;
@@ -85,9 +83,9 @@ const cl_RA read_rational (const cl_read_flags& flags, const char * string, cons
 						goto not_rational_syntax;
 					var cl_I base = read_integer(10,0,ptr,0,base_end_ptr-ptr);
 					if (!((base >= 2) && (base <= 36))) {
-						fprint(cl_stderr, "Base must be an integer in the range from 2 to 36, not ");
-						fprint(cl_stderr, base);
-						fprint(cl_stderr, "\n");
+						fprint(stderr, "Base must be an integer in the range from 2 to 36, not ");
+						fprint(stderr, base);
+						fprint(stderr, "\n");
 						cl_abort();
 					}
 					rational_base = FN_to_UL(base); ptr = base_end_ptr;
@@ -151,3 +149,5 @@ bad_syntax:
 	}
 	read_number_bad_syntax(string,string_limit);
 }
+
+}  // namespace cln

@@ -12,6 +12,8 @@
 #include "cl_LF_impl.h"
 #include "cl_DS.h"
 
+namespace cln {
+
 const cl_LF futruncate (const cl_LF& x)
 {
 // Methode:
@@ -97,3 +99,5 @@ const cl_LF futruncate (const cl_LF& x)
       return y;
 #endif
 }
+
+}  // namespace cln

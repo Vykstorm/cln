@@ -4,7 +4,7 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_float.h"
+#include "cln/float.h"
 
 
 // Implementation.
@@ -18,6 +18,8 @@
 #include "cl_DF_signum.cc"
 #include "cl_LF_signum.cc"
 
+namespace cln {
+
 const cl_F signum (const cl_F& x)
 {
 	floatcase(x
@@ -27,3 +29,5 @@ const cl_F signum (const cl_F& x)
 	,	return signum(x);
 	);
 }
+
+}  // namespace cln

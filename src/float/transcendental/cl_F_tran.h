@@ -3,15 +3,17 @@
 #ifndef _CL_F_TRAN_H
 #define _CL_F_TRAN_H
 
-#include "cl_number.h"
-#include "cl_float.h"
+#include "cln/number.h"
+#include "cln/float.h"
+
+namespace cln {
 
 // pi.
 extern const cl_SF cl_SF_pi;
 extern const cl_FF cl_FF_pi;
 extern const cl_DF cl_DF_pi;
 extern cl_LF cl_LF_pi; // as long as it has ever been computed
-extern const cl_LF cl_pi (uintC len); // computes it even further
+extern const cl_LF pi (uintC len); // computes it even further
 //CL_REQUIRE(cl_F_pi_var)
 
 // cl_exp_aux(p,lq,len) liefert die Zahl exp(p/2^lq) mit len Digits.
@@ -96,7 +98,7 @@ extern const cl_F cl_ln2 (const cl_F& y);
 
 // cl_ln2(y) liefert die Zahl ln(2) im Float-Format f.
 // > f: eine Float-Format-Spezifikation
-extern const cl_F cl_ln2 (cl_float_format_t f);
+extern const cl_F cl_ln2 (float_format_t f);
 
 // ln(10).
 extern const cl_SF cl_SF_ln10;
@@ -112,14 +114,14 @@ extern const cl_F cl_ln10 (const cl_F& y);
 
 // cl_ln10(y) liefert die Zahl ln(10) im Float-Format f.
 // > f: eine Float-Format-Spezifikation
-extern const cl_F cl_ln10 (cl_float_format_t f);
+extern const cl_F cl_ln10 (float_format_t f);
 
 // e = exp(1).
 extern const cl_SF cl_SF_exp1;
 extern const cl_FF cl_FF_exp1;
 extern const cl_DF cl_DF_exp1;
 extern cl_LF cl_LF_exp1; // as long as it has ever been computed
-extern const cl_LF cl_exp1 (uintC len); // computes it even further
+extern const cl_LF exp1 (uintC len); // computes it even further
 
 // expx(x) liefert zu einem Float x (betragsmäßig <1) exp(x) als Float.
 extern const cl_F expx_naive (const cl_F& x); // requires cl_F_extendsqrtx
@@ -131,18 +133,20 @@ extern const cl_SF cl_SF_eulerconst;
 extern const cl_FF cl_FF_eulerconst;
 extern const cl_DF cl_DF_eulerconst;
 extern cl_LF cl_LF_eulerconst; // as long as it has ever been computed
-extern const cl_LF cl_eulerconst (uintC len); // computes it even further
+extern const cl_LF eulerconst (uintC len); // computes it even further
 
 // Catalansche Konstante.
 extern const cl_SF cl_SF_catalanconst;
 extern const cl_FF cl_FF_catalanconst;
 extern const cl_DF cl_DF_catalanconst;
 extern cl_LF cl_LF_catalanconst; // as long as it has ever been computed
-extern const cl_LF cl_catalanconst (uintC len); // computes it even further
+extern const cl_LF catalanconst (uintC len); // computes it even further
 
 // Zeta-Funktion für s>1 ganzzahlig.
-extern const cl_LF cl_zeta (int s, uintC len);
+extern const cl_LF zeta (int s, uintC len);
 // Zeta-Funktion für s=3.
-extern const cl_LF cl_zeta3 (uintC len);
+extern const cl_LF zeta3 (uintC len);
+
+}  // namespace cln
 
 #endif /* _CL_F_TRAN_H */

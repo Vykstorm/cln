@@ -4,12 +4,14 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_F cl_float (const cl_R& x)
@@ -22,3 +24,5 @@ const cl_F cl_float (const cl_R& x)
 		return x;
 	}
 }
+
+}  // namespace cln

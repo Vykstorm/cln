@@ -9,6 +9,8 @@
 
 // Implementation.
 
+namespace cln {
+
 uintD expt_pos (uintD a, uintL b)
 {
 // Methode:
@@ -34,3 +36,5 @@ uintD expt_pos (uintD a, uintL b)
         }
       return c;
 }
+
+}  // namespace cln

@@ -4,16 +4,18 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_integer.h"
+#include "cln/integer.h"
 
 
 // Implementation.
 
 #include "cl_I.h"
 #include "cl_DS.h"
-#include "cl_io.h"
-#include "cl_integer_io.h"
-#include "cl_abort.h"
+#include "cln/io.h"
+#include "cln/integer_io.h"
+#include "cln/abort.h"
+
+namespace cln {
 
 cl_boolean logbitp (const cl_I& x, const cl_I& y)
 {
@@ -42,9 +44,11 @@ cl_boolean logbitp (const cl_I& x, const cl_I& y)
         }
         else
         // x<0
-        { fprint(cl_stderr, "logbitp: Index is negative: ");
-          fprint(cl_stderr, x);
-          fprint(cl_stderr, "\n");
+        { fprint(stderr, "logbitp: Index is negative: ");
+          fprint(stderr, x);
+          fprint(stderr, "\n");
           cl_abort();
         }
 }
+
+}  // namespace cln

@@ -4,13 +4,15 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_dfloat.h"
+#include "cln/dfloat.h"
 
 
 // Implementation.
 
 #include "cl_DF.h"
 #include "cl_I.h"
+
+namespace cln {
 
 MAYBE_INLINE
 const cl_idecoded_float integer_decode_float (const cl_DF& x)
@@ -41,3 +43,5 @@ const cl_idecoded_float integer_decode_float (const cl_DF& x)
 	       );
 #endif
 }
+
+}  // namespace cln

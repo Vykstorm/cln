@@ -4,18 +4,20 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_real.h"
+#include "cln/real.h"
 
 
 // Implementation.
 
 #include "cl_R.h"
 #include "cl_RA.h"
-#include "cl_integer.h"
-#include "cl_sfloat.h"
-#include "cl_ffloat.h"
-#include "cl_dfloat.h"
-#include "cl_lfloat.h"
+#include "cln/integer.h"
+#include "cln/sfloat.h"
+#include "cln/ffloat.h"
+#include "cln/dfloat.h"
+#include "cln/lfloat.h"
+
+namespace cln {
 
 const cl_F fceiling (const cl_R& x)
 {
@@ -30,3 +32,5 @@ const cl_F fceiling (const cl_R& x)
 	,	return fceiling(x);
 	);
 }
+
+}  // namespace cln

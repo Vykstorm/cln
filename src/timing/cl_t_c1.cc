@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_timing.h"
+#include "cln/timing.h"
 
 
 // Implementation.
+
+namespace cln {
 
 static void report_accu (const cl_timing& t)
 {
@@ -27,3 +29,5 @@ cl_timing::cl_timing (cl_time_consumption& accumulator)
 	report_fn = report_accu; report_destination = &accumulator;
 	tmp = cl_current_time_consumption();
 }
+
+}  // namespace cln

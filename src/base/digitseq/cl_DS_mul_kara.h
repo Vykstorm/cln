@@ -1,4 +1,3 @@
-
   static void mulu_karatsuba (const uintD* sourceptr1, uintC len1,
                               const uintD* sourceptr2, uintC len2,
                               uintD* destptr)

@@ -6,6 +6,8 @@
 #include "cl_macros.h"
 #include <stdlib.h>
 
+namespace cln {
+
 // Allocating temporary data of arbitrary size.
 // We prefer to allocate it on the stack instead of via malloc(), because
 // that's fully inlinable and causes less cache misses. But the global stack
@@ -80,5 +82,7 @@ public:
     (arrayeltype*)cl_alloca((arraysize)*sizeof(arrayeltype))
   #define cl_small_alloc_array(arrayeltype,arraysize)  \
     (arrayeltype*)cl_small_alloca((arraysize)*sizeof(arrayeltype))
+
+}  // namespace cln
 
 #endif /* _CL_ALLOCA_H */

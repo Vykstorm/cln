@@ -3,9 +3,11 @@
 #ifndef _CL_LF_H
 #define _CL_LF_H
 
-#include "cl_number.h"
-#include "cl_lfloat_class.h"
-#include "cl_integer_class.h"
+#include "cln/number.h"
+#include "cln/lfloat_class.h"
+#include "cln/integer_class.h"
+
+namespace cln {
 
 struct cl_heap_lfloat : cl_heap {
 	unsigned int len;	// length of mantissa (in digits)
@@ -136,5 +138,7 @@ extern const cl_LF cl_LF_shortenrelative (const cl_LF& x, const cl_LF& y);
 // cl_LF_shortenwith(x,y) tries to reduce the size of x, such that still
 // 1 ulp(x) < y. y must be >0.
 extern const cl_LF cl_LF_shortenwith (const cl_LF& x, const cl_LF& y);
+
+}  // namespace cln
 
 #endif /* _CL_LF_H */

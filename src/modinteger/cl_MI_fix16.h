@@ -1,5 +1,7 @@
 // 1 < m < 2^16, standard representation
 
+namespace cln {
+
 static const _cl_MI fix16_plus (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
 	var uint32 zr = FN_to_UL(x.rep) + FN_to_UL(y.rep);
@@ -69,3 +71,5 @@ public:
 	// Virtual destructor.
 	~cl_heap_modint_ring_fix16 () {}
 };
+
+}  // namespace cln

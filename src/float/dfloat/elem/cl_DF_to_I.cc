@@ -9,8 +9,10 @@
 
 // Implementation.
 
-#include "cl_integer.h"
+#include "cln/integer.h"
 #include "cl_I.h"
+
+namespace cln {
 
 const cl_I cl_DF_to_I (const cl_DF& x)
 {
@@ -43,3 +45,5 @@ const cl_I cl_DF_to_I (const cl_DF& x)
       return ash( L2_to_I(manthi,mantlo), exp );
 #endif
 }
+
+}  // namespace cln

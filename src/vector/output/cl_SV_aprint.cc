@@ -4,16 +4,18 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_SV_ringelt.h"
+#include "cln/SV_ringelt.h"
 
 
 // Implementation.
 
-#include "cl_output.h"
+#include "cln/output.h"
+
+namespace cln {
 
 void fprint (cl_ostream stream, const cl_ring& R, const cl_SV_ringelt& vector)
 {
-	var const cl_print_flags& flags = cl_default_print_flags;
+	var const cl_print_flags& flags = default_print_flags;
 	var uintL len = vector.length();
 	if (flags.vector_syntax == vsyntax_commonlisp) {
 		fprintchar(stream,'#');
@@ -33,3 +35,5 @@ void fprint (cl_ostream stream, const cl_ring& R, const cl_SV_ringelt& vector)
 	else
 		fprintchar(stream,']');
 }
+
+}  // namespace cln

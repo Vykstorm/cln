@@ -4,10 +4,12 @@
 #include "cl_sysdep.h"
 
 // Specification.
-#include "cl_proplist.h"
+#include "cln/proplist.h"
 
 
 // Implementation.
+
+namespace cln {
 
 cl_property* cl_property_list::get_property (const cl_symbol& key)
 {
@@ -17,3 +19,5 @@ cl_property* cl_property_list::get_property (const cl_symbol& key)
 			break;
 	return l;
 }
+
+}  // namespace cln
