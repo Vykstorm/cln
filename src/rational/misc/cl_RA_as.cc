@@ -1,4 +1,4 @@
-// as_cl_RA().
+// cl_RA_As().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -30,7 +30,7 @@ inline cl_boolean cl_RA_p (const cl_number& x)
 	return cl_false;
 }
 
-const cl_RA& as_cl_RA (const cl_number& x, const char * filename, int line)
+const cl_RA& cl_RA_As (const cl_number& x, const char * filename, int line)
 {
 	if (cl_RA_p(x)) {
 		DeclareType(cl_RA,x);

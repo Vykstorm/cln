@@ -1,4 +1,4 @@
-// as_cl_I().
+// cl_I_As().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -30,7 +30,7 @@ inline cl_boolean cl_I_p (const cl_number& x)
 	return cl_false;
 }
 
-const cl_I& as_cl_I (const cl_number& x, const char * filename, int line)
+const cl_I& cl_I_As (const cl_number& x, const char * filename, int line)
 {
 	if (cl_I_p(x)) {
 		DeclareType(cl_I,x);

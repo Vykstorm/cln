@@ -225,16 +225,16 @@ inline const type& the(const cl_number& x)
 // As(cl_I)(x) returns x as a cl_I. It first checks that x is a cl_I
 // and then returns it without change of representation.
 #if 0 // no debug information  
-  #define As(type)  as_##type
+  #define As(type)  type##_As
   #define CL_DEFINE_AS_CONVERSION(_class_)				\
-    extern const _class_& as_##_class_ (const cl_number& x);		\
-    inline const _class_& as_##_class_ (const _class_& x) { return x; }
+    extern const _class_& _class_##_As (const cl_number& x);		\
+    inline const _class_& _class_##_As (const _class_& x) { return x; }
 #else // Line number information for ease of debugging.
-  #define As(type)  as_##type cl_as_aux
+  #define As(type)  type##_As cl_as_aux
   #define cl_as_aux(expr)  (expr,__FILE__,__LINE__)
   #define CL_DEFINE_AS_CONVERSION(_class_)				\
-    extern const _class_& as_##_class_ (const cl_number& x, const char * filename, int line); \
-    inline const _class_& as_##_class_ (const _class_& x, const char * filename, int line) { (void)filename; (void)line; return x; }
+    extern const _class_& _class_##_As (const cl_number& x, const char * filename, int line); \
+    inline const _class_& _class_##_As (const _class_& x, const char * filename, int line) { (void)filename; (void)line; return x; }
 #endif
 
 // Mutable(type,x);

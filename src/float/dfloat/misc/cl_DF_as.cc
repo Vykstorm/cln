@@ -1,4 +1,4 @@
-// as_cl_DF().
+// cl_DF_As().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -21,7 +21,7 @@ inline cl_boolean cl_DF_p (const cl_number& x)
 	return cl_false;
 }
 
-const cl_DF& as_cl_DF (const cl_number& x, const char * filename, int line)
+const cl_DF& cl_DF_As (const cl_number& x, const char * filename, int line)
 {
 	if (cl_DF_p(x)) {
 		DeclareType(cl_DF,x);

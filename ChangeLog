@@ -1,5 +1,19 @@
 2000-09-05  Richard Kreckel  <kreckel@ginac.de>
 
+        * include/cln/number.h (As): Fix it in namespace by suffixing `_As'
+          to the appropiate method instead of prefixing `as_'.
+        * src/complex/misc/cl_N_as.cc (cl_N_As): Likewise.
+        * src/real/misc/cl_R_as.cc (cl_R_As): Likewise.
+        * src/rational/misc/cl_RA_as.cc (cl_RA_As): Likewise.
+        * src/integer/misc/cl_I_as.cc (cl_I_As): Likewise.
+        * src/float/misc/cl_F_as.cc (cl_F_As): Likewise.
+        * src/float/sfloat/misc/cl_SF_as.cc (cl_SF_As): Likewise.
+        * src/float/lfloat/misc/cl_LF_as.cc (cl_LF_As): Likewise.
+        * src/float/ffloat/misc/cl_FF_as.cc (cl_FF_As): Likewise.
+        * src/float/dfloat/misc/cl_DF_as.cc (cl_DF_As): Likewise.
+
+2000-09-05  Richard Kreckel  <kreckel@ginac.de>
+
         * src/complex/transcendental/cl_C_expt_C.cc (expt): fix logic for
           the 0^y cases.
 

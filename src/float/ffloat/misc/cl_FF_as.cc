@@ -1,4 +1,4 @@
-// as_cl_FF().
+// cl_FF_As().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -27,7 +27,7 @@ inline cl_boolean cl_FF_p (const cl_number& x)
 	return cl_false;
 }
 
-const cl_FF& as_cl_FF (const cl_number& x, const char * filename, int line)
+const cl_FF& cl_FF_As (const cl_number& x, const char * filename, int line)
 {
 	if (cl_FF_p(x)) {
 		DeclareType(cl_FF,x);
