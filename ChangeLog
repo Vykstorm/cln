@@ -1,5 +1,9 @@
 2004-01-01  Richard B. Kreckel  <kreckel@ginac.de>
 
+	* Version 1.1.6 released.
+
+2004-01-01  Richard B. Kreckel  <kreckel@ginac.de>
+
 	* include/cln/univpoly.h, include/cln/univpoly_complex.h,
 	  include/cln//univpoly_integer.h, include/cln/univpoly_modint.h,
 	  include/cln/univpoly_rational.h, include/cln/univpoly_real.h,

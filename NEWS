@@ -1,9 +1,16 @@
-2003-12-xy, version 1.1.6
+2004-01-01, version 1.1.6
+
+Functional changes
+------------------
+
+* New function
+  `sintL ldegree(const cl_UP& x)'.
+  (Suggested by Munagala Ramanath.)
 
 Implementation changes
 ----------------------
 
-* Fix a bug in polynomial subtraction.
+* Fixed a bug in polynomial subtraction.
   (Reported by Munagala Ramanath.)
 
 Other changes
@@ -13,7 +20,7 @@ Other changes
 
 * Updated infrastructure to autoconf-2.57.
 
-* Fix compilation issues with GCC-3.4 and on Mac OSX.
+* Fixed compilation issues with GCC-3.4 prereleases and on Mac OSX.
 
 
 2002-05-28, version 1.1.5

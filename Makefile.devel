@@ -7,11 +7,14 @@ SHELL = /bin/sh
 MAKE = make
 
 
-# GNU tar together with GNU bzip2. Excellent performance.
+# GNU tar together with GNU bzip2. Slow, but excellent compresion rates.
 PACK = tar
 PACKOPT = cvfhj
 PACKEXT = .tar.bz2
 
+EXCLUDE=--exclude CVS --exclude \*.o --exclude *.lo --exclude .cvsignore   \
+        --exclude \*~ --exclude .\#\* --exclude .libs                      \
+        --exclude ${AUTOCONF_CACHE}
 
 all: configures documentation
 
@@ -20,18 +23,33 @@ CONFIGURES = configure
 CONFIGURES_IN = configure.ac
 
 AUTOCONF_FILES = autoconf/aclocal.m4
+AUTOCONF = autoconf
+AUTOCONF_CACHE = autom4te.cache
 
 configures: ${CONFIGURES}
 
 configure: configure.ac ${AUTOCONF_FILES}
-	autoconf --include=autoconf
+	${AUTOCONF} --include=autoconf
 
+# This is the upstream location for most of the .m4 files:
 CLISP_M4DIR = ~/contrib/clisp/src/m4
 
 autoconf/aclocal.m4: ${wildcard m4/*.m4}
 	aclocal -I m4 -I ${CLISP_M4DIR} --output=autoconf/aclocal.m4
 
-# Syntaxcheck
+# Release:
+SRC_DIST=/tmp/cln-${VER}${PACKEXT}
+VER=${shell echo `grep "CL_VERSION " include/cln/version.h |sed 's/^.*CL_VERSION \(.*\)$$/\1/'`}
+
+src-distrib: include/cln/version.h force
+	${MAKE} -f Makefile.devel src--distrib TOPDIR=cln-${VER}
+
+src--distrib: force
+	ln -s . ${TOPDIR}
+	${PACK} ${PACKOPT} ${SRC_DIST} ${EXCLUDE} --exclude ${TOPDIR}/${TOPDIR} ${TOPDIR}
+	rm -f ${TOPDIR}
+
+# Syntaxcheck:
 check-configures: ${CONFIGURES}
 	set -e; for f in ${CONFIGURES}; do bash -x -n $$f; done
 
