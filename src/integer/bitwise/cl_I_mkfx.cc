@@ -44,8 +44,13 @@ const cl_I mkf_extract (const cl_I& x, uintL p, uintL q)
       }
       // Lösche intDsize*ceiling(q/intDsize)-q Bits im ersten Digit:
       {var uintL q_D = q%intDsize;
+#ifdef HAVE_FAST_LONGLONG
        if (!(q_D==0))
-         { mspref(newMSDptr,0) &= (uintD)((1L<<q_D)-1); } // intDsize-q_D Bits löschen
+         mspref(newMSDptr,0) &= (uintD)((1LL<<q_D)-1); // erase intDsize-q_D bits
+#else
+       if (!(q_D==0))
+         mspref(newMSDptr,0) &= (uintD)((1L<<q_D)-1); // erase intDsize-q_D bits
+#endif
       }
       // Jetzt enthält die UDS newMSDptr/len/.. die extrahierten Bits.
       return UDS_to_I(newMSDptr,len);

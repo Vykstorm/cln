@@ -19,11 +19,11 @@
   #include "cl_asm_i386.h"
 #endif
 
-#ifdef __mips__
+#if defined(__mips__) && !defined(__mips64__) && (intDsize==32)
   #include "cl_asm_mips.h"
 #endif
 
-#ifdef __hppa__
+#if defined(__hppa__) && (intDsize==32)
   #include "cl_asm_hppa.h"
 #endif
 

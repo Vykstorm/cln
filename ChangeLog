@@ -1,3 +1,32 @@
+2000-11-13  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/base/digitseq/cl_asm.h: Test if (intDsize==32) for MIPS and HPPA,
+          in order to guard against an accidented configuration.
+        * src/integer/conv/cl_I_to_digits.cc (table): member b_hoch_k of 
+          struct power_table_entry initialized as ULL instead of as UL, if 
+          intDsize==64 (caused misprinting on MIPS w/ GMP).
+        * src/base/cl_macros.h (minus_bitm, bitc): implemented ULL, if 
+          HAVE_FAST_LONGLONG.
+        * src/integer/bitwise/cl_I_mkfx.cc (mkf_extract): Likewise.
+        * src/integer/conv/cl_I_from_L.cc (cl_I_from_L): Added trival 
+          generation of Bignum for intDsize==64 and a notreached-check at end.
+        * autoconf/config.guess, autoconf/config.sub: updated from FSF.
+        * include/cln/config.h.in: Prepared support for IA64.
+        * include/cln/types.h: Likewise.
+        * include/cln/object.h: Likewise.
+        * include/cln/modules.h: Likewise.
+        * src/base/cl_macros.h (nonreturning_function): Likewise (NUE's 
+          compiler claims __GNUC_MINOR__==9).
+
+2000-11-03  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/base/cl_macros.h (bit, minus_bit): changed criterion for ULL from
+          HAVE_DD to HAVE_FAST_LONGLONG.
+        * src/base/cl_macros.h (bitm): implemented ULL, if HAVE_FAST_LONGLONG.
+        * src/base/cl_low.h: actually no need to include "cln/types.h" here.
+        * src/base/cl_low.h (logcount_64): always ULL, independent of HAVE_DD.
+        * src/base/random/cl_UL_random.cc (random32): a is always ULL.
+
 2000-11-01  Richard Kreckel  <kreckel@ginac.de>
 
         * include/cln/object.h (cl_combine): define additional signatures, if

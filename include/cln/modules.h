@@ -81,6 +81,9 @@
   #if defined(__convex__)
     #define CL_GLOBALIZE_LABEL(label)  __asm__(".globl " label);
   #endif
+  #if defined(__ia64__)
+    #define CL_GLOBALIZE_LABEL(label)  __asm__("\t.global " label);
+  #endif
   #ifndef CL_GLOBALIZE_LABEL
     #define CL_GLOBALIZE_LABEL(label)
   #endif
@@ -144,6 +147,9 @@
   #endif
   #if defined(__convex__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp (%0)" : : "r" ((void*)(addr)))
+  #endif
+  #if defined(__ia64__)
+    #define CL_JUMP_TO(addr)  ASM_VOLATILE("br %0" : : "b" ((void*)(addr)))
   #endif
   #define CL_PROVIDE(module)  \
     extern "C" void cl_module__##module##__firstglobalfun () {}		\

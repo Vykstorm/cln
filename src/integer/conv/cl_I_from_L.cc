@@ -23,6 +23,12 @@ cl_private_thing cl_I_constructor_from_L (sint32 wert)
 	// test enthält die Bits, die nicht in den Fixnum-Wert >= 0 reinpassen.
 	if ((test == 0) || (test == (uint32)minus_bit(cl_value_len-1)))
 		{ return (cl_private_thing)(cl_combine(cl_FN_tag,wert)); }
+	#if (intDsize==64)
+	  // trivially generate a Bignum of length one digit
+	  var cl_heap_bignum* ptr = allocate_bignum(1);
+	  arrayLSref(ptr->data,1,0) = wert;
+	  return (cl_private_thing)(ptr);
+	#else
 	// Bignum erzeugen:
 	// (dessen Länge  bn_minlength <= n <= ceiling(32/intDsize)  erfüllt)
 	if (bn_minlength == ceiling(32,intDsize)) {
@@ -101,6 +107,8 @@ cl_private_thing cl_I_constructor_from_L (sint32 wert)
 		#endif
 		#undef IF_LENGTH
 	}
+	#endif
+	NOTREACHED
 }
 
 }  // namespace cln

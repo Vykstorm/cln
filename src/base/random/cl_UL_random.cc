@@ -23,11 +23,7 @@ uint32 random32 (random_state& randomstate)
 #ifdef HAVE_FAST_LONGLONG
 	// Multiplikator a=6364136223846793005 = 0x5851F42D4C957F2D :
 	var uint64 seed = highlow64(randomstate.seed.hi,randomstate.seed.lo);
-#if HAVE_DD
 	var const uint64 a = 0x5851F42D4C957F2DULL;
-#else
-	var const uint64 a = 0x5851F42D4C957F2DUL;
-#endif
 	var uint64 newseed;
 	// multiplizieren, brauche nur letzte 64 Bit:
 	mulu64(seed,a, , newseed =);

@@ -31,7 +31,7 @@
 // Declare functions that don't return.
 // nonreturning_function(extern,exit,(void)); == extern void exit (void);
   #ifdef __GNUC__
-    #if (__GNUC__ >= 3) || ((__GNUC__ == 2) && (__GNUC_MINOR__ >= 90))
+    #if (__GNUC__ >= 3) || ((__GNUC__ == 2) && (__GNUC_MINOR__ >= 9))
       #define nonreturning_function(storclass,funname,arguments)  \
         storclass void funname arguments __attribute__((__noreturn__))
     #else
@@ -111,13 +111,17 @@ namespace cln {
   #define NULL  0
 
 // Bit number n (0<=n<32 or 0<=n<64)
-#if HAVE_DD
-  #define bit(n)  (1LL<<(n))
-#else
-  #define bit(n)  (1L<<(n))
-#endif
+  #ifdef HAVE_FAST_LONGLONG
+    #define bit(n)  (1LL<<(n))
+  #else
+    #define bit(n)  (1L<<(n))
+  #endif
 // Bit number n (0<n<=32) mod 2^32
-  #define bitm(n)  (2L<<((n)-1))
+  #ifdef HAVE_FAST_LONGLONG
+    #define bitm(n)  (2LL<<((n)-1))
+  #else
+    #define bitm(n)  (2L<<((n)-1))
+  #endif
 // Test bit n in x, n constant, x a cl_uint:
   #if !(defined(__sparc__) || defined(__sparc64__))
     #define bit_test(x,n)  ((x) & bit(n))
@@ -134,17 +138,25 @@ namespace cln {
     #endif
   #endif
 // minus bit number n (0<=n<32 or 0<=n<64)
-#if HAVE_DD
-  #define minus_bit(n)  (-1LL<<(n))
-#else
-  #define minus_bit(n)  (-1L<<(n))
-#endif
+  #ifdef HAVE_FAST_LONGLONG
+    #define minus_bit(n)  (-1LL<<(n))
+  #else
+    #define minus_bit(n)  (-1L<<(n))
+  #endif
 // minus bit number n (0<n<=32) mod 2^32
-  #define minus_bitm(n)  (-2L<<((n)-1))
+  #ifdef HAVE_FAST_LONGLONG
+    #define minus_bitm(n)  (-2LL<<((n)-1))
+  #else
+    #define minus_bitm(n)  (-2L<<((n)-1))
+  #endif
 
 // Return 2^n, n a constant expression.
-// Same as bit(n), but undefined if n<0 or n>=long_bitsize.
-  #define bitc(n)  (1UL << (((n) >= 0 && (n) < long_bitsize) ? (n) : 0))
+// Same as bit(n), but undefined if n<0 or n>={long_}long_bitsize.
+  #ifdef HAVE_FAST_LONGLONG
+    #define bitc(n)  (1ULL << (((n) >= 0 && (n) < long_long_bitsize) ? (n) : 0))
+  #else
+    #define bitc(n)  (1UL << (((n) >= 0 && (n) < long_bitsize) ? (n) : 0))
+  #endif
 
 // floor(a,b) for a>=0, b>0 returns floor(a/b).
 // b should be a constant expression.

@@ -48,7 +48,7 @@
     #undef HAVE_LONGLONG
    #endif
   #endif
-  #if defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__mips64__) || (defined(__mips__) && defined(_ABIN32)) || defined(__sparc64__))
+  #if defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__mips64__) || defined(__sparc64__) || defined(__ia64__))
     // 64 bit registers in hardware
     #define HAVE_FAST_LONGLONG
   #endif
@@ -85,7 +85,7 @@
   #define signean_minus -1
 
 // Integer type used for counters.
-  #if (defined(HAVE_FAST_LONGLONG) && defined(__alpha__))
+  #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__)))
     #define intCsize long_bitsize
     typedef long           sintC;
     typedef unsigned long  uintC;
@@ -113,7 +113,7 @@
 // Numbers in the heap are stored as "digit" sequences.
 // A digit is an unsigned int with intDsize bits.
 // intDsize should be 8 or 16 or 32 or 64.
-  #if (defined(HAVE_FAST_LONGLONG) && defined(__alpha__))
+  #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__)))
     #define intDsize 64
     #define intDDsize 128  // = 2*intDsize
     #define log2_intDsize  6  // = log2(intDsize)

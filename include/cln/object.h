@@ -25,7 +25,7 @@ namespace cln {
 #if defined(__i386__) || defined(__mips__) || defined(__sparc__) || defined(__hppa__) || defined(__arm__) || defined(__rs6000__) || defined(__m88k__) || defined(__convex__)
   #define cl_word_alignment  4
 #endif
-#if defined(__alpha__) || defined(__mips64__) || defined(__sparc64__)
+#if defined(__alpha__) || defined(__mips64__) || defined(__sparc64__) || defined(__ia64__)
   #define cl_word_alignment  8
 #endif
 #if !defined(cl_word_alignment)
