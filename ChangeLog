@@ -32,6 +32,8 @@
         * autoconf/aclocal.m4: Upgrade to libtool-1.4.
         * autoconf/ltmain.sh: Likewise.
         * autoconf/ltconfig: Remove file.
+        * autoconf/install-sh: New file.
+        * configure.in: Add AC_CONFIG_AUX_DIR call.
 
 2001-06-05  Richard Kreckel  <kreckel@ginac.de>
 
