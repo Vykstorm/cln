@@ -96,9 +96,9 @@ OBJECTS_LO = $(FILES_LO) $(ASMFILES_LO)
 SUBDIRS := $(patsubst $(srcdir)/%/.,%,$(wildcard $(srcdir)/$(SUBDIR)/*/.))
 # Avoid certain subdirectories:
 #   private/ and old/ don't contain valid sources,
-#   CVS/ and RCS/ are created when people put the sources under version control,
+#   CVS/, RCS/ and SCCS/ are created when people put the sources under version control,
 #   ii_files/ is created during "make" by SGI C++.
-SUBDIRS := $(filter-out old ./old private ./private CVS %/CVS RCS %/RCS ii_files ./ii_files,$(SUBDIRS))
+SUBDIRS := $(filter-out old ./old private ./private CVS %/CVS RCS %/RCS SCCS %/SCCS ii_files ./ii_files,$(SUBDIRS))
 
 SUBDIRS_TARGET := $(patsubst %,%.target,$(SUBDIRS))
 SUBDIRS_DIRDEP := $(patsubst %,%.dirdep,$(SUBDIRS))
