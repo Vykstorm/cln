@@ -4517,8 +4517,12 @@ AC_DEFUN([CL_GMP_CHECK],
     SAVELIBS=$LIBS
     LIBS="$LIBS -lgmp"
     AC_TRY_LINK([#include <gmp.h>],[mpn_divexact_by3(0,0,0)],
-cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no"; LIBS=$SAVELIBS)
-])])
+cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no")
+    LIBS=$SAVELIBS])
+    if test x"$cl_cv_new_libgmp" = xyes; then
+      LIBS="$LIBS -lgmp"
+    fi
+])
 
 dnl What is sizeof(mp_limb_t)?  (It has to match sizeof(uintD) later.)
 AC_DEFUN([CL_GMP_SET_UINTD],
