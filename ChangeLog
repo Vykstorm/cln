@@ -1,3 +1,11 @@
+2001-05-25  Richard Kreckel  <kreckel@ginac.de>
+
+        * autoconf/floatparam.c (double_wordorder_bigendian_p): new symbol.
+        * src/float/dfloat/cl_DF.h: Check for double_wordorder_bigendian_p.
+        * Removed LiDIA interface since that is now outdated (namespace cln)
+          and maintained elsewhere.
+        * Adjusted dates and final touches for 1.1.1.
+
 2001-05-19  Richard Kreckel  <kreckel@ginac.de>
 
         * INSTALL: Update toolchain info: no egcs, some more platforms.
