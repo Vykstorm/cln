@@ -21,8 +21,12 @@
 #ifndef __m68k__
 #undef __m68k__
 #endif
+// NB: GCC def's __mips__ both on big-endian and little-endian systems.
 #ifndef __mips__
 #undef __mips__
+#endif
+#ifndef __mipsel__
+#undef __mipsel__
 #endif
 #ifndef __mips64__
 #undef __mips64__

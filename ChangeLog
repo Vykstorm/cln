@@ -1,3 +1,11 @@
+2004-09-05  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Support for little-endian Mips
+	* include/cln/config.h.in: Add __mipsel__.
+	* include/cln/modules.h: For Mips, this is endianness-agnostic.
+	* src/base/digitseq/cl_asm_.cc, src/base/digitseq/cl_asm.h:
+	Mask out assembler for little-endian Mips.
+
 2004-08-30  Bruno Haible  <bruno@clisp.org>
 
 	* benchmarks/timebench2.sh: Multiply all repeat counts by 100.

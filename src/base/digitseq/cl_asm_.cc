@@ -21,7 +21,7 @@
   #include "cl_asm_i386_.cc"
 #endif
 
-#if defined(__mips__)
+#if defined(__mips__) && !defined(__mipsel__)
   #include "cl_asm_mips_.cc"
 #endif
 
