@@ -1,7 +1,17 @@
+2000-08-30  Richard Kreckel  <kreckel@ginac.de>
+
+        * include/cln/number.h, cl_number::_as_cl_private_thing(): removed.
+          Rearranged for a clearer distinction between macros and remaining
+          identifiers, so Cint can parse it smoothly.
+
 2000-08-29  Richard Kreckel  <kreckel@ginac.de>
 
         * include/cln/number.h, the(const cl_number& x): New template
           function.
+
+2000-08-29  Richard Kreckel  <kreckel@ginac.de>
+
+        * TODO: DESCRIBE NAMESPACE CHANGES HERE!!!
 
 2000-08-26  Bruno Haible  <haible@clisp.cons.org>
 
@@ -30,11 +40,6 @@
           (cl_word_size): New macro.
         * src/float/sfloat/cl_SF.h: Use cl_pointer_size instead of
           cl_word_size.
-
-2000-06-05  Richard Kreckel  <kreckel@ginac.de>
-
-        * doc/*, INSTALL: Mention that both shared and static library are
-          are now build by default.
 
 2000-05-31  Bruno Haible  <haible@clisp.cons.org>
 
@@ -92,12 +97,6 @@
         * configure, configure.in: Safer GMP3-detection.
         * INSTALL.generic: Clarified behaviour of --with-gmp.
         * autoconf/config.guess: updated from Clisp-2000-03-06 sources.
-
-2000-05-05  Richard Kreckel  <kreckel@ginac.de>
-
-        * doc/cln.tex: Added index entries.
-        * doc/texinfo.tex: Upgraded to newer version 1999-10-01.07.
-        * doc/*: Changes triggered.
 
 2000-05-04  Richard Kreckel  <kreckel@ginac.de>
 

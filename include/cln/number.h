@@ -1,12 +1,12 @@
 // Basic definitions of numbers
 
+
 #ifndef _CL_NUMBER_H
 #define _CL_NUMBER_H
 
+
 #include "cln/object.h"
 #include "cln/malloc.h"
-
-namespace cln {
 
 // Type hierachy:
 // Number (N) =
@@ -110,26 +110,12 @@ inline _class_& _class_::operator= (const unsigned long wert)		\
 #endif
 
 
-// Conversions to subtypes:
-// As(cl_I)(x) returns x as a cl_I. It first checks that x is a cl_I
-// and then returns it without change of representation.
-#if 0 // no debug information
-  #define As(type)  as_##type
-  #define CL_DEFINE_AS_CONVERSION(_class_)				\
-    extern const _class_& as_##_class_ (const cl_number& x);		\
-    inline const _class_& as_##_class_ (const _class_& x) { return x; }
-#else // Line number information for ease of debugging.
-  #define As(type)  as_##type cl_as_aux
-  #define cl_as_aux(expr)  (expr,__FILE__,__LINE__)
-  #define CL_DEFINE_AS_CONVERSION(_class_)				\
-    extern const _class_& as_##_class_ (const cl_number& x, const char * filename, int line); \
-    inline const _class_& as_##_class_ (const _class_& x, const char * filename, int line) { (void)filename; (void)line; return x; }
-#endif
-
+namespace cln {
 
 // Constructors and assignment operators from C numeric types.
 
 // from `float':
+union ffloatjanus;
 extern cl_private_thing cl_float_to_FF_pointer (const union ffloatjanus& val);
 
 #define CL_DEFINE_FLOAT_CONSTRUCTOR(_class_)				\
@@ -145,6 +131,7 @@ inline _class_& _class_::operator= (const float x)			\
 }
 
 // from `double':
+union dfloatjanus;
 extern struct cl_heap_dfloat * cl_double_to_DF_pointer (const union dfloatjanus& val);
 
 #define CL_DEFINE_DOUBLE_CONSTRUCTOR(_class_)				\
@@ -189,7 +176,6 @@ public:
 //	cl_number (const char *);
 // Private pointer manipulations.
 	cl_number (cl_private_thing);
-	cl_private_thing _as_cl_private_thing () const;
 };
 
 // Private constructors.
@@ -217,8 +203,8 @@ CL_DEFINE_DOUBLE_CONSTRUCTOR(cl_number)
 
 // Hack section.
 
-// Conversions to subtypes without checking:
-// the<cl_I>(x) converts x to a cl_I, without change of representation!
+// Conversions to subtypes without checking, template version:
+// the<cl_I>(x) converts x to a cl_I, without change of representation.
 template<class type>
 inline const type& the(const cl_number& x)
 {
@@ -226,12 +212,30 @@ inline const type& the(const cl_number& x)
 	typedef int assertion1 [1 - 2 * (sizeof(type) != sizeof(cl_number))];
 	return *(const type *) &x;
 }
-
-// Conversions to subtypes without checking:
-// The(cl_I)(x) converts x to a cl_I, without change of representation!
+// Conversions to subtypes without checking, macro version:
+// The(cl_I)(x) converts x to a cl_I, without change of representation.
   #define The(type)  *(const type *) & cl_identity
 // This inline function is for type checking purposes only.
   inline const cl_number& cl_identity (const cl_number& x) { return x; }
+
+}  // namespace cln
+
+
+// Conversions to subtypes:
+// As(cl_I)(x) returns x as a cl_I. It first checks that x is a cl_I
+// and then returns it without change of representation.
+#if 0 // no debug information  
+  #define As(type)  as_##type
+  #define CL_DEFINE_AS_CONVERSION(_class_)				\
+    extern const _class_& as_##_class_ (const cl_number& x);		\
+    inline const _class_& as_##_class_ (const _class_& x) { return x; }
+#else // Line number information for ease of debugging.
+  #define As(type)  as_##type cl_as_aux
+  #define cl_as_aux(expr)  (expr,__FILE__,__LINE__)
+  #define CL_DEFINE_AS_CONVERSION(_class_)				\
+    extern const _class_& as_##_class_ (const cl_number& x, const char * filename, int line); \
+    inline const _class_& as_##_class_ (const _class_& x, const char * filename, int line) { (void)filename; (void)line; return x; }
+#endif
 
 // Mutable(type,x);
 // x should be a variable `const type x' or `const type& x'.
@@ -251,7 +255,5 @@ inline const type& the(const cl_number& x)
   #define DeclareType(type,x)  \
     const type& __tmp_##x = *(const type*) &x;				\
     const type& x = __tmp_##x;
-
-}  // namespace cln
 
 #endif /* _CL_NUMBER_H */
