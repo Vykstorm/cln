@@ -3,6 +3,8 @@
 #ifndef _CL_LOW_H
 #define _CL_LOW_H
 
+#include "cln/types.h"
+
 namespace cln {
 
 // Determines the sign of a 16-bit number.
@@ -1295,6 +1297,23 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       /* x32 besteht aus 1 16-Bit-Zähler (0,...,32).          */\
     )
   // Bits von x64 zählen: (Input x64, Output x64)
+#if HAVE_DD
+  #define logcount_64()  \
+    ( /* x64 besteht aus 64 1-Bit-Zählern (0,1).                             */\
+      x64 = (x64 & 0x5555555555555555ULL) + ((x64 & 0xAAAAAAAAAAAAAAAAULL) >> 1),\
+      /* x64 besteht aus 32 2-Bit-Zählern (0,1,2).                           */\
+      x64 = (x64 & 0x3333333333333333ULL) + ((x64 & 0xCCCCCCCCCCCCCCCCULL) >> 2),\
+      /* x64 besteht aus 16 4-Bit-Zählern (0,1,2,3,4).                       */\
+      x64 = (uint32)(x64 + (x64 >> 32)),				       \
+      /* x64 besteht aus 8 4-Bit-Zählern (0,...,8).                          */\
+      x64 = (x64 & 0x0F0F0F0FUL) + ((x64 & 0xF0F0F0F0UL) >> 4),		       \
+      /* x64 besteht aus 4 8-Bit-Zählern (0,...,16).                         */\
+      x64 = (x64 & 0x00FF00FFU) + ((x64 & 0xFF00FF00U) >> 8),		       \
+      /* x64 besteht aus 2 16-Bit-Zählern (0,...,32).                        */\
+      x64 = (x64 & 0x0000FFFFU) + (x64 >> 16)				       \
+      /* x64 besteht aus 1 16-Bit-Zähler (0,...,64).                         */\
+    )
+#else
   #define logcount_64()  \
     ( /* x64 besteht aus 64 1-Bit-Zählern (0,1).                             */\
       x64 = (x64 & 0x5555555555555555UL) + ((x64 & 0xAAAAAAAAAAAAAAAAUL) >> 1),\
@@ -1310,6 +1329,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       x64 = (x64 & 0x0000FFFFU) + (x64 >> 16)				       \
       /* x64 besteht aus 1 16-Bit-Zähler (0,...,64).                         */\
     )
+#endif
 
 }  // namespace cln
 

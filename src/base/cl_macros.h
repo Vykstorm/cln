@@ -3,6 +3,8 @@
 #ifndef _CL_MACROS_H
 #define _CL_MACROS_H
 
+#include "cln/types.h"
+
 // Concatenation of macroexpanded tokens.
 // Example:
 //   #undef x
@@ -108,8 +110,12 @@ namespace cln {
   #undef NULL
   #define NULL  0
 
-// Bit number n (0<=n<32)
+// Bit number n (0<=n<32 or 0<=n<64)
+#if HAVE_DD
+  #define bit(n)  (1LL<<(n))
+#else
   #define bit(n)  (1L<<(n))
+#endif
 // Bit number n (0<n<=32) mod 2^32
   #define bitm(n)  (2L<<((n)-1))
 // Test bit n in x, n constant, x a cl_uint:
@@ -127,8 +133,12 @@ namespace cln {
         )
     #endif
   #endif
-// minus bit number n (0<=n<32)
+// minus bit number n (0<=n<32 or 0<=n<64)
+#if HAVE_DD
+  #define minus_bit(n)  (-1LL<<(n))
+#else
   #define minus_bit(n)  (-1L<<(n))
+#endif
 // minus bit number n (0<n<=32) mod 2^32
   #define minus_bitm(n)  (-2L<<((n)-1))
 

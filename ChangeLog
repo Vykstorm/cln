@@ -1,3 +1,18 @@
+2000-11-01  Richard Kreckel  <kreckel@ginac.de>
+
+        * include/cln/object.h (cl_combine): define additional signatures, if
+          HAVE_LONGLONG is defined, in order to keep the compiler happy.
+        * src/base/cl_macros.h: include "cln/types.h", since we need HAVE_DD...
+        * src/base/cl_macros.h (bit): ...for this macro...
+        * src/base/cl_macros.h (minus_bit): ...and this one.
+        * src/base/cl_low.h: include "cln/types.h", since we need HAVE_DD...
+        * src/base/cl_low.h (logcount_64): ...for this macro.
+        * src/base/random/cl_UL_random.cc (random32): if HAVE_DD a is an ULL.
+        * src/integer/gcd/cl_I_gcd_aux2.cc (floorDD): fixed algorithmic bug
+          that turned up when intDsize==32 and cl_word_size==64.
+        * src/float/dfloat/elem/cl_DF_div.cc (operator/): fixed a missing cast
+          to uint64 that turned up when intDsize==32 and cl_word_size==64.
+
 2000-10-29  Richard Kreckel  <kreckel@ginac.de>
 
         * src/real/input/cl_R_read.cc, src/complex/input/cl_N_read.cc:

@@ -47,7 +47,7 @@ static uintD floorDD (uintDD x, uintDD y)
 		if (y_shifted == 0)
 			q = highD(x) >> shift;
 		else
-			divuD(x,y_shifted, q =, );
+			divuD(highD(x) >> shift, y_shifted, q =, );
 	}
 	// May need to increment q at most twice.
 	{

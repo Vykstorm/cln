@@ -145,7 +145,7 @@ const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
        // q = 2^32*manthi+mantlo.
        #if (cl_word_size==64)
        #if (intDsize<=32)
-       mantx = (manthi<<32) | (uint64)mantlo;
+       mantx = ((uint64)manthi<<32) | (uint64)mantlo;
        #endif
        if (mantx >= bit(DF_mant_len+2))
          // Quotient >=2^54 -> 2 Bits wegrunden
