@@ -131,6 +131,25 @@ static const _cl_UP num_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const
 	return _cl_UP(UPR, cl_null_SV_number);
 }}
 
+static const _cl_UP num_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+{{
+	DeclarePoly(cl_SV_number,x);
+	var cl_number_ring_ops<cl_number>& ops = *TheNumberRing(UPR->basering())->ops;
+	var sintL xlen = x.length();
+	if (xlen == 0)
+		return _cl_UP(UPR, x);
+	// Now xlen > 0.
+	// Negate. No normalization necessary, since the degree doesn't change.
+	var sintL i = xlen-1;
+	var cl_number hicoeff = ops.uminus(x[i]);
+	if (ops.zerop(hicoeff)) cl_abort();
+	var cl_SV_number result = cl_SV_number(cl_make_heap_SV_number_uninit(xlen));
+	init1(cl_number, result[i]) (hicoeff);
+	for (i-- ; i >= 0; i--)
+		init1(cl_number, result[i]) (ops.uminus(x[i]));
+	return _cl_UP(UPR, result);
+}}
+
 static const _cl_UP num_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
 {{
 	DeclarePoly(cl_SV_number,x);
@@ -138,10 +157,10 @@ static const _cl_UP num_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, cons
 	var cl_number_ring_ops<cl_number>& ops = *TheNumberRing(UPR->basering())->ops;
 	var sintL xlen = x.length();
 	var sintL ylen = y.length();
-	if (xlen == 0)
-		return _cl_UP(UPR, y);
 	if (ylen == 0)
 		return _cl_UP(UPR, x);
+	if (xlen == 0)
+		return num_uminus(UPR, _cl_UP(UPR, y));
 	// Now xlen > 0, ylen > 0.
 	if (xlen > ylen) {
 		var cl_SV_number result = cl_SV_number(cl_make_heap_SV_number_uninit(xlen));
@@ -173,25 +192,6 @@ static const _cl_UP num_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, cons
 		}
 	}
 	return _cl_UP(UPR, cl_null_SV_number);
-}}
-
-static const _cl_UP num_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
-{{
-	DeclarePoly(cl_SV_number,x);
-	var cl_number_ring_ops<cl_number>& ops = *TheNumberRing(UPR->basering())->ops;
-	var sintL xlen = x.length();
-	if (xlen == 0)
-		return _cl_UP(UPR, x);
-	// Now xlen > 0.
-	// Negate. No normalization necessary, since the degree doesn't change.
-	var sintL i = xlen-1;
-	var cl_number hicoeff = ops.uminus(x[i]);
-	if (ops.zerop(hicoeff)) cl_abort();
-	var cl_SV_number result = cl_SV_number(cl_make_heap_SV_number_uninit(xlen));
-	init1(cl_number, result[i]) (hicoeff);
-	for (i-- ; i >= 0; i--)
-		init1(cl_number, result[i]) (ops.uminus(x[i]));
-	return _cl_UP(UPR, result);
 }}
 
 static const _cl_UP num_one (cl_heap_univpoly_ring* UPR)

@@ -1,3 +1,11 @@
+2003-12-27  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/polynomial/cl_UP_gen.h (gen_minus): Fix case where first
+	  argument is zero.
+	* src/polynomial/cl_UP_MI.h (modint_minus): Likewise.
+	* src/polynomial/cl_UP_number.h (num_minus): Likewise.
+	Reported by Munagala Ramanath <amberarrow@yahoo.com>.
+
 2003-12-02  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* examples/perfnum.cc: update to presumed 40th Mersenne prime.

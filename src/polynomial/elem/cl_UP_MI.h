@@ -143,6 +143,25 @@ static const _cl_UP modint_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, co
 	return _cl_UP(UPR, cl_null_GV_I);
 }}
 
+static const _cl_UP modint_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+{{
+	DeclarePoly(cl_GV_MI,x);
+	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
+	var sintL xlen = x.length();
+	if (xlen == 0)
+		return _cl_UP(UPR, x);
+	// Now xlen > 0.
+	// Negate. No normalization necessary, since the degree doesn't change.
+	var sintL i = xlen-1;
+	var _cl_MI hicoeff = R->_uminus(x[i]);
+	if (R->_zerop(hicoeff)) cl_abort();
+	var cl_GV_MI result = cl_GV_MI(xlen,R);
+	result[i] = hicoeff;
+	for (i-- ; i >= 0; i--)
+		result[i] = R->_uminus(x[i]);
+	return _cl_UP(UPR, result);
+}}
+
 static const _cl_UP modint_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
 {{
 	DeclarePoly(cl_GV_MI,x);
@@ -150,10 +169,10 @@ static const _cl_UP modint_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, c
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
 	var sintL xlen = x.length();
 	var sintL ylen = y.length();
-	if (xlen == 0)
-		return _cl_UP(UPR, y);
 	if (ylen == 0)
 		return _cl_UP(UPR, x);
+	if (xlen == 0)
+		return modint_uminus(UPR, _cl_UP(UPR, y));
 	// Now xlen > 0, ylen > 0.
 	if (xlen > ylen) {
 		var cl_GV_MI result = cl_GV_MI(xlen,R);
@@ -189,25 +208,6 @@ static const _cl_UP modint_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, c
 		}
 	}
 	return _cl_UP(UPR, cl_null_GV_I);
-}}
-
-static const _cl_UP modint_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
-{{
-	DeclarePoly(cl_GV_MI,x);
-	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
-	if (xlen == 0)
-		return _cl_UP(UPR, x);
-	// Now xlen > 0.
-	// Negate. No normalization necessary, since the degree doesn't change.
-	var sintL i = xlen-1;
-	var _cl_MI hicoeff = R->_uminus(x[i]);
-	if (R->_zerop(hicoeff)) cl_abort();
-	var cl_GV_MI result = cl_GV_MI(xlen,R);
-	result[i] = hicoeff;
-	for (i-- ; i >= 0; i--)
-		result[i] = R->_uminus(x[i]);
-	return _cl_UP(UPR, result);
 }}
 
 static const _cl_UP modint_one (cl_heap_univpoly_ring* UPR)

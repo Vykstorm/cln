@@ -131,6 +131,25 @@ static const _cl_UP gen_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const
 	return _cl_UP(UPR, cl_null_SV_ringelt);
 }}
 
+static const _cl_UP gen_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+{{
+	DeclarePoly(cl_SV_ringelt,x);
+	var cl_heap_ring* R = TheRing(UPR->basering());
+	var sintL xlen = x.length();
+	if (xlen == 0)
+		return _cl_UP(UPR, x);
+	// Now xlen > 0.
+	// Negate. No normalization necessary, since the degree doesn't change.
+	var sintL i = xlen-1;
+	var _cl_ring_element hicoeff = R->_uminus(x[i]);
+	if (R->_zerop(hicoeff)) cl_abort();
+	var cl_SV_ringelt result = cl_SV_ringelt(cl_make_heap_SV_ringelt_uninit(xlen));
+	init1(_cl_ring_element, result[i]) (hicoeff);
+	for (i-- ; i >= 0; i--)
+		init1(_cl_ring_element, result[i]) (R->_uminus(x[i]));
+	return _cl_UP(UPR, result);
+}}
+
 static const _cl_UP gen_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
 {{
 	DeclarePoly(cl_SV_ringelt,x);
@@ -138,10 +157,10 @@ static const _cl_UP gen_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, cons
 	var cl_heap_ring* R = TheRing(UPR->basering());
 	var sintL xlen = x.length();
 	var sintL ylen = y.length();
-	if (xlen == 0)
-		return _cl_UP(UPR, y);
 	if (ylen == 0)
 		return _cl_UP(UPR, x);
+	if (xlen == 0)
+		return gen_uminus(UPR,_cl_UP(UPR, y));
 	// Now xlen > 0, ylen > 0.
 	if (xlen > ylen) {
 		var cl_SV_ringelt result = cl_SV_ringelt(cl_make_heap_SV_ringelt_uninit(xlen));
@@ -173,25 +192,6 @@ static const _cl_UP gen_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, cons
 		}
 	}
 	return _cl_UP(UPR, cl_null_SV_ringelt);
-}}
-
-static const _cl_UP gen_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
-{{
-	DeclarePoly(cl_SV_ringelt,x);
-	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
-	if (xlen == 0)
-		return _cl_UP(UPR, x);
-	// Now xlen > 0.
-	// Negate. No normalization necessary, since the degree doesn't change.
-	var sintL i = xlen-1;
-	var _cl_ring_element hicoeff = R->_uminus(x[i]);
-	if (R->_zerop(hicoeff)) cl_abort();
-	var cl_SV_ringelt result = cl_SV_ringelt(cl_make_heap_SV_ringelt_uninit(xlen));
-	init1(_cl_ring_element, result[i]) (hicoeff);
-	for (i-- ; i >= 0; i--)
-		init1(_cl_ring_element, result[i]) (R->_uminus(x[i]));
-	return _cl_UP(UPR, result);
 }}
 
 static const _cl_UP gen_one (cl_heap_univpoly_ring* UPR)
