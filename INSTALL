@@ -12,8 +12,10 @@ You need GNU make. On HP-UX, you also need GNU sed.
 
 Known to work with:
   - Linux/x86, gcc-2.95.x, gcc-3.[0-4]
+  - Linux/x86_64, gcc-3.[3-4]
   - Linux/ia64, gcc-2.96, gcc-3.[2-3]
   - Linux/arm, gcc-2.95.3, gcc-3.[0-3]
+  - Linux/mips, gcc-3.3
   - Linux/sparc, gcc-2.95.3, gcc-3.[1-3]
   - Linux/alpha, gcc-2.95.x, gcc-3.[0-3]
   - Linux/powerpc, gcc-2.95.x, gcc-3.[0-3]
@@ -22,7 +24,7 @@ Known to work with:
   - Irix 6.5, gcc-2.95.x, gcc-3.0
   - BeOS, gcc-2.95.x
 
-The "make" step takes about 1 hour, on a P-II / 400 MHz / 256 MB.
+The "make" step takes about 30 minutes, on a P-III / 1 GHz / 512 MB.
 
 If you use g++ gcc-2.95.x or gcc-3.x, I recommend adding "-fno-exceptions" 
 to the CXXFLAGS. This will likely generate better code.
