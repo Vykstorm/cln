@@ -1,0 +1,128 @@
+// Defines CPU and compiler dependent macros
+
+#ifndef _CL_CONFIG_H
+#define _CL_CONFIG_H
+
+/* These definitions are adjusted by `configure' automatically. */
+
+
+/* release version */
+
+#undef CL_VERSION_MAJOR
+#undef CL_VERSION_MINOR
+#undef CL_VERSION_PATCHLEVEL
+#undef CL_VERSION
+
+
+/* CPU */
+#ifndef __i386__
+#undef __i386__
+#endif
+#ifndef __m68k__
+#undef __m68k__
+#endif
+#ifndef __mips__
+#undef __mips__
+#endif
+#ifndef __mips64__
+#undef __mips64__
+#endif
+#ifndef __sparc__
+#undef __sparc__
+#endif
+#ifndef __sparc64__
+#undef __sparc64__
+#endif
+#ifndef __alpha__
+#undef __alpha__
+#endif
+#ifndef __hppa__
+#undef __hppa__
+#endif
+#ifndef __arm__
+#undef __arm__
+#endif
+#ifndef __rs6000__
+#undef __rs6000__
+#endif
+#ifndef __m88k__
+#undef __m88k__
+#endif
+#ifndef __convex__
+#undef __convex__
+#endif
+
+
+/* assembler syntax */
+
+/* CL_AS_UNDERSCORE */
+/* Define if C symbols are prefixed by an underscore in assembly language. */
+#undef ASM_UNDERSCORE
+
+
+/* compiler characteristics */
+
+/* CL_BOOL */
+/* Define if your compiler understands the bool type. */
+#undef HAVE_BOOL
+/* Define this as `int' if your compiler doesn't understand the bool type. */
+#undef bool
+
+/* CL_LONGLONG */
+/* Define if your compiler supports the `long long' type. */
+#undef HAVE_LONGLONG
+
+/* CL_LONGDOUBLE */
+/* Define if your compiler supports the `long double' type. */
+#undef HAVE_LONGDOUBLE
+
+/* CL_TEMPLATE_NULL */
+/* Define if your compiler supports the `template <>' syntax. */
+#undef HAVE_TEMPLATE_NULL
+
+
+/* header files */
+
+/* CL_UNISTD_H */
+/* Define if you have <unistd.h>. */
+#undef HAVE_UNISTD_H
+
+
+/* functions and declarations */
+
+/* CL_ALLOCA */
+/* Define if you have <alloca.h> and it should be used (not Ultrix). */
+#undef HAVE_ALLOCA_H
+/* Define if you need to link with an external alloca.o when using alloca(). */
+#undef NO_ALLOCA
+
+
+/* compiler characteristics */
+
+/* CL_GLOBAL_CONSTRUCTORS */
+/* Define as the prefix of the name of a module's global constructor function,
+   cf. macro FILE_FUNCTION_FORMAT in gcc/tree.c. */
+#ifndef CL_GLOBAL_CONSTRUCTOR_PREFIX
+#undef CL_GLOBAL_CONSTRUCTOR_PREFIX
+#endif
+/* Define as the prefix of the name of a module's global destructor function,
+   cf. macro FILE_FUNCTION_FORMAT in gcc/tree.c. */
+#ifndef CL_GLOBAL_DESTRUCTOR_PREFIX
+#undef CL_GLOBAL_DESTRUCTOR_PREFIX
+#endif
+/* Define if a module's global constructor function and global destructor
+   function need to be exported in order to be accessible from other modules. */
+#undef CL_NEED_GLOBALIZE_CTORDTOR
+
+/* CL_CHAR_UNSIGNED */
+#ifndef __CHAR_UNSIGNED__
+#undef __CHAR_UNSIGNED__
+#endif
+
+/* CL_MACHINE */
+/* see cl_intparam.h */
+/* see cl_floatparam.h */
+
+
+#endif /* _CL_CONFIG_H */
+
