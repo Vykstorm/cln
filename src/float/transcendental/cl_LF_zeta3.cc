@@ -29,9 +29,9 @@ const cl_LF zeta3 (uintC len)
 	//            \ n = 1                                    /
 	//
 	// The formula used to compute Zeta(3) has reference in the paper
-	// "Acceleration of Hypergeometric Series via the WZ method" by
-	// T. Amdeberhan and Doron Zeilberger, to appear in the Electronic
-	// Journal of Combinatorics [Wilf Festschrift Volume].
+	// "Hypergeometric Series Acceleration via the WZ method" by
+	// T. Amdeberhan and Doron Zeilberger,
+	// Electronic J. Combin. 4 (1997), R3.
 	//
 	// Computation of the sum:
 	// Evaluate a sum(0 <= n < N, a(n)/b(n) * (p(0)...p(n))/(q(0)...q(n)))
