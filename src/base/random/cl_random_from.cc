@@ -80,7 +80,7 @@ random_state::random_state ()
 {
 	var uint32 seed_hi;
 	var uint32 seed_lo;
-#if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(_WIN32) && defined(__GNUC__)) || defined(__BEOS__)
+#if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(_WIN32) && defined(__GNUC__)) || defined(__BEOS__)
 	seed_lo = ::get_seed();
 	seed_hi = (rand() // zufällige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
                           << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
