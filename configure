@@ -2763,14 +2763,16 @@ else
   echo "configure: failed program was:" >&5
   cat conftest.$ac_ext >&5
   rm -rf conftest*
-  cl_cv_new_gmp_h="no"; with_gmp="no"
+  cl_cv_new_gmp_h="no"
 fi
 rm -f conftest*
 
 fi
 echo "$ac_t""$cl_cv_new_gmp_h" 1>&6
+if test "$cl_cv_new_gmp_h" = no; then with_gmp="no"; fi
+if test "$with_gmp" = yes; then
   echo $ac_n "checking for working libgmp""... $ac_c" 1>&6
-echo "configure:2774: checking for working libgmp" >&5
+echo "configure:2776: checking for working libgmp" >&5
 if eval "test \"`echo '$''{'cl_cv_new_libgmp'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2778,26 +2780,28 @@ else
     SAVELIBS=$LIBS
     LIBS="$LIBS -lgmp"
     cat > conftest.$ac_ext <<EOF
-#line 2782 "configure"
+#line 2784 "configure"
 #include "confdefs.h"
 #include <gmp.h>
 int main() {
 mpn_divexact_by3(0,0,0)
 ; return 0; }
 EOF
-if { (eval echo configure:2789: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2791: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   cl_cv_new_libgmp="yes"
 else
   echo "configure: failed program was:" >&5
   cat conftest.$ac_ext >&5
   rm -rf conftest*
-  cl_cv_new_libgmp="no"; with_gmp="no"; LIBS=$SAVELIBS
+  cl_cv_new_libgmp="no"; LIBS=$SAVELIBS
 fi
 rm -f conftest*
 
 fi
 echo "$ac_t""$cl_cv_new_libgmp" 1>&6
+if test "$cl_cv_new_libgmp" = no; then with_gmp="no"; fi
+fi
 fi
 if test "$with_gmp" = yes; then
   cat >> confdefs.h <<\EOF

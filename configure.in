@@ -143,17 +143,19 @@ dnl Is the gmp header file new enough? (i.e. >= 3.0)
 #if !defined(__GNU_MP_VERSION) || (__GNU_MP_VERSION < 3)
  #error "ancient gmp.h"
 #endif],
-cl_cv_new_gmp_h="yes",
-cl_cv_new_gmp_h="no"; with_gmp="no")
+cl_cv_new_gmp_h="yes", cl_cv_new_gmp_h="no")
 ])
+if test "$cl_cv_new_gmp_h" = no; then with_gmp="no"; fi
+if test "$with_gmp" = yes; then
 dnl Does the library match the header file have 3.0 features?
   AC_CACHE_CHECK([for working libgmp], cl_cv_new_libgmp, [
     SAVELIBS=$LIBS
     LIBS="$LIBS -lgmp"
     AC_TRY_LINK([#include <gmp.h>],[mpn_divexact_by3(0,0,0)],
-cl_cv_new_libgmp="yes",
-cl_cv_new_libgmp="no"; with_gmp="no"; LIBS=$SAVELIBS)
+cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no"; LIBS=$SAVELIBS)
 ])
+if test "$cl_cv_new_libgmp" = no; then with_gmp="no"; fi
+fi
 fi
 if test "$with_gmp" = yes; then
   AC_DEFINE(CL_USE_GMP)
