@@ -1,3 +1,12 @@
+2000-01-24  Richard Kreckel  <kreckel@ginac.de>
+
+        * gmp/*: Replaced the complete mpn sources with the ones from
+          Debian since they are maintained while the ones from FSF
+          aren't and there were problems on some architectures, PowerPC
+          in particular.  See the file gmp/README.CLN.  This way the
+          hard links in this directory have vanished, they were causing
+          trouble for people working in AFS.
+
 2000-01-13  Richard Kreckel  <kreckel@ginac.de>
 
         * Version 1.0.3 released.
