@@ -1,3 +1,10 @@
+2004-08-19  Bruno Haible  <bruno@clisp.org>
+
+	* include/cln/modules.h (CL_GLOBALIZE_JUMP_LABEL, CL_JUMP_TO): When
+	converting a label to a string, use ASM_UNDERSCORE_PREFIX. Needed on
+	MacOS X.
+	Reported by Darren Bane <darren.bane@ul.ie>.
+
 2004-07-01  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.1.8 released.
