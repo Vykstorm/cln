@@ -7,6 +7,6 @@
 
 namespace cln {
 
-extern cl_istream stdin = std::cin;
+cl_istream stdin = std::cin;
 
 }  // namespace cln

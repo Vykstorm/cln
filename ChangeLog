@@ -1,3 +1,9 @@
+2000-10-29  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/real/input/cl_R_read.cc, src/complex/input/cl_N_read.cc:
+          #undef stderr, if it's defined so cln::stderr isn't confused.
+        * src/base/input/cl_read_globals.cc: stdin should not be extern.
+
 2000-09-05  Richard Kreckel  <kreckel@ginac.de>
 
         * include/cln/number.h (As): Fix it in namespace by suffixing `_As'

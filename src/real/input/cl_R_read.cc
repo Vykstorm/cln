@@ -24,6 +24,11 @@
 #undef floor
 #include <cmath>
 #define floor cln_floor
+// Ugh, some compilers #define stderr, confusing cln::stderr
+#ifdef stderr
+  #undef stderr
+#endif
+
 
 namespace cln {
 
