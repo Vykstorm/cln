@@ -354,6 +354,9 @@ extern void shiftxor_loop_up (uintD* xptr, const uintD* yptr, uintC count, uintC
 }  // namespace cln
 
 #include <gmp.h>
+// Argh, gmp.h includes <stddef.h> which erases the definition of offsetof
+// that we have provided in cl_offsetof.h. Restore it.
+#include "cl_offsetof.h"
 
 namespace cln {
 
