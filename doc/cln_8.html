@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 5 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 19 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 8. Symbolic data types</TITLE>
 </HEAD>
@@ -11,7 +11,7 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_7.html">previous</A>, <A 
 
 <H1><A NAME="SEC52" HREF="cln_toc.html#TOC52">8. Symbolic data types</A></H1>
 <P>
-<A NAME="IDX269"></A>
+<A NAME="IDX270"></A>
 
 
 <P>
@@ -22,7 +22,7 @@ CLN implements two symbolic (non-numeric) data types: strings and symbols.
 
 <H2><A NAME="SEC53" HREF="cln_toc.html#TOC53">8.1 Strings</A></H2>
 <P>
-<A NAME="IDX270"></A>
+<A NAME="IDX271"></A>
 
 
 <P>
@@ -48,7 +48,7 @@ Strings are constructed through the following constructors:
 
 <DT><CODE>cl_string (const char * s)</CODE>
 <DD>
-<A NAME="IDX271"></A>
+<A NAME="IDX272"></A>
 Returns an immutable copy of the (zero-terminated) C string <CODE>s</CODE>.
 
 <DT><CODE>cl_string (const char * ptr, unsigned long len)</CODE>
@@ -69,21 +69,21 @@ Assignment from <CODE>cl_string</CODE> and <CODE>const char *</CODE>.
 
 <DT><CODE>s.length()</CODE>
 <DD>
-<A NAME="IDX272"></A>
+<A NAME="IDX273"></A>
 <DT><CODE>strlen(s)</CODE>
 <DD>
-<A NAME="IDX273"></A>
+<A NAME="IDX274"></A>
 Returns the length of the string <CODE>s</CODE>.
 
 <DT><CODE>s[i]</CODE>
 <DD>
-<A NAME="IDX274"></A>
+<A NAME="IDX275"></A>
 Returns the <CODE>i</CODE>th character of the string <CODE>s</CODE>.
 <CODE>i</CODE> must be in the range <CODE>0 &#60;= i &#60; s.length()</CODE>.
 
 <DT><CODE>bool equal (const cl_string&#38; s1, const cl_string&#38; s2)</CODE>
 <DD>
-<A NAME="IDX275"></A>
+<A NAME="IDX276"></A>
 Compares two strings for equality. One of the arguments may also be a
 plain <CODE>const char *</CODE>.
 </DL>
@@ -92,7 +92,7 @@ plain <CODE>const char *</CODE>.
 
 <H2><A NAME="SEC54" HREF="cln_toc.html#TOC54">8.2 Symbols</A></H2>
 <P>
-<A NAME="IDX276"></A>
+<A NAME="IDX277"></A>
 
 
 <P>
@@ -112,7 +112,7 @@ Symbols are constructed through the following constructor:
 
 <DT><CODE>cl_symbol (const cl_string&#38; s)</CODE>
 <DD>
-<A NAME="IDX277"></A>
+<A NAME="IDX278"></A>
 Looks up or creates a new symbol with a given name.
 </DL>
 
@@ -129,7 +129,7 @@ Conversion to <CODE>cl_string</CODE>: Returns the string which names the symbol
 
 <DT><CODE>bool equal (const cl_symbol&#38; sym1, const cl_symbol&#38; sym2)</CODE>
 <DD>
-<A NAME="IDX278"></A>
+<A NAME="IDX279"></A>
 Compares two symbols for equality. This is very fast.
 </DL>
 

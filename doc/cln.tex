@@ -2684,6 +2684,7 @@ Type tests can be performed for any of @code{cl_C_ring}, @code{cl_R_ring},
 
 @table @code
 @item cl_boolean instanceof (const cl_number& x, const cl_number_ring& R)
+@cindex @code{instanceof ()}
 Tests whether the given number is an element of the number ring R.
 @end table
 
@@ -2791,21 +2792,21 @@ Returns the ring to which the modular integer @code{x} belongs.
 
 @item cl_MI operator+ (const cl_MI&, const cl_MI&)
 @cindex @code{operator + ()}
-Returns the sum of two modular integers. One of the arguments may also be
-a plain integer.
+Returns the sum of two modular integers. One of the arguments may also
+be a plain integer.
 
 @item cl_MI operator- (const cl_MI&, const cl_MI&)
 @cindex @code{operator - ()}
-Returns the difference of two modular integers. One of the arguments may also be
-a plain integer.
+Returns the difference of two modular integers. One of the arguments may also
+be a plain integer.
 
 @item cl_MI operator- (const cl_MI&)
 Returns the negative of a modular integer.
 
 @item cl_MI operator* (const cl_MI&, const cl_MI&)
 @cindex @code{operator * ()}
-Returns the product of two modular integers. One of the arguments may also be
-a plain integer.
+Returns the product of two modular integers. One of the arguments may also
+be a plain integer.
 
 @item cl_MI square (const cl_MI&)
 @cindex @code{square ()}

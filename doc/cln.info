@@ -3475,6 +3475,7 @@ Index
 * include files:                         Include files.
 * Input/Output:                          Input/Output.
 * installation:                          Installing the library.
+* instanceof ():                         Rings.
 * integer:                               Ordinary number types.
 * integer_decode_float ():               Functions on floating-point numbers.
 * integer_length ():                     Logical functions.
