@@ -1,3 +1,8 @@
+2004-04-30  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/output/cl_I_print.cc (print_integer): workaround
+	GCC compiler bug (cf. Debian bug#246319).
+
 2004-03-20  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* m4/gmp.m4 (CL_GMP_CHECK): Do not lose LIBS setting with config.cache

@@ -28,6 +28,11 @@ void print_integer (std::ostream& stream, unsigned int base, const cl_I& z)
 	var uintL need = cl_digits_need(abs_z,base);
 	var uintB* ziffern = cl_alloc_array(uintB,need); // Platz für die Ziffern
 	var cl_digits erg; erg.LSBptr = &ziffern[need];
+#if (defined(__GNUC__) && (__GNUC__ == 3) && (__GNUC_MINOR__ < 4))
+	// workaround GCC-3 compiler bug fixed in GCC-3.4.0 (cf. Debian bug#246319)
+	static char dummy[40];
+	snprintf(dummy,40,"%d%x%x",need,&erg,erg.LSBptr);
+#endif
 	I_to_digits(abs_z,(uintD)base,&erg); // Umwandlung in Ziffern
 	// Ziffern ausgeben:
 	{
