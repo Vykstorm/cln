@@ -5,6 +5,14 @@
 
 /* These definitions are adjusted by `configure' automatically. */
 
+
+/* release version */
+
+#undef CL_VERSION
+#undef CL_VERSION_MINOR
+#undef CL_VERSION_PATCHLEVEL
+
+
 /* CPU */
 #ifndef __i386__
 #undef __i386__

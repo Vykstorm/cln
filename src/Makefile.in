@@ -40,9 +40,9 @@ LN = ln
 RM = rm -f
 @SET_MAKE@
 # Libtool's library interface versions:
-CLN_CURRENT = @CLN_CURRENT@
-CLN_REVISION = @CLN_REVISION@
-CLN_AGE = @CLN_AGE@
+CL_CURRENT = @CL_CURRENT@
+CL_REVISION = @CL_REVISION@
+CL_AGE = @CL_AGE@
 
 # Programs used by "make install":
 INSTALL = @INSTALL@
@@ -196,7 +196,7 @@ $(SUBDIRS_DIRDEP) : %.dirdep :
 ifeq ($(SUBDIR),.)
 
 libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
-	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) -version-info $(CLN_CURRENT):$(CLN_REVISION):$(CLN_AGE) $(LDFLAGS) $(LIBS) $(ALLOBJECTS_LO)
+	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) -version-info $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) $(LDFLAGS) $(LIBS) $(ALLOBJECTS_LO)
 
 install : all force
 	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi

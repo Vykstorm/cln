@@ -1,12 +1,25 @@
+2000-05-30  Richard Kreckel  <kreckel@ginac.de>
+
+        * configure.in, autoconf/aclocal.m4 (CL_GMP_H_VERSION, CL_GMP_CHECK):
+          New macros.
+        * configure.in, include/cl_config.h.in (CL_VERSION, CL_VERSION_MINOR,
+          CL_VERSION_PATCHLEVEL): New definitions.
+        * autoconf/config.guess, autoconf/config.sub, autoconf/ltconfig,
+          autoconf/ltmain.sh: updated from FSF (libtool 1.3.5, etc).
+        * src/Makefile.in, configure.in: release-variables renamed from 
+          CLN_* to CL_*.
+        * configure.in: default to build both shared and static library
+          (i.e. default to the most common behaviour).
+
 2000-05-29  Richard Kreckel  <kreckel@ginac.de>
 
         * autoconf/aclocal.m4 (CL_CANONICAL_HOST): Added missing changequote
-        environment around the patch of 2000-05-23.
+          environment around the patch of 2000-05-23.
 
 2000-05-29  Bruno Haible  <haible@clisp.cons.org>
 
         * autoconf/aclocal.m4 (CL_PROG_INSTALL): Fix typo.
-        Reported by Thomas Klausner <wiz@danbala.ifoer.tuwien.ac.at>.
+          Reported by Thomas Klausner <wiz@danbala.ifoer.tuwien.ac.at>.
 
 2000-05-27  Richard Kreckel  <kreckel@ginac.de>
 

@@ -65,22 +65,31 @@ dnl
 dnl           check for build configuration
 dnl
 PACKAGE=cln
-AM_DISABLE_SHARED
 AM_PROG_LIBTOOL
 dnl Libtool's library version information for CLN.
-dnl (Not to be confused with CLN's release number.)
+dnl (Not to be confused with CLN's release version.)
 dnl Making new releases:
 dnl * increment CLN_REVISION,
 dnl * if any functions/classes have been added, removed or changed, increment
 dnl   CLN_CURRENT and set CLN_REVISION to 0,
 dnl * if any functions/classes have been added, increment CLN_AGE,
 dnl * if backwards compatibility has been broken, set CLN_AGE to 0.
-CLN_CURRENT=0
-CLN_REVISION=1
-CLN_AGE=0
-AC_SUBST(CLN_CURRENT)
-AC_SUBST(CLN_REVISION)
-AC_SUBST(CLN_AGE)
+CL_CURRENT=1
+CL_REVISION=0
+CL_AGE=0
+dnl make substitutions
+AC_SUBST(CL_CURRENT)
+AC_SUBST(CL_REVISION)
+AC_SUBST(CL_AGE)
+dnl release version
+CL_VERSION=1
+CL_VERSION_MINOR=1
+CL_VERSION_PATCHLEVEL=0
+dnl release version for cl_config.h, so it can be tested by the preprocessor
+AC_DEFINE_UNQUOTED(CL_VERSION, $CL_VERSION)
+AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)
+AC_DEFINE_UNQUOTED(CL_VERSION_PATCHLEVEL, $CL_VERSION_PATCHLEVEL)
+
                       dnl sets variable LIBTOOL
 dnl
 dnl           checks for compiler characteristics
@@ -135,28 +144,15 @@ CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,
 dnl
 dnl           interfacing to GNU gmp (must be at least version 3)
 dnl
-AC_ARG_WITH(gmp, [  --with-gmp              use external fast low-level functions from GNU gmp3.
+AC_ARG_WITH(gmp, [  --with-gmp              use external fast low-level functions from GNU MP 3.
                           [default=yes]], ,with_gmp="yes")
 if test "$with_gmp" = yes; then
-dnl Is the gmp header file new enough? (i.e. >= 3.0)
-  AC_CACHE_CHECK([for recent enough gmp.h], cl_cv_new_gmp_h, [
-    AC_TRY_CPP([#include <gmp.h>
-#if !defined(__GNU_MP_VERSION) || (__GNU_MP_VERSION < 3)
- #error "ancient gmp.h"
-#endif],
-cl_cv_new_gmp_h="yes", cl_cv_new_gmp_h="no")
-])
-if test "$cl_cv_new_gmp_h" = no; then with_gmp="no"; fi
-if test "$with_gmp" = yes; then
-dnl Does the library match the header file have 3.0 features?
-  AC_CACHE_CHECK([for working libgmp], cl_cv_new_libgmp, [
-    SAVELIBS=$LIBS
-    LIBS="$LIBS -lgmp"
-    AC_TRY_LINK([#include <gmp.h>],[mpn_divexact_by3(0,0,0)],
-cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no"; LIBS=$SAVELIBS)
-])
-if test "$cl_cv_new_libgmp" = no; then with_gmp="no"; fi
-fi
+  CL_GMP_H_VERSION
+  if test "$cl_cv_new_gmp_h" = no; then with_gmp="no"; fi
+  if test "$with_gmp" = yes; then
+    CL_GMP_CHECK
+    if test "$cl_cv_new_libgmp" = no; then with_gmp="no"; fi
+  fi
 fi
 if test "$with_gmp" = yes; then
   AC_DEFINE(CL_USE_GMP)

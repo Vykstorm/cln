@@ -937,3 +937,22 @@ NM="$ac_cv_path_NM"
 AC_MSG_RESULT([$NM])
 AC_SUBST(NM)
 ])
+
+# Is the gmp header file new enough? (should be implemented with an argument)
+AC_DEFUN(CL_GMP_H_VERSION,
+[AC_CACHE_CHECK([for recent enough gmp.h], cl_cv_new_gmp_h, [
+  AC_TRY_CPP([#include <gmp.h>
+#if !defined(__GNU_MP_VERSION) || (__GNU_MP_VERSION < 3)
+ #error "ancient gmp.h"
+#endif],
+cl_cv_new_gmp_h="yes", cl_cv_new_gmp_h="no")
+])])dnl
+
+# Does libgmp feature 3.0 functionality?
+AC_DEFUN(CL_GMP_CHECK,
+[AC_CACHE_CHECK([for working libgmp], cl_cv_new_libgmp, [
+    SAVELIBS=$LIBS
+    LIBS="$LIBS -lgmp"
+    AC_TRY_LINK([#include <gmp.h>],[mpn_divexact_by3(0,0,0)],
+cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no"; LIBS=$SAVELIBS)
+])])
