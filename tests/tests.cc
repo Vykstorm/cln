@@ -21,7 +21,7 @@ int test_all (int iterations)
 int main (int argc, char* argv[])
 {
 	int iterations = 10000;
-	if ((argc >= 3) && !strcmp(argv[1],"-i")) {
+	if ((argc >= 3) && !::strcmp(argv[1],"-i")) {
 		iterations = atoi(argv[2]);
 		argc -= 2; argv += 2;
 	}

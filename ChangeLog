@@ -1,3 +1,7 @@
+2000-06-05  Richard Kreckel  <kreckel@ginac.de>
+
+        * tests/tests.cc: resolve namespace ambiguity about strcmp().
+
 2000-05-31  Richard Kreckel  <kreckel@ginac.de>
 
         * Version 1.1.1 released.
