@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 1. Introduction</TITLE>
 </HEAD>
@@ -134,8 +134,9 @@ The kernel of CLN has been written in assembly language for some CPUs
 (<CODE>i386</CODE>, <CODE>m68k</CODE>, <CODE>sparc</CODE>, <CODE>mips</CODE>, <CODE>arm</CODE>).
 <LI>
 
-On all CPUs, CLN uses the superefficient low-level routines from GNU
-GMP version 2.
+<A NAME="IDX1"></A>
+On all CPUs, CLN may be configured to use the superefficient low-level
+routines from GNU GMP version 3.
 <LI>
 
 It uses Karatsuba multiplication, which is significantly faster
@@ -144,9 +145,9 @@ for large numbers than the standard multiplication algorithm.
 
 For very large numbers (more than 12000 decimal digits), it uses
 Schönhage-Strassen
-multiplication, which is an asymptotically
-optimal multiplication algorithm, for multiplication, division and
-radix conversion.
+<A NAME="IDX2"></A>
+multiplication, which is an asymptotically optimal multiplication
+algorithm, for multiplication, division and radix conversion.
 </UL>
 
 <P>

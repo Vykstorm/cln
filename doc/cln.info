@@ -215,8 +215,8 @@ CLN is speed efficient:
    * The kernel of CLN has been written in assembly language for some
      CPUs (`i386', `m68k', `sparc', `mips', `arm').
 
-   * On all CPUs, CLN uses the superefficient low-level routines from
-     GNU GMP version 2.
+   * On all CPUs, CLN may be configured to use the superefficient
+     low-level routines from GNU GMP version 3.
 
    * It uses Karatsuba multiplication, which is significantly faster
      for large numbers than the standard multiplication algorithm.
@@ -267,7 +267,7 @@ C++ compiler
 
 To build CLN, you need a C++ compiler.  Actually, you need GNU `g++
 2.7.0' or newer.  On HPPA, you need GNU `g++ 2.8.0' or newer.  I
-recommend GNU `egcs 1.1' or newer.
+recommend GNU `g++ 2.95' or newer.
 
 The following C++ features are used: classes, member functions,
 overloading of functions and operators, constructors and destructors,
@@ -374,9 +374,6 @@ If you use `g++' version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
 add either `-O' or `-O2 -fno-schedule-insns' to the CXXFLAGS.  With
 full `-O2', `g++' miscompiles the division routines. Also, for
 -enable-shared to work, you need egcs-1.1.2 or newer.
-
-On MIPS (SGI Irix 6), pass option `--without-gmp' to configure. gmp does
-not work when compiled in `n32' binary format on Irix.
 
 By default, only a static library is built. You can build CLN as a
 shared library too, by calling `configure' with the option
@@ -1310,7 +1307,8 @@ Trigonometric functions
      numbers with `realpart = -pi/2' and `imagpart >= 0' and the numbers
      with `realpart = pi/2' and `imagpart <= 0'.
 
-The constant pi = 3.14... is returned by the following functions:
+Archimedes' constant pi = 3.14... is returned by the following
+functions:
 
 `cl_F cl_pi (cl_float_format_t f)'
      Returns pi as a float of format `f'.
@@ -1943,7 +1941,7 @@ number, for example, "20.0" and "20.000".
 
 Converting an internal to an external representation is called
 "printing", converting an external to an internal representation is
-called "reading".  In CLN, is it always true that conversion of an
+called "reading".  In CLN, it is always true that conversion of an
 internal to an external representation and then back to an internal
 representation will yield the same internal representation.
 Symbolically: `read(print(x)) == x'.  This is called "print-read
@@ -2186,7 +2184,7 @@ The structure type `cl_print_flags' contains the following fields:
      printed using this variable name. Default is `"x"'.
 
 The global variable `cl_default_print_flags' contains the default
-values, used by the function `fprint',
+values, used by the function `fprint'.
 
 
 File: cln.info,  Node: Rings,  Next: Modular integers,  Prev: Input/Output,  Up: Top
@@ -2755,7 +2753,7 @@ Using C++ as an implementation language provides
    * Type safety: The C++ compilers knows about the number types and
      complains if, for example, you try to assign a float to an integer
      variable. However, a drawback is that C++ doesn't know about
-     generic types, hence a restriction like that `operation+ (const
+     generic types, hence a restriction like that `operator+ (const
      cl_MI&, const cl_MI&)' requires that both arguments belong to the
      same modular ring cannot be expressed as a compile-time
      information.
@@ -2808,8 +2806,8 @@ and algorithms:
    * The kernel of CLN has been written in assembly language for some
      CPUs (`i386', `m68k', `sparc', `mips', `arm').
 
-   * On all CPUs, CLN uses the superefficient low-level routines from
-     GNU GMP version 2.
+   * On all CPUs, CLN may be configured to use the superefficient
+     low-level routines from GNU GMP version 3.
 
    * For large numbers, CLN uses, instead of the standard `O(N^2)'
      algorithm, the Karatsuba multiplication, which is an `O(N^1.6)'
@@ -3138,6 +3136,9 @@ When the function returns, all the local variables in the function are
 automatically reclaimed (garbage collected). Only the result survives
 and gets passed to the caller.
 
+The file `fibonacci.cc' in the subdirectory `examples' contains this
+implementation together with an even faster algorithm.
+
 
 File: cln.info,  Node: Debugging support,  Prev: An Example,  Up: Using the library
 
@@ -3275,81 +3276,401 @@ Index
 
 * Menu:
 
+* abs ():                                Elementary functions.
+* abstract class:                        Ordinary number types.
+* acos ():                               Trigonometric functions.
+* acosh ():                              Hyperbolic functions.
+* advocacy:                              Why C++ ?.
+* Archimedes' constant:                  Trigonometric functions.
+* As() ():                               Conversions.
+* ash ():                                Logical functions.
+* asin:                                  Trigonometric functions.
+* asin ():                               Trigonometric functions.
+* asinh ():                              Hyperbolic functions.
+* atan:                                  Trigonometric functions.
+* atan ():                               Trigonometric functions.
+* atanh ():                              Hyperbolic functions.
+* basering ():                           Functions on univariate polynomials.
+* binomial ():                           Combinatorial functions.
+* boole ():                              Logical functions.
+* boole_1:                               Logical functions.
+* boole_2:                               Logical functions.
+* boole_and:                             Logical functions.
+* boole_andc1:                           Logical functions.
+* boole_andc2:                           Logical functions.
+* boole_c1:                              Logical functions.
+* boole_c2:                              Logical functions.
+* boole_clr:                             Logical functions.
+* boole_eqv:                             Logical functions.
+* boole_nand:                            Logical functions.
+* boole_nor:                             Logical functions.
+* boole_orc1:                            Logical functions.
+* boole_orc2:                            Logical functions.
+* boole_set:                             Logical functions.
+* boole_xor:                             Logical functions.
+* canonhom () <1>:                       Functions on univariate polynomials.
+* canonhom ():                           Functions on modular integers.
+* Catalan's constant:                    Euler gamma.
+* ceiling1 ():                           Rounding functions.
+* ceiling2 ():                           Rounding functions.
+* cis ():                                Trigonometric functions.
+* cl_abort ():                           Error handling.
+* cl_byte:                               Logical functions.
+* cl_catalanconst ():                    Euler gamma.
+* cl_compare ():                         Comparisons.
+* cl_cos_sin ():                         Trigonometric functions.
+* cl_cos_sin_t:                          Trigonometric functions.
+* cl_cosh_sinh ():                       Hyperbolic functions.
+* cl_cosh_sinh_t:                        Hyperbolic functions.
+* CL_DEBUG:                              Debugging support.
+* cl_decoded_dfloat:                     Functions on floating-point numbers.
+* cl_decoded_ffloat:                     Functions on floating-point numbers.
+* cl_decoded_float:                      Functions on floating-point numbers.
+* cl_decoded_lfloat:                     Functions on floating-point numbers.
+* cl_decoded_sfloat:                     Functions on floating-point numbers.
+* cl_default_float_format:               Conversion to floating-point numbers.
+* cl_default_print_flags:                Customizing I/O.
+* cl_default_random_state:               Random number generators.
+* cl_DF:                                 Floating-point numbers.
+* cl_double_approx ():                   Conversions.
+* cl_equal_hashcode ():                  Comparisons.
+* cl_eulerconst ():                      Euler gamma.
+* cl_F <1>:                              Floating-point numbers.
+* cl_F:                                  Ordinary number types.
+* cl_FF:                                 Floating-point numbers.
+* cl_find_modint_ring ():                Modular integer rings.
+* cl_find_univpoly_ring ():              Univariate polynomial rings.
+* cl_float:                              Conversion to floating-point numbers.
+* cl_float_approx ():                    Conversions.
+* cl_float_format ():                    Conversion to floating-point numbers.
+* cl_free_hook ():                       Customizing the memory allocator.
+* cl_hermite ():                         Special polynomials.
+* cl_I_to_int ():                        Conversions.
+* cl_I_to_long ():                       Conversions.
+* cl_I_to_uint ():                       Conversions.
+* cl_I_to_ulong ():                      Conversions.
+* cl_idecoded_float:                     Functions on floating-point numbers.
+* cl_laguerre ():                        Special polynomials.
+* cl_legendre ():                        Special polynomials.
+* cl_LF:                                 Floating-point numbers.
+* cl_malloc_hook ():                     Customizing the memory allocator.
+* cl_N:                                  Ordinary number types.
+* cl_number:                             Ordinary number types.
+* cl_pi:                                 Trigonometric functions.
+* cl_R:                                  Ordinary number types.
+* cl_RA:                                 Ordinary number types.
+* cl_SF:                                 Floating-point numbers.
+* cl_string ():                          Strings.
+* cl_symbol ():                          Symbols.
+* cl_tschebychev ():                     Special polynomials.
+* cl_zeta ():                            Riemann zeta.
+* coeff ():                              Functions on univariate polynomials.
+* comparison:                            Comparisons.
+* compiler options:                      Compiler options.
+* complex ():                            Elementary complex functions.
+* complex number <1>:                    Complex numbers.
+* complex number:                        Ordinary number types.
+* conjugate ():                          Elementary complex functions.
+* conversion <1>:                        Conversion functions.
+* conversion:                            Conversions.
+* cos ():                                Trigonometric functions.
+* cosh ():                               Hyperbolic functions.
+* create ():                             Functions on univariate polynomials.
+* customizing:                           Customizing.
+* debug_print ():                        Debugging support.
+* debugging:                             Debugging support.
+* decode_float ():                       Functions on floating-point numbers.
+* degree ():                             Functions on univariate polynomials.
+* denominator ():                        Elementary rational functions.
+* deposit_field ():                      Logical functions.
+* deriv ():                              Functions on univariate polynomials.
+* div ():                                Functions on modular integers.
+* doublefactorial ():                    Combinatorial functions.
+* dpb ():                                Logical functions.
+* equal () <1>:                          Symbols.
+* equal ():                              Strings.
+* etract ():                             Functions on modular integers.
+* Euler's constant:                      Euler gamma.
+* evenp ():                              Logical functions.
+* exact number:                          Exact numbers.
+* exp ():                                Exponential and logarithmic functions.
+* exp1 ():                               Exponential and logarithmic functions.
+* expt () <1>:                           Functions on modular integers.
+* expt () <2>:                           Exponential and logarithmic functions.
+* expt ():                               Elementary functions.
+* expt_pos () <1>:                       Functions on univariate polynomials.
+* expt_pos () <2>:                       Functions on modular integers.
+* expt_pos ():                           Elementary functions.
+* exquo ():                              Elementary functions.
+* factorial ():                          Combinatorial functions.
+* fceiling ():                           Rounding functions.
+* fceiling2 ():                          Rounding functions.
+* ffloor ():                             Rounding functions.
+* ffloor2 ():                            Rounding functions.
+* Fibonacci number:                      An Example.
+* finalize ():                           Functions on univariate polynomials.
+* float_digits ():                       Functions on floating-point numbers.
+* float_epsilon ():                      Conversion to floating-point numbers.
+* float_exponent ():                     Functions on floating-point numbers.
+* float_negative_epsilon ():             Conversion to floating-point numbers.
+* float_precision ():                    Functions on floating-point numbers.
+* float_radix ():                        Functions on floating-point numbers.
+* float_sign ():                         Functions on floating-point numbers.
+* floating-point number:                 Floating-point numbers.
+* floor1 ():                             Rounding functions.
+* floor2 ():                             Rounding functions.
+* fprint () <1>:                         Functions on univariate polynomials.
+* fprint ():                             Functions on modular integers.
+* fround ():                             Rounding functions.
+* fround2 ():                            Rounding functions.
+* ftruncate ():                          Rounding functions.
+* ftruncate2 ():                         Rounding functions.
+* garbage collection <1>:                Garbage collection.
+* garbage collection:                    Memory efficiency.
+* gcd ():                                Number theoretic functions.
+* GMP:                                   Introduction.
+* header files:                          Include files.
+* Hermite polynomial:                    Special polynomials.
+* imagpart ():                           Elementary complex functions.
+* include files:                         Include files.
+* Input/Output:                          Input/Output.
+* installation:                          Installing the library.
+* integer:                               Ordinary number types.
+* integer_decode_float ():               Functions on floating-point numbers.
+* integer_length ():                     Logical functions.
+* isqrt ():                              Roots.
+* Laguerre polynomial:                   Special polynomials.
+* lcm ():                                Number theoretic functions.
+* ldb ():                                Logical functions.
+* ldb_test ():                           Logical functions.
+* least_negative_float ():               Conversion to floating-point numbers.
+* least_positive_float ():               Conversion to floating-point numbers.
+* Legende polynomial:                    Special polynomials.
+* length ():                             Strings.
+* ln ():                                 Exponential and logarithmic functions.
+* log ():                                Exponential and logarithmic functions.
+* logand ():                             Logical functions.
+* logandc1 ():                           Logical functions.
+* logandc2 ():                           Logical functions.
+* logbitp ():                            Logical functions.
+* logcount ():                           Logical functions.
+* logeqv ():                             Logical functions.
+* logior ():                             Logical functions.
+* lognand ():                            Logical functions.
+* lognor ():                             Logical functions.
+* lognot ():                             Logical functions.
+* logorc1 ():                            Logical functions.
+* logorc2 ():                            Logical functions.
+* logp ():                               Number theoretic functions.
+* logtest ():                            Logical functions.
+* logxor ():                             Logical functions.
+* make:                                  C++ compiler.
+* mask_field ():                         Logical functions.
+* max ():                                Comparisons.
+* min ():                                Comparisons.
+* minus1 ():                             Elementary functions.
+* minusp ():                             Comparisons.
+* mod ():                                Rounding functions.
+* modifying operators:                   Obfuscating operators.
+* modular integer:                       Modular integers.
+* modulus:                               Functions on modular integers.
+* monomial ():                           Functions on univariate polynomials.
+* Montgomery multiplication:             Modular integer rings.
+* most_negative_float ():                Conversion to floating-point numbers.
+* most_positive_float ():                Conversion to floating-point numbers.
+* numerator ():                          Elementary rational functions.
+* oddp ():                               Logical functions.
+* one () <1>:                            Functions on univariate polynomials.
+* one ():                                Functions on modular integers.
+* operator != () <1>:                    Functions on univariate polynomials.
+* operator != () <2>:                    Functions on modular integers.
+* operator != () <3>:                    Modular integer rings.
+* operator != ():                        Comparisons.
+* operator & ():                         Logical functions.
+* operator &= ():                        Obfuscating operators.
+* operator () ():                        Functions on univariate polynomials.
+* operator * () <1>:                     Functions on univariate polynomials.
+* operator * () <2>:                     Functions on modular integers.
+* operator * ():                         Elementary functions.
+* operator *= ():                        Obfuscating operators.
+* operator + () <1>:                     Functions on univariate polynomials.
+* operator + () <2>:                     Functions on modular integers.
+* operator + ():                         Elementary functions.
+* operator ++ ():                        Obfuscating operators.
+* operator += ():                        Obfuscating operators.
+* operator - () <1>:                     Functions on univariate polynomials.
+* operator - () <2>:                     Functions on modular integers.
+* operator - ():                         Elementary functions.
+* operator -- ():                        Obfuscating operators.
+* operator -= ():                        Obfuscating operators.
+* operator / ():                         Elementary functions.
+* operator /= ():                        Obfuscating operators.
+* operator < ():                         Comparisons.
+* operator << () <1>:                    Functions on univariate polynomials.
+* operator << () <2>:                    Functions on modular integers.
+* operator << ():                        Logical functions.
+* operator <<= ():                       Obfuscating operators.
+* operator <= ():                        Comparisons.
+* operator == () <1>:                    Functions on univariate polynomials.
+* operator == () <2>:                    Functions on modular integers.
+* operator == () <3>:                    Modular integer rings.
+* operator == ():                        Comparisons.
+* operator > ():                         Comparisons.
+* operator >= ():                        Comparisons.
+* operator >> () <1>:                    Functions on modular integers.
+* operator >> ():                        Logical functions.
+* operator >>= ():                       Obfuscating operators.
+* operator [] ():                        Strings.
+* operator ^ ():                         Logical functions.
+* operator ^= ():                        Obfuscating operators.
+* operator | ():                         Logical functions.
+* operator |= ():                        Obfuscating operators.
+* operator ~ ():                         Logical functions.
+* ord2 ():                               Logical functions.
+* phase ():                              Exponential and logarithmic functions.
+* pi:                                    Trigonometric functions.
+* plus1 ():                              Elementary functions.
+* plusp ():                              Comparisons.
+* polynomial:                            Univariate polynomials.
+* portability:                           Why C++ ?.
+* power2p ():                            Logical functions.
+* printing:                              Internal and printed representation.
+* random ():                             Functions on modular integers.
+* random32 ():                           Random number generators.
+* random_F ():                           Random number generators.
+* random_I ():                           Random number generators.
+* random_R ():                           Random number generators.
+* rational ():                           Conversion to rational numbers.
+* rational number:                       Ordinary number types.
+* rationalize ():                        Conversion to rational numbers.
+* reading:                               Internal and printed representation.
+* real number:                           Ordinary number types.
+* realpart ():                           Elementary complex functions.
+* recip () <1>:                          Functions on modular integers.
+* recip ():                              Elementary functions.
+* reference counting:                    Memory efficiency.
+* rem ():                                Rounding functions.
+* representation:                        Internal and printed representation.
+* Riemann's zeta:                        Riemann zeta.
+* ring:                                  Modular integer rings.
+* ring ():                               Functions on univariate polynomials.
+* ring():                                Functions on modular integers.
+* rootp ():                              Roots.
+* round1 ():                             Rounding functions.
+* round2 ():                             Rounding functions.
+* rounding:                              Rounding functions.
+* rounding error:                        Floating-point numbers.
+* Rubik's cube:                          Conversions.
+* scale_float ():                        Functions on floating-point numbers.
+* Schönhage-Strassen:                    Speed efficiency.
+* Schönhage-Strassen multiplication:     Introduction.
+* sed:                                   Make utility.
+* set_coeff ():                          Functions on univariate polynomials.
+* signum ():                             Elementary functions.
+* sin ():                                Trigonometric functions.
+* sinh ():                               Hyperbolic functions.
+* sqrt ():                               Roots.
+* sqrtp ():                              Roots.
+* square () <1>:                         Functions on univariate polynomials.
+* square () <2>:                         Functions on modular integers.
+* square ():                             Elementary functions.
+* string:                                Strings.
+* strlen ():                             Strings.
+* symbol:                                Symbols.
+* symbolic type:                         Symbolic data types.
+* tan ():                                Trigonometric functions.
+* tanh ():                               Hyperbolic functions.
+* The() ():                              Conversions.
+* transcendental functions:              Transcendental functions.
+* truncate1 ():                          Rounding functions.
+* truncate2 ():                          Rounding functions.
+* Tschebychev polynomial:                Special polynomials.
+* underflow:                             Floating-point underflow.
+* univariate polynomial:                 Univariate polynomials.
+* WANT_OBFUSCATING_OPERATORS:            Obfuscating operators.
+* xgcd ():                               Number theoretic functions.
+* zero () <1>:                           Functions on univariate polynomials.
+* zero ():                               Functions on modular integers.
+* zerop () <1>:                          Functions on univariate polynomials.
+* zerop () <2>:                          Functions on modular integers.
+* zerop ():                              Comparisons.
+
+
 
 Tag Table:
 Node: Top957
 Node: Introduction3124
-Node: Installation5626
-Node: Prerequisites5920
-Node: C++ compiler6118
-Node: Make utility6833
-Node: Sed utility7019
-Node: Building the library7339
-Node: Installing the library10650
-Node: Cleaning up11373
-Node: Ordinary number types11698
-Node: Exact numbers14045
-Node: Floating-point numbers15210
-Node: Complex numbers18789
-Node: Conversions19286
-Node: Functions on numbers22752
-Node: Constructing numbers23455
-Node: Constructing integers23827
-Node: Constructing rational numbers24117
-Node: Constructing floating-point numbers24592
-Node: Constructing complex numbers25712
-Node: Elementary functions26076
-Node: Elementary rational functions28543
-Node: Elementary complex functions29115
-Node: Comparisons29943
-Node: Rounding functions31842
-Node: Roots37619
-Node: Transcendental functions39500
-Node: Exponential and logarithmic functions40056
-Node: Trigonometric functions42073
-Node: Hyperbolic functions45416
-Node: Euler gamma47489
-Node: Riemann zeta48405
-Node: Functions on integers48961
-Node: Logical functions49249
-Node: Number theoretic functions55202
-Node: Combinatorial functions56569
-Node: Functions on floating-point numbers57247
-Node: Conversion functions60478
-Node: Conversion to floating-point numbers60758
-Node: Conversion to rational numbers62981
-Node: Random number generators64035
-Node: Obfuscating operators65709
-Node: Input/Output67439
-Node: Internal and printed representation67649
-Node: Input functions70191
-Node: Output functions74742
-Node: Rings78478
-Node: Modular integers80402
-Node: Modular integer rings80602
-Node: Functions on modular integers82692
-Node: Symbolic data types85702
-Node: Strings85965
-Node: Symbols87030
-Node: Univariate polynomials87932
-Node: Univariate polynomial rings88190
-Node: Functions on univariate polynomials93144
-Node: Special polynomials96925
-Node: Internals97645
-Node: Why C++ ?97859
-Node: Memory efficiency99360
-Node: Speed efficiency100058
-Node: Garbage collection101122
-Node: Using the library101949
-Node: Compiler options102483
-Node: Include files103401
-Node: An Example107042
-Node: Debugging support110067
-Node: Customizing112417
-Node: Error handling112645
-Node: Floating-point underflow113219
-Node: Customizing I/O113858
-Node: Customizing the memory allocator114151
-Node: Index115108
+Node: Installation5646
+Node: Prerequisites5940
+Node: C++ compiler6138
+Node: Make utility6853
+Node: Sed utility7039
+Node: Building the library7359
+Node: Installing the library10541
+Node: Cleaning up11264
+Node: Ordinary number types11589
+Node: Exact numbers13936
+Node: Floating-point numbers15101
+Node: Complex numbers18680
+Node: Conversions19177
+Node: Functions on numbers22643
+Node: Constructing numbers23346
+Node: Constructing integers23718
+Node: Constructing rational numbers24008
+Node: Constructing floating-point numbers24483
+Node: Constructing complex numbers25603
+Node: Elementary functions25967
+Node: Elementary rational functions28434
+Node: Elementary complex functions29006
+Node: Comparisons29834
+Node: Rounding functions31733
+Node: Roots37510
+Node: Transcendental functions39391
+Node: Exponential and logarithmic functions39947
+Node: Trigonometric functions41964
+Node: Hyperbolic functions45315
+Node: Euler gamma47388
+Node: Riemann zeta48304
+Node: Functions on integers48860
+Node: Logical functions49148
+Node: Number theoretic functions55101
+Node: Combinatorial functions56468
+Node: Functions on floating-point numbers57146
+Node: Conversion functions60377
+Node: Conversion to floating-point numbers60657
+Node: Conversion to rational numbers62880
+Node: Random number generators63934
+Node: Obfuscating operators65608
+Node: Input/Output67338
+Node: Internal and printed representation67548
+Node: Input functions70090
+Node: Output functions74641
+Node: Rings78377
+Node: Modular integers80301
+Node: Modular integer rings80501
+Node: Functions on modular integers82591
+Node: Symbolic data types85601
+Node: Strings85864
+Node: Symbols86929
+Node: Univariate polynomials87831
+Node: Univariate polynomial rings88089
+Node: Functions on univariate polynomials93043
+Node: Special polynomials96824
+Node: Internals97544
+Node: Why C++ ?97758
+Node: Memory efficiency99258
+Node: Speed efficiency99956
+Node: Garbage collection101040
+Node: Using the library101867
+Node: Compiler options102401
+Node: Include files103319
+Node: An Example106960
+Node: Debugging support110110
+Node: Customizing112460
+Node: Error handling112688
+Node: Floating-point underflow113262
+Node: Customizing I/O113901
+Node: Customizing the memory allocator114194
+Node: Index115151
 
 End Tag Table

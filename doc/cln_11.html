@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 11. Using the library</TITLE>
 </HEAD>
@@ -22,6 +22,9 @@ environment variables, or directly substitute the appropriate values.
 
 
 <H2><A NAME="SEC64" HREF="cln_toc.html#TOC64">11.1 Compiler options</A></H2>
+<P>
+<A NAME="IDX309"></A>
+
 
 <P>
 Until you have installed CLN in a public place, the following options are
@@ -58,6 +61,10 @@ linking a CLN application it is sufficient to give the flag <CODE>-lcln</CODE>.
 
 
 <H2><A NAME="SEC65" HREF="cln_toc.html#TOC65">11.2 Include files</A></H2>
+<P>
+<A NAME="IDX310"></A>
+<A NAME="IDX311"></A>
+
 
 <P>
 Here is a summary of the include files and their contents.
@@ -253,6 +260,7 @@ Includes all of the above.
 
 <P>
 A function which computes the nth Fibonacci number can be written as follows.
+<A NAME="IDX312"></A>
 
 
 
@@ -329,9 +337,17 @@ automatically reclaimed (garbage collected). Only the result survives and
 gets passed to the caller.
 
 
+<P>
+The file <CODE>fibonacci.cc</CODE> in the subdirectory <CODE>examples</CODE>
+contains this implementation together with an even faster algorithm.
+
+
 
 
 <H2><A NAME="SEC67" HREF="cln_toc.html#TOC67">11.4 Debugging support</A></H2>
+<P>
+<A NAME="IDX313"></A>
+
 
 <P>
 When debugging a CLN application with GNU <CODE>gdb</CODE>, two facilities are
@@ -364,6 +380,7 @@ CLN offers a function <CODE>cl_print</CODE>, callable from the debugger,
 for printing number objects. In order to get this function, you have
 to define the macro <SAMP>`CL_DEBUG'</SAMP> and then include all the header files
 for which you want <CODE>cl_print</CODE> debugging support. For example:
+<A NAME="IDX314"></A>
 
 <PRE>
 #define CL_DEBUG
@@ -390,6 +407,7 @@ only with number objects and similar. Therefore CLN offers a member function
 <CODE>debug_print()</CODE> on all CLN types. The same macro <SAMP>`CL_DEBUG'</SAMP>
 is needed for this member function to be implemented. Under <CODE>gdb</CODE>,
 you call it like this:
+<A NAME="IDX315"></A>
 
 <PRE>
 (gdb) print s

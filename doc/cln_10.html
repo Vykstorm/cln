@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 10. Internals</TITLE>
 </HEAD>
@@ -14,6 +14,9 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_9.html">previous</A>, <A 
 
 
 <H2><A NAME="SEC59" HREF="cln_toc.html#TOC59">10.1 Why C++ ?</A></H2>
+<P>
+<A NAME="IDX303"></A>
+
 
 <P>
 Using C++ as an implementation language provides
@@ -27,6 +30,7 @@ Efficiency: It compiles to machine code.
 
 <LI>
 
+<A NAME="IDX304"></A>
 Portability: It runs on all platforms supporting a C++ compiler. Because
 of the availability of GNU C++, this includes all currently used 32-bit and
 64-bit platforms, independently of the quality of the vendor's C++ compiler.
@@ -36,7 +40,7 @@ of the availability of GNU C++, this includes all currently used 32-bit and
 Type safety: The C++ compilers knows about the number types and complains if,
 for example, you try to assign a float to an integer variable. However,
 a drawback is that C++ doesn't know about generic types, hence a restriction
-like that <CODE>operation+ (const cl_MI&#38;, const cl_MI&#38;)</CODE> requires that both
+like that <CODE>operator+ (const cl_MI&#38;, const cl_MI&#38;)</CODE> requires that both
 arguments belong to the same modular ring cannot be expressed as a compile-time
 information.
 
@@ -72,6 +76,8 @@ Object sharing: An operation like <CODE>x+0</CODE> returns <CODE>x</CODE> withou
 it.
 <LI>
 
+<A NAME="IDX305"></A>
+<A NAME="IDX306"></A>
 Garbage collection: A reference counting mechanism makes sure that any
 number object's storage is freed immediately when the last reference to the
 object is gone.
@@ -104,8 +110,8 @@ The kernel of CLN has been written in assembly language for some CPUs
 (<CODE>i386</CODE>, <CODE>m68k</CODE>, <CODE>sparc</CODE>, <CODE>mips</CODE>, <CODE>arm</CODE>).
 <LI>
 
-On all CPUs, CLN uses the superefficient low-level routines from GNU
-GMP version 2.
+On all CPUs, CLN may be configured to use the superefficient low-level
+routines from GNU GMP version 3.
 <LI>
 
 For large numbers, CLN uses, instead of the standard <CODE>O(N^2)</CODE>
@@ -116,6 +122,7 @@ algorithm.
 
 For very large numbers (more than 12000 decimal digits), CLN uses
 Schönhage-Strassen
+<A NAME="IDX307"></A>
 multiplication, which is an asymptotically
 optimal multiplication algorithm.
 <LI>
@@ -127,6 +134,9 @@ of division and radix conversion.
 
 
 <H2><A NAME="SEC62" HREF="cln_toc.html#TOC62">10.4 Garbage collection</A></H2>
+<P>
+<A NAME="IDX308"></A>
+
 
 <P>
 All the number classes are reference count classes: They only contain a pointer

@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 14 January 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 4 May 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers - 5. Input/Output</TITLE>
 </HEAD>
@@ -10,10 +10,16 @@ Go to the <A HREF="cln_1.html">first</A>, <A HREF="cln_4.html">previous</A>, <A 
 
 
 <H1><A NAME="SEC43" HREF="cln_toc.html#TOC43">5. Input/Output</A></H1>
+<P>
+<A NAME="IDX227"></A>
+
 
 
 
 <H2><A NAME="SEC44" HREF="cln_toc.html#TOC44">5.1 Internal and printed representation</A></H2>
+<P>
+<A NAME="IDX228"></A>
+
 
 <P>
 All computations deal with the internal representations of the numbers.
@@ -27,8 +33,10 @@ Several external representations may denote the same number, for example,
 
 <P>
 Converting an internal to an external representation is called "printing",
+<A NAME="IDX229"></A>
 converting an external to an internal representation is called "reading".
-In CLN, is it always true that conversion of an internal to an external
+<A NAME="IDX230"></A>
+In CLN, it is always true that conversion of an internal to an external
 representation and then back to an internal representation will yield the
 same internal representation. Symbolically: <CODE>read(print(x)) == x</CODE>.
 This is called "print-read consistency". 
@@ -409,7 +417,7 @@ using this variable name. Default is <CODE>"x"</CODE>.
 
 <P>
 The global variable <CODE>cl_default_print_flags</CODE> contains the default values,
-used by the function <CODE>fprint</CODE>,
+used by the function <CODE>fprint</CODE>.
 
 
 <P><HR><P>

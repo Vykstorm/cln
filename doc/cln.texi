@@ -313,8 +313,9 @@ CLN is speed efficient:
 The kernel of CLN has been written in assembly language for some CPUs
 (@code{i386}, @code{m68k}, @code{sparc}, @code{mips}, @code{arm}).
 @item
-On all CPUs, CLN uses the superefficient low-level routines from GNU
-GMP version 2.
+@cindex GMP
+On all CPUs, CLN may be configured to use the superefficient low-level
+routines from GNU GMP version 3.
 @item
 It uses Karatsuba multiplication, which is significantly faster
 for large numbers than the standard multiplication algorithm.
@@ -322,13 +323,14 @@ for large numbers than the standard multiplication algorithm.
 For very large numbers (more than 12000 decimal digits), it uses
 @iftex
 Sch{@"o}nhage-Strassen
+@cindex Sch{@"o}nhage-Strassen multiplication
 @end iftex
 @ifinfo
 Schönhage-Strassen
+@cindex Schönhage-Strassen multiplication
 @end ifinfo
-multiplication, which is an asymptotically
-optimal multiplication algorithm, for multiplication, division and
-radix conversion.
+multiplication, which is an asymptotically optimal multiplication
+algorithm, for multiplication, division and radix conversion.
 @end itemize
 
 @noindent
@@ -370,7 +372,7 @@ This section describes how to install the CLN package on your system.
 To build CLN, you need a C++ compiler.
 Actually, you need GNU @code{g++ 2.7.0} or newer.
 On HPPA, you need GNU @code{g++ 2.8.0} or newer.
-I recommend GNU @code{egcs 1.1} or newer.
+I recommend GNU @code{g++ 2.95} or newer.
 
 The following C++ features are used:
 classes, member functions,
@@ -419,11 +421,13 @@ initializations will not work.
 @end itemize
 @end ignore
 
+@cindex @code{make}
 @node Make utility, Sed utility, C++ compiler, Prerequisites
 @subsection Make utility
 
 To build CLN, you also need to have GNU @code{make} installed.
 
+@cindex @code{sed}
 @node Sed utility,  , Make utility, Prerequisites
 @subsection Sed utility
 
@@ -538,9 +542,6 @@ add either @samp{-O} or @samp{-O2 -fno-schedule-insns} to the CXXFLAGS.
 With full @samp{-O2}, @code{g++} miscompiles the division routines. Also, for
 --enable-shared to work, you need egcs-1.1.2 or newer.
 
-On MIPS (SGI Irix 6), pass option @code{--without-gmp} to configure. gmp does
-not work when compiled in @samp{n32} binary format on Irix.
-
 By default, only a static library is built. You can build CLN as a shared
 library too, by calling @code{configure} with the option @samp{--enable-shared}.
 To get it built as a shared library only, call @code{configure} with the options
@@ -553,6 +554,7 @@ library.
 
 @node Installing the library, Cleaning up, Building the library, Installation
 @section Installing the library
+@cindex installation
 
 As with any autoconfiguring GNU software, installation is as easy as this:
 
@@ -621,23 +623,33 @@ Rational number                     Floating-point number
                    <cl_sfloat.h> <cl_ffloat.h> <cl_dfloat.h> <cl_lfloat.h>
 @end example
 
+@cindex @code{cl_number}
+@cindex abstract class
 The base class @code{cl_number} is an abstract base class.
 It is not useful to declare a variable of this type except if you want
 to completely disable compile-time type checking and use run-time type
 checking instead.
 
+@cindex @code{cl_N}
+@cindex real number
+@cindex complex number
 The class @code{cl_N} comprises real and complex numbers. There is
 no special class for complex numbers since complex numbers with imaginary
 part @code{0} are automatically converted to real numbers.
 
+@cindex @code{cl_R}
 The class @code{cl_R} comprises real numbers of different kinds. It is an
 abstract class.
 
+@cindex @code{cl_RA}
+@cindex rational number
+@cindex integer
 The class @code{cl_RA} comprises exact real numbers: rational numbers, including
 integers. There is no special class for non-integral rational numbers
 since rational numbers with denominator @code{1} are automatically converted
 to integers.
 
+@cindex @code{cl_F}
 The class @code{cl_F} implements floating-point approximations to real numbers.
 It is an abstract class.
 
@@ -651,6 +663,7 @@ It is an abstract class.
 
 @node Exact numbers, Floating-point numbers, Ordinary number types, Ordinary number types
 @section Exact numbers
+@cindex exact number
 
 Some numbers are represented as exact numbers: there is no loss of information
 when such a number is converted from its mathematical value to its internal
@@ -681,6 +694,7 @@ is completely transparent.
 
 @node Floating-point numbers, Complex numbers, Exact numbers, Ordinary number types
 @section Floating-point numbers
+@cindex floating-point number
 
 Not all real numbers can be represented exactly. (There is an easy mathematical
 proof for this: Only a countable set of numbers can be stored exactly in
@@ -688,6 +702,7 @@ a computer, even if one assumes that it has unlimited storage. But there
 are uncountably many real numbers.) So some approximation is needed.
 CLN implements ordinary floating-point numbers, with mantissa and exponent.
 
+@cindex rounding error
 The elementary operations (@code{+}, @code{-}, @code{*}, @code{/}, @dots{})
 only return approximate results. For example, the value of the expression
 @code{(cl_F) 0.3 + (cl_F) 0.4} prints as @samp{0.70000005}, not as
@@ -709,12 +724,14 @@ Floating point numbers come in four flavors:
 
 @itemize @bullet
 @item
+@cindex @code{cl_SF}
 Short floats, type @code{cl_SF}.
 They have 1 sign bit, 8 exponent bits (including the exponent's sign),
 and 17 mantissa bits (including the ``hidden'' bit).
 They don't consume heap allocation.
 
 @item
+@cindex @code{cl_FF}
 Single floats, type @code{cl_FF}.
 They have 1 sign bit, 8 exponent bits (including the exponent's sign),
 and 24 mantissa bits (including the ``hidden'' bit).
@@ -722,6 +739,7 @@ In CLN, they are represented as IEEE single-precision floating point numbers.
 This corresponds closely to the C/C++ type @samp{float}.
 
 @item
+@cindex @code{cl_DF}
 Double floats, type @code{cl_DF}.
 They have 1 sign bit, 11 exponent bits (including the exponent's sign),
 and 53 mantissa bits (including the ``hidden'' bit).
@@ -729,6 +747,7 @@ In CLN, they are represented as IEEE double-precision floating point numbers.
 This corresponds closely to the C/C++ type @samp{double}.
 
 @item
+@cindex @code{cl_LF}
 Long floats, type @code{cl_LF}.
 They have 1 sign bit, 32 exponent bits (including the exponent's sign),
 and n mantissa bits (including the ``hidden'' bit), where n >= 64.
@@ -744,6 +763,7 @@ gradual underflow. If the exponent range of some floating-point type
 is too limited for your application, choose another floating-point type
 with larger exponent range.
 
+@cindex @code{cl_F}
 As a user of CLN, you can forget about the differences between the
 four floating-point types and just declare all your floating-point
 variables as being of type @code{cl_F}. This has the advantage that
@@ -758,6 +778,7 @@ the floating point contagion rule happened to change in the future.)
 
 @node Complex numbers, Conversions, Floating-point numbers, Ordinary number types
 @section Complex numbers
+@cindex complex number
 
 Complex numbers, as implemented by the class @code{cl_N}, have a real
 part and an imaginary part, both real numbers. A complex number whose
@@ -770,6 +791,7 @@ through application of @code{sqrt} or transcendental functions.
 
 @node Conversions,  , Complex numbers, Ordinary number types
 @section Conversions
+@cindex conversion
 
 Conversions from any class to any its superclasses (``base classes'' in
 C++ terminology) is done automatically.
@@ -811,6 +833,7 @@ Conversions from @samp{const char *} are provided for the classes
 @code{cl_R}, @code{cl_N}.
 The easiest way to specify a value which is outside of the range of the
 C++ built-in types is therefore to specify it as a string, like this:
+@cindex Rubik's cube
 @example
    cl_I order_of_rubiks_cube_group = "43252003274489856000";
 @end example
@@ -822,9 +845,13 @@ the functions
 
 @table @code
 @item int cl_I_to_int (const cl_I& x)
+@cindex @code{cl_I_to_int ()}
 @itemx unsigned int cl_I_to_uint (const cl_I& x)
+@cindex @code{cl_I_to_uint ()}
 @itemx long cl_I_to_long (const cl_I& x)
+@cindex @code{cl_I_to_long ()}
 @itemx unsigned long cl_I_to_ulong (const cl_I& x)
+@cindex @code{cl_I_to_ulong ()}
 Returns @code{x} as element of the C type @var{ctype}. If @code{x} is not
 representable in the range of @var{ctype}, a runtime error occurs.
 @end table
@@ -837,7 +864,9 @@ the functions
 
 @table @code
 @item float cl_float_approx (const @var{type}& x)
+@cindex @code{cl_float_approx ()}
 @itemx double cl_double_approx (const @var{type}& x)
+@cindex @code{cl_double_approx ()}
 Returns an approximation of @code{x} of C type @var{ctype}.
 If @code{abs(x)} is too close to 0 (underflow), 0 is returned.
 If @code{abs(x)} is too large (overflow), an IEEE infinity is returned.
@@ -847,8 +876,10 @@ Conversions from any class to any of its subclasses (``derived classes'' in
 C++ terminology) are not provided. Instead, you can assert and check
 that a value belongs to a certain subclass, and return it as element of that
 class, using the @samp{As} and @samp{The} macros.
+@cindex @code{As() ()}
 @code{As(@var{type})(@var{value})} checks that @var{value} belongs to
 @var{type} and returns it as such.
+@cindex @code{The() ()}
 @code{The(@var{type})(@var{value})} assumes that @var{value} belongs to
 @var{type} and returns it as such. It is your responsibility to ensure
 that this assumption is valid.
@@ -962,24 +993,30 @@ defines the following operations:
 
 @table @code
 @item @var{type} operator + (const @var{type}&, const @var{type}&)
+@cindex @code{operator + ()}
 Addition.
 
 @item @var{type} operator - (const @var{type}&, const @var{type}&)
+@cindex @code{operator - ()}
 Subtraction.
 
 @item @var{type} operator - (const @var{type}&)
 Returns the negative of the argument.
 
 @item @var{type} plus1 (const @var{type}& x)
+@cindex @code{plus1 ()}
 Returns @code{x + 1}.
 
 @item @var{type} minus1 (const @var{type}& x)
+@cindex @code{minus1 ()}
 Returns @code{x - 1}.
 
 @item @var{type} operator * (const @var{type}&, const @var{type}&)
+@cindex @code{operator * ()}
 Multiplication.
 
 @item @var{type} square (const @var{type}& x)
+@cindex @code{square ()}
 Returns @code{x * x}.
 @end table
 
@@ -989,9 +1026,11 @@ defines the following operations:
 
 @table @code
 @item @var{type} operator / (const @var{type}&, const @var{type}&)
+@cindex @code{operator / ()}
 Division.
 
 @item @var{type} recip (const @var{type}&)
+@cindex @code{recip ()}
 Returns the reciprocal of the argument.
 @end table
 
@@ -1003,6 +1042,7 @@ Instead, @code{cl_I} defines an ``exact quotient'' function:
 
 @table @code
 @item cl_I exquo (const cl_I& x, const cl_I& y)
+@cindex @code{exquo ()}
 Checks that @code{y} divides @code{x}, and returns the quotient @code{x}/@code{y}.
 @end table
 
@@ -1010,10 +1050,12 @@ The following exponentiation functions are defined:
 
 @table @code
 @item cl_I expt_pos (const cl_I& x, const cl_I& y)
+@cindex @code{expt_pos ()}
 @itemx cl_RA expt_pos (const cl_RA& x, const cl_I& y)
 @code{y} must be > 0. Returns @code{x^y}.
 
 @item cl_RA expt (const cl_RA& x, const cl_I& y)
+@cindex @code{expt ()}
 @itemx cl_R expt (const cl_R& x, const cl_I& y)
 @itemx cl_N expt (const cl_N& x, const cl_I& y)
 Returns @code{x^y}.
@@ -1025,6 +1067,7 @@ defines the following operation:
 
 @table @code
 @item @var{type} abs (const @var{type}& x)
+@cindex @code{abs ()}
 Returns the absolute value of @code{x}.
 This is @code{x} if @code{x >= 0}, and @code{-x} if @code{x <= 0}.
 @end table
@@ -1042,6 +1085,7 @@ defines the following operation:
 
 @table @code
 @item @var{type} signum (const @var{type}& x)
+@cindex @code{signum ()}
 Returns the sign of @code{x}, in the same number format as @code{x}.
 This is defined as @code{x / abs(x)} if @code{x} is non-zero, and
 @code{x} if @code{x} is zero. If @code{x} is real, the value is either
@@ -1056,9 +1100,11 @@ Each of the classes @code{cl_RA}, @code{cl_I} defines the following operations:
 
 @table @code
 @item cl_I numerator (const @var{type}& x)
+@cindex @code{numerator ()}
 Returns the numerator of @code{x}.
 
 @item cl_I denominator (const @var{type}& x)
+@cindex @code{denominator ()}
 Returns the denominator of @code{x}.
 @end table
 
@@ -1073,6 +1119,7 @@ The class @code{cl_N} defines the following operation:
 
 @table @code
 @item cl_N complex (const cl_R& a, const cl_R& b)
+@cindex @code{complex ()}
 Returns the complex number @code{a+bi}, that is, the complex number with
 real part @code{a} and imaginary part @code{b}.
 @end table
@@ -1081,12 +1128,15 @@ Each of the classes @code{cl_N}, @code{cl_R} defines the following operations:
 
 @table @code
 @item cl_R realpart (const @var{type}& x)
+@cindex @code{realpart ()}
 Returns the real part of @code{x}.
 
 @item cl_R imagpart (const @var{type}& x)
+@cindex @code{imagpart ()}
 Returns the imaginary part of @code{x}.
 
 @item @var{type} conjugate (const @var{type}& x)
+@cindex @code{conjugate ()}
 Returns the complex conjugate of @code{x}.
 @end table
 
@@ -1102,6 +1152,7 @@ We have the relations
 
 @node Comparisons, Rounding functions, Elementary complex functions, Functions on numbers
 @section Comparisons
+@cindex comparison
 
 Each of the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
 @code{cl_F}, @code{cl_SF}, @code{cl_FF}, @code{cl_DF}, @code{cl_LF}
@@ -1109,15 +1160,19 @@ defines the following operations:
 
 @table @code
 @item bool operator == (const @var{type}&, const @var{type}&)
+@cindex @code{operator == ()}
 @itemx bool operator != (const @var{type}&, const @var{type}&)
+@cindex @code{operator != ()}
 Comparison, as in C and C++.
 
 @item uint32 cl_equal_hashcode (const @var{type}&)
+@cindex @code{cl_equal_hashcode ()}
 Returns a 32-bit hash code that is the same for any two numbers which are
 the same according to @code{==}. This hash code depends on the number's value,
 not its type or precision.
 
 @item cl_boolean zerop (const @var{type}& x)
+@cindex @code{zerop ()}
 Compare against zero: @code{x == 0}
 @end table
 
@@ -1127,25 +1182,34 @@ defines the following operations:
 
 @table @code
 @item cl_signean cl_compare (const @var{type}& x, const @var{type}& y)
+@cindex @code{cl_compare ()}
 Compares @code{x} and @code{y}. Returns +1 if @code{x}>@code{y},
 -1 if @code{x}<@code{y}, 0 if @code{x}=@code{y}.
 
 @item bool operator <= (const @var{type}&, const @var{type}&)
+@cindex @code{operator <= ()}
 @itemx bool operator < (const @var{type}&, const @var{type}&)
+@cindex @code{operator < ()}
 @itemx bool operator >= (const @var{type}&, const @var{type}&)
+@cindex @code{operator >= ()}
 @itemx bool operator > (const @var{type}&, const @var{type}&)
+@cindex @code{operator > ()}
 Comparison, as in C and C++.
 
 @item cl_boolean minusp (const @var{type}& x)
+@cindex @code{minusp ()}
 Compare against zero: @code{x < 0}
 
 @item cl_boolean plusp (const @var{type}& x)
+@cindex @code{plusp ()}
 Compare against zero: @code{x > 0}
 
 @item @var{type} max (const @var{type}& x, const @var{type}& y)
+@cindex @code{max ()}
 Return the maximum of @code{x} and @code{y}.
 
 @item @var{type} min (const @var{type}& x, const @var{type}& y)
+@cindex @code{min ()}
 Return the minimum of @code{x} and @code{y}.
 @end table
 
@@ -1159,6 +1223,7 @@ there is no floating point number whose value is exactly @code{1/3}.
 
 @node Rounding functions, Roots, Comparisons, Functions on numbers
 @section Rounding functions
+@cindex rounding
 
 When a real number is to be converted to an integer, there is no ``best''
 rounding. The desired rounding function depends on the application.
@@ -1206,12 +1271,16 @@ defines the following operations:
 
 @table @code
 @item cl_I floor1 (const @var{type}& x)
+@cindex @code{floor1 ()}
 Returns @code{floor(x)}.
 @item cl_I ceiling1 (const @var{type}& x)
+@cindex @code{ceiling1 ()}
 Returns @code{ceiling(x)}.
 @item cl_I truncate1 (const @var{type}& x)
+@cindex @code{truncate1 ()}
 Returns @code{truncate(x)}.
 @item cl_I round1 (const @var{type}& x)
+@cindex @code{round1 ()}
 Returns @code{round(x)}.
 @end table
 
@@ -1271,9 +1340,13 @@ defines the following operations:
 @table @code
 @item struct @var{type}_div_t @{ cl_I quotient; @var{type} remainder; @};
 @itemx @var{type}_div_t floor2 (const @var{type}& x, const @var{type}& y)
+@cindex @code{floor2 ()}
 @itemx @var{type}_div_t ceiling2 (const @var{type}& x, const @var{type}& y)
+@cindex @code{ceiling2 ()}
 @itemx @var{type}_div_t truncate2 (const @var{type}& x, const @var{type}& y)
+@cindex @code{truncate2 ()}
 @itemx @var{type}_div_t round2 (const @var{type}& x, const @var{type}& y)
+@cindex @code{round2 ()}
 @end table
 
 Sometimes, one wants the quotient as a floating-point number (of the
@@ -1286,9 +1359,13 @@ defines the following operations:
 
 @table @code
 @item @var{type} ffloor (const @var{type}& x)
+@cindex @code{ffloor ()}
 @itemx @var{type} fceiling (const @var{type}& x)
+@cindex @code{fceiling ()}
 @itemx @var{type} ftruncate (const @var{type}& x)
+@cindex @code{ftruncate ()}
 @itemx @var{type} fround (const @var{type}& x)
+@cindex @code{fround ()}
 @end table
 
 and similarly for class @code{cl_R}, but with return type @code{cl_F}.
@@ -1312,9 +1389,13 @@ defines the following operations:
 @table @code
 @item struct @var{type}_fdiv_t @{ @var{type} quotient; @var{type} remainder; @};
 @itemx @var{type}_fdiv_t ffloor2 (const @var{type}& x)
+@cindex @code{ffloor2 ()}
 @itemx @var{type}_fdiv_t fceiling2 (const @var{type}& x)
+@cindex @code{fceiling2 ()}
 @itemx @var{type}_fdiv_t ftruncate2 (const @var{type}& x)
+@cindex @code{ftruncate2 ()}
 @itemx @var{type}_fdiv_t fround2 (const @var{type}& x)
+@cindex @code{fround2 ()}
 @end table
 and similarly for class @code{cl_R}, but with quotient type @code{cl_F}.
 
@@ -1348,7 +1429,9 @@ The classes @code{cl_R}, @code{cl_I} define the following operations:
 
 @table @code
 @item @var{type} mod (const @var{type}& x, const @var{type}& y)
+@cindex @code{mod ()}
 @itemx @var{type} rem (const @var{type}& x, const @var{type}& y)
+@cindex @code{rem ()}
 @end table
 
 
@@ -1361,6 +1444,7 @@ defines the following operation:
 
 @table @code
 @item @var{type} sqrt (const @var{type}& x)
+@cindex @code{sqrt ()}
 @code{x} must be >= 0. This function returns the square root of @code{x},
 normalized to be >= 0. If @code{x} is the square of a rational number,
 @code{sqrt(x)} will be a rational number, else it will return a
@@ -1371,6 +1455,7 @@ The classes @code{cl_RA}, @code{cl_I} define the following operation:
 
 @table @code
 @item cl_boolean sqrtp (const @var{type}& x, @var{type}* root)
+@cindex @code{sqrtp ()}
 This tests whether @code{x} is a perfect square. If so, it returns true
 and the exact square root in @code{*root}, else it returns false.
 @end table
@@ -1379,6 +1464,7 @@ Furthermore, for integers, similarly:
 
 @table @code
 @item cl_boolean isqrt (const @var{type}& x, @var{type}* root)
+@cindex @code{isqrt ()}
 @code{x} should be >= 0. This function sets @code{*root} to
 @code{floor(sqrt(x))} and returns the same value as @code{sqrtp}:
 the boolean value @code{(expt(*root,2) == x)}.
@@ -1389,6 +1475,7 @@ define the following operation:
 
 @table @code
 @item cl_boolean rootp (const @var{type}& x, const cl_I& n, @var{type}* root)
+@cindex @code{rootp ()}
 @code{x} must be >= 0. @code{n} must be > 0.
 This tests whether @code{x} is an @code{n}th power of a rational number.
 If so, it returns true and the exact root in @code{*root}, else it returns
@@ -1400,6 +1487,7 @@ for class @code{cl_N}:
 
 @table @code
 @item cl_N sqrt (const cl_N& z)
+@cindex @code{sqrt ()}
 Returns the square root of @code{z}, as defined by the formula
 @code{sqrt(z) = exp(log(z)/2)}. Conversion to a floating-point type
 or to a complex number are done if necessary. The range of the result is the
@@ -1412,7 +1500,7 @@ The result is an exact number only if @code{z} is an exact number.
 
 @node Transcendental functions, Functions on integers, Roots, Functions on numbers
 @section Transcendental functions
-
+@cindex transcendental functions
 
 The transcendental functions return an exact result if the argument
 is exact and the result is exact as well. Otherwise they must return
@@ -1433,21 +1521,25 @@ For example, @code{cos(0) = 1} returns the rational number @code{1}.
 
 @table @code
 @item cl_R exp (const cl_R& x)
+@cindex @code{exp ()}
 @itemx cl_N exp (const cl_N& x)
 Returns the exponential function of @code{x}. This is @code{e^x} where
 @code{e} is the base of the natural logarithms. The range of the result
 is the entire complex plane excluding 0.
 
 @item cl_R ln (const cl_R& x)
+@cindex @code{ln ()}
 @code{x} must be > 0. Returns the (natural) logarithm of x.
 
 @item cl_N log (const cl_N& x)
+@cindex @code{log ()}
 Returns the (natural) logarithm of x. If @code{x} is real and positive,
 this is @code{ln(x)}. In general, @code{log(x) = log(abs(x)) + i*phase(x)}.
 The range of the result is the strip in the complex plane
 @code{-pi < imagpart(log(x)) <= pi}.
 
 @item cl_R phase (const cl_N& x)
+@cindex @code{phase ()}
 Returns the angle part of @code{x} in its polar representation as a
 complex number. That is, @code{phase(x) = atan(realpart(x),imagpart(x))}.
 This is also the imaginary part of @code{log(x)}.
@@ -1466,6 +1558,7 @@ Returns the logarithm of @code{a} with respect to base @code{b}.
 @code{log(a,b) = log(a)/log(b)}.
 
 @item cl_N expt (const cl_N& x, const cl_N& y)
+@cindex @code{expt ()}
 Exponentiation: Returns @code{x^y = exp(y*log(x))}.
 @end table
 
@@ -1473,6 +1566,7 @@ The constant e = exp(1) = 2.71828@dots{} is returned by the following functions:
 
 @table @code
 @item cl_F cl_exp1 (cl_float_format_t f)
+@cindex @code{exp1 ()}
 Returns e as a float of format @code{f}.
 
 @item cl_F cl_exp1 (const cl_F& y)
@@ -1488,6 +1582,7 @@ Returns e as a float of format @code{cl_default_float_format}.
 
 @table @code
 @item cl_R sin (const cl_R& x)
+@cindex @code{sin ()}
 Returns @code{sin(x)}. The range of the result is the interval
 @code{-1 <= sin(x) <= 1}.
 
@@ -1495,6 +1590,7 @@ Returns @code{sin(x)}. The range of the result is the interval
 Returns @code{sin(z)}. The range of the result is the entire complex plane.
 
 @item cl_R cos (const cl_R& x)
+@cindex @code{cos ()}
 Returns @code{cos(x)}. The range of the result is the interval
 @code{-1 <= cos(x) <= 1}.
 
@@ -1502,20 +1598,26 @@ Returns @code{cos(x)}. The range of the result is the interval
 Returns @code{cos(z)}. The range of the result is the entire complex plane.
 
 @item struct cl_cos_sin_t @{ cl_R cos; cl_R sin; @};
+@cindex @code{cl_cos_sin_t}
 @itemx cl_cos_sin_t cl_cos_sin (const cl_R& x)
 Returns both @code{sin(x)} and @code{cos(x)}. This is more efficient than
+@cindex @code{cl_cos_sin ()}
 computing them separately. The relation @code{cos^2 + sin^2 = 1} will
 hold only approximately.
 
 @item cl_R tan (const cl_R& x)
+@cindex @code{tan ()}
 @itemx cl_N tan (const cl_N& x)
 Returns @code{tan(x) = sin(x)/cos(x)}.
 
 @item cl_N cis (const cl_R& x)
+@cindex @code{cis ()}
 @itemx cl_N cis (const cl_N& x)
 Returns @code{exp(i*x)}. The name @samp{cis} means ``cos + i sin'', because
 @code{e^(i*x) = cos(x) + i*sin(x)}.
 
+@cindex @code{asin}
+@cindex @code{asin ()}
 @item cl_N asin (const cl_N& z)
 Returns @code{arcsin(z)}. This is defined as
 @code{arcsin(z) = log(iz+sqrt(1-z^2))/i} and satisfies
@@ -1530,6 +1632,7 @@ results for arsinh.
 @end ignore
 
 @item cl_N acos (const cl_N& z)
+@cindex @code{acos ()}
 Returns @code{arccos(z)}. This is defined as
 @code{arccos(z) = pi/2 - arcsin(z) = log(z+i*sqrt(1-z^2))/i}
 @ignore
@@ -1545,6 +1648,8 @@ with @code{realpart = pi} and @code{imagpart > 0}.
 Proof: This follows from the results about arcsin.
 @end ignore
 
+@cindex @code{atan}
+@cindex @code{atan ()}
 @item cl_R atan (const cl_R& x, const cl_R& y)
 Returns the angle of the polar representation of the complex number
 @code{x+iy}. This is @code{atan(y/x)} if @code{x>0}. The range of
@@ -1572,10 +1677,13 @@ Proof: arctan(z) = artanh(iz)/i, we know the range of the artanh function.
 
 @end table
 
-The constant pi = 3.14@dots{} is returned by the following functions:
+@cindex pi
+@cindex Archimedes' constant
+Archimedes' constant pi = 3.14@dots{} is returned by the following functions:
 
 @table @code
 @item cl_F cl_pi (cl_float_format_t f)
+@cindex @code{cl_pi}
 Returns pi as a float of format @code{f}.
 
 @item cl_F cl_pi (const cl_F& y)
@@ -1591,12 +1699,14 @@ Returns pi as a float of format @code{cl_default_float_format}.
 
 @table @code
 @item cl_R sinh (const cl_R& x)
+@cindex @code{sinh ()}
 Returns @code{sinh(x)}.
 
 @item cl_N sinh (const cl_N& z)
 Returns @code{sinh(z)}. The range of the result is the entire complex plane.
 
 @item cl_R cosh (const cl_R& x)
+@cindex @code{cosh ()}
 Returns @code{cosh(x)}. The range of the result is the interval
 @code{cosh(x) >= 1}.
 
@@ -1604,16 +1714,20 @@ Returns @code{cosh(x)}. The range of the result is the interval
 Returns @code{cosh(z)}. The range of the result is the entire complex plane.
 
 @item struct cl_cosh_sinh_t @{ cl_R cosh; cl_R sinh; @};
+@cindex @code{cl_cosh_sinh_t}
 @itemx cl_cosh_sinh_t cl_cosh_sinh (const cl_R& x)
+@cindex @code{cl_cosh_sinh ()}
 Returns both @code{sinh(x)} and @code{cosh(x)}. This is more efficient than
 computing them separately. The relation @code{cosh^2 - sinh^2 = 1} will
 hold only approximately.
 
 @item cl_R tanh (const cl_R& x)
+@cindex @code{tanh ()}
 @itemx cl_N tanh (const cl_N& x)
 Returns @code{tanh(x) = sinh(x)/cosh(x)}.
 
 @item cl_N asinh (const cl_N& z)
+@cindex @code{asinh ()}
 Returns @code{arsinh(z)}. This is defined as
 @code{arsinh(z) = log(z+sqrt(1+z^2))} and satisfies
 @code{arsinh(-z) = -arsinh(z)}.
@@ -1645,6 +1759,7 @@ log(sqrt(1+z^2)+z) = 2 artanh(z/(1+sqrt(1+z^2)))
 @end ignore
 
 @item cl_N acosh (const cl_N& z)
+@cindex @code{acosh ()}
 Returns @code{arcosh(z)}. This is defined as
 @code{arcosh(z) = 2*log(sqrt((z+1)/2)+sqrt((z-1)/2))}.
 The range of the result is the half-strip in the complex domain
@@ -1690,6 +1805,7 @@ Otherwise, -z is in Range(sqrt).
 @end ignore
 
 @item cl_N atanh (const cl_N& z)
+@cindex @code{atanh ()}
 Returns @code{artanh(z)}. This is defined as
 @code{artanh(z) = (log(1+z)-log(1-z)) / 2} and satisfies
 @code{artanh(-z) = -artanh(z)}. The range of the result is
@@ -1722,11 +1838,13 @@ Proof: Write z = x+iy. Examine
 
 @node Euler gamma, Riemann zeta, Hyperbolic functions, Transcendental functions
 @subsection Euler gamma
+@cindex Euler's constant
 
 Euler's constant C = 0.577@dots{} is returned by the following functions:
 
 @table @code
 @item cl_F cl_eulerconst (cl_float_format_t f)
+@cindex @code{cl_eulerconst ()}
 Returns Euler's constant as a float of format @code{f}.
 
 @item cl_F cl_eulerconst (const cl_F& y)
@@ -1737,9 +1855,11 @@ Returns Euler's constant as a float of format @code{cl_default_float_format}.
 @end table
 
 Catalan's constant G = 0.915@dots{} is returned by the following functions:
+@cindex Catalan's constant
 
 @table @code
 @item cl_F cl_catalanconst (cl_float_format_t f)
+@cindex @code{cl_catalanconst ()}
 Returns Catalan's constant as a float of format @code{f}.
 
 @item cl_F cl_catalanconst (const cl_F& y)
@@ -1752,12 +1872,14 @@ Returns Catalan's constant as a float of format @code{cl_default_float_format}.
 
 @node Riemann zeta,  , Euler gamma, Transcendental functions
 @subsection Riemann zeta
+@cindex Riemann's zeta
 
 Riemann's zeta function at an integral point @code{s>1} is returned by the
 following functions:
 
 @table @code
 @item cl_F cl_zeta (int s, cl_float_format_t f)
+@cindex @code{cl_zeta ()}
 Returns Riemann's zeta function at @code{s} as a float of format @code{f}.
 
 @item cl_F cl_zeta (int s, const cl_F& y)
@@ -1794,46 +1916,62 @@ on each of the bit positions in parallel.
 
 @table @code
 @item cl_I lognot (const cl_I& x)
+@cindex @code{lognot ()}
 @itemx cl_I operator ~ (const cl_I& x)
+@cindex @code{operator ~ ()}
 Logical not, like @code{~x} in C. This is the same as @code{-1-x}.
 
 @item cl_I logand (const cl_I& x, const cl_I& y)
+@cindex @code{logand ()}
 @itemx cl_I operator & (const cl_I& x, const cl_I& y)
+@cindex @code{operator & ()}
 Logical and, like @code{x & y} in C.
 
 @item cl_I logior (const cl_I& x, const cl_I& y)
+@cindex @code{logior ()}
 @itemx cl_I operator | (const cl_I& x, const cl_I& y)
+@cindex @code{operator | ()}
 Logical (inclusive) or, like @code{x | y} in C.
 
 @item cl_I logxor (const cl_I& x, const cl_I& y)
+@cindex @code{logxor ()}
 @itemx cl_I operator ^ (const cl_I& x, const cl_I& y)
+@cindex @code{operator ^ ()}
 Exclusive or, like @code{x ^ y} in C.
 
 @item cl_I logeqv (const cl_I& x, const cl_I& y)
+@cindex @code{logeqv ()}
 Bitwise equivalence, like @code{~(x ^ y)} in C.
 
 @item cl_I lognand (const cl_I& x, const cl_I& y)
+@cindex @code{lognand ()}
 Bitwise not and, like @code{~(x & y)} in C.
 
 @item cl_I lognor (const cl_I& x, const cl_I& y)
+@cindex @code{lognor ()}
 Bitwise not or, like @code{~(x | y)} in C.
 
 @item cl_I logandc1 (const cl_I& x, const cl_I& y)
+@cindex @code{logandc1 ()}
 Logical and, complementing the first argument, like @code{~x & y} in C.
 
 @item cl_I logandc2 (const cl_I& x, const cl_I& y)
+@cindex @code{logandc2 ()}
 Logical and, complementing the second argument, like @code{x & ~y} in C.
 
 @item cl_I logorc1 (const cl_I& x, const cl_I& y)
+@cindex @code{logorc1 ()}
 Logical or, complementing the first argument, like @code{~x | y} in C.
 
 @item cl_I logorc2 (const cl_I& x, const cl_I& y)
+@cindex @code{logorc2 ()}
 Logical or, complementing the second argument, like @code{x | ~y} in C.
 @end table
 
 These operations are all available though the function
 @table @code
 @item cl_I boole (cl_boole op, const cl_I& x, const cl_I& y)
+@cindex @code{boole ()}
 @end table
 where @code{op} must have one of the 16 values (each one stands for a function
 which combines two bits into one bit): @code{boole_clr}, @code{boole_set},
@@ -1841,19 +1979,38 @@ which combines two bits into one bit): @code{boole_clr}, @code{boole_set},
 @code{boole_and}, @code{boole_ior}, @code{boole_xor}, @code{boole_eqv},
 @code{boole_nand}, @code{boole_nor}, @code{boole_andc1}, @code{boole_andc2},
 @code{boole_orc1}, @code{boole_orc2}.
+@cindex @code{boole_clr}
+@cindex @code{boole_set}
+@cindex @code{boole_1}
+@cindex @code{boole_2}
+@cindex @code{boole_c1}
+@cindex @code{boole_c2}
+@cindex @code{boole_and}
+@cindex @code{boole_xor}
+@cindex @code{boole_eqv}
+@cindex @code{boole_nand}
+@cindex @code{boole_nor}
+@cindex @code{boole_andc1}
+@cindex @code{boole_andc2}
+@cindex @code{boole_orc1}
+@cindex @code{boole_orc2}
+
 
 Other functions that view integers as bit strings:
 
 @table @code
 @item cl_boolean logtest (const cl_I& x, const cl_I& y)
+@cindex @code{logtest ()}
 Returns true if some bit is set in both @code{x} and @code{y}, i.e. if
 @code{logand(x,y) != 0}.
 
 @item cl_boolean logbitp (const cl_I& n, const cl_I& x)
+@cindex @code{logbitp ()}
 Returns true if the @code{n}th bit (from the right) of @code{x} is set.
 Bit 0 is the least significant bit.
 
 @item uintL logcount (const cl_I& x)
+@cindex @code{logcount ()}
 Returns the number of one bits in @code{x}, if @code{x} >= 0, or
 the number of zero bits in @code{x}, if @code{x} < 0.
 @end table
@@ -1863,20 +2020,24 @@ The type
 @example
 struct cl_byte @{ uintL size; uintL position; @};
 @end example
+@cindex @code{cl_byte}
 represents the bit interval containing the bits
 @code{position}@dots{}@code{position+size-1} of an integer.
 The constructor @code{cl_byte(size,position)} constructs a @code{cl_byte}.
 
 @table @code
 @item cl_I ldb (const cl_I& n, const cl_byte& b)
+@cindex @code{ldb ()}
 extracts the bits of @code{n} described by the bit interval @code{b}
 and returns them as a nonnegative integer with @code{b.size} bits.
 
 @item cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
+@cindex @code{ldb_test ()}
 Returns true if some bit described by the bit interval @code{b} is set in
 @code{n}.
 
 @item cl_I dpb (const cl_I& newbyte, const cl_I& n, const cl_byte& b)
+@cindex @code{dpb ()}
 Returns @code{n}, with the bits described by the bit interval @code{b}
 replaced by @code{newbyte}. Only the lowest @code{b.size} bits of
 @code{newbyte} are relevant.
@@ -1887,10 +2048,12 @@ functions are their counterparts without shifting:
 
 @table @code
 @item cl_I mask_field (const cl_I& n, const cl_byte& b)
+@cindex @code{mask_field ()}
 returns an integer with the bits described by the bit interval @code{b}
 copied from the corresponding bits in @code{n}, the other bits zero.
 
 @item cl_I deposit_field (const cl_I& newbyte, const cl_I& n, const cl_byte& b)
+@cindex @code{deposit_field ()}
 returns an integer where the bits described by the bit interval @code{b}
 come from @code{newbyte} and the other bits come from @code{n}.
 @end table
@@ -1911,39 +2074,47 @@ for common arithmetic operations:
 
 @table @code
 @item cl_boolean oddp (const cl_I& x)
+@cindex @code{oddp ()}
 Returns true if the least significant bit of @code{x} is 1. Equivalent to
 @code{mod(x,2) != 0}.
 
 @item cl_boolean evenp (const cl_I& x)
+@cindex @code{evenp ()}
 Returns true if the least significant bit of @code{x} is 0. Equivalent to
 @code{mod(x,2) == 0}.
 
 @item cl_I operator << (const cl_I& x, const cl_I& n)
+@cindex @code{operator << ()}
 Shifts @code{x} by @code{n} bits to the left. @code{n} should be >=0.
 Equivalent to @code{x * expt(2,n)}.
 
 @item cl_I operator >> (const cl_I& x, const cl_I& n)
+@cindex @code{operator >> ()}
 Shifts @code{x} by @code{n} bits to the right. @code{n} should be >=0.
 Bits shifted out to the right are thrown away.
 Equivalent to @code{floor(x / expt(2,n))}.
 
 @item cl_I ash (const cl_I& x, const cl_I& y)
+@cindex @code{ash ()}
 Shifts @code{x} by @code{y} bits to the left (if @code{y}>=0) or
 by @code{-y} bits to the right (if @code{y}<=0). In other words, this
 returns @code{floor(x * expt(2,y))}.
 
 @item uintL integer_length (const cl_I& x)
+@cindex @code{integer_length ()}
 Returns the number of bits (excluding the sign bit) needed to represent @code{x}
 in two's complement notation. This is the smallest n >= 0 such that
 -2^n <= x < 2^n. If x > 0, this is the unique n > 0 such that
 2^(n-1) <= x < 2^n.
 
 @item uintL ord2 (const cl_I& x)
+@cindex @code{ord2 ()}
 @code{x} must be non-zero. This function returns the number of 0 bits at the
 right of @code{x} in two's complement notation. This is the largest n >= 0
 such that 2^n divides @code{x}.
 
 @item uintL power2p (const cl_I& x)
+@cindex @code{power2p ()}
 @code{x} must be > 0. This function checks whether @code{x} is a power of 2.
 If @code{x} = 2^(n-1), it returns n. Else it returns 0.
 (See also the function @code{logp}.)
@@ -1955,11 +2126,13 @@ If @code{x} = 2^(n-1), it returns n. Else it returns 0.
 
 @table @code
 @item uint32 gcd (uint32 a, uint32 b)
+@cindex @code{gcd ()}
 @itemx cl_I gcd (const cl_I& a, const cl_I& b)
 This function returns the greatest common divisor of @code{a} and @code{b},
 normalized to be >= 0.
 
 @item cl_I xgcd (const cl_I& a, const cl_I& b, cl_I* u, cl_I* v)
+@cindex @code{xgcd ()}
 This function (``extended gcd'') returns the greatest common divisor @code{g} of
 @code{a} and @code{b} and at the same time the representation of @code{g}
 as an integral linear combination of @code{a} and @code{b}:
@@ -1970,10 +2143,12 @@ value, in the following sense: If @code{a} and @code{b} are non-zero, and
 @code{abs(u) <= abs(b)/(2*g)}, @code{abs(v) <= abs(a)/(2*g)}.
 
 @item cl_I lcm (const cl_I& a, const cl_I& b)
+@cindex @code{lcm ()}
 This function returns the least common multiple of @code{a} and @code{b},
 normalized to be >= 0.
 
 @item cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
+@cindex @code{logp ()}
 @itemx cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* l)
 @code{a} must be > 0. @code{b} must be >0 and != 1. If log(a,b) is
 rational number, this function returns true and sets *l = log(a,b), else
@@ -1986,15 +2161,18 @@ it returns false.
 
 @table @code
 @item cl_I factorial (uintL n)
+@cindex @code{factorial ()}
 @code{n} must be a small integer >= 0. This function returns the factorial
 @code{n}! = @code{1*2*@dots{}*n}.
 
 @item cl_I doublefactorial (uintL n)
+@cindex @code{doublefactorial ()}
 @code{n} must be a small integer >= 0. This function returns the 
 doublefactorial @code{n}!! = @code{1*3*@dots{}*n} or 
 @code{n}!! = @code{2*4*@dots{}*n}, respectively.
 
 @item cl_I binomial (uintL n, uintL k)
+@cindex @code{binomial ()}
 @code{n} and @code{k} must be small integers >= 0. This function returns the
 binomial coefficient
 @tex
@@ -2020,6 +2198,7 @@ defines the following operations.
 
 @table @code
 @item @var{type} scale_float (const @var{type}& x, sintL delta)
+@cindex @code{scale_float ()}
 @itemx @var{type} scale_float (const @var{type}& x, const cl_I& delta)
 Returns @code{x*2^delta}. This is more efficient than an explicit multiplication
 because it copies @code{x} and modifies the exponent.
@@ -2030,23 +2209,28 @@ representation of floating-point numbers.
 
 @table @code
 @item sintL float_exponent (const @var{type}& x)
+@cindex @code{float_exponent ()}
 Returns the exponent @code{e} of @code{x}.
 For @code{x = 0.0}, this is 0. For @code{x} non-zero, this is the unique
 integer with @code{2^(e-1) <= abs(x) < 2^e}.
 
 @item sintL float_radix (const @var{type}& x)
+@cindex @code{float_radix ()}
 Returns the base of the floating-point representation. This is always @code{2}.
 
 @item @var{type} float_sign (const @var{type}& x)
+@cindex @code{float_sign ()}
 Returns the sign @code{s} of @code{x} as a float. The value is 1 for
 @code{x} >= 0, -1 for @code{x} < 0.
 
 @item uintL float_digits (const @var{type}& x)
+@cindex @code{float_digits ()}
 Returns the number of mantissa bits in the floating-point representation
 of @code{x}, including the hidden bit. The value only depends on the type
 of @code{x}, not on its value.
 
 @item uintL float_precision (const @var{type}& x)
+@cindex @code{float_precision ()}
 Returns the number of significant mantissa bits in the floating-point
 representation of @code{x}. Since denormalized numbers are not supported,
 this is the same as @code{float_digits(x)} if @code{x} is non-zero, and
@@ -2054,6 +2238,11 @@ this is the same as @code{float_digits(x)} if @code{x} is non-zero, and
 @end table
 
 The complete internal representation of a float is encoded in the type
+@cindex @code{cl_decoded_float}
+@cindex @code{cl_decoded_sfloat}
+@cindex @code{cl_decoded_ffloat}
+@cindex @code{cl_decoded_dfloat}
+@cindex @code{cl_decoded_lfloat}
 @code{cl_decoded_float} (or @code{cl_decoded_sfloat}, @code{cl_decoded_ffloat},
 @code{cl_decoded_dfloat}, @code{cl_decoded_lfloat}, respectively), defined by
 @example
@@ -2066,6 +2255,7 @@ and returned by the function
 
 @table @code
 @item cl_decoded_@var{type}float decode_float (const @var{type}& x)
+@cindex @code{decode_float ()}
 For @code{x} non-zero, this returns @code{(-1)^s}, @code{e}, @code{m} with
 @code{x = (-1)^s * 2^e * m} and @code{0.5 <= m < 1.0}. For @code{x} = 0,
 it returns @code{(-1)^s}=1, @code{e}=0, @code{m}=0.
@@ -2074,6 +2264,7 @@ it returns @code{(-1)^s}=1, @code{e}=0, @code{m}=0.
 
 A complete decoding in terms of integers is provided as type
 @example
+@cindex @code{cl_idecoded_float}
 struct cl_idecoded_float @{
         cl_I mantissa; cl_I exponent; cl_I sign;
 @};
@@ -2082,6 +2273,7 @@ by the following function:
 
 @table @code
 @item cl_idecoded_float integer_decode_float (const @var{type}& x)
+@cindex @code{integer_decode_float ()}
 For @code{x} non-zero, this returns @code{(-1)^s}, @code{e}, @code{m} with
 @code{x = (-1)^s * 2^e * m} and @code{m} an integer with @code{float_digits(x)}
 bits. For @code{x} = 0, it returns @code{(-1)^s}=1, @code{e}=0, @code{m}=0.
@@ -2093,6 +2285,7 @@ Some other function, implemented only for class @code{cl_F}:
 
 @table @code
 @item cl_F float_sign (const cl_F& x, const cl_F& y)
+@cindex @code{float_sign ()}
 This returns a floating point number whose precision and absolute value
 is that of @code{y} and whose sign is that of @code{x}. If @code{x} is
 zero, it is treated as positive. Same for @code{y}.
@@ -2101,6 +2294,7 @@ zero, it is treated as positive. Same for @code{y}.
 
 @node Conversion functions, Random number generators, Functions on floating-point numbers, Functions on numbers
 @section Conversion functions
+@cindex conversion
 
 @menu
 * Conversion to floating-point numbers::  
@@ -2114,6 +2308,7 @@ The type @code{cl_float_format_t} describes a floating-point format.
 
 @table @code
 @item cl_float_format_t cl_float_format (uintL n)
+@cindex @code{cl_float_format ()}
 Returns the smallest float format which guarantees at least @code{n}
 decimal digits in the mantissa (after the decimal point).
 
@@ -2121,6 +2316,7 @@ decimal digits in the mantissa (after the decimal point).
 Returns the floating point format of @code{x}.
 
 @item cl_float_format_t cl_default_float_format
+@cindex @code{cl_default_float_format}
 Global variable: the default float format used when converting rational numbers
 to floats.
 @end table
@@ -2132,6 +2328,7 @@ defines the following operations:
 
 @table @code
 @item cl_F cl_float (const @var{type}&x, cl_float_format_t f)
+@cindex @code{cl_float}
 Returns @code{x} as a float of format @code{f}.
 @item cl_F cl_float (const @var{type}&x, const cl_F& y)
 Returns @code{x} in the float format of @code{y}.
@@ -2146,23 +2343,29 @@ Every floating-point format has some characteristic numbers:
 
 @table @code
 @item cl_F most_positive_float (cl_float_format_t f)
+@cindex @code{most_positive_float ()}
 Returns the largest (most positive) floating point number in float format @code{f}.
 
 @item cl_F most_negative_float (cl_float_format_t f)
+@cindex @code{most_negative_float ()}
 Returns the smallest (most negative) floating point number in float format @code{f}.
 
 @item cl_F least_positive_float (cl_float_format_t f)
+@cindex @code{least_positive_float ()}
 Returns the least positive floating point number (i.e. > 0 but closest to 0)
 in float format @code{f}.
 
 @item cl_F least_negative_float (cl_float_format_t f)
+@cindex @code{least_negative_float ()}
 Returns the least negative floating point number (i.e. < 0 but closest to 0)
 in float format @code{f}.
 
 @item cl_F float_epsilon (cl_float_format_t f)
+@cindex @code{float_epsilon ()}
 Returns the smallest floating point number e > 0 such that @code{1+e != 1}.
 
 @item cl_F float_negative_epsilon (cl_float_format_t f)
+@cindex @code{float_negative_epsilon ()}
 Returns the smallest floating point number e > 0 such that @code{1-e != 1}.
 @end table
 
@@ -2175,6 +2378,7 @@ defines the following operation:
 
 @table @code
 @item cl_RA rational (const @var{type}& x)
+@cindex @code{rational ()}
 Returns the value of @code{x} as an exact number. If @code{x} is already
 an exact number, this is @code{x}. If @code{x} is a floating-point number,
 the value is a rational number whose denominator is a power of 2.
@@ -2185,6 +2389,7 @@ the function
 
 @table @code
 @item cl_RA rationalize (const cl_R& x)
+@cindex @code{rationalize ()}
 If @code{x} is a floating-point number, it actually represents an interval
 of real numbers, and this function returns the rational number with
 smallest denominator (and smallest numerator, in magnitude)
@@ -2217,6 +2422,7 @@ Calling one of these modifies the state of the random number generator in
 a complicated but deterministic way.
 
 The global variable
+@cindex @code{cl_default_random_state}
 @example
 cl_random_state cl_default_random_state
 @end example
@@ -2226,20 +2432,24 @@ below are called without @code{cl_random_state} argument.
 @table @code
 @item uint32 random32 (cl_random_state& randomstate)
 @itemx uint32 random32 ()
+@cindex @code{random32 ()}
 Returns a random unsigned 32-bit number. All bits are equally random.
 
 @item cl_I random_I (cl_random_state& randomstate, const cl_I& n)
 @itemx cl_I random_I (const cl_I& n)
+@cindex @code{random_I ()}
 @code{n} must be an integer > 0. This function returns a random integer @code{x}
 in the range @code{0 <= x < n}.
 
 @item cl_F random_F (cl_random_state& randomstate, const cl_F& n)
 @itemx cl_F random_F (const cl_F& n)
+@cindex @code{random_F ()}
 @code{n} must be a float > 0. This function returns a random floating-point
 number of the same format as @code{n} in the range @code{0 <= x < n}.
 
 @item cl_R random_R (cl_random_state& randomstate, const cl_R& n)
 @itemx cl_R random_R (const cl_R& n)
+@cindex @code{random_R ()}
 Behaves like @code{random_I} if @code{n} is an integer and like @code{random_F}
 if @code{n} is a float.
 @end table
@@ -2247,6 +2457,7 @@ if @code{n} is a float.
 
 @node Obfuscating operators,  , Random number generators, Functions on numbers
 @section Obfuscating operators
+@cindex modifying operators
 
 The modifying C/C++ operators @code{+=}, @code{-=}, @code{*=}, @code{/=},
 @code{&=}, @code{|=}, @code{^=}, @code{<<=}, @code{>>=}
@@ -2257,6 +2468,7 @@ to get happy, then add
 @example
 #define WANT_OBFUSCATING_OPERATORS
 @end example
+@cindex @code{WANT_OBFUSCATING_OPERATORS}
 to the beginning of your source files, before the inclusion of any CLN
 include files. This flag will enable the following operators:
 
@@ -2265,9 +2477,13 @@ For the classes @code{cl_N}, @code{cl_R}, @code{cl_RA},
 
 @table @code
 @item @var{type}& operator += (@var{type}&, const @var{type}&)
+@cindex @code{operator += ()}
 @itemx @var{type}& operator -= (@var{type}&, const @var{type}&)
+@cindex @code{operator -= ()}
 @itemx @var{type}& operator *= (@var{type}&, const @var{type}&)
+@cindex @code{operator *= ()}
 @itemx @var{type}& operator /= (@var{type}&, const @var{type}&)
+@cindex @code{operator /= ()}
 @end table
 
 For the class @code{cl_I}:
@@ -2277,10 +2493,15 @@ For the class @code{cl_I}:
 @itemx @var{type}& operator -= (@var{type}&, const @var{type}&)
 @itemx @var{type}& operator *= (@var{type}&, const @var{type}&)
 @itemx @var{type}& operator &= (@var{type}&, const @var{type}&)
+@cindex @code{operator &= ()}
 @itemx @var{type}& operator |= (@var{type}&, const @var{type}&)
+@cindex @code{operator |= ()}
 @itemx @var{type}& operator ^= (@var{type}&, const @var{type}&)
+@cindex @code{operator ^= ()}
 @itemx @var{type}& operator <<= (@var{type}&, const @var{type}&)
+@cindex @code{operator <<= ()}
 @itemx @var{type}& operator >>= (@var{type}&, const @var{type}&)
+@cindex @code{operator >>= ()}
 @end table
 
 For the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
@@ -2288,12 +2509,14 @@ For the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
 
 @table @code
 @item @var{type}& operator ++ (@var{type}& x)
+@cindex @code{operator ++ ()}
 The prefix operator @code{++x}.
 
 @item void operator ++ (@var{type}& x, int)
 The postfix operator @code{x++}.
 
 @item @var{type}& operator -- (@var{type}& x)
+@cindex @code{operator -- ()}
 The prefix operator @code{--x}.
 
 @item void operator -- (@var{type}& x, int)
@@ -2307,6 +2530,7 @@ efficient.
 
 @node Input/Output, Rings, Functions on numbers, Top
 @chapter Input/Output
+@cindex Input/Output
 
 @menu
 * Internal and printed representation::  
@@ -2316,6 +2540,7 @@ efficient.
 
 @node Internal and printed representation, Input functions, Input/Output, Input/Output
 @section Internal and printed representation
+@cindex representation
 
 All computations deal with the internal representations of the numbers.
 
@@ -2324,8 +2549,10 @@ Several external representations may denote the same number, for example,
 "20.0" and "20.000".
 
 Converting an internal to an external representation is called ``printing'',
+@cindex printing
 converting an external to an internal representation is called ``reading''.
-In CLN, is it always true that conversion of an internal to an external
+@cindex reading
+In CLN, it is always true that conversion of an internal to an external
 representation and then back to an internal representation will yield the
 same internal representation. Symbolically: @code{read(print(x)) == x}.
 This is called ``print-read consistency''. 
@@ -2601,7 +2828,7 @@ using this variable name. Default is @code{"x"}.
 @end table
 
 The global variable @code{cl_default_print_flags} contains the default values,
-used by the function @code{fprint},
+used by the function @code{fprint}.
 
 
 @node Rings, Modular integers, Input/Output, Top
@@ -2670,6 +2897,7 @@ Tests whether the given number is an element of the number ring R.
 
 @node Modular integers, Symbolic data types, Rings, Top
 @chapter Modular integers
+@cindex modular integer
 
 @menu
 * Modular integer rings::       
@@ -2678,6 +2906,7 @@ Tests whether the given number is an element of the number ring R.
 
 @node Modular integer rings, Functions on modular integers, Modular integers, Modular integers
 @section Modular integer rings
+@cindex ring
 
 CLN implements modular integers, i.e. integers modulo a fixed integer N.
 The modulus is explicitly part of every modular integer. CLN doesn't
@@ -2711,9 +2940,11 @@ Modular integer rings are constructed using the function
 
 @table @code
 @item cl_modint_ring cl_find_modint_ring (const cl_I& N)
+@cindex @code{cl_find_modint_ring ()}
 This function returns the modular ring @samp{Z/NZ}. It takes care
 of finding out about special cases of @code{N}, like powers of two
 and odd numbers for which Montgomery multiplication will be a win,
+@cindex Montgomery multiplication
 and precomputes any necessary auxiliary data for computing modulo @code{N}.
 There is a cache table of rings, indexed by @code{N} (or, more precisely,
 by @code{abs(N)}). This ensures that the precomputation costs are reduced
@@ -2724,7 +2955,9 @@ Modular integer rings can be compared for equality:
 
 @table @code
 @item bool operator== (const cl_modint_ring&, const cl_modint_ring&)
+@cindex @code{operator == ()}
 @itemx bool operator!= (const cl_modint_ring&, const cl_modint_ring&)
+@cindex @code{operator != ()}
 These compare two modular integer rings for equality. Two different calls
 to @code{cl_find_modint_ring} with the same argument necessarily return the
 same ring because it is memoized in the cache table.
@@ -2737,23 +2970,29 @@ Given a modular integer ring @code{R}, the following members can be used.
 
 @table @code
 @item cl_I R->modulus
+@cindex @code{modulus}
 This is the ring's modulus, normalized to be nonnegative: @code{abs(N)}.
 
 @item cl_MI R->zero()
+@cindex @code{zero ()}
 This returns @code{0 mod N}.
 
 @item cl_MI R->one()
+@cindex @code{one ()}
 This returns @code{1 mod N}.
 
 @item cl_MI R->canonhom (const cl_I& x)
+@cindex @code{canonhom ()}
 This returns @code{x mod N}.
 
 @item cl_I R->retract (const cl_MI& x)
+@cindex @code{etract ()}
 This is a partial inverse function to @code{R->canonhom}. It returns the
 standard representative (@code{>=0}, @code{<N}) of @code{x}.
 
 @item cl_MI R->random(cl_random_state& randomstate)
 @itemx cl_MI R->random()
+@cindex @code{random ()}
 This returns a random integer modulo @code{N}.
 @end table
 
@@ -2761,13 +3000,16 @@ The following operations are defined on modular integers.
 
 @table @code
 @item cl_modint_ring x.ring ()
+@cindex @code{ring()}
 Returns the ring to which the modular integer @code{x} belongs.
 
 @item cl_MI operator+ (const cl_MI&, const cl_MI&)
+@cindex @code{operator + ()}
 Returns the sum of two modular integers. One of the arguments may also be
 a plain integer.
 
 @item cl_MI operator- (const cl_MI&, const cl_MI&)
+@cindex @code{operator - ()}
 Returns the difference of two modular integers. One of the arguments may also be
 a plain integer.
 
@@ -2775,40 +3017,51 @@ a plain integer.
 Returns the negative of a modular integer.
 
 @item cl_MI operator* (const cl_MI&, const cl_MI&)
+@cindex @code{operator * ()}
 Returns the product of two modular integers. One of the arguments may also be
 a plain integer.
 
 @item cl_MI square (const cl_MI&)
+@cindex @code{square ()}
 Returns the square of a modular integer.
 
 @item cl_MI recip (const cl_MI& x)
+@cindex @code{recip ()}
 Returns the reciprocal @code{x^-1} of a modular integer @code{x}. @code{x}
 must be coprime to the modulus, otherwise an error message is issued.
 
 @item cl_MI div (const cl_MI& x, const cl_MI& y)
+@cindex @code{div ()}
 Returns the quotient @code{x*y^-1} of two modular integers @code{x}, @code{y}.
 @code{y} must be coprime to the modulus, otherwise an error message is issued.
 
 @item cl_MI expt_pos (const cl_MI& x, const cl_I& y)
+@cindex @code{expt_pos ()}
 @code{y} must be > 0. Returns @code{x^y}.
 
 @item cl_MI expt (const cl_MI& x, const cl_I& y)
+@cindex @code{expt ()}
 Returns @code{x^y}. If @code{y} is negative, @code{x} must be coprime to the
 modulus, else an error message is issued.
 
 @item cl_MI operator<< (const cl_MI& x, const cl_I& y)
+@cindex @code{operator << ()}
 Returns @code{x*2^y}.
 
 @item cl_MI operator>> (const cl_MI& x, const cl_I& y)
+@cindex @code{operator >> ()}
 Returns @code{x*2^-y}. When @code{y} is positive, the modulus must be odd,
 or an error message is issued.
 
 @item bool operator== (const cl_MI&, const cl_MI&)
+@cindex @code{operator == ()}
 @itemx bool operator!= (const cl_MI&, const cl_MI&)
+@cindex @code{operator != ()}
 Compares two modular integers, belonging to the same modular integer ring,
 for equality.
 
 @item cl_boolean zerop (const cl_MI& x)
+@cindex @code{zerop ()}
 Returns true if @code{x} is @code{0 mod N}.
 @end table
 
@@ -2817,7 +3070,9 @@ input/output).
 
 @table @code
 @item void fprint (cl_ostream stream, const cl_MI& x)
+@cindex @code{fprint ()}
 @itemx cl_ostream operator<< (cl_ostream stream, const cl_MI& x)
+@cindex @code{operator << ()}
 Prints the modular integer @code{x} on the @code{stream}. The output may depend
 on the global printer settings in the variable @code{cl_default_print_flags}.
 @end table
@@ -2825,6 +3080,7 @@ on the global printer settings in the variable @code{cl_default_print_flags}.
 
 @node Symbolic data types, Univariate polynomials, Modular integers, Top
 @chapter Symbolic data types
+@cindex symbolic type
 
 CLN implements two symbolic (non-numeric) data types: strings and symbols.
 
@@ -2835,6 +3091,7 @@ CLN implements two symbolic (non-numeric) data types: strings and symbols.
 
 @node Strings, Symbols, Symbolic data types, Symbolic data types
 @section Strings
+@cindex string
 
 The class
 
@@ -2850,6 +3107,7 @@ Strings are constructed through the following constructors:
 
 @table @code
 @item cl_string (const char * s)
+@cindex @code{cl_string ()}
 Returns an immutable copy of the (zero-terminated) C string @code{s}.
 
 @item cl_string (const char * ptr, unsigned long len)
@@ -2864,20 +3122,25 @@ The following functions are available on strings:
 Assignment from @code{cl_string} and @code{const char *}.
 
 @item s.length()
+@cindex @code{length ()}
 @itemx strlen(s)
+@cindex @code{strlen ()}
 Returns the length of the string @code{s}.
 
 @item s[i]
+@cindex @code{operator [] ()}
 Returns the @code{i}th character of the string @code{s}.
 @code{i} must be in the range @code{0 <= i < s.length()}.
 
 @item bool equal (const cl_string& s1, const cl_string& s2)
+@cindex @code{equal ()}
 Compares two strings for equality. One of the arguments may also be a
 plain @code{const char *}.
 @end table
 
 @node Symbols,  , Strings, Symbolic data types
 @section Symbols
+@cindex symbol
 
 Symbols are uniquified strings: all symbols with the same name are shared.
 This means that comparison of two symbols is fast (effectively just a pointer
@@ -2890,6 +3153,7 @@ Symbols are constructed through the following constructor:
 
 @table @code
 @item cl_symbol (const cl_string& s)
+@cindex @code{cl_symbol ()}
 Looks up or creates a new symbol with a given name.
 @end table
 
@@ -2901,12 +3165,15 @@ Conversion to @code{cl_string}: Returns the string which names the symbol
 @code{sym}.
 
 @item bool equal (const cl_symbol& sym1, const cl_symbol& sym2)
+@cindex @code{equal ()}
 Compares two symbols for equality. This is very fast.
 @end table
 
 
 @node Univariate polynomials, Internals, Symbolic data types, Top
 @chapter Univariate polynomials
+@cindex polynomial
+@cindex univariate polynomial
 
 @menu
 * Univariate polynomial rings::  
@@ -3009,6 +3276,7 @@ This ensures that two calls of this function with the same arguments will
 return the same polynomial ring.
 
 @item cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R)
+@cindex @code{cl_find_univpoly_ring ()}
 @itemx cl_univpoly_complex_ring cl_find_univpoly_ring (const cl_complex_ring& R, const cl_symbol& varname)
 @itemx cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring& R)
 @itemx cl_univpoly_real_ring cl_find_univpoly_ring (const cl_real_ring& R, const cl_symbol& varname)
@@ -3029,22 +3297,28 @@ Given a univariate polynomial ring @code{R}, the following members can be used.
 
 @table @code
 @item cl_ring R->basering()
+@cindex @code{basering ()}
 This returns the base ring, as passed to @samp{cl_find_univpoly_ring}.
 
 @item cl_UP R->zero()
+@cindex @code{zero ()}
 This returns @code{0 in R}, a polynomial of degree -1.
 
 @item cl_UP R->one()
+@cindex @code{one ()}
 This returns @code{1 in R}, a polynomial of degree <= 0.
 
 @item cl_UP R->canonhom (const cl_I& x)
+@cindex @code{canonhom ()}
 This returns @code{x in R}, a polynomial of degree <= 0.
 
 @item cl_UP R->monomial (const cl_ring_element& x, uintL e)
+@cindex @code{monomial ()}
 This returns a sparse polynomial: @code{x * X^e}, where @code{X} is the
 indeterminate.
 
 @item cl_UP R->create (sintL degree)
+@cindex @code{create ()}
 Creates a new polynomial with a given degree. The zero polynomial has degree
 @code{-1}. After creating the polynomial, you should put in the coefficients,
 using the @code{set_coeff} member function, and then call the @code{finalize}
@@ -3055,11 +3329,13 @@ The following are the only destructive operations on univariate polynomials.
 
 @table @code
 @item void set_coeff (cl_UP& x, uintL index, const cl_ring_element& y)
+@cindex @code{set_coeff ()}
 This changes the coefficient of @code{X^index} in @code{x} to be @code{y}.
 After changing a polynomial and before applying any "normal" operation on it,
 you should call its @code{finalize} member function.
 
 @item void finalize (cl_UP& x)
+@cindex @code{finalize ()}
 This function marks the endpoint of destructive modifications of a polynomial.
 It normalizes the internal representation so that subsequent computations have
 less overhead. Doing normal computations on unnormalized polynomials may
@@ -3070,47 +3346,60 @@ The following operations are defined on univariate polynomials.
 
 @table @code
 @item cl_univpoly_ring x.ring ()
+@cindex @code{ring ()}
 Returns the ring to which the univariate polynomial @code{x} belongs.
 
 @item cl_UP operator+ (const cl_UP&, const cl_UP&)
+@cindex @code{operator + ()}
 Returns the sum of two univariate polynomials.
 
 @item cl_UP operator- (const cl_UP&, const cl_UP&)
+@cindex @code{operator - ()}
 Returns the difference of two univariate polynomials.
 
 @item cl_UP operator- (const cl_UP&)
 Returns the negative of a univariate polynomial.
 
 @item cl_UP operator* (const cl_UP&, const cl_UP&)
+@cindex @code{operator * ()}
 Returns the product of two univariate polynomials. One of the arguments may
 also be a plain integer or an element of the base ring.
 
 @item cl_UP square (const cl_UP&)
+@cindex @code{square ()}
 Returns the square of a univariate polynomial.
 
 @item cl_UP expt_pos (const cl_UP& x, const cl_I& y)
+@cindex @code{expt_pos ()}
 @code{y} must be > 0. Returns @code{x^y}.
 
 @item bool operator== (const cl_UP&, const cl_UP&)
+@cindex @code{operator == ()}
 @itemx bool operator!= (const cl_UP&, const cl_UP&)
+@cindex @code{operator != ()}
 Compares two univariate polynomials, belonging to the same univariate
 polynomial ring, for equality.
 
 @item cl_boolean zerop (const cl_UP& x)
+@cindex @code{zerop ()}
 Returns true if @code{x} is @code{0 in R}.
 
 @item sintL degree (const cl_UP& x)
+@cindex @code{degree ()}
 Returns the degree of the polynomial. The zero polynomial has degree @code{-1}.
 
 @item cl_ring_element coeff (const cl_UP& x, uintL index)
+@cindex @code{coeff ()}
 Returns the coefficient of @code{X^index} in the polynomial @code{x}.
 
 @item cl_ring_element x (const cl_ring_element& y)
+@cindex @code{operator () ()}
 Evaluation: If @code{x} is a polynomial and @code{y} belongs to the base ring,
 then @samp{x(y)} returns the value of the substitution of @code{y} into
 @code{x}.
 
 @item cl_UP deriv (const cl_UP& x)
+@cindex @code{deriv ()}
 Returns the derivative of the polynomial @code{x} with respect to the
 indeterminate @code{X}.
 @end table
@@ -3120,7 +3409,9 @@ input/output).
 
 @table @code
 @item void fprint (cl_ostream stream, const cl_UP& x)
+@cindex @code{fprint ()}
 @itemx cl_ostream operator<< (cl_ostream stream, const cl_UP& x)
+@cindex @code{operator << ()}
 Prints the univariate polynomial @code{x} on the @code{stream}. The output may
 depend on the global printer settings in the variable
 @code{cl_default_print_flags}.
@@ -3133,15 +3424,23 @@ The following functions return special polynomials.
 
 @table @code
 @item cl_UP_I cl_tschebychev (sintL n)
+@cindex @code{cl_tschebychev ()}
+@cindex Tschebychev polynomial
 Returns the n-th Tchebychev polynomial (n >= 0).
 
 @item cl_UP_I cl_hermite (sintL n)
+@cindex @code{cl_hermite ()}
+@cindex Hermite polynomial
 Returns the n-th Hermite polynomial (n >= 0).
 
 @item cl_UP_RA cl_legendre (sintL n)
+@cindex @code{cl_legendre ()}
+@cindex Legende polynomial
 Returns the n-th Legendre polynomial (n >= 0).
 
 @item cl_UP_I cl_laguerre (sintL n)
+@cindex @code{cl_laguerre ()}
+@cindex Laguerre polynomial
 Returns the n-th Laguerre polynomial (n >= 0).
 @end table
 
@@ -3162,6 +3461,7 @@ of these polynomials from their definition can be found in the
 
 @node Why C++ ?, Memory efficiency, Internals, Internals
 @section Why C++ ?
+@cindex advocacy
 
 Using C++ as an implementation language provides
 
@@ -3170,6 +3470,7 @@ Using C++ as an implementation language provides
 Efficiency: It compiles to machine code.
 
 @item
+@cindex portability
 Portability: It runs on all platforms supporting a C++ compiler. Because
 of the availability of GNU C++, this includes all currently used 32-bit and
 64-bit platforms, independently of the quality of the vendor's C++ compiler.
@@ -3178,7 +3479,7 @@ of the availability of GNU C++, this includes all currently used 32-bit and
 Type safety: The C++ compilers knows about the number types and complains if,
 for example, you try to assign a float to an integer variable. However,
 a drawback is that C++ doesn't know about generic types, hence a restriction
-like that @code{operation+ (const cl_MI&, const cl_MI&)} requires that both
+like that @code{operator+ (const cl_MI&, const cl_MI&)} requires that both
 arguments belong to the same modular ring cannot be expressed as a compile-time
 information.
 
@@ -3206,6 +3507,8 @@ In order to save memory allocations, CLN implements:
 Object sharing: An operation like @code{x+0} returns @code{x} without copying
 it.
 @item
+@cindex garbage collection
+@cindex reference counting
 Garbage collection: A reference counting mechanism makes sure that any
 number object's storage is freed immediately when the last reference to the
 object is gone.
@@ -3231,8 +3534,8 @@ memory access, just a couple of instructions for each elementary operation.
 The kernel of CLN has been written in assembly language for some CPUs
 (@code{i386}, @code{m68k}, @code{sparc}, @code{mips}, @code{arm}).
 @item
-On all CPUs, CLN uses the superefficient low-level routines from GNU
-GMP version 2.
+On all CPUs, CLN may be configured to use the superefficient low-level
+routines from GNU GMP version 3.
 @item
 For large numbers, CLN uses, instead of the standard @code{O(N^2)}
 algorithm, the Karatsuba multiplication, which is an
@@ -3249,9 +3552,11 @@ algorithm.
 For very large numbers (more than 12000 decimal digits), CLN uses
 @iftex
 Sch{@"o}nhage-Strassen
+@cindex Sch{@"o}nhage-Strassen
 @end iftex
 @ifinfo
 Schönhage-Strassen
+@cindex Schönhage-Strassen
 @end ifinfo
 multiplication, which is an asymptotically
 optimal multiplication algorithm.
@@ -3263,6 +3568,7 @@ of division and radix conversion.
 
 @node Garbage collection,  , Speed efficiency, Internals
 @section Garbage collection
+@cindex garbage collection
 
 All the number classes are reference count classes: They only contain a pointer
 to an object in the heap. Upon construction, assignment and destruction of
@@ -3297,6 +3603,7 @@ environment variables, or directly substitute the appropriate values.
 
 @node Compiler options, Include files, Using the library, Using the library
 @section Compiler options
+@cindex compiler options
 
 Until you have installed CLN in a public place, the following options are
 needed:
@@ -3321,6 +3628,8 @@ linking a CLN application it is sufficient to give the flag @code{-lcln}.
 
 @node Include files, An Example, Compiler options, Using the library
 @section Include files
+@cindex include files
+@cindex header files
 
 Here is a summary of the include files and their contents.
 
@@ -3452,6 +3761,7 @@ Includes all of the above.
 @section An Example
 
 A function which computes the nth Fibonacci number can be written as follows.
+@cindex Fibonacci number
 
 @example
 #include <cl_integer.h>
@@ -3512,9 +3822,12 @@ When the function returns, all the local variables in the function are
 automatically reclaimed (garbage collected). Only the result survives and
 gets passed to the caller.
 
+The file @code{fibonacci.cc} in the subdirectory @code{examples}
+contains this implementation together with an even faster algorithm.
 
 @node Debugging support,  , An Example, Using the library
 @section Debugging support
+@cindex debugging
 
 When debugging a CLN application with GNU @code{gdb}, two facilities are
 available from the library:
@@ -3539,6 +3852,7 @@ CLN offers a function @code{cl_print}, callable from the debugger,
 for printing number objects. In order to get this function, you have
 to define the macro @samp{CL_DEBUG} and then include all the header files
 for which you want @code{cl_print} debugging support. For example:
+@cindex @code{CL_DEBUG}
 @example
 #define CL_DEBUG
 #include <cl_string.h>
@@ -3561,6 +3875,7 @@ only with number objects and similar. Therefore CLN offers a member function
 @code{debug_print()} on all CLN types. The same macro @samp{CL_DEBUG}
 is needed for this member function to be implemented. Under @code{gdb},
 you call it like this:
+@cindex @code{debug_print ()}
 @example
 (gdb) print s
 $7 = @{<cl_gcpointer> = @{ = @{pointer = 0x8055b60, heappointer = 0x8055b60,
@@ -3579,6 +3894,7 @@ Unfortunately, this feature does not seem to work under all circumstances.
 
 @node Customizing, Index, Using the library, Top
 @chapter Customizing
+@cindex customizing
 
 @menu
 * Error handling::              
@@ -3599,11 +3915,13 @@ yourself, with the prototype
 #include <cl_abort.h>
 void cl_abort (void);
 @end example
+@cindex @code{cl_abort ()}
 This function must not return control to its caller.
 
 
 @node Floating-point underflow, Customizing I/O, Error handling, Customizing
 @section Floating-point underflow
+@cindex underflow
 
 Floating point underflow denotes the situation when a floating-point number
 is to be created which is so close to @code{0} that its exponent is too
@@ -3613,9 +3931,8 @@ If you set the global variable
 cl_boolean cl_inhibit_floating_point_underflow
 @end example
 to @code{cl_true}, the error will be inhibited, and a floating-point zero
-will be generated instead.
-The default value of @code{cl_inhibit_floating_point_underflow} is
-@code{cl_false}.
+will be generated instead.  The default value of 
+@code{cl_inhibit_floating_point_underflow} is @code{cl_false}.
 
 
 @node Customizing I/O, Customizing the memory allocator, Floating-point underflow, Customizing
@@ -3623,6 +3940,7 @@ The default value of @code{cl_inhibit_floating_point_underflow} is
 
 The output of the function @code{fprint} may be customized by changing the
 value of the global variable @code{cl_default_print_flags}.
+@cindex @code{cl_default_print_flags}
 
 
 @node Customizing the memory allocator,  , Customizing I/O, Customizing
@@ -3641,6 +3959,8 @@ like this:
 void* (*cl_malloc_hook) (size_t size) = @dots{};
 void (*cl_free_hook) (void* ptr)      = @dots{};
 @end example
+@cindex @code{cl_malloc_hook ()}
+@cindex @code{cl_free_hook ()}
 The @code{cl_malloc_hook} function must not return a @code{NULL} pointer.
 
 It is not possible to change the memory allocator at runtime, because
