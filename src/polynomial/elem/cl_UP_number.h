@@ -335,6 +335,18 @@ static sintL num_degree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	return (sintL) x.length() - 1;
 }}
 
+static sintL num_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+{{
+	DeclarePoly(cl_SV_number,x);
+	var cl_number_ring_ops<cl_number>& ops = *TheNumberRing(UPR->basering())->ops;
+	var sintL xlen = x.length();
+	for (sintL i = 0; i < xlen; i++) {
+		if (!ops.zerop(x[i]))
+			return i;
+	}
+	return -1;
+}}
+
 static const _cl_UP num_monomial (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, uintL e)
 {
 	if (!(UPR->basering() == x.ring())) cl_abort();
@@ -438,6 +450,7 @@ static cl_univpoly_modulops num_modulops = {
 
 static cl_univpoly_polyops num_polyops = {
 	num_degree,
+	num_ldegree,
 	num_monomial,
 	num_coeff,
 	num_create,

@@ -109,6 +109,11 @@ static sintL dummy_degree (cl_heap_univpoly_ring* R, const _cl_UP& x)
 	unused R;
 	uninitialized_error(x); return 0;
 }
+static sintL dummy_ldegree (cl_heap_univpoly_ring* R, const _cl_UP& x)
+{
+	unused R;
+	uninitialized_error(x); return 0;
+}
 static const _cl_UP dummy_monomial (cl_heap_univpoly_ring* R, const cl_ring_element& x, uintL e)
 {
 	unused R;
@@ -170,6 +175,7 @@ static cl_univpoly_modulops dummy_modulops = {
 };
 static cl_univpoly_polyops dummy_polyops = {
 	dummy_degree,
+	dummy_ldegree,
 	dummy_monomial,
 	dummy_coeff,
 	dummy_create,

@@ -107,6 +107,10 @@ class cl_heap_univpoly_modint_ring : public cl_heap_univpoly_ring {
 	{
 		return cl_heap_univpoly_ring::degree(x);
 	}
+	sintL ldegree (const cl_UP_MI& x)
+	{
+		return cl_heap_univpoly_ring::ldegree(x);
+	}
 	const cl_UP_MI monomial (const cl_MI& x, uintL e)
 	{
 		return The2(cl_UP_MI)(cl_heap_univpoly_ring::monomial(x,e));

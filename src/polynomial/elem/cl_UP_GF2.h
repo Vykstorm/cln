@@ -1028,6 +1028,7 @@ static cl_univpoly_modulops gf2_modulops = {
 
 static cl_univpoly_polyops gf2_polyops = {
 	modint_degree,
+	modint_ldegree,
 	modint_monomial,
 	modint_coeff,
 	modint_create,

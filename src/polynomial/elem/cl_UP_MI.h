@@ -353,6 +353,18 @@ static sintL modint_degree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	return (sintL) x.length() - 1;
 }}
 
+static sintL modint_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+{{
+	DeclarePoly(cl_GV_MI,x);
+	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
+	var sintL xlen = x.length();
+	for (sintL i = 0; i < xlen; i++) {
+		if (!R->_zerop(x[i]))
+			return i;
+	}
+	return -1;
+}}
+
 static const _cl_UP modint_monomial (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, uintL e)
 {
 	if (!(UPR->basering() == x.ring())) cl_abort();
@@ -456,6 +468,7 @@ static cl_univpoly_modulops modint_modulops = {
 
 static cl_univpoly_polyops modint_polyops = {
 	modint_degree,
+	modint_ldegree,
 	modint_monomial,
 	modint_coeff,
 	modint_create,

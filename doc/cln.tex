@@ -32,10 +32,10 @@
 This file documents @sc{cln}, a Class Library for Numbers.
 
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
-Richard Kreckel, @code{<kreckel@@ginac.de>}.
+Richard B. Kreckel, @code{<kreckel@@ginac.de>}.
 
 Copyright (C)  Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002.
-Copyright (C)  Richard Kreckel 2000, 2001, 2002.
+Copyright (C)  Richard B. Kreckel 2000, 2001, 2002, 2003, 2004.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -3092,7 +3092,7 @@ This returns @code{0 in R}, a polynomial of degree -1.
 
 @item cl_UP R->one()
 @cindex @code{one ()}
-This returns @code{1 in R}, a polynomial of degree <= 0.
+This returns @code{1 in R}, a polynomial of degree == 0.
 
 @item cl_UP R->canonhom (const cl_I& x)
 @cindex @code{canonhom ()}
@@ -3173,6 +3173,11 @@ Returns true if @code{x} is @code{0 in R}.
 @item sintL degree (const cl_UP& x)
 @cindex @code{degree ()}
 Returns the degree of the polynomial. The zero polynomial has degree @code{-1}.
+
+@item sintL ldegree (const cl_UP& x)
+@cindex @code{degree ()}
+Returns the low degree of the polynomial. This is the degree of the first
+non-vanishing polynomial coefficient. The zero polynomial has ldegree @code{-1}.
 
 @item cl_ring_element coeff (const cl_UP& x, uintL index)
 @cindex @code{coeff ()}

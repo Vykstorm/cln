@@ -116,6 +116,10 @@ class cl_heap_univpoly_rational_ring : public cl_heap_univpoly_ring {
 	{
 		return cl_heap_univpoly_ring::degree(x);
 	}
+	sintL ldegree (const cl_UP_RA& x)
+	{
+		return cl_heap_univpoly_ring::ldegree(x);
+	}
 	const cl_UP_RA monomial (const cl_RA& x, uintL e)
 	{
 		return The2(cl_UP_RA)(cl_heap_univpoly_ring::monomial(cl_ring_element(cl_RA_ring,x),e));

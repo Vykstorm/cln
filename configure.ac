@@ -78,8 +78,8 @@ dnl * if any functions/classes have been added, removed or changed, increment
 dnl   CL_CURRENT and set CL_REVISION to 0,
 dnl * if any functions/classes have been added, increment CL_AGE,
 dnl * if backwards compatibility has been broken, set CL_AGE to 0.
-CL_CURRENT=2
-CL_REVISION=5
+CL_CURRENT=3
+CL_REVISION=0
 CL_AGE=0
 dnl make substitutions
 AC_SUBST(CL_CURRENT)

@@ -1,3 +1,13 @@
+2004-01-01  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/univpoly.h, include/cln/univpoly_complex.h,
+	  include/cln//univpoly_integer.h, include/cln/univpoly_modint.h,
+	  include/cln/univpoly_rational.h, include/cln/univpoly_real.h,
+	  src/polynomial/elem/cl_UP_GF2.h, src/polynomial/elem/cl_UP_MI.h,
+	  src/polynomial/elem/cl_UP_gen.h, src/polynomial/elem/cl_UP_no_ring.cc,
+	  src/polynomial/elem/cl_UP_number.h (ldegree): New function.
+	* doc/cln.tex: Document `ldegree'.
+
 2003-12-29  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Rework of autoconfiscation infrastructure
@@ -34,7 +44,14 @@
 
 	* examples/perfnum.cc: update to presumed 40th Mersenne prime.
 
-2003-08-06  Richard Kreckel  <kreckel@ginac.de>
+2003-11-20  Christian Bauer  <cbauer@ginac.de>
+
+	Added pkg-config support
+	* cln.pc.in: New file.
+	* Makefile.in: Take care of cln.pc.
+	* configure.ac: Likewise.
+
+2003-08-06  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/numtheory/cl_nt_sqrtmodp.cc: #undef _R.
 	Reported by Andrew Rechnitzer <A.Rechnitzer@ms.unimelb.edu.au>.

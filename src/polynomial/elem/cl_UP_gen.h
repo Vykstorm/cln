@@ -337,6 +337,17 @@ static sintL gen_degree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	return (sintL) x.length() - 1;
 }}
 
+static sintL gen_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+{{	DeclarePoly(cl_SV_ringelt,x);
+	var cl_heap_ring* R = TheRing(UPR->basering());
+	var sintL xlen = x.length();
+	for (sintL i = 0; i < xlen; i++) {
+		if (!R->_zerop(x[i]))
+			return i;
+	}
+	return -1;
+}}
+
 static const _cl_UP gen_monomial (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, uintL e)
 {
 	if (!(UPR->basering() == x.ring())) cl_abort();
@@ -436,6 +447,7 @@ static cl_univpoly_modulops gen_modulops = {
 
 static cl_univpoly_polyops gen_polyops = {
 	gen_degree,
+	gen_ldegree,
 	gen_monomial,
 	gen_coeff,
 	gen_create,

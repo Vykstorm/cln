@@ -147,6 +147,8 @@ struct _cl_univpoly_modulops {
 struct _cl_univpoly_polyops {
 	// degree
 	sintL (* degree) (cl_heap_univpoly_ring* R, const _cl_UP& x);
+	// low degree
+	sintL (* ldegree) (cl_heap_univpoly_ring* R, const _cl_UP& x);
 	// monomial
 	const _cl_UP (* monomial) (cl_heap_univpoly_ring* R, const cl_ring_element& x, uintL e);
 	// coefficient (0 if index>degree)
@@ -212,6 +214,8 @@ public:
 		{ return modulops->scalmul(this,x,y); }
 	sintL _degree (const _cl_UP& x)
 		{ return polyops->degree(this,x); }
+	sintL _ldegree (const _cl_UP& x)
+		{ return polyops->ldegree(this,x); }
 	const _cl_UP _monomial (const cl_ring_element& x, uintL e)
 		{ return polyops->monomial(this,x,e); }
 	const cl_ring_element _coeff (const _cl_UP& x, uintL index)
@@ -295,6 +299,11 @@ public:
 	{
 		if (!(x.ring() == this)) cl_abort();
 		return _degree(x);
+	}
+	sintL ldegree (const cl_UP& x)
+	{
+		if (!(x.ring() == this)) cl_abort();
+		return _ldegree(x);
 	}
 	const cl_UP monomial (const cl_ring_element& x, uintL e)
 	{
@@ -414,6 +423,10 @@ inline const cl_UP operator* (const cl_UP& x, const cl_ring_element& y)
 // Degree.
 inline sintL degree (const cl_UP& x)
 	{ return x.ring()->degree(x); }
+
+// Low degree.
+inline sintL ldegree (const cl_UP& x)
+	{ return x.ring()->ldegree(x); }
 
 // Coefficient.
 inline const cl_ring_element coeff (const cl_UP& x, uintL index)
@@ -584,6 +597,10 @@ class cl_heap_univpoly_specialized_ring : public cl_heap_univpoly_ring {
 	sintL degree (const cl_UP_specialized<T>& x)
 	{
 		return cl_heap_univpoly_ring::degree(x);
+	}
+	sintL ldegree (const cl_UP_specialized<T>& x)
+	{
+		return cl_heap_univpoly_ring::ldegree(x);
 	}
 	const cl_UP_specialized<T> monomial (const T& x, uintL e)
 	{
