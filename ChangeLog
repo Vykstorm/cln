@@ -1,5 +1,8 @@
 2002-05-05  Bruno Haible  <bruno@clisp.org>
 
+	* doc/cln.tex (Building the library): Give some recommendations for
+	g++ 3.0 and 3.1.
+
 	Force link-time references despite optimizations done by g++ 2.95
 	and newer.
 	* include/cln/modules.h (CL_FORCE_LINK): New macro.
