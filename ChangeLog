@@ -1,3 +1,8 @@
+2000-11-17  Richard Kreckel  <kreckel@ginac.de>
+
+        * cln-config.1: added manpage, as required by a couple of distros.
+        * Makefile.in, doc/Makefile.in: target install depends on installdirs.
+
 2000-11-16  Richard Kreckel  <kreckel@ginac.de>
 
         * autoconf/aclocal.m4 (CL_GMP_SET_UINTD): New macro...
