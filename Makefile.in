@@ -6,6 +6,7 @@
 prefix = @prefix@
 local_prefix = /usr/local
 exec_prefix = @exec_prefix@
+srcdir = @srcdir@
 bindir = @bindir@
 datadir = @datadir@
 libdir = @libdir@
@@ -35,7 +36,7 @@ install : installdirs force
 	cd @subdir@; $(MAKE) install
 	$(INSTALL_PROGRAM) cln-config $(DESTDIR)$(bindir)/cln-config
 	$(INSTALL_DATA) cln-config.1 $(DESTDIR)$(mandir)/man1/cln-config.1
-	$(INSTALL_DATA) cln.m4 $(DESTDIR)$(datadir)/aclocal/cln.m4
+	$(INSTALL_DATA) ${srcdir}/cln.m4 ${DESTDIR}${datadir}/aclocal/cln.m4
 	$(INSTALL_DATA) cln.pc $(DESTDIR)$(libdir)/pkgconfig/cln.pc
 
 installdirs : force

@@ -11,7 +11,7 @@ dnl From Richard B. Kreckel.
 AC_PREREQ(2.13)
 
 dnl Is the gmp header file new enough? (should be implemented with an argument)
-AC_DEFUN(CL_GMP_H_VERSION,
+AC_DEFUN([CL_GMP_H_VERSION],
 [AC_CACHE_CHECK([for recent enough gmp.h], cl_cv_new_gmp_h, [
   AC_TRY_CPP([#include <gmp.h>
 #if !defined(__GNU_MP_VERSION) || (__GNU_MP_VERSION < 3)
@@ -21,7 +21,7 @@ cl_cv_new_gmp_h="yes", cl_cv_new_gmp_h="no")
 ])])dnl
 
 dnl Does libgmp provide some functionality introduced in version 3.0?
-AC_DEFUN(CL_GMP_CHECK,
+AC_DEFUN([CL_GMP_CHECK],
 [AC_CACHE_CHECK([for working libgmp], cl_cv_new_libgmp, [
     SAVELIBS=$LIBS
     LIBS="$LIBS -lgmp"
@@ -30,7 +30,7 @@ cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no"; LIBS=$SAVELIBS)
 ])])
 
 dnl What is sizeof(mp_limb_t)?  (It has to match sizeof(uintD) later.)
-AC_DEFUN(CL_GMP_SET_UINTD,
+AC_DEFUN([CL_GMP_SET_UINTD],
 [AC_CACHE_CHECK([how large gmp demands uintD to be], cl_cv_gmp_set_uintd, [
     AC_TRY_RUN([#include <stdio.h>
 #include <gmp.h>

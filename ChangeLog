@@ -1,3 +1,9 @@
+2004-03-04  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* Makefile.in (install): Add ${srcdir} for cln.m4.
+	* m4/gmp.m4: quote macro names.
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
 2004-01-01  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.1.6 released.
