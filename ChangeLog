@@ -1,3 +1,8 @@
+2000-09-05  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/complex/transcendental/cl_C_expt_C.cc (expt): fix logic for
+          the 0^y cases.
+
 2000-08-30  Richard Kreckel  <kreckel@ginac.de>
 
         * include/cln/number.h, cl_number::_as_cl_private_thing(): removed.
@@ -11,7 +16,43 @@
 
 2000-08-29  Richard Kreckel  <kreckel@ginac.de>
 
-        * TODO: DESCRIBE NAMESPACE CHANGES HERE!!!
+        * */*: Pushed CLN into a namespace `cln'.  While doing so, the
+          following identifiers got their poor-man's namespace (i.e. the 
+          prefix `cl_') stripped off:
+          cl_catalanconst()        ->  catalanconst()
+          cl_compare()             ->  compare()
+          cl_cos_sin()             ->  cos_sin()
+          cl_cos_sin_t             ->  cos_sin_t
+          cl_cosh_sinh()           ->  cosh_sinh()
+          cl_cosh_sinh_t           ->  cosh_sinh_t
+          cl_decoded_dfloat        ->  decoded_dfloat
+          cl_decoded_ffloat        ->  decoded_ffloat
+          cl_decoded_float         ->  decoded_float
+          cl_decoded_lfloat        ->  decoded_lfloat
+          cl_decoded_sfloat        ->  decoded_sfloat
+          cl_default_float_format  ->  default_float_format
+          cl_default_print_flags   ->  default_print_flags
+          cl_default_random_state  ->  default_random_state
+          cl_double_approx()       ->  double_approx()
+          cl_equal()               ->  equal()
+          cl_equal_hashcode()      ->  equal_hashcode()
+          cl_eulerconst()          ->  eulerconst()
+          cl_find_modint_ring()    ->  find_modint_ring()
+          cl_find_univpoly_ring()  ->  find_univ_poly_ring()
+          cl_float_approx()        ->  float_approx
+          cl_float_format()        ->  float_format()
+          cl_float_format_t        ->  float_format_t
+          cl_free_hook()           ->  free_hook()
+          cl_hermite()             ->  hermite()
+          cl_laguerre()            ->  laguerre()
+          cl_legendre()            ->  legandre()
+          cl_malloc_hook()         ->  malloc_hook()
+          cl_pi()                  ->  pi()
+          cl_tschebychev()         ->  tschebychev()
+          cl_zeta()                ->  zeta()
+          NB: For functions these changes includes all signatures.
+        * include/*: moved to include/cln/*, stripped `cl_' off filenames.
+        * cln-config.in: new file.
 
 2000-08-26  Bruno Haible  <haible@clisp.cons.org>
 

@@ -6,7 +6,6 @@
 // Specification.
 #include "cln/complex.h"
 
-
 // Implementation.
 
 #include "cl_C.h"
@@ -180,39 +179,18 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 	}
 	// allgemeiner Fall (z.B. y Float oder komplex):
 	if (zerop(x)) { // x=0.0 ?
+		if (zerop(y))  // y=0.0?
+			return expt_0(x); // Liefere 1
+		if (rationalp(realpart(y))) // Realteil von y >0 exakt.
+			return 0;
 		if (!plusp(realpart(y))) // Realteil von y <=0 ?
-			{ cl_error_division_by_0(); }
-		if (realp(x) && realp(y)) {
-			DeclareType(cl_R,x);
-			DeclareType(cl_R,y);
-			var cl_R f = contagion(x,y);
-			// ein Float, da sonst x = Fixnum 0 gewesen wäre
-		    {	DeclareType(cl_F,f);
-			return cl_float(0,f); // 0.0
-		    }
-		} else {
+			cl_error_division_by_0();
+		else {
 			var cl_R f = contagion(contagion(x),contagion(y));
 			// ein Float, da sonst x = Fixnum 0 gewesen wäre
 		    {	DeclareType(cl_F,f);
 			var cl_F f0 = cl_float(0,f);
 			return complex_C(f0,f0); // #C(0.0 0.0)
-		    }
-		}
-	}
-	if (zerop(y)) { // y=0.0 ?
-		if (realp(x) && realp(y)) {
-			DeclareType(cl_R,x);
-			DeclareType(cl_R,y);
-			var cl_R f = contagion(x,y);
-			// ein Float, da sonst y = Fixnum 0 gewesen wäre
-		    {	DeclareType(cl_F,f);
-			return cl_float(1,f);
-		    }
-		} else {
-			var cl_R f = contagion(contagion(x),contagion(y));
-			// ein Float, da sonst y = Fixnum 0 gewesen wäre
-		    {	DeclareType(cl_F,f);
-			return complex_C(cl_float(1,f),cl_float(0,f));
 		    }
 		}
 	}
