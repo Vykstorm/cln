@@ -1,3 +1,8 @@
+2004-06-23  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Pretend ftime() is not available. Needed by
+	CL_TIMES_CLOCK.
+
 2004-06-18  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* rational/transcendental/cl_RA_logp.cc: fix bug where base is

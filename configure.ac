@@ -126,6 +126,7 @@ CL_FPU_CONTROL
                       dnl DEFS HAVE_FPU_CONTROL_T, HAVE_SETFPUCW
 CL_GETTIMEOFDAY
                       dnl DEFS HAVE_GETTIMEOFDAY, GETTIMEOFDAY_DOTS, GETTIMEOFDAY_TZP_T
+ac_cv_func_ftime=no   dnl don't use ftime(3) even if it's available
 CL_TIMES_CLOCK
                       dnl DEFS HAVE_TIMES_CLOCK
 CL_RUSAGE
