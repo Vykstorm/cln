@@ -12,7 +12,7 @@
 #include "cl_base_config.h"
 #include "cl_low.h"
 
-#if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(_WIN32) && defined(__GNUC__)) || defined(__BEOS__)
+#if defined(unix) || defined(__unix) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(_WIN32) && defined(__GNUC__)) || defined(__BEOS__)
 
 #include <sys/types.h>
 #include <unistd.h> // declares getpid()
