@@ -810,7 +810,7 @@ through the @code{cl_float} conversion function, see
 @code{e} to 40 decimal places, first construct 1.0 to 40 decimal places
 and then apply the exponential function:
 @example
-   cl_float_format_t precision = cl_float_format(40);
+   float_format_t precision = float_format(40);
    cl_F e = exp(cl_float(1,precision));
 @end example
 
@@ -1395,7 +1395,7 @@ Exponentiation: Returns @code{x^y = exp(y*log(x))}.
 The constant e = exp(1) = 2.71828@dots{} is returned by the following functions:
 
 @table @code
-@item cl_F exp1 (cl_float_format_t f)
+@item cl_F exp1 (float_format_t f)
 @cindex @code{exp1 ()}
 Returns e as a float of format @code{f}.
 
@@ -1511,7 +1511,7 @@ Proof: arctan(z) = artanh(iz)/i, we know the range of the artanh function.
 Archimedes' constant pi = 3.14@dots{} is returned by the following functions:
 
 @table @code
-@item cl_F pi (cl_float_format_t f)
+@item cl_F pi (float_format_t f)
 @cindex @code{pi ()}
 Returns pi as a float of format @code{f}.
 
@@ -1670,7 +1670,7 @@ Proof: Write z = x+iy. Examine
 Euler's constant C = 0.577@dots{} is returned by the following functions:
 
 @table @code
-@item cl_F eulerconst (cl_float_format_t f)
+@item cl_F eulerconst (float_format_t f)
 @cindex @code{eulerconst ()}
 Returns Euler's constant as a float of format @code{f}.
 
@@ -1685,7 +1685,7 @@ Catalan's constant G = 0.915@dots{} is returned by the following functions:
 @cindex Catalan's constant
 
 @table @code
-@item cl_F catalanconst (cl_float_format_t f)
+@item cl_F catalanconst (float_format_t f)
 @cindex @code{catalanconst ()}
 Returns Catalan's constant as a float of format @code{f}.
 
@@ -1704,7 +1704,7 @@ Riemann's zeta function at an integral point @code{s>1} is returned by the
 following functions:
 
 @table @code
-@item cl_F zeta (int s, cl_float_format_t f)
+@item cl_F zeta (int s, float_format_t f)
 @cindex @code{zeta ()}
 Returns Riemann's zeta function at @code{s} as a float of format @code{f}.
 
@@ -2112,19 +2112,19 @@ zero, it is treated as positive. Same for @code{y}.
 
 @subsection Conversion to floating-point numbers
 
-The type @code{cl_float_format_t} describes a floating-point format.
-@cindex @code{cl_float_format_t}
+The type @code{float_format_t} describes a floating-point format.
+@cindex @code{float_format_t}
 
 @table @code
-@item cl_float_format_t cl_float_format (uintL n)
-@cindex @code{cl_float_format ()}
+@item float_format_t float_format (uintL n)
+@cindex @code{float_format ()}
 Returns the smallest float format which guarantees at least @code{n}
 decimal digits in the mantissa (after the decimal point).
 
-@item cl_float_format_t cl_float_format (const cl_F& x)
+@item float_format_t float_format (const cl_F& x)
 Returns the floating point format of @code{x}.
 
-@item cl_float_format_t default_float_format
+@item float_format_t default_float_format
 @cindex @code{default_float_format}
 Global variable: the default float format used when converting rational numbers
 to floats.
@@ -2136,7 +2136,7 @@ To convert a real number to a float, each of the types
 defines the following operations:
 
 @table @code
-@item cl_F cl_float (const @var{type}&x, cl_float_format_t f)
+@item cl_F cl_float (const @var{type}&x, float_format_t f)
 @cindex @code{cl_float ()}
 Returns @code{x} as a float of format @code{f}.
 @item cl_F cl_float (const @var{type}&x, const cl_F& y)
@@ -2151,29 +2151,29 @@ Of course, converting a number to a float can lose precision.
 Every floating-point format has some characteristic numbers:
 
 @table @code
-@item cl_F most_positive_float (cl_float_format_t f)
+@item cl_F most_positive_float (float_format_t f)
 @cindex @code{most_positive_float ()}
 Returns the largest (most positive) floating point number in float format @code{f}.
 
-@item cl_F most_negative_float (cl_float_format_t f)
+@item cl_F most_negative_float (float_format_t f)
 @cindex @code{most_negative_float ()}
 Returns the smallest (most negative) floating point number in float format @code{f}.
 
-@item cl_F least_positive_float (cl_float_format_t f)
+@item cl_F least_positive_float (float_format_t f)
 @cindex @code{least_positive_float ()}
 Returns the least positive floating point number (i.e. > 0 but closest to 0)
 in float format @code{f}.
 
-@item cl_F least_negative_float (cl_float_format_t f)
+@item cl_F least_negative_float (float_format_t f)
 @cindex @code{least_negative_float ()}
 Returns the least negative floating point number (i.e. < 0 but closest to 0)
 in float format @code{f}.
 
-@item cl_F float_epsilon (cl_float_format_t f)
+@item cl_F float_epsilon (float_format_t f)
 @cindex @code{float_epsilon ()}
 Returns the smallest floating point number e > 0 such that @code{1+e != 1}.
 
-@item cl_F float_negative_epsilon (cl_float_format_t f)
+@item cl_F float_negative_epsilon (float_format_t f)
 @cindex @code{float_negative_epsilon ()}
 Returns the smallest floating point number e > 0 such that @code{1-e != 1}.
 @end table
@@ -2394,7 +2394,7 @@ The exponent marker is
 or @samp{e}, which denotes a default float format. The precision specifying
 suffix has the syntax _@var{prec} where @var{prec} denotes the number of
 valid mantissa digits (in decimal, excluding leading zeroes), cf. also
-function @samp{cl_float_format}.
+function @samp{float_format}.
 
 @item Complex numbers
 External representation:
@@ -2505,10 +2505,10 @@ accept all of these extensions.
 @item unsigned int rational_base
 The base in which rational numbers are read.
 
-@item cl_float_format_t float_flags.default_float_format
+@item float_format_t float_flags.default_float_format
 The float format used when reading floats with exponent marker @samp{e}.
 
-@item cl_float_format_t float_flags.default_lfloat_format
+@item float_format_t float_flags.default_lfloat_format
 The float format used when reading floats with exponent marker @samp{l}.
 
 @item cl_boolean float_flags.mantissa_dependent_float_format
@@ -2609,9 +2609,9 @@ prefixes, trailing dot). Default is false.
 If this flag is true, type specific exponent markers have precedence over 'E'.
 Default is false.
 
-@item cl_float_format_t default_float_format
+@item float_format_t default_float_format
 Floating point numbers of this format will be printed using the 'E' exponent
-marker. Default is @code{cl_float_format_ffloat}.
+marker. Default is @code{float_format_ffloat}.
 
 @item cl_boolean complex_readably
 If this flag is true, complex numbers will be printed using the Common Lisp
@@ -3564,7 +3564,7 @@ using namespace cln;
 const cl_I fibonacci (int n)
 @{
         // Need a precision of ((1+sqrt(5))/2)^-n.
-        cl_float_format_t prec = cl_float_format((int)(0.208987641*n+5));
+        float_format_t prec = float_format((int)(0.208987641*n+5));
         cl_R sqrt5 = sqrt(cl_float(5,prec));
         cl_R phi = (1+sqrt5)/2;
         return round1( expt(phi,n)/sqrt5 );
@@ -3576,8 +3576,9 @@ Let's explain what is going on in detail.
 The include file @code{<cln/integer.h>} is necessary because the type
 @code{cl_I} is used in the function, and the include file @code{<cln/real.h>}
 is needed for the type @code{cl_R} and the floating point number functions.
-The order of the include files does not matter.  In order not to write out
-@code{cln::}@var{foo} we can safely import the whole namespace @code{cln}.
+The order of the include files does not matter.  In order not to write
+out @code{cln::}@var{foo} in this simple example we can safely import
+the whole namespace @code{cln}.
 
 Then comes the function declaration. The argument is an @code{int}, the
 result an integer. The return type is defined as @samp{const cl_I}, not
