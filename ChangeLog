@@ -1,3 +1,8 @@
+2000-08-29  Richard Kreckel  <kreckel@ginac.de>
+
+        * include/cln/number.h, the(const cl_number& x): New template
+          function.
+
 2000-08-26  Bruno Haible  <haible@clisp.cons.org>
 
         * autoconf/acgeneral.m4 (AC_OUTPUT): Use braces in exec_prefix default

@@ -747,15 +747,19 @@ class, using the @samp{As} and @samp{The} macros.
 @cindex @code{The()()}
 @code{The(@var{type})(@var{value})} assumes that @var{value} belongs to
 @var{type} and returns it as such. It is your responsibility to ensure
-that this assumption is valid.
+that this assumption is valid.  Since macros and namespaces don't go
+together well, there is an equivalent to @samp{The}: the template
+@samp{the}.
+
 Example:
 
 @example
 @group
    cl_I x = @dots{};
    if (!(x >= 0)) abort();
-   cl_I ten_x = The(cl_I)(expt(10,x)); // If x >= 0, 10^x is an integer.
+   cl_I ten_x_a = The(cl_I)(expt(10,x)); // If x >= 0, 10^x is an integer.
                 // In general, it would be a rational number.
+   cl_I ten_x_b = the<cl_I>(expt(10,x)); // The same as above.
 @end group
 @end example
 

@@ -218,6 +218,16 @@ CL_DEFINE_DOUBLE_CONSTRUCTOR(cl_number)
 // Hack section.
 
 // Conversions to subtypes without checking:
+// the<cl_I>(x) converts x to a cl_I, without change of representation!
+template<class type>
+inline const type& the(const cl_number& x)
+{
+	// check that sizeof(type)==sizeof(cl_number)
+	typedef int assertion1 [1 - 2 * (sizeof(type) != sizeof(cl_number))];
+	return *(const type *) &x;
+}
+
+// Conversions to subtypes without checking:
 // The(cl_I)(x) converts x to a cl_I, without change of representation!
   #define The(type)  *(const type *) & cl_identity
 // This inline function is for type checking purposes only.
