@@ -29,9 +29,10 @@ I recommend adding "-fno-exceptions" to the CXXFLAGS. This will likely
 generate better code.
 
 If you use g++ version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc, add
-either "-O" or "-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2",
-g++ miscompiles the division routines. Also, for --enable-shared to work, you
-need egcs-1.1.2 or newer.
+either "-O", "-O1" or "-O2 -fno-schedule-insns" to the CXXFLAGS. With full 
+"-O2", g++ miscompiles the division routines. Also, if you have g++ version
+egcs-1.1.1 or older on Sparc, you must specify --disable-shared because g++
+would miscompile parts of the library.
 
 On MIPS (SGI Irix 6), pass option "--without-gmp" to configure. gmp does
 not work when compiled in "n32" binary format on Irix.

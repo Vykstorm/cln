@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-<!-- Created by texi2html 1.56k from cln.texi on 19 May 2000 -->
+<!-- Created by texi2html 1.56k from cln.texi on 2 June 2000 -->
 
 <TITLE>CLN, a Class Library for Numbers</TITLE>
 </HEAD>
@@ -451,22 +451,21 @@ This will likely generate better code.
 
 <P>
 If you use <CODE>g++</CODE> version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
-add either <SAMP>`-O'</SAMP> or <SAMP>`-O2 -fno-schedule-insns'</SAMP> to the CXXFLAGS.
-With full <SAMP>`-O2'</SAMP>, <CODE>g++</CODE> miscompiles the division routines. Also, for
---enable-shared to work, you need egcs-1.1.2 or newer.
+add either <SAMP>`-O'</SAMP>, <SAMP>`-O1'</SAMP> or <SAMP>`-O2 -fno-schedule-insns'</SAMP> to the 
+CXXFLAGS.  With full <SAMP>`-O2'</SAMP>, <CODE>g++</CODE> miscompiles the division routines.
+Also, if you have <CODE>g++</CODE> version egcs-1.1.1 or older on Sparc, you must
+specify <SAMP>`--disable-shared'</SAMP> because <CODE>g++</CODE> would miscompile parts of 
+the library.
 
 
 <P>
-By default, only a static library is built. You can build CLN as a shared
-library too, by calling <CODE>configure</CODE> with the option <SAMP>`--enable-shared'</SAMP>.
-To get it built as a shared library only, call <CODE>configure</CODE> with the options
-<SAMP>`--enable-shared --disable-static'</SAMP>.
-
-
-<P>
-If you use <CODE>g++</CODE> version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
-use <SAMP>`--enable-shared'</SAMP> because <CODE>g++</CODE> would miscompile parts of the
-library.
+By default, both a shared and a static library are built.  You can build
+CLN as a static (or shared) library only, by calling <CODE>configure</CODE> with
+the option <SAMP>`--disable-shared'</SAMP> (or <SAMP>`--disable-static'</SAMP>).  While
+shared libraries are usually more convenient to use, they may not work
+on all architectures.  Try disabling them if you run into linker
+problems.  Also, they are generally somewhat slower than static
+libraries so runtime-critical applications should be linked statically.
 
 
 
@@ -477,7 +476,7 @@ library.
 
 
 <P>
-Starting with version 1.0.4, CLN may be configured to make use of a
+Starting with version 1.1, CLN may be configured to make use of a
 preinstalled <CODE>gmp</CODE> library.  Please make sure that you have at
 least <CODE>gmp</CODE> version 3.0 installed since earlier versions are
 unsupported and likely not to work.  Enabling this feature by calling
@@ -4837,7 +4836,7 @@ Jump to:
 
 
 <P><HR><P>
-This document was generated on 19 May 2000 using
+This document was generated on 2 June 2000 using
 <A HREF="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>&nbsp;1.56k.
 </BODY>
 </HTML>

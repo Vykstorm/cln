@@ -375,18 +375,18 @@ gcc-2.95.x, I recommend adding `-fno-exceptions' to the CXXFLAGS.  This
 will likely generate better code.
 
 If you use `g++' version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
-add either `-O' or `-O2 -fno-schedule-insns' to the CXXFLAGS.  With
-full `-O2', `g++' miscompiles the division routines. Also, for
--enable-shared to work, you need egcs-1.1.2 or newer.
+add either `-O', `-O1' or `-O2 -fno-schedule-insns' to the CXXFLAGS.
+With full `-O2', `g++' miscompiles the division routines.  Also, if you
+have `g++' version egcs-1.1.1 or older on Sparc, you must specify
+`--disable-shared' because `g++' would miscompile parts of the library.
 
-By default, only a static library is built. You can build CLN as a
-shared library too, by calling `configure' with the option
-`--enable-shared'.  To get it built as a shared library only, call
-`configure' with the options `--enable-shared --disable-static'.
-
-If you use `g++' version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
-use `--enable-shared' because `g++' would miscompile parts of the
-library.
+By default, both a shared and a static library are built.  You can build
+CLN as a static (or shared) library only, by calling `configure' with
+the option `--disable-shared' (or `--disable-static').  While shared
+libraries are usually more convenient to use, they may not work on all
+architectures.  Try disabling them if you run into linker problems.
+Also, they are generally somewhat slower than static libraries so
+runtime-critical applications should be linked statically.
 
 * Menu:
 
@@ -398,7 +398,7 @@ File: cln.info,  Node: Using the GNU MP Library,  Prev: Building the library,  U
 Using the GNU MP Library
 ------------------------
 
-Starting with version 1.0.4, CLN may be configured to make use of a
+Starting with version 1.1, CLN may be configured to make use of a
 preinstalled `gmp' library.  Please make sure that you have at least
 `gmp' version 3.0 installed since earlier versions are unsupported and
 likely not to work.  Enabling this feature by calling `configure' with
@@ -3648,72 +3648,72 @@ Node: C++ compiler6167
 Node: Make utility6882
 Node: Sed utility7068
 Node: Building the library7388
-Node: Using the GNU MP Library10609
-Node: Installing the library11487
-Node: Cleaning up12210
-Node: Ordinary number types12535
-Node: Exact numbers14882
-Node: Floating-point numbers16047
-Node: Complex numbers19626
-Node: Conversions20123
-Node: Functions on numbers23589
-Node: Constructing numbers24292
-Node: Constructing integers24664
-Node: Constructing rational numbers24954
-Node: Constructing floating-point numbers25429
-Node: Constructing complex numbers26549
-Node: Elementary functions26913
-Node: Elementary rational functions29382
-Node: Elementary complex functions29954
-Node: Comparisons30782
-Node: Rounding functions32681
-Node: Roots38458
-Node: Transcendental functions40339
-Node: Exponential and logarithmic functions40895
-Node: Trigonometric functions42912
-Node: Hyperbolic functions46263
-Node: Euler gamma48336
-Node: Riemann zeta49252
-Node: Functions on integers49808
-Node: Logical functions50096
-Node: Number theoretic functions56049
-Node: Combinatorial functions57416
-Node: Functions on floating-point numbers58094
-Node: Conversion functions61325
-Node: Conversion to floating-point numbers61605
-Node: Conversion to rational numbers63828
-Node: Random number generators64882
-Node: Obfuscating operators66556
-Node: Input/Output68286
-Node: Internal and printed representation68496
-Node: Input functions71038
-Node: Output functions75589
-Node: Rings79325
-Node: Modular integers81249
-Node: Modular integer rings81449
-Node: Functions on modular integers83539
-Node: Symbolic data types86549
-Node: Strings86812
-Node: Symbols87877
-Node: Univariate polynomials88779
-Node: Univariate polynomial rings89037
-Node: Functions on univariate polynomials93991
-Node: Special polynomials97772
-Node: Internals98492
-Node: Why C++ ?98706
-Node: Memory efficiency100206
-Node: Speed efficiency100904
-Node: Garbage collection101988
-Node: Using the library102815
-Node: Compiler options103349
-Node: Include files104267
-Node: An Example107908
-Node: Debugging support111058
-Node: Customizing113408
-Node: Error handling113636
-Node: Floating-point underflow114210
-Node: Customizing I/O114849
-Node: Customizing the memory allocator115142
-Node: Index116099
+Node: Using the GNU MP Library10776
+Node: Installing the library11652
+Node: Cleaning up12375
+Node: Ordinary number types12700
+Node: Exact numbers15047
+Node: Floating-point numbers16212
+Node: Complex numbers19791
+Node: Conversions20288
+Node: Functions on numbers23754
+Node: Constructing numbers24457
+Node: Constructing integers24829
+Node: Constructing rational numbers25119
+Node: Constructing floating-point numbers25594
+Node: Constructing complex numbers26714
+Node: Elementary functions27078
+Node: Elementary rational functions29547
+Node: Elementary complex functions30119
+Node: Comparisons30947
+Node: Rounding functions32846
+Node: Roots38623
+Node: Transcendental functions40504
+Node: Exponential and logarithmic functions41060
+Node: Trigonometric functions43077
+Node: Hyperbolic functions46428
+Node: Euler gamma48501
+Node: Riemann zeta49417
+Node: Functions on integers49973
+Node: Logical functions50261
+Node: Number theoretic functions56214
+Node: Combinatorial functions57581
+Node: Functions on floating-point numbers58259
+Node: Conversion functions61490
+Node: Conversion to floating-point numbers61770
+Node: Conversion to rational numbers63993
+Node: Random number generators65047
+Node: Obfuscating operators66721
+Node: Input/Output68451
+Node: Internal and printed representation68661
+Node: Input functions71203
+Node: Output functions75754
+Node: Rings79490
+Node: Modular integers81414
+Node: Modular integer rings81614
+Node: Functions on modular integers83704
+Node: Symbolic data types86714
+Node: Strings86977
+Node: Symbols88042
+Node: Univariate polynomials88944
+Node: Univariate polynomial rings89202
+Node: Functions on univariate polynomials94156
+Node: Special polynomials97937
+Node: Internals98657
+Node: Why C++ ?98871
+Node: Memory efficiency100371
+Node: Speed efficiency101069
+Node: Garbage collection102153
+Node: Using the library102980
+Node: Compiler options103514
+Node: Include files104432
+Node: An Example108073
+Node: Debugging support111223
+Node: Customizing113573
+Node: Error handling113801
+Node: Floating-point underflow114375
+Node: Customizing I/O115014
+Node: Customizing the memory allocator115307
+Node: Index116264
 
 End Tag Table

@@ -1,3 +1,8 @@
+2000-06-05  Richard Kreckel  <kreckel@ginac.de>
+
+        * doc/*, INSTALL: Mention that both shared and static library are
+          are now build by default.
+
 2000-05-31  Bruno Haible  <haible@clisp.cons.org>
 
         * tests/exam_I_floor.cc (integer_floor_tests): Add one more entry.

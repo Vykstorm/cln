@@ -545,18 +545,19 @@ gcc-2.95.x, I recommend adding @samp{-fno-exceptions} to the CXXFLAGS.
 This will likely generate better code.
 
 If you use @code{g++} version egcs-2.91.x (egcs-1.1) or gcc-2.95.x on Sparc,
-add either @samp{-O} or @samp{-O2 -fno-schedule-insns} to the CXXFLAGS.
-With full @samp{-O2}, @code{g++} miscompiles the division routines. Also, for
---enable-shared to work, you need egcs-1.1.2 or newer.
+add either @samp{-O}, @samp{-O1} or @samp{-O2 -fno-schedule-insns} to the 
+CXXFLAGS.  With full @samp{-O2}, @code{g++} miscompiles the division routines.
+Also, if you have @code{g++} version egcs-1.1.1 or older on Sparc, you must
+specify @samp{--disable-shared} because @code{g++} would miscompile parts of 
+the library.
 
-By default, only a static library is built. You can build CLN as a shared
-library too, by calling @code{configure} with the option @samp{--enable-shared}.
-To get it built as a shared library only, call @code{configure} with the options
-@samp{--enable-shared --disable-static}.
-
-If you use @code{g++} version egcs-2.91.x (egcs-1.1) on Sparc, you cannot
-use @samp{--enable-shared} because @code{g++} would miscompile parts of the
-library.
+By default, both a shared and a static library are built.  You can build
+CLN as a static (or shared) library only, by calling @code{configure} with
+the option @samp{--disable-shared} (or @samp{--disable-static}).  While
+shared libraries are usually more convenient to use, they may not work
+on all architectures.  Try disabling them if you run into linker
+problems.  Also, they are generally somewhat slower than static
+libraries so runtime-critical applications should be linked statically.
 
 
 @menu
@@ -567,7 +568,7 @@ library.
 @subsection Using the GNU MP Library
 @cindex GMP
 
-Starting with version 1.0.4, CLN may be configured to make use of a
+Starting with version 1.1, CLN may be configured to make use of a
 preinstalled @code{gmp} library.  Please make sure that you have at
 least @code{gmp} version 3.0 installed since earlier versions are
 unsupported and likely not to work.  Enabling this feature by calling
