@@ -1,3 +1,7 @@
+2000-11-20  Bruno Haible
+
+        * cln-config.1: change title.
+
 2000-11-18  Richard Kreckel  <kreckel@ginac.de>
 
         * cln.m4: New file.
