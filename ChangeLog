@@ -1,3 +1,8 @@
+2000-05-29  Richard Kreckel  <kreckel@ginac.de>
+
+        * autoconf/aclocal.m4 (CL_CANONICAL_HOST): Added missing changequote
+        environment around the patch of 2000-05-23.
+
 2000-05-29  Bruno Haible  <haible@clisp.cons.org>
 
         * autoconf/aclocal.m4 (CL_PROG_INSTALL): Fix typo.
