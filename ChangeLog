@@ -1,3 +1,16 @@
+2000-07-22  Richard Kreckel  <kreckel@ginac.de>
+
+        * src/float/base/cl_ieee.cc: try to do magic to the FPU only if
+          _FPU_IEEE is really defined.
+        * include/cln/modules.h: change assembler labels from `label' to
+          `label:' on hppa, needed by Linux (see comment).
+        * autoconf/acinclude.m4: new file (for storing CLN-specific macros).
+        * Makefile.devel: adjusted.
+        * autoconf/aclocal.m4: regenerate.
+        * src/base/low/cl_low_mul.cc: moved POD variables that are declared
+          extern "C" elsewhere out of the namespace.
+        * src/base/low/cl_low_div.cc: Likewise.
+
 2000-06-08  Bruno Haible  <haible@clisp.cons.org>
 
         * autoconf/config.{guess,sub}: Update to GNU version 2001-05-11.

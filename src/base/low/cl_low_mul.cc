@@ -9,14 +9,13 @@
 
 // Implementation.
 
-namespace cln {
-
 #ifdef NEED_VAR_mulu32_high
 uint32 mulu32_high;
 #endif
 
 #ifdef NEED_FUNCTION_mulu32_
 uint32 mulu32_high;
+namespace cln {
 uint32 mulu32_ (uint32 x, uint32 y)
 {
 	var uint16 x1 = high16(x);
@@ -35,16 +34,20 @@ uint32 mulu32_ (uint32 x, uint32 y)
 	}
 	mulu32_high = hi; return lo;
 }
+}  // namespace cln
 #endif
 
 #ifdef NEED_FUNCTION_mulu32_w
+namespace cln {
 uint64 mulu32_w (uint32 arg1, uint32 arg2)
 {
 	var uint32 lo = mulu32_(arg1,arg2);
 	var uint32 hi = mulu32_high;
 	return highlow64(hi,lo);
 }
+}  // namespace cln
 #endif
+
 
 #ifdef NEED_VAR_mulu64_high
 uint64 mulu64_high;
@@ -52,6 +55,8 @@ uint64 mulu64_high;
 
 #ifdef NEED_FUNCTION_mulu64_
 uint64 mulu64_high;
+namespace cln {
+extern "C" uint64 mulu64_ (uint64 x, uint64 y);
 uint64 mulu64_ (uint64 x, uint64 y)
 {
 	var uint32 x1 = high32(x);
@@ -70,6 +75,6 @@ uint64 mulu64_ (uint64 x, uint64 y)
 	}
 	mulu64_high = hi; return lo;
 }
+}  // namespace cln
 #endif
 
-}  // namespace cln

@@ -97,7 +97,11 @@
   // Output a label inside a function.
   // See macro ASM_OUTPUT_LABEL in the gcc sources.
   #if defined(__hppa__)
-    #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label)
+    // Some hppa (Linux) systems want `label:', HPUX used to use just `label'.
+    // I tried to find out, but was unable to find the assembler on my HPUX-11
+    // boxen so decided to potentially ditch the support (no joke).  Please
+    // send an email if you can explain to me what's going on! (-rbk. 07/2001)
+    #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label ":")
   #else
     #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label ":")
   #endif

@@ -9,14 +9,13 @@
 
 // Implementation.
 
-namespace cln {
-
 #ifdef NEED_VAR_divu_16_rest
 uint16 divu_16_rest;
 #endif
 
 #ifdef NEED_FUNCTION_divu_3216_1616_
 uint16 divu_16_rest;
+namespace cln {
 #if 1
 // Most processors have a good 32 by 32 bit division, use that.
 uint16 divu_3216_1616_ (uint32 x, uint16 y)
@@ -85,9 +84,11 @@ uint16 divu_3216_1616_ (uint32 x, uint16 y)
 // This algorithm is implemented in cl_asm_arm.cc and (in slightly modified
 // form) in cl_asm_sparc.cc.
 #endif
+}  // namespace cln
 #endif
 
 #ifdef NEED_FUNCTION_divu_3232_3232_
+namespace cln {
 // Dies dient nur noch als Hilfsfunktion für floorD().
 // Die Rückgabe des Restes in divu_32_rest ist also hier nicht nötig.
 uint32 divu_3232_3232_(uint32 x, uint32 y)
@@ -96,6 +97,7 @@ uint32 divu_3232_3232_(uint32 x, uint32 y)
 	divu_3232_3232(x,y,q=,);
 	return q;
 }
+}  // namespace cln
 #endif
 
 #ifdef NEED_VAR_divu_32_rest
@@ -104,6 +106,7 @@ uint32 divu_32_rest;
 
 #ifdef NEED_FUNCTION_divu_6432_3232_
 uint32 divu_32_rest;
+namespace cln {
 uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
 // Methode:
 // Wie UDS_divide mit intDsize=16, a_len=4, b_len=2.
@@ -200,6 +203,7 @@ uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
         divu_32_rest = r >> s; // Rest
         return highlow32(q1,q0); // Quotient
 }   } }
+}  // namespace cln
 #endif
 
 #ifdef NEED_VAR_divu_64_rest
@@ -208,6 +212,7 @@ uint64 divu_64_rest;
 
 #ifdef NEED_FUNCTION_divu_12864_6464_
 uint64 divu_64_rest;
+namespace cln {
 uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
 // Methode:
 // Wie UDS_divide mit intDsize=32, a_len=4, b_len=2.
@@ -304,6 +309,6 @@ uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
         divu_64_rest = r >> s; // Rest
         return highlow64(q1,q0); // Quotient
 }   } }
+}  // namespace cln
 #endif
 
-}  // namespace cln

@@ -26,15 +26,12 @@ configures : $(CONFIGURES)
 configure : configure.in $(AUTOCONF_FILES)
 	./autoconf/autoconf -m autoconf
 
-# # ACLOCAL = /home/bruno/clisp/src/autoconf/aclocal.m4
-# # ACSELECT = /home/bruno/clisp/src/autoconf/acselect
-# # OTHERMACROS = /home/bruno/clisp/src/autoconf/libtool.m4
-# ACLOCAL = /home/kreckel/contrib/src/clisp/src/autoconf/aclocal.m4
-# ACSELECT = /home/kreckel/contrib/src/clisp/src/autoconf/acselect
-# OTHERMACROS = /home/kreckel/contrib/src/clisp/src/autoconf/libtool.m4
-# 
-# autoconf/aclocal.m4 : $(ACLOCAL)
-# 	($(ACSELECT) `cat $(CONFIGURES_IN) | grep '^[A-Z][A-Z]_' | sed 's,[^A-Z_].*$$,,g' | sort | uniq` < $(ACLOCAL) ; cat $(OTHERMACROS) | sed -e 's,AC_CANONICAL_HOST,CL_CANONICAL_HOST,g' -e 's,AC_PROG_RANLIB,CL_PROG_RANLIB,g') > autoconf/aclocal.m4
+CLISP_ACLOCAL = /home/kreckel/contrib/src/clisp/src/autoconf/aclocal.m4
+ACSELECT = /home/kreckel/contrib/src/clisp/src/autoconf/acselect
+LIBTOOLMACROS = /home/kreckel/contrib/libtool/libtool.m4
+
+autoconf/aclocal.m4 : $(CLISP_ACLOCAL)
+	($(ACSELECT) `cat $(CONFIGURES_IN) | grep '^[A-Z][A-Z]_' | sed 's,[^A-Z_].*$$,,g' | sort | uniq` < $(CLISP_ACLOCAL) ; cat $(LIBTOOLMACROS) | sed -e 's,AC_CANONICAL_HOST,CL_CANONICAL_HOST,g' -e 's,AC_PROG_RANLIB,CL_PROG_RANLIB,g'; cat autoconf/acinclude.m4) > autoconf/aclocal.m4
 
 # Syntaxcheck
 check-configures : $(CONFIGURES)
