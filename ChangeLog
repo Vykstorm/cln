@@ -1,3 +1,9 @@
+2005-03-17  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* autoconf/ltmain.sh: Upgrade to libtool-1.5.14.
+	* m4/libtool.m4: Upgrade to libtool-1.5.14 with Comeau patch.
+	* autoconf/aclocal.m4: Regenerate.
+
 2005-03-15  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* src/Makefile.in: Use $CXX instead of $CC when linking.
