@@ -457,9 +457,7 @@ inline cl_UP::cl_UP ()
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_UP_debug_module;
-static void* const cl_UP_debug_dummy[] = { &cl_UP_debug_dummy,
-	&cl_UP_debug_module
-};
+CL_FORCE_LINK(cl_UP_debug_dummy, cl_UP_debug_module)
 #endif
 
 }  // namespace cln

@@ -511,9 +511,7 @@ inline const cl_R conjugate (const cl_R& x)
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_R_debug_module;
-static void* const cl_R_debug_dummy[] = { &cl_R_debug_dummy,
-	&cl_R_debug_module
-};
+CL_FORCE_LINK(cl_R_debug_dummy, cl_R_debug_module)
 #endif
 
 }  // namespace cln

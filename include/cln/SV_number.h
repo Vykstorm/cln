@@ -52,9 +52,7 @@ inline const cl_SV_number copy (const cl_SV_number& vector)
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_SV_number_debug_module;
-static void* const cl_SV_number_debug_dummy[] = { &cl_SV_number_debug_dummy,
-	&cl_SV_number_debug_module
-};
+CL_FORCE_LINK(cl_SV_number_debug_dummy, cl_SV_number_debug_module)
 #endif
 
 }  // namespace cln

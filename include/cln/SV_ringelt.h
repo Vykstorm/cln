@@ -56,9 +56,7 @@ extern void fprint (std::ostream& stream, const cl_ring& R, const cl_SV_ringelt&
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_SV_ringelt_debug_module;
-static void* const cl_SV_ringelt_debug_dummy[] = { &cl_SV_ringelt_debug_dummy,
-	&cl_SV_ringelt_debug_module
-};
+CL_FORCE_LINK(cl_SV_ringelt_debug_dummy, cl_SV_ringelt_debug_module)
 #endif
 
 }  // namespace cln

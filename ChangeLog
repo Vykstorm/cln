@@ -1,5 +1,29 @@
 2002-05-05  Bruno Haible  <bruno@clisp.org>
 
+	Force link-time references despite optimizations done by g++ 2.95
+	and newer.
+	* include/cln/modules.h (CL_FORCE_LINK): New macro.
+	* Use CL_FORCE_LINK.
+	* include/cln/GV_integer.h (cl_GV_I_debug_dummy): Likewise.
+	* include/cln/GV_number.h (cl_GV_number_debug_dummy): Likewise.
+	* include/cln/SV_number.h (cl_SV_number_debug_dummy): Likewise.
+	* include/cln/SV_ringelt.h (cl_SV_ringelt_debug_dummy): Likewise.
+	* include/cln/dfloat.h (cl_DF_debug_dummy): Likewise.
+	* include/cln/ffloat.h (cl_FF_classes_dummy, cl_FF_debug_dummy):
+	Likewise.
+	* include/cln/integer.h (cl_I_classes_dummy, cl_I_debug_dummy):
+	Likewise.
+	* include/cln/lfloat.h (cl_LF_debug_dummy): Likewise.
+	* include/cln/modinteger.h (cl_MI_debug_dummy): Likewise.
+	* include/cln/rational.h (cl_RA_debug_dummy): Likewise.
+	* include/cln/real.h (cl_R_debug_dummy): Likewise.
+	* include/cln/ring.h (cl_ring_debug_dummy): Likewise.
+	* include/cln/sfloat.h (cl_SF_classes_dummy, cl_SF_classes_dummy):
+	Likewise.
+	* include/cln/string.h (cl_string_debug_dummy): Likewise.
+	* include/cln/univpoly.h (cl_UP_debug_dummy): Likewise.
+	* src/float/base/cl_ieee.h (cl_ieee_dummy_NNN): Likewise.
+
 	Avoid g++ 3.1 warnings.
 	* src/base/cl_offsetof.h (offsetof): Redefine each time.
 	* src/base/digitseq/cl_DS.h: Include "cl_offsetof.h" after <gmp.h>.

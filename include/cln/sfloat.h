@@ -288,17 +288,13 @@ inline cl_SF& operator/= (cl_SF& x, const cl_SF& y) { return x = x / y; }
 
 // Runtime typing support.
 extern cl_class cl_class_sfloat;
-static const void* const cl_SF_classes_dummy[] = { &cl_SF_classes_dummy,
-	&cl_class_sfloat
-};
+CL_FORCE_LINK(cl_SF_classes_dummy, cl_class_sfloat)
 
 
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_SF_debug_module;
-static void* const cl_SF_debug_dummy[] = { &cl_SF_debug_dummy,
-	&cl_SF_debug_module
-};
+CL_FORCE_LINK(cl_SF_debug_dummy, cl_SF_debug_module)
 #endif
 
 }  // namespace cln

@@ -293,18 +293,14 @@ CL_REQUIRE(cl_ieee)
 // Runtime typing support.
 extern cl_class cl_class_ffloat;
 #ifdef CL_WIDE_POINTERS
-static const void* const cl_FF_classes_dummy[] = { &cl_FF_classes_dummy,
-	&cl_class_ffloat
-};
+CL_FORCE_LINK(cl_FF_classes_dummy, cl_class_ffloat)
 #endif
 
 
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_FF_debug_module;
-static void* const cl_FF_debug_dummy[] = { &cl_FF_debug_dummy,
-	&cl_FF_debug_module
-};
+CL_FORCE_LINK(cl_FF_debug_dummy, cl_FF_debug_module)
 #endif
 
 }  // namespace cln

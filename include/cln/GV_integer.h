@@ -78,9 +78,7 @@ CL_DEFINE_PRINT_OPERATOR(cl_GV_I)
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_GV_I_debug_module;
-static void* const cl_GV_I_debug_dummy[] = { &cl_GV_I_debug_dummy,
-	&cl_GV_I_debug_module
-};
+CL_FORCE_LINK(cl_GV_I_debug_dummy, cl_GV_I_debug_module)
 #endif
 
 }  // namespace cln

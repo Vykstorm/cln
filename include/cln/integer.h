@@ -586,17 +586,13 @@ inline cl_I& operator%= (cl_I& x, const cl_I& y) { return x = x % y; }
 // Runtime typing support.
 extern cl_class cl_class_fixnum;
 extern cl_class cl_class_bignum;
-static const void* const cl_I_classes_dummy[] = { &cl_I_classes_dummy,
-	&cl_class_fixnum
-};
+CL_FORCE_LINK(cl_I_classes_dummy, cl_class_fixnum)
 
 
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_I_debug_module;
-static void* const cl_I_debug_dummy[] = { &cl_I_debug_dummy,
-	&cl_I_debug_module
-};
+CL_FORCE_LINK(cl_I_debug_dummy, cl_I_debug_module)
 #endif
 
 }  // namespace cln

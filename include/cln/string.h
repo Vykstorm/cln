@@ -163,9 +163,7 @@ extern cl_class cl_class_string;
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_string_debug_module;
-static void* const cl_string_debug_dummy[] = { &cl_string_debug_dummy,
-	&cl_string_debug_module
-};
+CL_FORCE_LINK(cl_string_debug_dummy, cl_string_debug_module)
 #endif
 
 }  // namespace cln

@@ -434,9 +434,7 @@ inline cl_boolean instanceof (const cl_number& x, const cl_number_ring& R)
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_ring_debug_module;
-static void* const cl_ring_debug_dummy[] = { &cl_ring_debug_dummy,
-	&cl_ring_debug_module
-};
+CL_FORCE_LINK(cl_ring_debug_dummy, cl_ring_debug_module)
 #endif
 
 }  // namespace cln

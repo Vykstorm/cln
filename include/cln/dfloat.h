@@ -297,9 +297,7 @@ extern cl_class cl_class_dfloat;
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_DF_debug_module;
-static void* const cl_DF_debug_dummy[] = { &cl_DF_debug_dummy,
-	&cl_DF_debug_module
-};
+CL_FORCE_LINK(cl_DF_debug_dummy, cl_DF_debug_module)
 #endif
 
 }  // namespace cln

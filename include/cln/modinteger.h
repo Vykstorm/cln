@@ -456,9 +456,7 @@ inline const cl_MI operator* (const cl_MI& x, const cl_I& y)
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_MI_debug_module;
-static void* const cl_MI_debug_dummy[] = { &cl_MI_debug_dummy,
-	&cl_MI_debug_module
-};
+CL_FORCE_LINK(cl_MI_debug_dummy, cl_MI_debug_module)
 #endif
 
 }  // namespace cln

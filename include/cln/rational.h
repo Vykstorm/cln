@@ -294,9 +294,7 @@ extern cl_class cl_class_ratio;
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_RA_debug_module;
-static void* const cl_RA_debug_dummy[] = { &cl_RA_debug_dummy,
-	&cl_RA_debug_module
-};
+CL_FORCE_LINK(cl_RA_debug_dummy, cl_RA_debug_module)
 #endif
 
 }  // namespace cln

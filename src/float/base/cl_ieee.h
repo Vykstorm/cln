@@ -10,7 +10,7 @@ namespace cln {
 #if (defined(linux) || defined(__linux)) // only needed on Linux
   #define NEED_IEEE_FLOATS()  \
     CL_REQUIRE(cl_ieee)							\
-    static void* const CONCAT(cl_ieee_dummy_,__LINE__) = &cl_ieee_module;
+    CL_FORCE_LINK(CONCAT(cl_ieee_dummy_,__LINE__), cl_ieee_module)
 #else
   #define NEED_IEEE_FLOATS()
 #endif

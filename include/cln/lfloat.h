@@ -403,9 +403,7 @@ extern cl_class cl_class_lfloat;
 // Debugging support.
 #ifdef CL_DEBUG
 extern int cl_LF_debug_module;
-static void* const cl_LF_debug_dummy[] = { &cl_LF_debug_dummy,
-	&cl_LF_debug_module
-};
+CL_FORCE_LINK(cl_LF_debug_dummy, cl_LF_debug_module)
 #endif
 
 }  // namespace cln

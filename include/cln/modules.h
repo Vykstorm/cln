@@ -248,4 +248,26 @@
   #define CL_REQUIRE(module)
 #endif
 
+// Sometimes a link time dependency is needed, but without requirements
+// on initialization order.
+//
+// CL_FORCE_LINK(dummy,external_variable)
+// forces a link time reference to the external_variable.
+#include <stdlib.h>
+#if 0
+// This definition does not work.  It gets optimized away by g++ 3.1.
+#define CL_FORCE_LINK(dummy,external_variable) \
+  static const void* const dummy[] = { &dummy, &external_variable };
+#else
+#define CL_FORCE_LINK(dummy,external_variable) \
+  static const								\
+  struct dummy {							\
+    inline dummy () {							\
+      if ((void*) &external_variable == (void*) this)			\
+        abort();							\
+    }									\
+  }									\
+  dummy##_instance;
+#endif
+
 #endif /* _CL_MODULES_H */
