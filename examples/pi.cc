@@ -3,9 +3,9 @@
 #include <cln/output.h>
 #include <cln/real.h>
 #include <cln/real_io.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cctype>
+#include <cstdlib>
+#include <cstring>
 
 using namespace std;
 using namespace cln;

@@ -16,7 +16,7 @@
 
 #include <sys/types.h>
 #include <unistd.h> // declares getpid()
-#include <stdlib.h> // declares rand()
+#include <cstdlib>  // declares rand()
 
 #if defined(HAVE_GETTIMEOFDAY)
 
@@ -36,7 +36,7 @@ inline uint32 get_seed (void)
 
 #elif defined(HAVE_TIMES_CLOCK)
 
-#include <time.h>
+#include <ctime>
 #ifndef CLK_TCK
 #include <sys/time.h>
 #endif

@@ -10,7 +10,7 @@
 
 #include "cln/string.h"
 #include "cln/io.h"
-#include <ctype.h>
+#include <cctype>
 
 namespace cln {
 

@@ -3,8 +3,8 @@
 #include <cln/integer.h>
 #include <cln/integer_io.h>
 #include <cln/random.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 #include <cln/malloc.h>
 #include <cln/abort.h>

@@ -8,6 +8,47 @@
 	* rational/transcendental/cl_RA_logp.cc: fix bug where base is
 	reciprocal of an integer.
 
+2004-06-17  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* benchmarks/timebench1.cc, benchmarks/timebench2a.LiDIA.cc,
+	benchmarks/timebench2a.cc, benchmarks/timebench2ap.cc,
+	benchmarks/timebench2b.LiDIA.cc, benchmarks/timebench2b.cc,
+	examples/atan_recip.cc, examples/atanh_recip.cc,
+	examples/contfrac.cc, examples/e.cc, examples/legendre.cc,
+	examples/lucaslehmer.cc, examples/pi.cc, include/cln/GV.h,
+	include/cln/SV.h, include/cln/malloc.h, include/cln/modules.h,
+	include/cln/object.h, include/cln/string.h, src/base/cl_abort.cc,
+	src/base/cl_alloca.h, src/base/cl_malloc.cc,
+	src/base/random/cl_random_from.cc,
+	src/base/string/cl_spushstring_append.cc,
+	src/base/string/cl_spushstring_push.cc,
+	src/base/string/cl_st_debug.cc,
+	src/base/string/input/cl_st_gettoken.cc,
+	src/complex/input/cl_N_read.cc, src/float/input/cl_F_read.cc,
+	src/float/output/cl_F_dprint.cc, src/integer/input/cl_I_read.cc,
+	src/rational/input/cl_RA_read.cc,
+	src/real/format-output/cl_fmt_integer.cc,
+	src/real/format-output/cl_fmt_paddedstring.cc,
+	src/real/input/cl_R_read.cc, src/timing/cl_t_current.cc,
+	src/timing/cl_t_current2.cc, tests/exam.cc, tests/tests.cc,
+	tests/timeLFRAmul.cc, tests/timeLFatan-compare.cc,
+	tests/timeLFatan.cc, tests/timeLFatanh-compare.cc,
+	tests/timeLFatanh.cc, tests/timeLFcos-compare.cc, tests/timeLFcos.cc,
+	tests/timeLFcosh.cc, tests/timeLFexp-compare.cc, tests/timeLFexp.cc,
+	tests/timeLFln-compare.cc, tests/timeLFln.cc,
+	tests/timeLFsin-compare.cc, tests/timeLFsin.cc, tests/timeLFsinh.cc,
+	tests/timeLFsqrt.cc, tests/timeMImisc5.cc, tests/timeMIpow2div.cc,
+	tests/timeMIpow2recip.cc, tests/timeRALFdiv.cc, tests/timeRAtoLF.cc,
+	tests/timeUPMImul.cc, tests/timecatalan.cc, tests/timediv.cc,
+	tests/timediv2adic-compare.cc, tests/timediv2adic.cc,
+	tests/timeeuler.cc, tests/timeexp1.cc, tests/timefact.cc,
+	tests/timegcd.cc, tests/timemul-compare.cc, tests/timemul.cc,
+	tests/timepi.cc, tests/timeprint-compare.cc, tests/timeprint.cc,
+	tests/timerecip2adic-compare.cc, tests/timerecip2adic.cc,
+	tests/timesqrt.cc, tests/timesqrtmodp.cc, tests/timesquare.cc,
+	tests/timezeta3.cc: Change all C include headers to ISO style
+	within C++ code.
+
 2004-06-10  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* examples/perfnum.cc: update to presumed 41st Mersenne prime.

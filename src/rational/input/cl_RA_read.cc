@@ -12,7 +12,7 @@
 
 // Implementation.
 
-#include <string.h>
+#include <cstring>
 #include "cln/input.h"
 #include "cln/integer.h"
 #include "cln/integer_io.h"

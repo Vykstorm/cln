@@ -51,7 +51,7 @@ bool mersenne_prime_p_modint (int q)
 }
 
 #include <cln/io.h> // we do I/O
-#include <stdlib.h> // declares exit()
+#include <cstdlib>  // declares exit()
 #include <cln/timing.h>
 
 int main (int argc, char* argv[])

@@ -23,8 +23,8 @@
   extern "C" clock_t times (struct tms * buffer);
 #endif
 #ifdef HAVE_PERROR_DECL
-  #include <errno.h>
-  #include <stdio.h>
+  #include <cerrno>
+  #include <cstdio>
 #else
   extern "C" int perror (const char *);
 #endif

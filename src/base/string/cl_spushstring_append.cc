@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include <string.h> // declares memcpy()
+#include <cstring> // declares memcpy()
 
 namespace cln {
 

@@ -4,8 +4,8 @@
 #include <cln/integer_io.h>
 #include <cln/float.h>
 #include <cln/real.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 
 using namespace std;

@@ -4,7 +4,7 @@
 #define _CL_ALLOCA_H
 
 #include "cl_macros.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 namespace cln {
 

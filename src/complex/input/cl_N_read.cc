@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include <string.h>
+#include <cstring>
 #include "cln/input.h"
 #include "cln/real_io.h"
 #include "cln/float_io.h"

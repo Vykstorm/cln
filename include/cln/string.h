@@ -6,7 +6,7 @@
 #include "cln/object.h"
 #include "cln/io.h"
 #include "cln/abort.h"
-#include <string.h>
+#include <cstring>
 
 namespace cln {
 

@@ -35,7 +35,7 @@
 #include <cln/float_io.h>
 #include <cln/real.h>
 #include <cln/complex.h>
-#include <string.h>
+#include <cstring>
 #include <cln/timing.h>
 #include <cmath>
 

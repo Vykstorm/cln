@@ -6,8 +6,8 @@
 #include <cln/random.h>
 #include "cl_random_impl.h"
 #include <cln/abort.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 using namespace cln;
 

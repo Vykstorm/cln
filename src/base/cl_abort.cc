@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include <stdlib.h>
+#include <cstdlib>
 
 namespace cln {
 

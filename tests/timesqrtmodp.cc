@@ -4,8 +4,8 @@
 #include <cln/integer_io.h>
 #include <cln/modinteger.h>
 #include <cln/numtheory.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 using namespace cln;
 

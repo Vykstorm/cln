@@ -30,7 +30,7 @@
 
 CL_REQUIRE(cl_F_ln2_var)
 CL_REQUIRE(cl_F_ln10_var)
-#include <string.h>
+#include <cstring>
 #include "cln/output.h"
 #include "cl_sstring.h"
 #include "cln/float.h"

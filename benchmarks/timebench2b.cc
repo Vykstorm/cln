@@ -7,8 +7,8 @@
 #include <cln/real_io.h>
 #include <cln/complex.h>
 #include <cln/complex_io.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 
 using namespace std;

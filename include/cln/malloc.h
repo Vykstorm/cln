@@ -3,7 +3,7 @@
 #ifndef _CL_MALLOC_H
 #define _CL_MALLOC_H
 
-#include <stdlib.h>
+#include <cstdlib>
 
 namespace cln {
 

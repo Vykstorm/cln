@@ -20,11 +20,11 @@
     extern "C" int gettimeofday (struct timeval * tp, GETTIMEOFDAY_TZP_T tzp);
   #endif
 #else
-  #include <time.h>
+  #include <ctime>
 #endif
 #ifdef HAVE_PERROR_DECL
-  #include <errno.h>
-  #include <stdio.h>
+  #include <cerrno>
+  #include <cstdio>
 #else
   extern "C" int perror (const char *);
 #endif

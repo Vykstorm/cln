@@ -7,8 +7,8 @@
 #include <cln/complex_io.h>
 #include <cln/real.h>
 #include <cln/random.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 using namespace cln;
 

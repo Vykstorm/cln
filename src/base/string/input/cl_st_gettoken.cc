@@ -11,7 +11,7 @@
 
 #include "cln/io.h"
 #include "cl_spushstring.h"
-#include <ctype.h>
+#include <cctype>
 
 namespace cln {
 

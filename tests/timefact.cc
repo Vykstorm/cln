@@ -3,8 +3,8 @@
 #include <cln/integer.h>
 #include <cln/random.h>
 #include "cl_I.h"
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 using namespace cln;
 

@@ -11,7 +11,7 @@
 
 // Implementation.
 
-#include <string.h>
+#include <cstring>
 #include "cln/input.h"
 #include "cln/integer.h"
 #include "cl_I.h"

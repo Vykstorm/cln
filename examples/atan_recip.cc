@@ -7,12 +7,12 @@
 #include "cl_LF.h"
 #include "cl_LF_tran.h"
 #include "cl_alloca.h"
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include "cln/timing.h"
 
 #undef floor
-#include <math.h>
+#include <cmath>
 #define floor cln_floor
 
 using namespace cln;

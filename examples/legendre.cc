@@ -8,7 +8,7 @@
 #include <cln/univpoly_rational.h>
 #include <cln/univpoly_modint.h>
 #include <cln/io.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 using namespace std;
 using namespace cln;

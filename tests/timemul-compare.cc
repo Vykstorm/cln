@@ -2,8 +2,8 @@
 #include <cln/io.h>
 #include <cln/integer.h>
 #include <cln/random.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 
 int main (int argc, char * argv[])

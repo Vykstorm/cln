@@ -1,8 +1,8 @@
 #include <LiDIA/bigint.h>
 #include <LiDIA/bigfloat.h>
 #include <LiDIA/timer.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 int main (int argc, char * argv[])
 {

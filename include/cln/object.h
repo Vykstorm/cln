@@ -5,7 +5,7 @@
 
 #include "cln/types.h"
 #include "cln/modules.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 namespace cln {
 

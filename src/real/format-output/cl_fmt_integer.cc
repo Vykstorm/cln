@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/integer_io.h"
-#include <string.h>
+#include <cstring>
 #include "cl_I.h"
 
 namespace cln {

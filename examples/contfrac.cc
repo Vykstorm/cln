@@ -12,7 +12,7 @@ using namespace std;
 using namespace cln;
 
 // Our private error handling: return to the main program.
-#include <setjmp.h>
+#include <csetjmp>
 jmp_buf restartpoint;
 namespace cln {
 	void cl_abort (void) { longjmp(restartpoint,1); }

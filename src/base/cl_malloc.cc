@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "cln/io.h"
 #include "cln/abort.h"
 

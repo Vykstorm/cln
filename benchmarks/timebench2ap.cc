@@ -1,8 +1,8 @@
 #include <cln/number.h>
 #include <cln/io.h>
 #include <cln/integer.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <cln/timing.h>
 
 using namespace std;
