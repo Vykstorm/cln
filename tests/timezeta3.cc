@@ -6,6 +6,7 @@
 #include <string.h>
 #include <cln/timing.h>
 #include "cl_LF.h"
+using namespace cln;
 
 int main (int argc, char * argv[])
 {

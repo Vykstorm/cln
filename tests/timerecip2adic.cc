@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <cln/timing.h>
+using namespace cln;
 
 int main (int argc, char * argv[])
 {

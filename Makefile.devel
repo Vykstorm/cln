@@ -26,8 +26,8 @@ configures : $(CONFIGURES)
 configure : configure.ac $(AUTOCONF_FILES)
 	./autoconf/autoconf -A autoconf -l autoconf
 
-CLISP_ACLOCAL = /home/kreckel/contrib/src/clisp/src/autoconf/aclocal.m4
-ACSELECT = /home/kreckel/contrib/src/clisp/src/autoconf/acselect
+CLISP_ACLOCAL = /home/kreckel/contrib/clisp/src/autoconf/aclocal.m4
+ACSELECT = /home/kreckel/contrib/clisp/src/autoconf/acselect
 LIBTOOLMACROS = /home/kreckel/contrib/libtool/libtool.m4
 
 autoconf/aclocal.m4 : $(CLISP_ACLOCAL) autoconf/acinclude.m4

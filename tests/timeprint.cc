@@ -8,6 +8,7 @@
 #include <cln/timing.h>
 #include <cln/malloc.h>
 #include <cln/abort.h>
+using namespace cln;
 
 int main (int argc, char * argv[])
 {

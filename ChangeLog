@@ -1,3 +1,7 @@
+2002-05-28  Richard Kreckel  <kreckel@ginac.de>
+
+	* Version 1.1.5 released.
+
 2002-05-27  Richard Kreckel  <kreckel@ginac.de>
 
 	* include/cln/modules.h (CL_CONCATENATE): New macro.
