@@ -1,3 +1,13 @@
+2000-05-xx, version 1.0.4
+=========================
+
+Implementation changes
+----------------------
+
+* Removed internal copy of mpn/-tree from libgmp-2.0.2.  Configuring with
+  --with-gmp now predepends on an installed libgmp library version 3 or above.
+
+
 2000-01-13, version 1.0.3
 =========================
 
