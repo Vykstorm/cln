@@ -14,6 +14,7 @@ datadir = @datadir@
 libdir = @libdir@
 includedir = @includedir@
 mandir = @mandir@
+DESTDIR =
 
 # Programs used by "make":
 # C compiler
@@ -199,29 +200,29 @@ libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
 	$(LIBTOOL_LINK) $(CC) -o libcln.la -rpath $(libdir) -version-info $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) $(LDFLAGS) $(LIBS) $(ALLOBJECTS_LO)
 
 install : all force
-	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi
-	$(LIBTOOL_INSTALL) $(INSTALL_DATA) libcln.la $(libdir)/libcln.la
-	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
-	if [ ! -d $(includedir)/cln ] ; then mkdir $(includedir)/cln ; fi
-	$(INSTALL_DATA) $(top_srcdir)/include/cln/*.h $(includedir)/cln
-	$(INSTALL_DATA) ../include/cln/*.h $(includedir)/cln
-#	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
-#	if [ ! -d $(mandir)/man3 ] ; then mkdir $(mandir)/man3 ; fi
-#	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
-#	if [ ! -d $(datadir)/html ] ; then mkdir $(datadir)/html ; fi
+	if [ ! -d $(DESTDIR)$(libdir) ] ; then mkdir $(DESTDIR)$(libdir) ; fi
+	$(LIBTOOL_INSTALL) $(INSTALL_DATA) libcln.la $(DESTDIR)$(libdir)/libcln.la
+	if [ ! -d $(DESTDIR)$(includedir) ] ; then mkdir $(DESTDIR)$(includedir) ; fi
+	if [ ! -d $(DESTDIR)$(includedir)/cln ] ; then mkdir $(DESTDIR)$(includedir)/cln ; fi
+	$(INSTALL_DATA) $(top_srcdir)/include/cln/*.h $(DESTDIR)$(includedir)/cln
+	$(INSTALL_DATA) ../include/cln/*.h $(DESTDIR)$(includedir)/cln
+#	if [ ! -d $(DESTDIR)$(mandir) ] ; then mkdir $(DESTDIR)$(mandir) ; fi
+#	if [ ! -d $(DESTDIR)$(mandir)/man3 ] ; then mkdir $(DESTDIR)$(mandir)/man3 ; fi
+#	if [ ! -d $(DESTDIR)$(datadir) ] ; then mkdir $(DESTDIR)$(datadir) ; fi
+#	if [ ! -d $(DESTDIR)$(datadir)/html ] ; then mkdir $(DESTDIR)$(datadir)/html ; fi
 
 installdirs : force
-	if [ ! -d $(libdir) ] ; then mkdir $(libdir) ; fi
-	if [ ! -d $(includedir) ] ; then mkdir $(includedir) ; fi
-	if [ ! -d $(includedir)/cln ] ; then mkdir $(includedir)/cln ; fi
-#	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
-#	if [ ! -d $(mandir)/man3 ] ; then mkdir $(mandir)/man3 ; fi
-#	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
-#	if [ ! -d $(datadir)/html ] ; then mkdir $(datadir)/html ; fi
+	if [ ! -d $(DESTDIR)$(libdir) ] ; then mkdir $(DESTDIR)$(libdir) ; fi
+	if [ ! -d $(DESTDIR)$(includedir) ] ; then mkdir $(DESTDIR)$(includedir) ; fi
+	if [ ! -d $(DESTDIR)$(includedir)/cln ] ; then mkdir $(DESTDIR)$(includedir)/cln ; fi
+#	if [ ! -d $(DESTDIR)$(mandir) ] ; then mkdir $(DESTDIR)$(mandir) ; fi
+#	if [ ! -d $(DESTDIR)$(mandir)/man3 ] ; then mkdir $(DESTDIR)$(mandir)/man3 ; fi
+#	if [ ! -d $(DESTDIR)$(datadir) ] ; then mkdir $(DESTDIR)$(datadir) ; fi
+#	if [ ! -d $(DESTDIR)$(datadir)/html ] ; then mkdir $(DESTDIR)$(datadir)/html ; fi
 
 uninstall : force
-	$(LIBTOOL_UNINSTALL) $(RM) $(libdir)/libcln.la
-	$(RM) -r $(includedir)/cln
+	$(LIBTOOL_UNINSTALL) $(RM) $(DESTDIR)$(libdir)/libcln.la
+	$(RM) -r $(DESTDIR)$(includedir)/cln
 
 check : all
 

@@ -11,6 +11,7 @@ datadir = @datadir@
 libdir = @libdir@
 includedir = @includedir@
 mandir = @mandir@
+DESTDIR =
 
 # Programs used by "make":
 CC = @CC@
@@ -31,22 +32,22 @@ all : force
 
 install : installdirs force
 	cd @subdir@; $(MAKE) install
-	$(INSTALL_PROGRAM) cln-config $(bindir)/cln-config
-	$(INSTALL_DATA) cln-config.1 $(mandir)/man1/cln-config.1
-	$(INSTALL_DATA) cln.m4 $(datadir)/aclocal/cln.m4
+	$(INSTALL_PROGRAM) cln-config $(DESTDIR)$(bindir)/cln-config
+	$(INSTALL_DATA) cln-config.1 $(DESTDIR)$(mandir)/man1/cln-config.1
+	$(INSTALL_DATA) cln.m4 $(DESTDIR)$(datadir)/aclocal/cln.m4
 
 installdirs : force
 	cd @subdir@; $(MAKE) installdirs
-	if [ ! -d $(mandir) ] ; then mkdir $(mandir) ; fi
-	if [ ! -d $(mandir)/man1 ] ; then mkdir $(mandir)/man1 ; fi
-	if [ ! -d $(datadir)/aclocal ] ; then mkdir $(datadir)/aclocal ; fi
-	if [ ! -d $(bindir) ] ; then mkdir $(bindir) ; fi
+	if [ ! -d $(DESTDIR)$(mandir) ] ; then mkdir $(DESTDIR)$(mandir) ; fi
+	if [ ! -d $(DESTDIR)$(mandir)/man1 ] ; then mkdir $(DESTDIR)$(mandir)/man1 ; fi
+	if [ ! -d $(DESTDIR)$(datadir)/aclocal ] ; then mkdir $(DESTDIR)$(datadir)/aclocal ; fi
+	if [ ! -d $(DESTDIR)$(bindir) ] ; then mkdir $(DESTDIR)$(bindir) ; fi
 
 uninstall : force
 	cd @subdir@; $(MAKE) uninstall
-	$(RM) $(bindir)/cln-config
-	$(RM) $(mandir)/man1/cln-config.1
-	$(RM) $(datadir)/aclocal/cln.m4
+	$(RM) $(DESTDIR)$(bindir)/cln-config
+	$(RM) $(DESTDIR)$(mandir)/man1/cln-config.1
+	$(RM) $(DESTDIR)$(datadir)/aclocal/cln.m4
 
 check : force
 	cd @subdir@; $(MAKE) check

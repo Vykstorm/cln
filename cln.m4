@@ -15,22 +15,22 @@ AC_DEFUN(AC_PATH_LIBCLN,
 dnl Get the cppflags and libraries from the cln-config script
 dnl
 AC_ARG_WITH(cln-prefix,[  --with-cln-prefix=PFX   Prefix where CLN is installed (optional)],
-            cln_prefix="$withval", cln_prefix="")
+            cln_config_prefix="$withval", cln_config_prefix="")
 AC_ARG_WITH(cln-exec-prefix,[  --with-cln-exec-prefix=PFX Exec prefix where CLN is installed (optional)],
-            cln_exec_prefix="$withval", cln_exec_prefix="")
+            cln_config_exec_prefix="$withval", cln_config_exec_prefix="")
 AC_ARG_ENABLE(clntest, [  --disable-clntest       Do not try to compile and run a test CLN program],
 		    , enable_clntest=yes)
 
-  if test x$cln_exec_prefix != x ; then
-     cln_args="$cln_args --exec-prefix=$cln_exec_prefix"
+  if test x$cln_config_exec_prefix != x ; then
+     cln_config_args="$cln_config_args --exec-prefix=$cln_config_exec_prefix"
      if test x${CLN_CONFIG+set} != xset ; then
-        CLN_CONFIG=$cln_exec_prefix/bin/cln-config
+        CLN_CONFIG=$cln_config_exec_prefix/bin/cln-config
      fi
   fi
-  if test x$cln_prefix != x ; then
-     cln_args="$cln_args --prefix=$cln_prefix"
+  if test x$cln_config_prefix != x ; then
+     cln_config_args="$cln_config_args --prefix=$cln_config_prefix"
      if test x${CLN_CONFIG+set} != xset ; then
-        CLN_CONFIG=$cln_prefix/bin/cln-config
+        CLN_CONFIG=$cln_config_prefix/bin/cln-config
      fi
   fi
 
@@ -41,14 +41,13 @@ AC_ARG_ENABLE(clntest, [  --disable-clntest       Do not try to compile and run 
   if test "$CLN_CONFIG" = "no" ; then
     no_cln=yes
   else
-    LIBCLN_CPPFLAGS=`$CLN_CONFIG $clnconf_args --cppflags`
-    LIBCLN_LIBS=`$CLN_CONFIG $clnconf_args --libs`
-
-    cln_major_version=`$CLN_CONFIG $cln_args --version | \
+    LIBCLN_CPPFLAGS=`$CLN_CONFIG $cln_config_args --cppflags`
+    LIBCLN_LIBS=`$CLN_CONFIG $cln_config_args --libs`
+    cln_config_major_version=`$CLN_CONFIG $cln_config_args --version | \
            sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
-    cln_minor_version=`$CLN_CONFIG $cln_args --version | \
+    cln_config_minor_version=`$CLN_CONFIG $cln_config_args --version | \
            sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
-    cln_micro_version=`$CLN_CONFIG $cln_config_args --version | \
+    cln_config_micro_version=`$CLN_CONFIG $cln_config_args --version | \
            sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
     if test "x$enable_clntest" = "xyes" ; then
       ac_save_CPPFLAGS="$CPPFLAGS"
@@ -62,38 +61,55 @@ dnl
       rm -f conf.clntest
       AC_TRY_RUN([
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <cln/config.h>
 
-int main ()
+/* we do not #include <stdlib.h> because autoconf in C++ mode inserts a
+   prototype for exit() that conflicts with the one in stdlib.h */
+extern "C" int system(const char *);
+
+char* my_strdup (char *str)
+{
+  char *new_str;
+
+  if (str) {
+    new_str = new char[(strlen (str) + 1) * sizeof(char)];
+    strcpy (new_str, str);
+  } else
+    new_str = NULL;
+
+  return new_str;
+}
+
+int main()
 {
   int major, minor, micro;
   char *tmp_version;
 
   system("touch conf.clntest");
 
-  tmp_version = strdup("$min_cln_version");
+  /* HP/UX 9 (%@#!) writes to sscanf strings */
+  tmp_version = my_strdup("$min_cln_version");
   if (sscanf(tmp_version, "%d.%d.%d", &major, &minor, &micro) != 3) {
      printf("%s, bad version string\n", "$min_cln_version");
-     exit(1);
+     return 1;
   }
 
-  if (($cln_major_version > major) ||
-     (($cln_major_version == major) && ($cln_minor_version > minor)) ||
-     (($cln_major_version == major) && ($cln_minor_version == minor) && ($cln_micro_version >= micro))) {
-    if ((CL_VERSION_MAJOR == $cln_major_version) &&
-        (CL_VERSION_MINOR == $cln_minor_version) &&
-        (CL_VERSION_PATCHLEVEL == $cln_micro_version)) {
+  if (($cln_config_major_version > major) ||
+     (($cln_config_major_version == major) && ($cln_config_minor_version > minor)) ||
+     (($cln_config_major_version == major) && ($cln_config_minor_version == minor) && ($cln_config_micro_version >= micro))) {
+    if ((CL_VERSION_MAJOR == $cln_config_major_version) &&
+        (CL_VERSION_MINOR == $cln_config_minor_version) &&
+        (CL_VERSION_PATCHLEVEL == $cln_config_micro_version)) {
       return 0;
     } else {
-      printf("\n*** 'cln-config --version' returned %d.%d.%d, but the header file I found\n", $cln_major_version, $cln_minor_version, $cln_micro_version);
+      printf("\n*** 'cln-config --version' returned %d.%d.%d, but the header file I found\n", $cln_config_major_version, $cln_config_minor_version, $cln_config_micro_version);
       printf("*** corresponds to %d.%d.%d. This mismatch suggests your installation of CLN\n", CL_VERSION_MAJOR, CL_VERSION_MINOR, CL_VERSION_PATCHLEVEL);
       printf("*** is corrupted. Please inquire and consider reinstalling CLN.\n");
       return 1;
     }
   } else {
-    printf("\n*** 'cln-config --version' returned %d.%d.%d, but the minimum version\n", $cln_major_version, $cln_minor_version, $cln_micro_version);
+    printf("\n*** 'cln-config --version' returned %d.%d.%d, but the minimum version\n", $cln_config_major_version, $cln_config_minor_version, $cln_config_micro_version);
     printf("*** of CLN required is %d.%d.%d. If cln-config is correct, then it is\n", major, minor, micro);
     printf("*** best to upgrade to the required version.\n");
     printf("*** If cln-config was wrong, set the environment variable CLN_CONFIG\n");
@@ -108,7 +124,7 @@ int main ()
      fi
   fi
   if test "x$no_cln" = x ; then
-     AC_MSG_RESULT(yes)
+     AC_MSG_RESULT([yes, `$CLN_CONFIG --version`])
      ifelse([$2], , :, [$2])     
   else
      AC_MSG_RESULT(no)

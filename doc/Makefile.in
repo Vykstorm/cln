@@ -14,6 +14,7 @@ infodir = @infodir@
 mandir = @mandir@
 htmldir = $(datadir)/html
 dvidir = $(datadir)/dvi
+DESTDIR =
 
 # Programs used by "make":
 RM = rm -f
@@ -78,20 +79,20 @@ $(PACKAGE)_toc.html : $(srcdir)/$(PACKAGE).texi
 
 
 install : all installdirs force
-	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).info $(infodir)/$(PACKAGE).info
-	$(INSTALL_DATA) $(srcdir)/$(PACKAGE)_*.html $(htmldir)
-	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(dvidir)/$(PACKAGE).dvi
+	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).info $(DESTDIR)$(infodir)/$(PACKAGE).info
+	$(INSTALL_DATA) $(srcdir)/$(PACKAGE)_*.html $(DESTDIR)$(htmldir)
+	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
 
 installdirs : force
-	if [ ! -d $(datadir) ] ; then mkdir $(datadir) ; fi
-	if [ ! -d $(infodir) ] ; then mkdir $(infodir) ; fi
-	if [ ! -d $(htmldir) ] ; then mkdir $(htmldir) ; fi
-	if [ ! -d $(dvidir) ] ; then mkdir $(dvidir) ; fi
+	if [ ! -d $(DESTDIR)$(datadir) ] ; then mkdir $(DESTDIR)$(datadir) ; fi
+	if [ ! -d $(DESTDIR)$(infodir) ] ; then mkdir $(DESTDIR)$(infodir) ; fi
+	if [ ! -d $(DESTDIR)$(htmldir) ] ; then mkdir $(DESTDIR)$(htmldir) ; fi
+	if [ ! -d $(DESTDIR)$(dvidir) ] ; then mkdir $(DESTDIR)$(dvidir) ; fi
 
 uninstall : force
-	$(RM) $(infodir)/$(PACKAGE).info
-	$(RM) $(htmldir)/$(PACKAGE)_*.html
-	$(RM) $(dvidir)/$(PACKAGE).dvi
+	$(RM) $(DESTDIR)$(infodir)/$(PACKAGE).info
+	$(RM) $(DESTDIR)$(htmldir)/$(PACKAGE)_*.html
+	$(RM) $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
 
 check : all
 
