@@ -31,7 +31,7 @@ Implementation changes
 Other changes
 -------------
 
-* Added package tools: script cln-config and autoconf macro AC_PATH_LIBCLN
+* Added package tools: script cln-config and autoconf macro AC_PATH_CLN
   (in file cln.m4).
 
 
