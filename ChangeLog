@@ -1,3 +1,7 @@
+2005-03-15  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* src/Makefile.in: Use $CXX instead of $CC when linking.
+
 2005-02-27  Richard B. Kreckel  <kreckel@ginac.de>
 	
 	* examples/perfnum.cc: update to presumed 42st Mersenne prime.
