@@ -1,3 +1,8 @@
+2000-02-22  Bruno Haible  <haible@clisp.cons.org>
+
+        * src/base/digitseq/cl_asm_mips_.cc: Starting at argument 5 the
+          parameter passing was changed for the MIPS n32 ABI.
+
 2000-01-24  Richard Kreckel  <kreckel@ginac.de>
 
         * gmp/*: Replaced the complete mpn sources with the ones from
