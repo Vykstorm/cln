@@ -1,3 +1,7 @@
+2005-02-27  Richard B. Kreckel  <kreckel@ginac.de>
+	
+	* examples/perfnum.cc: update to presumed 42st Mersenne prime.
+
 2004-11-28  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Disambiguate binary operators of CLN types with float/double
