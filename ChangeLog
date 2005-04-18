@@ -1,3 +1,7 @@
+2005-04-18  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* include/cln/string.h: Declare cl_string.
+
 2005-03-17  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* autoconf/ltmain.sh: Upgrade to libtool-1.5.14.
@@ -21,7 +25,7 @@
 	* include/cln/float.h: Likewise, both for arguments of types double and
 	float.
 	* include/cln/real.h: Likewise.
-	Reported by Isidro Cachadiña Gutiérrez <icacha@unex.es>.
+	Reported by Isidro CachadiÃ±a GutiÃ©rrez <icacha@unex.es>.
 
 2004-11-03  Richard B. Kreckel  <kreckel@ginac.de>
 

@@ -10,6 +10,8 @@
 
 namespace cln {
 
+struct cl_string;
+
 // General, reference counted and garbage collected strings.
 struct cl_heap_string : public cl_heap {
 private:
