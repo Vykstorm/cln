@@ -1,3 +1,10 @@
+2005-04-24  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Make GCC compiler flags default to -O
+	* m4/cc.m4: New file...
+	* configure.ac: ...used here.
+	* autoconf/aclocal.m4: Regenerate.
+
 2005-04-18  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* include/cln/string.h: Declare cl_string.

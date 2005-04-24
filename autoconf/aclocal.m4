@@ -868,5 +868,6 @@ fi
 fi
 ])
 
+m4_include([m4/cc.m4])
 m4_include([m4/gmp.m4])
 m4_include([m4/libtool.m4])
