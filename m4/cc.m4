@@ -7,7 +7,6 @@ dnl Wrapper around AC_PROG_CC setting CFLAGS to plain "-O" as opposed to
 dnl "-g -O2" for the GNU compiler (unless CFLAGS was set before).
 AC_DEFUN([CL_PROG_CC],
 [cl_test_CFLAGS=${CFLAGS+set}
-cl_save_CFLAGS=$CFLAGS
 # Make sure this macro does not come after AC_PROG_CC.
 # Otherwise CFLAGS would already be set.
 AC_BEFORE([$0],[AC_PROG_CC])dnl
@@ -22,7 +21,6 @@ dnl Wrapper around AC_PROG_CXX setting CXXFLAGS to plain "-O" as opposed to
 dnl "-g -O2" for the GNU compiler (unless CXXFLAGS was set before).
 AC_DEFUN([CL_PROG_CXX],
 [cl_test_CXXFLAGS=${CXXFLAGS+set}
-cl_save_CXXFLAGS=$CXXFLAGS
 # Make sure this macro does not come after AC_PROG_CXX.
 # Otherwise CXXFLAGS would already be set.
 AC_BEFORE([$0],[AC_PROG_CXX])dnl
