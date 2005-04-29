@@ -1,3 +1,8 @@
+2005-04-29  Richard B. Kreckel  <kreckel@ginac.de>
+	    Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* m4/cc.m4: Emit a warning if g++ is used and optimization turned off.
+
 2005-04-24  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Make GCC compiler flags default to -O
