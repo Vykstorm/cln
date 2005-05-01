@@ -33,8 +33,8 @@ void cl_free_heap_object (cl_heap* pointer)
 
 static const char * copyright_notice[] = {
   "                                                                    \n"
-  "Copyright (c)    Bruno Haible 1988-2004                             \n"
-  "Copyright (c) Richard Kreckel 2000-2004                             \n"
+  "Copyright (c)    Bruno Haible 1988-2005                             \n"
+  "Copyright (c) Richard Kreckel 2000-2005                             \n"
   "                                                                    \n"
   "This program is free software; you can redistribute it and/or modify\n"
   "it under the terms of the GNU General Public License as published by\n"
@@ -48,7 +48,8 @@ static const char * copyright_notice[] = {
   "                                                                    \n"
   "You should have received a copy of the GNU General Public License   \n"
   "along with this program; if not, write to the Free Software         \n"
-  "Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+  "Foundation, 51 Franklin Street, Fifth Floor, Boston, MA             \n"
+  "02110-1301, USA.\n"
   "                                                                    ",
   (const char *) &copyright_notice
 };
