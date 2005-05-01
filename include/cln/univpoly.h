@@ -340,10 +340,7 @@ public:
 		{ properties.add_property(new_property); }
 // Constructor.
 	cl_heap_univpoly_ring (const cl_ring& r, cl_univpoly_setops*, cl_univpoly_addops*, cl_univpoly_mulops*, cl_univpoly_modulops*, cl_univpoly_polyops*);
-// This class is intented to be subclassable, hence needs a virtual destructor.
-	virtual ~cl_heap_univpoly_ring () {}
-private:
-	virtual void dummy ();
+	~cl_heap_univpoly_ring () {}
 };
 #define SUBCLASS_cl_heap_univpoly_ring() \
   SUBCLASS_cl_heap_ring()
@@ -358,9 +355,6 @@ extern const cl_univpoly_ring find_univpoly_ring (const cl_ring& r, const cl_sym
 //CL_REQUIRE(cl_UP_named)
 
 CL_REQUIRE(cl_UP)
-
-// Runtime typing support.
-extern cl_class cl_class_univpoly_ring;
 
 
 // Operations on polynomials.

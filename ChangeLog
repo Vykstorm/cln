@@ -1,3 +1,29 @@
+2005-05-01  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Fix crashes in find_univpoly_ring and related functions
+	* include/cln/modinteger.h: Remove vptr from cl_heap_modint_ring;
+	remove declaration of cl_class cl_class_modint_ring.
+	* include/cln/univpoly.h: Remove vptr from cl_heap_univpoly_ring;
+	remove declaration of cl_class_univpoly_ring.
+	* include/cln/object.h: cl_class_flags_modint_ring: New #define...
+	* src/modinteger/cl_MI.cc: ...used in cl_class_modint_ring.
+	* src/modinteger/cl_MI_fix16.h: No vptr, but static dtor and type flag.
+	* src/modinteger/cl_MI_fix29.h: Likewise.
+	* src/modinteger/cl_MI_fix32.h: Likewise.
+	* src/modinteger/cl_MI_int32.h: Likewise.
+	* src/modinteger/cl_MI_montgom.h: Likewise.
+	* src/modinteger/cl_MI_pow2: Likewise.
+	* src/modinteger/cl_MI_pow2m1.h: Likewise.
+	* src/modinteger/cl_MI_pow2p1.h: Likewise.
+	* src/modinteger/cl_MI_std.h: Likewise.
+	* src/polynomial/elem/cl_UP.cc (cl_make_univpoly_ring): Compare with
+	cl_class_flags_modint_ring, not with cl_class_modint_ring.
+	* src/polynomial/elem/cl_UP_GF2.h (cl_class_num_univpoly_ring): New.
+	* src/polynomial/elem/cl_UP_MI.h (cl_class_modint_univpoly_ring): New.
+	* src/polynomial/elem/cl_UP_gen.h (cl_class_gen_univpoly_ring): New.
+	* src/polynomial/elem/cl_UP_number.h (cl_class_num_univpoly_ring): New.
+	Reported by Ralf Goertz <R_Goertz@web.de>.
+
 2005-04-29  Richard B. Kreckel  <kreckel@ginac.de>
 	    Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 

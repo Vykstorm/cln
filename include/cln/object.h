@@ -168,13 +168,15 @@ struct cl_heap {
 
 // Function to destroy the contents of a heap object.
 typedef void (*cl_heap_destructor_function) (cl_heap* pointer);
-// Flags, to be ORed together.
+// Flags, may be ORed together.
 #define cl_class_flags_subclass_complex   1  // all instances belong to cl_N
 #define cl_class_flags_subclass_real      2  // all instances belong to cl_R
 #define cl_class_flags_subclass_float     4  // all instances belong to cl_F
 #define cl_class_flags_subclass_rational  8  // all instances belong to cl_RA
 #define cl_class_flags_number_ring       16  // all instances are rings whose
                                              // elements belong to cl_number
+#define cl_class_flags_modint_ring       32  // all instances are rings whose
+                                             // elements belong to cl_MI
 // Function to print an object for debugging, to cerr.
 typedef void (*cl_heap_dprint_function) (cl_heap* pointer);
 

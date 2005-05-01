@@ -70,12 +70,22 @@ class cl_heap_modint_ring_montgom : public cl_heap_modint_ring {
 public:
 	// Constructor.
 	cl_heap_modint_ring_montgom (const cl_I& M, uintL m, uintL n, const cl_I& V);
-	// Virtual destructor.
+	// Destructor.
 	~cl_heap_modint_ring_montgom () {}
 	// Additional information.
 	uintL m; // M = 2^m
 	uintL n; // N = 2^n, n <= m
 	cl_I V;
+};
+
+static void cl_modint_ring_montgom_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_modint_ring_montgom*)pointer).~cl_heap_modint_ring_montgom();
+}
+
+cl_class cl_class_modint_ring_montgom = {
+	cl_modint_ring_montgom_destructor,
+	cl_class_flags_modint_ring
 };
 
 // Assuming 0 <= x < 2^(2m), return  V*x mod M.
@@ -161,7 +171,9 @@ static cl_modint_mulops montgom_mulops = {
 inline cl_heap_modint_ring_montgom::cl_heap_modint_ring_montgom (const cl_I& M, uintL _m, uintL _n, const cl_I& _V)
 	: cl_heap_modint_ring (M, &std_setops, &montgom_addops, &montgom_mulops),
 	  m (_m), n (_n), V (_V)
-{}
+{
+	type = &cl_class_modint_ring_montgom;
+}
 
 static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 {

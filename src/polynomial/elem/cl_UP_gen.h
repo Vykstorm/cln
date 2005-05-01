@@ -460,8 +460,26 @@ class cl_heap_gen_univpoly_ring : public cl_heap_univpoly_ring {
 	SUBCLASS_cl_heap_univpoly_ring()
 public:
 	// Constructor.
-	cl_heap_gen_univpoly_ring (const cl_ring& r)
-		: cl_heap_univpoly_ring (r, &gen_setops, &gen_addops, &gen_mulops, &gen_modulops, &gen_polyops) {}
+	cl_heap_gen_univpoly_ring (const cl_ring& r);
+	// Destructor
+	~cl_heap_gen_univpoly_ring () {}
 };
+
+static void cl_heap_gen_univpoly_ring_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_gen_univpoly_ring*)pointer).~cl_heap_gen_univpoly_ring();
+}
+
+cl_class cl_class_gen_univpoly_ring = {
+	cl_heap_gen_univpoly_ring_destructor,
+	0
+};
+
+// Constructor.
+inline cl_heap_gen_univpoly_ring::cl_heap_gen_univpoly_ring (const cl_ring& r)
+	: cl_heap_univpoly_ring (r, &gen_setops, &gen_addops, &gen_mulops, &gen_modulops, &gen_polyops)
+{
+	type = &cl_class_gen_univpoly_ring;
+}
 
 }  // namespace cln

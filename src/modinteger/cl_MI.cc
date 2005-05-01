@@ -27,6 +27,16 @@ CL_PROVIDE(cl_MI)
 
 namespace cln {
 
+static void cl_modint_ring_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_modint_ring*)pointer).~cl_heap_modint_ring();
+}
+
+cl_class cl_class_modint_ring = {
+	cl_modint_ring_destructor,
+	cl_class_flags_modint_ring
+};
+
 cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_modint_addops* addopv, cl_modint_mulops* mulopv)
 	: setops (setopv), addops (addopv), mulops (mulopv), modulus (m)
 {
@@ -49,20 +59,6 @@ cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_m
 		log2_bits = -1; bits = -1;
 	}
 }
-
-static void cl_modint_ring_destructor (cl_heap* pointer)
-{
-	(*(cl_heap_modint_ring*)pointer).~cl_heap_modint_ring();
-}
-
-cl_class cl_class_modint_ring = {
-	cl_modint_ring_destructor,
-	0
-};
-
-// This tells the compiler to put the `cl_heap_modint_ring' vtable
-// into this file.
-void cl_heap_modint_ring::dummy () {}
 
 
 static cl_boolean modint_equal (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)

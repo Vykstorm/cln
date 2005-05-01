@@ -74,10 +74,26 @@ class cl_heap_modint_ring_int32 : public cl_heap_modint_ring {
 	SUBCLASS_cl_heap_modint_ring()
 public:
 	// Constructor.
-	cl_heap_modint_ring_int32 (const cl_I& m)
-		: cl_heap_modint_ring (m, &std_setops, &int32_addops, &int32_mulops) {}
-	// Virtual destructor.
+	cl_heap_modint_ring_int32 (const cl_I& m);
+	// Destructor.
 	~cl_heap_modint_ring_int32 () {}
 };
+
+static void cl_modint_ring_int32_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_modint_ring_int32*)pointer).~cl_heap_modint_ring_int32();
+}
+
+cl_class cl_class_modint_ring_int32 = {
+	cl_modint_ring_int32_destructor,
+	cl_class_flags_modint_ring
+};
+
+// Constructor.
+inline cl_heap_modint_ring_int32::cl_heap_modint_ring_int32(const cl_I& m)
+	: cl_heap_modint_ring (m, &std_setops, &int32_addops, &int32_mulops)
+{
+	type = &cl_class_modint_ring_int32;
+}
 
 }  // namespace cln

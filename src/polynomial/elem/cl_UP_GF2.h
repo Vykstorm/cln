@@ -1041,8 +1041,26 @@ class cl_heap_gf2_univpoly_ring : public cl_heap_univpoly_ring {
 	SUBCLASS_cl_heap_univpoly_ring()
 public:
 	// Constructor.
-	cl_heap_gf2_univpoly_ring (const cl_ring& r)
-		: cl_heap_univpoly_ring (r, &gf2_setops, &gf2_addops, &gf2_mulops, &gf2_modulops, &gf2_polyops) {}
+	cl_heap_gf2_univpoly_ring (const cl_ring& r);
+	// Destructor.
+	~cl_heap_gf2_univpoly_ring () {}
 };
+
+static void cl_heap_gf2_univpoly_ring_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_gf2_univpoly_ring*)pointer).~cl_heap_gf2_univpoly_ring();
+}
+
+cl_class cl_class_gf2_univpoly_ring = {
+	cl_heap_gf2_univpoly_ring_destructor,
+	0
+};
+
+// Constructor.
+inline cl_heap_gf2_univpoly_ring::cl_heap_gf2_univpoly_ring (const cl_ring& r)
+	: cl_heap_univpoly_ring (r, &gf2_setops, &gf2_addops, &gf2_mulops, &gf2_modulops, &gf2_polyops)
+{
+	type = &cl_class_gf2_univpoly_ring;
+}
 
 }  // namespace cln

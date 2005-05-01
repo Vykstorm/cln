@@ -345,10 +345,26 @@ class cl_heap_modint_ring_std : public cl_heap_modint_ring {
 	SUBCLASS_cl_heap_modint_ring()
 public:
 	// Constructor.
-	cl_heap_modint_ring_std (const cl_I& m)
-		: cl_heap_modint_ring (m, &std_setops, &std_addops, &std_mulops) {}
+	cl_heap_modint_ring_std (const cl_I& m);
 	// Virtual destructor.
 	~cl_heap_modint_ring_std () {}
 };
+
+static void cl_heap_modint_ring_std_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_modint_ring_std*)pointer).~cl_heap_modint_ring_std();
+}
+
+cl_class cl_class_modint_ring_std = {
+	cl_heap_modint_ring_std_destructor,
+	cl_class_flags_modint_ring
+};
+
+// Constructor.
+inline cl_heap_modint_ring_std::cl_heap_modint_ring_std (const cl_I& m)
+	: cl_heap_modint_ring (m, &std_setops, &std_addops, &std_mulops)
+{
+	type = &cl_class_modint_ring_std;
+}
 
 }  // namespace cln

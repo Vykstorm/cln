@@ -7,7 +7,7 @@ class cl_heap_modint_ring_pow2 : public cl_heap_modint_ring {
 public:
 	// Constructor.
 	cl_heap_modint_ring_pow2 (const cl_I& m, uintL m1); // m = 2^m1
-	// Virtual destructor.
+	// Destructor.
 	~cl_heap_modint_ring_pow2 () {}
 	// Additional information.
 	uintL m1;
@@ -137,8 +137,21 @@ static cl_modint_mulops pow2_mulops = {
 	std_retract
 };
 
+static void cl_modint_ring_pow2_destructor (cl_heap* pointer)
+{
+	(*(cl_heap_modint_ring_pow2*)pointer).~cl_heap_modint_ring_pow2();
+}
+
+cl_class cl_class_modint_ring_pow2 = {
+	cl_modint_ring_pow2_destructor,
+	cl_class_flags_modint_ring
+};
+
 // Constructor.
 inline cl_heap_modint_ring_pow2::cl_heap_modint_ring_pow2 (const cl_I& m, uintL _m1)
-	: cl_heap_modint_ring (m, &std_setops, &pow2_addops, &pow2_mulops), m1 (_m1) {}
+	: cl_heap_modint_ring (m, &std_setops, &pow2_addops, &pow2_mulops), m1 (_m1)
+{
+	type = &cl_class_modint_ring_pow2;
+}
 
 }  // namespace cln

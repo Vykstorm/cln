@@ -349,12 +349,9 @@ public:
 		{ return properties.get_property(key); }
 	void add_property (cl_property* new_property)
 		{ properties.add_property(new_property); }
-// Constructor.
+// Constructor / destructor.
 	cl_heap_modint_ring (cl_I m, cl_modint_setops*, cl_modint_addops*, cl_modint_mulops*);
-// This class is intented to be subclassable, hence needs a virtual destructor.
-	virtual ~cl_heap_modint_ring () {}
-private:
-	virtual void dummy ();
+	~cl_heap_modint_ring () {}
 };
 #define SUBCLASS_cl_heap_modint_ring() \
   SUBCLASS_cl_heap_ring()
@@ -362,9 +359,6 @@ private:
 // Lookup or create a modular integer ring  Z/mZ
 extern const cl_modint_ring find_modint_ring (const cl_I& m);
 CL_REQUIRE(cl_MI)
-
-// Runtime typing support.
-extern cl_class cl_class_modint_ring;
 
 
 // Operations on modular integers.
