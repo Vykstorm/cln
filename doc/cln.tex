@@ -438,6 +438,18 @@ on all architectures.  Try disabling them if you run into linker
 problems.  Also, they are generally somewhat slower than static
 libraries so runtime-critical applications should be linked statically.
 
+If you are compiling on a 64-bit machine with 32-bit userland, you
+might have to specify that explicitly while configuring the library.
+For instance, the popular x86_64 architecture can host a 32-bit x86
+operating system and toolchain on top of a 64-bit kernel.  In such a
+situation, you must explicitly tell configure @emph{not} to assume a
+64-bit OS:
+@example
+$ ./configure --build=i686-pc-linux-gnu
+@end example
+If you forget about this, the build will fail because @code{uname -m}
+will set x86_64 which conflicts with what the compiler knows.
+
 If you use @code{g++} from gcc-3.1 with option @samp{-g}, you will need
 some disk space: 335 MB for building as both a shared and a static library,
 or 130 MB when building as a shared library only.

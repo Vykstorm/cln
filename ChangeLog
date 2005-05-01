@@ -1,3 +1,8 @@
+2005-05-02  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* doc/cln.tex: Document what to do on a x86_64 machine with 32-bit
+	userland.
+
 2005-05-01  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Fix crashes in find_univpoly_ring and related functions
