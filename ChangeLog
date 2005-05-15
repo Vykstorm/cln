@@ -1,3 +1,8 @@
+2005-05-15  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* autoconf/ltmain.sh: Upgrade to libtool-1.5.16.
+	* m4/libtool.m4: Upgrade to libtool-1.5.16 (without Comeau patch).
+
 2005-05-02  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* doc/cln.tex: Document what to do on a x86_64 machine with 32-bit
