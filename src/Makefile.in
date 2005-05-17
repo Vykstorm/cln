@@ -203,7 +203,8 @@ ifeq ($(SUBDIR),.)
 $(ALLOBJECTS_LO) : $(SUBDIRS_TARGET)
 
 libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
-	$(LIBTOOL_LINK) $(CXX) -o libcln.la -rpath $(libdir) -version-info $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) $(LDFLAGS) $(LIBS) $(ALLOBJECTS_LO)
+	echo $(ALLOBJECTS_LO) | tr ' ' '\n' > libcln.objectlist
+	$(LIBTOOL_LINK) $(CXX) -o libcln.la -rpath $(libdir) -version-info $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) $(LDFLAGS) $(LIBS) -objectlist libcln.objectlist
 
 install : all force
 	$(MKDIR) $(DESTDIR)$(libdir)
@@ -225,7 +226,7 @@ check : all
 mostlyclean : clean
 
 clean : force
-	$(RM) *.s *.o *.lo *.a *.la core
+	$(RM) *.s *.o *.lo *.a *.la *.objectlist core
 	$(RM) -r .libs _libs
 
 distclean : clean
