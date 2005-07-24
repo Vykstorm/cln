@@ -1,3 +1,12 @@
+2005-08-24  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Make out of the box build on x86_64 system with complete 32 bit
+	userland possible
+	* include/cln/config.h.in: Don't #define __x86_64__ when
+	__i386__ is defined.
+	* src/base/digitseq/cl_asm_x86_64_.cc: New file.
+	* doc/cln.tex: Revert workaround description introduced 2005-05-02.
+
 2005-06-10  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* Makefile.in: Don't enter nonexisting directories.
