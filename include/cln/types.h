@@ -48,7 +48,7 @@
     #undef HAVE_LONGLONG
    #endif
   #endif
-  #if defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__mips64__) || defined(__sparc64__) || defined(__ia64__) || defined(__x86_64__))
+  #if defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__mips64__) || defined(__powerpc64__) || defined(__sparc64__) || defined(__x86_64__))
     // 64 bit registers in hardware
     #define HAVE_FAST_LONGLONG
   #endif
@@ -85,7 +85,7 @@
   #define signean_minus -1
 
 // Integer type used for counters.
-  #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__x86_64__)))
+#if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__powerpc64__) || defined(__x86_64__)))
     #define intCsize long_bitsize
     typedef long           sintC;
     typedef unsigned long  uintC;
@@ -119,7 +119,7 @@
     typedef int sintD;
     typedef unsigned int uintD;
   #else  // we are not using GMP, so just guess something reasonable
-    #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__x86_64__)))
+    #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__powerpc64__) || defined(__x86_64__)))
       #define intDsize 64
       typedef sint64  sintD;
       typedef uint64  uintD;

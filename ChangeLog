@@ -1,4 +1,11 @@
-2005-08-24  Richard B. Kreckel  <kreckel@ginac.de>
+2005-08-02  Andreas Jochens  <aj@andaco.de>
+
+	* include/cln/config.h.in: Add support for PowerPC 64 CPU.
+	* include/cln/modules.h: Likewise.
+	* include/cln/object.h: Likewise.
+	* include/cln/types.h: Likewise.
+
+2005-07-24  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Make out of the box build on x86_64 system with complete 32 bit
 	userland possible

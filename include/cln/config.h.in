@@ -68,6 +68,10 @@
 #undef __rs6000__
 #endif
 
+#ifndef __powerpc64__
+#undef __powerpc64__
+#endif
+
 #ifndef __m88k__
 #undef __m88k__
 #endif

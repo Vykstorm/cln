@@ -64,7 +64,7 @@
   #endif
   // Globalize a label defined in the same translation unit.
   // See macro ASM_GLOBALIZE_LABEL in the gcc sources.
-  #if defined(__i386__) || defined(__m68k__) || defined(__mips__) || defined(__mipsel__) || defined(__mips64__) || defined(__alpha__) || defined(__rs6000__) || defined(__x86_64__) || defined(__s390__)
+  #if defined(__i386__) || defined(__m68k__) || defined(__mips__) || defined(__mipsel__) || defined(__mips64__) || defined(__alpha__) || defined(__rs6000__) || defined(__powerpc64__) || defined(__x86_64__) || defined(__s390__)
     // Some m68k systems use "xdef" or "global" or ".global"...
     #define CL_GLOBALIZE_LABEL(label)  __asm__("\t.globl " label);
   #endif
@@ -142,7 +142,7 @@
   #if defined(__arm__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("mov pc,%0" : : "r" ((void*)(addr)))
   #endif
-  #if defined(__rs6000__) || defined(__powerpc__) || defined(__ppc__)
+  #if defined(__rs6000__) || defined(__powerpc__) || defined(__ppc__) || defined(__powerpc64__)
     //#define CL_JUMP_TO(addr)  ASM_VOLATILE("mtctr %0\n\tbctr" : : "r" ((void*)(addr)))
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("b " ASM_UNDERSCORE_PREFIX #addr)
   #endif
