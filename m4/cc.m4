@@ -40,3 +40,30 @@ if test "$ac_compiler_gnu" = yes; then
   fi
 fi
 ])
+
+
+dnl Checks whether the stack can be marked nonexecutable by passing an option
+dnl to the C-compiler when acting on .s files. Appends that option to ASFLAGS.
+dnl This macro is adapted from one found in GLIBC-2.3.5.
+AC_DEFUN([CL_AS_NOEXECSTACK],[
+AC_REQUIRE([AC_PROG_CC])
+AC_CACHE_CHECK([whether --noexecstack is desirable for .s files], cl_cv_as_noexecstack, [dnl
+  cat > conftest.c <<EOF
+void foo() {}
+EOF
+  if AC_TRY_COMMAND([${CC} $CFLAGS $CPPFLAGS
+                     -S -o conftest.s conftest.c >/dev/null]) \
+     && grep -q .note.GNU-stack conftest.s \
+     && AC_TRY_COMMAND([${CC} $CFLAGS $CPPFLAGS -Wa,--noexecstack
+                       -c -o conftest.o conftest.s >/dev/null])
+  then
+    cl_cv_as_noexecstack=yes
+  else
+    cl_cv_as_noexecstack=no
+  fi
+  rm -f conftest*])
+  if test "$cl_cv_as_noexecstack" = yes; then
+    ASMFLAGS="$ASMFLAGS -Wa,--noexecstack"
+  fi
+  AC_SUBST(ASMFLAGS)
+])

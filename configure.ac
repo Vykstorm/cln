@@ -51,6 +51,8 @@ AC_PROG_CXXCPP
                       dnl sets variable CXXCPP
 CL_AS_UNDERSCORE
                       dnl sets variable AS_UNDERSCORE, DEFS ASM_UNDERSCORE
+CL_AS_NOEXECSTACK
+                      dnl sets variable ASMFLAGS
 AC_PROG_RANLIB
                       dnl sets variable RANLIB
 AC_PROG_INSTALL

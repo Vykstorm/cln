@@ -122,7 +122,7 @@ alls : $(FILES_S) $(ASMFILES_S)
 
 allo : $(FILES_LO) $(ASMFILES_LO)
 
-ASMFLAGS :=
+ASMFLAGS := @ASMFLAGS@
 ifeq (@AS_UNDERSCORE@,true)
 ASMFLAGS += -DUNDERSCORE
 endif
@@ -185,7 +185,7 @@ $(ASMFILES_LO) : %.lo : %.s
 	|| COMPILER_PATH=/bin $(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $<
 else
 $(ASMFILES_LO) : %.lo : %.s
-	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $<
+	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(ASMFLAGS) $(TARGET_ARCH) -c $<
 endif
 
 endif

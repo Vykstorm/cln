@@ -1,3 +1,9 @@
+2005-08-15  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* m4/cc.m4 (CL_AS_NOEXECSTACK): New macro...
+	* configure.ac: ...used here for setting ASMFLAGS...
+	* src/Makefile.in: ...which are used here.
+
 2005-08-02  Andreas Jochens  <aj@andaco.de>
 
 	* include/cln/config.h.in: Add support for PowerPC 64 CPU.
