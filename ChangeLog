@@ -1,3 +1,14 @@
+2005-08-16  Richard B. Kreckel  <kreckel@ginac.de>
+
+	The patch of 2005-05-01 made it impossible to test the type of a cl_UP
+	by comparing with &cl_class_univpoly_ring. We need an alternative:
+	* include/cln/object.h (cl_class_flags_modint_ring): New #define...
+	* src/polynomial/elem/cl_UP.cc (cl_class_univpoly_ring): ...used here.
+	* src/polynomial/elem/cl_UP_GF2.h: Likewise.
+	* src/polynomial/elem/cl_UP_MI.h: Likewise.
+	* src/polynomial/elem/cl_UP_gen.h: Likewise.
+	* src/polynomial/elem/cl_UP_number.h: Likewise.
+
 2005-08-15  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* m4/cc.m4 (CL_AS_NOEXECSTACK): New macro...

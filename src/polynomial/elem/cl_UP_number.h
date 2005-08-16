@@ -475,7 +475,7 @@ static void cl_heap_num_univpoly_ring_destructor (cl_heap* pointer)
 
 cl_class cl_class_num_univpoly_ring = {
 	cl_heap_num_univpoly_ring_destructor,
-	0
+	cl_class_flags_univpoly_ring
 };
 
 // Constructor.

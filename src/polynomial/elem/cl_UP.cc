@@ -45,7 +45,7 @@ static void cl_univpoly_ring_destructor (cl_heap* pointer)
 
 cl_class cl_class_univpoly_ring = {
 	cl_univpoly_ring_destructor,
-	0
+	cl_class_flags_univpoly_ring
 };
 
 cl_heap_univpoly_ring::cl_heap_univpoly_ring (const cl_ring& r, cl_univpoly_setops* setopv, cl_univpoly_addops* addopv, cl_univpoly_mulops* mulopv, cl_univpoly_modulops* modulopv, cl_univpoly_polyops* polyopv)

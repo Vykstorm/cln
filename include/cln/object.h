@@ -177,6 +177,8 @@ typedef void (*cl_heap_destructor_function) (cl_heap* pointer);
                                              // elements belong to cl_number
 #define cl_class_flags_modint_ring       32  // all instances are rings whose
                                              // elements belong to cl_MI
+#define cl_class_flags_univpoly_ring     64  // all instances are rings whose
+                                             // elements belong to cl_UP
 // Function to print an object for debugging, to cerr.
 typedef void (*cl_heap_dprint_function) (cl_heap* pointer);
 
