@@ -93,9 +93,6 @@ extern "C" int system(const char *);
 
 int main(void)
 {
-    int major, minor, micro;
-    char *tmp_version;
-
     system("touch conf.clntest");
 
     if ((CL_VERSION_MAJOR != $cln_config_major_version) ||
