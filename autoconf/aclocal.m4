@@ -812,7 +812,7 @@ cl_cv_func_getrusage_works=no,
 dnl When cross-compiling, don't assume anything.
 cl_cv_func_getrusage_works="guessing no")])
   fi
-  if test $cl_cv_func_getrusage_works = yes; then
+  if test "$cl_cv_func_getrusage_works" = yes; then
     AC_DEFINE(HAVE_GETRUSAGE,,[have <sys/time.h>, the getrusage() function, the struct rusage type, and <sys/resource.h> defines RUSAGE_SELF])
     AC_DEFINE_UNQUOTED(RUSAGE_WHO_T,$cl_cv_proto_getrusage_arg1,[type of `who' in getrusage() declaration])
   fi
