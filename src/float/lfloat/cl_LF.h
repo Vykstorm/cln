@@ -20,9 +20,11 @@ struct cl_heap_lfloat : cl_heap {
 // so that a LF has not fewer mantissa bits than a DF.
   #define LF_minlen  ceiling(53,intDsize)
 // Exponent.
+// Define as 'unsigned int', not 'unsigned long', so that
+// LF_exp_high+1 wraps around to 0 just like the 'expo' field does.
   #define LF_exp_low  1
-  #define LF_exp_mid  0x80000000UL
-  #define LF_exp_high 0xFFFFFFFFUL
+  #define LF_exp_mid  0x80000000U
+  #define LF_exp_high 0xFFFFFFFFU
 
 inline cl_heap_lfloat* TheLfloat (cl_heap_lfloat* p)
 	{ return p; }
