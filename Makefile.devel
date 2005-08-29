@@ -23,19 +23,14 @@ CONFIGURES = configure
 CONFIGURES_IN = configure.ac
 
 AUTOCONF_FILES = autoconf/aclocal.m4
+AUTOCONF_MACROS = ${wildcard m4/*.m4} # originally borrowed from GNU clisp
 AUTOCONF = autoconf
 AUTOCONF_CACHE = autom4te.cache
 
 configures: ${CONFIGURES}
 
-configure: configure.ac ${AUTOCONF_FILES}
-	${AUTOCONF} --include=autoconf
-
-# This is the upstream location for most of the .m4 files:
-CLISP_M4DIR = ~/contrib/clisp/src/m4
-
-autoconf/aclocal.m4: ${wildcard m4/*.m4}
-	aclocal -I m4 -I ${CLISP_M4DIR} --output=autoconf/aclocal.m4
+configure: configure.ac ${AUTOCONF_FILES} ${AUTOCONF_MACROS}
+	${AUTOCONF} --include=autoconf -I m4
 
 # Release:
 SRC_DIST=/tmp/cln-${VER}${PACKEXT}
