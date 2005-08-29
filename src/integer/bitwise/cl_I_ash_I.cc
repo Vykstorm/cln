@@ -52,6 +52,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 			    || len == ceiling(log2_intDsize+intCsize+1,intDsize))
 				if (mspref(arrayMSDptr(bn->data,len),0) >= (uintD)bit((log2_intDsize+intCsize)%intDsize))
 					cl_ash_error(y);
+			#if (log2_intDsize+intCsize > intDsize)
 			#define IF_LENGTH(i)  \
 			  if (bn_minlength <= i && i <= ceiling(log2_intDsize+intCsize+1,intDsize) && (i == ceiling(log2_intDsize+intCsize+1,intDsize) || len == i))
 			IF_LENGTH(1)
@@ -68,6 +69,11 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 				cl_abort();
 			#undef IF_LENGTH
 			k = k << (intDsize-log2_intDsize);
+			#else
+			// log2_intDsize+intCsize <= intDsize,
+			// implies len==1 or len==2 && lspref(arrayLSDptr(bn->data,len),1) == 0.
+			k = 0;
+			#endif
 			k |= lspref(arrayLSDptr(bn->data,len),0) >> log2_intDsize;
 			i = lspref(arrayLSDptr(bn->data,len),0) % intDsize;
 			#endif
@@ -123,6 +129,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 			    || len == ceiling(log2_intDsize+intCsize+1,intDsize))
 				if (mspref(arrayMSDptr(bn->data,len),0) < (uintD)(-bit((log2_intDsize+intCsize)%intDsize)))
 					goto sign;
+			#if (log2_intDsize+intCsize > intDsize)
 			#define IF_LENGTH(i)  \
 			  if (bn_minlength <= i && i <= ceiling(log2_intDsize+intCsize+1,intDsize) && (i == ceiling(log2_intDsize+intCsize+1,intDsize) || len == i))
 			IF_LENGTH(1)
@@ -139,6 +146,11 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 				cl_abort();
 			#undef IF_LENGTH
 			k = k << (intDsize-log2_intDsize);
+			#else
+			// log2_intDsize+intCsize <= intDsize,
+			// implies len==1 or len==2 && lspref(arrayLSDptr(bn->data,len),1) == ~0.
+			k = 0;
+			#endif
 			k |= (uintD)(~lspref(arrayLSDptr(bn->data,len),0)) >> log2_intDsize;
 			i = (uintD)(-lspref(arrayLSDptr(bn->data,len),0)) % intDsize;
 			if (i == 0)
