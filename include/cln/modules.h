@@ -102,6 +102,17 @@
     // boxen so decided to potentially ditch the support (no joke).  Please
     // send an email if you can explain to me what's going on! (-rbk. 07/2001)
     #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label ":")
+  #elif defined(__ia64__)
+    // g++-4.0 on IA64 likes to duplicate parts of basic blocks for no good
+    // reason. To avoid an error when a label is defined twice, we can either
+    // append "-Os" to the CXXFLAGS (then g++ does not create redundant
+    // duplicates of basic blocks), or declare the label in a way that may
+    // be redefined.
+    // Why the "nop 0"? Apparently "." refers to the last instruction bundle.
+    // Just ".set label,." would cause the branch to executed unwanted code.
+    // And ".set label,.+16" might not work at the very beginning of a
+    // function. So we spend a nop; it becomes the target of the jump.
+    #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("nop 0" "\n" ".set " label ", .")
   #else
     #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label ":")
   #endif

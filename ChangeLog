@@ -1,5 +1,11 @@
 2005-08-27  Bruno Haible  <bruno@clisp.org>
 
+	* modules.h (CL_OUTPUT_LABEL): Work around redundant duplication
+	of basic blocks by g++ 4.0.
+	See <http://gcc.gnu.org/bugzilla/show_bug.cgi?id=23345>.
+
+2005-08-27  Bruno Haible  <bruno@clisp.org>
+
 	Make it possible to cross-compile CLN.
 	* m4/intparam.m4: New file.
 	* m4/floatparam.m4: New file.
