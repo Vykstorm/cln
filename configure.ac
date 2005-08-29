@@ -142,9 +142,9 @@ dnl
 AC_C_CHAR_UNSIGNED
                       dnl DEFS __CHAR_UNSIGNED__ if char is unsigned
 test -d 'include/cln' || mkdir -p 'include/cln'
-CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,include/cln/intparam.h,cl_cv_file_intparam_h)
+CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,[CL_INTPARAM_CROSS],include/cln/intparam.h,cl_cv_file_intparam_h)
                       dnl builds include/cln/intparam.h
-CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,include/cln/floatparam.h,cl_cv_file_floatparam_h)
+CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,[CL_FLOATPARAM_CROSS],include/cln/floatparam.h,cl_cv_file_floatparam_h)
                       dnl builds include/cln/floatparam.h
 dnl
 dnl           interfacing to GNU gmp (must be at least version 3)
