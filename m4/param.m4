@@ -47,6 +47,7 @@ else
 fi
 rm -f conftest*
 else
+echo "creating $cl_machine_file_h"
 $3([$4])
 fi
 fi
