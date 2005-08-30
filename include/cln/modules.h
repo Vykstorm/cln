@@ -96,13 +96,7 @@
   #endif
   // Output a label inside a function.
   // See macro ASM_OUTPUT_LABEL in the gcc sources.
-  #if defined(__hppa__)
-    // Some hppa (Linux) systems want `label:', HPUX used to use just `label'.
-    // I tried to find out, but was unable to find the assembler on my HPUX-11
-    // boxen so decided to potentially ditch the support (no joke).  Please
-    // send an email if you can explain to me what's going on! (-rbk. 07/2001)
-    #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label ":")
-  #elif defined(__ia64__)
+  #if defined(__ia64__)
     // g++-4.0 on IA64 likes to duplicate parts of basic blocks for no good
     // reason. To avoid an error when a label is defined twice, we can either
     // append "-Os" to the CXXFLAGS (then g++ does not create redundant
@@ -113,6 +107,9 @@
     // And ".set label,.+16" might not work at the very beginning of a
     // function. So we spend a nop; it becomes the target of the jump.
     #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("nop 0" "\n" ".set " label ", .")
+  #elif defined(__m68k__)
+    // C.f. IA64 case above.
+    #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("nop" "\n" ".set " label ", .")
   #else
     #define CL_OUTPUT_LABEL(label)  ASM_VOLATILE ("\n" label ":")
   #endif

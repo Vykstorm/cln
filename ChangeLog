@@ -1,5 +1,10 @@
 2005-08-30  Richard B. Kreckel  <kreckel@ginac.de>
 
+	* include/cln/modules.h (CL_OUTPUT_LABEL): Work around redundant
+	duplication of basic blocks on m68k.
+
+2005-08-30  Richard B. Kreckel  <kreckel@ginac.de>
+
 	* include/cln/modules.h (CL_JUMP_TO): Fix mips* brokenness.
 
 2005-08-27  Bruno Haible  <bruno@clisp.org>
