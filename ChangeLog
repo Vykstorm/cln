@@ -1,3 +1,7 @@
+2005-08-30  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/modules.h (CL_JUMP_TO): Fix mips* brokenness.
+
 2005-08-27  Bruno Haible  <bruno@clisp.org>
 
 	* src/integer/bitwise/cl_I_ash_I.cc (ash): Avoid shifting a 32-bit
