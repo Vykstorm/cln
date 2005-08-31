@@ -9,6 +9,20 @@
 
 2005-08-27  Bruno Haible  <bruno@clisp.org>
 
+	Split aclocal.m4 into individual files.
+	* m4/alloca.m4, m4/as-underscore.m4, m4/c++-constructors.m4:
+	* m4/fpu_control.m4, m4/general.m4, m4/gettimeofday.m4:
+	* m4/longdouble.m4, m4/longlong.m4, m4/param.m4, m4/perror.m4:
+	* m4/proto.m4, m4/rusage.m4, m4/times.m4:
+	New files, extracted from autoconf/aclocal.m4.
+	* autoconf/aclocal.m4: m4_include them.
+	* Makefile.devel (AUTOCONF_MACROS): New variable.
+	(configure): Depend on it.
+	(CLISP_M4DIR): Remove variable.
+	(autoconf/aclocal.m4): Remove rule.
+
+2005-08-27  Bruno Haible  <bruno@clisp.org>
+
 	* src/integer/bitwise/cl_I_ash_I.cc (ash): Avoid shifting a 32-bit
 	zero value by more than 31 bits.
 
