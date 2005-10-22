@@ -1,3 +1,24 @@
+2005-10-22, version 1.1.10
+==========================
+
+Implementation changes
+----------------------
+
+* Removed the vptr of modular integer and univariate polynomial
+  classes in order to fix some crashes in that sector of CLN.  Code
+  using this needs to be recompiled.
+
+* Many more operator signatures make the integration of CLN types with
+  float/double easier.
+
+Other changes
+-------------
+
+* Several compilation fixes.
+
+* Made it possible to cross-compile CLN.
+
+
 2004-11-03, version 1.1.9
 =========================
 
