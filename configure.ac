@@ -80,8 +80,10 @@ dnl * if any functions/classes have been added, removed or changed, increment
 dnl   CL_CURRENT and set CL_REVISION to 0,
 dnl * if any functions/classes have been added, increment CL_AGE,
 dnl * if backwards compatibility has been broken, set CL_AGE to 0.
-CL_CURRENT=3
-CL_REVISION=3
+dnl $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) results in
+dnl libcln.so.$(CL_CURRENT)-$(CL_AGE)
+CL_CURRENT=4
+CL_REVISION=0
 CL_AGE=0
 dnl make substitutions
 AC_SUBST(CL_CURRENT)
@@ -90,7 +92,7 @@ AC_SUBST(CL_AGE)
 dnl release version
 CL_VERSION_MAJOR=1
 CL_VERSION_MINOR=1
-CL_VERSION_PATCHLEVEL=9
+CL_VERSION_PATCHLEVEL=10
 dnl release version for cln/config.h, so it can be tested by the preprocessor
 AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR)
 AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)
