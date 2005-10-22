@@ -12,7 +12,7 @@ PACK = tar
 PACKOPT = cvfhj
 PACKEXT = .tar.bz2
 
-EXCLUDE=--exclude CVS --exclude \*.o --exclude *.lo --exclude .cvsignore   \
+EXCLUDE=--exclude CVS\* --exclude \*.o --exclude *.lo --exclude .cvsignore \
         --exclude \*~ --exclude .\#\* --exclude .libs                      \
         --exclude ${AUTOCONF_CACHE}
 
