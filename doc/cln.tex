@@ -34,8 +34,8 @@ This file documents @sc{cln}, a Class Library for Numbers.
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
 Richard B. Kreckel, @code{<kreckel@@ginac.de>}.
 
-Copyright (C)  Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004.
-Copyright (C)  Richard B. Kreckel 2000, 2001, 2002, 2003, 2004.
+Copyright (C)  Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005.
+Copyright (C)  Richard B. Kreckel 2000, 2001, 2002, 2003, 2004, 2005.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -69,9 +69,9 @@ by the author.
 @author by Bruno Haible
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004.
+Copyright @copyright{} Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005.
 @sp 0
-Copyright @copyright{} Richard Kreckel 2000, 2001, 2002, 2003, 2004.
+Copyright @copyright{} Richard Kreckel 2000, 2001, 2002, 2003, 2004, 2005.
 
 @sp 2
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
@@ -256,42 +256,10 @@ templates and namespaces.
 The following C++ features are not used:
 @code{new}, @code{delete}, virtual inheritance, exceptions.
 
-CLN relies on semi-automatic ordering of initializations
-of static and global variables, a feature which I could
-implement for GNU g++ only.
-
-@ignore
-@comment cl_modules.h requires g++
-Therefore nearly any C++ compiler will do.
-
-The following C++ compilers are known to compile CLN:
-@itemize @minus
-@item
-GNU @code{g++ 2.7.0}, @code{g++ 2.7.2}
-@item
-SGI @code{CC 4}
-@end itemize
-
-The following C++ compilers are known to be unusable for CLN:
-@itemize @minus
-@item
-On SunOS 4, @code{CC 2.1}, because it doesn't grok @code{//} comments
-in lines containing @code{#if} or @code{#elif} preprocessor commands.
-@item
-On AIX 3.2.5, @code{xlC}, because it doesn't grok the template syntax
-in @code{cl_SV.h} and @code{cl_GV.h}, because it forces most class types
-to have default constructors, and because it probably miscompiles the
-integer multiplication routines.
-@item
-On AIX 4.1.4.0, @code{xlC}, because when optimizing, it sometimes converts
-@code{short}s to @code{int}s by zero-extend.
-@item
-GNU @code{g++ 2.5.8}
-@item
-On HPPA, GNU @code{g++ 2.7.x}, because the semi-automatic ordering of
-initializations will not work.
-@end itemize
-@end ignore
+CLN relies on semi-automatic ordering of initializations of static and
+global variables, a feature which I could implement for GNU g++
+only. Also, it is not known whether this semi-automatic ordering works
+on all platforms when a non-GNU assembler is being used.
 
 @subsection Make utility
 @cindex @code{make}
@@ -365,32 +333,6 @@ $ CC="gcc -V 3.0.4" CFLAGS="-O2 -finline-limit=1000 -fno-exceptions" \
   CXX="g++ -V 3.0.4" CFLAGS="-O2 -finline-limit=1000 -fno-exceptions" \
   ./configure
 @end example
-@ignore
-@comment cl_modules.h requires g++
-You should not mix GNU and non-GNU compilers. So, if @code{CXX} is a non-GNU
-compiler, @code{CC} should be set to a non-GNU compiler as well. Examples:
-
-@example
-$ CC="cc" CFLAGS="-O" CXX="CC" CXXFLAGS="-O" ./configure
-$ CC="gcc -V 2.7.0" CFLAGS="-g" CXX="g++ -V 2.7.0" CXXFLAGS="-g" ./configure
-@end example
-
-On SGI Irix 5, if you wish not to use @code{g++}:
-
-@example
-$ CC="cc" CFLAGS="-O" CXX="CC" CXXFLAGS="-O -Olimit 16000" ./configure
-@end example
-
-On SGI Irix 6, if you wish not to use @code{g++}:
-
-@example
-$ CC="cc -32" CFLAGS="-O" CXX="CC -32" CXXFLAGS="-O -Olimit 34000" \
-  ./configure --without-gmp
-$ CC="cc -n32" CFLAGS="-O" CXX="CC -n32" CXXFLAGS="-O \
-  -OPT:const_copy_limit=32400 -OPT:global_limit=32400 -OPT:fprop_limit=4000" \
-  ./configure --without-gmp
-@end example
-@end ignore
 
 Note that for these environment variables to take effect, you have to set
 them (assuming a Bourne-compatible shell) on the same line as the
@@ -403,8 +345,8 @@ Currently CLN works only with the GNU @code{g++} compiler, and only in
 optimizing mode. So you should specify at least @code{-O} in the CXXFLAGS,
 or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
 
-If you use @code{g++} 3.0.x or 3.1, I recommend adding
-@samp{-finline-limit=1000} to the CXXFLAGS. This is essential for good code.
+If you use @code{g++} 3.x, I recommend adding @samp{-finline-limit=1000}
+to the CXXFLAGS. This is essential for good code.
 
 If you use @code{g++} gcc-2.95.x or gcc-3.x , I recommend adding
 @samp{-fno-exceptions} to the CXXFLAGS. This will likely generate better code.
