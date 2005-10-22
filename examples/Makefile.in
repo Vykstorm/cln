@@ -14,6 +14,7 @@ top_srcdir = @top_srcdir@
 CC = @CC@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
+CPPFLAGS = @CPPFLAGS@
 # C++ compiler
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@

@@ -1,3 +1,10 @@
+2005-10-22  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/Makefile.in: Accept CPPFLAGS from environment.
+	* examples/Makefile.in: Likewise.
+	* benchmarks/Makefile.in: Likewise.
+	* tests/Makefile.in: Likewise.
+
 2005-08-30  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/modules.h (CL_OUTPUT_LABEL): Work around redundant
