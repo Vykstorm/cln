@@ -6,14 +6,16 @@ Summary: Class Library for Numbers
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Copyright: GPL
+License: GPL
 Group: System Environment/Libraries
-Source: %{name}-%{version}.tar.gz
-URL: http://clisp.cons.org/~haible/packages-cln.html
-Packager: Christian Bauer <cbauer@ginac.de>
-Prereq: /sbin/install-info
-BuildRoot: %{_tmppath}/%{name}-root
+Source0: %{name}-%{version}.tar.gz
+URL: http://www.ginac.de/CLN/
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Prefix: %{_prefix}
+
+Requires(post): /sbin/install-info
+Requires(preun): /sbin/install-info
+BuildRequires: gcc-c++
 
 %description
 A GPLed collection of math classes and functions, that will bring
@@ -23,7 +25,7 @@ and speed efficient library.
 %package devel
 Summary: Development files for programs using the CLN library
 Group: Development/Libraries
-Requires: %{name} = %{version}
+Requires: %{name} = %{version}-%{release}
 
 %description devel
 This package is necessary if you wish to develop software based on
@@ -33,14 +35,12 @@ the CLN library.
 %setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS -fno-exceptions" ./configure --prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} --libdir=%{_libdir}
+%configure
 make
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-mkdir -p ${RPM_BUILD_ROOT}/usr
-make prefix=%{_prefix} DESTDIR=${RPM_BUILD_ROOT} install
-gzip -9nf ${RPM_BUILD_ROOT}%{_infodir}/cln.info*
+%makeinstall
 mkdir -p ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-devel-%{version}
 mv ${RPM_BUILD_ROOT}%{_datadir}/dvi/cln.dvi ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-devel-%{version}
 rmdir ${RPM_BUILD_ROOT}%{_datadir}/dvi
@@ -49,18 +49,16 @@ mv ${RPM_BUILD_ROOT}%{_datadir}/html ${RPM_BUILD_ROOT}%{_defaultdocdir}/%{name}-
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
-%post
-/sbin/ldconfig
+%post -p /sbin/ldconfig
 
-%postun
-/sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %post devel
-/sbin/install-info --section="Math" %{_infodir}/cln.info.gz %{_infodir}/dir
+/sbin/install-info --section="Math" --info-dir=%{_infodir} %{_infodir}/cln.info.gz %{_infodir}/dir 2>/dev/null || :
 
 %preun devel
 if [ "$1" = 0 ]; then
-  /sbin/install-info --delete %{_infodir}/cln.info.gz %{_infodir}/dir
+  /sbin/install-info --delete --info-dir=%{_infodir} %{_infodir}/cln.info.gz %{_infodir}/dir 2>/dev/null || :
 fi
 
 %files
@@ -82,6 +80,12 @@ fi
 %{_datadir}/aclocal/cln.m4
 
 %changelog
+* Tue Oct 25 2005 Christian Bauer <Christian.Bauer@uni-mainz.de>
+  - "Copyright:" -> "License:"
+  - Fixed broken install-info command
+  - Added missing BuildRequires
+  - Added release to Requires for devel
+  - Remove processing of info files (this is supposed to be automatic)
 * Thu Nov 20 2003 Christian Bauer <Christian.Bauer@uni-mainz.de>
   Added pkg-config metadata file to devel package
 * Wed Nov  6 2002 Christian Bauer <Christian.Bauer@uni-mainz.de>
