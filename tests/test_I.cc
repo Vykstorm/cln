@@ -43,6 +43,7 @@ extern int test_I_power2p (int iterations);
 extern int test_I_isqrt (int iterations);
 extern int test_I_sqrtp (int iterations);
 // Miscellaneous.
+extern int test_I_io (int iterations);
 extern int test_I_GV (int iterations);
 
 #define RUN(tester,iterations)  \
@@ -96,6 +97,7 @@ int test_I (int iterations)
 	RUN(test_I_isqrt,iterations);
 	RUN(test_I_sqrtp,iterations);
 	// Miscellaneous.
+	RUN(test_I_io,iterations);
 	RUN(test_I_GV,iterations);
 	return error;
 }

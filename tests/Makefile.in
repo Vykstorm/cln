@@ -56,7 +56,7 @@ MODULES_tests = tests \
                 test_I_gcd test_I_xgcd \
                 test_I_ash test_I_evenp test_I_oddp test_I_lognot test_I_logand test_I_logandc1 test_I_logandc2 test_I_logior test_I_logorc1 test_I_logorc2 test_I_logxor test_I_lognand test_I_lognor test_I_logeqv test_I_boole test_I_logbitp test_I_logtest test_I_ldb test_I_ldbtest test_I_mkf test_I_dpb test_I_dpf test_I_logcount test_I_ilength test_I_ord2 test_I_power2p \
                 test_I_isqrt test_I_sqrtp \
-                test_I_GV \
+                test_I_io test_I_GV \
                 test_MI \
                 test_MI_canonhom test_MI_plus test_MI_minus test_MI_mul test_MI_recip test_MI_div test_MI_expt \
                 test_nt \

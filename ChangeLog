@@ -1,4 +1,11 @@
-2004-10-22  Richard B. Kreckel  <kreckel@ginac.de>
+2005-11-02  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/conv/cl_I_from_digits.cc: Made input of all numbers in
+	non-power-of-two base much faster.
+	* tests/test_I_io.cc: New file...
+	* tests/Makefile.in, tests/test_I.cc: ...used here.
+
+2005-10-22  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.1.10 released.
 
