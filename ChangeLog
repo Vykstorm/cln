@@ -1,3 +1,11 @@
+2005-11-20  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/integer/conv/cl_I_cached_power.h: New file.
+	* src/integer/conv/cl_I_cached_power.cc: New file.
+	Contains power_table and cached_power_table previously...
+	* src/integer/conv/cl_I_to_digits.cc: ...here.
+	* src/integer/conv/cl_I_from_digits.cc: Use cached powers.
+
 2005-11-02  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/integer/conv/cl_I_from_digits.cc: Made input of all numbers in

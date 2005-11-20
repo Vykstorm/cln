@@ -10,6 +10,7 @@
 // Implementation.
 
 #include "cl_DS.h"
+#include "cl_I_cached_power.h"
 
 namespace cln {
 
@@ -56,39 +57,6 @@ static const cl_I digits_to_I_base2 (const char * MSBptr, uintL len, uintD base)
 	}
 	return NUDS_to_I(erg_MSDptr,erg_len);
 }
-
-// For each base b in [2..36], power_table[b-2] contains the largest exponent e
-// such that b^e<2^intDsize, i.e. floor(log(2^intDsize-1,b)).
-static const uintC power_table [36-2+1] = {
-#if (intDsize==8)
-	/* base  2..7  */           7,  5,  3,  3,  3,  2,
-	/* base  8..15 */   2,  2,  2,  2,  2,  2,  2,  2,
-	/* base 16..23 */   1,  1,  1,  1,  1,  1,  1,  1,
-	/* base 24..31 */   1,  1,  1,  1,  1,  1,  1,  1,
-	/* base 32..36 */   1,  1,  1,  1,  1
-#endif
-#if (intDsize==16)
-	/* base  2..7  */          15, 10,  7,  6,  6,  5,
-	/* base  8..15 */   5,  5,  4,  4,  4,  4,  4,  4,
-	/* base 16..23 */   3,  3,  3,  3,  3,  3,  3,  3,
-	/* base 24..31 */   3,  3,  3,  3,  3,  3,  3,  3,
-	/* base 32..36 */   3,  3,  3,  3,  3
-#endif
-#if (intDsize==32)
-	/* base  2..7  */          31, 20, 15, 13, 12, 11,
-	/* base  8..15 */  10, 10,  9,  9,  8,  8,  8,  8,
-	/* base 16..23 */   7,  7,  7,  7,  7,  7,  7,  7,
-	/* base 24..31 */   6,  6,  6,  6,  6,  6,  6,  6,
-	/* base 32..36 */   6,  6,  6,  6,  6
-#endif
-#if (intDsize==64)
-	/* base  2..7  */          63, 40, 31, 27, 24, 22,
-	/* base  8..15 */  21, 20, 19, 18, 17, 17, 16, 16,
-	/* base 16..23 */  15, 15, 15, 15, 14, 14, 14, 14,
-	/* base 24..31 */  13, 13, 13, 13, 13, 13, 13, 12,
-	/* base 32..36 */  12, 12, 12, 12, 12
-#endif
-};
 
 static const cl_I digits_to_I_baseN (const char * MSBptr, uintL len, uintD base)
 {
@@ -147,7 +115,7 @@ static const cl_I digits_to_I_baseN (const char * MSBptr, uintL len, uintD base)
 		var uintD newdigit = 0;
 		var uintC chx = 0;
 		var uintD factor = 1;
-		while (chx < power_table[base-2] && len > 0) {
+		while (chx < power_table[base-2].k && len > 0) {
 			var uintB ch = *(const uintB *)MSBptr; MSBptr++; // next character
 			if (ch!='.') { // skip decimal point
 				// Compute value of ('0'-'9','A'-'Z','a'-'z'):
@@ -181,15 +149,25 @@ const cl_I digits_to_I (const char * MSBptr, uintL len, uintD base)
 	} else {
 		// This is quite insensitive to the breakeven point.
 		// On a 1GHz Athlon I get approximately:
-		//   base  3: breakeven == 15000
-		//   base 10: breakeven ==  5000
-		//   base 36: breakeven ==  2000
-		if (len>50000/base)
+		//   base  3: breakeven around 25000
+		//   base 10: breakeven around  8000
+		//   base 36: breakeven around  2000
+		if (len>80000/base) {
 			// Divide-and-conquer:
-			return digits_to_I(MSBptr,len/2,base)*expt_pos(base,len-len/2)
-			      +digits_to_I(MSBptr+len/2,len-len/2,base);
-		else
+			// Find largest i such that B = base^(k*2^i) satisfies B <= X.
+			var const cached_power_table_entry * p;
+			var uintC len_B = power_table[base-2].k;
+			for (uintC i = 0; ; i++) {
+				p = cached_power(base, i);
+				if (2*len_B >= len)
+					break;
+				len_B = len_B*2;
+			}
+			return digits_to_I(MSBptr,len-len_B,base)*p->base_pow
+			      +digits_to_I(MSBptr+len-len_B,len_B,base);
+		} else {
 			return digits_to_I_baseN(MSBptr, len, base);
+		}
 	}
 }
 

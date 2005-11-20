@@ -10,164 +10,9 @@
 // Implementation.
 
 #include "cl_DS.h"
+#include "cl_I_cached_power.h"
 
 namespace cln {
-
-// Tabelle: enthält zu jeder Basis b (2 <= b <= 36)
-// - eine Kettenbruchapproximation num/den von intDsize*log(2)/log(b)
-//   (num/den >= intDsize*log(2)/log(b), mit num <= 2^10)
-// - k-1 und b^k mit b^k < 2^intDsize, k maximal.
-  typedef struct { /* uintW num,den; */ uintC k_1; uintD b_hoch_k; } power_table_entry;
-  static power_table_entry table [36-2+1] = {
-    #if (intDsize==8)
-      { /*    8,  1, */ 7-1, 2*2*2*2*2*2*2},
-      { /*  106, 21, */ 5-1, 3*3*3*3*3},
-      { /*    4,  1, */ 3-1, 4*4*4},
-      { /*  789,229, */ 3-1, 5*5*5},
-      { /*  359,116, */ 3-1, 6*6*6},
-      { /*  436,153, */ 2-1, 7*7},
-      { /*    8,  3, */ 2-1, 8*8},
-      { /*   53, 21, */ 2-1, 9*9},
-      { /*  525,218, */ 2-1, 10*10},
-      { /* 1006,435, */ 2-1, 11*11},
-      { /*  665,298, */ 2-1, 12*12},
-      { /*  988,457, */ 2-1, 13*13},
-      { /*  872,415, */ 2-1, 14*14},
-      { /*  987,482, */ 2-1, 15*15},
-      { /*    2,  1, */ 1-1, 16},
-      { /*  869,444, */ 1-1, 17},
-      { /*  871,454, */ 1-1, 18},
-      { /*  597,317, */ 1-1, 19},
-      { /*   87, 47, */ 1-1, 20},
-      { /*  989,543, */ 1-1, 21},
-      { /*  949,529, */ 1-1, 22},
-      { /*  191,108, */ 1-1, 23},
-      { /*  930,533, */ 1-1, 24},
-      { /*  789,458, */ 1-1, 25},
-      { /*  691,406, */ 1-1, 26},
-      { /*  461,274, */ 1-1, 27},
-      { /*  218,131, */ 1-1, 28},
-      { /*  690,419, */ 1-1, 29},
-      { /*  494,303, */ 1-1, 30},
-      { /*  633,392, */ 1-1, 31},
-      { /*    8,  5, */ 1-1, 32},
-      { /*  766,483, */ 1-1, 33},
-      { /*  629,400, */ 1-1, 34},
-      { /*  967,620, */ 1-1, 35},
-      { /*  359,232, */ 1-1, 36},
-    #endif
-    #if (intDsize==16)
-      { /*   16,  1, */ 15-1, 2*2*2*2*2*2*2*2*2*2*2*2*2*2*2},
-      { /*  212, 21, */ 10-1, 3*3*3*3*3*3*3*3*3*3},
-      { /*    8,  1, */  7-1, 4*4*4*4*4*4*4},
-      { /*  379, 55, */  6-1, 5*5*5*5*5*5},
-      { /*  359, 58, */  6-1, 6*6*6*6*6*6},
-      { /*  872,153, */  5-1, 7*7*7*7*7},
-      { /*   16,  3, */  5-1, 8*8*8*8*8},
-      { /*  106, 21, */  5-1, 9*9*9*9*9},
-      { /*  525,109, */  4-1, 10*10*10*10},
-      { /* 1013,219, */  4-1, 11*11*11*11},
-      { /*  665,149, */  4-1, 12*12*12*12},
-      { /*  761,176, */  4-1, 13*13*13*13},
-      { /*  685,163, */  4-1, 14*14*14*14},
-      { /*  987,241, */  4-1, 15*15*15*15},
-      { /*    4,  1, */  3-1, 16*16*16},
-      { /*  869,222, */  3-1, 17*17*17},
-      { /*  871,227, */  3-1, 18*18*18},
-      { /*  113, 30, */  3-1, 19*19*19},
-      { /*  174, 47, */  3-1, 20*20*20},
-      { /*   51, 14, */  3-1, 21*21*21},
-      { /*  653,182, */  3-1, 22*22*22},
-      { /*  191, 54, */  3-1, 23*23*23},
-      { /*  677,194, */  3-1, 24*24*24},
-      { /*  789,229, */  3-1, 25*25*25},
-      { /*  691,203, */  3-1, 26*26*26},
-      { /*  461,137, */  3-1, 27*27*27},
-      { /*  436,131, */  3-1, 28*28*28},
-      { /*  359,109, */  3-1, 29*29*29},
-      { /*  988,303, */  3-1, 30*30*30},
-      { /*  633,196, */  3-1, 31*31*31},
-      { /*   16,  5, */  3-1, 32*32*32},
-      { /*  203, 64, */  3-1, 33*33*33},
-      { /*  629,200, */  3-1, 34*34*34},
-      { /*  967,310, */  3-1, 35*35*35},
-      { /*  359,116, */  3-1, 36*36*36},
-    #endif
-    #if (intDsize==32)
-      { /*   32,  1, */ 31-1, 2UL*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2},
-      { /*  424, 21, */ 20-1, 3UL*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3},
-      { /*   16,  1, */ 15-1, 4UL*4*4*4*4*4*4*4*4*4*4*4*4*4*4},
-      { /*  758, 55, */ 13-1, 5UL*5*5*5*5*5*5*5*5*5*5*5*5},
-      { /*  359, 29, */ 12-1, 6UL*6*6*6*6*6*6*6*6*6*6*6},
-      { /*   57,  5, */ 11-1, 7UL*7*7*7*7*7*7*7*7*7*7},
-      { /*   32,  3, */ 10-1, 8UL*8*8*8*8*8*8*8*8*8},
-      { /*  212, 21, */ 10-1, 9UL*9*9*9*9*9*9*9*9*9},
-      { /*  289, 30, */  9-1, 10UL*10*10*10*10*10*10*10*10},
-      { /*  990,107, */  9-1, 11UL*11*11*11*11*11*11*11*11},
-      { /*  848, 95, */  8-1, 12UL*12*12*12*12*12*12*12},
-      { /*  761, 88, */  8-1, 13UL*13*13*13*13*13*13*13},
-      { /* 1017,121, */  8-1, 14UL*14*14*14*14*14*14*14},
-      { /*  901,110, */  8-1, 15UL*15*15*15*15*15*15*15},
-      { /*    8,  1, */  7-1, 16UL*16*16*16*16*16*16},
-      { /*  869,111, */  7-1, 17UL*17*17*17*17*17*17},
-      { /*  683, 89, */  7-1, 18UL*18*18*18*18*18*18},
-      { /*  113, 15, */  7-1, 19UL*19*19*19*19*19*19},
-      { /*  348, 47, */  7-1, 20UL*20*20*20*20*20*20},
-      { /*   51,  7, */  7-1, 21UL*21*21*21*21*21*21},
-      { /*  653, 91, */  7-1, 22UL*22*22*22*22*22*22},
-      { /*  191, 27, */  7-1, 23UL*23*23*23*23*23*23},
-      { /*  677, 97, */  6-1, 24UL*24*24*24*24*24},
-      { /*  379, 55, */  6-1, 25UL*25*25*25*25*25},
-      { /*  851,125, */  6-1, 26UL*26*26*26*26*26},
-      { /*  922,137, */  6-1, 27UL*27*27*27*27*27},
-      { /*  872,131, */  6-1, 28UL*28*28*28*28*28},
-      { /*  718,109, */  6-1, 29UL*29*29*29*29*29},
-      { /*  150, 23, */  6-1, 30UL*30*30*30*30*30},
-      { /*  633, 98, */  6-1, 31UL*31*31*31*31*31},
-      { /*   32,  5, */  6-1, 32UL*32*32*32*32*32},
-      { /*  203, 32, */  6-1, 33UL*33*33*33*33*33},
-      { /*  629,100, */  6-1, 34UL*34*34*34*34*34},
-      { /*  967,155, */  6-1, 35UL*35*35*35*35*35},
-      { /*  359, 58, */  6-1, 36UL*36*36*36*36*36},
-    #endif
-    #if (intDsize==64)
-      { /*   64,  1, */ 63-1, 2ULL*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2*2},
-      { /*  848, 21, */ 40-1, 3ULL*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3*3},
-      { /*   32,  1, */ 31-1, 4ULL*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4*4},
-      { /*  634, 23, */ 27-1, 5ULL*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5*5},
-      { /*  718, 29, */ 24-1, 6ULL*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6*6},
-      { /*  114,  5, */ 22-1, 7ULL*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7*7},
-      { /*   64,  3, */ 21-1, 8ULL*8*8*8*8*8*8*8*8*8*8*8*8*8*8*8*8*8*8*8*8},
-      { /*  424, 21, */ 20-1, 9ULL*9*9*9*9*9*9*9*9*9*9*9*9*9*9*9*9*9*9*9},
-      { /*  289, 15, */ 19-1, 10ULL*10*10*10*10*10*10*10*10*10*10*10*10*10*10*10*10*10*10},
-      { /* 1018, 55, */ 18-1, 11ULL*11*11*11*11*11*11*11*11*11*11*11*11*11*11*11*11*11},
-      { /*  607, 34, */ 17-1, 12ULL*12*12*12*12*12*12*12*12*12*12*12*12*12*12*12*12},
-      { /*  761, 44, */ 17-1, 13ULL*13*13*13*13*13*13*13*13*13*13*13*13*13*13*13*13},
-      { /*  975, 58, */ 16-1, 14ULL*14*14*14*14*14*14*14*14*14*14*14*14*14*14*14},
-      { /*  901, 55, */ 16-1, 15ULL*15*15*15*15*15*15*15*15*15*15*15*15*15*15*15},
-      { /*   16,  1, */ 15-1, 16ULL*16*16*16*16*16*16*16*16*16*16*16*16*16*16},
-      { /*  595, 38, */ 15-1, 17ULL*17*17*17*17*17*17*17*17*17*17*17*17*17*17},
-      { /* 1013, 66, */ 15-1, 18ULL*18*18*18*18*18*18*18*18*18*18*18*18*18*18},
-      { /*  226, 15, */ 15-1, 19ULL*19*19*19*19*19*19*19*19*19*19*19*19*19*19},
-      { /*  696, 47, */ 14-1, 20ULL*20*20*20*20*20*20*20*20*20*20*20*20*20},
-      { /*  102,  7, */ 14-1, 21ULL*21*21*21*21*21*21*21*21*21*21*21*21*21},
-      { /*  775, 54, */ 14-1, 22ULL*22*22*22*22*22*22*22*22*22*22*22*22*22},
-      { /*  382, 27, */ 14-1, 23ULL*23*23*23*23*23*23*23*23*23*23*23*23*23},
-      { /* 1019, 73, */ 13-1, 24ULL*24*24*24*24*24*24*24*24*24*24*24*24},
-      { /*  758, 55, */ 13-1, 25ULL*25*25*25*25*25*25*25*25*25*25*25*25},
-      { /*  994, 73, */ 13-1, 26ULL*26*26*26*26*26*26*26*26*26*26*26*26},
-      { /*  673, 50, */ 13-1, 27ULL*27*27*27*27*27*27*27*27*27*27*27*27},
-      { /*  892, 67, */ 13-1, 28ULL*28*28*28*28*28*28*28*28*28*28*28*28},
-      { /*  830, 63, */ 13-1, 29ULL*29*29*29*29*29*29*29*29*29*29*29*29},
-      { /*  300, 23, */ 13-1, 30ULL*30*30*30*30*30*30*30*30*30*30*30*30},
-      { /*  633, 49, */ 12-1, 31ULL*31*31*31*31*31*31*31*31*31*31*31},
-      { /*   64,  5, */ 12-1, 32ULL*32*32*32*32*32*32*32*32*32*32*32},
-      { /*  203, 16, */ 12-1, 33ULL*33*33*33*33*33*33*33*33*33*33*33},
-      { /*  629, 50, */ 12-1, 34ULL*34*34*34*34*34*34*34*34*34*34*34},
-      { /*  836, 67, */ 12-1, 35ULL*35*35*35*35*35*35*35*35*35*35*35},
-      { /*  359, 29, */ 12-1, 36ULL*36*36*36*36*36*36*36*36*36*36*36},
-    #endif
-    };
 
 // Timing für Dezimal-Umwandlung einer Zahl mit N Digits = (N*32) Bits,
 // auf einem i486 33 MHz unter Linux:
@@ -198,59 +43,7 @@ namespace cln {
 //                call, threshold = 2050.
 // combined means divide-and-conquer as long as length >= threshold.
   const unsigned int cl_digits_div_threshold = 1015;
-  //#define MUL_REPLACES_DIV
   const int cl_digits_algo = 1;
-
-// Tabelle: enthält zu jeder Basis b (2 <= b <= 36)
-// NULL oder einen Vektor von lazy berechneten b^(k*2^i) und 1/b^(k*2^i).
-  typedef struct cached_power_table_entry {
-    ALLOCATE_ANYWHERE(cached_power_table_entry)
-    cl_I base_pow; // 0 or b^(k*2^i)
-    #ifdef MUL_REPLACES_DIV
-    cl_I inv_base_pow; // if base_pow: floor(2^(2*integer_length(base_pow))/base_pow)
-    #endif
-  } cached_power_table_entry;
-  struct cached_power_table {
-	cached_power_table_entry element[30];
-	// Constructor and destructor - nothing special.
-	cached_power_table () {}
-	~cached_power_table () {}
-	// Allocation and deallocation.
-	void* operator new (size_t size) { return malloc_hook(size); }
-	void operator delete (void* ptr) { free_hook(ptr); }
-  };
-  static cached_power_table* ctable [36-2+1] =
-    { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-      NULL, NULL, NULL, NULL, NULL
-    };
-  static const cached_power_table_entry * cached_power (uintD base, uintL i)
-    { var cached_power_table* ptr;
-      if (!(ptr = ctable[base-2]))
-        { ctable[base-2] = ptr = new cached_power_table (); }
-      var uintL j;
-      for (j = 0; j <= i; j++)
-        if (zerop(ptr->element[j].base_pow))
-          { // Compute b^(k*2^j) and its inverse.
-            cl_I x =
-              (j==0 ? (cl_I)(unsigned long)(table[base-2].b_hoch_k)
-                    : ptr->element[j-1].base_pow * ptr->element[j-1].base_pow
-              );
-            ptr->element[j].base_pow = x;
-            #ifdef MUL_REPLACES_DIV
-            ptr->element[j].inv_base_pow = floor1(ash(1,2*integer_length(x)),x);
-            #endif
-          }
-      return &ptr->element[i];
-    }
-  AT_DESTRUCTION(cached_power)
-    { for (var uintD base = 2; base <= 36; base++)
-        { var cached_power_table* ptr = ctable[base-2];
-          if (ptr)
-            { delete ptr; ctable[base-2] = NULL; }
-        }
-    }
 
 // like I_to_digits, except that the result has exactly erg_len characters.
 static inline void I_to_digits_noshrink (const cl_I& X, uintD base, uintL erg_len, cl_digits* erg)
@@ -288,9 +81,9 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
 //   Dies solange bis X=0.
 //   Streiche die führenden Nullen.
       // Aufsuchen von k-1 und b^k aus der Tabelle:
-      var power_table_entry* tableptr = &table[base-2];
-      var uintC k_1 = tableptr->k_1; // k-1
-      var uintD b_hoch_k = tableptr->b_hoch_k; // b^k
+      var const power_table_entry* tableptr = &power_table[base-2];
+      var uintC k = tableptr->k;
+      var uintD b_hoch_k = tableptr->b_to_the_k; // b^k
       var uintB* erg_ptr = erg->LSBptr;
       #define next_digit(d)  { *--erg_ptr = (d<10 ? '0'+d : 'A'-10+d); }
       // Spezialfälle:
@@ -341,12 +134,12 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
               // Single-Precision-Division durch b^k:
               var uintD rest = divu_loop_msp(b_hoch_k,MSDptr,len);
               // Zerlegen des Restes in seine k Ziffern:
-              var uintC count = k_1;
+              var uintC count = k-1;
 	      if (fixnump(X) && count>cl_value_len-1)
 		  count = cl_value_len-1;
               if ((intDsize>=11) || (count>0))
                 // (Bei intDsize>=11 ist wegen b<=36 zwangsläufig
-                // k = ceiling(intDsize*log(2)/log(b))-1 >= 2, also count = k_1 > 0.)
+                // k = ceiling(intDsize*log(2)/log(b))-1 >= 2, also count = k-1 > 0.)
                 do { var uintD d;
                      #if HAVE_DD
                        divuD((uintDD)rest,base,rest=,d=);
@@ -398,7 +191,7 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           #endif
           var const cl_I& X1 = q;
           var const cl_I& X0 = r;
-          var uintL B_baselen = (uintL)(k_1+1)<<i;
+          var uintL B_baselen = (uintL)(k)<<i;
           I_to_digits_noshrink(X0,base,B_baselen,erg);
           erg->LSBptr -= B_baselen;
           I_to_digits(X1,base,erg);
