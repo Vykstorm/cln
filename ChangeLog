@@ -1,3 +1,7 @@
+2005-10-23  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* Version 1.1.11 released.
+
 2005-11-20  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/integer/conv/cl_I_cached_power.h: New file.
