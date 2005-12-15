@@ -68,6 +68,9 @@ random_state::random_state ()
 	seed_lo = ::get_seed();
 	seed_hi = (rand() // zufällige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
                           << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
+#elif defined(__OpenBSD__)
+	seed_lo = arc4random();
+	seed_hi = arc4random();
 #elif defined(__atarist)
 	seed_lo = highlow32(GEMDOS_GetDate(),GEMDOS_GetTime()); // 16+16 zufällige Bits
 	seed_hi = XBIOS_Random(); // 24 Bit zufällig vom XBIOS, vorne 8 Nullbits
