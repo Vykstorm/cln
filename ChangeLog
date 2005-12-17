@@ -1,3 +1,8 @@
+2005-12-17  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* Created branch cln_1-1 for maintenance patches.
+	This is the main branch, which will eventually become CLN 1.2.0.
+
 2005-12-15  Dmitry V. Kustov  <kustov@telex221.ru>
 
 	* src/base/random/cl_random_from.cc: Add support for OpenBSD.
