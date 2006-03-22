@@ -15,7 +15,7 @@ namespace cln {
 //                       ( --- )
 //                       (  b  )
 // a, b must be integers, b > 0, b odd. The result is 0 iff gcd(a,b) > 1.
-  extern int jacobi (sint32 a, sint32 b);
+  extern int jacobi (sintV a, sintV b);
   extern int jacobi (const cl_I& a, const cl_I& b);
 
 // isprobprime(n), n integer > 0,

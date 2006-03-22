@@ -23,8 +23,8 @@ uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr)
           #if (intDsize==64) // && (FN_maxlength==1)
            lsprefnext(destptr) = FN_to_Q(obj);
           #else // (intDsize<=32)
-           var uint32 wert = FN_to_L(obj);
-           #define FN_maxlength_a  (intLsize/intDsize)
+           var uintV wert = FN_to_V(obj);
+           #define FN_maxlength_a  (intVsize/intDsize)
            #define FN_maxlength_b  (FN_maxlength<=FN_maxlength_a ? FN_maxlength : FN_maxlength_a)
            // FN_maxlength Digits ablegen. Davon kann man FN_maxlength_b Digits aus wert nehmen.
            #if (FN_maxlength_b > 1)
@@ -34,9 +34,9 @@ uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr)
            #endif
            lsprefnext(destptr) = (uintD)wert;
            #if (FN_maxlength > FN_maxlength_b)
-           // Es ist oint_data_len = intLsize, brauche
+           // Es ist cl_value_len-1 = intVsize, brauche
            // noch FN_maxlength-FN_maxlength_b = 1 Digit.
-           lsprefnext(destptr) = (sintD)sign_of(FN_to_L(obj));
+           lsprefnext(destptr) = (sintD)sign_of(FN_to_V(obj));
            #endif
           #endif
           n -= FN_maxlength;

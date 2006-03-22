@@ -21,9 +21,13 @@ uintL power2p (const cl_I& x) // x > 0
 // Methode 3: Wenn das erste Digit /=0 eine Zweierpotenz ist und alle weiteren
 //            Digits Null sind.
 	if (fixnump(x))
-	  { var uintL x_ = FN_to_UL(x);
+	  { var uintV x_ = FN_to_UV(x);
 	    if (!((x_ & (x_-1)) == 0)) return 0; // keine Zweierpotenz
+            #if (intVsize>32)
+            integerlength64(x_,return); // Zweierpotenz: n = integer_length(x)
+            #else
 	    integerlength32(x_,return); // Zweierpotenz: n = integer_length(x)
+            #endif
 	  }
 	  else
 	  { var const uintD* MSDptr;

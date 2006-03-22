@@ -1,3 +1,144 @@
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	* src/integer/conv/cl_I_to_digits.cc (I_to_digits_noshrink): Set
+	erg->len at the end.
+
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	Extend the fixnum range from 32 bits to 61 bits on 64-bit platforms.
+	* doc/cln.tex (gcd, jacobi): Take 'long' instead of 'int32' arguments.
+	* include/cln/object.h (cl_value_shift): Define as 3, not 32, in the
+	64-bit case.
+	* include/cln/types.h (intVsize): New macro.
+	(sintV, uintV): New types.
+	* include/cln/integer.h (gcd): Take uintV arguments.
+	* include/cln/numtheory.h (jacobi): Take sintV arguments.
+	* src/complex/input/cl_N_read.cc (read_complex): Call FN_to_UV instead
+	of FN_to_UL.
+	* src/complex/transcendental/cl_C_expt_C.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_scale_I.cc: Use uintV instead of uintL
+	* src/float/dfloat/elem/cl_DF_from_RA.cc: Don't assume values >= 2^53
+	and < 2^55 are always bignums.
+	where appropriate.
+	* src/float/ffloat/conv/cl_RA_to_float.cc: Call FN_to_UV instead of
+	FN_to_UL.
+	* src/float/ffloat/elem/cl_FF_from_RA.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_scale_I.cc: Call FN_to_V instead of
+	FN_to_L.
+	* src/float/lfloat/elem/cl_LF_scale_I.cc: Likewise.
+	* src/float/output/cl_F_dprint.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_from_RA.cc: Call FN_to_UV instead of
+	FN_to_UL.
+	* src/float/sfloat/elem/cl_SF_scale_I.cc: Call FN_to_V instead of
+	FN_to_L.
+	* src/integer/cl_I.h (FN_to_UV): Renamed from FN_to_UL, change return
+	type.
+	(FN_to_V): Renamed from FN_to_L, change return type.
+	(FN_V_zerop): Renamed from FN_L_zerop.
+	(FN_V_minusp): Renamed from FN_L_minusp.
+	(cl_I_constructor_from_L2, cl_I_constructor_from_UL2): Define as an
+	inline function on 64-bit platforms.
+	(V_to_I, UV_to_I): New macros.
+	(pFN_maxlength_digits_at): Return an uintV instead of an uint32.
+	(set_pFN_maxlength_digits_at): Take an uintV instead of an uint32.
+	* src/integer/algebraic/cl_I_sqrtp.cc: Call FN_to_UV instead of
+	FN_to_UL.
+	* src/integer/bitwise/cl_I_ash_I.cc: Call FN_to_V instead of FN_to_L.
+	* src/integer/bitwise/cl_I_ilength.cc: Likewise.
+	* src/integer/bitwise/cl_I_log_aux.cc: Likewise.
+	* src/integer/bitwise/cl_I_logbitp_I.cc: Likewise.
+	* src/integer/bitwise/cl_I_logcount.cc: Likewise.
+	* src/integer/bitwise/cl_I_logtest.cc: Likewise.
+	* src/integer/conv/cl_I_from_L2.cc: Don't produce code on 64-bit
+	platforms.
+	* src/integer/conv/cl_I_from_UL2.cc: Likewise.
+	* src/integer/conv/cl_I_from_NDS.cc: Update.
+	* src/integer/conv/cl_I_from_Q.cc: Remove cast to sint32.
+	* src/integer/conv/cl_I_from_UQ.cc: Remove cast to uint32.
+	* src/integer/conv/cl_I_to_L.cc: Check again fixnum that needs more
+	than 32 bits.
+	* src/integer/conv/cl_I_to_Q.cc: Call FN_to_V instead of FN_to_L.
+	* src/integer/conv/cl_I_to_UL.cc: Likewise.
+	* src/integer/conv/cl_I_to_UQ.cc: Likewise.
+	* src/integer/elem/cl_I_div.cc: Treat fixnums that need more than 32
+	bits like bignums.
+	* src/integer/elem/cl_I_minus.cc: Call FN_to_V instead of FN_to_L.
+	* src/integer/elem/cl_I_mul.cc: Likewise.
+	* src/integer/elem/cl_I_plus.cc: Likewise.
+	* src/integer/elem/cl_I_square.cc: Likewise.
+	* src/integer/elem/cl_I_uminus.cc: Likewise.
+	* src/integer/gcd/cl_I_gcd.cc: Likewise.
+	* src/integer/gcd/cl_low_gcd.cc (gcd): Take uintV arguments.
+	* src/integer/hash/cl_I_hashcode.cc: Call FN_to_V instead of FN_to_L.
+	* src/integer/input/cl_I_read.cc (read_integer): Call FN_to_UV instead
+	of FN_to_UL.
+	* src/integer/misc/cl_I_ord2.cc (ord2): Call ord2_64 on 64-bit
+	platforms.
+	* src/integer/misc/cl_I_power2p.cc: Call FN_to_UV instead of FN_to_UL.
+	* src/integer/misc/combin/cl_I_doublefactorial.cc (doublefakul_table):
+	Extend table for larger fixnums.
+	(doublefactorial): Update.
+	* src/integer/misc/combin/cl_I_factorial.cc (fakul_table): Extend table
+	for larger fixnums.
+	(factorial): Update.
+	* src/modinteger/cl_MI_fix16.h: Call FN_to_UV instead of FN_to_UL.
+	* src/modinteger/cl_MI_fix29.h: Likewise.
+	* src/modinteger/cl_MI_fix32.h: Likewise.
+	* src/modinteger/cl_MI_std.h: Likewise.
+	* src/numtheory/cl_nt_cornacchia4.cc: Call FN_to_V instead of FN_to_L.
+	* src/numtheory/cl_nt_jacobi.cc: Likewise.
+	* src/numtheory/cl_nt_jacobi_low.cc (jacobi_aux): Take uintV arguments
+	instead of uint32 arguments.
+	(jacobi): Take sintV argument instead of a sint32 argument.
+	* src/rational/input/cl_RA_read.cc: Call FN_to_UV instead of FN_to_UL.
+	* src/real/input/cl_R_read.cc: Likewise.
+	* src/vector/cl_GV_I.cc: Likewise.
+	* tests/timefact.cc: Call FN_to_V instead of FN_to_L.
+
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	More complete 64-bit division macros.
+	* src/base/cl_low.h (divu_6432_3232_w): Choose a different macro
+	expansion on x86_64.
+	(divu_6432_6432): New macro.
+	(divu_6464_6464): Choose a different macro expansion for all CPUs
+	except sparc64 and x86_64.
+	(divu_12864_6464): Define NEED_VAR_divu_64_rest here.
+	* src/base/low/cl_low_div.cc (divu_64_rest): Avoid defining it twice.
+	(divu_6464_6464_): New function.
+
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	* src/base/cl_low.h (ord2_64): New macro.
+
+2005-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* src/base/cl_low.h (mulu64) [x86_64]: Change asm restriction, since
+	mulq doesn't accept immediate arguments.
+
+2005-11-26  Bruno Haible  <bruno@clisp.org>
+
+	* src/base/cl_low.h (GENERIC_INTEGERLENGTH32): New macro.
+	(integerlength64): Define using integerlength32 if integerlength32
+	is not defined generically.
+
+2005-11-26  Bruno Haible  <bruno@clisp.org>
+
+	* src/base/cl_low.h (mulu32) [SPARC64]: Remove rd instruction, since
+	umul returns the complete 64-bit product in a register.
+	(mulu32_w) [SPARC64]: Prefer umul over mulx instruction.
+	(divu_6432_3232_w) [SPARC64]: Prefer umul/udiv over mulx/udivx
+	instructions.
+
+2005-11-26  Bruno Haible  <bruno@clisp.org>
+
+	* src/base/cl_low.h (divu_3216_1616): Prepend underscore to local
+	variables.
+
+2005-11-26  Bruno Haible  <bruno@clisp.org>
+
+	* src/base/cl_low.h (ord2_32): Parenthesize macro argument.
+
 2005-12-17  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Created branch cln_1-1 for maintenance patches.
@@ -306,8 +447,8 @@
 	* autoconf/ltmain.sh: Upgrade to libtool-1.5.6.
 	* m4/libtool.m4: New file, from libtool-1.5.6 with modifications:
 	2004-08-22  Bruno Haible  <bruno@clisp.org>
-		* m4/libtool.m4: Add support for Comeau C++ on Linux.
-		Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+	  * m4/libtool.m4: Add support for Comeau C++ on Linux.
+	  Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
 	* autoconf/aclocal.m4: Regenerate.
 
 2004-08-19  Bruno Haible  <bruno@clisp.org>
@@ -619,740 +760,740 @@
 
 2002-02-16  Richard Kreckel  <kreckel@ginac.de>
 
-        * cln.m4: quote macro name.
-          Pointed out by Roberto Bagnara.
+	* cln.m4: quote macro name.
+	  Pointed out by Roberto Bagnara.
 
 2002-01-20  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/config.{guess,sub}: Update to GNU version 2002-01-02.
-          (the old one was broken on Linux/Mips.)
+	* autoconf/config.{guess,sub}: Update to GNU version 2002-01-02.
+	  (the old one was broken on Linux/Mips.)
 
 2002-01-04  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/autoconf.m4f: get brutal in order to adhere to FHS.
-        * Version 1.1.4 released.
+	* autoconf/autoconf.m4f: get brutal in order to adhere to FHS.
+	* Version 1.1.4 released.
 
 2002-01-03  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/acinclude.m4: revamp MPN-matcher.
-        * autoconf/aclocal.m4: upgrade to autoconf-2.52 infrastructure,
-          sync with CLisp from CVS.
-        * autoconf/autoconf: Likewise.
-        * autoconf/autoconf.m4f: Likewise (new file).
-        * configure.ac: Likewise (new file, replaces configure.in).
-        * configure.in: Likewise (deleted, replaced by configure.ac).
-        * autoconf/config.{guess,sub}: Update to GNU version 2001-12-13.
-        * src/Makefile.in: made VPATH safe for autoconf-2.52.
-        * include/cln/config.h.in: Add __s390__.
+	* autoconf/acinclude.m4: revamp MPN-matcher.
+	* autoconf/aclocal.m4: upgrade to autoconf-2.52 infrastructure,
+	  sync with CLisp from CVS.
+	* autoconf/autoconf: Likewise.
+	* autoconf/autoconf.m4f: Likewise (new file).
+	* configure.ac: Likewise (new file, replaces configure.in).
+	* configure.in: Likewise (deleted, replaced by configure.ac).
+	* autoconf/config.{guess,sub}: Update to GNU version 2001-12-13.
+	* src/Makefile.in: made VPATH safe for autoconf-2.52.
+	* include/cln/config.h.in: Add __s390__.
 
 2001-12-31  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/digitseq/cl_DS.h: <gmp.h> is not included extern "C"
-          any more since GMP4 has some C++ support in it.
+	* src/base/digitseq/cl_DS.h: <gmp.h> is not included extern "C"
+	  any more since GMP4 has some C++ support in it.
 
 2001-12-14  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/modules.h, include/cln/object.h: add support for
-          s390.
-        * src/numtheory/cl_nt_sqrtmodp.cc: workaround for GCC2.x compiler-bug
-          on s390, provided by Gerhard Tonn.
+	* include/cln/modules.h, include/cln/object.h: add support for
+	  s390.
+	* src/numtheory/cl_nt_sqrtmodp.cc: workaround for GCC2.x compiler-bug
+	  on s390, provided by Gerhard Tonn.
 
 2001-11-05  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/ltmain.sh: Upgrade to libtool-1.4.2.
-        * autoconf/config.{guess,sub}: Update to GNU version 2001-09-07.
-        * Version 1.1.3 released.
+	* autoconf/ltmain.sh: Upgrade to libtool-1.4.2.
+	* autoconf/config.{guess,sub}: Update to GNU version 2001-09-07.
+	* Version 1.1.3 released.
 
 2001-11-04  Bruno Haible  <haible@clisp.cons.org>
 
-        Interoperability with gcc-3.0 -fuse-cxa-atexit.
-        * autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add test whether
-          global destructors actually exist.
-        * include/cln/modules.h (CL_PROVIDE, CL_PROVIDE_END, CL_PROVIDE_END):
-          Don't hack the global destructors if there is no global destructors
-          function.
+	Interoperability with gcc-3.0 -fuse-cxa-atexit.
+	* autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add test whether
+	  global destructors actually exist.
+	* include/cln/modules.h (CL_PROVIDE, CL_PROVIDE_END, CL_PROVIDE_END):
+	  Don't hack the global destructors if there is no global destructors
+	  function.
 
 2001-11-03  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/float/transcendental/cl_F_sinx.cc (sinx_naive): For small
-          values of x, return square(x) instead of x.
-        * src/float/transcendental/cl_F_sinhx.cc (sinhx_naive): Likewise.
+	* src/float/transcendental/cl_F_sinx.cc (sinx_naive): For small
+	  values of x, return square(x) instead of x.
+	* src/float/transcendental/cl_F_sinhx.cc (sinhx_naive): Likewise.
 
 2001-07-25  Richard Kreckel  <kreckel@ginac.de>
 
-        * Version 1.1.2 released.
+	* Version 1.1.2 released.
 
 2001-07-24  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/hash/cl_hash.h: declare _cl_hashtable_iterator<htentry> a
-          friend of cl_heap_hashtable<htentry>.
+	* src/base/hash/cl_hash.h: declare _cl_hashtable_iterator<htentry> a
+	  friend of cl_heap_hashtable<htentry>.
 
 2001-07-22  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/float/base/cl_ieee.cc: try to do magic to the FPU only if
-          _FPU_IEEE is really defined.
-        * include/cln/modules.h: change assembler labels from `label' to
-          `label:' on hppa, needed by Linux (see comment).
-        * autoconf/acinclude.m4: new file (for storing CLN-specific macros).
-        * Makefile.devel: adjusted.
-        * autoconf/aclocal.m4: regenerate.
-        * src/base/low/cl_low_mul.cc: moved POD variables that are declared
-          extern "C" elsewhere out of the namespace.
-        * src/base/low/cl_low_div.cc: Likewise.
+	* src/float/base/cl_ieee.cc: try to do magic to the FPU only if
+	  _FPU_IEEE is really defined.
+	* include/cln/modules.h: change assembler labels from `label' to
+	  `label:' on hppa, needed by Linux (see comment).
+	* autoconf/acinclude.m4: new file (for storing CLN-specific macros).
+	* Makefile.devel: adjusted.
+	* autoconf/aclocal.m4: regenerate.
+	* src/base/low/cl_low_mul.cc: moved POD variables that are declared
+	  extern "C" elsewhere out of the namespace.
+	* src/base/low/cl_low_div.cc: Likewise.
 
 2001-06-08  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/config.{guess,sub}: Update to GNU version 2001-05-11.
-        * autoconf/aclocal.m4: Upgrade to libtool-1.4.
-        * autoconf/ltmain.sh: Likewise.
-        * autoconf/ltconfig: Remove file.
-        * autoconf/install-sh: New file.
-        * configure.in: Add AC_CONFIG_AUX_DIR call.
+	* autoconf/config.{guess,sub}: Update to GNU version 2001-05-11.
+	* autoconf/aclocal.m4: Upgrade to libtool-1.4.
+	* autoconf/ltmain.sh: Likewise.
+	* autoconf/ltconfig: Remove file.
+	* autoconf/install-sh: New file.
+	* configure.in: Add AC_CONFIG_AUX_DIR call.
 
 2001-06-05  Richard Kreckel  <kreckel@ginac.de>
 
-        * tests/tests.cc: resolve namespace ambiguity about strcmp().
+	* tests/tests.cc: resolve namespace ambiguity about strcmp().
 
 2001-05-31  Richard Kreckel  <kreckel@ginac.de>
 
-        * Version 1.1.1 released.
+	* Version 1.1.1 released.
 
 2001-05-28  Richard Kreckel  <kreckel@ginac.de>
 
-        * cln/cln.tex: documented problems with shared library on Sparc
-          using gcc older than 2.95.3.
-        * configure.in: Fixed typos in versioning docu.
+	* cln/cln.tex: documented problems with shared library on Sparc
+	  using gcc older than 2.95.3.
+	* configure.in: Fixed typos in versioning docu.
 
 2001-05-25  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/base/digitseq/cl_asm_arm_.cc: Use #0x instead of #& to designate
-          hexadecimal constants.
+	* src/base/digitseq/cl_asm_arm_.cc: Use #0x instead of #& to designate
+	  hexadecimal constants.
 
 2001-05-25  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/floatparam.c (double_wordorder_bigendian_p): new symbol.
-        * src/float/dfloat/cl_DF.h: Check for double_wordorder_bigendian_p.
-        * Removed LiDIA interface since that is now outdated (namespace cln)
-          and maintained elsewhere.
-        * Adjusted dates and final touches for 1.1.1.
+	* autoconf/floatparam.c (double_wordorder_bigendian_p): new symbol.
+	* src/float/dfloat/cl_DF.h: Check for double_wordorder_bigendian_p.
+	* Removed LiDIA interface since that is now outdated (namespace cln)
+	  and maintained elsewhere.
+	* Adjusted dates and final touches for 1.1.1.
 
 2001-05-19  Richard Kreckel  <kreckel@ginac.de>
 
-        * INSTALL: Update toolchain info: no egcs, some more platforms.
-        * doc/cln.tex: Likewise.
+	* INSTALL: Update toolchain info: no egcs, some more platforms.
+	* doc/cln.tex: Likewise.
 
 2001-05-18  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/cl_low.h: prepended variables declared inside macros
-          with underscore.  Fixes equal_hashcode() on various platforms.
+	* src/base/cl_low.h: prepended variables declared inside macros
+	  with underscore.  Fixes equal_hashcode() on various platforms.
 
 2001-04-25  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/cl_low.h: Added several checks if NO_ASM is defined, so
-          this definition becomes actually useful.  This is needed for 
-          compilation on Arm until somebody fixes the assembler files for Arm.
-        * src/base/digitseq/cl_asm.h: Likewise.
-        * src/base/digitseq/cl_asm_.cc: Likewise.
-        * */Makefile.in: Added `override' in front of `CPPFLAGS +=' so
-           one can say `make CPPFLAGS=-DFOOBAR'.
+	* src/base/cl_low.h: Added several checks if NO_ASM is defined, so
+	  this definition becomes actually useful.  This is needed for 
+	  compilation on Arm until somebody fixes the assembler files for Arm.
+	* src/base/digitseq/cl_asm.h: Likewise.
+	* src/base/digitseq/cl_asm_.cc: Likewise.
+	* */Makefile.in: Added `override' in front of `CPPFLAGS +=' so
+	   one can say `make CPPFLAGS=-DFOOBAR'.
 
 2001-03-26  Arvid Norberg <c99ang@cs.umu.se>
 
-        * src/base/random/cl_random_from.cc: ported to beos.
+	* src/base/random/cl_random_from.cc: ported to beos.
 
 2001-03-05  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/modules.h (CL_JUMP_TO): Fix IA64 brokenness.
+	* include/cln/modules.h (CL_JUMP_TO): Fix IA64 brokenness.
 
 2001-01-28  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/number.h (cl_as_N): Remove bogus comment.
+	* include/cln/number.h (cl_as_N): Remove bogus comment.
 
 2001-01-22  Richard Kreckel  <kreckel@ginac.de>
 
-        * configure.in: Make build in separate builddir possible (again).
+	* configure.in: Make build in separate builddir possible (again).
 
 2001-01-22  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/*.h: Change signatures of all classes' methods
-          cln::cl_foo::operator new(size_t, cl_foo*) to
-          cln::cl_foo::operator new(size_t, void*) so one can declare
-          std::vector<cln::cl_foo>, std::list<cln::cl_foo> etc. for
-          certain STL implementations (like libstdc++-v3).
+	* include/cln/*.h: Change signatures of all classes' methods
+	  cln::cl_foo::operator new(size_t, cl_foo*) to
+	  cln::cl_foo::operator new(size_t, void*) so one can declare
+	  std::vector<cln::cl_foo>, std::list<cln::cl_foo> etc. for
+	  certain STL implementations (like libstdc++-v3).
 
 2000-12-14  Richard Kreckel  <kreckel@ginac.de>
 
-        * Version 1.1 released.
+	* Version 1.1 released.
 
 2000-12-13  Richard Kreckel  <kreckel@ginac.de>
 
-        * */*: cl_istream -> std::istream, cl_ostream -> std::ostream.
+	* */*: cl_istream -> std::istream, cl_ostream -> std::ostream.
 
 2000-12-05  Richard Kreckel  <kreckel@ginac.de>
 
-        * Makefile.in, src/Makefile.in, doc/Makefile.in: Use mkdir -p.
-        * include/cln/version.h.in, src/base/verion.cc: New files.
-        * configure.in: Generate include/cln/version.h.
-        * cln.m4: Rewrote it. Check result of cln-config without compiling.
-          Do cross-check library version and header version information.
+	* Makefile.in, src/Makefile.in, doc/Makefile.in: Use mkdir -p.
+	* include/cln/version.h.in, src/base/verion.cc: New files.
+	* configure.in: Generate include/cln/version.h.
+	* cln.m4: Rewrote it. Check result of cln-config without compiling.
+	  Do cross-check library version and header version information.
 
 2000-12-02  Christian Bauer  <cbauer@ginac.de>
 
-        * Makefile.in, src/Makefile.in, doc/Makefile.in: Added $DESTDIR.
-        * cln.m4, cln.spec.in: some minor fixes with respect to RPM package
-          building.
+	* Makefile.in, src/Makefile.in, doc/Makefile.in: Added $DESTDIR.
+	* cln.m4, cln.spec.in: some minor fixes with respect to RPM package
+	  building.
 
 2000-11-24  Richard Kreckel  <kreckel@ginac.de>
 
-        * */*: Removed problematic stdin, stdout and stderr definitions.  
-          Use std::cin, std::cout, std::cerr instead (obsoletes 2000-10-29).
+	* */*: Removed problematic stdin, stdout and stderr definitions.  
+	  Use std::cin, std::cout, std::cerr instead (obsoletes 2000-10-29).
 
 2000-11-20  Bruno Haible
 
-        * cln-config.1: change title.
+	* cln-config.1: change title.
 
 2000-11-18  Richard Kreckel  <kreckel@ginac.de>
 
-        * cln.m4: New file.
-        * doc/cln.tex: Document package tools cln-config and cln.m4.
-        * Makefile.in: Care about cln.m4.
+	* cln.m4: New file.
+	* doc/cln.tex: Document package tools cln-config and cln.m4.
+	* Makefile.in: Care about cln.m4.
 
 2000-11-17  Richard Kreckel  <kreckel@ginac.de>
 
-        * cln-config.1: added manpage, as required by a couple of distros.
-        * Makefile.in, doc/Makefile.in: target install depends on installdirs.
+	* cln-config.1: added manpage, as required by a couple of distros.
+	* Makefile.in, doc/Makefile.in: target install depends on installdirs.
 
 2000-11-16  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/aclocal.m4 (CL_GMP_SET_UINTD): New macro...
-        * configure.in: ...used here.
-        * include/cln/config.h.in: Put in macros defined by CL_GMP_SET_UINTD...
-        * include/cln/types.h: ...used here.
-        * autoconf/acgeneral.m4, autoconf/aclocal.m4: Adhere to FHS.
+	* autoconf/aclocal.m4 (CL_GMP_SET_UINTD): New macro...
+	* configure.in: ...used here.
+	* include/cln/config.h.in: Put in macros defined by CL_GMP_SET_UINTD...
+	* include/cln/types.h: ...used here.
+	* autoconf/acgeneral.m4, autoconf/aclocal.m4: Adhere to FHS.
 
 2000-11-13  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/digitseq/cl_asm.h: Test if (intDsize==32) for MIPS and HPPA,
-          in order to guard against an accidented configuration.
-        * src/integer/conv/cl_I_to_digits.cc (table): member b_hoch_k of 
-          struct power_table_entry initialized as ULL instead of as UL, if 
-          intDsize==64 (caused misprinting on MIPS w/ GMP).
-        * src/base/cl_macros.h (minus_bitm, bitc): implemented ULL, if 
-          HAVE_FAST_LONGLONG.
-        * src/integer/bitwise/cl_I_mkfx.cc (mkf_extract): Likewise.
-        * src/integer/conv/cl_I_from_L.cc (cl_I_from_L): Added trival 
-          generation of Bignum for intDsize==64 and a notreached-check at end.
-        * autoconf/config.guess, autoconf/config.sub: updated from FSF.
-        * include/cln/config.h.in: Prepared support for IA64.
-        * include/cln/types.h: Likewise.
-        * include/cln/object.h: Likewise.
-        * include/cln/modules.h: Likewise.
-        * src/base/cl_macros.h (nonreturning_function): Likewise (NUE's 
-          compiler claims __GNUC_MINOR__==9).
+	* src/base/digitseq/cl_asm.h: Test if (intDsize==32) for MIPS and HPPA,
+	  in order to guard against an accidented configuration.
+	* src/integer/conv/cl_I_to_digits.cc (table): member b_hoch_k of 
+	  struct power_table_entry initialized as ULL instead of as UL, if 
+	  intDsize==64 (caused misprinting on MIPS w/ GMP).
+	* src/base/cl_macros.h (minus_bitm, bitc): implemented ULL, if 
+	  HAVE_FAST_LONGLONG.
+	* src/integer/bitwise/cl_I_mkfx.cc (mkf_extract): Likewise.
+	* src/integer/conv/cl_I_from_L.cc (cl_I_from_L): Added trival 
+	  generation of Bignum for intDsize==64 and a notreached-check at end.
+	* autoconf/config.guess, autoconf/config.sub: updated from FSF.
+	* include/cln/config.h.in: Prepared support for IA64.
+	* include/cln/types.h: Likewise.
+	* include/cln/object.h: Likewise.
+	* include/cln/modules.h: Likewise.
+	* src/base/cl_macros.h (nonreturning_function): Likewise (NUE's 
+	  compiler claims __GNUC_MINOR__==9).
 
 2000-11-03  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/cl_macros.h (bit, minus_bit): changed criterion for ULL from
-          HAVE_DD to HAVE_FAST_LONGLONG.
-        * src/base/cl_macros.h (bitm): implemented ULL, if HAVE_FAST_LONGLONG.
-        * src/base/cl_low.h: actually no need to include "cln/types.h" here.
-        * src/base/cl_low.h (logcount_64): always ULL, independent of HAVE_DD.
-        * src/base/random/cl_UL_random.cc (random32): a is always ULL.
+	* src/base/cl_macros.h (bit, minus_bit): changed criterion for ULL from
+	  HAVE_DD to HAVE_FAST_LONGLONG.
+	* src/base/cl_macros.h (bitm): implemented ULL, if HAVE_FAST_LONGLONG.
+	* src/base/cl_low.h: actually no need to include "cln/types.h" here.
+	* src/base/cl_low.h (logcount_64): always ULL, independent of HAVE_DD.
+	* src/base/random/cl_UL_random.cc (random32): a is always ULL.
 
 2000-11-01  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/object.h (cl_combine): define additional signatures, if
-          HAVE_LONGLONG is defined, in order to keep the compiler happy.
-        * src/base/cl_macros.h: include "cln/types.h", since we need HAVE_DD...
-        * src/base/cl_macros.h (bit): ...for this macro...
-        * src/base/cl_macros.h (minus_bit): ...and this one.
-        * src/base/cl_low.h: include "cln/types.h", since we need HAVE_DD...
-        * src/base/cl_low.h (logcount_64): ...for this macro.
-        * src/base/random/cl_UL_random.cc (random32): if HAVE_DD a is an ULL.
-        * src/integer/gcd/cl_I_gcd_aux2.cc (floorDD): fixed algorithmic bug.
-          that turned up when intDsize==32 and cl_word_size==64.
-        * src/float/dfloat/elem/cl_DF_div.cc (operator/): fixed a missing cast
-          to uint64 that turned up when intDsize==32 and cl_word_size==64.
+	* include/cln/object.h (cl_combine): define additional signatures, if
+	  HAVE_LONGLONG is defined, in order to keep the compiler happy.
+	* src/base/cl_macros.h: include "cln/types.h", since we need HAVE_DD...
+	* src/base/cl_macros.h (bit): ...for this macro...
+	* src/base/cl_macros.h (minus_bit): ...and this one.
+	* src/base/cl_low.h: include "cln/types.h", since we need HAVE_DD...
+	* src/base/cl_low.h (logcount_64): ...for this macro.
+	* src/base/random/cl_UL_random.cc (random32): if HAVE_DD a is an ULL.
+	* src/integer/gcd/cl_I_gcd_aux2.cc (floorDD): fixed algorithmic bug.
+	  that turned up when intDsize==32 and cl_word_size==64.
+	* src/float/dfloat/elem/cl_DF_div.cc (operator/): fixed a missing cast
+	  to uint64 that turned up when intDsize==32 and cl_word_size==64.
 
 2000-10-29  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/real/input/cl_R_read.cc, src/complex/input/cl_N_read.cc:
-          #undef stderr, if it's defined so cln::stderr isn't confused.
-        * src/base/input/cl_read_globals.cc: stdin should not be extern.
+	* src/real/input/cl_R_read.cc, src/complex/input/cl_N_read.cc:
+	  #undef stderr, if it's defined so cln::stderr isn't confused.
+	* src/base/input/cl_read_globals.cc: stdin should not be extern.
 
 2000-09-05  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/number.h (As): Fix it in namespace by suffixing `_As'
-          to the appropiate method instead of prefixing `as_'.
-        * src/complex/misc/cl_N_as.cc (cl_N_As): Likewise.
-        * src/real/misc/cl_R_as.cc (cl_R_As): Likewise.
-        * src/rational/misc/cl_RA_as.cc (cl_RA_As): Likewise.
-        * src/integer/misc/cl_I_as.cc (cl_I_As): Likewise.
-        * src/float/misc/cl_F_as.cc (cl_F_As): Likewise.
-        * src/float/sfloat/misc/cl_SF_as.cc (cl_SF_As): Likewise.
-        * src/float/lfloat/misc/cl_LF_as.cc (cl_LF_As): Likewise.
-        * src/float/ffloat/misc/cl_FF_as.cc (cl_FF_As): Likewise.
-        * src/float/dfloat/misc/cl_DF_as.cc (cl_DF_As): Likewise.
+	* include/cln/number.h (As): Fix it in namespace by suffixing `_As'
+	  to the appropiate method instead of prefixing `as_'.
+	* src/complex/misc/cl_N_as.cc (cl_N_As): Likewise.
+	* src/real/misc/cl_R_as.cc (cl_R_As): Likewise.
+	* src/rational/misc/cl_RA_as.cc (cl_RA_As): Likewise.
+	* src/integer/misc/cl_I_as.cc (cl_I_As): Likewise.
+	* src/float/misc/cl_F_as.cc (cl_F_As): Likewise.
+	* src/float/sfloat/misc/cl_SF_as.cc (cl_SF_As): Likewise.
+	* src/float/lfloat/misc/cl_LF_as.cc (cl_LF_As): Likewise.
+	* src/float/ffloat/misc/cl_FF_as.cc (cl_FF_As): Likewise.
+	* src/float/dfloat/misc/cl_DF_as.cc (cl_DF_As): Likewise.
 
 2000-09-05  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/complex/transcendental/cl_C_expt_C.cc (expt): fix logic for
-          the 0^y cases.
+	* src/complex/transcendental/cl_C_expt_C.cc (expt): fix logic for
+	  the 0^y cases.
 
 2000-08-30  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/number.h, cl_number::_as_cl_private_thing(): removed.
-          Rearranged for a clearer distinction between macros and remaining
-          identifiers, so Cint can parse it smoothly.
+	* include/cln/number.h, cl_number::_as_cl_private_thing(): removed.
+	  Rearranged for a clearer distinction between macros and remaining
+	  identifiers, so Cint can parse it smoothly.
 
 2000-08-29  Richard Kreckel  <kreckel@ginac.de>
 
-        * include/cln/number.h, the(const cl_number& x): New template
-          function.
+	* include/cln/number.h, the(const cl_number& x): New template
+	  function.
 
 2000-08-29  Richard Kreckel  <kreckel@ginac.de>
 
-        * */*: Pushed CLN into a namespace `cln'.  While doing so, the
-          following identifiers got their poor-man's namespace (i.e. the 
-          prefix `cl_') stripped off:
-          cl_catalanconst()        ->  catalanconst()
-          cl_compare()             ->  compare()
-          cl_cos_sin()             ->  cos_sin()
-          cl_cos_sin_t             ->  cos_sin_t
-          cl_cosh_sinh()           ->  cosh_sinh()
-          cl_cosh_sinh_t           ->  cosh_sinh_t
-          cl_decoded_dfloat        ->  decoded_dfloat
-          cl_decoded_ffloat        ->  decoded_ffloat
-          cl_decoded_float         ->  decoded_float
-          cl_decoded_lfloat        ->  decoded_lfloat
-          cl_decoded_sfloat        ->  decoded_sfloat
-          cl_default_float_format  ->  default_float_format
-          cl_default_print_flags   ->  default_print_flags
-          cl_default_random_state  ->  default_random_state
-          cl_double_approx()       ->  double_approx()
-          cl_equal()               ->  equal()
-          cl_equal_hashcode()      ->  equal_hashcode()
-          cl_eulerconst()          ->  eulerconst()
-          cl_find_modint_ring()    ->  find_modint_ring()
-          cl_find_univpoly_ring()  ->  find_univ_poly_ring()
-          cl_float_approx()        ->  float_approx
-          cl_float_format()        ->  float_format()
-          cl_float_format_t        ->  float_format_t
-          cl_free_hook()           ->  free_hook()
-          cl_hermite()             ->  hermite()
-          cl_laguerre()            ->  laguerre()
-          cl_legendre()            ->  legandre()
-          cl_malloc_hook()         ->  malloc_hook()
-          cl_pi()                  ->  pi()
-          cl_tschebychev()         ->  tschebychev()
-          cl_zeta()                ->  zeta()
-          NB: For functions these changes includes all signatures.
-        * include/*: moved to include/cln/*, stripped `cl_' off filenames.
-        * cln-config.in: new file.
+	* */*: Pushed CLN into a namespace `cln'.  While doing so, the
+	  following identifiers got their poor-man's namespace (i.e. the 
+	  prefix `cl_') stripped off:
+	  cl_catalanconst()        ->  catalanconst()
+	  cl_compare()             ->  compare()
+	  cl_cos_sin()             ->  cos_sin()
+	  cl_cos_sin_t             ->  cos_sin_t
+	  cl_cosh_sinh()           ->  cosh_sinh()
+	  cl_cosh_sinh_t           ->  cosh_sinh_t
+	  cl_decoded_dfloat        ->  decoded_dfloat
+	  cl_decoded_ffloat        ->  decoded_ffloat
+	  cl_decoded_float         ->  decoded_float
+	  cl_decoded_lfloat        ->  decoded_lfloat
+	  cl_decoded_sfloat        ->  decoded_sfloat
+	  cl_default_float_format  ->  default_float_format
+	  cl_default_print_flags   ->  default_print_flags
+	  cl_default_random_state  ->  default_random_state
+	  cl_double_approx()       ->  double_approx()
+	  cl_equal()               ->  equal()
+	  cl_equal_hashcode()      ->  equal_hashcode()
+	  cl_eulerconst()          ->  eulerconst()
+	  cl_find_modint_ring()    ->  find_modint_ring()
+	  cl_find_univpoly_ring()  ->  find_univ_poly_ring()
+	  cl_float_approx()        ->  float_approx
+	  cl_float_format()        ->  float_format()
+	  cl_float_format_t        ->  float_format_t
+	  cl_free_hook()           ->  free_hook()
+	  cl_hermite()             ->  hermite()
+	  cl_laguerre()            ->  laguerre()
+	  cl_legendre()            ->  legandre()
+	  cl_malloc_hook()         ->  malloc_hook()
+	  cl_pi()                  ->  pi()
+	  cl_tschebychev()         ->  tschebychev()
+	  cl_zeta()                ->  zeta()
+	  NB: For functions these changes includes all signatures.
+	* include/*: moved to include/cln/*, stripped `cl_' off filenames.
+	* cln-config.in: new file.
 
 2000-08-26  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/acgeneral.m4 (AC_OUTPUT): Use braces in exec_prefix default
-          value, not parens.
+	* autoconf/acgeneral.m4 (AC_OUTPUT): Use braces in exec_prefix default
+	  value, not parens.
 
 2000-08-18  Bruno Haible  <haible@clisp.cons.org>
 
-        * include/cl_univpoly_modint.h: Fix typo.
+	* include/cl_univpoly_modint.h: Fix typo.
 
 2000-07-13  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/float/input/cl_F_read_stream.cc (number_char_p): Accept '_',
-          used as precision marker for floats.
-          Reported by Keith Briggs (in 1998) and Thomas Roessler.
-        * src/integer/input/cl_I_read_stream.cc (number_char_p): Likewise.
-        * src/rational/input/cl_RA_read_stream.cc (number_char_p): Likewise.
-        * src/real/input/cl_R_read_stream.cc (number_char_p): Likewise.
-        * src/complex/input/cl_N_read_stream.cc (number_char_p): Likewise.
+	* src/float/input/cl_F_read_stream.cc (number_char_p): Accept '_',
+	  used as precision marker for floats.
+	  Reported by Keith Briggs (in 1998) and Thomas Roessler.
+	* src/integer/input/cl_I_read_stream.cc (number_char_p): Likewise.
+	* src/rational/input/cl_RA_read_stream.cc (number_char_p): Likewise.
+	* src/real/input/cl_R_read_stream.cc (number_char_p): Likewise.
+	* src/complex/input/cl_N_read_stream.cc (number_char_p): Likewise.
 
 2000-06-22  Bruno Haible  <haible@clisp.cons.org>
 
-        * include/cl_object.h: Rename cl_word_size to cl_pointer_size.
-        * include/cl_types.h (HAVE_FAST_LONGLONG): Also define on Irix6
-          with N32 ABI.
-          (cl_word_size): New macro.
-        * src/float/sfloat/cl_SF.h: Use cl_pointer_size instead of
-          cl_word_size.
+	* include/cl_object.h: Rename cl_word_size to cl_pointer_size.
+	* include/cl_types.h (HAVE_FAST_LONGLONG): Also define on Irix6
+	  with N32 ABI.
+	  (cl_word_size): New macro.
+	* src/float/sfloat/cl_SF.h: Use cl_pointer_size instead of
+	  cl_word_size.
 
 2000-05-31  Bruno Haible  <haible@clisp.cons.org>
 
-        * tests/exam_I_floor.cc (integer_floor_tests): Add one more entry.
-          From a sample that fails with gcc-2.95.2 on Sparc.
-        * tests/exam_I_gcd.cc (integer_gcd_tests): Likewise.
+	* tests/exam_I_floor.cc (integer_floor_tests): Add one more entry.
+	  From a sample that fails with gcc-2.95.2 on Sparc.
+	* tests/exam_I_gcd.cc (integer_gcd_tests): Likewise.
 
 2000-05-30  Richard Kreckel  <kreckel@ginac.de>
 
-        * configure.in, autoconf/aclocal.m4 (CL_GMP_H_VERSION, CL_GMP_CHECK):
-          New macros.
-        * configure.in, include/cl_config.h.in (CL_VERSION, CL_VERSION_MINOR,
-          CL_VERSION_PATCHLEVEL): New definitions.
-        * autoconf/config.guess, autoconf/config.sub, autoconf/ltconfig,
-          autoconf/ltmain.sh: updated from FSF (libtool 1.3.5, etc).
-        * src/Makefile.in, configure.in: release-variables renamed from 
-          CLN_* to CL_*.
-        * configure.in: default to build both shared and static library
-          (i.e. default to the most common behaviour).
+	* configure.in, autoconf/aclocal.m4 (CL_GMP_H_VERSION, CL_GMP_CHECK):
+	  New macros.
+	* configure.in, include/cl_config.h.in (CL_VERSION, CL_VERSION_MINOR,
+	  CL_VERSION_PATCHLEVEL): New definitions.
+	* autoconf/config.guess, autoconf/config.sub, autoconf/ltconfig,
+	  autoconf/ltmain.sh: updated from FSF (libtool 1.3.5, etc).
+	* src/Makefile.in, configure.in: release-variables renamed from 
+	  CLN_* to CL_*.
+	* configure.in: default to build both shared and static library
+	  (i.e. default to the most common behaviour).
 
 2000-05-29  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/aclocal.m4 (CL_CANONICAL_HOST): Added missing changequote
-          environment around the patch of 2000-05-23.
+	* autoconf/aclocal.m4 (CL_CANONICAL_HOST): Added missing changequote
+	  environment around the patch of 2000-05-23.
 
 2000-05-29  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4 (CL_PROG_INSTALL): Fix typo.
-          Reported by Thomas Klausner <wiz@danbala.ifoer.tuwien.ac.at>.
+	* autoconf/aclocal.m4 (CL_PROG_INSTALL): Fix typo.
+	  Reported by Thomas Klausner <wiz@danbala.ifoer.tuwien.ac.at>.
 
 2000-05-27  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/float/lfloat/algebraic/cl_LF_sqrt.cc,
-          src/base/digitseq/cl_DS_sqrt.cc: Readjusted break-even points.
+	* src/float/lfloat/algebraic/cl_LF_sqrt.cc,
+	  src/base/digitseq/cl_DS_sqrt.cc: Readjusted break-even points.
 
 2000-05-24  Richard Kreckel  <kreckel@ginac.de>
 
-        * autoconf/config.*: Updated to new version from FSF
-          (the new libtool wants this).
-        * src/Makefile.in: added $(LDFLAGS) to link step.
-        * src/base/digitseq/cl_2DS_div.cc, cl_2DS_recip.cc: Readjusted 
-          break-even points.
+	* autoconf/config.*: Updated to new version from FSF
+	  (the new libtool wants this).
+	* src/Makefile.in: added $(LDFLAGS) to link step.
+	* src/base/digitseq/cl_2DS_div.cc, cl_2DS_recip.cc: Readjusted 
+	  break-even points.
 
 2000-05-23  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4 (CL_CANONICAL_HOST): Determine host_cpu,
-          host_vendor, host_os correctly if $host has more than two hyphens.
+	* autoconf/aclocal.m4 (CL_CANONICAL_HOST): Determine host_cpu,
+	  host_vendor, host_os correctly if $host has more than two hyphens.
 
 2000-05-19  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/digitseq/cl_DS_mul.cc: Rearranged break-even points to
-          better match present-day CPUs whenever GMP3 is used.
-        * src/base/digitseq/cl_DS_div.cc: dto. 
-        * src/TUNING: Added comment about order of tuning.
-        * configure, configure.in: Safer GMP3-detection.
-        * INSTALL.generic: Clarified behaviour of --with-gmp.
-        * autoconf/config.guess: updated from Clisp-2000-03-06 sources.
+	* src/base/digitseq/cl_DS_mul.cc: Rearranged break-even points to
+	  better match present-day CPUs whenever GMP3 is used.
+	* src/base/digitseq/cl_DS_div.cc: dto. 
+	* src/TUNING: Added comment about order of tuning.
+	* configure, configure.in: Safer GMP3-detection.
+	* INSTALL.generic: Clarified behaviour of --with-gmp.
+	* autoconf/config.guess: updated from Clisp-2000-03-06 sources.
 
 2000-05-04  Richard Kreckel  <kreckel@ginac.de>
 
-        * gmp/: removed completely.  From now on we are going to link
-          externally against libgmp3.0 or above!
-        * configure, configure.in, Makefile.in, */Makeflags: removed support
-          of internal gmp 2.0.2, like $GMP_INCLUDES, which should be done by
-          setting $CPPFLAGS instead.
-        * Makefile.in: Added libtool inter-library dependency for -lgmp and
-          conforming interface versioning (-version-info).
-        * autoconf/ltconfig, autoconf/ltmain.sh: Updated to newer versions
-          from libtool 1.3.4.
+	* gmp/: removed completely.  From now on we are going to link
+	  externally against libgmp3.0 or above!
+	* configure, configure.in, Makefile.in, */Makeflags: removed support
+	  of internal gmp 2.0.2, like $GMP_INCLUDES, which should be done by
+	  setting $CPPFLAGS instead.
+	* Makefile.in: Added libtool inter-library dependency for -lgmp and
+	  conforming interface versioning (-version-info).
+	* autoconf/ltconfig, autoconf/ltmain.sh: Updated to newer versions
+	  from libtool 1.3.4.
 
 2000-02-22  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/base/digitseq/cl_asm_mips_.cc: Starting at argument 5 the
-          parameter passing was changed for the MIPS n32 ABI.
+	* src/base/digitseq/cl_asm_mips_.cc: Starting at argument 5 the
+	  parameter passing was changed for the MIPS n32 ABI.
 
 2000-01-24  Richard Kreckel  <kreckel@ginac.de>
 
-        * gmp/*: Replaced the complete mpn sources with the ones from
-          Debian since they are maintained while the ones from FSF
-          aren't and there were problems on some architectures, PowerPC
-          in particular.  See the file gmp/README.CLN.  This way the
-          hard links in this directory have vanished, they were causing
-          trouble for people working in AFS.  This became necessary for
-          Debian, because there it woudn't compile on PPC.
+	* gmp/*: Replaced the complete mpn sources with the ones from
+	  Debian since they are maintained while the ones from FSF
+	  aren't and there were problems on some architectures, PowerPC
+	  in particular.  See the file gmp/README.CLN.  This way the
+	  hard links in this directory have vanished, they were causing
+	  trouble for people working in AFS.  This became necessary for
+	  Debian, because there it woudn't compile on PPC.
 
 2000-01-13  Richard Kreckel  <kreckel@ginac.de>
 
-        * Version 1.0.3 released.
+	* Version 1.0.3 released.
 
 2000-01-13  Richard Kreckel  <kreckel@ginac.de>
 
-        * src/base/cl_macros.h (nonreturning_function): For egcs and newer
-          use __attribute__ ((__noreturn__)) instead of the __volatile__
-          storage class.
-          (nonreturning): Remove macro.
-        * include/*: Minor fixes to stop -ansi -pedantic from complaining.
-        * include/cl_integer.h: (doublefactorial): New declaration.
-        * src/integer/misc/combin/cl_I_doublefactorial.cc: New file.
+	* src/base/cl_macros.h (nonreturning_function): For egcs and newer
+	  use __attribute__ ((__noreturn__)) instead of the __volatile__
+	  storage class.
+	  (nonreturning): Remove macro.
+	* include/*: Minor fixes to stop -ansi -pedantic from complaining.
+	* include/cl_integer.h: (doublefactorial): New declaration.
+	* src/integer/misc/combin/cl_I_doublefactorial.cc: New file.
 
 1999-12-18  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/acgeneral.m4 (AC_ARG_PROGRAM): Create conftestsed using
-          "cat", not "echo".
-        * autoconf/ltconfig: Improve support for recent FreeBSD 3.
-        * include/cl_GV.h (cl_GV_vectorops): Change return type from 'T' to
-          'const T', to match definition in src/vector/cl_GV_number.cc.
-          Reported by Duncan Simpson <dps@io.stargate.co.uk>.
-        * gmp/mpn/Makefile.in (.S.lo): Use 'if', not '&&', because '&&' may
-          yield return code 1.
+	* autoconf/acgeneral.m4 (AC_ARG_PROGRAM): Create conftestsed using
+	  "cat", not "echo".
+	* autoconf/ltconfig: Improve support for recent FreeBSD 3.
+	* include/cl_GV.h (cl_GV_vectorops): Change return type from 'T' to
+	  'const T', to match definition in src/vector/cl_GV_number.cc.
+	  Reported by Duncan Simpson <dps@io.stargate.co.uk>.
+	* gmp/mpn/Makefile.in (.S.lo): Use 'if', not '&&', because '&&' may
+	  yield return code 1.
 
 1999-09-07  Bruno Haible  <haible@clisp.cons.org>
 
-        * Version 1.0.2 released.
+	* Version 1.0.2 released.
 
 1999-09-06  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/rational/cl_RA.h (integerp, ratiop): Instead of returning a
-          boolean expression, write alternatives ending with either
-          "return cl_true;" or "return cl_false;". This way, g++ does a
-          better job inlining it.
-        * src/float/cl_F.h (longfloatp): Likewise.
-        * src/real/cl_R.h (rationalp, integerp, floatp): Likewise.
-        * src/complex/cl_C.h (realp, complexp): Likewise.
+	* src/rational/cl_RA.h (integerp, ratiop): Instead of returning a
+	  boolean expression, write alternatives ending with either
+	  "return cl_true;" or "return cl_false;". This way, g++ does a
+	  better job inlining it.
+	* src/float/cl_F.h (longfloatp): Likewise.
+	* src/real/cl_R.h (rationalp, integerp, floatp): Likewise.
+	* src/complex/cl_C.h (realp, complexp): Likewise.
 
 1999-09-05  Bruno Haible  <haible@clisp.cons.org>
 
-        * include/cl_integer.h (cl_equal_hashcode): New declaration.
-        * include/cl_rational.h (cl_equal_hashcode): New declaration.
-        * include/cl_sfloat.h (cl_equal_hashcode): New declaration.
-        * include/cl_ffloat.h (cl_equal_hashcode): New declaration.
-        * include/cl_dfloat.h (cl_equal_hashcode): New declaration.
-        * include/cl_lfloat.h (cl_equal_hashcode): New declaration.
-        * include/cl_float.h (cl_equal_hashcode): New declaration.
-        * include/cl_real.h (cl_equal_hashcode): New declaration.
-        * include/cl_complex.h (cl_equal_hashcode): New declaration.
-        * src/base/cl_N.h (equal_hashcode_low, equal_hashcode_one): New macros.
-        * src/integer/misc/cl_I_eqhashcode.cc: New file.
-        * src/rational/misc/cl_RA_eqhashcode.cc: New file.
-        * src/float/sfloat/misc/cl_SF_eqhashcode.cc: New file.
-        * src/float/ffloat/misc/cl_FF_eqhashcode.cc: New file.
-        * src/float/dfloat/misc/cl_DF_eqhashcode.cc: New file.
-        * src/float/lfloat/misc/cl_LF_eqhashcode.cc: New file.
-        * src/float/misc/cl_F_eqhashcode.cc: New file.
-        * src/real/misc/cl_R_eqhashcode.cc: New file.
-        * src/complex/misc/cl_C_eqhashcode.cc: New file.
-        * doc/cln.tex: Document `cl_equal_hashcode'.
+	* include/cl_integer.h (cl_equal_hashcode): New declaration.
+	* include/cl_rational.h (cl_equal_hashcode): New declaration.
+	* include/cl_sfloat.h (cl_equal_hashcode): New declaration.
+	* include/cl_ffloat.h (cl_equal_hashcode): New declaration.
+	* include/cl_dfloat.h (cl_equal_hashcode): New declaration.
+	* include/cl_lfloat.h (cl_equal_hashcode): New declaration.
+	* include/cl_float.h (cl_equal_hashcode): New declaration.
+	* include/cl_real.h (cl_equal_hashcode): New declaration.
+	* include/cl_complex.h (cl_equal_hashcode): New declaration.
+	* src/base/cl_N.h (equal_hashcode_low, equal_hashcode_one): New macros.
+	* src/integer/misc/cl_I_eqhashcode.cc: New file.
+	* src/rational/misc/cl_RA_eqhashcode.cc: New file.
+	* src/float/sfloat/misc/cl_SF_eqhashcode.cc: New file.
+	* src/float/ffloat/misc/cl_FF_eqhashcode.cc: New file.
+	* src/float/dfloat/misc/cl_DF_eqhashcode.cc: New file.
+	* src/float/lfloat/misc/cl_LF_eqhashcode.cc: New file.
+	* src/float/misc/cl_F_eqhashcode.cc: New file.
+	* src/real/misc/cl_R_eqhashcode.cc: New file.
+	* src/complex/misc/cl_C_eqhashcode.cc: New file.
+	* doc/cln.tex: Document `cl_equal_hashcode'.
 
 1999-09-05  Bruno Haible  <haible@clisp.cons.org>
 
-        * include/cl_ring.h (cl_number_ring_ops): Add `contains' member.
-          (cl_number_ring): New class.
-          (cl_specialized_number_ring<T>): Inherit from cl_number_ring.
-          (instanceof): New function.
-        * src/integer/ring/cl_I_ring.cc (cl_I_p): New function.
-        * src/integer/misc/cl_I_as.cc (cl_I_p): Add comment.
-        * src/rational/ring/cl_RA_ring.cc (cl_RA_p): New function.
-        * src/rational/misc/cl_RA_as.cc (cl_RA_p): Add comment.
-        * src/real/ring/cl_R_ring.cc (cl_R_p): New function.
-        * src/real/misc/cl_R_as.cc (cl_R_p): Add comment.
-        * src/complex/ring/cl_C_ring.cc (cl_N_p): New function.
-        * src/complex/misc/cl_N_as.cc (cl_N_p): Add comment.
-        * doc/cln.tex: Document `instanceof'.
+	* include/cl_ring.h (cl_number_ring_ops): Add `contains' member.
+	  (cl_number_ring): New class.
+	  (cl_specialized_number_ring<T>): Inherit from cl_number_ring.
+	  (instanceof): New function.
+	* src/integer/ring/cl_I_ring.cc (cl_I_p): New function.
+	* src/integer/misc/cl_I_as.cc (cl_I_p): Add comment.
+	* src/rational/ring/cl_RA_ring.cc (cl_RA_p): New function.
+	* src/rational/misc/cl_RA_as.cc (cl_RA_p): Add comment.
+	* src/real/ring/cl_R_ring.cc (cl_R_p): New function.
+	* src/real/misc/cl_R_as.cc (cl_R_p): Add comment.
+	* src/complex/ring/cl_C_ring.cc (cl_N_p): New function.
+	* src/complex/misc/cl_N_as.cc (cl_N_p): Add comment.
+	* doc/cln.tex: Document `instanceof'.
 
 1999-09-05  Bruno Haible  <haible@clisp.cons.org>
 
-        * include/cl_rational.h (numerator, denominator): New declarations.
-        * src/rational/elem/cl_RA_numerator.cc: New file.
-        * src/rational/elem/cl_RA_denominator.cc: New file.
-        * include/cl_integer.h (numerator, denominator): New inline functions.
-        * doc/cln.tex: Document `numerator' and `denominator'.
+	* include/cl_rational.h (numerator, denominator): New declarations.
+	* src/rational/elem/cl_RA_numerator.cc: New file.
+	* src/rational/elem/cl_RA_denominator.cc: New file.
+	* include/cl_integer.h (numerator, denominator): New inline functions.
+	* doc/cln.tex: Document `numerator' and `denominator'.
 
 1999-09-05  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/rational/algebraic/cl_RA_rootp.cc (rootp): Fix endless loop
-          in the integer case.
-        * src/rational/algebraic/cl_RA_rootp_I.cc (rootp): Likewise.
+	* src/rational/algebraic/cl_RA_rootp.cc (rootp): Fix endless loop
+	  in the integer case.
+	* src/rational/algebraic/cl_RA_rootp_I.cc (rootp): Likewise.
 
 1999-09-05  Bruno Haible  <haible@clisp.cons.org>
 
-        * include/cl_config.h.in: Support for sparc64 CPU.
-        * include/cl_modules.h: Likewise.
-        * include/cl_types.h: Likewise.
-        * include/cl_object.h: Likewise.
-        * include/cl_GV.h: Likewise.
-        * src/Makefile.in: Likewise.
-        * src/base/cl_alloca.h: Likewise.
-        * src/base/cl_macros.h: Likewise.
-        * src/base/cl_sysdep.h: Likewise.
-        * src/base/cl_low.h: Likewise.
-        * src/base/digitseq/cl_asm.h: Likewise.
-        * src/base/digitseq/cl_asm_.cc: Likewise.
-        * src/base/digitseq/cl_asm_sparc64.h: New file.
-        * src/base/digitseq/cl_asm_sparc64_.cc: New file.
-        * src/modinteger/cl_MI_int.h: Support for sparc64 CPU.
-        * src/polynomial/elem/cl_UP_no_ring.cc: Likewise.
-        * src/polynomial/elem/cl_UP_GF2.h: Likewise.
-        * src/polynomial/elem/cl_asm_GF2.cc: Likewise.
+	* include/cl_config.h.in: Support for sparc64 CPU.
+	* include/cl_modules.h: Likewise.
+	* include/cl_types.h: Likewise.
+	* include/cl_object.h: Likewise.
+	* include/cl_GV.h: Likewise.
+	* src/Makefile.in: Likewise.
+	* src/base/cl_alloca.h: Likewise.
+	* src/base/cl_macros.h: Likewise.
+	* src/base/cl_sysdep.h: Likewise.
+	* src/base/cl_low.h: Likewise.
+	* src/base/digitseq/cl_asm.h: Likewise.
+	* src/base/digitseq/cl_asm_.cc: Likewise.
+	* src/base/digitseq/cl_asm_sparc64.h: New file.
+	* src/base/digitseq/cl_asm_sparc64_.cc: New file.
+	* src/modinteger/cl_MI_int.h: Support for sparc64 CPU.
+	* src/polynomial/elem/cl_UP_no_ring.cc: Likewise.
+	* src/polynomial/elem/cl_UP_GF2.h: Likewise.
+	* src/polynomial/elem/cl_asm_GF2.cc: Likewise.
 
 1999-09-04  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/base/digitseq/cl_asm_sparc_.cc (orc2_loop_up, orc2_loop_down):
-          Use the `orn' instruction.
+	* src/base/digitseq/cl_asm_sparc_.cc (orc2_loop_up, orc2_loop_down):
+	  Use the `orn' instruction.
 
 1999-08-14  Bruno Haible  <haible@clisp.cons.org>
 
-        Assume all platforms have <stdlib.h> and clock_t.
-        * configure.in: Don't call CL_STDLIB_H and CL_CLOCK_T.
-        * src/base/cl_base_config.h.in (CLOCK_T): Remove definition.
-        * src/base/random/cl_random_from.cc: Use clock_t instead of CLOCK_T.
-        * src/timing/cl_t_config.h.in (CLOCK_T): Remove definition.
-        * src/timing/cl_t_current2.cc: Use clock_t instead of CLOCK_T.
+	Assume all platforms have <stdlib.h> and clock_t.
+	* configure.in: Don't call CL_STDLIB_H and CL_CLOCK_T.
+	* src/base/cl_base_config.h.in (CLOCK_T): Remove definition.
+	* src/base/random/cl_random_from.cc: Use clock_t instead of CLOCK_T.
+	* src/timing/cl_t_config.h.in (CLOCK_T): Remove definition.
+	* src/timing/cl_t_current2.cc: Use clock_t instead of CLOCK_T.
 
 1999-07-18  Bruno Haible  <haible@clisp.cons.org>
 
-        * gmp/config.guess: Link to autoconf/config.guess.
-          gmp/config.sub: Link to autoconf/config.sub.
-          Needed for Win32 platforms.
+	* gmp/config.guess: Link to autoconf/config.guess.
+	  gmp/config.sub: Link to autoconf/config.sub.
+	  Needed for Win32 platforms.
 
 1999-07-17  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4 (CL_CANONICAL_HOST_CPU): Distinguish "sparc" and
-          "sparc64" according to the C compiler, not the uname result.
+	* autoconf/aclocal.m4 (CL_CANONICAL_HOST_CPU): Distinguish "sparc" and
+	  "sparc64" according to the C compiler, not the uname result.
 
 1999-06-17  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/base/digitseq/cl_asm_sparc_.cc (compare_loop_up): Fix
-          COUNTER_LOOPS version, fortunately not used yet.
+	* src/base/digitseq/cl_asm_sparc_.cc (compare_loop_up): Fix
+	  COUNTER_LOOPS version, fortunately not used yet.
 
-        * include/cl_modules.h: Prepare for gcc version 3.
+	* include/cl_modules.h: Prepare for gcc version 3.
 
 1999-06-12  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/rational/elem/cl_RA_plus.cc, src/rational/elem/cl_RA_minus.cc:
-          Change the last call from I_I_to_RT to I_I_to_RA.
+	* src/rational/elem/cl_RA_plus.cc, src/rational/elem/cl_RA_minus.cc:
+	  Change the last call from I_I_to_RT to I_I_to_RA.
 
 1999-06-09  Bruno Haible  <haible@clisp.cons.org>
 
-        * Version 1.0.1 released.
+	* Version 1.0.1 released.
 
 1999-06-09  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/integer/cl_I.h (pFN_maxlength_digits_at): Define also when
-          intDsize==64.
+	* src/integer/cl_I.h (pFN_maxlength_digits_at): Define also when
+	  intDsize==64.
 
 1999-06-08  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/intparam.c (printf_underscored): Change argument type to
-          `const char*'.
-        * include/cl_modules.h (CL_OUTPUT_LABEL, CL_JUMP_TO): New macros.
-          (CL_PROVIDE, CL_PROVIDE_END): Use them.
-        * include/cl_string.h (cl_heap_string::operator new): Return 1, not 0.
-        * include/cl_GV.h (cl_GV_inner<T>::operator new): Likewise.
-        * src/base/ring/cl_no_ring.cc (dummy_canonhom, dummy_expt_pos): Don't
-          cast a cl_I to void here. Works around a bug in g++-2.95.
-        * src/complex/misc/cl_C_class.cc: Include "cl_C.h".
-        * src/polynomial/elem/cl_UP_no_ring.cc (dummy_canonhom,
-           dummy_expt_pos): Don't cast a cl_I to void here. Works around a bug
-          in g++-2.95.
-        * src/polynomial/elem/cl_asm_sparc_GF2.cc (DECLARE_FUNCTION): New
-          macro.
-        * src/rational/misc/cl_RA_class.cc: Include "cl_RA.h".
-        * src/vector/cl_GV_I.cc (cl_heap_GV_I_general::operator new,
-           DEFINE_cl_heap_GV_I_bits): Return 1, not 0.
-        * src/vector/cl_GV_number.cc (cl_heap_GV_number_general::operator new):
-          Likewise.
+	* autoconf/intparam.c (printf_underscored): Change argument type to
+	  `const char*'.
+	* include/cl_modules.h (CL_OUTPUT_LABEL, CL_JUMP_TO): New macros.
+	  (CL_PROVIDE, CL_PROVIDE_END): Use them.
+	* include/cl_string.h (cl_heap_string::operator new): Return 1, not 0.
+	* include/cl_GV.h (cl_GV_inner<T>::operator new): Likewise.
+	* src/base/ring/cl_no_ring.cc (dummy_canonhom, dummy_expt_pos): Don't
+	  cast a cl_I to void here. Works around a bug in g++-2.95.
+	* src/complex/misc/cl_C_class.cc: Include "cl_C.h".
+	* src/polynomial/elem/cl_UP_no_ring.cc (dummy_canonhom,
+	   dummy_expt_pos): Don't cast a cl_I to void here. Works around a bug
+	  in g++-2.95.
+	* src/polynomial/elem/cl_asm_sparc_GF2.cc (DECLARE_FUNCTION): New
+	  macro.
+	* src/rational/misc/cl_RA_class.cc: Include "cl_RA.h".
+	* src/vector/cl_GV_I.cc (cl_heap_GV_I_general::operator new,
+	   DEFINE_cl_heap_GV_I_bits): Return 1, not 0.
+	* src/vector/cl_GV_number.cc (cl_heap_GV_number_general::operator new):
+	  Likewise.
 
 1999-06-01  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4 (CL_CANONICAL_HOST_CPU): Canonicalize alpha
-          variants to alpha.
+	* autoconf/aclocal.m4 (CL_CANONICAL_HOST_CPU): Canonicalize alpha
+	  variants to alpha.
 
 1999-05-29  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/base/digitseq/cl_asm_i386_.cc (DECLARE_FUNCTION): Treat
-          OpenBSD like NetBSD.
-        * src/base/digitseq/cl_asm_sparc_.cc (DECLARE_FUNCTION): Likewise.
-        * src/base/digitseq/cl_asm_m68k_.cc (DECLARE_FUNCTION): Treat
-          OpenBSD like NetBSD, and Linux/ELF like SVR4.
+	* src/base/digitseq/cl_asm_i386_.cc (DECLARE_FUNCTION): Treat
+	  OpenBSD like NetBSD.
+	* src/base/digitseq/cl_asm_sparc_.cc (DECLARE_FUNCTION): Likewise.
+	* src/base/digitseq/cl_asm_m68k_.cc (DECLARE_FUNCTION): Treat
+	  OpenBSD like NetBSD, and Linux/ELF like SVR4.
 
 1999-05-16  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/base/cl_low.h (integerlength32) [__rs6000__]: Use old assembler
-          syntax on AIX systems and new assembler syntax on non-AIX systems.
+	* src/base/cl_low.h (integerlength32) [__rs6000__]: Use old assembler
+	  syntax on AIX systems and new assembler syntax on non-AIX systems.
 
 1999-05-01  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/config.guess, autoconf/config.sub: Upgrade to newest
-          version from GNU CVS.
+	* autoconf/config.guess, autoconf/config.sub: Upgrade to newest
+	  version from GNU CVS.
 
 1999-04-24  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/integer/bitwise/cl_I_logand.cc (logand): Optimize the case when
-          either operand is a positive fixnum, O(1) instead of O(N).
-        * src/integer/bitwise/cl_I_lognand.cc (lognand): Likewise.
-        * src/integer/bitwise/cl_I_logandc2.cc (logandc2): Likewise for the
-          first operand.
+	* src/integer/bitwise/cl_I_logand.cc (logand): Optimize the case when
+	  either operand is a positive fixnum, O(1) instead of O(N).
+	* src/integer/bitwise/cl_I_lognand.cc (lognand): Likewise.
+	* src/integer/bitwise/cl_I_logandc2.cc (logandc2): Likewise for the
+	  first operand.
 
 1999-04-14  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add check whether
-          ctor/dtor needs to be exported.
-        * include/cl_config.h.in (CL_NEED_GLOBALIZE_CTORDTOR): New macro.
-        * include/cl_modules.h (CL_GLOBALIZE_JUMP_LABEL): Renamed from
-          CL_GLOBALIZE_LABEL.
-          (CL_GLOBALIZE_LABEL): New macro.
-          (CL_GLOBALIZE_CTORDTOR_LABEL): Renamed from CL_GLOBALIZE_ASM_LABEL.
-          (CL_PROVIDE): Update.
+	* autoconf/aclocal.m4 (CL_GLOBAL_CONSTRUCTORS): Add check whether
+	  ctor/dtor needs to be exported.
+	* include/cl_config.h.in (CL_NEED_GLOBALIZE_CTORDTOR): New macro.
+	* include/cl_modules.h (CL_GLOBALIZE_JUMP_LABEL): Renamed from
+	  CL_GLOBALIZE_LABEL.
+	  (CL_GLOBALIZE_LABEL): New macro.
+	  (CL_GLOBALIZE_CTORDTOR_LABEL): Renamed from CL_GLOBALIZE_ASM_LABEL.
+	  (CL_PROVIDE): Update.
 
 1999-04-12  Bruno Haible  <haible@clisp.cons.org>
 
-        * src/Makefile.in ($(ASMFILES_S)): On HPPA, ignore preprocessing
-          errors ("unterminated string or character constant").
-          ($(ASMFILES_LO)): On HPPA, try with various settings of
-          COMPILER_PATH, in order to try /usr/ccs/bin/as and /bin/as.
+	* src/Makefile.in ($(ASMFILES_S)): On HPPA, ignore preprocessing
+	  errors ("unterminated string or character constant").
+	  ($(ASMFILES_LO)): On HPPA, try with various settings of
+	  COMPILER_PATH, in order to try /usr/ccs/bin/as and /bin/as.
 
 1999-04-11  Bruno Haible  <haible@clisp.cons.org>
 
-        * INSTALL: Mention gmp problems on MIPS.
-        * doc/cln.tex: Likewise.
+	* INSTALL: Mention gmp problems on MIPS.
+	* doc/cln.tex: Likewise.
 
 1999-03-24  Mumit Khan  <khan@xraylith.wisc.edu>
 
-        * src/Makefile.in (SUBDIRS): Filter out CVS and RCS directories from
-          the source tree.
-        * include/cl_modules.h (CL_GLOBALIZE_LABEL): Define for Win32.
-          (CL_GLOBALIZE_ASM_LABEL): New macro.
-          (CL_PROVIDE): Use it.
-        * src/base/random/cl_random_from.cc: Handle WIN32.
-        * src/timing/cl_t_current.cc: Likewise.
+	* src/Makefile.in (SUBDIRS): Filter out CVS and RCS directories from
+	  the source tree.
+	* include/cl_modules.h (CL_GLOBALIZE_LABEL): Define for Win32.
+	  (CL_GLOBALIZE_ASM_LABEL): New macro.
+	  (CL_PROVIDE): Use it.
+	* src/base/random/cl_random_from.cc: Handle WIN32.
+	* src/timing/cl_t_current.cc: Likewise.
 
 1999-03-15  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/intparam.c (main7): Use %lX instead of %X for a `long'.
-          (main8): Adapt for C++.
+	* autoconf/intparam.c (main7): Use %lX instead of %X for a `long'.
+	  (main8): Adapt for C++.
 
 1999-03-09  Bruno Haible  <haible@clisp.cons.org>
 
-        * INSTALL: Mention egcs-1.1 problems on Sparc.
-        * doc/cln.tex: Likewise.
+	* INSTALL: Mention egcs-1.1 problems on Sparc.
+	* doc/cln.tex: Likewise.
 
 1999-03-08  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4 (CL_FPU_CONTROL): Fix the "checking for"
-          messages.
+	* autoconf/aclocal.m4 (CL_FPU_CONTROL): Fix the "checking for"
+	  messages.
 
 1999-02-25  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/aclocal.m4: In test programs, declare `int main()', not
-          `main()'.
+	* autoconf/aclocal.m4: In test programs, declare `int main()', not
+	  `main()'.
 
-        * lidia-interface/src/interfaces/integers/cln/bigint.c
-          (bigint_to_string): Fix for negative arguments.
+	* lidia-interface/src/interfaces/integers/cln/bigint.c
+	  (bigint_to_string): Fix for negative arguments.
 
-        * src/base/cl_low.h: Check for `__sparc__', not `SPARC'.
-        * src/base/cl_alloca.h: Likewise.
+	* src/base/cl_low.h: Check for `__sparc__', not `SPARC'.
+	* src/base/cl_alloca.h: Likewise.
 
-        * src/base/cl_low.h: Eliminate CLISP style "# " comments.
-        * src/base/digitseq/cl_asm_arm_.cc,
-          src/base/digitseq/cl_asm_mips_.cc,
-          src/float/dfloat/elem/cl_DF_mul.cc: Likewise.
+	* src/base/cl_low.h: Eliminate CLISP style "# " comments.
+	* src/base/digitseq/cl_asm_arm_.cc,
+	  src/base/digitseq/cl_asm_mips_.cc,
+	  src/float/dfloat/elem/cl_DF_mul.cc: Likewise.
 
-        * src/modinteger/cl_MI_pow2.h,
-          src/modinteger/cl_MI_pow2m1.h,
-          src/modinteger/cl_MI_pow2p1.h: Workaround g++-2.7.2 inlining bug.
+	* src/modinteger/cl_MI_pow2.h,
+	  src/modinteger/cl_MI_pow2m1.h,
+	  src/modinteger/cl_MI_pow2p1.h: Workaround g++-2.7.2 inlining bug.
 
 1999-01-18  Bruno Haible  <haible@clisp.cons.org>
 
-        * autoconf/acgeneral.m4,
-          autoconf/acspecific.m4: Upgrade to autoconf-2.13.
-        * autoconf/config.guess, autoconf/config.sub: Likewise.
-        * autoconf/aclocal.m4 (CL_ALLOCA): Test for _MSC_VER and alloca being
-          a macro. Use ${ac_objext}.
-        * src/base/cl_macros.h (alloca): Put _MSC_VER test before the others,
-          conforming with CL_ALLOCA.
+	* autoconf/acgeneral.m4,
+	  autoconf/acspecific.m4: Upgrade to autoconf-2.13.
+	* autoconf/config.guess, autoconf/config.sub: Likewise.
+	* autoconf/aclocal.m4 (CL_ALLOCA): Test for _MSC_VER and alloca being
+	  a macro. Use ${ac_objext}.
+	* src/base/cl_macros.h (alloca): Put _MSC_VER test before the others,
+	  conforming with CL_ALLOCA.
 
 1999-01-12  Bruno Haible  <haible@clisp.cons.org>
 
-        * Version 1.0 released.
+	* Version 1.0 released.
 

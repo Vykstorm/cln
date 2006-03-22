@@ -10,6 +10,9 @@
 // Implementation.
 
 #include "cln/number.h"
+
+#if (cl_word_size < 64)
+
 #include "cl_DS.h"
 
 namespace cln {
@@ -104,3 +107,5 @@ cl_private_thing cl_I_constructor_from_UL2 (uint32 wert_hi, uint32 wert_lo)
 }
 
 }  // namespace cln
+
+#endif

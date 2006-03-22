@@ -26,11 +26,11 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
       if (eq(delta,0)) { return x; } // delta=0 -> x als Ergebnis
       var uintL uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
-      var uintL udelta;
+      var uintV udelta;
       // |delta| muﬂ <= LF_exp_high-LF_exp_low < 2^32 sein. Wie bei I_to_UL:
 	if (fixnump(delta)) {
 		// Fixnum
-		var sint32 sdelta = FN_to_L(delta);
+		var sintV sdelta = FN_to_V(delta);
 		if (sdelta >= 0)
 			{ udelta = sdelta; goto pos; }
 		else

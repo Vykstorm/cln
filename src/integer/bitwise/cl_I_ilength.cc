@@ -18,10 +18,16 @@ uintL integer_length (const cl_I& x)
 {
 	if (fixnump(x))
 	  { var uintL bitcount = 0;
-	    var uint32 x_ = FN_to_L(x); // x als 32-Bit-Zahl
-	    if (FN_L_minusp(x,(sint32)x_)) { x_ = ~ x_; } // falls <0, komplementieren
-	    if (!(x_==0)) { integerlength32(x_,bitcount=); }
-	    return bitcount; // 0 <= bitcount < 32.
+	    var uintV x_ = FN_to_V(x); // x als intVsize-Bit-Zahl
+	    if (FN_V_minusp(x,(sintV)x_)) { x_ = ~ x_; } // falls <0, komplementieren
+	    if (!(x_==0)) {
+              #if (intVsize>32)
+              integerlength64(x_,bitcount=);
+              #else
+              integerlength32(x_,bitcount=);
+              #endif
+            }
+	    return bitcount; // 0 <= bitcount < intVsize.
 	  }
           else
           { var const uintD* MSDptr;

@@ -47,6 +47,7 @@ const cl_I NDS_to_I (const uintD* MSDptr, uintC len)
             // 5 Digits
             len_5:
             { wert = get_sint4D_Dptr(MSDptr mspop 5); }
+          return L_to_FN(wert);
           #else // (cl_word_size==64)
           var sint64 wert;
           #if (intDsize==32)
@@ -60,13 +61,13 @@ const cl_I NDS_to_I (const uintD* MSDptr, uintC len)
             { wert = ((sint64)(sintD)mspref(MSDptr,0) << intDsize) | (uint64)(uintD)mspref(MSDptr,1); }
           #endif
           #if (intDsize==64)
-          if (TRUE)
+          if (FALSE)
             // 1 Digit
             len_1:
             { wert = (sintD)mspref(MSDptr,0); }
           #endif
+          return cl_I_from_word(cl_combine(cl_FN_tag,wert));
           #endif
-          return L_to_FN(wert);
         }
       #if (cl_value_len > (bn_minlength-1)*intDsize)
       if (len == bn_minlength)

@@ -101,6 +101,11 @@
   typedef long           sintP;
   typedef unsigned long  uintP;
 
+// Integer type used for the value of a fixnum.
+  #define intVsize long_bitsize
+  typedef long           sintV;
+  typedef unsigned long  uintV;
+
 // Numbers in the heap are stored as "digit" sequences.
 // A digit is an unsigned int with intDsize bits.
 // intDsize should be 8 or 16 or 32 or 64 and it should match mp_limb_t,

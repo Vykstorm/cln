@@ -28,9 +28,9 @@ const cl_SF scale_float (const cl_SF& x, const cl_I& delta)
       SF_decode(x, { return x; }, sign=,exp=,mant=);
       if (!minusp(delta))
         // delta>=0
-        { var uintL udelta;
+        { var uintV udelta;
           if (fixnump(delta)
-              && ((udelta = FN_to_L(delta)) <= (uintL)(SF_exp_high-SF_exp_low))
+              && ((udelta = FN_to_V(delta)) <= (uintV)(SF_exp_high-SF_exp_low))
              )
             { exp = exp+udelta;
               return encode_SF(sign,exp,mant);
@@ -40,10 +40,10 @@ const cl_SF scale_float (const cl_SF& x, const cl_I& delta)
         }
         else
         // delta<0
-        { var uintL udelta;
+        { var uintV udelta;
           if (fixnump(delta)
-              && ((udelta = -FN_to_L(delta)) <= (uintL)(SF_exp_high-SF_exp_low))
-              && ((cl_value_len+1<intLsize) || !(udelta==0))
+              && ((udelta = -FN_to_V(delta)) <= (uintV)(SF_exp_high-SF_exp_low))
+              && ((cl_value_len+1<intVsize) || !(udelta==0))
              )
             { exp = exp-udelta;
               return encode_SF(sign,exp,mant);

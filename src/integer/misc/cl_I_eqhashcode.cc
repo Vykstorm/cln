@@ -17,19 +17,25 @@ namespace cln {
 inline uint32 equal_hashcode (const cl_FN& x)
 {
 	var cl_signean sign;
-	var uint32 x32 = FN_to_L(x); // x als 32-Bit-Zahl
-	if (FN_L_minusp(x,(sint32)x32)) {
-		x32 = -x32;
+	var uintV x_ = FN_to_V(x); // x als intVsize-Bit-Zahl
+	if (FN_V_minusp(x,(sintV)x_)) {
+		x_ = -x_;
 		sign = -1;
 	} else {
 		sign = 0;
-		if (x32 == 0)
+		if (x_ == 0)
 			return 0;
 	}
 	var uintL s;
-	integerlength32(x32, s = 32 - );
-	var uint32 msd = x32 << s;
+        #if (intVsize > 32)
+        integerlength64(x_, s = 64 - );
+        var uint32 msd = (x_ << s) >> 32;
+        var sintL exp = 64-s;
+        #else
+	integerlength32(x_, s = 32 - );
+	var uint32 msd = x_ << s;
 	var sintL exp = 32-s;
+        #endif
 	return equal_hashcode_low(msd,exp,sign);
 }
 

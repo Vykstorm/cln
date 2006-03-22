@@ -34,9 +34,9 @@ const cl_DF scale_float (const cl_DF& x, const cl_I& delta)
 #endif
       if (!minusp(delta))
         // delta>=0
-        { var uintL udelta;
+        { var uintV udelta;
           if (fixnump(delta)
-              && ((udelta = FN_to_L(delta)) <= (uintL)(DF_exp_high-DF_exp_low))
+              && ((udelta = FN_to_V(delta)) <= (uintV)(DF_exp_high-DF_exp_low))
              )
             { exp = exp+udelta;
 #if (cl_word_size==64)
@@ -52,8 +52,8 @@ const cl_DF scale_float (const cl_DF& x, const cl_I& delta)
         // delta<0
         { var uintL udelta;
           if (fixnump(delta)
-              && ((udelta = -FN_to_L(delta)) <= (uintL)(DF_exp_high-DF_exp_low))
-              && ((cl_value_len+1<intLsize) || !(udelta==0))
+              && ((udelta = -FN_to_V(delta)) <= (uintV)(DF_exp_high-DF_exp_low))
+              && ((cl_value_len+1<intVsize) || !(udelta==0))
              )
             { exp = exp-udelta;
 #if (cl_word_size==64)

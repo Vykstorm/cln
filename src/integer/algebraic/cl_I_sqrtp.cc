@@ -63,17 +63,17 @@ cl_boolean sqrtp (const cl_I& x, cl_I* w)
       }
       // Check mod 63.
       { var cl_I_div_t div63 = cl_divide(x,L_to_FN(63));
-        if (!squares_mod_63[FN_to_UL(div63.remainder)])
+        if (!squares_mod_63[FN_to_UV(div63.remainder)])
           { return cl_false; } // not a square mod 63 -> not a square
       }
       // Check mod 65.
       { var cl_I_div_t div65 = cl_divide(x,L_to_FN(65));
-        if (!squares_mod_65[FN_to_UL(div65.remainder)])
+        if (!squares_mod_65[FN_to_UV(div65.remainder)])
           { return cl_false; } // not a square mod 65 -> not a square
       }
       // Check mod 11.
       { var cl_I_div_t div11 = cl_divide(x,L_to_FN(11));
-        if (!squares_mod_11[FN_to_UL(div11.remainder)])
+        if (!squares_mod_11[FN_to_UV(div11.remainder)])
           { return cl_false; } // not a square mod 11 -> not a square
       }
       // Check with full precision.

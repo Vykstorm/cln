@@ -15,7 +15,7 @@ namespace cln {
 // gcd(a,b)
 // > a,b: zwei Integers
 // < ergebnis: (gcd a b), ein Integer >=0
-  uint32 gcd (uint32 a, uint32 b)
+  uintV gcd (uintV a, uintV b)
 // binäre Methode:
 // (gcd a b) :==
 //   (prog ((j 0))
@@ -44,7 +44,7 @@ namespace cln {
       #ifdef DUMMER_GGT // so macht's ein Mathematiker:
       if (a==0) { return b; }
       if (b==0) { return a; }
-      var uint32 bit_j = bit(0);
+      var uintV bit_j = bit(0);
       loop
         { // a,b >0
           if (!((a & bit_j) ==0))
@@ -54,7 +54,7 @@ namespace cln {
           bit_j = bit_j<<1;
         }
       #else // Trick von B. Degel:
-      var uint32 bit_j = (a | b); // endet mit einer 1 und j Nullen
+      var uintV bit_j = (a | b); // endet mit einer 1 und j Nullen
       bit_j = bit_j ^ (bit_j - 1); // Maske = bit(j) | bit(j-1) | ... | bit(0)
       if (!((a & bit_j) ==0))
         { if (!((b & bit_j) ==0))

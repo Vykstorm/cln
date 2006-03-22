@@ -19,9 +19,15 @@ namespace cln {
 uintL logcount (const cl_I& x)
 {
 	if (fixnump(x))
-	  { var uint32 x32 = FN_to_L(x); // x als 32-Bit-Zahl
-	    if (FN_L_minusp(x,(sint32)x32)) { x32 = ~ x32; } // falls <0, komplementieren
+	  { var uintV x32 = FN_to_V(x); // x als intDsize-Bit-Zahl
+	    if (FN_V_minusp(x,(sintV)x32)) { x32 = ~ x32; } // falls <0, komplementieren
+            #if (intVsize>32)
+            #define x64 x32
+            logcount_64(); // Bits von x32 zählen
+            #undef x64
+            #else
 	    logcount_32(); // Bits von x32 zählen
+            #endif
 	    return x32;
 	  }
           else

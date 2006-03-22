@@ -58,7 +58,7 @@ float float_approx (const cl_RA& x)
       var cl_I& r = q_r.remainder;
       // 2^24 <= q < 2^26, also ist q Fixnum oder Bignum mit bn_minlength Digits.
       var uint32 mant = ((FF_mant_len+3 < cl_value_len)
-                          ? FN_to_UL(q)
+                          ? FN_to_UV(q)
                           : cl_I_to_UL(q)
                         );
       if (mant >= bit(FF_mant_len+2))

@@ -95,7 +95,7 @@ const cl_R read_real (const cl_read_flags& flags, const char * string, const cha
 						fprint(std::cerr, "\n");
 						cl_abort();
 					}
-					rational_base = FN_to_UL(base); ptr = base_end_ptr;
+					rational_base = FN_to_UV(base); ptr = base_end_ptr;
 					break;
 				}
 				ptr++;

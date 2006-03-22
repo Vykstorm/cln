@@ -21,7 +21,7 @@ cl_private_thing cl_I_constructor_from_UQ (uint64 wert)
 {
 	if ((wert & (sint64)minus_bit(cl_value_len-1)) == 0)
 	   // Bits, die nicht in den Fixnum-Wert >= 0 reinpassen.
-		return (cl_private_thing)(cl_combine(cl_FN_tag,(uint32)wert));
+		return (cl_private_thing)(cl_combine(cl_FN_tag,wert));
 	// Bignum erzeugen:
 	// (dessen Länge  bn_minlength <= n <= ceiling((32+1)/intDsize)  erfüllt)
 	#define UQ_maxlength  ceiling(64+1,intDsize)

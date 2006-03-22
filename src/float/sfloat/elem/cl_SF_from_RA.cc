@@ -66,7 +66,7 @@ const cl_SF cl_RA_to_SF (const cl_RA& x)
       var cl_I& q = q_r.quotient;
       var cl_I& r = q_r.remainder;
       // 2^17 <= q < 2^19, also ist q Fixnum.
-      var uint32 mant = FN_to_UL(q);
+      var uint32 mant = FN_to_UV(q);
       if (mant >= bit(SF_mant_len+2))
         // 2^18 <= q < 2^19, schiebe um 2 Bits nach rechts
         { var uintL rounding_bits = mant & (bit(2)-1);

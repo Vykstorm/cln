@@ -33,10 +33,10 @@ cl_boolean logtest (const cl_I& x, const cl_I& y)
           }
           else
           // x Fixnum, y Bignum, also ist x echt kürzer
-          { if (FN_L_minusp(x,FN_to_L(x))) return cl_true; // x<0 -> ja.
+          { if (FN_V_minusp(x,FN_to_V(x))) return cl_true; // x<0 -> ja.
             // x>=0. Kombiniere x mit den pFN_maxlength letzten Digits von y.
            {var const uintD* yLSDptr;
-            var uintL x_ = FN_to_L(x);
+            var uintV x_ = FN_to_V(x);
             BN_to_NDS_nocopy(y, ,,yLSDptr=);
             #if (pFN_maxlength > 1)
             doconsttimes(pFN_maxlength-1,
@@ -50,10 +50,10 @@ cl_boolean logtest (const cl_I& x, const cl_I& y)
         else
         if (fixnump(y))
           // x Bignum, y Fixnum, analog wie oben, nur x und y vertauscht
-          { if (FN_L_minusp(y,FN_to_L(y))) return cl_true; // y<0 -> ja.
+          { if (FN_V_minusp(y,FN_to_V(y))) return cl_true; // y<0 -> ja.
             // y>=0. Kombiniere y mit den pFN_maxlength letzten Digits von x.
            {var const uintD* xLSDptr;
-            var uintL y_ = FN_to_L(y);
+            var uintV y_ = FN_to_V(y);
             BN_to_NDS_nocopy(x, ,,xLSDptr=);
             #if (pFN_maxlength > 1)
             doconsttimes(pFN_maxlength-1,

@@ -30,32 +30,56 @@ namespace cln {
   //   vermeidet, daß oft große Zahlen mit ganz kleinen Zahlen multipliziert
   //   werden.
 
-static cl_I const fakul_table [] = {
-        L_to_FN(1),
-        L_to_FN(1UL),
-        L_to_FN(1UL*2),
+static uintV const fakul_table [] = {
+        1,
+        1UL,
+        1UL*2,
         #if (cl_value_len>=4)
-        L_to_FN(1UL*2*3),
+        1UL*2*3,
         #if (cl_value_len>=6)
-        L_to_FN(1UL*2*3*4),
+        1UL*2*3*4,
         #if (cl_value_len>=8)
-        L_to_FN(1UL*2*3*4*5),
+        1UL*2*3*4*5,
         #if (cl_value_len>=11)
-        L_to_FN(1UL*2*3*4*5*6),
+        1UL*2*3*4*5*6,
         #if (cl_value_len>=14)
-        L_to_FN(1UL*2*3*4*5*6*7),
+        1UL*2*3*4*5*6*7,
         #if (cl_value_len>=17)
-        L_to_FN(1UL*2*3*4*5*6*7*8),
+        1UL*2*3*4*5*6*7*8,
         #if (cl_value_len>=20)
-        L_to_FN(1UL*2*3*4*5*6*7*8*9),
+        1UL*2*3*4*5*6*7*8*9,
         #if (cl_value_len>=23)
-        L_to_FN(1UL*2*3*4*5*6*7*8*9*10),
+        1UL*2*3*4*5*6*7*8*9*10,
         #if (cl_value_len>=27)
-        L_to_FN(1UL*2*3*4*5*6*7*8*9*10*11),
+        1UL*2*3*4*5*6*7*8*9*10*11,
         #if (cl_value_len>=30)
-        L_to_FN(1UL*2*3*4*5*6*7*8*9*10*11*12),
+        1UL*2*3*4*5*6*7*8*9*10*11*12,
         #if (cl_value_len>=34)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13,
+        #if (cl_value_len>=38)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14,
+        #if (cl_value_len>=42)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14*15,
+        #if (cl_value_len>=46)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14*15*16,
+        #if (cl_value_len>=50)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14*15*16*17,
+        #if (cl_value_len>=54)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14*15*16*17*18,
+        #if (cl_value_len>=58)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14*15*16*17*18*19,
+        #if (cl_value_len>=63)
+        1UL*2*3*4*5*6*7*8*9*10*11*12*13*14*15*16*17*18*19*20,
+        #if (cl_value_len>=67)
         ...
+        #endif
+        #endif
+        #endif
+        #endif
+        #endif
+        #endif
+        #endif
+        #endif
         #endif
         #endif
         #endif
@@ -72,7 +96,7 @@ static cl_I const fakul_table [] = {
 const cl_I factorial (uintL n) // assume n >= 0 small
 {
       if (n < sizeof(fakul_table)/sizeof(cl_I))
-        { return fakul_table[n]; }
+        { return UV_to_I(fakul_table[n]); }
         else
         { var cl_I prod = 1; // bisheriges Produkt := 1
           var uintL k = 1;

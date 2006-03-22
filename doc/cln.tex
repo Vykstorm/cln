@@ -1919,7 +1919,7 @@ If @code{x} = 2^(n-1), it returns n. Else it returns 0.
 @subsection Number theoretic functions
 
 @table @code
-@item uint32 gcd (uint32 a, uint32 b)
+@item uint32 gcd (unsigned long a, unsigned long b)
 @cindex @code{gcd ()}
 @itemx cl_I gcd (const cl_I& a, const cl_I& b)
 This function returns the greatest common divisor of @code{a} and @code{b},
@@ -1948,7 +1948,7 @@ normalized to be >= 0.
 rational number, this function returns true and sets *l = log(a,b), else
 it returns false.
 
-@item int jacobi (sint32 a, sint32 b)
+@item int jacobi (signed long a, signed long b)
 @cindex @code{jacobi()}
 @itemx int jacobi (const cl_I& a, const cl_I& b)
 Returns the Jacobi symbol 

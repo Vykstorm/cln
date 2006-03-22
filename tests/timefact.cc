@@ -20,6 +20,6 @@ int main (int argc, char * argv[])
 	cl_I m = cl_I(argv[1]);
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)
-	    cl_I f = factorial(FN_to_L(m));
+	    cl_I f = factorial(FN_to_V(m));
 	}
 }

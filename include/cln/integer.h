@@ -409,7 +409,7 @@ struct cl_I_div_t {
 // > a,b: zwei Integers
 // < ergebnis: (gcd a b), ein Integer >=0
   extern const cl_I gcd (const cl_I& a, const cl_I& b);
-  extern uint32 gcd (uint32 a, uint32 b);
+  extern uintV gcd (uintV a, uintV b);
 
 // Liefert den ggT zweier Integers samt Beifaktoren.
 // g = xgcd(a,b,&u,&v)

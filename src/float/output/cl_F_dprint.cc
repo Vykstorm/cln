@@ -390,13 +390,13 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
     // erst Null und Punkt, dann -expo Nullen, dann alle Ziffern
     fprintchar(stream,'0');
     fprintchar(stream,'.');
-    for (uintL i = -FN_to_L(expo); i > 0; i--)
+    for (uintV i = -FN_to_V(expo); i > 0; i--)
       fprintchar(stream,'0');
     fprint(stream,mantstring);
     expo = 0; // auszugebender Exponent ist 0
   } else {
     // "fixed-point notation" mit expo > 0 oder "scientific notation"
-    var uintL scale = (flag ? FN_to_L(expo) : 1);
+    var uintV scale = (flag ? FN_to_V(expo) : 1);
     // Der Dezimalpunkt wird um scale Stellen nach rechts geschoben,
     // d.h. es gibt scale Vorkommastellen. scale > 0.
     if (scale < mantlen) {
@@ -412,7 +412,7 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
       // scale>=mantlen -> es bleibt nichts für die Nachkommastellen.
       // alle Ziffern, dann scale-mantlen Nullen, dann Punkt und Null
       fprint(stream,mantstring);
-      for (uintL i = mantlen; i < scale; i++)
+      for (uintV i = mantlen; i < scale; i++)
         fprintchar(stream,'0');
       fprintchar(stream,'.');
       fprintchar(stream,'0');

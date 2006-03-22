@@ -175,7 +175,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 	// n has nn bits.
 	if (nn <= 8) {
 		// k = 1, normal Left-Right Binary algorithm.
-		var uintL _n = FN_to_UL(n);
+		var uintL _n = FN_to_UV(n);
 		var _cl_MI a = x;
 		for (var int i = nn-2; i >= 0; i--) {
 			a = R->_square(a);

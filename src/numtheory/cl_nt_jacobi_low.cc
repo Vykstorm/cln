@@ -15,7 +15,7 @@
 namespace cln {
 
 // Assume 0 <= a < b.
-inline int jacobi_aux (uint32 a, uint32 b)
+inline int jacobi_aux (uintV a, uintV b)
 {
 	var int v = 1;
 	for (;;) {
@@ -52,7 +52,7 @@ inline int jacobi_aux (uint32 a, uint32 b)
 		// law  (a/b) = (-1)^((a-1)/2)((b-1)/2) * (b/a).
 		if ((a & b & 3) == 3)
 			v = -v;
-		swap(sint32, a,b);
+		swap(uintV, a,b);
 		// Now a > 2*b, set a := a mod b.
 		if ((a >> 3) >= b)
 			a = a % b;
@@ -61,7 +61,7 @@ inline int jacobi_aux (uint32 a, uint32 b)
 	}
 }
 
-int jacobi (sint32 a, sint32 b)
+int jacobi (sintV a, sintV b)
 {
 	// Check b > 0, b odd.
 	if (!(b > 0))
@@ -70,9 +70,9 @@ int jacobi (sint32 a, sint32 b)
 		cl_abort();
 	// Ensure 0 <= a < b.
 	if (a >= 0)
-		a = (uint32)a % (uint32)b;
+		a = (uintV)a % (uintV)b;
 	else
-		a = b-1-((uint32)(~a) % (uint32)b);
+		a = b-1-((uintV)(~a) % (uintV)b);
 	return jacobi_aux(a,b);
 }
 

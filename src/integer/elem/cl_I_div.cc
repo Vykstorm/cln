@@ -23,31 +23,60 @@ namespace cln {
         // x Fixnum >=0
         { if (fixnump(y))
             // auch y Fixnum >=0
-            { var uint32 x_ = FN_to_UL(x);
-              var uint32 y_ = FN_to_UL(y);
+            { var uintV x_ = FN_to_UV(x);
+              var uintV y_ = FN_to_UV(y);
               if (y_==0) { cl_error_division_by_0(); }
               elif (x_ < y_)
                 // Trivialfall: q=0, r=x
                 goto trivial;
-              elif (y_ < bit(16))
-                // 32-durch-16-Bit-Division
-                { var uint32 q;
-                  var uint16 r;
-                  divu_3216_3216(x_,y_,q=,r=);
-                  return cl_I_div_t(
-                    /* result.quotient =  */ UL_to_I(q),
-                    /* result.remainder = */ L_to_FN((uintL)r)
-                    );
-                }
               else
-                // volle 32-durch-32-Bit-Division
-                { var uint32 q;
-                  var uint32 r;
-                  divu_3232_3232(x_,y_,q=,r=);
-                  return cl_I_div_t(
-                    /* result.quotient =  */ UL_to_I(q),
-                    /* result.remainder = */ UL_to_I(r)
-                    );
+                {
+                  #if (intVsize>32)
+                  if (x_ >= bit(32))
+                    { if (y_ < bit(32))
+                        // 64-durch-32-Bit-Division
+                        { var uint64 q;
+                          var uint32 r;
+                          divu_6432_6432(x_,y_,q=,r=);
+                          return cl_I_div_t(
+                            /* result.quotient =  */ UQ_to_I(q),
+                            /* result.remainder = */ UL_to_I(r)
+                            );
+                        }
+                      else
+                        // volle 64-durch-64-Bit-Division
+                        { var uint64 q;
+                          var uint64 r;
+                          divu_6464_6464(x_,y_,q=,r=);
+                          return cl_I_div_t(
+                            /* result.quotient =  */ UQ_to_I(q),
+                            /* result.remainder = */ UQ_to_I(r)
+                            );
+                        }
+                    }
+                  else
+                  #endif
+                    { if (y_ < bit(16))
+                        // 32-durch-16-Bit-Division
+                        { var uint32 q;
+                          var uint16 r;
+                          divu_3216_3216(x_,y_,q=,r=);
+                          return cl_I_div_t(
+                            /* result.quotient =  */ UL_to_I(q),
+                            /* result.remainder = */ L_to_FN((uintL)r)
+                            );
+                        }
+                      else
+                        // volle 32-durch-32-Bit-Division
+                        { var uint32 q;
+                          var uint32 r;
+                          divu_3232_3232(x_,y_,q=,r=);
+                          return cl_I_div_t(
+                            /* result.quotient =  */ UL_to_I(q),
+                            /* result.remainder = */ UL_to_I(r)
+                            );
+                        }
+                    }
                 }
             }
             else

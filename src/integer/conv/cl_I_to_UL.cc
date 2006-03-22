@@ -22,9 +22,12 @@ uint32 cl_I_to_UL (const cl_I& obj)
 {
 	if (fixnump(obj)) {
 		// Fixnum
-		var sint32 wert = FN_to_L(obj);
+		var sintV wert = FN_to_V(obj);
 		if (wert >= 0)
-			return (uint32)wert;
+			#if (intVsize>32)
+			if (wert < bit(32))
+			#endif
+				return (uint32)wert;
 		goto bad;
 	} else { // Bignum
 		var cl_heap_bignum* bn = TheBignum(obj);

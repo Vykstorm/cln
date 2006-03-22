@@ -92,11 +92,7 @@ inline cl_boolean cl_immediate_p (cl_uint word)
   #define cl_tag_len	3
 #endif
 #define cl_tag_shift	0
-#if (cl_pointer_size == 64)
-  #define cl_value_shift  32
-#else
-  #define cl_value_shift  (cl_tag_len+cl_tag_shift)
-#endif
+#define cl_value_shift  (cl_tag_len+cl_tag_shift)
 #define cl_value_len	(cl_pointer_size - cl_value_shift)
 #define cl_tag_mask	(((1UL << cl_tag_len) - 1) << cl_tag_shift)
 #define cl_value_mask	(((1UL << cl_value_len) - 1) << cl_value_shift)

@@ -23,7 +23,7 @@ sint64 cl_I_to_Q (const cl_I& obj)
 {
 	if (fixnump(obj))
 		// Fixnum
-		return (sint64)(sint32)FN_to_L(obj);
+		return (sint64)(sintV)FN_to_V(obj);
     {	// Bignum
 	var cl_heap_bignum* bn = TheBignum(obj);
 	var uintC len = bn->length;

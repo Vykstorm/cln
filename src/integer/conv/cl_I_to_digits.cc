@@ -54,7 +54,7 @@ static inline void I_to_digits_noshrink (const cl_I& X, uintD base, uintL erg_le
   if (count > 0)
     { var uintB* ptr = erg->MSBptr;
       do { *--ptr = '0'; } while (--count > 0);
-      erg->MSBptr = ptr; erg->len = erg->len;
+      erg->MSBptr = ptr; erg->len = erg_len;
     }
 }
 

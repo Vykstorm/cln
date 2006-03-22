@@ -154,7 +154,7 @@ namespace cln {
       var cl_I& b = abs_b;
       if (fixnump(a) && fixnump(b)) // ggT zweier Fixnums >0
         { // bleibt Fixnum, da (gcd a b) <= (min a b)
-          return L_to_FN(gcd(FN_to_UL(a),FN_to_UL(b)));
+          return V_to_FN(gcd(FN_to_UV(a),FN_to_UV(b)));
         }
       { var cl_signean vergleich = compare(a,b);
         if (vergleich == 0) { return a; } // a=b -> fertig
@@ -296,11 +296,11 @@ namespace cln {
       if (eq(b,0)) { return abs(a); } // b=0 -> (abs a)
       if (eq(a,0)) { return abs(b); } // a=0 -> (abs b)
       if (fixnump(a) && fixnump(b)) // ggT zweier Fixnums /=0
-        { var sintL a_ = FN_to_L(a);
+        { var sintV a_ = FN_to_V(a);
           if (a_ < 0) { a_ = -a_; }
-          var sintL b_ = FN_to_L(b);
+          var sintV b_ = FN_to_V(b);
           if (b_ < 0) { b_ = -b_; }
-          return UL_to_I(gcd((uint32)a_,(uint32)b_));
+          return UV_to_I(gcd((uintV)a_,(uintV)b_));
         }
       CL_ALLOCA_STACK;
       var uintD* a_MSDptr;

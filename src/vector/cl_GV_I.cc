@@ -283,9 +283,9 @@ static const cl_I bits1_element (const cl_GV_inner<cl_I>* vec, uintL index)
 }
 static void bits1_set_element (cl_GV_inner<cl_I>* vec, uintL index, const cl_I& x)
 {
-	var uint32 xval;
+	var uintV xval;
 	if (fixnump(x)) {
-		xval = FN_to_UL(x);
+		xval = FN_to_UV(x);
 		if (xval <= 0x1) {
 			var uintD* ptr = &((cl_heap_GV_I_bits1 *) outcast(vec))->data[index/intDsize];
 			index = index%intDsize;
@@ -305,9 +305,9 @@ static const cl_I bits2_element (const cl_GV_inner<cl_I>* vec, uintL index)
 }
 static void bits2_set_element (cl_GV_inner<cl_I>* vec, uintL index, const cl_I& x)
 {
-	var uint32 xval;
+	var uintV xval;
 	if (fixnump(x)) {
-		xval = FN_to_UL(x);
+		xval = FN_to_UV(x);
 		if (xval <= 0x3) {
 			var uintD* ptr = &((cl_heap_GV_I_bits2 *) outcast(vec))->data[index/(intDsize/2)];
 			index = 2*(index%(intDsize/2));
@@ -327,9 +327,9 @@ static const cl_I bits4_element (const cl_GV_inner<cl_I>* vec, uintL index)
 }
 static void bits4_set_element (cl_GV_inner<cl_I>* vec, uintL index, const cl_I& x)
 {
-	var uint32 xval;
+	var uintV xval;
 	if (fixnump(x)) {
-		xval = FN_to_UL(x);
+		xval = FN_to_UV(x);
 		if (xval <= 0xF) {
 			var uintD* ptr = &((cl_heap_GV_I_bits4 *) outcast(vec))->data[index/(intDsize/4)];
 			index = 4*(index%(intDsize/4));
@@ -354,9 +354,9 @@ static const cl_I bits8_element (const cl_GV_inner<cl_I>* vec, uintL index)
 }
 static void bits8_set_element (cl_GV_inner<cl_I>* vec, uintL index, const cl_I& x)
 {
-	var uint32 xval;
+	var uintV xval;
 	if (fixnump(x)) {
-		xval = FN_to_UL(x);
+		xval = FN_to_UV(x);
 		if (xval <= 0xFF) {
 			#if CL_CPU_BIG_ENDIAN_P
 			var uintD* ptr = &((cl_heap_GV_I_bits8 *) outcast(vec))->data[index/(intDsize/8)];
@@ -386,9 +386,9 @@ static const cl_I bits16_element (const cl_GV_inner<cl_I>* vec, uintL index)
 }
 static void bits16_set_element (cl_GV_inner<cl_I>* vec, uintL index, const cl_I& x)
 {
-	var uint32 xval;
+	var uintV xval;
 	if (fixnump(x)) {
-		xval = FN_to_UL(x);
+		xval = FN_to_UV(x);
 		if (xval <= 0xFFFF) {
 			#if CL_CPU_BIG_ENDIAN_P
 			var uintD* ptr = &((cl_heap_GV_I_bits16 *) outcast(vec))->data[index/(intDsize/16)];

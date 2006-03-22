@@ -57,7 +57,7 @@ const cornacchia_t cornacchia4 (const cl_I& d, const cl_I& p)
 		if (d==7) return cornacchia_t(1, 1,1);
 		return cornacchia_t(0);
 	}
-	switch (FN_to_L(logand(d,7))) {
+	switch (FN_to_V(logand(d,7))) {
 		case 0: case 4: {
 			// d == 0 mod 4
 			var cornacchia_t s = cornacchia1(d>>2,p);

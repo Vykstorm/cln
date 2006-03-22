@@ -31,15 +31,15 @@ const cl_I operator+ (const cl_I& x, const cl_I& y)
         { // x ist Fixnum
           if (fixnump(y))
             { // x,y sind Fixnums
-              #if (cl_value_len < intLsize)
-              return L_to_I( FN_to_L(x) + FN_to_L(y) ); // als 32-Bit-Zahlen addieren
+              #if (cl_value_len < intVsize)
+              return V_to_I( FN_to_V(x) + FN_to_V(y) ); // als intVsize-Bit-Zahlen addieren
               #elif (cl_word_size==64)
               return Q_to_I( FN_to_Q(x) + FN_to_Q(y) ); // als 64-Bit-Zahlen addieren
-              #else // (cl_value_len == intLsize)
-              var sint32 xhi = sign_of(FN_to_L(x));
-              var uint32 xlo = FN_to_L(x);
-              var sint32 yhi = sign_of(FN_to_L(y));
-              var uint32 ylo = FN_to_L(y);
+              #elif (intVsize==32) // && (cl_value_len == intVsize)
+              var sint32 xhi = sign_of(FN_to_V(x));
+              var uint32 xlo = FN_to_V(x);
+              var sint32 yhi = sign_of(FN_to_V(y));
+              var uint32 ylo = FN_to_V(y);
               xhi += yhi;
               xlo += ylo;
               if (xlo < ylo) { xhi += 1; }
@@ -49,11 +49,11 @@ const cl_I operator+ (const cl_I& x, const cl_I& y)
             else
             { // x ist Fixnum, y ist Bignum, also y länger
               #if (intDsize==64)
-              var sint64 x_ = FN_to_L(x); // Wert von x
+              var sint64 x_ = FN_to_V(x); // Wert von x
               #else
-              var sint32 x_ = FN_to_L(x); // Wert von x
+              var sintV x_ = FN_to_V(x); // Wert von x
               #endif
-              if (FN_L_zerop(x,x_)) { return y; } // bei x=0 Ergebnis y
+              if (FN_V_zerop(x,x_)) { return y; } // bei x=0 Ergebnis y
               CL_ALLOCA_STACK;
               BN_to_NDS_1(y, MSDptr=,len=,LSDptr=); // NDS zu y bilden.
               // len>=bn_minlength. len>pFN_maxlength erzwingen:
@@ -68,21 +68,21 @@ const cl_I operator+ (const cl_I& x, const cl_I& y)
                 var uint64 y_new = y_+(uint64)x_;
                 lspref(LSDptr,0) = y_new;
                 #else
-                var uint32 y_ = pFN_maxlength_digits_at(LSDptr);
-                var uint32 y_new = y_+(uint32)x_;
+                var uintV y_ = pFN_maxlength_digits_at(LSDptr);
+                var uintV y_new = y_+(uintV)x_;
                 set_pFN_maxlength_digits_at(LSDptr,y_new);
                 #endif
                 var uintD* midptr = LSDptr lspop pFN_maxlength;
                 if (y_new < y_)
                   { // Carry.
-                    if (!FN_L_minusp(x,x_)) // kürzerer Summand war positiv
+                    if (!FN_V_minusp(x,x_)) // kürzerer Summand war positiv
                       // Dann ist ein positiver Übertrag weiterzutragen
                       // (Beispiel: 0002FFFC + 0007 = 00030003)
                       { DS_1_plus(midptr,len-pFN_maxlength); }
                   }
                   else
                   { // Kein Carry.
-                    if (FN_L_minusp(x,x_)) // kürzerer Summand war negativ
+                    if (FN_V_minusp(x,x_)) // kürzerer Summand war negativ
                       // Dann ist ein negativer Übertrag weiterzutragen
                       // (Beispiel: 00020003 + FFF5 = 0001FFF8)
                       { DS_minus1_plus(midptr,len-pFN_maxlength); }
@@ -95,11 +95,11 @@ const cl_I operator+ (const cl_I& x, const cl_I& y)
           if (fixnump(y))
             { // x ist Bignum, y ist Fixnum, also x länger
               #if (intDsize==64)
-              var sint64 y_ = FN_to_L(y); // Wert von y
+              var sint64 y_ = FN_to_V(y); // Wert von y
               #else
-              var sint32 y_ = FN_to_L(y); // Wert von y
+              var sintV y_ = FN_to_V(y); // Wert von y
               #endif
-              if (FN_L_zerop(y,y_)) { return x; } // bei y=0 Ergebnis x
+              if (FN_V_zerop(y,y_)) { return x; } // bei y=0 Ergebnis x
               CL_ALLOCA_STACK;
               BN_to_NDS_1(x, MSDptr=,len=,LSDptr=); // NDS zu x bilden.
               // len>=bn_minlength. len>pFN_maxlength erzwingen:
@@ -114,21 +114,21 @@ const cl_I operator+ (const cl_I& x, const cl_I& y)
                 var uint64 x_new = x_+(uint64)y_;
                 lspref(LSDptr,0) = x_new;
                 #else
-                var uint32 x_ = pFN_maxlength_digits_at(LSDptr);
-                var uint32 x_new = x_+(uint32)y_;
+                var uintV x_ = pFN_maxlength_digits_at(LSDptr);
+                var uintV x_new = x_+(uintV)y_;
                 set_pFN_maxlength_digits_at(LSDptr,x_new);
                 #endif
                 var uintD* midptr = LSDptr lspop pFN_maxlength;
                 if (x_new < x_)
                   { // Carry.
-                    if (!FN_L_minusp(y,y_)) // kürzerer Summand war positiv
+                    if (!FN_V_minusp(y,y_)) // kürzerer Summand war positiv
                       // Dann ist ein positiver Übertrag weiterzutragen
                       // (Beispiel: 0002FFFC + 0007 = 00030003)
                       { DS_1_plus(midptr,len-pFN_maxlength); }
                   }
                   else
                   { // Kein Carry.
-                    if (FN_L_minusp(y,y_)) // kürzerer Summand war negativ
+                    if (FN_V_minusp(y,y_)) // kürzerer Summand war negativ
                       // Dann ist ein negativer Übertrag weiterzutragen
                       // (Beispiel: 00020003 + FFF5 = 0001FFF8)
                       { DS_minus1_plus(midptr,len-pFN_maxlength); }

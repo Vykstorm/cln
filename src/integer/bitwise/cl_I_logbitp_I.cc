@@ -25,7 +25,7 @@ cl_boolean logbitp (const cl_I& x, const cl_I& y)
     //             Sonst x=intDsize*k+i, Teste Bit i vom Worte Nr. k+1 (von oben herab).
       if (!minusp(x)) // x>=0 ?
         { if (fixnump(x))
-            { var uintL x_ = FN_to_L(x);
+            { var uintV x_ = FN_to_V(x);
               var uintC ylen;
               var const uintD* yLSDptr;
               I_to_NDS_nocopy(y, ,ylen=,yLSDptr=,cl_true, { return cl_false; } ); // DS zu y

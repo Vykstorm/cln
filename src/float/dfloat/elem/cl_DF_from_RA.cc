@@ -66,10 +66,15 @@ const cl_DF cl_RA_to_DF (const cl_RA& x)
       var cl_I_div_t q_r = cl_divide(zaehler,nenner);
       var cl_I& q = q_r.quotient;
       var cl_I& r = q_r.remainder;
-      // 2^53 <= q < 2^55, also ist q Bignum mit ceiling(55/intDsize) Digits.
-      var const uintD* ptr = BN_MSDptr(q);
       #if (cl_word_size==64)
+      #if (cl_value_len>=55)
+      // 2^53 <= q < 2^55: q is fixnum.
+      var uint64 mant = FN_to_UV(q);
+      #else
+      // 2^53 <= q < 2^55: q is bignum with one Digit.
+      var const uintD* ptr = BN_MSDptr(q);
       var uint64 mant = get_max64_Dptr(55,ptr);
+      #endif
       if (mant >= bit(DF_mant_len+2))
         // 2^54 <= q < 2^55, schiebe um 2 Bits nach rechts
         { var uint64 rounding_bits = mant & (bit(2)-1);
@@ -106,7 +111,9 @@ const cl_DF cl_RA_to_DF (const cl_RA& x)
       ab:
       // Fertig.
       return encode_DF(sign,lendiff,mant);
-      #else
+      #else  // (cl_word_size<64)
+      // 2^53 <= q < 2^55: q is bignum with two Digits.
+      var const uintD* ptr = BN_MSDptr(q);
       var uint32 manthi = get_max32_Dptr(23,ptr);
       var uint32 mantlo = get_32_Dptr(ptr mspop ceiling(23,intDsize));
       if (manthi >= bit(DF_mant_len-32+2))

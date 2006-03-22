@@ -21,13 +21,19 @@ const cl_I square (const cl_I& x)
   // x Fixnum -> direkt multiplizieren
   // sonst: zu DS machen, multiplizieren.
       if (fixnump(x))
-        { var sint32 x_ = FN_to_L(x);
-          // Werte direkt multiplizieren:
-          var uint32 hi;
-          var uint32 lo;
-          mulu32((uint32)x_,(uint32)x_,hi=,lo=); // erst unsigned multiplizieren
-          if (x_ < 0) { hi -= 2*(uint32)x_; } // dann Korrektur für Vorzeichen
-          return L2_to_I(hi,lo);
+        { var sintV x_ = FN_to_V(x);
+          #if (cl_value_len > 32)
+          // nur falls x ein Integer mit höchstens 32 Bit ist:
+          if ((uintV)((sintV)sign_of(x_) ^ x_) < bit(31))
+          #endif
+            {
+              // Werte direkt multiplizieren:
+              var uint32 hi;
+              var uint32 lo;
+              mulu32((uint32)x_,(uint32)x_,hi=,lo=); // erst unsigned multiplizieren
+              if (x_ < 0) { hi -= 2*(uint32)x_; } // dann Korrektur für Vorzeichen
+              return L2_to_I(hi,lo);
+            }
         }
       CL_ALLOCA_STACK;
       var const uintD* xMSDptr;

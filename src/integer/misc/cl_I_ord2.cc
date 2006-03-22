@@ -31,8 +31,13 @@ namespace cln {
 uintL ord2 (const cl_I& x) // x /= 0
 {
 	if (fixnump(x))
-	  { var uint32 x_ = FN_to_L(x); // x als 32-Bit-Zahl
-	    ord2_32(x_,return);
+	  { var uintV x_ = FN_to_V(x); // x als intVsize-Bit-Zahl
+            // This assumes cl_value_len <= intVsize.
+            #if (intVsize>32)
+	    ord2_64(x_,return);
+            #else
+            ord2_32(x_,return);
+            #endif
 	  }
 	  else
 	  { var uintL bitcount = 0;

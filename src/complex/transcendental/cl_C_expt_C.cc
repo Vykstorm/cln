@@ -166,7 +166,7 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 				}
 			}
 			if (fixnump(m) && fixnump(n)) { // |m| und n klein?
-				var uintL _n = FN_to_UL(n);
+				var uintV _n = FN_to_UV(n);
 				if ((_n & (_n-1)) == 0) { // n Zweierpotenz?
 					Mutable(cl_N,x);
 					until ((_n = _n >> 1) == 0)

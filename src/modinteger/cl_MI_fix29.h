@@ -5,47 +5,47 @@ namespace cln {
 
 static const _cl_MI fix29_plus (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
-	var uint32 zr = FN_to_UL(x.rep) + FN_to_UL(y.rep);
-	if (zr >= FN_to_UL(R->modulus)) { zr = zr - FN_to_UL(R->modulus); }
+	var uint32 zr = FN_to_UV(x.rep) + FN_to_UV(y.rep);
+	if (zr >= FN_to_UV(R->modulus)) { zr = zr - FN_to_UV(R->modulus); }
 	return _cl_MI(R, L_to_FN(zr));
 }
 
 static const _cl_MI fix29_minus (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
-	var uint32 xr = FN_to_UL(x.rep);
-	var uint32 yr = FN_to_UL(y.rep);
+	var uint32 xr = FN_to_UV(x.rep);
+	var uint32 yr = FN_to_UV(y.rep);
 	var sint32 zr = xr - yr;
-	if (zr < 0) { zr = zr + FN_to_UL(R->modulus); }
+	if (zr < 0) { zr = zr + FN_to_UV(R->modulus); }
 	return _cl_MI(R, L_to_FN(zr));
 }
 
 static const _cl_MI fix29_uminus (cl_heap_modint_ring* R, const _cl_MI& x)
 {
-	var uint32 xr = FN_to_UL(x.rep);
-	var uint32 zr = (xr==0 ? 0 : FN_to_UL(R->modulus)-xr);
+	var uint32 xr = FN_to_UV(x.rep);
+	var uint32 zr = (xr==0 ? 0 : FN_to_UV(R->modulus)-xr);
 	return _cl_MI(R, L_to_FN(zr));
 }
 
 static const _cl_MI fix29_mul (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
-	var uint32 xr = FN_to_UL(x.rep);
-	var uint32 yr = FN_to_UL(y.rep);
+	var uint32 xr = FN_to_UV(x.rep);
+	var uint32 yr = FN_to_UV(y.rep);
 	var uint32 zrhi;
 	var uint32 zrlo;
 	mulu32(xr,yr,zrhi=,zrlo=);
 	var uint32 zr;
-	divu_6432_3232(zrhi,zrlo,FN_to_UL(R->modulus),,zr=);
+	divu_6432_3232(zrhi,zrlo,FN_to_UV(R->modulus),,zr=);
 	return _cl_MI(R, L_to_FN(zr));
 }
 
 static const _cl_MI fix29_square (cl_heap_modint_ring* R, const _cl_MI& x)
 {
-	var uint32 xr = FN_to_UL(x.rep);
+	var uint32 xr = FN_to_UV(x.rep);
 	var uint32 zrhi;
 	var uint32 zrlo;
 	mulu32(xr,xr,zrhi=,zrlo=);
 	var uint32 zr;
-	divu_6432_3232(zrhi,zrlo,FN_to_UL(R->modulus),,zr=);
+	divu_6432_3232(zrhi,zrlo,FN_to_UV(R->modulus),,zr=);
 	return _cl_MI(R, L_to_FN(zr));
 }
 

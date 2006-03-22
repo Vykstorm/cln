@@ -29,7 +29,7 @@ int jacobi (const cl_I& a, const cl_I& b)
 	a = mod(a,b);
 	// If a and b are fixnums, choose faster routine.
 	if (fixnump(b))
-		return jacobi(FN_to_L(a),FN_to_L(b));
+		return jacobi(FN_to_V(a),FN_to_V(b));
 	var int v = 1;
 	for (;;) {
 		// (a/b) * v is invariant.
@@ -43,7 +43,7 @@ int jacobi (const cl_I& a, const cl_I& b)
 			// a > b/2, so (a/b) = (-1/b) * ((b-a)/b),
 			// and (-1/b) = -1 if b==3 mod 4.
 			a = b-a;
-			if (FN_to_L(logand(b,3)) == 3)
+			if (FN_to_V(logand(b,3)) == 3)
 				v = -v;
 			continue;
 		}
@@ -51,14 +51,14 @@ int jacobi (const cl_I& a, const cl_I& b)
 			// b>1 and a=2a', so (a/b) = (2/b) * (a'/b),
 			// and (2/b) = -1 if b==3,5 mod 8.
 			a = a>>1;
-			switch (FN_to_L(logand(b,7))) {
+			switch (FN_to_V(logand(b,7))) {
 				case 3: case 5: v = -v; break;
 			}
 			continue;
 		}
 		// a and b odd, 0 < a < b/2 < b, so apply quadratic reciprocity
 		// law  (a/b) = (-1)^((a-1)/2)((b-1)/2) * (b/a).
-		if (FN_to_L(logand(logand(a,b),3)) == 3)
+		if (FN_to_V(logand(logand(a,b),3)) == 3)
 			v = -v;
 		swap(cl_I, a,b);
 		// Now a > 2*b, set a := a mod b.

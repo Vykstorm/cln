@@ -210,8 +210,73 @@ uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
 uint64 divu_64_rest;
 #endif
 
+#ifdef NEED_FUNCTION_divu_6464_6464_
+namespace cln {
+uint64 divu_6464_6464_(uint64 x, uint64 y)
+// Methode: (beta = 2^n = 2^32, n = 32)
+// Falls y < beta, handelt es sich um eine 64-durch-32-Bit-Division.
+// Falls y >= beta:
+// Quotient  q = floor(x/y) < beta  (da 0 <= x < beta^2, y >= beta).
+// y habe genau n+k Bits (1 <= k <= n), d.h. 2^(n+k-1) <= y < 2^(n+k).
+// Schreibe  x = 2^k*x1 + x0  mit  x1 := floor(x/2^k)
+// und       y = 2^k*y1 + y0  mit  y1 := floor(y/2^k)
+// und bilde den Näherungs-Quotienten floor(x1/y1)
+// oder (noch besser) floor(x1/(y1+1)).
+// Wegen 0 <= x1 < 2^(2n) und 0 < 2^(n-1) <= y1 < 2^n
+// und  x1/(y1+1) <= x/y < x1/(y1+1) + 2
+// (denn x1/(y1+1) = (x1*2^k)/((y1+1)*2^k) <= (x1*2^k)/y <= x/y
+// und x/y - x1/(y1+1) = (x+x*y1-x1*y)/(y*(y1+1))
+// = (x+x0*y1-x1*y0)/(y*(y1+1)) <= (x+x0*y1)/(y*(y1+1))
+// <= x/(y*(y1+1)) + x0/y
+// <= 2^(2n)/(2^(n+k-1)*(2^(n-1)+1)) + 2^k/2^(n+k-1)
+// = 2^(n-k+1)/(2^(n-1)+1) + 2^(1-n) <= 2^n/(2^(n-1)+1) + 2^(1-n) < 2 )
+// gilt  floor(x1/(y1+1)) <= floor(x/y) <= floor(x1/(y1+1)) + 2  .
+// Man bildet also  q:=floor(x1/(y1+1))  (ein Shift um n Bit oder
+// eine (2n)-durch-n-Bit-Division, mit Ergebnis q <= floor(x/y) < beta)
+// und x-q*y und muss hiervon noch höchstens 2 mal y abziehen und q
+// incrementieren, um den Quotienten  q = floor(x/y)  und den Rest
+// x-floor(x/y)*y  der Division zu bekommen.
+{
+  if (y <= (uint64)(((uint64)1<<32)-1))
+    { var uint32 q1;
+      var uint32 q0;
+      var uint32 r1;
+      divu_6432_3232(0,high32(x),y, q1 = , r1 = );
+      divu_6432_3232(r1,low32(x),y, q0 = , divu_64_rest = );
+      return highlow64(q1,q0);
+    }
+    else
+    { var uint64 x1 = x; // x1 := x
+      var uint64 y1 = y; // y1 := y
+      var uint32 q;
+      do { x1 = floor(x1,2); y1 = floor(y1,2); } // k erhöhen
+         while (!(y1 <= (uint64)(((uint64)1<<32)-1))); // bis y1 < beta
+      { var uint32 y2 = low32(y1)+1; // y1+1 bilden
+        if (y2==0)
+          { q = high32(x1); } // y1+1=beta -> ein Shift
+          else
+          { divu_6432_3232(high32(x1),low32(x1),y2,q=,); } // Division von x1 durch y1+1
+      }
+      // q = floor(x1/(y1+1))
+      // x-q*y bilden (eine 32-mal-64-Bit-Multiplikation ohne Überlauf):
+      x -= highlow64_0(mulu32_64(q,high32(y))); // q * high32(y) * beta
+      // gefahrlos, da q*high32(y) <= q*y/beta <= x/beta < beta
+      x -= mulu32_64(q,low32(y)); // q * low32(y)
+      // gefahrlos, da q*high32(y)*beta + q*low32(y) = q*y <= x
+      // Noch höchstens 2 mal y abziehen:
+      if (x >= y)
+        { q += 1; x -= y;
+          if (x >= y)
+            { q += 1; x -= y;
+        }   }
+      divu_64_rest = x;
+      return (uint64)q;
+   }
+}
+}  // namespace cln
+#endif
+
 #ifdef NEED_FUNCTION_divu_12864_6464_
-uint64 divu_64_rest;
 namespace cln {
 uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
 // Methode:

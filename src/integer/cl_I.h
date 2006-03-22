@@ -112,32 +112,32 @@ inline cl_boolean eq (const cl_I& x, sint32 y)
 // Umwandlungsroutinen Integer <--> Longword:
 
 // Wandelt Fixnum >=0 in Unsigned Longword um.
-// FN_to_UL(obj)
+// FN_to_UV(obj)
 // > obj: ein Fixnum >=0
-// < ergebnis: der Wert des Fixnum als 32-Bit-Zahl.
-inline uint32 FN_to_UL (const cl_I& x)
+// < ergebnis: der Wert des Fixnum als intVsize-Bit-Zahl.
+inline uintV FN_to_UV (const cl_I& x)
 {
 	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_uint)(x.word) >> cl_value_shift;
 }
 
 // Wandelt Fixnum in Longword um.
-// FN_to_L(obj)
+// FN_to_V(obj)
 // > obj: ein Fixnum
-// < ergebnis: der Wert des Fixnum als 32-Bit-Zahl.
-inline sint32 FN_to_L (const cl_I& x)
+// < ergebnis: der Wert des Fixnum als intVsize-Bit-Zahl.
+inline sintV FN_to_V (const cl_I& x)
 {
 	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
 	return (cl_sint)(x.word) >> cl_value_shift;
 }
 
-// FN_L_zerop(x,x_) stellt fest, ob x = 0 ist.
-// Dabei ist x ein Fixnum und x_ = FN_to_L(x).
-  #define FN_L_zerop(x,x_)  (x_==0)
+// FN_V_zerop(x,x_) stellt fest, ob x = 0 ist.
+// Dabei ist x ein Fixnum und x_ = FN_to_V(x).
+  #define FN_V_zerop(x,x_)  (x_==0)
 
-// FN_L_minusp(x,x_) stellt fest, ob x < 0 ist.
-// Dabei ist x ein Fixnum und x_ = FN_to_L(x).
-  #define FN_L_minusp(x,x_)  (x_<0)
+// FN_V_minusp(x,x_) stellt fest, ob x < 0 ist.
+// Dabei ist x ein Fixnum und x_ = FN_to_V(x).
+  #define FN_V_minusp(x,x_)  (x_<0)
 
 #ifdef intQsize
 
@@ -212,26 +212,6 @@ inline sint64 FN_to_Q (const cl_I& x)
   }
 #endif
 
-// Wandelt Doppel-Longword in Integer um.
-// L2_to_I(wert_hi,wert_lo)
-// > wert_hi|wert_lo: Wert des Integers, ein signed 64-Bit-Integer.
-// < ergebnis: Integer mit diesem Wert.
-  extern cl_private_thing cl_I_constructor_from_L2 (sint32 wert_hi, uint32 wert_lo);
-  inline const cl_I L2_to_I (sint32 wert_hi, uint32 wert_lo)
-  {
-	return cl_I(cl_I_constructor_from_L2(wert_hi,wert_lo));
-  }
-
-// Wandelt Unsigned Doppel-Longword in Integer um.
-// UL2_to_I(wert_hi,wert_lo)
-// > wert_hi|wert_lo: Wert des Integers, ein unsigned 64-Bit-Integer.
-// < ergebnis: Integer mit diesem Wert.
-  extern cl_private_thing cl_I_constructor_from_UL2 (uint32 wert_hi, uint32 wert_lo);
-  inline const cl_I UL2_to_I (uint32 wert_hi, uint32 wert_lo)
-  {
-	return cl_I(cl_I_constructor_from_UL2(wert_hi,wert_lo));
-  }
-
 #ifdef intQsize
 
 // Wandelt Quadword in Integer um.
@@ -254,6 +234,60 @@ inline sint64 FN_to_Q (const cl_I& x)
 	return cl_I(cl_I_constructor_from_UQ(wert));
   }
 
+#endif
+
+// Wandelt Doppel-Longword in Integer um.
+// L2_to_I(wert_hi,wert_lo)
+// > wert_hi|wert_lo: Wert des Integers, ein signed 64-Bit-Integer.
+// < ergebnis: Integer mit diesem Wert.
+#if (cl_word_size==64)
+  inline cl_private_thing cl_I_constructor_from_L2 (sint32 wert_hi, uint32 wert_lo)
+  {
+	return cl_I_constructor_from_Q(((sint64)wert_hi<<32) | (sint64)wert_lo);
+  }
+#else
+  extern cl_private_thing cl_I_constructor_from_L2 (sint32 wert_hi, uint32 wert_lo);
+#endif
+  inline const cl_I L2_to_I (sint32 wert_hi, uint32 wert_lo)
+  {
+	return cl_I(cl_I_constructor_from_L2(wert_hi,wert_lo));
+  }
+
+// Wandelt Unsigned Doppel-Longword in Integer um.
+// UL2_to_I(wert_hi,wert_lo)
+// > wert_hi|wert_lo: Wert des Integers, ein unsigned 64-Bit-Integer.
+// < ergebnis: Integer mit diesem Wert.
+#if (cl_word_size==64)
+  inline cl_private_thing cl_I_constructor_from_UL2 (uint32 wert_hi, uint32 wert_lo)
+  {
+	return cl_I_constructor_from_UQ(((uint64)wert_hi<<32) | (uint64)wert_lo);
+  }
+#else
+  extern cl_private_thing cl_I_constructor_from_UL2 (uint32 wert_hi, uint32 wert_lo);
+#endif
+  inline const cl_I UL2_to_I (uint32 wert_hi, uint32 wert_lo)
+  {
+	return cl_I(cl_I_constructor_from_UL2(wert_hi,wert_lo));
+  }
+
+// Wandelt sintV in Integer um.
+// V_to_I(wert)
+// > wert: Wert des Integers, ein sintV.
+// < ergebnis: Integer mit diesem Wert.
+#if (intVsize<=32)
+  #define V_to_I(wert)  L_to_I(wert)
+#else
+  #define V_to_I(wert)  Q_to_I(wert)
+#endif
+
+// Wandelt uintV in Integer >=0 um.
+// UV_to_I(wert)
+// > wert: Wert des Integers, ein uintV.
+// < ergebnis: Integer mit diesem Wert.
+#if (intVsize<=32)
+  #define UV_to_I(wert)  UL_to_I(wert)
+#else
+  #define UV_to_I(wert)  UQ_to_I(wert)
 #endif
 
 // Wandelt uintD in Integer >=0 um.
@@ -284,22 +318,30 @@ inline const cl_I minus (uintL x, uintL y)
 
 #if (intDsize<=32)
 
-// Holt die nächsten pFN_maxlength Digits in ein uint32.
-inline uint32 pFN_maxlength_digits_at (const uintD* ptr)
+// Holt die nächsten pFN_maxlength Digits in ein uintV.
+inline uintV pFN_maxlength_digits_at (const uintD* ptr)
 {
 #if (pFN_maxlength==1)
-	return (uint32)lspref(ptr,0);
+	return (uintV)lspref(ptr,0);
 #elif (pFN_maxlength==2)
-	return ((uint32)lspref(ptr,1)<<intDsize) | (uint32)lspref(ptr,0);
+	return ((uintV)lspref(ptr,1)<<intDsize) | (uintV)lspref(ptr,0);
 #elif (pFN_maxlength==3)
-	return ((((uint32)lspref(ptr,2)<<intDsize) | (uint32)lspref(ptr,1))<<intDsize) | (uint32)lspref(ptr,0);
+	return ((((uintV)lspref(ptr,2)<<intDsize) | (uintV)lspref(ptr,1))<<intDsize) | (uintV)lspref(ptr,0);
 #elif (pFN_maxlength==4)
-	return ((((((uint32)lspref(ptr,3)<<intDsize) | (uint32)lspref(ptr,2))<<intDsize) | (uint32)lspref(ptr,1))<<intDsize) | (uint32)lspref(ptr,0);
+	return ((((((uintV)lspref(ptr,3)<<intDsize) | (uintV)lspref(ptr,2))<<intDsize) | (uintV)lspref(ptr,1))<<intDsize) | (uintV)lspref(ptr,0);
+#elif (pFN_maxlength==5)
+	return ((((((((uintV)lspref(ptr,4)<<intDsize) | (uintV)lspref(ptr,3))<<intDsize) | (uintV)lspref(ptr,2))<<intDsize) | (uintV)lspref(ptr,1))<<intDsize) | (uintV)lspref(ptr,0);
+#elif (pFN_maxlength==6)
+	return ((((((((((uintV)lspref(ptr,5)<<intDsize) | (uintV)lspref(ptr,4))<<intDsize) | (uintV)lspref(ptr,3))<<intDsize) | (uintV)lspref(ptr,2))<<intDsize) | (uintV)lspref(ptr,1))<<intDsize) | (uintV)lspref(ptr,0);
+#elif (pFN_maxlength==7)
+	return ((((((((((((uintV)lspref(ptr,6)<<intDsize) | (uintV)lspref(ptr,5))<<intDsize) | (uintV)lspref(ptr,4))<<intDsize) | (uintV)lspref(ptr,3))<<intDsize) | (uintV)lspref(ptr,2))<<intDsize) | (uintV)lspref(ptr,1))<<intDsize) | (uintV)lspref(ptr,0);
+#elif (pFN_maxlength==8)
+	return ((((((((((((((uintV)lspref(ptr,7)<<intDsize) | (uintV)lspref(ptr,6))<<intDsize) | (uintV)lspref(ptr,5))<<intDsize) | (uintV)lspref(ptr,4))<<intDsize) | (uintV)lspref(ptr,3))<<intDsize) | (uintV)lspref(ptr,2))<<intDsize) | (uintV)lspref(ptr,1))<<intDsize) | (uintV)lspref(ptr,0);
 #endif
 }
 
-// Schreibt ein uint32 in die nächsten pFN_maxlength Digits.
-inline void set_pFN_maxlength_digits_at (uintD* ptr, uint32 wert)
+// Schreibt ein uintV in die nächsten pFN_maxlength Digits.
+inline void set_pFN_maxlength_digits_at (uintD* ptr, uintV wert)
 {
 #if (pFN_maxlength==1)
 	lspref(ptr,0) = (uintD)wert;
@@ -311,6 +353,36 @@ inline void set_pFN_maxlength_digits_at (uintD* ptr, uint32 wert)
 	lspref(ptr,1) = (uintD)(wert>>intDsize);
 	lspref(ptr,0) = (uintD)(wert);
 #elif (pFN_maxlength==4)
+	lspref(ptr,3) = (uintD)(wert>>(3*intDsize));
+	lspref(ptr,2) = (uintD)(wert>>(2*intDsize));
+	lspref(ptr,1) = (uintD)(wert>>intDsize);
+	lspref(ptr,0) = (uintD)(wert);
+#elif (pFN_maxlength==5)
+	lspref(ptr,4) = (uintD)(wert>>(4*intDsize));
+	lspref(ptr,3) = (uintD)(wert>>(3*intDsize));
+	lspref(ptr,2) = (uintD)(wert>>(2*intDsize));
+	lspref(ptr,1) = (uintD)(wert>>intDsize);
+	lspref(ptr,0) = (uintD)(wert);
+#elif (pFN_maxlength==6)
+	lspref(ptr,5) = (uintD)(wert>>(5*intDsize));
+	lspref(ptr,4) = (uintD)(wert>>(4*intDsize));
+	lspref(ptr,3) = (uintD)(wert>>(3*intDsize));
+	lspref(ptr,2) = (uintD)(wert>>(2*intDsize));
+	lspref(ptr,1) = (uintD)(wert>>intDsize);
+	lspref(ptr,0) = (uintD)(wert);
+#elif (pFN_maxlength==7)
+	lspref(ptr,6) = (uintD)(wert>>(6*intDsize));
+	lspref(ptr,5) = (uintD)(wert>>(5*intDsize));
+	lspref(ptr,4) = (uintD)(wert>>(4*intDsize));
+	lspref(ptr,3) = (uintD)(wert>>(3*intDsize));
+	lspref(ptr,2) = (uintD)(wert>>(2*intDsize));
+	lspref(ptr,1) = (uintD)(wert>>intDsize);
+	lspref(ptr,0) = (uintD)(wert);
+#elif (pFN_maxlength==8)
+	lspref(ptr,7) = (uintD)(wert>>(7*intDsize));
+	lspref(ptr,6) = (uintD)(wert>>(6*intDsize));
+	lspref(ptr,5) = (uintD)(wert>>(5*intDsize));
+	lspref(ptr,4) = (uintD)(wert>>(4*intDsize));
 	lspref(ptr,3) = (uintD)(wert>>(3*intDsize));
 	lspref(ptr,2) = (uintD)(wert>>(2*intDsize));
 	lspref(ptr,1) = (uintD)(wert>>intDsize);

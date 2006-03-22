@@ -23,9 +23,9 @@ uint64 cl_I_to_UQ (const cl_I& obj)
 {
 	if (fixnump(obj)) {
 		// Fixnum
-		var sint32 wert = FN_to_L(obj);
+		var sintV wert = FN_to_V(obj);
 		if (wert >= 0)
-			return (uint64)(uint32)wert;
+			return (uint64)(uintV)wert;
 		goto bad;
 	} else { // Bignum
 		var cl_heap_bignum* bn = TheBignum(obj);

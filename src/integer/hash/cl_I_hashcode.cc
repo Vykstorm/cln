@@ -18,7 +18,7 @@ unsigned long hashcode (const cl_I& x)
 	// integers, but it's better than completely ignoring some limbs.
 	if (fixnump(x)) {
 		#if (cl_value_len <= intLsize)
-		code += FN_to_L(x);
+		code += FN_to_V(x);
 		#elif (cl_word_size==64)
 		code += FN_to_Q(x);
 		code ^= (code >> 32);

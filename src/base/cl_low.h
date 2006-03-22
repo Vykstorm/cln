@@ -236,13 +236,13 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
      })
 #elif defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
-    ({ var register uint64 _hi;					\
-       var register uint64 _lo;					\
-       __asm__("umul %2,%3,%1\n\trd %y,%0"			\
-	       : "=r" (_hi), "=r" (_lo)				\
+    ({ var register uint64 _prod;				\
+       __asm__("umul %1,%2,%0"					\
+	       : "=r" (_prod)					\
 	       : "r" ((uint32)(x)), "r" ((uint32)(y))		\
 	      );						\
-       hi_zuweisung (uint32)_hi; lo_zuweisung (uint32)_lo;	\
+       hi_zuweisung (uint32)(_prod>>32);			\
+       lo_zuweisung (uint32)(_prod);				\
      })
 #elif defined(__GNUC__) && defined(__sparc__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
@@ -314,7 +314,17 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // mulu32_w(arg1,arg2)
 // > arg1, arg2 : zwei 32-Bit-Zahlen
 // < result : eine 64-Bit-Zahl
-#if defined(__GNUC__)
+#if defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
+  // Prefer the umul instruction over the mulx instruction (overkill).
+  #define mulu32_w(x,y)  \
+    ({ var register uint64 _prod;				\
+       __asm__("umul %1,%2,%0"					\
+	       : "=r" (_prod)					\
+	       : "r" ((uint32)(x)), "r" ((uint32)(y))		\
+	      );						\
+       _prod;							\
+     })
+#elif defined(__GNUC__)
   #define mulu32_w(x,y)  ((uint64)(uint32)(x) * (uint64)(uint32)(y))
 #else
   extern "C" uint64 mulu32_w (uint32 arg1, uint32 arg2);
@@ -356,7 +366,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
        var register uint64 _lo;                                  \
        __asm__("mulq %2"                                         \
                : "=d" /* %rdx */ (_hi), "=a" /* %rax */ (_lo)    \
-               : "g" ((uint64)(x)), "1" /* %rax */ ((uint64)(y)) \
+               : "rm" ((uint64)(x)), "1" /* %rax */ ((uint64)(y)) \
               );                                                 \
        hi_zuweisung _hi; lo_zuweisung _lo;                       \
      })
@@ -468,9 +478,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
      })
 #elif defined(__GNUC__) && defined(__arm__) && 0 // see comment cl_asm_arm.cc
   #define divu_3216_1616(x,y,q_zuweisung,r_zuweisung)  \
-    { var uint32 _q = divu_3216_1616_(x,y); /* extern in Assembler */	\
-      var register uint32 _r __asm__("%r1"/*"%a2"*/);			\
-      q_zuweisung _q; r_zuweisung _r;					\
+    { var uint32 __q = divu_3216_1616_(x,y); /* extern in Assembler */	\
+      var register uint32 __r __asm__("%r1"/*"%a2"*/);			\
+      q_zuweisung __q; r_zuweisung __r;					\
     }
 #elif defined(__GNUC__) && !defined(__arm__)
   #define divu_3216_1616(x,y,q_zuweisung,r_zuweisung)  \
@@ -768,12 +778,53 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < uint32 q: floor(x/y)
 // < uint32 r: x mod y
 // < x = q*y+r
-#if defined(__GNUC__)
+#if defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
+  // Prefer the udiv and umul instructions over the udivx and mulx instructions
+  // (overkill).
+  #define divu_6432_3232_w(x,y,q_zuweisung,r_zuweisung)  \
+    ({var uint64 __x = (x);           \
+      var uint32 __xhi = high32(__x); \
+      var uint32 __xlo = low32(__x);  \
+      var uint32 __y = (y);           \
+      var uint64 __q;                 \
+      var uint64 __r;                 \
+      __asm__ __volatile__ (          \
+        "wr %2,%%g0,%%y\n\t"          \
+        "udiv %3,%4,%0\n\t"           \
+        "umul %0,%4,%1"               \
+        "sub %3,%1,%1"                \
+        : "=&r" (__q), "=&r" (__r)    \
+        : "r" (__xhi), "r" (__xlo), "r" (__y)); \
+      q_zuweisung (uint32)__q;        \
+      r_zuweisung (uint32)__r;        \
+     })
+#elif defined(__GNUC__) && (defined(__alpha__) || defined(__ia64__) || defined(__mips64__) || defined(__sparc64__))
+  // On __alpha__, computing the remainder by multiplication is just two
+  // instructions, compared to the __remqu (libc) function call for the %
+  // operator.
+  // On __ia64__, computing the remainder by multiplication is just four
+  // instructions, compared to the __umoddi3 (libgcc) function call for the %
+  // operator.
+  // On __mips64__, computing the remainder by multiplication is just two
+  // instructions, compared to the __umoddi3 (libgcc) function call for the %
+  // operator.
+  // On __sparc64__, computing the remainder by multiplication uses a 32-bit
+  // multiplication instruction, compared to a 64-bit multiplication when the %
+  // operator is used.
   #define divu_6432_3232_w(x,y,q_zuweisung,r_zuweisung)  \
     ({var uint64 __x = (x);						\
       var uint32 __y = (y);						\
       var uint32 __q = floor(__x,(uint64)__y);				\
       q_zuweisung __q; r_zuweisung (uint32)__x - __q * __y;		\
+     })
+#elif defined(__GNUC__) && defined(__x86_64__)
+  // On __x86_64__, gcc 4.0 performs both quotient and remainder computation
+  // in a single instruction.
+  #define divu_6432_3232_w(x,y,q_zuweisung,r_zuweisung)  \
+    ({var uint64 __x = (x);						\
+      var uint32 __y = (y);						\
+      var uint32 __q = floor(__x,(uint64)__y);				\
+      q_zuweisung __q; r_zuweisung __x % (uint64)__y;			\
      })
 #else
   #define divu_6432_3232_w(x,y,q_zuweisung,r_zuweisung)  \
@@ -782,22 +833,125 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     }
 #endif
 
+// Dividiert eine 64-Bit-Zahl durch eine 32-Bit-Zahl und
+// liefert einen 64-Bit-Quotienten und einen 32-Bit-Rest.
+// divu_6432_6432(x,y,q=,r=);
+// > uint64 x: Zähler
+// > uint32 y: Nenner
+// > Es sei bekannt, daß y>0.
+// < uint64 q: floor(x/y)
+// < uint32 r: x mod y
+// < x = q*y+r
+#if defined(__GNUC__) && (defined(__alpha__) || defined(__ia64__) || defined(__mips64__) || defined(__sparc64__))
+  // On __alpha__, computing the remainder by multiplication is just two
+  // instructions, compared to the __remqu (libc) function call for the %
+  // operator.
+  // On __ia64__, computing the remainder by multiplication is just four
+  // instructions, compared to the __umoddi3 (libgcc) function call for the %
+  // operator.
+  // On __mips64__, computing the remainder by multiplication is just two
+  // instructions, compared to the __umoddi3 (libgcc) function call for the %
+  // operator.
+  // On __sparc64__, computing the remainder by multiplication uses a 32-bit
+  // multiplication instruction, compared to a 64-bit multiplication when the %
+  // operator is used.
+  #define divu_6432_6432(x,y,q_zuweisung,r_zuweisung)  \
+    ({var uint64 _x = (x);                    \
+      var uint32 _y = (y);                    \
+      var uint64 _q;                          \
+      q_zuweisung _q = floor(_x,(uint64)_y);  \
+      r_zuweisung low32(_x) - low32(_q) * _y; \
+     })
+#elif defined(__GNUC__) && defined(__x86_64__)
+  // On __x86_64__, gcc 4.0 performs both quotient and remainder computation
+  // in a single instruction.
+  #define divu_6432_6432(x,y,q_zuweisung,r_zuweisung)  \
+    ({var uint64 _x = (x);               \
+      var uint32 _y = (y);               \
+      q_zuweisung floor(_x,(uint64)_y);  \
+      r_zuweisung _x % (uint64)_y;       \
+     })
+#else
+  // Methode: (beta = 2^32)
+  // x = x1*beta+x0 schreiben.
+  // Division mit Rest: x1 = q1*y + r1, wobei 0 <= x1 < beta <= beta*y.
+  // Also 0 <= q1 < beta, 0 <= r1 < y.
+  // Division mit Rest: (r1*beta+x0) = q0*y + r0, wobei 0 <= r1*beta+x0 < beta*y.
+  // Also 0 <= q0 < beta, 0 <= r0 < y
+  // und x = x1*beta+x0 = (q1*beta+q0)*y + r0.
+  // Setze q := q1*beta+q0 und r := r0.
+  #if defined(__GNUC__)
+    #define divu_6432_6432(x,y,q_zuweisung,r_zuweisung)  \
+      ({var uint64 _x = (x);            \
+        var uint32 _y = (y);            \
+        var uint32 _q1;                 \
+        var uint32 _q0;                 \
+        var uint32 _r1;                 \
+        divu_6432_3232(0,high32(_x),_y, _q1 = , _r1 = ); \
+        divu_6432_3232(_r1,low32(_x),_y, _q0 = , r_zuweisung); \
+        q_zuweisung highlow64(_q1,_q0); \
+       })
+  #else
+    #define divu_6432_6432(x,y,q_zuweisung,r_zuweisung)  \
+      {var uint64 _x = (x);            \
+       var uint32 _y = (y);            \
+       var uint32 _q1;                 \
+       var uint32 _q0;                 \
+       var uint32 _r1;                 \
+       divu_6432_3232(0,high32(_x),_y, _q1 = , _r1 = ); \
+       divu_6432_3232(_r1,low32(_x),_y, _q0 = , r_zuweisung); \
+       q_zuweisung highlow64(_q1,_q0); \
+      }
+  #endif
+#endif
+
 // Dividiert eine 64-Bit-Zahl durch eine 64-Bit-Zahl und
 // liefert einen 64-Bit-Quotienten und einen 64-Bit-Rest.
 // divu_6464_6464(x,y,q=,r=);
 // > uint64 x: Zähler
 // > uint64 y: Nenner
-// Es sei bekannt, daß y>0.
+// > Es sei bekannt, daß y>0.
 // < uint64 q: floor(x/y)
 // < uint64 r: x mod y
 // < x = q*y+r
-#if defined(__alpha__) || 1
+#if defined(__GNUC__) && (defined(__alpha__) || defined(__ia64__) || defined(__mips64__) || defined(__sparc64__))
+  // On __alpha__, computing the remainder by multiplication is just two
+  // instructions, compared to the __remqu (libc) function call for the %
+  // operator.
+  // On __ia64__, computing the remainder by multiplication is just four
+  // instructions, compared to the __umoddi3 (libgcc) function call for the %
+  // operator.
+  // On __mips64__, computing the remainder by multiplication is just two
+  // instructions, compared to the __umoddi3 (libgcc) function call for the %
+  // operator.
+  // On __sparc64__, it doesn't matter.
   #define divu_6464_6464(x,y,q_zuweisung,r_zuweisung)  \
-    { var uint64 __x = (x);	\
-      var uint64 __y = (y);	\
-      q_zuweisung (__x / __y);	\
-      r_zuweisung (__x % __y);	\
-    }
+    ({var uint64 _x = (x);           \
+      var uint64 _y = (y);           \
+      var uint64 _q;                 \
+      q_zuweisung _q = floor(_x,_y); \
+      r_zuweisung _x - _q * _y;      \
+     })
+#elif defined(__GNUC__) && (defined(__sparc64__) || defined(__x86_64__))
+  // On __sparc64__, it doesn't matter.
+  // On __x86_64__, gcc 4.0 performs both quotient and remainder computation
+  // in a single instruction.
+  #define divu_6464_6464(x,y,q_zuweisung,r_zuweisung)  \
+    ({var uint64 _x = (x);      \
+      var uint64 _y = (y);      \
+      q_zuweisung floor(_x,_y); \
+      r_zuweisung _x % _y;      \
+     })
+#else
+  // For unknown CPUs, we don't know whether gcc's __udivdi3 function plus a
+  // multiplication is slower or faster than our own divu_6464_6464_ routine.
+  // Anyway, call our own routine.
+  extern "C" uint64 divu_6464_6464_ (uint64 x, uint64 y); // -> Quotient q
+  extern "C" uint64 divu_64_rest;                         // -> Rest r
+  #define divu_6464_6464(x,y,q_zuweisung,r_zuweisung)  \
+    { q_zuweisung divu_6464_6464_(x,y); r_zuweisung divu_64_rest; }
+  #define NEED_VAR_divu_64_rest
+  #define NEED_FUNCTION_divu_6464_6464_
 #endif
 
 // Dividiert eine 128-Bit-Zahl durch eine 64-Bit-Zahl und
@@ -831,6 +985,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 #else
   #define divu_12864_6464(xhi,xlo,y,q_zuweisung,r_zuweisung)  \
     { q_zuweisung divu_12864_6464_(xhi,xlo,y); r_zuweisung divu_64_rest; }
+  #define NEED_VAR_divu_64_rest
   #define NEED_FUNCTION_divu_12864_6464_
 #endif
 
@@ -1230,10 +1385,11 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       /* _x32 hat höchstens 4 Bits.                                    */\
       if (_x32 >= bit(2)) { _x32 = _x32>>2; _bitsize += 2; }		\
       /* _x32 hat höchstens 2 Bits.                                    */\
-      if (_x32 >= bit(1)) { /* _x32 = _x32>>1; */ _bitsize += 1; }		\
+      if (_x32 >= bit(1)) { /* _x32 = _x32>>1; */ _bitsize += 1; }	\
       /* _x32 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
       size_zuweisung _bitsize;						\
     }
+  #define GENERIC_INTEGERLENGTH32
 #endif
 
 // Bits einer 64-Bit-Zahl zählen:
@@ -1241,9 +1397,10 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // setzt size auf die höchste in digit vorkommende Bitnummer.
 // > digit: ein uint64 >0
 // < size: >0, <=64, mit 2^(size-1) <= digit < 2^size
+#ifdef GENERIC_INTEGERLENGTH32
   #define integerlength64(digit,size_zuweisung)  \
     { var uintC _bitsize = 1;						\
-      var uint64 _x64 = (uint64)(digit);					\
+      var uint64 _x64 = (uint64)(digit);				\
       /* _x64 hat höchstens 64 Bits.                                   */\
       if (_x64 >= bit(32)) { _x64 = _x64>>32; _bitsize += 32; }		\
       /* _x64 hat höchstens 32 Bits.                                   */\
@@ -1255,10 +1412,23 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       /* _x64 hat höchstens 4 Bits.                                    */\
       if (_x64 >= bit(2)) { _x64 = _x64>>2; _bitsize += 2; }		\
       /* _x64 hat höchstens 2 Bits.                                    */\
-      if (_x64 >= bit(1)) { /* _x64 = _x64>>1; */ _bitsize += 1; }		\
+      if (_x64 >= bit(1)) { /* _x64 = _x64>>1; */ _bitsize += 1; }	\
       /* _x64 hat höchstens 1 Bit. Dieses Bit muß gesetzt sein.        */\
       size_zuweisung _bitsize;						\
     }
+#else
+  #define integerlength64(digit,size_zuweisung)  \
+    { var uint64 _x64 = (digit);                                        \
+      var uintC _bitsize64 = 0;                                         \
+      var uint32 _x32_from_integerlength64;                             \
+      if (_x64 >= (1ULL << 32)) {                                       \
+        _x32_from_integerlength64 = _x64>>32; _bitsize64 += 32;         \
+      } else {                                                          \
+        _x32_from_integerlength64 = _x64;                               \
+      }                                                                 \
+      integerlength32(_x32_from_integerlength64, size_zuweisung _bitsize64 + ); \
+    }
+#endif
 
 // Hintere Nullbits eines 32-Bit-Wortes zählen:
 // ord2_32(digit,count=);
@@ -1288,10 +1458,22 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     // Sei n = ord2(x). Dann ist logxor(x,x-1) = 2^n + (2^n-1) = 2^(n+1)-1.
     // Also  (ord2 x) = (1- (integer-length (logxor x (1- x)))) .
     #define ord2_32(digit,count_zuweisung)  \
-      { var uint32 _digit = digit ^ (digit - 1);	\
+      { var uint32 _digit = (digit) ^ ((digit) - 1);	\
         integerlength32(_digit,count_zuweisung -1 + )	\
       }
   #endif
+
+// Hintere Nullbits eines 64-Bit-Wortes zählen:
+// ord2_64(digit,count=);
+// setzt size auf die kleinste in digit vorkommende Bitnummer.
+// > digit: ein uint64 >0
+// < count: >=0, <64, mit 2^count | digit, digit/2^count ungerade
+  // Sei n = ord2(x). Dann ist logxor(x,x-1) = 2^n + (2^n-1) = 2^(n+1)-1.
+  // Also  (ord2 x) = (1- (integer-length (logxor x (1- x)))) .
+  #define ord2_64(digit,count_zuweisung)  \
+    { var uint64 _digit = (digit) ^ ((digit) - 1);	\
+      integerlength64(_digit,count_zuweisung -1 + )	\
+    }
 
 
 // Bits eines Wortes zählen.
