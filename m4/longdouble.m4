@@ -1,4 +1,4 @@
-dnl Copyright (C) 1993-2005 Free Software Foundation, Inc.
+dnl Copyright (C) 1993-2006 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -11,8 +11,11 @@ AC_PREREQ(2.13)
 
 AC_DEFUN([CL_LONGDOUBLE],
 [AC_CACHE_CHECK(for long double type, cl_cv_c_longdouble, [
-AC_TRY_RUN([int main()
-{ long double x = 2.7182818284590452354L; x = x*x; exit (x==0.0L); }],
+AC_TRY_RUN([
+#include <stdlib.h>
+int main()
+{ long double x = 2.7182818284590452354L; x = x*x; exit (x==0.0L); }
+],
 cl_cv_c_longdouble=yes, cl_cv_c_longdouble=no, [
 dnl When cross-compiling, use the test from gnulib.
 AC_TRY_COMPILE([

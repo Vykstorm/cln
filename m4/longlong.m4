@@ -1,5 +1,5 @@
 dnl -*- Autoconf -*-
-dnl Copyright (C) 1993-2005 Free Software Foundation, Inc.
+dnl Copyright (C) 1993-2006 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -12,7 +12,9 @@ AC_PREREQ(2.57)
 
 AC_DEFUN([CL_LONGLONG],
 [AC_CACHE_CHECK(for long long type, cl_cv_c_longlong, [
-AC_TRY_RUN([int main()
+AC_TRY_RUN([
+#include <stdlib.h>
+int main()
 {
 /* long longs don't work right with gcc-2.7.2 on m68k */
 /* long longs don't work right with gcc-2.7.2 on rs6000: avcall/tests.c gets

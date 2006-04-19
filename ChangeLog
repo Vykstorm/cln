@@ -1,3 +1,12 @@
+2006-04-19  Bruno Haible  <bruno@clisp.org>
+
+	Prepare for autoconf-2.60.
+	* general.m4 (CL_CC_WORKS): Include <stdlib.h>, for exit() declaration.
+	* longdouble.m4 (CL_LONGDOUBLE): Likewise.
+	* longlong.m4 (CL_LONGLONG): Likewise.
+	* times.m4 (CL_TIMES_CLOCK): Likewise.
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
 2005-12-04  Bruno Haible  <bruno@clisp.org>
 
 	* src/integer/conv/cl_I_to_digits.cc (I_to_digits_noshrink): Set

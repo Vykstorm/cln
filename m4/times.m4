@@ -1,5 +1,5 @@
 dnl -*- Autoconf -*-
-dnl Copyright (C) 1993-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 1993-2006 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -17,6 +17,7 @@ AC_CHECK_FUNC(times, , no_times=1)dnl
 if test -z "$no_times"; then
 AC_CACHE_CHECK(for times return value, cl_cv_func_times_return, [
 AC_TRY_RUN([
+#include <stdlib.h> /* needed for exit() */
 #include <sys/types.h>
 #include <time.h> /* needed for CLK_TCK */
 #ifndef CLK_TCK
