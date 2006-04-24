@@ -53,12 +53,12 @@ struct cl_heap_GV_number_general : public cl_heap_GV_number {
 	cl_heap_GV_number_general ();
 };
 
-static const cl_number general_element (const cl_GV_inner<cl_number>* vec, uintL index)
+static const cl_number general_element (const cl_GV_inner<cl_number>* vec, uintC index)
 {
 	return ((const cl_heap_GV_number_general *) outcast(vec))->data[index];
 }
 
-static void general_set_element (cl_GV_inner<cl_number>* vec, uintL index, const cl_number& x)
+static void general_set_element (cl_GV_inner<cl_number>* vec, uintC index, const cl_number& x)
 {
 	((cl_heap_GV_number_general *) outcast(vec))->data[index] = x;
 }
@@ -66,20 +66,20 @@ static void general_set_element (cl_GV_inner<cl_number>* vec, uintL index, const
 static void general_do_delete (cl_GV_inner<cl_number>* vec)
 {
 	var cl_heap_GV_number_general* hv = (cl_heap_GV_number_general *) outcast(vec);
-	var uintL len = hv->v.length();
-	for (var uintL i = 0; i < len; i++)
+	var uintC len = hv->v.length();
+	for (var uintC i = 0; i < len; i++)
 		hv->data[i].~cl_number();
 }
 
-static void general_copy_elements (const cl_GV_inner<cl_number>* srcvec, uintL srcindex, cl_GV_inner<cl_number>* destvec, uintL destindex, uintL count)
+static void general_copy_elements (const cl_GV_inner<cl_number>* srcvec, uintC srcindex, cl_GV_inner<cl_number>* destvec, uintC destindex, uintC count)
 {
 	if (count > 0) {
 		var const cl_heap_GV_number_general* srcv =
 		  (const cl_heap_GV_number_general *) outcast(srcvec);
 		var cl_heap_GV_number_general* destv =
 		  (cl_heap_GV_number_general *) outcast(destvec);
-		var uintL srclen = srcv->v.length();
-		var uintL destlen = destv->v.length();
+		var uintC srclen = srcv->v.length();
+		var uintC destlen = destv->v.length();
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))
 			cl_abort();
 		if (!(destindex <= destindex+count && destindex+count <= destlen))
@@ -97,19 +97,19 @@ static cl_GV_vectorops<cl_number> general_vectorops = {
 	general_copy_elements
 };
 
-cl_heap_GV_number* cl_make_heap_GV_number (uintL len)
+cl_heap_GV_number* cl_make_heap_GV_number (uintC len)
 {
 	var cl_heap_GV_number_general* hv = (cl_heap_GV_number_general*) malloc_hook(offsetofa(cl_heap_GV_number_general,data)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_gvector_number;
 	new (&hv->v) cl_GV_inner<cl_number> (len,&general_vectorops);
-	for (var uintL i = 0; i < len; i++)
+	for (var uintC i = 0; i < len; i++)
 		init1(cl_number, hv->data[i]) ();
 	return hv;
 }
 
 // An empty vector.
-const cl_GV_number cl_null_GV_number = cl_GV_number((uintL)0);
+const cl_GV_number cl_null_GV_number = cl_GV_number((uintC)0);
 
 }  // namespace cln
 

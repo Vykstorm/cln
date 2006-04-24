@@ -14,12 +14,12 @@
 
 namespace cln {
 
-const cl_I cl_fullbyte (uintL p, uintL q)
+const cl_I cl_fullbyte (uintC p, uintC q)
 {
 	if (p==q)
 		return 0;
 	else
-		return ash(-1,UL_to_I(p)) + ash(1,UL_to_I(q));
+		return ash(-1,(cl_I)(unsigned long)p) + ash(1,(cl_I)(unsigned long)q);
 }
 
 }  // namespace cln

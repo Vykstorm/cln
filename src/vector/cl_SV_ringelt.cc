@@ -29,7 +29,7 @@ cl_class cl_class_svector_ringelt = {
 	0
 };
 
-cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintL len)
+cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintC len)
 {
 	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
 	hv->refcount = 1;
@@ -39,19 +39,19 @@ cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintL len)
 	return hv;
 }
 
-cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (uintL len)
+cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (uintC len)
 {
 	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_ringelt;
 	new (&hv->v) cl_SV_inner<_cl_ring_element> (len);
-	for (var uintL i = 0; i < len; i++)
+	for (var uintC i = 0; i < len; i++)
 		init1(_cl_ring_element, hv->v[i]) ();
 	return hv;
 }
 
 // An empty vector.
-const cl_SV_ringelt cl_null_SV_ringelt = cl_SV_ringelt((uintL)0);
+const cl_SV_ringelt cl_null_SV_ringelt = cl_SV_ringelt((uintC)0);
 
 }  // namespace cln
 

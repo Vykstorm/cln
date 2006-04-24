@@ -47,9 +47,9 @@ const cl_LF expx_naive (const cl_LF& x)
 	if (zerop(x))
 		return cl_float(1,x);
 	var uintL actuallen = TheLfloat(x)->len;
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e < -(sintL)d) // e < -d ?
+	if (e < -(sintC)d) // e < -d ?
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_LF,x);
 	var uintL k = 0; // Rekursionszähler k:=0
@@ -66,7 +66,7 @@ const cl_LF expx_naive (const cl_LF& x)
 	// Potenzreihe anwenden:
 	var int i = 0;
 	var cl_LF b = cl_float(1,x); // b := (float 1 x)
-	var cl_LF eps = scale_float(b,-(sintL)d-10);
+	var cl_LF eps = scale_float(b,-(sintC)d-10);
 	var cl_LF sum = cl_float(0,x); // sum := (float 0 x)
 	loop {
 		var cl_LF new_sum = sum + LF_to_LF(b,actuallen);
@@ -93,9 +93,9 @@ const cl_F expx_naive (const cl_F& x)
 	}
 	if (zerop(x))
 		return cl_float(1,x);
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e < -(sintL)d) // e < -d ?
+	if (e < -(sintC)d) // e < -d ?
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_F,x);
 	var uintL k = 0; // Rekursionszähler k:=0

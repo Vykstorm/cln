@@ -57,7 +57,7 @@
 // Operations modulo p = 2^R+1, each chunk represented as chlen words
 // (chlen = floor(R/intDsize)+1).
 
-static inline void assign (const uintL R, const uintL chlen,
+static inline void assign (const uintC R, const uintC chlen,
                            const uintD* a, uintD* r)
 {
 	unused R;
@@ -65,7 +65,7 @@ static inline void assign (const uintL R, const uintL chlen,
 }
 
 // r := (a + b) mod p
-static void addm (const uintL R, const uintL chlen,
+static void addm (const uintC R, const uintC chlen,
                   const uintD* a, const uintD* b, uintD* r)
 {
 	unused R;
@@ -93,7 +93,7 @@ static void addm (const uintL R, const uintL chlen,
 }
 
 // r := (a - b) mod p
-static void subm (const uintL R, const uintL chlen,
+static void subm (const uintC R, const uintC chlen,
                   const uintD* a, const uintD* b, uintD* r)
 {
 	unused R;
@@ -116,7 +116,7 @@ static void subm (const uintL R, const uintL chlen,
 
 // r := (a << s) mod p (0 <= s < R).
 // Assume that a and r don't overlap.
-static void shiftleftm (const uintL R, const uintL chlen,
+static void shiftleftm (const uintC R, const uintC chlen,
                         const uintD* a, uintL s, uintD* r)
 {
 	// Write a = 2^(R-s)*b + c, then
@@ -175,7 +175,7 @@ static void shiftleftm (const uintL R, const uintL chlen,
 }
 
 // r := (a * b) mod p
-static void mulm (const uintL R, const uintL chlen,
+static void mulm (const uintC R, const uintC chlen,
                   const uintD* a, const uintD* b, uintD* r)
 {
 	unused R;
@@ -230,7 +230,7 @@ static void mulm (const uintL R, const uintL chlen,
 }
 
 // b := (a / 2) mod p
-static void shiftm (const uintL R, const uintL chlen,
+static void shiftm (const uintC R, const uintC chlen,
                     const uintD* a, uintD* b)
 {
 	unused R;
@@ -253,9 +253,9 @@ static void shiftm (const uintL R, const uintL chlen,
 #ifndef _BIT_REVERSE
 #define _BIT_REVERSE
 // Reverse an n-bit number x. n>0.
-static uintL bit_reverse (uintL n, uintL x)
+static uintC bit_reverse (uintL n, uintC x)
 {
-	var uintL y = 0;
+	var uintC y = 0;
 	do {
 		y <<= 1;
 		y |= (x & 1);
@@ -265,9 +265,9 @@ static uintL bit_reverse (uintL n, uintL x)
 }
 #endif
 
-static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
-                       const uintL m, const uintL M, // M = 2^m
-                       const uintL k, // K = intDsize*k
+static void mulu_fftm (const uintL r, const uintC R, // R = 2^r
+                       const uintL m, const uintC M, // M = 2^m
+                       const uintC k, // K = intDsize*k
                        const uintD* sourceptr1, uintC len1,
                        const uintD* sourceptr2, uintC len2,
                        uintD* destptr)
@@ -277,7 +277,7 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 //      R = 2^r, M = 2^m, M | 2R.
 //      m > 0.
 {
-	var const uintL chlen = floor(R,intDsize)+1; // chunk length (in words)
+	var const uintC chlen = floor(R,intDsize)+1; // chunk length (in words)
 	CL_ALLOCA_STACK;
 	var uintD* const arrX = cl_alloc_array(uintD,chlen<<m);
 	var uintD* const arrY = cl_alloc_array(uintD,chlen<<m);
@@ -296,11 +296,11 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 	num_stack_alloc(chlen,,sum=);
 	num_stack_alloc(chlen,,diff=);
 	var bool squaring = ((sourceptr1 == sourceptr2) && (len1 == len2));
-	var uintL i;
+	var uintC i;
 	// Initialize factors X(i) and Y(i).
 	{
 		var const uintD* sptr = sourceptr1;
-		var uintL slen = len1;
+		var uintC slen = len1;
 		for (i = 0; i < M; i++) {
 			var uintD* ptr = X(i);
 			if (slen >= k) {
@@ -320,7 +320,7 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 	}
 	if (!squaring) {
 		var const uintD* sptr = sourceptr2;
-		var uintL slen = len2;
+		var uintC slen = len2;
 		for (i = 0; i < M; i++) {
 			var uintD* ptr = Y(i);
 			if (slen >= k) {
@@ -342,10 +342,10 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 	{
 		var sintL l;
 		/* l = m-1 */ {
-			var const uintL tmax = M>>1; // tmax = 2^(m-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = M>>1; // tmax = 2^(m-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Butterfly: replace (X(i1),X(i2)) by
 				// (X(i1) + X(i2), X(i1) - X(i2)).
 				assign(R,chlen, X(i2), tmp);
@@ -354,14 +354,14 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 			}
 		}
 		for (l = m-2; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (m-1-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
+			var const uintC smax = (uintC)1 << (m-1-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
 				// w^exp = 2^(exp << (r+1-m)).
-				var uintL exp = bit_reverse(m-1-l,s) << (r-(m-1-l));
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				var uintC exp = bit_reverse(m-1-l,s) << (r-(m-1-l));
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (X(i1),X(i2)) by
 					// (X(i1) + w^exp*X(i2), X(i1) - w^exp*X(i2)).
 					shiftleftm(R,chlen, X(i2),exp, tmp);
@@ -375,10 +375,10 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 	if (!squaring) {
 		var sintL l;
 		/* l = m-1 */ {
-			var const uintL tmax = M>>1; // tmax = 2^(m-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = M>>1; // tmax = 2^(m-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Butterfly: replace (Y(i1),Y(i2)) by
 				// (Y(i1) + Y(i2), Y(i1) - Y(i2)).
 				assign(R,chlen, Y(i2), tmp);
@@ -387,14 +387,14 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 			}
 		}
 		for (l = m-2; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (m-1-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
+			var const uintC smax = (uintC)1 << (m-1-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
 				// w^exp = 2^(exp << (r+1-m)).
-				var uintL exp = bit_reverse(m-1-l,s) << (r-(m-1-l));
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				var uintC exp = bit_reverse(m-1-l,s) << (r-(m-1-l));
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (Y(i1),Y(i2)) by
 					// (Y(i1) + w^exp*Y(i2), Y(i1) - w^exp*Y(i2)).
 					shiftleftm(R,chlen, Y(i2),exp, tmp);
@@ -416,12 +416,12 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 	{
 		var uintL l;
 		for (l = 0; l < m-1; l++) {
-			var const uintL smax = (uintL)1 << (m-1-l);
-			var const uintL tmax = (uintL)1 << l;
+			var const uintC smax = (uintC)1 << (m-1-l);
+			var const uintC tmax = (uintC)1 << l;
 			/* s = 0, exp = 0 */ {
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (Z(i1),Z(i2)) by
 					// ((Z(i1)+Z(i2))/2, (Z(i1)-Z(i2))/(2*w^exp)),
 					// with exp <-- 0.
@@ -431,13 +431,13 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 					shiftm(R,chlen, diff, Z(i2));
 				}
 			}
-			for (var uintL s = 1; s < smax; s++) {
+			for (var uintC s = 1; s < smax; s++) {
 				// w^exp = 2^(exp << (r+1-m)).
-				var uintL exp = bit_reverse(m-1-l,s) << (r-(m-1-l));
+				var uintC exp = bit_reverse(m-1-l,s) << (r-(m-1-l));
 				exp = R - exp; // negate exp (use w^-1 instead of w)
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (Z(i1),Z(i2)) by
 					// ((Z(i1)+Z(i2))/2, (Z(i1)-Z(i2))/(2*w^exp)),
 					// with exp <-- (M/2 - exp).
@@ -449,10 +449,10 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 			}
 		}
 		/* l = m-1 */ {
-			var const uintL tmax = M>>1; // tmax = 2^(m-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = M>>1; // tmax = 2^(m-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Inverse Butterfly: replace (Z(i1),Z(i2)) by
 				// ((Z(i1)+Z(i2))/2, (Z(i1)-Z(i2))/2).
 				addm(R,chlen, Z(i1),Z(i2), sum);
@@ -548,20 +548,20 @@ static void mulu_fftm (const uintL r, const uintL R, // R = 2^r
 
 static bool okfor (uintL r, uintL m, uintC len1, uintC len2)
 {
-	var uintL R = (uintL)1 << r;
-	var uintL M = (uintL)1 << m;
-	var uintL k = floor(R-m,2*intDsize);
+	var uintC R = (uintC)1 << r;
+	var uintC M = (uintC)1 << m;
+	var uintC k = floor(R-m,2*intDsize);
 	return (ceiling(len1,k)+ceiling(len2,k) <= M+1);
 }
 
-static uintL numpieces (uintL r, uintL m, uintC len1, uintC len2)
+static uintC numpieces (uintL r, uintL m, uintC len1, uintC len2)
 {
-	var uintL R = (uintL)1 << r;
-	var uintL M = (uintL)1 << m;
-	var uintL k = floor(R-m,2*intDsize);
-	var uintL piecelen2 = (M+1-ceiling(len1,k))*k;
+	var uintC R = (uintC)1 << r;
+	var uintC M = (uintC)1 << m;
+	var uintC k = floor(R-m,2*intDsize);
+	var uintC piecelen2 = (M+1-ceiling(len1,k))*k;
 	#ifdef DEBUG_FFTM
-	if ((sintL)piecelen2 <= 0)
+	if ((sintC)piecelen2 <= 0)
 		cl_abort();
 	#endif
 	return ceiling(len2,piecelen2);
@@ -573,16 +573,16 @@ static void mulu_fft_modm (const uintD* sourceptr1, uintC len1,
   // Called only with 6 <= len1 <= len2.
   {
 	var uint32 n;
-	integerlength32(len1-1, n=); // 2^(n-1) < len1 <= 2^n
+	integerlengthC(len1-1, n=); // 2^(n-1) < len1 <= 2^n
 	var uintL r;
 	var uintL m;
 	r = ceiling(log2_intDsize+1+n,2);
 	if (r < log2_intDsize+2)
 		r = log2_intDsize+2;
 	retry: {
-		var uintL k = floor(((uintL)1 << r) - (r+1), 2*intDsize);
-		var uintL M = 2*ceiling(len1,k)-1;
-		integerlength32(M, m=);
+		var uintC k = floor(((uintC)1 << r) - (r+1), 2*intDsize);
+		var uintC M = 2*ceiling(len1,k)-1;
+		integerlengthC(M, m=);
 		if (m == 0)
 			m = 1;
 		if (m > r+1) {
@@ -599,21 +599,21 @@ static void mulu_fft_modm (const uintD* sourceptr1, uintC len1,
 			if (!(sourceptr1 == sourceptr2 && len1 == len2)) // when squaring, keep one piece
 				r--;
 	} else {
-		var uintL q1 = numpieces(r,m,len1,len2);
+		var uintC q1 = numpieces(r,m,len1,len2);
 		if (m <= r) {
-			var uintL q2 = numpieces(r,m+1,len1,len2);
+			var uintC q2 = numpieces(r,m+1,len1,len2);
 			if (2*q2 <= q1)
 				m++;
 		} else {
-			var uintL q2 = numpieces(r+1,m,len1,len2);
+			var uintC q2 = numpieces(r+1,m,len1,len2);
 			if (3*q2 <= q1)
 				r++;
 		}
 	}
-	var uintL R = (uintL)1 << r;
-	var uintL M = (uintL)1 << m;
-	var uintL k = floor(R-m,2*intDsize);
-	var uintL piecelen2 = (M+1-ceiling(len1,k))*k;
+	var uintC R = (uintC)1 << r;
+	var uintC M = (uintC)1 << m;
+	var uintC k = floor(R-m,2*intDsize);
+	var uintC piecelen2 = (M+1-ceiling(len1,k))*k;
 	if (piecelen2 >= len2) {
 		// One piece only.
 		mulu_fftm(r,R, m,M, k, sourceptr1,len1, sourceptr2,len2, destptr);
@@ -622,15 +622,15 @@ static void mulu_fft_modm (const uintD* sourceptr1, uintC len1,
 	CL_ALLOCA_STACK;
 	var uintD* tmpptr;
 	num_stack_alloc(len1+piecelen2,,tmpptr=);
-	var uintL destlen = len1+len2;
+	var uintC destlen = len1+len2;
 	clear_loop_lsp(destptr,destlen);
 	do {
-		var uintL len2p; // length of a piece of source2
+		var uintC len2p; // length of a piece of source2
 		len2p = piecelen2;
 		if (len2p > len2)
 			len2p = len2;
 		// len2p = min(piecelen2,len2).
-		var uintL destlenp = len1 + len2p;
+		var uintC destlenp = len1 + len2p;
 		// destlenp = min(len1+piecelen2,destlen).
 		// Use tmpptr[-destlenp..-1].
 		if (len2p == 1) {

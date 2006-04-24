@@ -26,15 +26,15 @@ namespace cln {
 // by a power series evaluation brings 20% speedup, even more for small lengths.
 #define TRIVIAL_SPEEDUP
 
-const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintL lq, uintC len)
+const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintC lq, uintC len)
 {
  {	Mutable(cl_I,p);
-	var uintL lp = integer_length(p); // now |p| < 2^lp.
+	var uintC lp = integer_length(p); // now |p| < 2^lp.
 	if (!(lp <= lq)) cl_abort();
 	lp = lq - lp; // now |p/2^lq| < 2^-lp.
 	// Minimize lq (saves computation time).
 	{
-		var uintL lp2 = ord2(p);
+		var uintC lp2 = ord2(p);
 		if (lp2 > 0) {
 			p = p >> lp2;
 			lq = lq - lp2;
@@ -65,16 +65,16 @@ const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintL lq, uintC len)
 	// Third approximation:
 	//   N2 = ceiling(M*log(2)/(log(N1)-1+lp*log(2))), slightly too large.
 	//   N = N2+2, two more terms for safety.
-	var uintL N0 = intDsize*actuallen;
-	var uintL N1 = (uintL)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0+0.693148*lp));
-	var uintL N2 = (uintL)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0+0.693147*lp))+1;
-	var uintL N = N2+2;
+	var uintC N0 = intDsize*actuallen;
+	var uintC N1 = (uintC)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0+0.693148*lp));
+	var uintC N2 = (uintC)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0+0.693147*lp))+1;
+	var uintC N = N2+2;
 	N = ceiling(N,2);
 	CL_ALLOCA_STACK;
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL* qsv = (uintL*) cl_alloca(N*sizeof(uintL));
-	var uintL n;
+	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
+	var uintC n;
 	var cl_I p2 = square(p);
 	var cl_LF sinhsum;
 	{

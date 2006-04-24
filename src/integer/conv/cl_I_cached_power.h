@@ -31,7 +31,7 @@ struct cached_power_table_entry {
 };
 
 struct cached_power_table {
-	cached_power_table_entry element[30];
+	cached_power_table_entry element[40];
 	// Constructor and destructor - nothing special.
 	cached_power_table () {}
 	~cached_power_table () {}

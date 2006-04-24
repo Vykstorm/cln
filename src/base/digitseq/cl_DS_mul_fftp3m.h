@@ -483,9 +483,9 @@ static inline void shiftp3m (const fftp3m_word& a, fftp3m_word& b)
 #ifndef _BIT_REVERSE
 #define _BIT_REVERSE
 // Reverse an n-bit number x. n>0.
-static uintL bit_reverse (uintL n, uintL x)
+static uintC bit_reverse (uintL n, uintC x)
 {
-	var uintL y = 0;
+	var uintC y = 0;
 	do {
 		y <<= 1;
 		y |= (x & 1);
@@ -496,7 +496,7 @@ static uintL bit_reverse (uintL n, uintL x)
 #endif
 
 // Compute an convolution mod p using FFT: z[0..N-1] := x[0..N-1] * y[0..N-1].
-static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
+static void fftp3m_convolution (const uintL n, const uintC N, // N = 2^n
                                 fftp3m_word * x, // N words
                                 fftp3m_word * y, // N words
                                 fftp3m_word * z  // N words result
@@ -508,7 +508,7 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 	#else
 	var fftp3m_word* const w = cl_alloc_array(fftp3m_word,(N>>1)+1);
 	#endif
-	var uintL i;
+	var uintC i;
 	// Initialize w[i] to w^i, w a primitive N-th root of unity.
 	w[0] = fftp3m_roots_of_1[0];
 	w[1] = fftp3m_roots_of_1[n];
@@ -540,10 +540,10 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 	{
 		var sintL l;
 		/* l = n-1 */ {
-			var const uintL tmax = N>>1; // tmax = 2^(n-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = N>>1; // tmax = 2^(n-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Butterfly: replace (x(i1),x(i2)) by
 				// (x(i1) + x(i2), x(i1) - x(i2)).
 				var fftp3m_word tmp;
@@ -553,13 +553,13 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 			}
 		}
 		for (l = n-2; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (x(i1),x(i2)) by
 					// (x(i1) + w^exp*x(i2), x(i1) - w^exp*x(i2)).
 					var fftp3m_word tmp;
@@ -574,10 +574,10 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 	if (!squaring) {
 		var sintL l;
 		/* l = n-1 */ {
-			var uintL const tmax = N>>1; // tmax = 2^(n-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var uintC const tmax = N>>1; // tmax = 2^(n-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Butterfly: replace (y(i1),y(i2)) by
 				// (y(i1) + y(i2), y(i1) - y(i2)).
 				var fftp3m_word tmp;
@@ -587,13 +587,13 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 			}
 		}
 		for (l = n-2; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (y(i1),y(i2)) by
 					// (y(i1) + w^exp*y(i2), y(i1) - w^exp*y(i2)).
 					var fftp3m_word tmp;
@@ -611,18 +611,18 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 	{
 		var uintL l;
 		for (l = 0; l < n-1; l++) {
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << l;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << l;
 			#if FFTP3M_BACKWARD != CLEVER
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
 				#if FFTP3M_BACKWARD == RECIPROOT
 				if (exp > 0)
 					exp = N - exp; // negate exp (use w^-1 instead of w)
 				#endif
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (z(i1),z(i2)) by
 					// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/(2*w^exp)).
 					var fftp3m_word sum;
@@ -635,9 +635,9 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 			}
 			#else // FFTP3M_BACKWARD == CLEVER: clever handling of negative exponents
 			/* s = 0, exp = 0 */ {
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (z(i1),z(i2)) by
 					// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/(2*w^exp)),
 					// with exp <-- 0.
@@ -649,12 +649,12 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 					shiftp3m(diff, z[i2]);
 				}
 			}
-			for (var uintL s = 1; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
+			for (var uintC s = 1; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
 				exp = (N>>1) - exp; // negate exp (use w^-1 instead of w)
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (z(i1),z(i2)) by
 					// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/(2*w^exp)),
 					// with exp <-- (N/2 - exp).
@@ -669,10 +669,10 @@ static void fftp3m_convolution (const uintL n, const uintL N, // N = 2^n
 			#endif
 		}
 		/* l = n-1 */ {
-			var const uintL tmax = N>>1; // tmax = 2^(n-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = N>>1; // tmax = 2^(n-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Inverse Butterfly: replace (z(i1),z(i2)) by
 				// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/2).
 				var fftp3m_word sum;
@@ -707,8 +707,8 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 	// sum(i=0..N-1, x_i T^i), sum(i=0..N-1, y_i T^i)
 	// multipliziert, und zwar durch Fourier-Transformation (s.o.).
 	var uint32 n;
-	integerlength32(len1-1, n=); // 2^(n-1) < len1 <= 2^n
-	var uintL len = (uintL)1 << n; // kleinste Zweierpotenz >= len1
+	integerlengthC(len1-1, n=); // 2^(n-1) < len1 <= 2^n
+	var uintC len = (uintC)1 << n; // kleinste Zweierpotenz >= len1
 	// Wählt man N = len, so hat man ceiling(len2/(len-len1+1)) * FFT(len).
 	// Wählt man N = 2*len, so hat man ceiling(len2/(2*len-len1+1)) * FFT(2*len).
 	// Wir wählen das billigere von beiden:
@@ -719,7 +719,7 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 		n = n+1;
 		len = len << 1;
 	}
-	var const uintL N = len; // N = 2^n
+	var const uintC N = len; // N = 2^n
 	CL_ALLOCA_STACK;
 	var fftp3m_word* const x = cl_alloc_array(fftp3m_word,N);
 	var fftp3m_word* const y = cl_alloc_array(fftp3m_word,N);
@@ -730,10 +730,10 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 	#endif
 	var uintD* const tmpprod = cl_alloc_array(uintD,len1+1);
 	var uintP i;
-	var uintL destlen = len1+len2;
+	var uintC destlen = len1+len2;
 	clear_loop_lsp(destptr,destlen);
 	do {
-		var uintL len2p; // length of a piece of source2
+		var uintC len2p; // length of a piece of source2
 		len2p = N - len1 + 1;
 		if (len2p > len2)
 			len2p = len2;
@@ -746,7 +746,7 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
 					cl_abort();
 		} else {
-			var uintL destlenp = len1 + len2p - 1;
+			var uintC destlenp = len1 + len2p - 1;
 			// destlenp = min(N,destlen-1).
 			var bool squaring = ((sourceptr1 == sourceptr2) && (len1 == len2p));
 			// Fill factor x.

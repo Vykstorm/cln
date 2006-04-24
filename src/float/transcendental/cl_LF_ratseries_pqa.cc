@@ -22,7 +22,7 @@ namespace cln {
 // and T = B*Q*S (all integers). On entry N1 < N2.
 // P will not be computed if a NULL pointer is passed.
 
-static void eval_pqa_series_aux (uintL N1, uintL N2,
+static void eval_pqa_series_aux (uintC N1, uintC N2,
                                  const cl_pqa_series& args,
                                  cl_I* P, cl_I* Q, cl_I* T)
 {
@@ -68,7 +68,7 @@ static void eval_pqa_series_aux (uintL N1, uintL N2,
 		break;
 		}
 	default: {
-		var uintL Nm = (N1+N2)/2; // midpoint
+		var uintC Nm = (N1+N2)/2; // midpoint
 		// Compute left part.
 		var cl_I LP, LQ, LT;
 		eval_pqa_series_aux(N1,Nm,args,&LP,&LQ,&LT);
@@ -85,9 +85,9 @@ static void eval_pqa_series_aux (uintL N1, uintL N2,
 	}
 }
 
-static void eval_pqsa_series_aux (uintL N1, uintL N2,
+static void eval_pqsa_series_aux (uintC N1, uintC N2,
                                   const cl_pqa_series& args,
-                                  cl_I* P, cl_I* Q, uintL* QS, cl_I* T)
+                                  cl_I* P, cl_I* Q, uintC* QS, cl_I* T)
 {
 	switch (N2 - N1) {
 	case 0:
@@ -135,14 +135,14 @@ static void eval_pqsa_series_aux (uintL N1, uintL N2,
 		break;
 		}
 	default: {
-		var uintL Nm = (N1+N2)/2; // midpoint
+		var uintC Nm = (N1+N2)/2; // midpoint
 		// Compute left part.
 		var cl_I LP, LQ, LT;
-		var uintL LQS;
+		var uintC LQS;
 		eval_pqsa_series_aux(N1,Nm,args,&LP,&LQ,&LQS,&LT);
 		// Compute right part.
 		var cl_I RP, RQ, RT;
-		var uintL RQS;
+		var uintC RQS;
 		eval_pqsa_series_aux(Nm,N2,args,(P?&RP:(cl_I*)0),&RQ,&RQS,&RT);
 		// Put together partial results.
 		if (P) { *P = LP*RP; }
@@ -155,7 +155,7 @@ static void eval_pqsa_series_aux (uintL N1, uintL N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintL N, const cl_pqa_series& args, uintC len)
+const cl_LF eval_rational_series (uintC N, const cl_pqa_series& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);
@@ -168,10 +168,10 @@ const cl_LF eval_rational_series (uintL N, const cl_pqa_series& args, uintC len)
 		// Split qv[n] into qv[n]*2^qsv[n].
 		{
 			var cl_I* qp = args.qv;
-			var uintL* qsp = args.qsv;
-			for (var uintL n = 0; n < N; n++, qp++, qsp++) {
+			var uintC* qsp = args.qsv;
+			for (var uintC n = 0; n < N; n++, qp++, qsp++) {
 				// Pull out maximal power of 2 out of *qp = args.qv[n].
-				var uintL qs = 0;
+				var uintC qs = 0;
 				if (!zerop(*qp)) {
 					qs = ord2(*qp);
 					if (qs > 0)
@@ -181,7 +181,7 @@ const cl_LF eval_rational_series (uintL N, const cl_pqa_series& args, uintC len)
 			}
 		}
 		// Main computation.
-		var uintL QS;
+		var uintC QS;
 		eval_pqsa_series_aux(0,N,args,NULL,&Q,&QS,&T);
 		return cl_I_to_LF(T,len) / scale_float(cl_I_to_LF(Q,len),QS);
 	}

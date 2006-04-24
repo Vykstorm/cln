@@ -51,9 +51,9 @@ const cl_F sinxbyx_naive (const cl_F& x)
 
 	if (zerop(x))
 		return cl_float(1,x);
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e <= (-(sintL)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
+	if (e <= (-(sintC)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_F,x);
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
@@ -124,9 +124,9 @@ const cl_LF sinx_naive (const cl_LF& x)
 	if (zerop(x))
 		return x;
 	var uintL actuallen = TheLfloat(x)->len;
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e <= (-(sintL)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
+	if (e <= (-(sintC)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
 		return square(x); // ja -> x^2 als Ergebnis
  {	Mutable(cl_LF,x);
 	var sintL ee = e;
@@ -157,7 +157,7 @@ const cl_LF sinx_naive (const cl_LF& x)
 			b = round1(round1(The(cl_LF)(b*a)),(cl_I)((i+1)*(i+2)));
 			i = i+2;
 		}
-		powser_value = scale_float(cl_float(sum,x),-d);
+		powser_value = scale_float(cl_float(sum,x),-(sintC)d);
 	} else if (actuallen <= 7) { // Break-even-Point before extendsqrt: N<=6
 		// naive2:
 		// floating-point representation
@@ -176,7 +176,7 @@ const cl_LF sinx_naive (const cl_LF& x)
 		// naive3:
 		// floating-point representation with smooth precision reduction
 		var cl_LF b = x; // b := x
-		var cl_LF eps = scale_float(b,-(sintL)d-10);
+		var cl_LF eps = scale_float(b,-(sintC)d-10);
 		var cl_LF sum = cl_float(0,x); // sum := (float 0 x)
 		loop {
 			var cl_LF new_sum = sum + LF_to_LF(b,actuallen);

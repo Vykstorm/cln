@@ -26,10 +26,10 @@ const cl_I mask_field (const cl_I& n, const cl_byte& b)
       //   q:=min(p+s,l).
       //   Extrahiere die Bits p,...,q-1 von n.
       //   Falls p+s>l und n<0, füge p+s-l Einsenbits an (addiere 2^(p+s)-2^l).
-      var uintL s = b.size;
-      var uintL p = b.position;
-     {var uintL ps = p+s;
-      var uintL l = integer_length(n); // l = (integer-length n)
+      var uintC s = b.size;
+      var uintC p = b.position;
+     {var uintC ps = p+s;
+      var uintC l = integer_length(n); // l = (integer-length n)
       if (l<=p)
         // l<=p
         if (!minusp(n))

@@ -63,7 +63,7 @@ inline uint32 equal_hashcode (const cl_BN& x)
 	} else {
 		sign = 0;
 	}
-	var sintL exp = (uintL)len * intDsize;
+	var sintC exp = len * intDsize;
 	// Nicht alle führenden 65 Bits sind =0.
 	if (msd==0) {
 		msd = msd2;
@@ -108,7 +108,7 @@ inline uint32 equal_hashcode (const cl_BN& x)
 	} else {
 		sign = 0;
 	}
-	var sintL exp = (uintL)len * intDsize;
+	var sintC exp = len * intDsize;
 	// Nicht alle führenden intDsize+1 Bits sind =0.
 	// Wegen intDsize<=32: Nicht alle führenden 33 Bits sind =0.
 	if (msd==0) {

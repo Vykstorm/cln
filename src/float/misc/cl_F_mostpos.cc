@@ -43,7 +43,7 @@ inline const cl_LF most_positive_LF (uintC len)
 
 const cl_F most_positive_float (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return most_positive_SF;
 	,	return most_positive_FF;
 	,	return most_positive_DF;

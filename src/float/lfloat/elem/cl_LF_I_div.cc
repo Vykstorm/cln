@@ -33,7 +33,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	}
 	var cl_signean sign = -(cl_signean)minusp(y); // Vorzeichen von y
 	var cl_I abs_y = (sign==0 ? y : -y);
-	var uintL y_exp = integer_length(abs_y);
+	var uintC y_exp = integer_length(abs_y);
 	var uintC len = TheLfloat(x)->len;
 #ifndef CL_LF_PEDANTIC
 	if (ceiling(y_exp,intDsize) > len)
@@ -48,9 +48,9 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	// y nicht zu einer NUDS normalisieren! (Damit ein Bit Spielraum ist.)
 	// Zähler bilden: x * 2^(intDsize*y_len)
 	var uintD* z_MSDptr;
-	var uintL z_len;
+	var uintC z_len;
 	var uintD* z_LSDptr;
-	z_len = (uintL)len + (uintL)y_len;
+	z_len = len + y_len;
 	num_stack_alloc(z_len, z_MSDptr=,z_LSDptr=);
 	{ var uintD* ptr = copy_loop_msp(arrayMSDptr(TheLfloat(x)->data,len),z_MSDptr,len); // len Digits
 	  clear_loop_msp(ptr,y_len); // und y_len Null-Digits

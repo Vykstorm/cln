@@ -14,9 +14,9 @@
 namespace cln {
 
 MAYBE_INLINE
-uintL float_digits (const cl_LF& x)
+uintC float_digits (const cl_LF& x)
 {
-	return intDsize*(uintL)(TheLfloat(x)->len);
+	return intDsize*(uintC)(TheLfloat(x)->len);
 }
 
 }  // namespace cln

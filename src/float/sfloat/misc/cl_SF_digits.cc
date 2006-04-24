@@ -14,7 +14,7 @@
 namespace cln {
 
 MAYBE_INLINE
-uintL float_digits (const cl_SF& x)
+uintC float_digits (const cl_SF& x)
 {
 	unused x;
 	return SF_mant_len+1; // 17

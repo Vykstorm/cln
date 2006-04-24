@@ -29,7 +29,7 @@ const cl_LF cl_LF_shortenwith (const cl_LF& x, const cl_LF& y)
 	// Falls ex-dx < ey, x von Precision dx auf ex-ey verkürzen.
 	var sintL ey = float_exponent(y);
 	var sintL ex = float_exponent(x);
-	var uintL dx = float_precision(x);
+	var uintC dx = float_precision(x);
 	if (dx==0) // zerop(x) ?
 		return x;
 	var sintL ulpx = ex - dx;

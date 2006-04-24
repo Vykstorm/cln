@@ -85,6 +85,7 @@
   #define signean_minus -1
 
 // Integer type used for counters.
+// Constraint: sizeof(uintC) >= sizeof(uintL)
   #if (defined(HAVE_FAST_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__powerpc64__) || defined(__x86_64__)))
     #define intCsize long_bitsize
     typedef long           sintC;

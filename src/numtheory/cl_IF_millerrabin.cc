@@ -18,7 +18,7 @@ cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 	// [Cohen], section 8.2, algorithm 8.2.2.
 	var cl_modint_ring R = find_modint_ring(n); // Z/nZ
 	var cl_I m = n-1;
-	var uintL e = ord2(m);
+	var uintC e = ord2(m);
 	m = m>>e;
 	// n-1 = 2^e*m
 	var cl_MI one = R->one();
@@ -37,7 +37,7 @@ cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 		var cl_MI b = R->expt_pos(a,m); // b = a^m
 		if (b == one)
 			goto passed;
-		for (uintL s = e; s > 0; s--) {
+		for (uintC s = e; s > 0; s--) {
 			if (b == minusone)
 				goto passed;
 			var cl_MI new_b = R->square(b);

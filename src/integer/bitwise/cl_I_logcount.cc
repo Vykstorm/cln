@@ -16,7 +16,7 @@
 
 namespace cln {
 
-uintL logcount (const cl_I& x)
+uintC logcount (const cl_I& x)
 {
 	if (fixnump(x))
 	  { var uintV x32 = FN_to_V(x); // x als intDsize-Bit-Zahl
@@ -34,11 +34,11 @@ uintL logcount (const cl_I& x)
           { var const uintD* MSDptr;
             var uintC len;
             BN_to_NDS_nocopy(x, MSDptr=,len=,); // DS zu x bilden, len>0.
-            var uintL bitcount = 0; // Bitzähler
+            var uintC bitcount = 0; // Bitzähler
             var const uintD* ptr = MSDptr; // läuft durch die Digits durch
             var uintD sign = sign_of_sintD(mspref(ptr,0)); // Vorzeichen
             dotimespC(len,len,
-              { bitcount += (uintL)logcountD(msprefnext(ptr) ^ sign); });
+              { bitcount += (uintC)logcountD(msprefnext(ptr) ^ sign); });
             // 0 <= bitcount < intDsize*2^intCsize.
             return bitcount;
           }

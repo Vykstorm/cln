@@ -62,7 +62,7 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 	//   (/ (expt a 2) t)
 	// )
 	var uintC actuallen = len + 1; // 1 Schutz-Digit
-	var uintL uexp_limit = LF_exp_mid - intDsize*(uintL)len;
+	var uintC uexp_limit = LF_exp_mid - intDsize*len;
 	// Ein Long-Float ist genau dann betragsm‰ﬂig <2^-n, wenn
 	// sein Exponent < LF_exp_mid-n = uexp_limit ist.
 	var cl_LF a = cl_I_to_LF(1,actuallen);
@@ -112,7 +112,7 @@ const cl_LF compute_pi_brent_salamin_quartic (uintC len)
 	// Hence,
 	//   pi = AGM(1,1/sqrt(2))^2 * 1/(1/2 - sum(k even, 2^k*[....])).
 	var uintC actuallen = len + 1; // 1 Schutz-Digit
-	var uintL uexp_limit = LF_exp_mid - intDsize*(uintL)len;
+	var uintC uexp_limit = LF_exp_mid - intDsize*len;
 	var cl_LF one = cl_I_to_LF(1,actuallen);
 	var cl_LF a = one;
 	var cl_LF wa = one;
@@ -154,8 +154,8 @@ const cl_LF compute_pi_ramanujan_163 (uintC len)
 	// in precision.
 	// The sum is best evaluated using fixed-point arithmetic,
 	// so that the precision is reduced for the later summands.
-	var uintL actuallen = len + 4; // 4 Schutz-Digits
-	var sintL scale = intDsize*actuallen;
+	var uintC actuallen = len + 4; // 4 Schutz-Digits
+	var sintC scale = intDsize*actuallen;
 	static const cl_I A = "163096908";
 	static const cl_I B = "6541681608";
 	//static const cl_I J1 = "10939058860032000"; // 72*abs(J)
@@ -191,7 +191,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 {
 	// Same formula as above, using a binary splitting evaluation.
 	// See [Borwein, Borwein, section 10.2.3].
-	var uintL actuallen = len + 4; // 4 Schutz-Digits
+	var uintC actuallen = len + 4; // 4 Schutz-Digits
 	static const cl_I A = "163096908";
 	static const cl_I B = "6541681608";
 	static const cl_I J1 = "10939058860032000"; // 72*abs(J)
@@ -200,17 +200,17 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 	//   a(n) = A+n*B, b(n) = 1,
 	//   p(n) = -(6n-5)(2n-1)(6n-1) for n>0,
 	//   q(n) = 72*|J|*n^3 for n>0.
-	var const uintL n_slope = (uintL)(intDsize*32*0.02122673)+1;
+	var const uintC n_slope = (uintC)(intDsize*32*0.02122673)+1;
 	// n_slope >= 32*intDsize*log(2)/log(|J|), normally n_slope = 22.
-	var uintL N = (n_slope*actuallen)/32 + 1;
+	var uintC N = (n_slope*actuallen)/32 + 1;
 	// N > intDsize*log(2)/log(|J|) * actuallen, hence
 	// |J|^-N < 2^(-intDsize*actuallen).
 	CL_ALLOCA_STACK;
 	var cl_I* av = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL* qsv = (uintL*) cl_alloca(N*sizeof(uintL));
-	var uintL n;
+	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, av[n]) (A+n*B);
 		if (n==0) {

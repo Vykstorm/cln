@@ -16,12 +16,12 @@ namespace cln {
 
 const cl_SV_any copy (const cl_SV_any& src)
 {
-	var uintL len = src.length();
+	var uintC len = src.length();
 	var cl_heap_SV_any* hv = (cl_heap_SV_any*) malloc_hook(sizeof(cl_heap_SV_any)+sizeof(cl_gcobject)*len);
 	hv->refcount = 1;
 	hv->type = src.pointer_type();
 	new (&hv->v) cl_SV_inner<cl_gcobject> (len);
-	for (var uintL i = 0; i < len; i++)
+	for (var uintC i = 0; i < len; i++)
 		init1(cl_gcobject, hv->v[i]) (src[i]);
 	return hv;
 }

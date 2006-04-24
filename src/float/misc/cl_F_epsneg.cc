@@ -38,7 +38,7 @@ static const cl_DF DF_negative_epsilon =
 
 inline const cl_LF LF_negative_epsilon (uintC len)
 {
-	var Lfloat erg = allocate_lfloat(len,LF_exp_mid-intDsize*(uintL)len,0);
+	var Lfloat erg = allocate_lfloat(len,LF_exp_mid-intDsize*len,0);
 	var uintD* ptr = &TheLfloat(erg)->data[0];
 	#if CL_DS_BIG_ENDIAN_P
 	  *ptr++ = bit(intDsize-1);
@@ -54,7 +54,7 @@ inline const cl_LF LF_negative_epsilon (uintC len)
 
 const cl_F float_negative_epsilon (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return SF_negative_epsilon;
 	,	return FF_negative_epsilon;
 	,	return DF_negative_epsilon;

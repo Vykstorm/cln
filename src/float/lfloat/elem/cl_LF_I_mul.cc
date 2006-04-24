@@ -28,7 +28,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	if (TheLfloat(x)->expo == 0) { return x; }
 	var cl_signean sign = -(cl_signean)minusp(y); // Vorzeichen von y
 	var cl_I abs_y = (sign==0 ? y : -y);
-	var uintL y_exp = integer_length(abs_y);
+	var uintC y_exp = integer_length(abs_y);
 	var uintC len = TheLfloat(x)->len;
 #ifndef CL_LF_PEDANTIC
 	if (ceiling(y_exp,intDsize) > len)

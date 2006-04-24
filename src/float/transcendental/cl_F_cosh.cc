@@ -34,8 +34,8 @@ const cl_F cosh (const cl_F& x)
 		// e<0
 		if (zerop(x))
 			return cl_float(1,x);
-		var uintL d = float_digits(x);
-		if (e <= (1-(sintL)d)>>1) // e <= (1-d)/2 <==> e <= -ceiling((d-1)/2) ?
+		var uintC d = float_digits(x);
+		if (e <= (1-(sintC)d)>>1) // e <= (1-d)/2 <==> e <= -ceiling((d-1)/2) ?
 			return cl_float(1,x); // ja -> 1.0 als Ergebnis
 		// Rechengenauigkeit erhöhen
 		if (longfloatp(x)) {

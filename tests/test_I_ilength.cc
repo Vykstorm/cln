@@ -7,7 +7,7 @@ int test_I_integer_length (int iterations)
 	// Check against ash.
 	for (i = iterations; i > 0; i--) {
 		cl_I a = testrandom_I();
-		uintL l = integer_length(a);
+		uintC l = integer_length(a);
 		if (a >= 0) {
 			int b = 0;
 			if (a < ash(1,l)) {

@@ -38,14 +38,14 @@ const cl_RA rational (const cl_F& x)
 		// 0 < -e <= LF_exp_mid-LF_exp_low + intDsize*len < 2^32,
 		var cl_I minus_e = -e;
 		var uintL _e = cl_I_to_UL(minus_e); // daher kein Überlauf
-		var uintL k = ord2(n);
+		var uintC k = ord2(n);
 		if (k >= _e)
 			// Kürze mit 2^(-e).
 			return ash(n,e);
 		else
 			// Kürze mit 2^k, 0 <= k < -e.
-			return I_I_to_RT(ash(n,-(sintL)k),
-					 ash(1,minus_e-UL_to_I(k)));
+			return I_I_to_RT(ash(n,-(sintC)k),
+					 ash(1,minus_e-(cl_I)(unsigned long)k));
 #endif
 	}
 }

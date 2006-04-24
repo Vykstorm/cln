@@ -18,10 +18,10 @@
 namespace cln {
 
 MAYBE_INLINE2
-uintL float_precision (const cl_LF& x)
+uintC float_precision (const cl_LF& x)
 {
 	if (zerop(x)) return 0;
-	return intDsize*(uintL)(TheLfloat(x)->len);
+	return intDsize*(uintC)(TheLfloat(x)->len);
 }
 
 }  // namespace cln

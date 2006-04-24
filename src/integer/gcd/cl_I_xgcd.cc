@@ -279,7 +279,7 @@ namespace cln {
        //           uBb = uBb.MSDptr/uBb.len/uBb.LSDptr,
        // alles NUDS.
        // Platz für zwei Rechenregister besorgen, mit je max(a_len,b_len)+1 Digits:
-       {var uintL c_len = (uintL)(a_len>=b_len ? a_len : b_len) + 1;
+       {var uintC c_len = (a_len>=b_len ? a_len : b_len) + 1;
         num_stack_alloc(c_len,,c_LSDptr=);
         num_stack_alloc(c_len,divroomptr=,d_LSDptr=);
         // Jetzt ist ../c_len/c_LSDptr, ../c_len/d_LSDptr frei.

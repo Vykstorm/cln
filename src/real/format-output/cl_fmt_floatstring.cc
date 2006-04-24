@@ -65,7 +65,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 	var cl_idecoded_float decoded = integer_decode_float(arg);
 	var const cl_I& significand = decoded.mantissa;
 	var const cl_I& expon = decoded.exponent;
-	var uintL mantprec = float_digits(arg)-1;
+	var uintC mantprec = float_digits(arg)-1;
 	var cl_I numerator = significand;
 	var cl_I denominator = 1;
 	var cl_I abrund_einh = 1; // Abrundungseinheit:

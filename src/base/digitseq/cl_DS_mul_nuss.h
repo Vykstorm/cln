@@ -946,9 +946,9 @@ static inline void shift (const nuss_outword& a, nuss_outword& b)
 #ifndef _BIT_REVERSE
 #define _BIT_REVERSE
 // Reverse an n-bit number x. n>0.
-static uintL bit_reverse (uintL n, uintL x)
+static uintC bit_reverse (uintL n, uintC x)
 {
-	var uintL y = 0;
+	var uintC y = 0;
 	do {
 		y <<= 1;
 		y |= (x & 1);
@@ -966,14 +966,14 @@ static uintL bit_reverse (uintL n, uintL x)
 //   threshold1 = 3:   25.6 sec  16.6 sec
 //   threshold1 = 4:   25.7 sec  17.6 sec
 //   threshold1 = 5:   26.1 sec  18.0 sec
-const uintL cl_nuss_threshold1 = 3;
+const uintC cl_nuss_threshold1 = 3;
 
 // Threshold for recursion base in mulu_nuss_cyclic().
-const uintL cl_nuss_threshold2 = 1;
+const uintC cl_nuss_threshold2 = 1;
 
 // Computes z[k] := sum(i+j==k mod N, x[i]*y[j]*(-1)^((i+j-k)/N))
 // for all k=0..N-1.
-static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
+static void mulu_nuss_negacyclic (const uintL n, const uintC N, // N = 2^n
                                   const nuss_inword * x, // N words
                                   const nuss_inword * y, // N words
                                   nuss_outword * z       // N words result
@@ -1003,9 +1003,9 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 		}
 		// 1 < n <= cl_nuss_threshold1.
 		#if 0 // straightforward, but slow
-		var uintL k;
+		var uintC k;
 		for (k = 0; k < N; k++) {
-			var uintL i;
+			var uintC i;
 			var nuss_outword accu;
 			mul(x[0],y[k], accu);
 			for (i = 1; i <= k; i++) {
@@ -1021,14 +1021,14 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 			z[k] = accu;
 		}
 		#else
-		var const uintL M = (uintL)1 << (n-1); // M = N/2
-		var uintL i, j, k;
+		var const uintC M = (uintC)1 << (n-1); // M = N/2
+		var uintC i, j, k;
 		for (k = 0; k < N; k++)
 			zero(z[k]);
 		for (i = 0; i < M; i++) {
-			var uintL iM = i+M;
+			var uintC iM = i+M;
 			for (j = 0; j < M-i; j++) {
-				var uintL jM = j+M;
+				var uintC jM = j+M;
 				// z[i+j]   += x[i] (y[j] + y[j+M]) - (x[i] + x[i+M]) y[j+M]
 				// z[i+j+M] += x[i] (y[j] + y[j+M]) + (x[i+M] - x[i]) y[j]
 				var nuss_inword x_sum;
@@ -1042,7 +1042,7 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 				mul(x_sum,y[j], second); add(first,second, temp); add(z[i+j+M],temp, z[i+j+M]);
 			}
 			for (j = M-i; j < M; j++) {
-				var uintL jM = j+M;
+				var uintC jM = j+M;
 				// z[i+j]   += x[i] (y[j] + y[j+M]) - (x[i] + x[i+M]) y[j+M]
 				// z[i+j-M] -= x[i] (y[j] + y[j+M]) + (x[i+M] - x[i]) y[j]
 				var nuss_inword x_sum;
@@ -1062,8 +1062,8 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 	// Recursive FFT.
 	var const uintL m = n >> 1; // floor(n/2)
 	var const uintL r = n - m;  // ceiling(n/2)
-	var const uintL M = (uintL)1 << m; // M = 2^m
-	var const uintL R = (uintL)1 << r; // R = 2^r
+	var const uintC M = (uintC)1 << m; // M = 2^m
+	var const uintC R = (uintC)1 << r; // R = 2^r
 	CL_ALLOCA_STACK;
 	var nuss_inword* const auX = cl_alloc_array(nuss_inword,2*N);
 	var nuss_inword* const auY = cl_alloc_array(nuss_inword,2*N);
@@ -1075,7 +1075,7 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 	var nuss_inword* const tmp2 = cl_alloc_array(nuss_inword,R);
 	var nuss_outword* const tmpZ = cl_alloc_array(nuss_outword,R);
 	var bool squaring = (x == y);
-	var uintL i, j;
+	var uintC i, j;
 	// Initialize polynomials X(i) and Y(i).
 	for (i = 0; i < M; i++) {
 		{
@@ -1097,13 +1097,13 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 				X(i+M,j) = X(i,j);
 		// Level l = m-1..0:
 		for (l = m-1; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (m-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(m-l,s) << (l + r-m);
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (m-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(m-l,s) << (l + r-m);
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (X(i1),X(i2)) by
 					// (X(i1) + w^exp*X(i2), X(i1) - w^exp*X(i2)).
 					for (j = 0; j < exp; j++) {
@@ -1132,13 +1132,13 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 				Y(i+M,j) = Y(i,j);
 		// Level l = m-1..0:
 		for (l = m-1; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (m-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(m-l,s) << (l + r-m);
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (m-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(m-l,s) << (l + r-m);
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (Y(i1),Y(i2)) by
 					// (Y(i1) + w^exp*Y(i2), Y(i1) - w^exp*Y(i2)).
 					for (j = 0; j < exp; j++) {
@@ -1171,13 +1171,13 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 		var uintL l;
 		// Level l = 0..m-1:
 		for (l = 0; l < m; l++) {
-			var const uintL smax = (uintL)1 << (m-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(m-l,s) << (l + r-m);
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (m-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(m-l,s) << (l + r-m);
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (Z(i1),Z(i2)) by
 					// ((Z(i1)+Z(i2))/2, (Z(i1)-Z(i2))/(2*w^exp)).
 					for (j = 0; j < exp; j++)
@@ -1196,8 +1196,8 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 		}
 		// Level l=m:
 		for (i = 0; i < M; i++) {
-			var uintL i1 = i;
-			var uintL i2 = i1 + M;
+			var uintC i1 = i;
+			var uintC i2 = i1 + M;
 			// Inverse Butterfly: replace (Z(i1),Z(i2)) by
 			// ((Z(i1)+Z(i2))/2, (Z(i1)-Z(i2))/2).
 			for (j = 0; j < R; j++) {
@@ -1223,7 +1223,7 @@ static void mulu_nuss_negacyclic (const uintL n, const uintL N, // N = 2^n
 
 // Computes z[k] := sum(i+j==k mod N, x[i]*y[j])
 // for all k=0..N-1.
-static void mulu_nuss_cyclic (const uintL n, const uintL N, // N = 2^n
+static void mulu_nuss_cyclic (const uintL n, const uintC N, // N = 2^n
                               nuss_inword * x, // N words, modified!
                               nuss_inword * y, // N words, modified!
                               nuss_outword * z // N words result
@@ -1258,9 +1258,9 @@ static void mulu_nuss_cyclic (const uintL n, const uintL N, // N = 2^n
 	#if 0 // useless code because cl_nuss_threshold2 == 1
 	if (n <= cl_nuss_threshold2) {
 		#if 0 // straightforward, but slow
-		var uintL k;
+		var uintC k;
 		for (k = 0; k < N; k++) {
-			var uintL i;
+			var uintC i;
 			var nuss_outword accu;
 			mul(x[0],y[k], accu);
 			for (i = 1; i <= k; i++) {
@@ -1276,14 +1276,14 @@ static void mulu_nuss_cyclic (const uintL n, const uintL N, // N = 2^n
 			z[k] = accu;
 		}
 		#else
-		var const uintL M = (uintL)1 << (n-1); // M = N/2
-		var uintL i, j, k;
+		var const uintC M = (uintC)1 << (n-1); // M = N/2
+		var uintC i, j, k;
 		for (k = 0; k < N; k++)
 			zero(z[k]);
 		for (i = 0; i < M; i++) {
-			var uintL iM = i+M;
+			var uintC iM = i+M;
 			for (j = 0; j < M; j++) {
-				var uintL jM = j+M;
+				var uintC jM = j+M;
 				// z[i+j]   += ((x[i] + x[i+M]) (y[j] + y[j+M]) + (x[i] - x[i+M]) (y[j] - y[j+M])) / 2
 				// z[i+j+M] += ((x[i] + x[i+M]) (y[j] + y[j+M]) - (x[i] - x[i+M]) (y[j] - y[j+M])) / 2
 				var nuss_inword x_sum;
@@ -1298,7 +1298,7 @@ static void mulu_nuss_cyclic (const uintL n, const uintL N, // N = 2^n
 				mul(x_sum,y_sum, first);
 				mul(x_diff,y_diff, second);
 				add(first,second, temp); add(z[i+j],temp, z[i+j]);
-				var uintL ijM = (i+j+M) & (N-1);
+				var uintC ijM = (i+j+M) & (N-1);
 				sub(first,second, temp); add(z[ijM],temp, z[ijM]);
 			}
 		}
@@ -1309,8 +1309,8 @@ static void mulu_nuss_cyclic (const uintL n, const uintL N, // N = 2^n
 	}
 	#endif
 	var const uintL m = n-1;
-	var const uintL M = (uintL)1 << m; // M = 2^m = N/2
-	var uintL i;
+	var const uintC M = (uintC)1 << m; // M = 2^m = N/2
+	var uintC i;
 	// Chinese remainder theorem: u^N-1 = (u^M-1)*(u^M+1)
 	for (i = 0; i < M; i++) {
 		// Butterfly: replace (x(i),x(i+M))
@@ -1357,8 +1357,8 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 	// sum(i=0..N-1, x_i T^i), sum(i=0..N-1, y_i T^i)
 	// multipliziert, und zwar durch Fourier-Transformation (s.o.).
 	var uint32 n;
-	integerlength32(len1-1, n=); // 2^(n-1) < len1 <= 2^n
-	var uintL len = (uintL)1 << n; // kleinste Zweierpotenz >= len1
+	integerlengthC(len1-1, n=); // 2^(n-1) < len1 <= 2^n
+	var uintC len = (uintC)1 << n; // kleinste Zweierpotenz >= len1
 	// Wählt man N = len, so hat man ceiling(len2/(len-len1+1)) * FFT(len).
 	// Wählt man N = 2*len, so hat man ceiling(len2/(2*len-len1+1)) * FFT(2*len).
 	// Wir wählen das billigere von beiden:
@@ -1369,17 +1369,17 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 		n = n+1;
 		len = len << 1;
 	}
-	var const uintL N = len; // N = 2^n
+	var const uintC N = len; // N = 2^n
 	CL_ALLOCA_STACK;
 	var nuss_inword* const x = cl_alloc_array(nuss_inword,N);
 	var nuss_inword* const y = cl_alloc_array(nuss_inword,N);
 	var nuss_outword* const z = cl_alloc_array(nuss_outword,N);
 	var uintD* const tmpprod = cl_alloc_array(uintD,len1+1);
 	var uintP i;
-	var uintL destlen = len1+len2;
+	var uintC destlen = len1+len2;
 	clear_loop_lsp(destptr,destlen);
 	do {
-		var uintL len2p; // length of a piece of source2
+		var uintC len2p; // length of a piece of source2
 		len2p = N - len1 + 1;
 		if (len2p > len2)
 			len2p = len2;
@@ -1392,7 +1392,7 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
 					cl_abort();
 		} else {
-			var uintL destlenp = len1 + len2p - 1;
+			var uintC destlenp = len1 + len2p - 1;
 			// destlenp = min(N,destlen-1).
 			var bool squaring = ((sourceptr1 == sourceptr2) && (len1 == len2p));
 			// Fill factor x.

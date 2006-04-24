@@ -36,7 +36,7 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
       if (eq(x,0)) { return encode_LF0(len); } // x=0 -> Ergebnis 0.0
       var cl_signean sign = -(cl_signean)minusp(x); // Vorzeichen von x
       var cl_I abs_x = (sign==0 ? x : -x);
-      var uintL exp = integer_length(abs_x); // (integer-length x) < intDsize*2^intCsize
+      var uintC exp = integer_length(abs_x); // (integer-length x) < intDsize*2^intCsize
       // Teste, ob exp <= LF_exp_high-LF_exp_mid :
       if (   (log2_intDsize+intCsize < 32)
           && ((uintL)(intDsize*bitc(intCsize)-1) <= (uintL)(LF_exp_high-LF_exp_mid))

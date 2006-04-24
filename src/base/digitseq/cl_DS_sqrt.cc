@@ -29,7 +29,7 @@ namespace cln {
 // Newton faster for 3200<N            Newton faster for 2750<N
 // When in doubt, prefer to choose the standard algorithm.
 #if CL_USE_GMP
-  static inline cl_boolean cl_recipsqrt_suitable (uintL n)
+  static inline cl_boolean cl_recipsqrt_suitable (uintC n)
   { return (cl_boolean)(n >= 3200); }
 #else
 // Use the old default values from CLN version <= 1.0.3 as a crude estimate.
@@ -47,7 +47,7 @@ namespace cln {
 //    5000   24.1    10.7
 //   10000   98      23.2
 //   -----> Newton faster for 1570 <= N <= 1790 and for N >= 2100.
-  static inline cl_boolean cl_recipsqrt_suitable (uintL n)
+  static inline cl_boolean cl_recipsqrt_suitable (uintC n)
   { return (cl_boolean)(n >= 2100); }
 #endif
 
@@ -126,7 +126,7 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
       // A um 2s Bits nach links verschoben kopieren:
       var uintD* new_a_MSDptr;
       { var uintD* new_a_LSDptr;
-        num_stack_alloc(2*(uintL)n,new_a_MSDptr=,new_a_LSDptr=); // 2n Digits Platz belegen
+        num_stack_alloc(2*n,new_a_MSDptr=,new_a_LSDptr=); // 2n Digits Platz belegen
        {var uintL shiftcount = 2*s;
         if (!((a_len & bit(0)) ==0)) // a_len ungerade?
           { s += intDsize/2; lsprefnext(new_a_LSDptr) = 0; } // ja -> ein Nulldigit einschieben

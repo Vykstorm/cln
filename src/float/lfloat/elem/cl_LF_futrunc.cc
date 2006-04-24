@@ -34,7 +34,7 @@ const cl_LF futruncate (const cl_LF& x)
       var uintC mantlen;
       LF_decode(x, { return x; }, sign=,exp=,mantMSDptr=,mantlen=,);
       if (exp<=0) { return encode_LF1s(sign,mantlen); } // e<=0 -> Ergebnis +-1.0
-      if ((uintL)exp >= intDsize*(uintL)mantlen) // e>=16n -> x als Ergebnis
+      if ((uintL)exp >= intDsize*mantlen) // e>=16n -> x als Ergebnis
         { return x; }
         else
         // 0 < e < 16n
@@ -70,7 +70,7 @@ const cl_LF futruncate (const cl_LF& x)
           return encode_LF1s(TheLfloat(x)->sign,len); // e<=0 -> Ergebnis +-1.0
         }
       var uintL exp = uexp - LF_exp_mid;
-      if (exp >= intDsize*(uintL)len) // e>=16n -> x als Ergebnis
+      if (exp >= intDsize*len) // e>=16n -> x als Ergebnis
         { return x; }
       // 0 < e < 16n
       // Testen, ob alle hinteren 16n-e Bits =0 sind:

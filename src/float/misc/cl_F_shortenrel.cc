@@ -23,11 +23,11 @@ const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y)
 	// 1 ulp(x) = 2^(ex-dx), 1 ulp(y) = 2^(ey-dy).
 	// Falls ex-dx < ey-dy, x von Precision dx auf dy-ey+ex verkürzen.
 	var sintL ey = float_exponent(y);
-	var sintL dy = float_precision(y);
+	var sintC dy = float_precision(y);
 	if (dy==0) // zerop(y) ?
 		cl_abort();
 	var sintL ex = float_exponent(x);
-	var sintL dx = float_precision(x);
+	var sintC dx = float_precision(x);
 	if (dx==0) // zerop(x) ?
 		return x;
 	var sintL d = ex - ey;
@@ -37,12 +37,12 @@ const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y)
 		return cl_F_to_SF(x);
 	if (d >= dx - dy)
 		return x;
-	var uintL new_dx = dy + d;
+	var uintC new_dx = dy + d;
 	floatformatcase(new_dx
 	,	return cl_F_to_SF(x);
 	,	return cl_F_to_FF(x);
 	,	return cl_F_to_DF(x);
-	,	if (intDsize*len < (uintL)dx)
+	,	if (intDsize*len < (uintC)dx)
 			return shorten(The(cl_LF)(x),len);
 		else
 			return x;

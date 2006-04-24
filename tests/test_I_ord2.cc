@@ -8,10 +8,10 @@ int test_I_ord2 (int iterations)
 	for (i = iterations; i > 0; i--) {
 		cl_I a = testrandom_I();
 		if (a != 0) {
-			uintL n = ord2(a);
-			cl_I b = ash(a,-(sintL)n);
+			uintC n = ord2(a);
+			cl_I b = ash(a,-(sintC)n);
 			ASSERT1(oddp(b), a);
-			ASSERT1(a == ash(b,(sintL)n), a);
+			ASSERT1(a == ash(b,(sintC)n), a);
 		}
 	}
 	return error;

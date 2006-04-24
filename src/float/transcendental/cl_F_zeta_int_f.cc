@@ -17,7 +17,7 @@ namespace cln {
 
 const cl_F zeta (int s, float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return cl_LF_to_SF(zeta(s,LF_minlen));
 	,	return cl_LF_to_FF(zeta(s,LF_minlen));
 	,	return cl_LF_to_DF(zeta(s,LF_minlen));

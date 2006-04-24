@@ -14,7 +14,7 @@
 
 namespace cln {
 
-uintL integer_length (const cl_I& x)
+uintC integer_length (const cl_I& x)
 {
 	if (fixnump(x))
 	  { var uintL bitcount = 0;
@@ -33,7 +33,7 @@ uintL integer_length (const cl_I& x)
           { var const uintD* MSDptr;
             var uintC len;
             BN_to_NDS_nocopy(x, MSDptr=,len=,); // normalisierte DS zu x bilden.
-            var uintL bitcount = intDsize*(uintL)(len-1); // Anzahl Digits mal intDsize
+            var uintC bitcount = intDsize*(len-1); // Anzahl Digits mal intDsize
             // MSDigit nehmen, testen, welches das höchste Bit ist, das vom
             // Vorzeichenbit abweicht:
             var uintD msd = mspref(MSDptr,0); // MSDigit

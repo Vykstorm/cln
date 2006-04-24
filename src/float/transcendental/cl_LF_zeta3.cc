@@ -39,13 +39,13 @@ const cl_LF zeta3 (uintC len)
 	//   a(n) = 205*n^2+250*n+77, b(n) = 1,
 	//   p(0) = 1, p(n) = -n^5 for n>0, q(n) = 32*(2n+1)^5.
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL N = ceiling(actuallen*intDsize,10);
+	var uintC N = ceiling(actuallen*intDsize,10);
 	// 1024^-N <= 2^(-intDsize*actuallen).
 	CL_ALLOCA_STACK;
 	var cl_I* av = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, av[n]) (205*square((cl_I)n) + 250*(cl_I)n + 77);
 		if (n==0)

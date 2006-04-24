@@ -26,8 +26,8 @@ const cl_LF compute_catalanconst_ramanujan (uintC len)
 	// Every summand gives 0.6 new decimal digits in precision.
 	// The sum is best evaluated using fixed-point arithmetic,
 	// so that the precision is reduced for the later summands.
-	var uintL actuallen = len + 2; // 2 Schutz-Digits
-	var sintL scale = intDsize*actuallen;
+	var uintC actuallen = len + 2; // 2 Schutz-Digits
+	var sintC scale = intDsize*actuallen;
 	var cl_I sum = 0;
 	var cl_I n = 0;
 	var cl_I factor = ash(1,scale);
@@ -50,18 +50,18 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 {
 	// Same formula as above, using a binary splitting evaluation.
 	// See [Borwein, Borwein, section 10.2.3].
-	var uintL actuallen = len + 2; // 2 Schutz-Digits
+	var uintC actuallen = len + 2; // 2 Schutz-Digits
 	// Evaluate a sum(0 <= n < N, a(n)/b(n) * (p(0)...p(n))/(q(0)...q(n)))
 	// with appropriate N, and
 	//   a(n) = 1, b(n) = 2*n+1,
 	//   p(n) = n for n>0, q(n) = 2*(2*n+1) for n>0.
-	var uintL N = (intDsize/2)*actuallen;
+	var uintC N = (intDsize/2)*actuallen;
 	// 4^-N <= 2^(-intDsize*actuallen).
 	CL_ALLOCA_STACK;
 	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	init1(cl_I, bv[0]) (1);
 	init1(cl_I, pv[0]) (1);
 	init1(cl_I, qv[0]) (1);
@@ -92,13 +92,13 @@ const cl_LF compute_catalanconst_expintegral1 (uintC len)
 {
 	// We compute f(x) classically and g(x) using the partial sums of f(x).
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL x = (uintL)(0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(2.718281828*x);
+	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(2.718281828*x);
 	var cl_LF fterm = cl_I_to_LF(1,actuallen);
 	var cl_LF fsum = fterm;
 	var cl_LF gterm = fterm;
 	var cl_LF gsum = gterm;
-	var uintL n;
+	var uintC n;
 	// After n loops
 	//   fterm = x^n/n!, fsum = 1 + x/1! + ... + x^n/n!,
 	//   gterm = S_n*x^n/n!, gsum = S_0*x^0/0! + ... + S_n*x^n/n!.
@@ -122,11 +122,11 @@ const cl_LF compute_catalanconst_expintegral1 (uintC len)
 const cl_LF compute_catalanconst_expintegral2 (uintC len)
 {
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL x = (uintL)(0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(2.718281828*x);
+	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(2.718281828*x);
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		if (n==0) {
 			init1(cl_I, args[n].p) (1);
@@ -153,13 +153,13 @@ const cl_LF compute_catalanconst_expintegral2 (uintC len)
 const cl_LF compute_catalanconst_cvz1 (uintC len)
 {
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL N = (uintL)(0.39321985*intDsize*actuallen)+1;
+	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 #if 0
 	var cl_LF fterm = cl_I_to_LF(2*(cl_I)N*(cl_I)N,actuallen);
 	var cl_LF fsum = fterm;
 	var cl_LF gterm = fterm;
 	var cl_LF gsum = gterm;
-	var uintL n;
+	var uintC n;
 	// After n loops
 	//   fterm = (N+n)!N/(2n+2)!(N-n-1)!*2^(2n+2), fsum = ... + fterm,
 	//   gterm = S_n*fterm, gsum = ... + gterm.
@@ -180,7 +180,7 @@ const cl_LF compute_catalanconst_cvz1 (uintC len)
 	var cl_I fsum = fterm;
 	var cl_LF gterm = cl_I_to_LF(fterm,actuallen);
 	var cl_LF gsum = gterm;
-	var uintL n;
+	var uintC n;
 	// After n loops
 	//   fterm = (N+n)!N/(2n+2)!(N-n-1)!*2^(2n+2), fsum = ... + fterm,
 	//   gterm = S_n*fterm, gsum = ... + gterm.
@@ -204,10 +204,10 @@ const cl_LF compute_catalanconst_cvz1 (uintC len)
 const cl_LF compute_catalanconst_cvz2 (uintC len)
 {
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL N = (uintL)(0.39321985*intDsize*actuallen)+1;
+	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, args[n].p) (2*(cl_I)(N-n)*(cl_I)(N+n));
 		init1(cl_I, args[n].q) ((cl_I)(2*n+1)*(cl_I)(n+1));

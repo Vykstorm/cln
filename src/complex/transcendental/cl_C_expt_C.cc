@@ -155,7 +155,7 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 			if (cl_false) {
 				complex_rational:
 				// x in Q(i)
-				var uintL k = power2p(n);
+				var uintC k = power2p(n);
 				if (k) {
 					// n Zweierpotenz = 2^(k-1). n>1, also k>1
 					Mutable(cl_N,x);

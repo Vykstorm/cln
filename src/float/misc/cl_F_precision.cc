@@ -20,7 +20,7 @@
 
 namespace cln {
 
-uintL float_precision (const cl_F& x)
+uintC float_precision (const cl_F& x)
 {
 	floatcase(x
 	,	return float_precision(x);

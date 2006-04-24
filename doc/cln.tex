@@ -1804,7 +1804,7 @@ Returns true if some bit is set in both @code{x} and @code{y}, i.e. if
 Returns true if the @code{n}th bit (from the right) of @code{x} is set.
 Bit 0 is the least significant bit.
 
-@item uintL logcount (const cl_I& x)
+@item uintC logcount (const cl_I& x)
 @cindex @code{logcount ()}
 Returns the number of one bits in @code{x}, if @code{x} >= 0, or
 the number of zero bits in @code{x}, if @code{x} < 0.
@@ -1813,7 +1813,7 @@ the number of zero bits in @code{x}, if @code{x} < 0.
 The following functions operate on intervals of bits in integers. 
 The type
 @example
-struct cl_byte @{ uintL size; uintL position; @};
+struct cl_byte @{ uintC size; uintC position; @};
 @end example
 @cindex @code{cl_byte}
 represents the bit interval containing the bits
@@ -1895,20 +1895,20 @@ Shifts @code{x} by @code{y} bits to the left (if @code{y}>=0) or
 by @code{-y} bits to the right (if @code{y}<=0). In other words, this
 returns @code{floor(x * expt(2,y))}.
 
-@item uintL integer_length (const cl_I& x)
+@item uintC integer_length (const cl_I& x)
 @cindex @code{integer_length ()}
 Returns the number of bits (excluding the sign bit) needed to represent @code{x}
 in two's complement notation. This is the smallest n >= 0 such that
 -2^n <= x < 2^n. If x > 0, this is the unique n > 0 such that
 2^(n-1) <= x < 2^n.
 
-@item uintL ord2 (const cl_I& x)
+@item uintC ord2 (const cl_I& x)
 @cindex @code{ord2 ()}
 @code{x} must be non-zero. This function returns the number of 0 bits at the
 right of @code{x} in two's complement notation. This is the largest n >= 0
 such that 2^n divides @code{x}.
 
-@item uintL power2p (const cl_I& x)
+@item uintC power2p (const cl_I& x)
 @cindex @code{power2p ()}
 @code{x} must be > 0. This function checks whether @code{x} is a power of 2.
 If @code{x} = 2^(n-1), it returns n. Else it returns 0.
@@ -2012,7 +2012,7 @@ Each of the classes
 defines the following operations.
 
 @table @code
-@item @var{type} scale_float (const @var{type}& x, sintL delta)
+@item @var{type} scale_float (const @var{type}& x, sintC delta)
 @cindex @code{scale_float ()}
 @itemx @var{type} scale_float (const @var{type}& x, const cl_I& delta)
 Returns @code{x*2^delta}. This is more efficient than an explicit multiplication
@@ -2038,13 +2038,13 @@ Returns the base of the floating-point representation. This is always @code{2}.
 Returns the sign @code{s} of @code{x} as a float. The value is 1 for
 @code{x} >= 0, -1 for @code{x} < 0.
 
-@item uintL float_digits (const @var{type}& x)
+@item uintC float_digits (const @var{type}& x)
 @cindex @code{float_digits ()}
 Returns the number of mantissa bits in the floating-point representation
 of @code{x}, including the hidden bit. The value only depends on the type
 of @code{x}, not on its value.
 
-@item uintL float_precision (const @var{type}& x)
+@item uintC float_precision (const @var{type}& x)
 @cindex @code{float_precision ()}
 Returns the number of significant mantissa bits in the floating-point
 representation of @code{x}. Since denormalized numbers are not supported,

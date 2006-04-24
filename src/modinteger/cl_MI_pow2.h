@@ -6,11 +6,11 @@ class cl_heap_modint_ring_pow2 : public cl_heap_modint_ring {
 	SUBCLASS_cl_heap_modint_ring()
 public:
 	// Constructor.
-	cl_heap_modint_ring_pow2 (const cl_I& m, uintL m1); // m = 2^m1
+	cl_heap_modint_ring_pow2 (const cl_I& m, uintC m1); // m = 2^m1
 	// Destructor.
 	~cl_heap_modint_ring_pow2 () {}
 	// Additional information.
-	uintL m1;
+	uintC m1;
 };
 
 static inline const cl_I pow2_reduce_modulo (cl_heap_modint_ring* _R, const cl_I& x)
@@ -148,7 +148,7 @@ cl_class cl_class_modint_ring_pow2 = {
 };
 
 // Constructor.
-inline cl_heap_modint_ring_pow2::cl_heap_modint_ring_pow2 (const cl_I& m, uintL _m1)
+inline cl_heap_modint_ring_pow2::cl_heap_modint_ring_pow2 (const cl_I& m, uintC _m1)
 	: cl_heap_modint_ring (m, &std_setops, &pow2_addops, &pow2_mulops), m1 (_m1)
 {
 	type = &cl_class_modint_ring_pow2;

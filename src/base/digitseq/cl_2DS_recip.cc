@@ -31,7 +31,7 @@ void recip2adic (uintC len, const uintD* a_LSDptr, uintD* dest_LSDptr)
 	//   return 2*b-a*b^2 mod 2^(intDsize*2*n).
 	CL_ALLOCA_STACK;
 	var uintL k = 0; // number of Newton steps
-	var uintL n = len;
+	var uintC n = len;
 	while (n >= recip2adic_threshold) {
 		n = ceiling(n,2);
 		k++;
@@ -47,13 +47,13 @@ void recip2adic (uintC len, const uintD* a_LSDptr, uintD* dest_LSDptr)
 		var uintD* b2_LSDptr;
 		var uintD* prod_LSDptr;
 		num_stack_alloc(len+1,,b2_LSDptr=);
-		num_stack_alloc(2*(uintL)len,,prod_LSDptr=);
+		num_stack_alloc(2*len,,prod_LSDptr=);
 		do {
 			// n = ceiling(len/2^k)
 			// Compute n2 = ceiling(len/2^(k-1)),
 			// then n = ceiling(n2/2).
 			k--;
-			var uintL n2 = ((len-1)>>k)+1; // = 2*n or = 2*n-1
+			var uintC n2 = ((len-1)>>k)+1; // = 2*n or = 2*n-1
 			// Set b := 2*b-a*b^2 mod 2^(intDsize*n2)
 			cl_UDS_mul_square(dest_LSDptr,n,b2_LSDptr); // b^2
 			cl_UDS_mul(b2_LSDptr,n2,a_LSDptr,n2,prod_LSDptr); // a*b^2

@@ -14,7 +14,7 @@
 
 namespace cln {
 
-const cl_DF scale_float (const cl_DF& x, sintL delta)
+const cl_DF scale_float (const cl_DF& x, sintC delta)
 {
   // Methode:
   // x=0.0 -> x als Ergebnis
@@ -33,7 +33,7 @@ const cl_DF scale_float (const cl_DF& x, sintL delta)
 #endif
       if (delta >= 0)
         // delta>=0
-        { var uintL udelta = delta;
+        { var uintC udelta = delta;
           if (udelta <= (uintL)(DF_exp_high-DF_exp_low))
             { exp = exp+udelta;
 #if (cl_word_size==64)
@@ -47,7 +47,7 @@ const cl_DF scale_float (const cl_DF& x, sintL delta)
         }
         else
         // delta<0
-        { var uintL udelta = -delta;
+        { var uintC udelta = -delta;
           if (udelta <= (uintL)(DF_exp_high-DF_exp_low))
             { exp = exp-udelta;
 #if (cl_word_size==64)

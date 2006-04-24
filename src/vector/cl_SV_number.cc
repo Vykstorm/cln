@@ -29,7 +29,7 @@ cl_class cl_class_svector_number = {
 	0
 };
 
-cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintL len)
+cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintC len)
 {
 	var cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
 	hv->refcount = 1;
@@ -39,19 +39,19 @@ cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintL len)
 	return hv;
 }
 
-cl_heap_SV_number* cl_make_heap_SV_number (uintL len)
+cl_heap_SV_number* cl_make_heap_SV_number (uintC len)
 {
 	var cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_number;
 	new (&hv->v) cl_SV_inner<cl_number> (len);
-	for (var uintL i = 0; i < len; i++)
+	for (var uintC i = 0; i < len; i++)
 		init1(cl_number, hv->v[i]) (0);
 	return hv;
 }
 
 // An empty vector.
-const cl_SV_number cl_null_SV_number = cl_SV_number((uintL)0);
+const cl_SV_number cl_null_SV_number = cl_SV_number((uintC)0);
 
 }  // namespace cln
 

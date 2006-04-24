@@ -51,10 +51,10 @@ const cl_LF atanhx (const cl_LF& x)
 {
 	if (zerop(x))
 		return x;
-	var uintL actuallen = TheLfloat(x)->len;
-	var uintL d = float_digits(x);
+	var uintC actuallen = TheLfloat(x)->len;
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e <= (sintL)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
+	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	if (actuallen >= 34) {
 		DeclareType(cl_LF,x);
@@ -105,7 +105,7 @@ const cl_LF atanhx (const cl_LF& x)
 	} else {
 		// naive2:
 		// floating-point representation with smooth precision reduction
-		var cl_LF eps = scale_float(b,-(sintL)d-10);
+		var cl_LF eps = scale_float(b,-(sintC)d-10);
 		loop {
 			var cl_LF new_sum = sum + LF_to_LF(b/(cl_I)i,actuallen); // (+ sum (/ b i))
 			if (new_sum == sum) // = sum ?
@@ -129,9 +129,9 @@ const cl_F atanhx (const cl_F& x)
 	}
 	if (zerop(x))
 		return x;
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e <= (sintL)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
+	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionszähler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe

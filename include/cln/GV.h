@@ -25,9 +25,9 @@ template <class T> struct cl_GV_vectorops;
 template <class T>
 class cl_GV_inner {
 protected:
-	uintL len; // number of elements
+	uintC len; // number of elements
 public:
-	uintL length () const; // number of elements
+	uintC length () const; // number of elements
 	cl_GV_vectorops<T>* vectorops; // get/set element
 	const cl_GV_index<T> operator[] (unsigned long index);
 	const cl_GV_constindex<T> operator[] (unsigned long index) const;
@@ -39,7 +39,7 @@ public:
 	const cl_GV_constindex<T> operator[] (int index) const;
 public: /* ugh */
 	// Constructor.
-	cl_GV_inner (uintL l, cl_GV_vectorops<T>* ops) : len (l), vectorops (ops) {}
+	cl_GV_inner (uintC l, cl_GV_vectorops<T>* ops) : len (l), vectorops (ops) {}
 public:
 	// Destructor.
 	~cl_GV_inner ();
@@ -63,10 +63,10 @@ class cl_GV_index {
 	// through [].
 public:
 	cl_GV_inner<T>* vec;
-	uintL index;
+	uintC index;
 	operator T () const;
 	// Constructor:
-	cl_GV_index (cl_GV_inner<T>* v, uintL i) : vec (v), index (i) {}
+	cl_GV_index (cl_GV_inner<T>* v, uintC i) : vec (v), index (i) {}
 	// Assignment operator.
 	void operator= (const T& x) const;
 #if (defined(__sparc__) || defined(__sparc64__) || defined(__mips__) || defined(__mips64__)) && !defined(__GNUC__) // maybe an SGI CC and Sun CC bug?
@@ -88,10 +88,10 @@ class cl_GV_constindex {
 	// through []. It lacks the assignment operator.
 public:
 	const cl_GV_inner<T>* vec;
-	uintL index;
+	uintC index;
 	operator T () const;
 	// Constructor:
-	cl_GV_constindex (const cl_GV_inner<T>* v, uintL i) : vec (v), index (i) {}
+	cl_GV_constindex (const cl_GV_inner<T>* v, uintC i) : vec (v), index (i) {}
 private:
 // No default constructor, assignment operator.
 	cl_GV_constindex ();
@@ -100,16 +100,16 @@ private:
 
 template <class T>
 struct cl_GV_vectorops {
-	const T (*element) (const cl_GV_inner<T>* vec, uintL index);
-	void (*set_element) (cl_GV_inner<T>* vec, uintL index, const T& x);
+	const T (*element) (const cl_GV_inner<T>* vec, uintC index);
+	void (*set_element) (cl_GV_inner<T>* vec, uintC index, const T& x);
 	void (*do_delete) (cl_GV_inner<T>* vec);
-	void (*copy_elements) (const cl_GV_inner<T>* srcvec, uintL srcindex, cl_GV_inner<T>* destvec, uintL destindex, uintL count);
+	void (*copy_elements) (const cl_GV_inner<T>* srcvec, uintC srcindex, cl_GV_inner<T>* destvec, uintC destindex, uintC count);
 };
 
 // All member functions are inline.
 
 template <class T>
-inline uintL cl_GV_inner<T>::length () const
+inline uintC cl_GV_inner<T>::length () const
 {
 	return len;
 }
@@ -219,7 +219,7 @@ template <class T, class BASE>
 struct cl_GV : public BASE {
 public:
 	// Length.
-	uintL length () const
+	uintC length () const
 	{
 		return ((const cl_heap_GV<T> *) this->pointer)->v.length();
 	}
@@ -250,7 +250,7 @@ public:
 	cl_GV& operator= (const cl_GV&);
 	// Copy a piece of a vector into another vector.
 	// (Both vectors must be of the same type. Overlapping not allowed.)
-	static void copy_elements (const cl_GV& src, uintL srcindex, cl_GV& dest, uintL destindex, uintL count)
+	static void copy_elements (const cl_GV& src, uintC srcindex, cl_GV& dest, uintC destindex, uintC count)
 	{
 		const cl_heap_GV<T> * hsrc = (const cl_heap_GV<T> *) src.pointer;
 		cl_heap_GV<T> * hdest = (cl_heap_GV<T> *) dest.pointer;

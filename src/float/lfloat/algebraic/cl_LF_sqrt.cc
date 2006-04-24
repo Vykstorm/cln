@@ -42,7 +42,7 @@ const cl_LF sqrt (const cl_LF& x)
       CL_ALLOCA_STACK;
       var uintD* r_MSDptr;
       var uintD* r_LSDptr;
-      var uintL r_len = 2*(uintL)len+2; // Lï¿½ge des Radikanden
+      var uintC r_len = 2*len+2; // Länge des Radikanden
       num_stack_alloc(r_len, r_MSDptr=,r_LSDptr=);
       if ((uexp & bit(0)) == (LF_exp_mid & bit(0)))
         // Exponent gerade

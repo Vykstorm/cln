@@ -16,7 +16,7 @@ namespace cln {
 
 const cl_F eulerconst (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return cl_SF_eulerconst;
 	,	return cl_FF_eulerconst;
 	,	return cl_DF_eulerconst;

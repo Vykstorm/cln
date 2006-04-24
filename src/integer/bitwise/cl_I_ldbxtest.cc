@@ -15,20 +15,20 @@
 
 namespace cln {
 
-cl_boolean ldb_extract_test (const cl_I& x, uintL p, uintL q)
+cl_boolean ldb_extract_test (const cl_I& x, uintC p, uintC q)
     { var const uintD* MSDptr;
       var uintC len;
       var const uintD* LSDptr;
       I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,cl_true, { return cl_false; } ); // NDS zu x bilden
       // MSDptr erhöhen und len erniedrigen, so daß len = ceiling(q/intDsize) wird:
-      { var uintL qD = ceiling(q,intDsize); // ceiling(q/intDsize)
+      { var uintC qD = ceiling(q,intDsize); // ceiling(q/intDsize)
         // wegen q<=l ist qD = ceiling(q/intDsize) <= ceiling((l+1)/intDsize) = len, also
         // paßt qD ebenso wie len in ein uintC.
-        MSDptr = MSDptr mspop ((uintL)len - qD); // MSDptr um len-qD Digits erhöhen
+        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erhöhen
         len = qD; // len um len-qD erniedrigen
       }
       // LSDptr und len um floor(p/intDsize) erniedrigen:
-      { var uintL pD = p/intDsize; // floor(p/intDsize)
+      { var uintC pD = p/intDsize; // floor(p/intDsize)
         LSDptr = LSDptr lspop pD;
         len -= pD;
       }

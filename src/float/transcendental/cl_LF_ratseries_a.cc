@@ -22,7 +22,7 @@ namespace cln {
 // and T = B*Q*S (all integers). On entry N1 < N2.
 // P will not be computed if a NULL pointer is passed.
 
-static void eval_a_series_aux (uintL N1, uintL N2,
+static void eval_a_series_aux (uintC N1, uintC N2,
                                const cl_a_series& args,
                                cl_I* T)
 {
@@ -51,7 +51,7 @@ static void eval_a_series_aux (uintL N1, uintL N2,
 		break;
 		}
 	default: {
-		var uintL Nm = (N1+N2)/2; // midpoint
+		var uintC Nm = (N1+N2)/2; // midpoint
 		// Compute left part.
 		var cl_I LT;
 		eval_a_series_aux(N1,Nm,args,&LT);
@@ -66,7 +66,7 @@ static void eval_a_series_aux (uintL N1, uintL N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintL N, const cl_a_series& args, uintC len)
+const cl_LF eval_rational_series (uintC N, const cl_a_series& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

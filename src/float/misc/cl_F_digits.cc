@@ -20,7 +20,7 @@
 
 namespace cln {
 
-uintL float_digits (const cl_F& x)
+uintC float_digits (const cl_F& x)
 {
 	floatcase(x
 	,	return float_digits(x);

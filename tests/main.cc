@@ -82,7 +82,7 @@ int main (int argc, char* argv[])
 #if 0
 	float_format_t f = float_format(atoi(argv[1]));
 	extern cl_LF zeta3 (uintC len);
-	uintC len = (uintL)f/intDsize+1;
+	uintC len = (uintC)f/intDsize+1;
 	{ CL_TIMING; cout << zeta(2,f) << endl; }
 	{ CL_TIMING; cout << expt(pi(f),2)/6 << endl; }
 	{ CL_TIMING; cout << zeta(3,f) << endl; }

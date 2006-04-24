@@ -29,11 +29,11 @@ const cl_LF cl_atanh_recip (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m;
-	var uintL N = (uintL)(0.69314718*intDsize/2*actuallen/::log(double_approx(m))) + 1;
+	var uintC N = (uintC)(0.69314718*intDsize/2*actuallen/::log(double_approx(m))) + 1;
 	CL_ALLOCA_STACK;
 	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		new (&bv[n]) cl_I ((cl_I)(2*n+1));
 		new (&qv[n]) cl_I (n==0 ? m : m2);

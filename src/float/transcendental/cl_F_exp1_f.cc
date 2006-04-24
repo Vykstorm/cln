@@ -16,7 +16,7 @@ namespace cln {
 
 const cl_F exp1 (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return cl_SF_exp1;
 	,	return cl_FF_exp1;
 	,	return cl_DF_exp1;

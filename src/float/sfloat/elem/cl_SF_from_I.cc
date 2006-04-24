@@ -33,7 +33,7 @@ const cl_SF cl_I_to_SF (const cl_I& x)
       if (eq(x,0)) { return SF_0; }
       var cl_signean sign = -(cl_signean)minusp(x); // Vorzeichen
       var cl_I abs_x = (sign==0 ? x : -x);
-      var uintL exp = integer_length(abs_x); // (integer-length x)
+      var uintC exp = integer_length(abs_x); // (integer-length x)
       // NDS zu |x|>0 bilden:
       var const uintD* MSDptr;
       var uintC len;

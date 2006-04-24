@@ -236,12 +236,12 @@ inline sintL float_radix (const cl_SF& x)
 extern const cl_SF float_sign (const cl_SF& x);
 
 // float_digits(x) liefert (float-digits x), wo x ein Float ist.
-// < ergebnis: ein uintL >0
-extern uintL float_digits (const cl_SF& x);
+// < ergebnis: ein uintC >0
+extern uintC float_digits (const cl_SF& x);
 
 // float_precision(x) liefert (float-precision x), wo x ein Float ist.
-// < ergebnis: ein uintL >=0
-extern uintL float_precision (const cl_SF& x);
+// < ergebnis: ein uintC >=0
+extern uintC float_precision (const cl_SF& x);
 
 
 // integer_decode_float(x) liefert zu einem Float x: (integer-decode-float x).
@@ -252,7 +252,7 @@ extern const cl_idecoded_float integer_decode_float (const cl_SF& x);
 
 
 // scale_float(x,delta) liefert x*2^delta, wo x ein SF ist.
-extern const cl_SF scale_float (const cl_SF& x, sintL delta);
+extern const cl_SF scale_float (const cl_SF& x, sintC delta);
 extern const cl_SF scale_float (const cl_SF& x, const cl_I& delta);
 
 

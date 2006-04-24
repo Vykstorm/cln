@@ -14,7 +14,7 @@
 
 namespace cln {
 
-uintL power2p (const cl_I& x) // x > 0
+uintC power2p (const cl_I& x) // x > 0
 {
 // Methode 1: Wenn ord2(x) = integer_length(x)-1.
 // Methode 2: Wenn logand(x,x-1) = 0.
@@ -41,7 +41,7 @@ uintL power2p (const cl_I& x) // x > 0
 	    if (DS_test_loop(MSDptr mspop 1,len-1,LSDptr)) return 0; // danach alles Nullen
 	   {var uintL msdlen;
 	    integerlengthD(msd, msdlen=);
-	    return intDsize*(uintL)(len-1) + msdlen; // integer_length(x) als Ergebnis
+	    return intDsize*(len-1) + msdlen; // integer_length(x) als Ergebnis
 	  }}
 }
 

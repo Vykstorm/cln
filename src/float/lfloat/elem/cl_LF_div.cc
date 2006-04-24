@@ -69,7 +69,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
                                      TheLfloat(x1)->sign ^ TheLfloat(x2)->sign // Vorzeichen kombinieren
                                     );
       // Nenner bilden:
-      var uintL n_len;
+      var uintC n_len;
       n_len = len2;
 #ifndef CL_LF_PEDANTIC
       if (n_len > len) { n_len = len+1; }
@@ -77,7 +77,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
       // Zähler bilden:
       CL_ALLOCA_STACK;
       var uintD* z_MSDptr;
-      var uintL z_len;
+      var uintC z_len;
       var uintD* z_LSDptr;
       z_len = n_len + len + 1;
       num_stack_alloc(z_len, z_MSDptr=,z_LSDptr=);

@@ -109,7 +109,7 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 		var cl_F& y = yf;
 		if (zerop(y)) // y=0.0 -> arcsin(y) = y als Ergebnis
 			return cl_C_R(0,y);
-		if (float_exponent(y) <= (-(sintL)float_digits(y))>>1)
+		if (float_exponent(y) <= (-(sintC)float_digits(y))>>1)
 			// e <= -d/2 <==> e <= -ceiling(d/2)
 			return cl_C_R(0,y);
 		var cl_F temp = 1-square(y);

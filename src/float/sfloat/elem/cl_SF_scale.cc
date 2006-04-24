@@ -14,7 +14,7 @@
 
 namespace cln {
 
-const cl_SF scale_float (const cl_SF& x, sintL delta)
+const cl_SF scale_float (const cl_SF& x, sintC delta)
 {
   // Methode:
   // x=0.0 -> x als Ergebnis
@@ -27,7 +27,7 @@ const cl_SF scale_float (const cl_SF& x, sintL delta)
       SF_decode(x, { return x; }, sign=,exp=,mant=);
       if (delta >= 0)
         // delta>=0
-        { var uintL udelta = delta;
+        { var uintC udelta = delta;
           if (udelta <= (uintL)(SF_exp_high-SF_exp_low))
             { exp = exp+udelta;
               return encode_SF(sign,exp,mant);
@@ -37,7 +37,7 @@ const cl_SF scale_float (const cl_SF& x, sintL delta)
         }
         else
         // delta<0
-        { var uintL udelta = -delta;
+        { var uintC udelta = -delta;
           if (udelta <= (uintL)(SF_exp_high-SF_exp_low))
             { exp = exp-udelta;
               return encode_SF(sign,exp,mant);

@@ -14,7 +14,7 @@ namespace cln {
 
 const cl_GV_I copy (const cl_GV_I& v)
 {
-	var uintL len = v.length();
+	var uintC len = v.length();
 	var cl_GV_I w = cl_GV_I(len,v.maxbits());
 	cl_GV_I::copy_elements(v,0,w,0,len);
 	return w;

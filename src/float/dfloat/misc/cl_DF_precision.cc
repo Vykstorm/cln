@@ -18,7 +18,7 @@
 namespace cln {
 
 MAYBE_INLINE2
-uintL float_precision (const cl_DF& x)
+uintC float_precision (const cl_DF& x)
 {
 	if (zerop(x)) return 0;
 	return DF_mant_len+1; // 53

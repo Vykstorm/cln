@@ -324,7 +324,7 @@ namespace cln {
       {var uintD* divroomptr; // Platz für Divisionsergebnis
        var uintD* c_LSDptr;
        var uintD* d_LSDptr;
-       {var uintL c_len = (uintL)(a_len>=b_len ? a_len : b_len) + 1;
+       {var uintC c_len = (a_len>=b_len ? a_len : b_len) + 1;
         num_stack_alloc(c_len,divroomptr=,c_LSDptr=);
         num_stack_alloc(c_len,,d_LSDptr=);
         // Jetzt ist ../c_len/c_LSDptr, ../c_len/d_LSDptr frei.

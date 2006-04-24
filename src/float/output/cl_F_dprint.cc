@@ -80,7 +80,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
   // x/=0, also ist sign das Vorzeichen von x und
   // |x| = 2^binexpo * float(binmant,x) . Ab jetzt oBdA x>0.
   // Also x = 2^binexpo * float(binmant,x) .
-  var uintL l = integer_length(binmant); // Anzahl der Bits von binmant, >=3
+  var uintC l = integer_length(binmant); // Anzahl der Bits von binmant, >=3
   var cl_I binmant2 = ash(binmant,1); // 2*binmant
   var cl_I oben = plus1(binmant2); // obere Intervallgrenze ist
                                    // (x+x2)/2 = 2^(binexpo-1) * oben
@@ -101,7 +101,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
   // Wandle dazu 2^e := 2^(binexpo-1) ins Dezimalsystem um.
   var cl_I e = binexpo - 1;
   var bool e_gross = (abs(e) > ash(l,1)); // Ist |e| recht groß, >2*l ?
-  var uintL g;     // Hilfsvariablen für den Fall, daß |e| groß ist
+  var uintC g;     // Hilfsvariablen für den Fall, daß |e| groß ist
   var cl_I f;      //
   var cl_I zehn_d; // Hilfsvariable 10^|d| für den Fall, daß |e| klein ist
   var cl_I d;  // Ergebnisvariablen

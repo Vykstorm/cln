@@ -275,7 +275,7 @@ extern const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y);
     { if ((value) <= float_format_sfloat) { SF_statement }		\
       elif ((value) <= float_format_ffloat) { FF_statement }		\
       elif ((value) <= float_format_dfloat) { DF_statement }		\
-      else { var uintL len = ceiling((uintL)(value),intDsize); LF_statement } \
+      else { var uintC len = ceiling((uintC)(value),intDsize); LF_statement } \
     }
 
 }  // namespace cln

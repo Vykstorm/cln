@@ -29,11 +29,11 @@ const cl_LF cl_LF_shortenrelative (const cl_LF& x, const cl_LF& y)
 	// 1 ulp(x) = 2^(ex-dx), 1 ulp(y) = 2^(ey-dy).
 	// Falls ex-dx < ey-dy, x von Precision dx auf dy-ey+ex verkürzen.
 	var sintL ey = float_exponent(y);
-	var sintL dy = float_precision(y);
+	var sintC dy = float_precision(y);
 	if (dy==0) // zerop(y) ?
 		cl_abort();
 	var sintL ex = float_exponent(x);
-	var sintL dx = float_precision(x);
+	var sintC dx = float_precision(x);
 	if (dx==0) // zerop(x) ?
 		return x;
 	var sintL d = ex - ey;
@@ -43,11 +43,11 @@ const cl_LF cl_LF_shortenrelative (const cl_LF& x, const cl_LF& y)
 		return LF_to_LF(x,LF_minlen);
 	if (d >= dx - dy)
 		return x;
-	var uintL new_dx = dy + d;
-	var uintL len = ceiling(new_dx,intDsize);
+	var uintC new_dx = dy + d;
+	var uintC len = ceiling(new_dx,intDsize);
 	if (len < LF_minlen)
 		len = LF_minlen;
-	if (intDsize*len < (uintL)dx)
+	if (intDsize*len < (uintC)dx)
 		return shorten(x,len);
 	else
 		return x;

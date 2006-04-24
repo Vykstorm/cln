@@ -37,7 +37,7 @@ const cl_F sinh (const cl_F& x)
 			} else
 			#endif
 			if ((TheLfloat(x)->len >= 500)
-			    && (float_exponent(x) > (-(sintL)float_digits(x))>>1)) {
+			    && (float_exponent(x) > (-(sintC)float_digits(x))>>1)) {
 				// verwende exp(x), schneller als cl_coshsinh_ratseries
 				// (aber nur bei 0 > e > -d/2, denn wir müssen, um
 				// Auslöschung zu verhindern, |e| Bits dazunehmen)

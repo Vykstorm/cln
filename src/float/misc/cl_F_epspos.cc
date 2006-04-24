@@ -37,7 +37,7 @@ static const cl_DF DF_epsilon =
 
 inline const cl_LF LF_epsilon (uintC len)
 {
-	var Lfloat erg = allocate_lfloat(len,LF_exp_mid+1-intDsize*(uintL)len,0);
+	var Lfloat erg = allocate_lfloat(len,LF_exp_mid+1-intDsize*len,0);
 	var uintD* ptr = &TheLfloat(erg)->data[0];
 	#if CL_DS_BIG_ENDIAN_P
 	  *ptr++ = bit(intDsize-1);
@@ -53,7 +53,7 @@ inline const cl_LF LF_epsilon (uintC len)
 
 const cl_F float_epsilon (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return SF_epsilon;
 	,	return FF_epsilon;
 	,	return DF_epsilon;

@@ -2489,12 +2489,12 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // zusätzlich belegt wird.
 
 #define num_stack_array(need,low_zuweisung,high_zuweisung)  \
-  {var uintL __need = (uintL)(need);				\
+  {var uintC __need = (uintC)(need);				\
    var uintD* __array = cl_alloc_array(uintD,__need);		\
    unused (low_zuweisung &__array[0]); unused (high_zuweisung &__array[__need]); \
   }
 #define num_stack_small_array(need,low_zuweisung,high_zuweisung)  \
-  {var uintL __need = (uintL)(need);				\
+  {var uintC __need = (uintC)(need);				\
    var uintD* __array = cl_small_alloc_array(uintD,__need);	\
    unused (low_zuweisung &__array[0]); unused (high_zuweisung &__array[__need]); \
   }
@@ -2504,18 +2504,18 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #define num_stack_small_alloc(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
     num_stack_small_array(need,MSDptr_zuweisung,LSDptr_zuweisung)
   #define num_stack_alloc_1(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
-    num_stack_array((uintL)(need)+1,MSDptr_zuweisung 1 + ,LSDptr_zuweisung)
+    num_stack_array((uintC)(need)+1,MSDptr_zuweisung 1 + ,LSDptr_zuweisung)
   #define num_stack_small_alloc_1(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
-    num_stack_small_array((uintL)(need)+1,MSDptr_zuweisung 1 + ,LSDptr_zuweisung)
+    num_stack_small_array((uintC)(need)+1,MSDptr_zuweisung 1 + ,LSDptr_zuweisung)
 #else
   #define num_stack_alloc(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
     num_stack_array(need,LSDptr_zuweisung,MSDptr_zuweisung)
   #define num_stack_small_alloc(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
     num_stack_small_array(need,LSDptr_zuweisung,MSDptr_zuweisung)
   #define num_stack_alloc_1(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
-    num_stack_array((uintL)(need)+1,LSDptr_zuweisung,MSDptr_zuweisung -1 + )
+    num_stack_array((uintC)(need)+1,LSDptr_zuweisung,MSDptr_zuweisung -1 + )
   #define num_stack_small_alloc_1(need,MSDptr_zuweisung,LSDptr_zuweisung)  \
-    num_stack_small_array((uintL)(need)+1,LSDptr_zuweisung,MSDptr_zuweisung -1 + )
+    num_stack_small_array((uintC)(need)+1,LSDptr_zuweisung,MSDptr_zuweisung -1 + )
 #endif
 
 
@@ -2585,7 +2585,7 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
 // Ergebnis ist die UDS MSDptr/len/LSDptr, mit len=len1+len2, im Stack.
 // Dabei wird num_stack erniedrigt.
   #define UDS_UDS_mul_UDS(len1,LSDptr1,len2,LSDptr2, MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung)  \
-    var uintL CONCAT(len_from_UDSmul_,__LINE__) = (uintL)(len1) + (uintL)(len2); \
+    var uintC CONCAT(len_from_UDSmul_,__LINE__) = (uintC)(len1) + (uintC)(len2); \
     var uintD* CONCAT(LSDptr_from_UDSmul_,__LINE__);				\
     unused (len_zuweisung CONCAT(len_from_UDSmul_,__LINE__));			\
     num_stack_alloc(CONCAT(len_from_UDSmul_,__LINE__),MSDptr_zuweisung,LSDptr_zuweisung CONCAT(LSDptr_from_UDSmul_,__LINE__) =); \
@@ -2611,13 +2611,13 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
   #define DS_DS_mul_DS(MSDptr1,len1,LSDptr1,MSDptr2,len2,LSDptr2, MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung)  \
     var uintD* MSDptr0;							\
     var uintD* LSDptr0;							\
-    var uintL len_from_DSmal = (uintL)(len1) + (uintL)(len2);		\
+    var uintC len_from_DSmal = (uintC)(len1) + (uintC)(len2);		\
     unused (len_zuweisung len_from_DSmal);				\
     num_stack_alloc(len_from_DSmal,MSDptr_zuweisung MSDptr0 =,LSDptr_zuweisung LSDptr0 =); \
     var uintD MSD1_from_DSmal = mspref(MSDptr1,0);			\
     var uintD MSD2_from_DSmal = mspref(MSDptr2,0);			\
-    var uintL len1_from_DSmal = (len1);					\
-    var uintL len2_from_DSmal = (len2);					\
+    var uintC len1_from_DSmal = (len1);					\
+    var uintC len2_from_DSmal = (len2);					\
     if (MSD1_from_DSmal==0) { msprefnext(MSDptr0) = 0; len1_from_DSmal--; } \
     if (MSD2_from_DSmal==0) { msprefnext(MSDptr0) = 0; len2_from_DSmal--; } \
     cl_UDS_mul((LSDptr1),len1_from_DSmal,(LSDptr2),len2_from_DSmal,LSDptr0); \

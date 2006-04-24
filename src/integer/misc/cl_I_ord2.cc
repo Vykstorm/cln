@@ -28,7 +28,7 @@ namespace cln {
 //   (ord2 x) = intDsize * Anzahl der Nulldigits am Schluﬂ
 //              + Anzahl der Nullbits am Ende des letzten Digits /=0.
 
-uintL ord2 (const cl_I& x) // x /= 0
+uintC ord2 (const cl_I& x) // x /= 0
 {
 	if (fixnump(x))
 	  { var uintV x_ = FN_to_V(x); // x als intVsize-Bit-Zahl
@@ -40,7 +40,7 @@ uintL ord2 (const cl_I& x) // x /= 0
             #endif
 	  }
 	  else
-	  { var uintL bitcount = 0;
+	  { var uintC bitcount = 0;
 	    var const uintD* ptr;
 	    BN_to_NDS_nocopy(x, ,,ptr=); // normalisierte DS zu x bilden.
 	    while (lspref(ptr,0) == 0) { lsshrink(ptr); bitcount += intDsize; } // Nulldigits abz‰hlen

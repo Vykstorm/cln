@@ -23,7 +23,7 @@ cl_boolean isprobprime (const cl_I& n)
 	var int count = 50;
 	// Step 1: Trial division (rules out 87% of all numbers quickly).
 	const uint32 trialdivide_limit = 70;
-	var uintL l = integer_length(n);
+	var uintC l = integer_length(n);
 	if (l <= 32) {
 		var uint32 nn = cl_I_to_UL(n);
 		if (nn <= cl_small_prime_table_limit) {

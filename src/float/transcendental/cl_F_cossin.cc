@@ -56,7 +56,7 @@ const cos_sin_t cos_sin (const cl_F& x)
 			var cl_LF r = The(cl_LF)(q_r.remainder);
 			var cl_LF y = sinx_naive(r); // y := sin(r)^2
 			// erste Komponente cos(r) berechnen:
-			if (zerop(r) || (float_exponent(r) <= (-(sintL)float_digits(r))>>1))
+			if (zerop(r) || (float_exponent(r) <= (-(sintC)float_digits(r))>>1))
 				cos_r = cl_float(1,x); // cos(r) = 1.0
 			else
 				cos_r = cl_float(sqrt(1-y),x); // cos(r) = sqrt(1-y)
@@ -71,7 +71,7 @@ const cos_sin_t cos_sin (const cl_F& x)
 		var cl_F& r = q_r.remainder;
 		var cl_F y = sinxbyx_naive(r); // y := (sin(r)/r)^2
 		// erste Komponente cos(r) berechnen:
-		if (zerop(r) || (float_exponent(r) <= (-(sintL)float_digits(r))>>1))
+		if (zerop(r) || (float_exponent(r) <= (-(sintC)float_digits(r))>>1))
 			cos_r = cl_float(1,x); // cos(r) = 1.0
 		else
 			cos_r = cl_float(sqrt(1 - square(r)*y),x); // sqrt(1-r^2*y)

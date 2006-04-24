@@ -38,14 +38,14 @@ const cl_LF compute_exp1 (uintC len)
 	// Third approximation:
 	//   N2 = ceiling(M*log(2)/(log(N1)-1)), slightly too large.
 	//   N = N2+2, two more terms for safety.
-	var uintL N0 = intDsize*actuallen;
-	var uintL N1 = (uintL)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0));
-	var uintL N2 = (uintL)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0))+1;
-	var uintL N = N2+2;
+	var uintC N0 = intDsize*actuallen;
+	var uintC N1 = (uintC)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0));
+	var uintC N2 = (uintC)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0))+1;
+	var uintC N = N2+2;
 	CL_ALLOCA_STACK;
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL* qsv = (uintL*) cl_alloca(N*sizeof(uintL));
-	var uintL n;
+	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, qv[n]) (n==0 ? 1 : n);
 	}

@@ -48,9 +48,9 @@ const cl_LF lnx_naive (const cl_LF& x)
 	if (zerop(y)) // y=0.0 -> y als Ergebnis
 		return y;
 	var uintL actuallen = TheLfloat(x)->len;
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(y);
-	if (e <= -(sintL)d) // e <= -d ?
+	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_LF,x);
 	var uintL k = 0; // Rekursionszähler k:=0
@@ -88,7 +88,7 @@ const cl_LF lnx_naive (const cl_LF& x)
 		} else {
 			// naive2:
 			// floating-point representation with smooth precision reduction
-			var cl_LF eps = scale_float(b,-(sintL)d-10);
+			var cl_LF eps = scale_float(b,-(sintC)d-10);
 			loop {
 				var cl_LF new_sum = sum + LF_to_LF(b/(cl_I)i,actuallen); // (+ sum (/ b i))
 				if (new_sum == sum) // = sum ?
@@ -121,7 +121,7 @@ const cl_LF lnx_naive (const cl_LF& x)
 		} else {
 			// naive2:
 			// floating-point representation with smooth precision reduction
-			var cl_LF eps = scale_float(b,-(sintL)d-10);
+			var cl_LF eps = scale_float(b,-(sintC)d-10);
 			loop {
 				var cl_LF new_sum = sum + LF_to_LF(b/(cl_I)i,actuallen); // (+ sum (/ b i))
 				if (new_sum == sum) // = sum ?
@@ -146,9 +146,9 @@ const cl_F lnx_naive (const cl_F& x)
 	var cl_F y = x-cl_float(1,x);
 	if (zerop(y)) // y=0.0 -> y als Ergebnis
 		return y;
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(y);
-	if (e <= -(sintL)d) // e <= -d ?
+	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_F,x);
 	var uintL k = 0; // Rekursionszähler k:=0
@@ -200,10 +200,10 @@ const cl_LF lnx_ratseries (const cl_LF& x)
 		// x1 = (-1)^sign * 2^exponent * mantissa
 		if (zerop(x1_.mantissa))
 			break;
-		var uintL lm = integer_length(x1_.mantissa);
+		var uintC lm = integer_length(x1_.mantissa);
 		var uintL me = cl_I_to_UL(- x1_.exponent);
 		var cl_I p;
-		var uintL lq;
+		var uintC lq;
 		var cl_boolean last_step = cl_false;
 		if (lm >= me) { // |x'| >= 1/2 ?
 			p = x1_.sign; // 1 or -1
@@ -227,7 +227,7 @@ const cl_LF lnx_ratseries (const cl_LF& x)
 			if (2*n >= lm)
 				last_step = cl_true;
 		}
-		y = y + scale_float(cl_I_to_LF(p,len),-(sintL)lq);
+		y = y + scale_float(cl_I_to_LF(p,len),-(sintC)lq);
 		if (last_step)
 			break;
 		x = x * cl_exp_aux(-p,lq,len);

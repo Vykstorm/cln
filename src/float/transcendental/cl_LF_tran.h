@@ -28,9 +28,9 @@ struct cl_rational_series {
 	      cl_I* qv;
 	const cl_I* av;
 	const cl_I* bv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_rational_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_rational_series& args, uintC len);
 
 // In each the special cases below, none of (a,b,p,q) can be NULL. But qs can
 // still be given or NULL.
@@ -40,104 +40,104 @@ struct cl_pqab_series {
 	      cl_I* qv;
 	const cl_I* av;
 	const cl_I* bv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pqab_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pqab_series& args, uintC len);
 
 struct cl_pqb_series {
 	const cl_I* pv;
 	      cl_I* qv;
 	const cl_I* bv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pqb_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pqb_series& args, uintC len);
 
 struct cl_pqa_series {
 	const cl_I* pv;
 	      cl_I* qv;
 	const cl_I* av;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pqa_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pqa_series& args, uintC len);
 
 struct cl_pq_series {
 	const cl_I* pv;
 	      cl_I* qv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pq_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pq_series& args, uintC len);
 
 struct cl_pab_series {
 	const cl_I* pv;
 	const cl_I* av;
 	const cl_I* bv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pab_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pab_series& args, uintC len);
 
 struct cl_pb_series {
 	const cl_I* pv;
 	const cl_I* bv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pb_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pb_series& args, uintC len);
 
 struct cl_pa_series {
 	const cl_I* pv;
 	const cl_I* av;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_pa_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_pa_series& args, uintC len);
 
 struct cl_p_series {
 	const cl_I* pv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_p_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_p_series& args, uintC len);
 
 struct cl_qab_series {
 	      cl_I* qv;
 	const cl_I* av;
 	const cl_I* bv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_qab_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_qab_series& args, uintC len);
 
 struct cl_qb_series {
 	      cl_I* qv;
 	const cl_I* bv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_qb_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_qb_series& args, uintC len);
 
 struct cl_qa_series {
 	      cl_I* qv;
 	const cl_I* av;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_qa_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_qa_series& args, uintC len);
 
 struct cl_q_series {
 	      cl_I* qv;
-	     uintL* qsv;
+	     uintC* qsv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_q_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_q_series& args, uintC len);
 
 struct cl_ab_series {
 	const cl_I* av;
 	const cl_I* bv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_ab_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_ab_series& args, uintC len);
 
 struct cl_b_series {
 	const cl_I* bv;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_b_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_b_series& args, uintC len);
 
 struct cl_a_series {
 	const cl_I* av;
 };
-extern const cl_LF eval_rational_series (uintL N, const cl_a_series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl_a_series& args, uintC len);
 
 struct cl__series {
 };
-extern const cl_LF eval_rational_series (uintL N, const cl__series& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, const cl__series& args, uintC len);
 
 
 // In this alternate implementation the series is not represented as a couple
@@ -160,7 +160,7 @@ struct cl_pqab_series_stream {
 	// Constructor.
 	cl_pqab_series_stream (cl_pqab_series_term (*n)(cl_pqab_series_stream&)) : nextfn (n) {}
 };
-extern const cl_LF eval_rational_series (uintL N, cl_pqab_series_stream& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, cl_pqab_series_stream& args, uintC len);
 
 struct cl_pqb_series_term {
 	cl_I p;
@@ -173,7 +173,7 @@ struct cl_pqb_series_stream {
 	// Constructor.
 	cl_pqb_series_stream (cl_pqb_series_term (*n)(cl_pqb_series_stream&)) : nextfn (n) {}
 };
-extern const cl_LF eval_rational_series (uintL N, cl_pqb_series_stream& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, cl_pqb_series_stream& args, uintC len);
 
 struct cl_pqa_series_term {
 	cl_I p;
@@ -186,7 +186,7 @@ struct cl_pqa_series_stream {
 	// Constructor.
 	cl_pqa_series_stream (cl_pqa_series_term (*n)(cl_pqa_series_stream&)) : nextfn (n) {}
 };
-extern const cl_LF eval_rational_series (uintL N, cl_pqa_series_stream& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, cl_pqa_series_stream& args, uintC len);
 
 struct cl_pq_series_term {
 	cl_I p;
@@ -198,7 +198,7 @@ struct cl_pq_series_stream {
 	// Constructor.
 	cl_pq_series_stream (cl_pq_series_term (*n)(cl_pq_series_stream&)) : nextfn (n) {}
 };
-extern const cl_LF eval_rational_series (uintL N, cl_pq_series_stream& args, uintC len);
+extern const cl_LF eval_rational_series (uintC N, cl_pq_series_stream& args, uintC len);
 
 
 // [Generalization.]
@@ -227,9 +227,9 @@ struct cl_pqcd_series_result {
 	cl_I D;
 	cl_I V;
 };
-extern void eval_pqcd_series_aux (uintL N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, cl_boolean rightmost = cl_true);
+extern void eval_pqcd_series_aux (uintC N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, cl_boolean rightmost = cl_true);
 // Ditto, but returns U/S.
-extern const cl_LF eval_pqcd_series (uintL N, cl_pqcd_series_term* args, uintC len);
+extern const cl_LF eval_pqcd_series (uintC N, cl_pqcd_series_term* args, uintC len);
 
 // [Special case c(n)=1.]
 // Subroutine:
@@ -255,9 +255,9 @@ struct cl_pqd_series_result {
 	cl_I D;
 	cl_I V;
 };
-extern void eval_pqd_series_aux (uintL N, cl_pqd_series_term* args, cl_pqd_series_result& Z, cl_boolean rightmost = cl_true);
+extern void eval_pqd_series_aux (uintC N, cl_pqd_series_term* args, cl_pqd_series_result& Z, cl_boolean rightmost = cl_true);
 // Ditto, but returns U/S.
-extern const cl_LF eval_pqd_series (uintL N, cl_pqd_series_term* args, uintC len);
+extern const cl_LF eval_pqd_series (uintC N, cl_pqd_series_term* args, uintC len);
 
 }  // namespace cln
 

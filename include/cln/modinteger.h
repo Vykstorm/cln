@@ -342,7 +342,7 @@ public:
 		return _retract(x);
 	}
 	// Miscellaneous.
-	sintL bits; // number of bits needed to represent a representative, or -1
+	sintC bits; // number of bits needed to represent a representative, or -1
 	int log2_bits; // log_2(bits), or -1
 	// Property operations.
 	cl_property* get_property (const cl_symbol& key)
@@ -389,8 +389,8 @@ inline const cl_MI operator- (const cl_I& x, const cl_MI& y)
 	{ return y.ring()->minus(y.ring()->canonhom(x),y); }
 
 // Shifts.
-extern const cl_MI operator<< (const cl_MI& x, sintL y); // assume 0 <= y < 2^31
-extern const cl_MI operator>> (const cl_MI& x, sintL y); // assume m odd, 0 <= y < 2^31
+extern const cl_MI operator<< (const cl_MI& x, sintC y); // assume 0 <= y < 2^(intCsize-1)
+extern const cl_MI operator>> (const cl_MI& x, sintC y); // assume m odd, 0 <= y < 2^(intCsize-1)
 
 // Equality.
 inline bool operator== (const cl_MI& x, const cl_MI& y)

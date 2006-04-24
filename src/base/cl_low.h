@@ -1430,6 +1430,18 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     }
 #endif
 
+// Bits einer uintC-Zahl zählen:
+// integerlengthC(digit,size=);
+// setzt size auf die höchste in digit vorkommende Bitnummer.
+// > digit: ein uintC >0
+// < size: >0, <=intCsize, mit 2^(size-1) <= digit < 2^size
+  #if (intCsize==32)
+    #define integerlengthC  integerlength32
+  #endif
+  #if (intCsize==64)
+    #define integerlengthC  integerlength64
+  #endif
+
 // Hintere Nullbits eines 32-Bit-Wortes zählen:
 // ord2_32(digit,count=);
 // setzt size auf die kleinste in digit vorkommende Bitnummer.

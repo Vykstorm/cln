@@ -992,7 +992,7 @@ static const cl_ring_element gf2_eval (cl_heap_univpoly_ring* UPR, const _cl_UP&
 		return cl_MI(R, x[0]);
 	else {
 		var uintL count = ceiling(len,intDsize);
-		var uintL bitcount = 0;
+		var uintC bitcount = 0;
 		do {
 			count--;
 			bitcount += logcountD(xv->data[count]);

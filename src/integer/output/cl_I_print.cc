@@ -25,14 +25,14 @@ void print_integer (std::ostream& stream, unsigned int base, const cl_I& z)
 	} else
 		abs_z = z;
 	CL_ALLOCA_STACK;
-	var uintL need = cl_digits_need(abs_z,base);
+	var uintC need = cl_digits_need(abs_z,base);
 	var uintB* ziffern = cl_alloc_array(uintB,need); // Platz für die Ziffern
 	var cl_digits erg; erg.LSBptr = &ziffern[need];
 	I_to_digits(abs_z,(uintD)base,&erg); // Umwandlung in Ziffern
 	// Ziffern ausgeben:
 	{
 		var uintB* ptr = erg.MSBptr;
-		var uintL count = erg.len;
+		var uintC count = erg.len;
 		do { fprintchar(stream,*ptr++); } until (--count==0);
 	}
 }

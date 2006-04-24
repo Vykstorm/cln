@@ -16,7 +16,7 @@
 
 namespace cln {
 
-static void eval_pqb_series_aux (uintL N1, uintL N2,
+static void eval_pqb_series_aux (uintC N1, uintC N2,
                                  cl_pqb_series_stream& args,
                                  cl_I* P, cl_I* Q, cl_I* B, cl_I* T)
 {
@@ -80,7 +80,7 @@ static void eval_pqb_series_aux (uintL N1, uintL N2,
 		break;
 		}
 	default: {
-		var uintL Nm = (N1+N2)/2; // midpoint
+		var uintC Nm = (N1+N2)/2; // midpoint
 		// Compute left part.
 		var cl_I LP, LQ, LB, LT;
 		eval_pqb_series_aux(N1,Nm,args,&LP,&LQ,&LB,&LT);
@@ -98,7 +98,7 @@ static void eval_pqb_series_aux (uintL N1, uintL N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintL N, cl_pqb_series_stream& args, uintC len)
+const cl_LF eval_rational_series (uintC N, cl_pqb_series_stream& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

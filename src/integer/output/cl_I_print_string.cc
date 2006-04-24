@@ -26,7 +26,7 @@ char * print_integer_to_string (unsigned int base, const cl_I& z)
 	} else
 		abs_z = z;
 	CL_ALLOCA_STACK;
-	var uintL need = 1+cl_digits_need(abs_z,base);
+	var uintC need = 1+cl_digits_need(abs_z,base);
 	var uintB* ziffern = cl_alloc_array(uintB,need); // Platz für die Ziffern
 	var cl_digits erg; erg.LSBptr = &ziffern[need];
 	I_to_digits(abs_z,(uintD)base,&erg); // Umwandlung in Ziffern

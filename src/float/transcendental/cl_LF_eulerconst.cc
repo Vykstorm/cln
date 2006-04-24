@@ -72,13 +72,13 @@ const cl_LF compute_eulerconst_expintegral (uintC len)
 	// to more than double the floating-point precision because of the large
 	// extinction which takes place. But luckily we compute with integers.
 	var uintC actuallen = len+1; // 1 Schutz-Digit
-	var uintL z = (uintL)(0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(3.591121477*z);
+	var uintC z = (uintC)(0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(3.591121477*z);
 	CL_ALLOCA_STACK;
 	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, bv[n]) (n+1);
 		init1(cl_I, pv[n]) (n==0 ? (cl_I)z : -(cl_I)z);
@@ -147,14 +147,14 @@ const cl_LF compute_eulerconst_expintegral1 (uintC len)
 	// each.
 	// We compute f(x) classically and g(x) using the partial sums of f(x).
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL x = (uintL)(0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(2.718281828*x);
+	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(2.718281828*x);
 	var cl_LF one = cl_I_to_LF(1,actuallen);
 	var cl_LF fterm = one;
 	var cl_LF fsum = fterm;
 	var cl_LF gterm = cl_I_to_LF(0,actuallen);
 	var cl_LF gsum = gterm;
-	var uintL n;
+	var uintC n;
 	// After n loops
 	//   fterm = x^n/n!, fsum = 1 + x/1! + ... + x^n/n!,
 	//   gterm = H_n*x^n/n!, gsum = H_1*x/1! + ... + H_n*x^n/n!.
@@ -187,11 +187,11 @@ const cl_LF compute_eulerconst_expintegral1 (uintC len)
 const cl_LF compute_eulerconst_expintegral2 (uintC len)
 {
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL x = (uintL)(0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(2.718281828*x);
+	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(2.718281828*x);
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, args[n].p) (x);
 		init1(cl_I, args[n].q) (n+1);
@@ -277,15 +277,15 @@ const cl_LF compute_eulerconst_besselintegral1 (uintC len)
 {
 	// We compute f(x) classically and g(x) using the partial sums of f(x).
 	var uintC actuallen = len+1; // 1 Schutz-Digit
-	var uintL sx = (uintL)(0.25*0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(3.591121477*sx);
+	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
-	var cl_LF eps = scale_float(cl_I_to_LF(1,LF_minlen),-(sintL)(sx*2.88539+10));
+	var cl_LF eps = scale_float(cl_I_to_LF(1,LF_minlen),-(sintC)(sx*2.88539+10));
 	var cl_LF fterm = cl_I_to_LF(1,actuallen);
 	var cl_LF fsum = fterm;
 	var cl_LF gterm = cl_I_to_LF(0,actuallen);
 	var cl_LF gsum = gterm;
-	var uintL n;
+	var uintC n;
 	// After n loops
 	//   fterm = x^n/n!^2, fsum = 1 + x/1!^2 + ... + x^n/n!^2,
 	//   gterm = H_n*x^n/n!^2, gsum = H_1*x/1!^2 + ... + H_n*x^n/n!^2.
@@ -327,14 +327,14 @@ const cl_LF compute_eulerconst_besselintegral2 (uintC len)
 	// (Because HD_n grows like exp(n), hence HN_n grows like exp(n) as
 	// well, and we store all HN_n values in an array!)
 	var uintC actuallen = len+1; // 1 Schutz-Digit
-	var uintL sx = (uintL)(0.25*0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(3.591121477*sx);
+	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
 	CL_ALLOCA_STACK;
 	var cl_I* av = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	// Evaluate f(x).
 	init1(cl_I, pv[0]) (1);
 	init1(cl_I, qv[0]) (1);
@@ -409,13 +409,13 @@ struct cl_rational_series_for_g : cl_pqa_series_stream {
 const cl_LF compute_eulerconst_besselintegral3 (uintC len)
 {
 	var uintC actuallen = len+1; // 1 Schutz-Digit
-	var uintL sx = (uintL)(0.25*0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(3.591121477*sx);
+	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
 	CL_ALLOCA_STACK;
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	// Evaluate f(x).
 	init1(cl_I, pv[0]) (1);
 	init1(cl_I, qv[0]) (1);
@@ -445,12 +445,12 @@ const cl_LF compute_eulerconst_besselintegral3 (uintC len)
 const cl_LF compute_eulerconst_besselintegral4 (uintC len)
 {
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL sx = (uintL)(0.25*0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(3.591121477*sx);
+	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, args[n].p) (x);
 		init1(cl_I, args[n].q) (square((cl_I)(n+1)));

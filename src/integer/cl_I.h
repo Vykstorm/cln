@@ -42,7 +42,7 @@ inline cl_uint cl_FN_word (const cl_I& x)
 // Bignums.
 
 struct cl_heap_bignum : cl_heap {
-	unsigned int length;	// length (in digits)
+	uintC length;		// length (in digits)
 	uintD data[1];		// number in two's complement representation
 };
 
@@ -51,7 +51,7 @@ inline cl_heap_bignum* TheBignum (cl_heap_bignum* p)
 inline cl_heap_bignum* TheBignum (const cl_number& obj)
 	{ return (cl_heap_bignum*)(obj.pointer); }
 
-inline cl_heap_bignum* allocate_bignum (unsigned int length)
+inline cl_heap_bignum* allocate_bignum (uintC length)
 {
 	cl_heap_bignum* p = (cl_heap_bignum*) malloc_hook(offsetofa(cl_heap_bignum,data)+sizeof(uintD)*length);
 	p->refcount = 1;
@@ -662,14 +662,14 @@ inline sintD FN_MSD (cl_uint word)
 // > MSBptr/len/..: Ziffernfolge, bestehend aus Punkten (werden überlesen)
 //     und Ziffern/Buchstaben mit Wert < base.
 // < ergebnis: der dargestellte Integer >=0
-  extern const cl_I digits_to_I (const char * MSBptr, uintL len, uintD base);
+  extern const cl_I digits_to_I (const char * MSBptr, uintC len, uintD base);
 
 
 // Hilfsfunktion zur Ausgabe von Integers
 
 // cl_digits_need(len,base) liefert eine obere Abschätzung für die Anzahl der
 // Ziffern im Stellenwertsystem der Basis base, die x >= 0 braucht.
-  extern uintL cl_digits_need (const cl_I& x, uintL base);
+  extern uintC cl_digits_need (const cl_I& x, uintL base);
 
 // Wandelt ein Integer in ein Stellensystem um.
 // I_to_digits(x,base, &ergebnis);
@@ -677,7 +677,7 @@ inline sintD FN_MSD (cl_uint word)
 // > base: Stellensystem-Basis, 2 <= base <= 36.
 // > ergebnis.LSBptr: darunter ist mindestens digits_need(len) Bytes Platz
 // < ergebnis: fertige Folge MSBptr/len/LSBptr von Ziffern
-  typedef struct { uintB* MSBptr; uintL len; uintB* LSBptr; } cl_digits;
+  typedef struct { uintB* MSBptr; uintC len; uintB* LSBptr; } cl_digits;
   extern void I_to_digits (const cl_I& x, uintD base, cl_digits* erg);
 
 

@@ -11,14 +11,14 @@
 
 namespace cln {
 
-uintL cl_digits_need (const cl_I& x, uintL base)
+uintC cl_digits_need (const cl_I& x, uintL base)
 {
   if (fixnump(x))
     { return cl_value_len; } // x < 2^cl_value_len, base >= 2, also reicht das
   else
     { var uintC len = TheBignum(x)->length;
       // 1+ceiling(len * intDsize*log(2)/log(base)) Bytes oder etwas mehr
-      var uintL need = 1+floor(len,1024/intDsize); // > ceiling(len*intDsize/1024) >= 0
+      var uintC need = 1+floor(len,1024/intDsize); // > ceiling(len*intDsize/1024) >= 0
       switch (base) // need mit ceiling(1024*log(2)/log(base)) multiplizieren:
         { case 2: need = 1024*need; break;
           case 3: need = 647*need; break;

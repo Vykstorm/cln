@@ -115,7 +115,7 @@ namespace cln {
 	}
 	// Other steps.
 	var int k;
-	integerlength32((uint32)b_len-1,k=);
+	integerlengthC(b_len-1,k=);
 	// 2^(k-1) < b_len <= 2^k, so we need k steps, plus one
 	// one more step at the beginning (because step 1 was not complete).
 	var uintC n = 0;

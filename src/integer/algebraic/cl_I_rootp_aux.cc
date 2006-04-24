@@ -64,14 +64,14 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
         }
       // Nun ist n ungerade.
       if (n==1) { *w = x; return cl_true; } // n=1 -> x als Ergebnis
-      var uintL oq = 0; // Shift von y am Schluß
-      {var uintL o = ord2(x);
+      var uintC oq = 0; // Shift von y am Schluß
+      {var uintC o = ord2(x);
        if (!(o==0))
          {var uintL o_r; divu_3232_3232(o,n, oq=,o_r=); // o_r = o mod n
           if (!(o_r==0)) { return cl_false; } // o nicht durch n teilbar -> fertig
           // oq = o/n.
           // dividiere x durch 2^o:
-          x = ash(x,-(sintL)o);
+          x = ash(x,-(sintC)o);
       }  }
       // Nun ist n ungerade, x ungerade.
       CL_ALLOCA_STACK;
@@ -110,21 +110,21 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
       y_lsd_ok:
       ASSERT(expt_pos(y_lsd,n)==x_lsd);
       // Nun ist y_lsd^n == x_lsd mod beta=2^intDsize.
-      { var uintL m = ceiling((uintL)x_len,n); // für y nötige Länge, >0, <=x_len
+      { var uintC m = ceiling(x_len,n); // für y nötige Länge, >0, <=x_len
         var uintD* y_LSDptr;
         { var uintD* z1_LSDptr;
           var uintD* z2_LSDptr;
           var uintD* z3_LSDptr;
           num_stack_alloc_1(m, ,y_LSDptr=); // Platz für y
-          {var uintL need = 2*m+(32/intDsize-1); // >= max(2*m,m+32/intDsize)
+          {var uintC need = 2*m+(32/intDsize-1); // >= max(2*m,m+32/intDsize)
            num_stack_alloc(need, ,z1_LSDptr=); // Platz für Rechenregister 1
            num_stack_alloc(need, ,z2_LSDptr=); // Platz für Rechenregister 2
            num_stack_alloc(need, ,z3_LSDptr=); // Platz für Rechenregister 3
           }
-         {var uintL k = 1; // y ist bisher mod beta^k bekannt
+         {var uintC k = 1; // y ist bisher mod beta^k bekannt
           lspref(y_LSDptr,0) = y_lsd; // Startwert von y
           until (k==m)
-            { var uintL k2 = 2*k; if (k2>m) { k2=m; } // k2 = min(2*k,m) > k
+            { var uintC k2 = 2*k; if (k2>m) { k2=m; } // k2 = min(2*k,m) > k
               // bisheriges y mod beta^k2 mit n-1 potenzieren:
               // Methode für z := y^(n-1) :
               //   zz:=y, e:=n-1.

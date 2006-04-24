@@ -6,11 +6,11 @@ class cl_heap_modint_ring_pow2m1 : public cl_heap_modint_ring {
 	SUBCLASS_cl_heap_modint_ring()
 public:
 	// Constructor.
-	cl_heap_modint_ring_pow2m1 (const cl_I& m, uintL m1); // m = 2^m1 - 1
+	cl_heap_modint_ring_pow2m1 (const cl_I& m, uintC m1); // m = 2^m1 - 1
 	// Destructor.
 	~cl_heap_modint_ring_pow2m1 () {}
 	// Additional information.
-	uintL m1;
+	uintC m1;
 };
 
 static inline const cl_I pow2m1_reduce_modulo (cl_heap_modint_ring* _R, const cl_I& x)
@@ -24,13 +24,13 @@ static inline const cl_I pow2m1_reduce_modulo (cl_heap_modint_ring* _R, const cl
  {	Mutable(cl_I,x);
 	var cl_boolean sign = minusp(x);
 	if (sign) { x = lognot(x); }
-	var const uintL m1 = R->m1;
+	var const uintC m1 = R->m1;
 	if (x >= R->modulus) {
 		x = plus1(x); // avoid staying at x = m
 		do {
-			var uintL xlen = integer_length(x);
+			var uintC xlen = integer_length(x);
 			var cl_I y = ldb(x,cl_byte(m1,0));
-			for (var uintL i = m1; i < xlen; i += m1)
+			for (var uintC i = m1; i < xlen; i += m1)
 				y = y + ldb(x,cl_byte(m1,i));
 			x = y;
 		} while (x > R->modulus);
@@ -49,7 +49,7 @@ static const _cl_MI pow2m1_canonhom (cl_heap_modint_ring* R, const cl_I& x)
 static const _cl_MI pow2m1_mul (cl_heap_modint_ring* _R, const _cl_MI& x, const _cl_MI& y)
 {
 	var cl_heap_modint_ring_pow2m1* R = (cl_heap_modint_ring_pow2m1*)_R;
-	var const uintL m1 = R->m1;
+	var const uintC m1 = R->m1;
 	var cl_I zr = x.rep * y.rep;
 	zr = ldb(zr,cl_byte(m1,m1)) + ldb(zr,cl_byte(m1,0));
 	return _cl_MI(R, zr >= R->modulus ? zr - R->modulus : zr);
@@ -58,7 +58,7 @@ static const _cl_MI pow2m1_mul (cl_heap_modint_ring* _R, const _cl_MI& x, const 
 static const _cl_MI pow2m1_square (cl_heap_modint_ring* _R, const _cl_MI& x)
 {
 	var cl_heap_modint_ring_pow2m1* R = (cl_heap_modint_ring_pow2m1*)_R;
-	var const uintL m1 = R->m1;
+	var const uintC m1 = R->m1;
 	var cl_I zr = square(x.rep);
 	zr = ldb(zr,cl_byte(m1,m1)) + ldb(zr,cl_byte(m1,0));
 	return _cl_MI(R, zr >= R->modulus ? zr - R->modulus : zr);
@@ -89,7 +89,7 @@ cl_class cl_class_modint_ring_pow2m1 = {
 };
 
 // Constructor.
-inline cl_heap_modint_ring_pow2m1::cl_heap_modint_ring_pow2m1 (const cl_I& m, uintL _m1)
+inline cl_heap_modint_ring_pow2m1::cl_heap_modint_ring_pow2m1 (const cl_I& m, uintC _m1)
 	: cl_heap_modint_ring (m, &std_setops, &pow2m1_addops, &pow2m1_mulops), m1 (_m1)
 {
 	type = &cl_class_modint_ring_pow2m1;

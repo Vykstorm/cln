@@ -40,13 +40,13 @@ template <class T> class cl_SV_inner;
 template <class T>
 class cl_SV_inner {
 protected:
-	uintL len; // number of elements
+	uintC len; // number of elements
 private:
 //	T data[]; // the elements
 	T * data() { return (T *) (this+1); }
 	const T * data() const { return (const T *) (this+1); }
 public:
-	uintL length () const { return len; } // number of elements
+	uintC length () const { return len; } // number of elements
 	const T & operator[] (unsigned long index) const
 	{
 		#ifndef CL_SV_NO_RANGECHECKS
@@ -76,7 +76,7 @@ public:
 	{ return operator[]((unsigned long)index); }
 public: /* ugh */
 	// Constructor.
-	cl_SV_inner (uintL l) : len (l) {}
+	cl_SV_inner (uintC l) : len (l) {}
 public:
 	// Destructor.
 	~cl_SV_inner ();
@@ -95,7 +95,7 @@ private:
 template <class T>
 inline cl_SV_inner<T>::~cl_SV_inner ()
 {
-	uintL i = len;
+	uintC i = len;
 	while (i > 0) {
 		i--;
 		data()[i].~T();
@@ -115,7 +115,7 @@ template <class T, class BASE>
 struct cl_SV : public BASE {
 public:
 	// Length.
-	uintL length () const
+	uintC length () const
 	{
 		return ((const cl_heap_SV<T> *) this->pointer)->v.length();
 	}

@@ -49,7 +49,7 @@ inline const cl_LF least_negative_LF (uintC len)
 
 const cl_F least_negative_float (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return least_negative_SF;
 	,	return least_negative_FF;
 	,	return least_negative_DF;

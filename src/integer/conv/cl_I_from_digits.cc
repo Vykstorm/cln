@@ -14,7 +14,7 @@
 
 namespace cln {
 
-static const cl_I digits_to_I_base2 (const char * MSBptr, uintL len, uintD base)
+static const cl_I digits_to_I_base2 (const char * MSBptr, uintC len, uintD base)
 {
 	// base is a power of two: write the digits from least significant
 	// to most significant into the result NUDS. Result needs
@@ -58,7 +58,7 @@ static const cl_I digits_to_I_base2 (const char * MSBptr, uintL len, uintD base)
 	return NUDS_to_I(erg_MSDptr,erg_len);
 }
 
-static const cl_I digits_to_I_baseN (const char * MSBptr, uintL len, uintD base)
+static const cl_I digits_to_I_baseN (const char * MSBptr, uintC len, uintD base)
 {
 	// base is not a power of two: Add digits one by one. Result nees
 	// 1+ceiling(len*log(base)/(intDsize*log(2))) or some more digits.
@@ -66,7 +66,7 @@ static const cl_I digits_to_I_baseN (const char * MSBptr, uintL len, uintD base)
 	var uintD* erg_MSDptr;
 	var uintC erg_len;
 	var uintD* erg_LSDptr;
-	var uintL need = 1+floor(len,intDsize*256); // > len/(intDsize*256) >=0
+	var uintC need = 1+floor(len,intDsize*256); // > len/(intDsize*256) >=0
 	switch (base) { // multiply need with ceiling(256*log(base)/log(2)):
 		case 2: need = 256*need; break;
 		case 3: need = 406*need; break;
@@ -142,7 +142,7 @@ static const cl_I digits_to_I_baseN (const char * MSBptr, uintL len, uintD base)
 	return NUDS_to_I(erg_MSDptr,erg_len);
 }
 
-const cl_I digits_to_I (const char * MSBptr, uintL len, uintD base)
+const cl_I digits_to_I (const char * MSBptr, uintC len, uintD base)
 {
 	if ((base & (base-1)) == 0) {
 		return digits_to_I_base2(MSBptr, len, base);

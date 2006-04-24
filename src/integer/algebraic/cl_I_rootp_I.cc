@@ -23,10 +23,10 @@ cl_boolean rootp (const cl_I& x, const cl_I& n, cl_I* w)
 {
 	if (eq(x,0) || eq(x,1)) // x=0 oder x=1 ?
 	  { *w = x; return cl_true; } // ja -> x als Ergebnis
-	if (n >= UL_to_I(integer_length(x)))
+	if (n >= (cl_I)(unsigned long)integer_length(x))
 	  { return cl_false; }
-	// Nun ist n < (integer-length x). Also paßt n in ein uintL.
-	return cl_rootp_aux(x,cl_I_to_UL(n),w);
+	// Nun ist n < (integer-length x). Also paßt n in ein uintC.
+	return cl_rootp_aux(x,cl_I_to_ulong(n),w);
 }
 
 }  // namespace cln

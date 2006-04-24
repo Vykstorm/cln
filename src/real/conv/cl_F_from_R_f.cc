@@ -17,7 +17,7 @@ namespace cln {
 
 const cl_F cl_float (const cl_R& x, float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return cl_R_to_SF(x);
 	,	return cl_R_to_FF(x);
 	,	return cl_R_to_DF(x);

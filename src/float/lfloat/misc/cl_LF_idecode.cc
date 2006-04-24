@@ -34,7 +34,7 @@ const cl_idecoded_float integer_decode_float (const cl_LF& x)
 		// Mantisse
 		mant,
 		// e-intDsize*n = uexp-LF_exp_mid-intDsize*n als Integer
-		minus(uexp, LF_exp_mid + intDsize*(uintL)len),
+		minus(uexp, LF_exp_mid + intDsize*len),
 		(sign>=0 ? cl_I(1) : cl_I(-1)) // (-1)^s erzeugen
 	       );
 }

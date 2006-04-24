@@ -36,7 +36,7 @@ const cosh_sinh_t cosh_sinh (const cl_F& x)
 	var sintL e = float_exponent(x);
 	if (e < 0) { // Exponent e abtesten
 		// e<0
-		if (zerop(x) || (e <= (1-(sintL)float_digits(x))>>1))
+		if (zerop(x) || (e <= (1-(sintC)float_digits(x))>>1))
 			// e <= (1-d)/2 <==> e <= -ceiling((d-1)/2)
 			return cosh_sinh_t(cl_float(1,x),x);
 		// Rechengenauigkeit erhöhen

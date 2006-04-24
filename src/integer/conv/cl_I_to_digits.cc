@@ -46,11 +46,11 @@ namespace cln {
   const int cl_digits_algo = 1;
 
 // like I_to_digits, except that the result has exactly erg_len characters.
-static inline void I_to_digits_noshrink (const cl_I& X, uintD base, uintL erg_len, cl_digits* erg)
+static inline void I_to_digits_noshrink (const cl_I& X, uintD base, uintC erg_len, cl_digits* erg)
 {
   I_to_digits(X,base,erg);
   if (erg->len > erg_len) cl_abort();
-  var uintL count = erg_len - erg->len;
+  var uintC count = erg_len - erg->len;
   if (count > 0)
     { var uintB* ptr = erg->MSBptr;
       do { *--ptr = '0'; } while (--count > 0);
@@ -159,9 +159,9 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           // for k*2^i characters, convert X1 to string. (Have to convert
           // X0 first because the conversion may temporarily prepend some
           // zero characters.)
-          var uintL ilen_X = integer_length(X);
+          var uintC ilen_X = integer_length(X);
           var const cached_power_table_entry * p;
-          var uintL ilen_B;
+          var uintC ilen_B;
           var uintL i;
           for (i = 0; ; i++)
             { p = cached_power(base,i);

@@ -18,7 +18,7 @@ namespace cln {
 char * cl_decimal_string (const cl_I& x)
 {
 	CL_ALLOCA_STACK;
-	var uintL need = cl_digits_need(x,10);
+	var uintC need = cl_digits_need(x,10);
 	var uintB* ziffern = cl_alloc_array(uintB,need); // Platz für die Ziffern
 	var cl_digits erg; erg.LSBptr = &ziffern[need];
 	I_to_digits(x,10,&erg); // Umwandlung in Ziffern

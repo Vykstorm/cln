@@ -19,7 +19,7 @@ public:
 	// Constructors.
 	cl_SV_RA () : cl_SV<cl_RA,cl_SV_R> ((cl_heap_SV_RA*) (cl_heap_SV_number*) cl_null_SV_number) {};
 	cl_SV_RA (const cl_SV_RA&);
-	explicit cl_SV_RA (uintL len) : cl_SV<cl_RA,cl_SV_R> ((cl_heap_SV_RA*) cl_make_heap_SV_number(len)) {};
+	explicit cl_SV_RA (uintC len) : cl_SV<cl_RA,cl_SV_R> ((cl_heap_SV_RA*) cl_make_heap_SV_number(len)) {};
 	// Assignment operators.
 	cl_SV_RA& operator= (const cl_SV_RA&);
 	// Private pointer manipulations.

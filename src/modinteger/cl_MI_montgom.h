@@ -179,7 +179,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 {
 	if (!oddp(M))
 		return NULL;
-	var uintL m = integer_length(M);
+	var uintC m = integer_length(M);
 	CL_ALLOCA_STACK;
 	var uintC len;
 	var const uintD* M_LSDptr;
@@ -191,9 +191,9 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 	recip2adic(len,M_LSDptr,U_LSDptr);
 	// Look at U's bits.
 	#define U_bit(i) (lspref(U_LSDptr,floor(i,intDsize)) & ((uintD)1 << ((i)%intDsize)))
-	var uintL i_min;
-	var uintL i_max;
-	var uintL i = floor(m,2);
+	var uintC i_min;
+	var uintC i_max;
+	var uintC i = floor(m,2);
 	var cl_boolean negative;
 	if (U_bit(i)) {
 		for (; --i > 0; )
@@ -218,7 +218,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 	// OK, all the bits i_max-1..i_min of U are equal.
 	if (i_max - i_min <= floor(m,2))
 		return NULL;
-	var uintL n = i_max;
+	var uintC n = i_max;
 	// Turn U (mod 2^n) into a signed integer.
 	if (n % intDsize) {
 		if (negative)
@@ -226,7 +226,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 		else
 			lspref(U_LSDptr,floor(n,intDsize)) &= ((uintD)1 << (n % intDsize)) - 1;
 	}
-	var uintL U_len = ceiling(n,intDsize);
+	var uintC U_len = ceiling(n,intDsize);
 	var cl_I U = DS_to_I(U_LSDptr lspop U_len,U_len);
 	var cl_I V_N = 1 - U*M;
 	if (ldb_test(V_N,cl_byte(n,0)))

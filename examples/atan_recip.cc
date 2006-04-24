@@ -31,11 +31,11 @@ using namespace cln;
 const cl_LF atan_recip_1a (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
-	var cl_LF eps = scale_float(cl_I_to_LF(1,actuallen),-intDsize*(sintL)actuallen);
+	var cl_LF eps = scale_float(cl_I_to_LF(1,actuallen),-intDsize*(sintC)actuallen);
 	var cl_I m2 = m*m;
 	var cl_LF fterm = cl_I_to_LF(1,actuallen)/m;
 	var cl_LF fsum = fterm;
-	for (var uintL n = 1; fterm >= eps; n++) {
+	for (var uintC n = 1; fterm >= eps; n++) {
 		fterm = fterm/m2;
 		fterm = cl_LF_shortenwith(fterm,eps);
 		if ((n % 2) == 0)
@@ -52,23 +52,23 @@ const cl_LF atan_recip_1b (cl_I m, uintC len)
 	var cl_I m2 = m*m;
 	var cl_I fterm = floor1((cl_I)1 << (intDsize*actuallen), m);
 	var cl_I fsum = fterm;
-	for (var uintL n = 1; fterm > 0; n++) {
+	for (var uintC n = 1; fterm > 0; n++) {
 		fterm = floor1(fterm,m2);
 		if ((n % 2) == 0)
 			fsum = fsum + floor1(fterm,2*n+1);
 		else
 			fsum = fsum - floor1(fterm,2*n+1);
 	}
-	return scale_float(cl_I_to_LF(fsum,len),-intDsize*(sintL)actuallen);
+	return scale_float(cl_I_to_LF(fsum,len),-intDsize*(sintC)actuallen);
 }
 
 const cl_LF atan_recip_1c (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m;
-	var sintL N = (sintL)(0.69314718*intDsize/2*actuallen/log(double_approx(m))) + 1;
+	var sintC N = (sintC)(0.69314718*intDsize/2*actuallen/log(double_approx(m))) + 1;
 	var cl_I num = 0, den = 1; // "lazy rational number"
-	for (sintL n = N-1; n>=0; n--) {
+	for (sintC n = N-1; n>=0; n--) {
 		// Multiply sum with 1/m^2:
 		den = den * m2;
 		// Add (-1)^n/(2n+1):
@@ -87,11 +87,11 @@ const cl_LF atan_recip_1d (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m;
-	var uintL N = (uintL)(0.69314718*intDsize/2*actuallen/log(double_approx(m))) + 1;
+	var uintC N = (uintC)(0.69314718*intDsize/2*actuallen/log(double_approx(m))) + 1;
 	CL_ALLOCA_STACK;
 	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		new (&bv[n]) cl_I ((n % 2) == 0 ? (cl_I)(2*n+1) : -(cl_I)(2*n+1));
 		new (&qv[n]) cl_I (n==0 ? m : m2);
@@ -113,11 +113,11 @@ const cl_LF atan_recip_1d (cl_I m, uintC len)
 const cl_LF atan_recip_2a (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
-	var cl_LF eps = scale_float(cl_I_to_LF(1,actuallen),-intDsize*(sintL)actuallen);
+	var cl_LF eps = scale_float(cl_I_to_LF(1,actuallen),-intDsize*(sintC)actuallen);
 	var cl_I m2 = m*m+1;
 	var cl_LF fterm = cl_I_to_LF(m,actuallen)/m2;
 	var cl_LF fsum = fterm;
-	for (var uintL n = 1; fterm >= eps; n++) {
+	for (var uintC n = 1; fterm >= eps; n++) {
 		fterm = The(cl_LF)((2*n)*fterm)/((2*n+1)*m2);
 		fterm = cl_LF_shortenwith(fterm,eps);
 		fsum = fsum + LF_to_LF(fterm,actuallen);
@@ -131,20 +131,20 @@ const cl_LF atan_recip_2b (cl_I m, uintC len)
 	var cl_I m2 = m*m+1;
 	var cl_I fterm = floor1((cl_I)m << (intDsize*actuallen), m2);
 	var cl_I fsum = fterm;
-	for (var uintL n = 1; fterm > 0; n++) {
+	for (var uintC n = 1; fterm > 0; n++) {
 		fterm = floor1((2*n)*fterm,(2*n+1)*m2);
 		fsum = fsum + fterm;
 	}
-	return scale_float(cl_I_to_LF(fsum,len),-intDsize*(sintL)actuallen);
+	return scale_float(cl_I_to_LF(fsum,len),-intDsize*(sintC)actuallen);
 }
 
 const cl_LF atan_recip_2c (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m+1;
-	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(double_approx(m2))) + 1;
+	var uintC N = (uintC)(0.69314718*intDsize*actuallen/log(double_approx(m2))) + 1;
 	var cl_I num = 0, den = 1; // "lazy rational number"
-	for (uintL n = N; n>0; n--) {
+	for (uintC n = N; n>0; n--) {
 		// Multiply sum with (2n)/(2n+1)(m^2+1):
 		num = num * (2*n);
 		den = den * ((2*n+1)*m2);
@@ -161,11 +161,11 @@ const cl_LF atan_recip_2d (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
 	var cl_I m2 = m*m+1;
-	var uintL N = (uintL)(0.69314718*intDsize*actuallen/log(double_approx(m2))) + 1;
+	var uintC N = (uintC)(0.69314718*intDsize*actuallen/log(double_approx(m2))) + 1;
 	CL_ALLOCA_STACK;
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintL n;
+	var uintC n;
 	new (&pv[0]) cl_I (m);
 	new (&qv[0]) cl_I (m2);
 	for (n = 1; n < N; n++) {
@@ -196,7 +196,7 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	cl_I m = (cl_I)argv[1];
-	uintL len = atoi(argv[2]);
+	uintC len = atol(argv[2]);
 	cl_LF p;
 	ln(cl_I_to_LF(1000,len+10)); // fill cache
 	// Method 1.

@@ -15,7 +15,7 @@
 
 namespace cln {
 
-const cl_MI operator>> (const cl_MI& x, sintL y) // assume 0 <= y < 2^31
+const cl_MI operator>> (const cl_MI& x, sintC y) // assume 0 <= y < 2^(intCsize-1)
 {
 	if (y == 0)
 		return x;

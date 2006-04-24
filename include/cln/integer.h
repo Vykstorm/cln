@@ -127,7 +127,7 @@ extern cl_boolean logtest (const cl_I& x, const cl_I& y);
 
 // Prüft, ob (LOGBITP x y), wo x und y Integers sind.
 // Ergebnis: /=0, wenn ja; =0, wenn nein.
-extern cl_boolean logbitp (uintL x, const cl_I& y);
+extern cl_boolean logbitp (uintC x, const cl_I& y);
 extern cl_boolean logbitp (const cl_I& x, const cl_I& y);
 
 // Prüft, ob (ODDP x), wo x ein Integer ist.
@@ -140,21 +140,21 @@ inline cl_boolean evenp (const cl_I& x)
 	{ return (cl_boolean) (!oddp(x)); }
 
 // (ASH x y), wo x und y Integers sind. Ergebnis Integer.
-extern const cl_I ash (const cl_I& x, sintL y);
+extern const cl_I ash (const cl_I& x, sintC y);
 extern const cl_I ash (const cl_I& x, const cl_I& y);
 
 // (LOGCOUNT x), wo x ein Integer ist. Ergebnis uintL.
-extern uintL logcount (const cl_I& x);
+extern uintC logcount (const cl_I& x);
 
 // (INTEGER-LENGTH x), wo x ein Integer ist. Ergebnis uintL.
-extern uintL integer_length (const cl_I& x);
+extern uintC integer_length (const cl_I& x);
 
 // (ORD2 x) = max{n>=0: 2^n | x }, wo x ein Integer /=0 ist. Ergebnis uintL.
-extern uintL ord2 (const cl_I& x);
+extern uintC ord2 (const cl_I& x);
 
 // power2p(x) stellt fest, ob ein Integer x>0 eine Zweierpotenz ist.
 // Ergebnis: n>0, wenn x=2^(n-1), 0 sonst.
-extern uintL power2p (const cl_I& x);
+extern uintC power2p (const cl_I& x);
 
 inline const cl_I operator| (const cl_I& x, const cl_I& y)
 	{ return logior(x,y); }
@@ -227,11 +227,11 @@ inline const cl_I operator- (const cl_I& x, const unsigned long y)
 extern const cl_I abs (const cl_I& x);
 
 // Shifts.
-inline const cl_I operator<< (const cl_I& x, sintL y) // assume 0 <= y < 2^31
+inline const cl_I operator<< (const cl_I& x, sintC y) // assume 0 <= y < 2^(intCsize-1)
 	{ return ash(x,y); }
 inline const cl_I operator<< (const cl_I& x, const cl_I& y) // assume y >= 0
 	{ return ash(x,y); }
-inline const cl_I operator>> (const cl_I& x, sintL y) // assume 0 <= y < 2^31
+inline const cl_I operator>> (const cl_I& x, sintC y) // assume 0 <= y < 2^(intCsize-1)
 	{ return ash(x,-y); }
 inline const cl_I operator>> (const cl_I& x, const cl_I& y) // assume y >= 0
 	{ return ash(x,-y); }
@@ -274,10 +274,10 @@ extern cl_boolean zerop (const cl_I& x);
 // BYTE-Operationen auf Integers
 
 struct cl_byte {
-	uintL size;
-	uintL position;
+	uintC size;
+	uintC position;
 // Konstruktor:
-	cl_byte (unsigned int s, unsigned int p) : size (s), position (p) {}
+	cl_byte (uintC s, uintC p) : size (s), position (p) {}
 };
 
 // (LDB byte n), wo n ein Integer ist.
@@ -562,11 +562,11 @@ inline cl_I& operator-= (cl_I& x, const unsigned long y) { return x = x - y; }
 inline cl_I& operator-- /* prefix */ (cl_I& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_I& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_I& operator*= (cl_I& x, const cl_I& y) { return x = x * y; }
-inline cl_I& operator<<= (cl_I& x, sintL y) // assume 0 <= y < 2^31
+inline cl_I& operator<<= (cl_I& x, sintC y) // assume 0 <= y < 2^(intCsize-1)
 	{ return x = x << y; }
 inline cl_I& operator<<= (cl_I& x, const cl_I& y) // assume y >= 0
 	{ return x = x << y; }
-inline cl_I& operator>>= (cl_I& x, sintL y) // assume 0 <= y < 2^31
+inline cl_I& operator>>= (cl_I& x, sintC y) // assume 0 <= y < 2^(intCsize-1)
 	{ return x = x >> y; }
 inline cl_I& operator>>= (cl_I& x, const cl_I& y) // assume y >= 0
 	{ return x = x >> y; }

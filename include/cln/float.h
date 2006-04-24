@@ -467,12 +467,12 @@ extern const cl_F float_sign (const cl_F& x);
 extern const cl_F float_sign (const cl_F& x, const cl_F& y);
 
 // float_digits(x) liefert (float-digits x), wo x ein Float ist.
-// < ergebnis: ein uintL >0
-extern uintL float_digits (const cl_F& x);
+// < ergebnis: ein uintC >0
+extern uintC float_digits (const cl_F& x);
 
 // float_precision(x) liefert (float-precision x), wo x ein Float ist.
-// < ergebnis: ein uintL >=0
-extern uintL float_precision (const cl_F& x);
+// < ergebnis: ein uintC >=0
+extern uintC float_precision (const cl_F& x);
 
 // Returns the floating point format of a float.
 inline float_format_t float_format (const cl_F& x)
@@ -491,7 +491,7 @@ extern const cl_RA rational (const cl_F& x);
 
 
 // scale_float(x,delta) liefert x*2^delta, wo x ein Float ist.
-extern const cl_F scale_float (const cl_F& x, sintL delta);
+extern const cl_F scale_float (const cl_F& x, sintC delta);
 extern const cl_F scale_float (const cl_F& x, const cl_I& delta);
 
 

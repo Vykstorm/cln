@@ -44,13 +44,13 @@ cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_m
 	type = &cl_class_modint_ring;
 	if (minusp(m)) cl_abort();
 	if (!cln::zerop(m)) {
-		var uintL b = integer_length(m-1);
+		var uintC b = integer_length(m-1);
 		// m <= 2^b, hence one needs b bits for a representative mod m.
 		if (b <= 1) {
 			log2_bits = 0; bits = 1;
 		} else if (b <= cl_word_size) {
 			var uintL bb;
-			integerlength32(b-1,bb=); // b <= 2^bb with bb minimal
+			integerlengthC(b-1,bb=); // b <= 2^bb with bb minimal
 			log2_bits = bb; bits = 1<<bb;
 		} else {
 			log2_bits = -1; bits = -1;
@@ -90,13 +90,13 @@ static inline cl_heap_modint_ring* make_modint_ring (const cl_I& m) // m >= 0
 		return new cl_heap_modint_ring_int();
 	// Now m > 0.
 	{
-		var uintL log2_m = power2p(m);
+		var uintC log2_m = power2p(m);
 		if (log2_m)
 			return new cl_heap_modint_ring_pow2(m,log2_m-1);
 	}
 	// Now m > 1.
 	{
-		var uintL log2_m = integer_length(m); // = integerlength(m-1)
+		var uintC log2_m = integer_length(m); // = integerlength(m-1)
 		if (log2_m < 16) // m < 0x10000
 			return new cl_heap_modint_ring_fix16(m);
 		#if (cl_value_len <= 32)
@@ -110,12 +110,12 @@ static inline cl_heap_modint_ring* make_modint_ring (const cl_I& m) // m >= 0
 		#endif
 	}
 	{
-		var uintL m1 = power2p(m+1);
+		var uintC m1 = power2p(m+1);
 		if (m1)
 			return new cl_heap_modint_ring_pow2m1(m,m1-1);
 	}
 	{
-		var uintL m1 = power2p(m-1);
+		var uintC m1 = power2p(m-1);
 		if (m1)
 			return new cl_heap_modint_ring_pow2p1(m,m1-1);
 	}

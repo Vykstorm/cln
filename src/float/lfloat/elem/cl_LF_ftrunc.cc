@@ -29,7 +29,7 @@ const cl_LF ftruncate (const cl_LF& x)
       var uintC mantlen;
       LF_decode(x, { return x; }, sign=,exp=,mantMSDptr=,mantlen=,);
       if (exp<=0) { return encode_LF0(mantlen); } // e<=0 -> Ergebnis 0.0
-      if ((uintL)exp >= intDsize*(uintL)mantlen) // e>=16n -> x als Ergebnis
+      if ((uintL)exp >= intDsize*mantlen) // e>=16n -> x als Ergebnis
         { return x; }
         else
         // 0 < e < 16n
@@ -54,7 +54,7 @@ const cl_LF ftruncate (const cl_LF& x)
           return encode_LF0(len); // e<=0 -> Ergebnis 0.0
         }
       var uintL exp = uexp - LF_exp_mid;
-      if (exp >= intDsize*(uintL)len) // e>=16n -> x als Ergebnis
+      if (exp >= intDsize*len) // e>=16n -> x als Ergebnis
         { return x; }
       // 0 < e < 16n
       var Lfloat y = allocate_lfloat(len,uexp,TheLfloat(x)->sign); // neues Long-Float

@@ -460,10 +460,10 @@ static inline void mul (const fftcs_complex& a, const fftcs_complex& b, fftcs_co
 	r.im = r_im;
 }
 
-static uintL shuffle (uintL n, uintL x)
+static uintC shuffle (uintL n, uintC x)
 {
-	var uintL y = 0;
-	var sintL v = 1;
+	var uintC y = 0;
+	var sintC v = 1;
 	// Invariant: y + v*shuffle(n,x).
 	do {
 		if (x & 1)
@@ -479,16 +479,16 @@ static uintL shuffle (uintL n, uintL x)
 }
 
 #if 0 // unused
-static uintL invshuffle (uintL n, uintL x)
+static uintC invshuffle (uintL n, uintC x)
 {
-	var uintL y = 0;
-	var uintL v = 1;
+	var uintC y = 0;
+	var uintC v = 1;
 	// Invariant: y + v*invshuffle(n,x).
 	do {
-		if (x == ((uintL)1 << (n-1)))
+		if (x == ((uintC)1 << (n-1)))
 			return y + v;
-		else if (x > ((uintL)1 << (n-1))) {
-			x = ((uintL)1 << n) - x;
+		else if (x > ((uintC)1 << (n-1))) {
+			x = ((uintC)1 << n) - x;
 			y = y+v;
 		}
 		v <<= 1;
@@ -498,7 +498,7 @@ static uintL invshuffle (uintL n, uintL x)
 #endif
 
 // Compute a real convolution using FFT: z[0..N-1] := x[0..N-1] * y[0..N-1].
-static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
+static void fftcs_convolution (const uintL n, const uintC N, // N = 2^n
                                fftcs_real * x, // N numbers
                                fftcs_real * y, // N numbers
                                fftcs_real * z  // N numbers result
@@ -506,7 +506,7 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 {
 	CL_ALLOCA_STACK;
 	var fftcs_complex* const w = cl_alloc_array(fftcs_complex,N>>2);
-	var uintL i;
+	var uintC i;
 	// Initialize w[i] to w^i, w a primitive N-th root of unity.
 	w[0] = fftcs_roots_of_1[0];
 	{
@@ -524,10 +524,10 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 		var uintL l;
 		for (l = n-1; l > 0; l--) {
 			/* s = 0 */ {
-				var const uintL tmax = (uintL)1 << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = t;
-					var uintL i2 = i1 + tmax;
+				var const uintC tmax = (uintC)1 << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = t;
+					var uintC i2 = i1 + tmax;
 					// replace (x[i1],x[i2]) by
 					// (x[i1] + x[i2], x[i1] - x[i2])
 					var fftcs_real tmp;
@@ -536,15 +536,15 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 					x[i1] = x[i1] + tmp;
 				}
 			}
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << (l-1);
-			for (var uintL s = 1; s < smax; s++) {
-				var uintL exp = shuffle(n-1-l,s) << (l-1);
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
-					var uintL i3 = i2 + tmax;
-					var uintL i4 = i3 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << (l-1);
+			for (var uintC s = 1; s < smax; s++) {
+				var uintC exp = shuffle(n-1-l,s) << (l-1);
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
+					var uintC i3 = i2 + tmax;
+					var uintC i4 = i3 + tmax;
 					// replace (x[i1],x[i2],x[i3],x[i4]) by
 					// (x[i1] + x[i2]*Re(w^exp) - x[i4]*Im(w^exp),
 					//  x[i3] + x[i4]*Re(w^exp) + x[i2]*Im(w^exp),
@@ -578,10 +578,10 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 		var uintL l;
 		for (l = n-1; l > 0; l--) {
 			/* s = 0 */ {
-				var const uintL tmax = (uintL)1 << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = t;
-					var uintL i2 = i1 + tmax;
+				var const uintC tmax = (uintC)1 << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = t;
+					var uintC i2 = i1 + tmax;
 					// replace (y[i1],y[i2]) by
 					// (y[i1] + y[i2], y[i1] - y[i2])
 					var fftcs_real tmp;
@@ -590,15 +590,15 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 					y[i1] = y[i1] + tmp;
 				}
 			}
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << (l-1);
-			for (var uintL s = 1; s < smax; s++) {
-				var uintL exp = shuffle(n-1-l,s) << (l-1);
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
-					var uintL i3 = i2 + tmax;
-					var uintL i4 = i3 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << (l-1);
+			for (var uintC s = 1; s < smax; s++) {
+				var uintC exp = shuffle(n-1-l,s) << (l-1);
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
+					var uintC i3 = i2 + tmax;
+					var uintC i4 = i3 + tmax;
 					// replace (y[i1],y[i2],y[i3],y[i4]) by
 					// (y[i1] + y[i2]*Re(w^exp) - y[i4]*Im(w^exp),
 					//  y[i3] + y[i4]*Re(w^exp) + y[i2]*Im(w^exp),
@@ -649,10 +649,10 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 		}
 		for (l = 1; l < n; l++) {
 			/* s = 0 */ {
-				var const uintL tmax = (uintL)1 << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = t;
-					var uintL i2 = i1 + tmax;
+				var const uintC tmax = (uintC)1 << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = t;
+					var uintC i2 = i1 + tmax;
 					// replace (z[i1],z[i2]) by
 					// ((z[i1]+z[i2])/2, (z[i1]-z[i2])/2)
 					// Do the division by 2 later.
@@ -662,15 +662,15 @@ static void fftcs_convolution (const uintL n, const uintL N, // N = 2^n
 					z[i1] = z[i1] + tmp;
 				}
 			}
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << (l-1);
-			for (var uintL s = 1; s < smax; s++) {
-				var uintL exp = shuffle(n-1-l,s) << (l-1);
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
-					var uintL i3 = i2 + tmax;
-					var uintL i4 = i3 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << (l-1);
+			for (var uintC s = 1; s < smax; s++) {
+				var uintC exp = shuffle(n-1-l,s) << (l-1);
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
+					var uintC i3 = i2 + tmax;
+					var uintC i4 = i3 + tmax;
 					// replace (z[i1],z[i2],z[i3],z[i4]) by
 					// ((z[i1]+z[i3])/2,
 					//  (z[i1]-z[i3])/2*Re(w^exp)+(z[i2]+z[i4])/2*Im(w^exp),
@@ -720,10 +720,10 @@ static int max_l_table[32+1] =
 
 // Split len uintD's below sourceptr into chunks of l bits, thus filling
 // N real numbers at x.
-static void fill_factor (uintL N, fftcs_real* x, uintL l,
-                         const uintD* sourceptr, uintL len)
+static void fill_factor (uintC N, fftcs_real* x, uintL l,
+                         const uintD* sourceptr, uintC len)
 {
-	var uintL i;
+	var uintC i;
 	if (max_l(2) > intDsize && l > intDsize) {
 		// l > intDsize
 		if (max_l(2) > 64 && l > 64) {
@@ -840,11 +840,11 @@ static inline fftcs_real fftcs_ffloor (fftcs_real x)
 // The z[i] are known to be approximately integers >= 0, < N*2^(2*l).
 // Assumes room for floor(N*l/intDsize)+(1+ceiling((n+2*l)/intDsize)) uintD's
 // below destptr. Fills len digits and returns (destptr lspop len).
-static uintD* unfill_product (uintL n, uintL N, // N = 2^n
+static uintD* unfill_product (uintL n, uintC N, // N = 2^n
                               const fftcs_real * z, uintL l,
                               uintD* destptr)
 {
-	var uintL i;
+	var uintC i;
 	if (n + 2*l <= intDsize) {
 		// 2-digit carry is sufficient, l < intDsize
 		var uintD carry0 = 0;
@@ -990,11 +990,11 @@ static inline void mulu_fftcs_nocheck (const uintD* sourceptr1, uintC len1,
 	// is  2*len1*intDsize/l_max - 1 <= 2^k.
 	{
 		var const int l = max_l(2);
-		var uintL lhs = 2*ceiling((uintL)len1*intDsize,l) - 1; // >=1
+		var uintC lhs = 2*ceiling(len1*intDsize,l) - 1; // >=1
 		if (lhs < 3)
 			k = 2;
 		else
-			integerlength32(lhs-1, k=); // k>=2
+			integerlengthC(lhs-1, k=); // k>=2
 	}
 	// Try whether this k is ok or whether we have to increase k.
 	for ( ; ; k++) {
@@ -1003,22 +1003,22 @@ static inline void mulu_fftcs_nocheck (const uintD* sourceptr1, uintC len1,
 			fprint(std::cerr, "FFT problem: numbers too big, floating point precision not sufficient\n");
 			cl_abort();
 		}
-		if (2*ceiling((uintL)len1*intDsize,max_l_table[k])-1 <= ((uintL)1 << k))
+		if (2*ceiling(len1*intDsize,max_l_table[k])-1 <= ((uintC)1 << k))
 			break;
 	}
 	// We could try to reduce l, keeping the same k. But why should we?
 	// Calculate the number of pieces in which source2 will have to be
 	// split. Each of the pieces must satisfy
 	// ceiling(len1*intDsize/l) + ceiling(len2*intDsize/l) - 1 <= 2^k,
-	var uintL len2p;
+	var uintC len2p;
 	// Try once with k, once with k+1. Compare them.
 	{
-		var uintL remaining_k = ((uintL)1 << k) + 1 - ceiling((uintL)len1*intDsize,max_l_table[k]);
-		var uintL max_piecelen_k = floor(remaining_k*max_l_table[k],intDsize);
-		var uintL numpieces_k = ceiling(len2,max_piecelen_k);
-		var uintL remaining_k1 = ((uintL)1 << (k+1)) + 1 - ceiling((uintL)len1*intDsize,max_l_table[k+1]);
-		var uintL max_piecelen_k1 = floor(remaining_k1*max_l_table[k+1],intDsize);
-		var uintL numpieces_k1 = ceiling(len2,max_piecelen_k1);
+		var uintC remaining_k = ((uintC)1 << k) + 1 - ceiling(len1*intDsize,max_l_table[k]);
+		var uintC max_piecelen_k = floor(remaining_k*max_l_table[k],intDsize);
+		var uintC numpieces_k = ceiling(len2,max_piecelen_k);
+		var uintC remaining_k1 = ((uintC)1 << (k+1)) + 1 - ceiling(len1*intDsize,max_l_table[k+1]);
+		var uintC max_piecelen_k1 = floor(remaining_k1*max_l_table[k+1],intDsize);
+		var uintC numpieces_k1 = ceiling(len2,max_piecelen_k1);
 		if (numpieces_k <= 2*numpieces_k1) {
 			// keep k
 			len2p = max_piecelen_k;
@@ -1030,7 +1030,7 @@ static inline void mulu_fftcs_nocheck (const uintD* sourceptr1, uintC len1,
 	}
 	var const uintL l = max_l_table[k];
 	var const uintL n = k;
-	var const uintL N = (uintL)1 << n;
+	var const uintC N = (uintC)1 << n;
 	CL_ALLOCA_STACK;
 	var fftcs_real* const x = cl_alloc_array(fftcs_real,N);
 	var fftcs_real* const y = cl_alloc_array(fftcs_real,N);
@@ -1040,9 +1040,9 @@ static inline void mulu_fftcs_nocheck (const uintD* sourceptr1, uintC len1,
 	var fftcs_real* const z = x; // put z in place of x - saves memory
 	#endif
 	var uintD* const tmpprod1 = cl_alloc_array(uintD,len1+1);
-	var uintL tmpprod_len = floor(l<<n,intDsize)+6;
+	var uintC tmpprod_len = floor(l<<n,intDsize)+6;
 	var uintD* const tmpprod = cl_alloc_array(uintD,tmpprod_len);
-	var uintL destlen = len1+len2;
+	var uintC destlen = len1+len2;
 	clear_loop_lsp(destptr,destlen);
 	do {
 		if (len2p > len2)
@@ -1071,7 +1071,7 @@ static inline void mulu_fftcs_nocheck (const uintD* sourceptr1, uintC len1,
 			{
 				var fftcs_real re_lo_limit = (fftcs_real)(-0.5);
 				var fftcs_real re_hi_limit = (fftcs_real)N * fftcs_pow2_table[l] * fftcs_pow2_table[l] + (fftcs_real)0.5;
-				for (var uintL i = 0; i < N; i++)
+				for (var uintC i = 0; i < N; i++)
 					if (!(z[i] > re_lo_limit
 					      && z[i] < re_hi_limit))
 						cl_abort();
@@ -1079,7 +1079,7 @@ static inline void mulu_fftcs_nocheck (const uintD* sourceptr1, uintC len1,
 			#endif
 			var uintD* tmpLSDptr = arrayLSDptr(tmpprod,tmpprod_len);
 			var uintD* tmpMSDptr = unfill_product(n,N,z,l,tmpLSDptr);
-			var uintL tmplen =
+			var uintC tmplen =
 			  #if CL_DS_BIG_ENDIAN_P
 			    tmpLSDptr - tmpMSDptr;
 			  #else

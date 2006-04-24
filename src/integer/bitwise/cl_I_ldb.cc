@@ -26,9 +26,9 @@ const cl_I ldb (const cl_I& n, const cl_byte& b)
       //   q:=min(p+s,l).
       //   Extrahiere die Bits p,...,q-1 von n.
       //   Falls p+s>l und n<0, füge p+s-l Einsenbits an (addiere 2^s-2^(l-p)).
-      var uintL s = b.size;
-      var uintL p = b.position;
-      var uintL l = integer_length(n); // l = (integer-length n)
+      var uintC s = b.size;
+      var uintC p = b.position;
+      var uintC l = integer_length(n); // l = (integer-length n)
       if (l<=p)
         // l<=p
         if (!minusp(n))
@@ -40,7 +40,7 @@ const cl_I ldb (const cl_I& n, const cl_byte& b)
         else
         // l>p
         { var cl_I erg = ldb_extract(n,p,(p+s<l ? p+s : l));
-          var uintL lp = l-p;
+          var uintC lp = l-p;
           if ((s>lp) && minusp(n)) // s>l-p und n<0 ?
             { return logior(erg,cl_fullbyte(lp,s)); } // setze Bits l-p,...,s-1
             // (logisches Exklusiv-Oder oder Addition ginge auch)

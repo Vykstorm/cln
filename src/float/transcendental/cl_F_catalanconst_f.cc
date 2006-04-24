@@ -16,7 +16,7 @@ namespace cln {
 
 const cl_F catalanconst (float_format_t f)
 {
-	floatformatcase((uintL)f
+	floatformatcase((uintC)f
 	,	return cl_SF_catalanconst;
 	,	return cl_FF_catalanconst;
 	,	return cl_DF_catalanconst;

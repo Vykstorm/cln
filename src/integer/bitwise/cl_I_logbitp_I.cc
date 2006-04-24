@@ -29,7 +29,7 @@ cl_boolean logbitp (const cl_I& x, const cl_I& y)
               var uintC ylen;
               var const uintD* yLSDptr;
               I_to_NDS_nocopy(y, ,ylen=,yLSDptr=,cl_true, { return cl_false; } ); // DS zu y
-              if (x_ < intDsize*(uintL)ylen)
+              if (x_ < intDsize*ylen)
                 // x ist ein Fixnum >=0, < intDsize*ylen
                 { if (lspref(yLSDptr,floor(x_,intDsize)) & bit(x_%intDsize))
                     return cl_true;

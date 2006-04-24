@@ -209,11 +209,11 @@ static const sqrt_mod_p_t tonelli_shanks_sqrt (const cl_modint_ring& R, const cl
 	// take h in G_(j+1) \ G_j, so that h^2 in G_j \ G_(j-1), and
 	// a^-1*b^2*h^2 is in G_(j-1). So multiply b with h.
 	var cl_I& p = R->modulus;
-	var uintL e = ord2(p-1);
+	var uintC e = ord2(p-1);
 	var cl_I m = (p-1) >> e;
 	// p-1 = 2^e*m, m odd.
 	// We will have the invariant c = a^-1*b^2 in G/G_j.
-	var uintL j = e;
+	var uintC j = e;
 	// Initialize b = a^((m+1)/2), c = a^m, but avoid to divide by a.
 	var cl_MI c = R->expt_pos(a,(m-1)>>1);
 	var cl_MI b = R->mul(a,c);
@@ -248,7 +248,7 @@ static const sqrt_mod_p_t tonelli_shanks_sqrt (const cl_modint_ring& R, const cl
 	do {
 		// Now c = a^-1*b^2 in G_j, h in G_j \ G_(j-1).
 		// Determine the smallest i such that c in G_i.
-		var uintL i = 0;
+		var uintC i = 0;
 		var cl_MI ci = c; // c_i = c^(2^i)
 		for ( ; i < j; i++, ci = R->square(ci))
 			if (ci == R->one())
@@ -259,7 +259,7 @@ static const sqrt_mod_p_t tonelli_shanks_sqrt (const cl_modint_ring& R, const cl
 			// Indicates that p is not prime.
 			return new cl_composite_condition(p);
 		// OK, i < j.
-		for (var uintL count = j-i-1; count > 0; count--)
+		for (var uintC count = j-i-1; count > 0; count--)
 			h = R->square(h);
 		// Now h in G_(i+1) \ G_i.
 		b = R->mul(b,h);
@@ -312,8 +312,8 @@ const sqrt_mod_p_t sqrt_mod_p (const cl_modint_ring& R, const cl_MI& a)
 		else
 			return sqrt_mod_p_t(2,R->canonhom(x1),R->canonhom(x2));
 	}
-	var uintL l = integer_length(p);
-	var uintL e = ord2(p-1);
+	var uintC l = integer_length(p);
+	var uintC e = ord2(p-1);
 	//if (e > 30 && e > l/(::log((double)l)*0.72-1))
 	if (e > 30 && e > l/(::log((double)l)*0.92-2.41))
 		// Algorithm 2.

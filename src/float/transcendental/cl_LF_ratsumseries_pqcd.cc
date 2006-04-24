@@ -16,7 +16,7 @@
 
 namespace cln {
 
-const cl_LF eval_pqcd_series (uintL N, cl_pqcd_series_term* args, uintC len)
+const cl_LF eval_pqcd_series (uintC N, cl_pqcd_series_term* args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

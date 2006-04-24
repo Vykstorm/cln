@@ -57,7 +57,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
               swap(uintL, uexp1,uexp2);
             }
         }
-      if (expdiff >= intDsize * (uintL)len + 2) // e1-e2 >= 16n+2 ?
+      if (expdiff >= intDsize * len + 2) // e1-e2 >= 16n+2 ?
         { return x1; } // ja -> x1 als Ergebnis
       // neues Long-Float allozieren:
       var Lfloat y = allocate_lfloat(len,uexp1,TheLfloat(x1)->sign);
@@ -153,7 +153,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
            }
            // UDS y_mantMSDptr/len/y_mantLSDptr/rounding_bits normalisieren:
            {var uintD* ptr = y_mantMSDptr;
-            var uintL k = 0;
+            var uintC k = 0;
             var uintC count;
             dotimesC(count,len,
               { if (!(mspref(ptr,0)==0)) goto nonzero_found;

@@ -51,7 +51,7 @@ const cl_F cos (const cl_F& x)
 			var cl_F_div_t q_r = cl_round_pi(cl_F_extendsqrt(x));
 			var cl_I& q = q_r.quotient;
 			var cl_LF r = The(cl_LF)(q_r.remainder);
-			if (zerop(r) || (float_exponent(r) <= (-(sintL)float_digits(r))>>1))
+			if (zerop(r) || (float_exponent(r) <= (-(sintC)float_digits(r))>>1))
 				cos_r = cl_float(1,x); // (cos r) = 1.0
 			else {
 				var cl_LF s = scale_float(r,-1); // s := r/2
@@ -66,7 +66,7 @@ const cl_F cos (const cl_F& x)
 		var cl_F_div_t q_r = cl_round_pi(cl_F_extendsqrt(x));
 		var cl_I& q = q_r.quotient;
 		var cl_F& r = q_r.remainder;
-		if (zerop(r) || (float_exponent(r) <= (-(sintL)float_digits(r))>>1))
+		if (zerop(r) || (float_exponent(r) <= (-(sintC)float_digits(r))>>1))
 			cos_r = cl_float(1,x); // (cos r) = 1.0
 		else {
 			var cl_F s = scale_float(r,-1); // s := r/2

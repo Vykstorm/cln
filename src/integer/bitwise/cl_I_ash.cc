@@ -15,7 +15,7 @@
 
 namespace cln {
 
-const cl_I ash (const cl_I& x, sintL y)
+const cl_I ash (const cl_I& x, sintC y)
 {
     // Methode:
     // x = 0 -> 0 als Ergebnis
@@ -34,14 +34,14 @@ const cl_I ash (const cl_I& x, sintL y)
 	CL_ALLOCA_STACK;
 	if (y >= 0) {
 	        // y>0
-		var uintL y_ = (uintL)y;
+		var uintC y_ = (uintC)y;
 		var uintL i = y_%intDsize; // i = y mod intDsize, >=0, <intDsize
-		var uintL k = floor(y_,intDsize); // k = y div intDsize, >=0, <2^intCsize
+		var uintC k = floor(y_,intDsize); // k = y div intDsize, >=0, <2^intCsize
 		var uintD* LSDptr;
 		var uintC len;
 		var const uintD* x_LSDptr;
 		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,cl_false,); // DS zu x bilden.
-		if (k >= (uintC)(~(uintC)len)) // kann len+k+1 Überlauf geben?
+		if (k >= (uintC)(~len)) // kann len+k+1 Überlauf geben?
 			{ cl_ash_error(y); } // ja -> Fehler
 		num_stack_alloc_1(len+k,,LSDptr=);
 		LSDptr = clear_loop_lsp(LSDptr,k); // k Nulldigits
@@ -66,9 +66,9 @@ const cl_I ash (const cl_I& x, sintL y)
 	       }
 	} else {
 		// y<0
-		var uintL y_ = (uintL)(-y); // Wert von -y, >0
+		var uintC y_ = (uintC)(-y); // Wert von -y, >0
 		var uintL i = y_%intDsize; // i = (-y) mod intDsize, >=0, <intDsize
-		var uintL k = floor(y_,intDsize); // k = (-y) div intDsize, >=0
+		var uintC k = floor(y_,intDsize); // k = (-y) div intDsize, >=0
 		// DS zu x bilden:
 		var uintD* MSDptr;
 		var uintC len;

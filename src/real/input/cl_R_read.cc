@@ -220,9 +220,9 @@ not_rational_syntax:
 			ptr_after_prec = skip_digits(ptr,string_limit,10);
 			if (ptr_after_prec == ptr) goto not_float_syntax;
 			var cl_I prec1 = digits_to_I(ptr,ptr_after_prec-ptr,10);
-			var uintL prec2 = cl_I_to_UL(prec1);
+			var uintC prec2 = cl_I_to_ulong(prec1);
 			prec = (float_base==10 ? float_format(prec2)
-			                       : (float_format_t)((uintL)((1+prec2)*::log((double)float_base)*1.442695041)+1)
+			                       : (float_format_t)((uintC)((1+prec2)*::log((double)float_base)*1.442695041)+1)
 			       );
 		} else {
 			switch (exponent_marker) {
@@ -237,14 +237,14 @@ not_rational_syntax:
 				// Count the number of significant digits.
 				ptr = ptr_after_sign;
 				while (ptr < ptr_after_fracpart && (*ptr == '0' || *ptr == '.')) ptr++;
-				var uintL num_significant_digits =
+				var uintC num_significant_digits =
 				  (ptr_after_fracpart - ptr) - (ptr_before_fracpart > ptr ? 1 : 0);
-				var uintL prec2 = (num_significant_digits>=2 ? num_significant_digits-2 : 0);
+				var uintC prec2 = (num_significant_digits>=2 ? num_significant_digits-2 : 0);
 				var float_format_t precx =
 				  (float_base==10 ? float_format(prec2)
-				                  : (float_format_t)((uintL)((1+prec2)*::log((double)float_base)*1.442695041)+1)
+				                  : (float_format_t)((uintC)((1+prec2)*::log((double)float_base)*1.442695041)+1)
 				  );
-				if ((uintL)precx > (uintL)prec)
+				if ((uintC)precx > (uintC)prec)
 					prec = precx;
 			}
 		}

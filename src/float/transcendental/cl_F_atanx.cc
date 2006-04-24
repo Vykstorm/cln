@@ -49,10 +49,10 @@ static const cl_LF atanx_naive (const cl_LF& x)
 {
 	if (zerop(x))
 		return x;
-	var uintL actuallen = TheLfloat(x)->len;
-	var uintL d = float_digits(x);
+	var uintC actuallen = TheLfloat(x)->len;
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e <= (sintL)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
+	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionszähler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
@@ -99,7 +99,7 @@ static const cl_LF atanx_naive (const cl_LF& x)
 	} else {
 		// naive2:
 		// floating-point representation with smooth precision reduction
-		var cl_LF eps = scale_float(b,-(sintL)d-10);
+		var cl_LF eps = scale_float(b,-(sintC)d-10);
 		loop {
 			var cl_LF new_sum = sum + LF_to_LF(b/(cl_I)i,actuallen); // (+ sum (/ b i))
 			if (new_sum == sum) // = sum ?
@@ -119,9 +119,9 @@ static const cl_F atanx_naive (const cl_F& x)
 {
 	if (zerop(x))
 		return x;
-	var uintL d = float_digits(x);
+	var uintC d = float_digits(x);
 	var sintL e = float_exponent(x);
-	if (e <= (sintL)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
+	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionszähler k:=0
 	var uintL sqrt_d = floor(isqrt(d),2); // limit_slope*floor(sqrt(d))
@@ -183,21 +183,21 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 	//       z' = truncate(y*2^(2n))/2^(2n).
 	//   Set z := z + z' and x+i*y := (x+i*y)*exp(-i*z').
 	var uintC len = TheLfloat(t)->len;
-	var uintL d = intDsize*(uintL)len;
-	if (zerop(t) || (float_exponent(t) <= (sintL)(-d)>>1))
+	var uintC d = intDsize*len;
+	if (zerop(t) || (float_exponent(t) <= (sintC)(-d)>>1))
 		return t;
 	var cl_LF x = recip(sqrt(cl_I_to_LF(1,len) + square(t)));
 	var cl_LF y = t*x;
 	var cl_LF z = cl_I_to_LF(0,len);
 	loop {
-		if (zerop(y) || (float_exponent(y) <= (sintL)(-d)>>1))
+		if (zerop(y) || (float_exponent(y) <= (sintC)(-d)>>1))
 			break;
 		var cl_idecoded_float y_ = integer_decode_float(y);
 		// y = (-1)^sign * 2^exponent * mantissa
-		var uintL lm = integer_length(y_.mantissa);
+		var uintC lm = integer_length(y_.mantissa);
 		var uintL me = cl_I_to_UL(- y_.exponent);
 		var cl_I p;
-		var uintL lq;
+		var uintC lq;
 		var cl_boolean last_step = cl_false;
 		if (lm >= me) { // |y| >= 1/2 ?
 			p = y_.sign; // 1 or -1
@@ -221,7 +221,7 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 			if (2*n >= lm)
 				last_step = cl_true;
 		}
-		z = z + scale_float(cl_I_to_LF(p,len),-(sintL)lq);
+		z = z + scale_float(cl_I_to_LF(p,len),-(sintC)lq);
 		if (last_step)
 			break;
 		var cl_LF_cos_sin_t cis_z = cl_cossin_aux(-p,lq,len);

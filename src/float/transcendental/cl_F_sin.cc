@@ -61,7 +61,7 @@ const cl_F sin (const cl_F& x)
 					z = -z;
 			} else {
 				// cos(r) berechnen:
-				if (zerop(r) || (float_exponent(r) <= (-(sintL)float_digits(r))>>1))
+				if (zerop(r) || (float_exponent(r) <= (-(sintC)float_digits(r))>>1))
 					z = cl_float(1,x); // cos(r) = 1.0
 				else
 					z = cl_float(sqrt(1 - y),x); // sqrt(1-y)
@@ -77,7 +77,7 @@ const cl_F sin (const cl_F& x)
 			z = cl_float(r*sqrt(y),x);
 		} else {
 			// cos(r) berechnen:
-			if (zerop(r) || (float_exponent(r) <= (-(sintL)float_digits(r))>>1))
+			if (zerop(r) || (float_exponent(r) <= (-(sintC)float_digits(r))>>1))
 				z = cl_float(1,x); // cos(r) = 1.0
 			else
 				z = cl_float(sqrt(1 - square(r)*y),x); // sqrt(1-r^2*y)

@@ -14,7 +14,7 @@
 
 namespace cln {
 
-void eval_pqd_series_aux (uintL N, cl_pqd_series_term* args, cl_pqd_series_result& Z, cl_boolean rightmost)
+void eval_pqd_series_aux (uintC N, cl_pqd_series_term* args, cl_pqd_series_result& Z, cl_boolean rightmost)
 {
 	// N = N2-N1
 	switch (N) {
@@ -53,7 +53,7 @@ void eval_pqd_series_aux (uintL N, cl_pqd_series_term* args, cl_pqd_series_resul
 		break;
 		}
 	default: {
-		var uintL Nm = N/2; // midpoint
+		var uintC Nm = N/2; // midpoint
 		// Compute left part.
 		var cl_pqd_series_result L;
 		eval_pqd_series_aux(Nm,args+0,L,cl_false);

@@ -15,7 +15,7 @@
 
 namespace cln {
 
-const cl_LF scale_float (const cl_LF& x, sintL delta)
+const cl_LF scale_float (const cl_LF& x, sintC delta)
 {
   // Methode:
   // delta=0 -> x als Ergebnis
@@ -25,7 +25,7 @@ const cl_LF scale_float (const cl_LF& x, sintL delta)
       if (delta == 0) { return x; } // delta=0 -> x als Ergebnis
       var uintL uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
-      var uintL udelta = delta;
+      var uintC udelta = delta;
       if (delta >= 0) {
         // udelta = delta >=0
 	if (   ((uexp = uexp+udelta) < udelta) // Exponent-Überlauf?
@@ -33,8 +33,8 @@ const cl_LF scale_float (const cl_LF& x, sintL delta)
 	   )
 	  { cl_error_floating_point_overflow(); }
       } else {
-        // delta <0, udelta = 2^32+delta
-	if (   ((uexp = uexp+udelta) >= udelta) // oder Exponent-Unterlauf?
+        // delta <0, udelta = 2^intCsize+delta
+	if (   ((uintL)(-(uexp = uexp+udelta)) <= (uintC)(-udelta)) // oder Exponent-Unterlauf?
 	    || (uexp < LF_exp_low) // oder Exponent zu klein?
 	   )
 	  { cl_error_floating_point_underflow(); }

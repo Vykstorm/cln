@@ -16,7 +16,7 @@ public:
 	// Constructors.
 	cl_SV_number ();
 	cl_SV_number (const cl_SV_number&);
-	explicit cl_SV_number (uintL len);
+	explicit cl_SV_number (uintC len);
 	// Assignment operators.
 	cl_SV_number& operator= (const cl_SV_number&);
 	// Private pointer manipulations.
@@ -27,10 +27,10 @@ public:
 inline cl_SV_number::cl_SV_number (const cl_SV_number& x) : cl_SV<cl_number,cl_SV_any> (as_cl_private_thing(x)) {}
 CL_DEFINE_ASSIGNMENT_OPERATOR(cl_SV_number,cl_SV_number)
 // Returns a new simple vector with uninitialized contents.
-extern cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintL len);
+extern cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintC len);
 // Returns a new simple vector with all elements initialized to 0.
-extern cl_heap_SV_number* cl_make_heap_SV_number (uintL len);
-inline cl_SV_number::cl_SV_number (uintL len)
+extern cl_heap_SV_number* cl_make_heap_SV_number (uintC len);
+inline cl_SV_number::cl_SV_number (uintC len)
 	: cl_SV<cl_number,cl_SV_any> (cl_make_heap_SV_number(len)) {}
 
 // Private pointer manipulations. Never throw away a `struct cl_heap_SV_number *'!

@@ -171,7 +171,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 	//   k = 3 for nn <= 69.8
 	//   ... k for nn <= k*(k+1)*2^(2k)/(2^(k+1)-k-2)
 	var cl_I n = y;
-	var uintL nn = integer_length(n);
+	var uintC nn = integer_length(n);
 	// n has nn bits.
 	if (nn <= 8) {
 		// k = 1, normal Left-Right Binary algorithm.
@@ -202,7 +202,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 		else if (nn <= 1721160)	k = 14;
 		else if (nn <= 3933180)	k = 15;
 		else /* if (nn <= 8914120) */ k = 16;
-		var uintL nnk = ceiling(nn,k); // number of base-2^k digits in n
+		var uintC nnk = ceiling(nn,k); // number of base-2^k digits in n
 		var uint16* n_digits = cl_alloc_array(uint16,nnk);
 		// Split n into base-2^k digits.
 		{
@@ -212,7 +212,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 			var const uintL k_mask = bit(k)-1;
 			var uintD carry = 0;
 			var unsigned int carrybits = 0;
-			for (var uintL i = 0; i < nnk; i++) {
+			for (var uintC i = 0; i < nnk; i++) {
 				if (carrybits >= k) {
 					n_digits[i] = carry & k_mask;
 					carry = carry >> k;
@@ -229,7 +229,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 		// Compute maximum odd base-2^k digit.
 		var uintL maxodd = 1;
 		if (k <= 8) {
-			for (var uintL i = 0; i < nnk; i++) {
+			for (var uintC i = 0; i < nnk; i++) {
 				var uintL d = n_digits[i];
 				if (d > 0) {
 					d = odd_table[d];
@@ -237,7 +237,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 				}
 			}
 		} else {
-			for (var uintL i = 0; i < nnk; i++) {
+			for (var uintC i = 0; i < nnk; i++) {
 				var uintL d = n_digits[i];
 				if (d > 0) {
 					var uintL d2; ord2_32(d,d2=);
@@ -275,7 +275,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 			for ( ; d2>0; d2--)
 				a = R->_square(a);
 		}
-		for (var sintL i = nnk-2; i >= 0; i--) {
+		for (var sintC i = nnk-2; i >= 0; i--) {
 			// Compute a := a^(2^k) * x^n_digits[i].
 			var uintL d = n_digits[i];
 			var uintL d2;

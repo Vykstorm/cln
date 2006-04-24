@@ -20,9 +20,9 @@ uintC cl_LF_len_incsqrtx (uintC n)
 // <==>       intDsize*n < intDsize^2*inc^2 - 66*intDsize*inc + 1089
 // <==>       n <= intDsize*inc^2 - 66*inc + floor(1089/intDsize)
 	return
-	  #define NMAX(k)  (uintL)((intDsize*(k)-66)*(k)+floor(1089,intDsize))
+	  #define NMAX(k)  (uintC)((intDsize*(k)-66)*(k)+floor(1089,intDsize))
 	  #define FITS(n,k)  ((intDsize*(k) > 33) && ((n) <= NMAX(k)))
-	  #define n_max  (uintL)(bitm(intCsize)-1)
+	  #define n_max  (uintC)(bitm(intCsize)-1)
 	  #define TRYINC(inc)  FITS(n_max,inc) || FITS(n,inc) ? RETINC(inc) :
 	  #define RETINC(inc)  \
 	    /* at this point we know  n <= NMAX(inc) */			\

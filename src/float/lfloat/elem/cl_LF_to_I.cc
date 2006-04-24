@@ -42,7 +42,7 @@ const cl_I cl_LF_to_I (const cl_LF& x)
       // Vorzeichen*Mantisse ist die DS MSDptr/len1/LSDptr.
       // (ASH Vorzeichen*Mantisse (- e 16n)) durchführen:
       return ash(DS_to_I(MSDptr,len1),
-                 minus(uexp, LF_exp_mid + intDsize*(uintL)len)
+                 minus(uexp, LF_exp_mid + intDsize*len)
                 );
 }
 

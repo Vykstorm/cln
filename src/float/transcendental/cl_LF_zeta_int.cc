@@ -25,11 +25,11 @@ const cl_LF compute_zeta_exp (int s, uintC len)
 	// with convergence acceleration through exp(x), and evaluated
 	// using the binary-splitting algorithm.
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL x = (uintL)(0.693148*intDsize*actuallen)+1;
-	var uintL N = (uintL)(2.718281828*x);
+	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
+	var uintC N = (uintC)(2.718281828*x);
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		if (n==0) {
 			init1(cl_I, args[n].p) (1);
@@ -60,12 +60,12 @@ const cl_LF compute_zeta_cvz1 (int s, uintC len)
 	// zeta(s) = 1/(1-2^(1-s)) sum(n=0..infty, (-1)^n/(n+1)^s),
 	// with Cohen-Villegas-Zagier convergence acceleration.
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL N = (uintL)(0.39321985*intDsize*actuallen)+1;
+	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 	var cl_I fterm = 2*(cl_I)N*(cl_I)N;
 	var cl_I fsum = fterm;
 	var cl_LF gterm = cl_I_to_LF(fterm,actuallen);
 	var cl_LF gsum = gterm;
-	var uintL n;
+	var uintC n;
 	// After n loops
 	//   fterm = (N+n)!N/(2n+2)!(N-n-1)!*2^(2n+2), fsum = ... + fterm,
 	//   gterm = S_n*fterm, gsum = ... + gterm.
@@ -93,10 +93,10 @@ const cl_LF compute_zeta_cvz2 (int s, uintC len)
 	// with Cohen-Villegas-Zagier convergence acceleration, and
 	// evaluated using the binary splitting algorithm.
 	var uintC actuallen = len+2; // 2 Schutz-Digits
-	var uintL N = (uintL)(0.39321985*intDsize*actuallen)+1;
+	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintL n;
+	var uintC n;
 	for (n = 0; n < N; n++) {
 		init1(cl_I, args[n].p) (2*(cl_I)(N-n)*(cl_I)(N+n));
 		init1(cl_I, args[n].q) ((cl_I)(2*n+1)*(cl_I)(n+1));

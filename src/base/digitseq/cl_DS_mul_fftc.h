@@ -384,9 +384,9 @@ static inline void mul (const fftc_complex& a, const fftc_complex& b, fftc_compl
 #ifndef _BIT_REVERSE
 #define _BIT_REVERSE
 // Reverse an n-bit number x. n>0.
-static uintL bit_reverse (uintL n, uintL x)
+static uintC bit_reverse (uintL n, uintC x)
 {
-	var uintL y = 0;
+	var uintC y = 0;
 	do {
 		y <<= 1;
 		y |= (x & 1);
@@ -397,7 +397,7 @@ static uintL bit_reverse (uintL n, uintL x)
 #endif
 
 // Compute a complex convolution using FFT: z[0..N-1] := x[0..N-1] * y[0..N-1].
-static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
+static void fftc_convolution (const uintL n, const uintC N, // N = 2^n
                               fftc_complex * x, // N numbers
                               fftc_complex * y, // N numbers
                               fftc_complex * z  // N numbers result
@@ -409,7 +409,7 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 	#else
 	var fftc_complex* const w = cl_alloc_array(fftc_complex,(N>>1)+1);
 	#endif
-	var uintL i;
+	var uintC i;
 	// Initialize w[i] to w^i, w a primitive N-th root of unity.
 	w[0] = fftc_roots_of_1[0];
 	#if (FFTC_BACKWARD == RECIPROOT) || defined(DEBUG_FFTC)
@@ -478,10 +478,10 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 	{
 		var sintL l;
 		/* l = n-1 */ {
-			var const uintL tmax = N>>1; // tmax = 2^(n-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = N>>1; // tmax = 2^(n-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Butterfly: replace (x(i1),x(i2)) by
 				// (x(i1) + x(i2), x(i1) - x(i2)).
 				var fftc_complex tmp;
@@ -491,13 +491,13 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 			}
 		}
 		for (l = n-2; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (x(i1),x(i2)) by
 					// (x(i1) + w^exp*x(i2), x(i1) - w^exp*x(i2)).
 					var fftc_complex tmp;
@@ -512,10 +512,10 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 	if (!squaring) {
 		var sintL l;
 		/* l = n-1 */ {
-			var uintL const tmax = N>>1; // tmax = 2^(n-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var uintC const tmax = N>>1; // tmax = 2^(n-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Butterfly: replace (y(i1),y(i2)) by
 				// (y(i1) + y(i2), y(i1) - y(i2)).
 				var fftc_complex tmp;
@@ -525,13 +525,13 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 			}
 		}
 		for (l = n-2; l>=0; l--) {
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << l;
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Butterfly: replace (y(i1),y(i2)) by
 					// (y(i1) + w^exp*y(i2), y(i1) - w^exp*y(i2)).
 					var fftc_complex tmp;
@@ -549,18 +549,18 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 	{
 		var uintL l;
 		for (l = 0; l < n-1; l++) {
-			var const uintL smax = (uintL)1 << (n-1-l);
-			var const uintL tmax = (uintL)1 << l;
+			var const uintC smax = (uintC)1 << (n-1-l);
+			var const uintC tmax = (uintC)1 << l;
 			#if FFTC_BACKWARD != CLEVER
-			for (var uintL s = 0; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
+			for (var uintC s = 0; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
 				#if FFTC_BACKWARD == RECIPROOT
 				if (exp > 0)
 					exp = N - exp; // negate exp (use w^-1 instead of w)
 				#endif
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (z(i1),z(i2)) by
 					// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/(2*w^exp)).
 					// Do the division by 2 later.
@@ -574,9 +574,9 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 			}
 			#else // FFTC_BACKWARD == CLEVER: clever handling of negative exponents
 			/* s = 0, exp = 0 */ {
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (z(i1),z(i2)) by
 					// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/(2*w^exp)),
 					// with exp <-- 0.
@@ -589,12 +589,12 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 					z[i2] = diff;
 				}
 			}
-			for (var uintL s = 1; s < smax; s++) {
-				var uintL exp = bit_reverse(n-1-l,s) << l;
+			for (var uintC s = 1; s < smax; s++) {
+				var uintC exp = bit_reverse(n-1-l,s) << l;
 				exp = (N>>1) - exp; // negate exp (use w^-1 instead of w)
-				for (var uintL t = 0; t < tmax; t++) {
-					var uintL i1 = (s << (l+1)) + t;
-					var uintL i2 = i1 + tmax;
+				for (var uintC t = 0; t < tmax; t++) {
+					var uintC i1 = (s << (l+1)) + t;
+					var uintC i2 = i1 + tmax;
 					// Inverse Butterfly: replace (z(i1),z(i2)) by
 					// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/(2*w^exp)),
 					// with exp <-- (N/2 - exp).
@@ -611,10 +611,10 @@ static void fftc_convolution (const uintL n, const uintL N, // N = 2^n
 		}
 		/* l = n-1 */ {
 			var const fftc_real pow2 = (fftc_real)1 / (fftc_real)N;
-			var const uintL tmax = N>>1; // tmax = 2^(n-1)
-			for (var uintL t = 0; t < tmax; t++) {
-				var uintL i1 = t;
-				var uintL i2 = i1 + tmax;
+			var const uintC tmax = N>>1; // tmax = 2^(n-1)
+			for (var uintC t = 0; t < tmax; t++) {
+				var uintC i1 = t;
+				var uintC i2 = i1 + tmax;
 				// Inverse Butterfly: replace (z(i1),z(i2)) by
 				// ((z(i1)+z(i2))/2, (z(i1)-z(i2))/2).
 				// Do all the divisions by 2 now.
@@ -656,10 +656,10 @@ static int max_l_table[32+1] =
 
 // Split len uintD's below sourceptr into chunks of l bits, thus filling
 // N complex numbers at x.
-static void fill_factor (uintL N, fftc_complex* x, uintL l,
-                         const uintD* sourceptr, uintL len)
+static void fill_factor (uintC N, fftc_complex* x, uintL l,
+                         const uintD* sourceptr, uintC len)
 {
-	var uintL i;
+	var uintC i;
 	if (max_l(2) > intDsize && l > intDsize) {
 		// l > intDsize
 		if (max_l(2) > 64 && l > 64) {
@@ -784,11 +784,11 @@ static inline fftc_real fftc_ffloor (fftc_real x)
 // The z[i] are known to be approximately integers >= 0, < N*2^(2*l).
 // Assumes room for floor(N*l/intDsize)+(1+ceiling((n+2*l)/intDsize)) uintD's
 // below destptr. Fills len digits and returns (destptr lspop len).
-static uintD* unfill_product (uintL n, uintL N, // N = 2^n
+static uintD* unfill_product (uintL n, uintC N, // N = 2^n
                               const fftc_complex * z, uintL l,
                               uintD* destptr)
 {
-	var uintL i;
+	var uintC i;
 	if (n + 2*l <= intDsize) {
 		// 2-digit carry is sufficient, l < intDsize
 		var uintD carry0 = 0;
@@ -934,11 +934,11 @@ static inline void mulu_fftcomplex_nocheck (const uintD* sourceptr1, uintC len1,
 	// is  2*len1*intDsize/l_max - 1 <= 2^k.
 	{
 		var const int l = max_l(2);
-		var uintL lhs = 2*ceiling((uintL)len1*intDsize,l) - 1; // >=1
+		var uintC lhs = 2*ceiling(len1*intDsize,l) - 1; // >=1
 		if (lhs < 3)
 			k = 2;
 		else
-			integerlength32(lhs-1, k=); // k>=2
+			integerlengthC(lhs-1, k=); // k>=2
 	}
 	// Try whether this k is ok or whether we have to increase k.
 	for ( ; ; k++) {
@@ -947,22 +947,22 @@ static inline void mulu_fftcomplex_nocheck (const uintD* sourceptr1, uintC len1,
 			fprint(std::cerr, "FFT problem: numbers too big, floating point precision not sufficient\n");
 			cl_abort();
 		}
-		if (2*ceiling((uintL)len1*intDsize,max_l_table[k])-1 <= ((uintL)1 << k))
+		if (2*ceiling(len1*intDsize,max_l_table[k])-1 <= ((uintC)1 << k))
 			break;
 	}
 	// We could try to reduce l, keeping the same k. But why should we?
 	// Calculate the number of pieces in which source2 will have to be
 	// split. Each of the pieces must satisfy
 	// ceiling(len1*intDsize/l) + ceiling(len2*intDsize/l) - 1 <= 2^k,
-	var uintL len2p;
+	var uintC len2p;
 	// Try once with k, once with k+1. Compare them.
 	{
-		var uintL remaining_k = ((uintL)1 << k) + 1 - ceiling((uintL)len1*intDsize,max_l_table[k]);
-		var uintL max_piecelen_k = floor(remaining_k*max_l_table[k],intDsize);
-		var uintL numpieces_k = ceiling(len2,max_piecelen_k);
-		var uintL remaining_k1 = ((uintL)1 << (k+1)) + 1 - ceiling((uintL)len1*intDsize,max_l_table[k+1]);
-		var uintL max_piecelen_k1 = floor(remaining_k1*max_l_table[k+1],intDsize);
-		var uintL numpieces_k1 = ceiling(len2,max_piecelen_k1);
+		var uintC remaining_k = ((uintC)1 << k) + 1 - ceiling(len1*intDsize,max_l_table[k]);
+		var uintC max_piecelen_k = floor(remaining_k*max_l_table[k],intDsize);
+		var uintC numpieces_k = ceiling(len2,max_piecelen_k);
+		var uintC remaining_k1 = ((uintC)1 << (k+1)) + 1 - ceiling(len1*intDsize,max_l_table[k+1]);
+		var uintC max_piecelen_k1 = floor(remaining_k1*max_l_table[k+1],intDsize);
+		var uintC numpieces_k1 = ceiling(len2,max_piecelen_k1);
 		if (numpieces_k <= 2*numpieces_k1) {
 			// keep k
 			len2p = max_piecelen_k;
@@ -974,7 +974,7 @@ static inline void mulu_fftcomplex_nocheck (const uintD* sourceptr1, uintC len1,
 	}
 	var const uintL l = max_l_table[k];
 	var const uintL n = k;
-	var const uintL N = (uintL)1 << n;
+	var const uintC N = (uintC)1 << n;
 	CL_ALLOCA_STACK;
 	var fftc_complex* const x = cl_alloc_array(fftc_complex,N);
 	var fftc_complex* const y = cl_alloc_array(fftc_complex,N);
@@ -984,9 +984,9 @@ static inline void mulu_fftcomplex_nocheck (const uintD* sourceptr1, uintC len1,
 	var fftc_complex* const z = x; // put z in place of x - saves memory
 	#endif
 	var uintD* const tmpprod1 = cl_alloc_array(uintD,len1+1);
-	var uintL tmpprod_len = floor(l<<n,intDsize)+6;
+	var uintC tmpprod_len = floor(l<<n,intDsize)+6;
 	var uintD* const tmpprod = cl_alloc_array(uintD,tmpprod_len);
-	var uintL destlen = len1+len2;
+	var uintC destlen = len1+len2;
 	clear_loop_lsp(destptr,destlen);
 	do {
 		if (len2p > len2)
@@ -1017,7 +1017,7 @@ static inline void mulu_fftcomplex_nocheck (const uintD* sourceptr1, uintC len1,
 				var fftc_real re_hi_limit = (fftc_real)N * fftc_pow2_table[l] * fftc_pow2_table[l] + (fftc_real)0.5;
 				var fftc_real im_lo_limit = (fftc_real)(-0.5);
 				var fftc_real im_hi_limit = (fftc_real)0.5;
-				for (var uintL i = 0; i < N; i++) {
+				for (var uintC i = 0; i < N; i++) {
 					if (!(z[i].im > im_lo_limit
 					      && z[i].im < im_hi_limit))
 						cl_abort();
@@ -1029,7 +1029,7 @@ static inline void mulu_fftcomplex_nocheck (const uintD* sourceptr1, uintC len1,
 			#endif
 			var uintD* tmpLSDptr = arrayLSDptr(tmpprod,tmpprod_len);
 			var uintD* tmpMSDptr = unfill_product(n,N,z,l,tmpLSDptr);
-			var uintL tmplen =
+			var uintC tmplen =
 			  #if CL_DS_BIG_ENDIAN_P
 			    tmpLSDptr - tmpMSDptr;
 			  #else

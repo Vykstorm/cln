@@ -17,7 +17,7 @@ namespace cln {
 // and T = B*Q*S (all integers). On entry N1 < N2.
 // P will not be computed if a NULL pointer is passed.
 
-const cl_LF eval_rational_series (uintL N, const cl_rational_series& args, uintC len)
+const cl_LF eval_rational_series (uintC N, const cl_rational_series& args, uintC len)
 {
 	if (args.pv)
 		if (args.qv)

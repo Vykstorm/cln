@@ -17,7 +17,7 @@
 
 namespace cln {
 
-const cl_F scale_float (const cl_F& x, sintL delta)
+const cl_F scale_float (const cl_F& x, sintC delta)
 {
 	floatcase(x
 	,	return scale_float(x,delta);

@@ -29,10 +29,10 @@ cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
       //                       und bei n<0 sind Bits p+s-1..l =1.
       //     Falls p+s<=l,
       //       extrahiere die Bits p,...,p+s-1 von n und teste sie.
-      var uintL s = b.size;
-      var uintL p = b.position;
+      var uintC s = b.size;
+      var uintC p = b.position;
       if (s==0) return cl_false;
-      var uintL l = integer_length(n); // l = (integer-length n)
+      var uintC l = integer_length(n); // l = (integer-length n)
       if (l<=p)
         // l<=p
         if (!minusp(n))
@@ -41,7 +41,7 @@ cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
           return cl_true; // n<0
         else
         // l>p
-        { var uintL ps = p+s;
+        { var uintC ps = p+s;
           if (ps>l) // p+s>l ?
             return cl_true;
           // Bits p,...,q-1 mit q = min(p+s,l) = p+s extrahieren und testen:

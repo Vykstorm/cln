@@ -31,8 +31,8 @@ double double_approx (const cl_RA& x)
       var const cl_I& b = denominator(x); // b
       var cl_signean sign = -(cl_signean)minusp(a); // Vorzeichen
       if (!(sign==0)) { a = -a; } // Betrag nehmen, liefert a
-      var sintL lendiff = (sintL)integer_length(a) // (integer-length a)
-                          - (sintL)integer_length(b); // (integer-length b)
+      var sintC lendiff = (sintC)integer_length(a) // (integer-length a)
+                          - (sintC)integer_length(b); // (integer-length b)
       if (lendiff > DF_exp_high-DF_exp_mid) // Exponent >= n-m > Obergrenze ?
         {
           #if (cl_word_size==64)

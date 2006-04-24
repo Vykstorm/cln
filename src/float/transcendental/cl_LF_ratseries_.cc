@@ -22,7 +22,7 @@ namespace cln {
 // and T = B*Q*S (all integers). On entry N1 < N2.
 // P will not be computed if a NULL pointer is passed.
 
-static inline void eval__series_aux (uintL N1, uintL N2,
+static inline void eval__series_aux (uintC N1, uintC N2,
                                      const cl__series& args,
                                      cl_I* T)
 {
@@ -30,7 +30,7 @@ static inline void eval__series_aux (uintL N1, uintL N2,
 	*T = N2-N1;
 }
 
-const cl_LF eval_rational_series (uintL N, const cl__series& args, uintC len)
+const cl_LF eval_rational_series (uintC N, const cl__series& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

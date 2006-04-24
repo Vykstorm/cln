@@ -73,7 +73,7 @@
           { var uintD* prod_MSDptr;
             var uintD* prod_LSDptr;
             var uintD* prodhi_LSDptr;
-            num_stack_small_alloc(2*(uintL)len1,prod_MSDptr=,prod_LSDptr=);
+            num_stack_small_alloc(2*len1,prod_MSDptr=,prod_LSDptr=);
             prodhi_LSDptr = prod_LSDptr lspop 2*k_lo;
             // prod_MSDptr/2*len1/prod_LSDptr wird zuerst die beiden
             // Produkte x1*y1 in prod_MSDptr/2*k_hi/prodhi_LSDptr
@@ -150,7 +150,7 @@
       var uintD* prod_MSDptr;
       var uintC prod_len = len1+len2;
       var uintD* prod_LSDptr;
-      num_stack_small_alloc((uintL)prod_len,prod_MSDptr=,prod_LSDptr=);
+      num_stack_small_alloc(prod_len,prod_MSDptr=,prod_LSDptr=);
       { var uintC k_hi = floor(len2,2); // Länge der High-Teile: floor(len2/2) >0
         var uintC k_lo = len2 - k_hi; // Länge der Low-Teile: ceiling(len2/2) >0
         // Es gilt k_hi <= k_lo <= len1 <= len2, k_lo + k_hi = len2.

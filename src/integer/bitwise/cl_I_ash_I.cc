@@ -35,7 +35,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 	if (!minusp(y)) {
 		// y>=0
 		var uintL i; // i = y mod intDsize, >=0, <intDsize
-		var cl_uint k; // k = y div intDsize, >=0, <2^intCsize
+		var uintC k; // k = y div intDsize, >=0, <2^intCsize
 		if (bignump(y)) {
 			#if (log2_intDsize+intCsize <= cl_value_len-1)
 			// y >= 2^(cl_value_len-1) >= intDsize*2^intCsize
@@ -86,7 +86,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 		var uintC len;
 		var const uintD* x_LSDptr;
 		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,cl_false,); // DS zu x bilden.
-		if (k >= (uintC)(~(uintC)len)) // kann len+k+1 Überlauf geben?
+		if (k >= (uintC)(~len)) // kann len+k+1 Überlauf geben?
 			{ cl_ash_error(y); } // ja -> Fehler
 		num_stack_alloc_1(len+k,,LSDptr=);
 		LSDptr = clear_loop_lsp(LSDptr,k); // k Nulldigits
@@ -111,7 +111,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 	} else {
 		// y<0
 		var uintL i; // i = (-y) mod intDsize, >=0, <intDsize
-		var cl_uint k; // k = (-y) div intDsize, >=0, <2^intCsize
+		var uintC k; // k = (-y) div intDsize, >=0, <2^intCsize
 		if (bignump(y)) {
 			#if (log2_intDsize+intCsize <= cl_value_len-1)
 			// -y-1 >= 2^(cl_value_len-1) >= intDsize*2^intCsize

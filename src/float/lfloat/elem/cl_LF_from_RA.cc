@@ -55,21 +55,21 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
       var const cl_I& b = denominator(x); // b
       var cl_signean sign = -(cl_signean)minusp(a); // Vorzeichen
       if (!(sign==0)) { a = -a; } // Betrag nehmen, liefert a
-      var sintL lendiff = (sintL)integer_length(a) // (integer-length a)
-                          - (sintL)integer_length(b); // (integer-length b)
+      var sintC lendiff = (sintC)integer_length(a) // (integer-length a)
+                          - (sintC)integer_length(b); // (integer-length b)
       // |lendiff| < intDsize*2^intCsize. Da für LF-Exponenten ein sintL zur
       // Verfügung steht, braucht man keinen Test auf Overflow oder Underflow.
-      var uintL difflimit = intDsize*(uintL)len + 1; // 16n+1
+      var uintC difflimit = intDsize*len + 1; // 16n+1
       var cl_I zaehler;
       var cl_I nenner;
-      if (lendiff > (sintL)difflimit)
+      if (lendiff > (sintC)difflimit)
         // 0 <= k-m-16n-1 < k < intDsize*2^intCsize
-        { nenner = ash(b,(uintL)(lendiff - difflimit));
+        { nenner = ash(b,(uintC)(lendiff - difflimit));
           zaehler = a;
         }
         else
         // 0 < -k+m+16n+1 <= m+1 + 16n < intDsize*2^intCsize + intDsize*2^intCsize
-        { zaehler = ash(a,(uintL)(difflimit - lendiff)); // (ash a -k+m+16n+1)
+        { zaehler = ash(a,(uintC)(difflimit - lendiff)); // (ash a -k+m+16n+1)
           nenner = b; // b
         }
       // Division zaehler/nenner durchführen:
