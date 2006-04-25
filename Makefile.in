@@ -8,6 +8,7 @@ local_prefix = /usr/local
 exec_prefix = @exec_prefix@
 srcdir = @srcdir@
 bindir = @bindir@
+datarootdir = @datarootdir@
 datadir = @datadir@
 libdir = @libdir@
 includedir = @includedir@
