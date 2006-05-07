@@ -1,3 +1,7 @@
+2006-05-07  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/modules.h (CL_JUMP_TO): Fix for Intel Mac.
+
 2006-04-25  Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
 
 	Prepare for autoconf-2.60.

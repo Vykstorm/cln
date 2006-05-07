@@ -126,7 +126,11 @@
   // in gcc-2.95. For new CPUs, look for "jump" and "indirect_jump" in gcc's
   // machine description.
   #if defined(__i386__)
-    #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp %*%0" : : "rm" ((void*)(addr)))
+    #if defined(__APPLE__) && defined(__MACH__)
+      #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp " ASM_UNDERSCORE_PREFIX #addr)
+    #else
+      #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp %*%0" : : "rm" ((void*)(addr)))
+    #endif
   #endif
   #if defined(__x86_64__)
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp " ASM_UNDERSCORE_PREFIX #addr)
