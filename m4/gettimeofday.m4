@@ -1,5 +1,5 @@
 dnl -*- Autoconf -*-
-dnl Copyright (C) 1993-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 1993-2003, 2006 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -22,7 +22,7 @@ CL_PROTO_TRY([
 ], [int gettimeofday (struct timeval * tp, struct timezone * tzp);],
 [int gettimeofday();],
 cl_cv_proto_gettimeofday_dots=no
-cl_cv_proto_gettimeofday_arg2="struct timezone *",
+cl_cv_proto_gettimeofday_arg2="struct timezone *", [
 CL_PROTO_TRY([
 #include <sys/types.h>
 #include <sys/time.h>
@@ -31,7 +31,7 @@ CL_PROTO_TRY([
 cl_cv_proto_gettimeofday_dots=no
 cl_cv_proto_gettimeofday_arg2="void *",
 cl_cv_proto_gettimeofday_dots=yes
-cl_cv_proto_gettimeofday_arg2="..."))
+cl_cv_proto_gettimeofday_arg2="...")])
 ], [extern int gettimeofday (struct timeval *, $cl_cv_proto_gettimeofday_arg2);])
 if test $cl_cv_proto_gettimeofday_dots = yes; then
 AC_DEFINE(GETTIMEOFDAY_DOTS,,[declaration of gettimeofday() needs dots])
