@@ -49,7 +49,7 @@ namespace cln {
 
 struct DS {
 	uintD* MSDptr;
-	unsigned int len;
+	uintC len;
 	uintD* LSDptr;
 };
 

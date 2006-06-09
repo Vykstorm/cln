@@ -1,3 +1,7 @@
+2006-06-09  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/base/digitseq/cl_DS.h (struct DS): Change len type to uintC.
+
 2006-05-30  Ralf Wildenhues <Ralf.Wildenhues@gmx.de>
 
 	* m4/gettimeofday.m4 (CL_GETTIMEOFDAY): Fix M4 quoting.
