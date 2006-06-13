@@ -19,12 +19,8 @@
 #undef __i386__
 #endif
 
-// Take care not to define both __i386__ and __x86_64__ on those systems with
-// 64 bit kernel and 32 bit userland:
 #ifndef __x86_64__
-#ifndef __i386__
 #undef __x86_64__
-#endif
 #endif
 
 #ifndef __m68k__

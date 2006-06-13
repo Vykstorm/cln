@@ -184,6 +184,23 @@ else
   host_cpu=sparc
 fi
     ;;
+dnl AMD64 running Linux have 'uname -m' = "x86_64" even if userland is purely
+dnl 32-bit.
+  x86_64 )
+    AC_CACHE_CHECK([for 64-bit userland on x86-64], cl_cv_host_x86_64, [
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+[[#if !defined __x86_64__
+# error __x86_64__ not defined
+#endif
+]])
+], [cl_cv_host_x86_64=yes], [cl_cv_host_x86_64=no])
+])
+if test $cl_cv_host_x86_64 = yes; then
+  host_cpu=x86_64
+else
+  host_cpu=i386
+fi
+  ;;
 esac
 dnl was AC_DEFINE_UNQUOTED(__${host_cpu}__) but KAI C++ 3.2d doesn't like this
 cat >> confdefs.h <<EOF
