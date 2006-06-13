@@ -11,36 +11,32 @@ $ make install
 You need GNU make. On HP-UX, you also need GNU sed.
 
 Known to work with:
-  - Linux/x86, gcc-2.95.x, gcc-3.x, gcc-4.0.[0-2]
-  - Linux/x86_64, gcc-3.[3-4], gcc-4.0.[0-1]
-  - Linux/ia64, gcc-2.96, gcc-3.[2-3], gcc-4.0.[0-1]
-  - Linux/arm, gcc-2.95.3, gcc-3.[0-3], gcc-4.0.[0-1]
-  - Linux/mips, gcc-3.3, gcc-4.0.[0-1]
-  - Linux/sparc, gcc-2.95.3, gcc-3.[1-3], gcc-4.0.[0-1]
-  - Linux/alpha, gcc-2.95.x, gcc-3.[0-3], gcc-4.0.[0-1]
-  - Linux/powerpc, gcc-2.95.x, gcc-3.[0-3], gcc-4.0.[0-1]
-  - Solaris 2.4 (sparc), gcc-2.95, gcc-3.[1-3]
-  - OSF/1 V4.0 (alpha), gcc-2.95, gcc-3.1
-  - Irix 6.5, gcc-2.95.x, gcc-3.0
+  - Linux/x86, gcc-3.x, gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/x86_64, gcc-3.[3-4], gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/ia64, gcc-3.[2-4], gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/arm, gcc-3.[0-3], gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/mips, gcc-3.3, gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/sparc, gcc-3.[1-3], gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/alpha, gcc-3.[0-3], gcc-4.0.x, gcc-4.1.[0-1]
+  - Linux/powerpc, gcc-3.[0-3], gcc-4.0.x, gcc-4.1.[0-1]
+  - Solaris 2.4 (sparc), gcc-3.[1-3]
+  - OSF/1 V4.0 (alpha), gcc-3.1
+  - Irix 6.5, gcc-3.0
   - BeOS, gcc-2.95.x
 
 The "make" step takes about 30 minutes, on a P-III / 1 GHz / 512 MB.
 
-If you use g++ gcc-2.95.x or gcc-3.x, I recommend adding "-fno-exceptions" 
-to the CXXFLAGS. This will likely generate better code.
+If you use g++ from gcc-3.x, I recommend adding "-fno-exceptions" to the
+CXXFLAGS. This will likely generate better code.
 
 If you use g++ from gcc-3.0.4 or older on Sparc, add either "-O", "-O1" or
 "-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2", g++ miscompiles
-the division routines. If you use g++ older than 2.95.3 on Sparc you should
-also specify --disable-shared because of bad code produced in the shared
-library. Also, do not use gcc-3.0 on Sparc for compiling CLN, it won't work
-at all.
+the division routines. Do not use gcc-3.0 on Sparc for compiling CLN, it
+won't work at all.
 
-If you use g++ on OSF/1 or Tru64 using gcc-2.95.x, you should specify
---disable-shared because of linker problems with duplicate symbols in shared
-libraries.  If you use g++ from gcc-3.0.n with n larger than 1, you should
-not add -fno-exceptions to the CXXFLAGS, since that will generate wrong code
-(gcc-3.1 is okay again, as is gcc-3.0).
+If you use g++ on OSF/1 or Tru64 using gcc-3.0.n with n larger than 1, you
+should not add -fno-exceptions to the CXXFLAGS, since that will generate
+wrong code (gcc-3.1 is okay again, as is gcc-3.0).
 
 More detailed installation instructions can be found in the documentation,
 in the doc/ directory.
