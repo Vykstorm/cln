@@ -9,14 +9,18 @@
 
 // Implementation.
 
+#if defined(_WIN32)
+#include <windows.h> // for GetCurrentProcessId()
+#endif
+
 #include "cl_base_config.h"
 #include "cl_low.h"
+#include <cstdlib>  // declares rand()
 
-#if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(_WIN32) && defined(__GNUC__)) || defined(__BEOS__)
+#if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(__CYGWIN__) && defined(__GNUC__)) || defined(__BEOS__)
 
 #include <sys/types.h>
 #include <unistd.h> // declares getpid()
-#include <cstdlib>  // declares rand()
 
 #if defined(HAVE_GETTIMEOFDAY)
 
@@ -43,14 +47,29 @@ inline uint32 get_seed (void)
 #include <sys/times.h>
 extern "C" clock_t times (struct tms * buffer);
 
+namespace cln {
 inline uint32 get_seed (void)
 {
 	var struct tms tmsbuf;
 	var uint32 seed_lo = times(&tmsbuf);
 	return seed_lo + tmsbuf.tms_utime + tmsbuf.tms_stime;
 }
+}  // namespace cln
 
 #endif
+
+#elif defined(_WIN32)
+#include <sys/time.h>
+#include <sys/timeb.h>
+
+namespace cln {
+inline uint32 get_seed (void)
+{
+	struct timeb timebuf;
+	ftime(&timebuf);
+	return cln::highlow32(timebuf.time, (long)(timebuf.millitm)*1000);
+}
+}  // namespace cln
 
 #endif
 
@@ -64,13 +83,16 @@ random_state::random_state ()
 {
 	var uint32 seed_hi;
 	var uint32 seed_lo;
-#if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(_WIN32) && defined(__GNUC__)) || defined(__BEOS__)
+#if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(__CYGWIN__) && defined(__GNUC__)) || defined(__BEOS__)
 	seed_lo = ::get_seed();
 	seed_hi = (rand() // zufällige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
                           << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
 #elif defined(__OpenBSD__)
 	seed_lo = arc4random();
 	seed_hi = arc4random();
+#elif defined(_WIN32)
+	seed_lo = ::get_seed();
+	seed_hi = (rand() << 8) ^ (uintL)(GetCurrentProcessId());
 #elif defined(__atarist)
 	seed_lo = highlow32(GEMDOS_GetDate(),GEMDOS_GetTime()); // 16+16 zufällige Bits
 	seed_hi = XBIOS_Random(); // 24 Bit zufällig vom XBIOS, vorne 8 Nullbits
