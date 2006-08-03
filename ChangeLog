@@ -1,3 +1,8 @@
+2006-08-03  Sheplyakov Alexei  <varg@theor.jinr.ru>
+
+	* m4/param.m4: Add support for MinGW.
+	* src/base/random/cl_random_from.cc: Fix for last patch.
+
 2006-07-23  Sheplyakov Alexei  <varg@theor.jinr.ru>
 
 	* src/base/random/cl_random_from.cc: Add support for MinGW.

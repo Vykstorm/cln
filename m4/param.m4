@@ -31,9 +31,9 @@ CC=`echo "$CC " | sed -e 's/-O //g'`
 fi
 AC_TRY_EVAL(ac_link)
 CC="$ORIGCC"
-if test -s conftest; then
+if test -s conftest${ac_exeext}; then
   echo "creating $cl_machine_file_h"
-  ./conftest > conftest.h
+  ./conftest${ac_exeext} > conftest.h
   if cmp -s "$cl_machine_file_h" conftest.h 2>/dev/null; then
     # The file exists and we would not be changing it
     rm -f conftest.h

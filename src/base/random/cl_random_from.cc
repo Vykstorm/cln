@@ -1,5 +1,10 @@
 // random_state constructor.
 
+
+#if defined(_WIN32)
+#include <windows.h> // For GetCurrentProcessId(), must be included first, sorry.
+#endif
+
 // General includes.
 #include "cl_sysdep.h"
 
@@ -8,10 +13,6 @@
 
 
 // Implementation.
-
-#if defined(_WIN32)
-#include <windows.h> // for GetCurrentProcessId()
-#endif
 
 #include "cl_base_config.h"
 #include "cl_low.h"
@@ -31,12 +32,14 @@
   extern "C" int gettimeofday (struct timeval * tp, GETTIMEOFDAY_TZP_T tzp);
 #endif
 
+namespace cln {
 inline uint32 get_seed (void)
 {
 	var struct timeval tv;
 	gettimeofday(&tv,0);
-	return cln::highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zufällige Bits
+	return highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zufällige Bits
 }
+}  // namespace cln
 
 #elif defined(HAVE_TIMES_CLOCK)
 
@@ -67,7 +70,7 @@ inline uint32 get_seed (void)
 {
 	struct timeb timebuf;
 	ftime(&timebuf);
-	return cln::highlow32(timebuf.time, (long)(timebuf.millitm)*1000);
+	return highlow32(timebuf.time, (long)(timebuf.millitm)*1000);
 }
 }  // namespace cln
 
@@ -84,14 +87,14 @@ random_state::random_state ()
 	var uint32 seed_hi;
 	var uint32 seed_lo;
 #if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(__CYGWIN__) && defined(__GNUC__)) || defined(__BEOS__)
-	seed_lo = ::get_seed();
+	seed_lo = get_seed();
 	seed_hi = (rand() // zufällige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
                           << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
 #elif defined(__OpenBSD__)
 	seed_lo = arc4random();
 	seed_hi = arc4random();
 #elif defined(_WIN32)
-	seed_lo = ::get_seed();
+	seed_lo = get_seed();
 	seed_hi = (rand() << 8) ^ (uintL)(GetCurrentProcessId());
 #elif defined(__atarist)
 	seed_lo = highlow32(GEMDOS_GetDate(),GEMDOS_GetTime()); // 16+16 zufällige Bits
