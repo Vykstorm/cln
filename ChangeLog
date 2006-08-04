@@ -1,3 +1,7 @@
+2006-08-04  Sheplyakov Alexei  <varg@theor.jinr.ru>
+
+	* configure.ac: Disable shared lib on MinGW.
+
 2006-08-03  Sheplyakov Alexei  <varg@theor.jinr.ru>
 
 	* m4/param.m4: Add support for MinGW.

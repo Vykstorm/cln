@@ -69,6 +69,14 @@ dnl           check for build configuration
 dnl
 PACKAGE=cln
                       dnl libtool wants PACKAGE
+case $host_os in
+    *mingw*)
+     AC_DISABLE_SHARED
+  dnl Shared libraries are not supported on some platforms [yet]
+    ;;
+    *)
+    ;;
+esac
 AC_PROG_LIBTOOL
                       dnl sets variable LIBTOOL
 
