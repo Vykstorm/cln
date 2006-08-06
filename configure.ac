@@ -75,6 +75,7 @@ case $host_os in
   dnl Shared libraries are not supported on some platforms [yet]
     ;;
     *)
+     AC_ENABLE_SHARED
     ;;
 esac
 AC_PROG_LIBTOOL

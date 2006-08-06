@@ -1,3 +1,7 @@
+2006-08-06  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* configure.ac: Re-enable shared lib on non-MinGW platforms, sigh.
+
 2006-08-04  Sheplyakov Alexei  <varg@theor.jinr.ru>
 
 	* configure.ac: Disable shared lib on MinGW.
