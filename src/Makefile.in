@@ -27,15 +27,15 @@ CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
-INCLUDES = -I../include -I$(top_srcdir)/include
-override CPPFLAGS += $(INCLUDES)
+INCLUDES = -I../include -I${top_srcdir}/include
+override CPPFLAGS += ${INCLUDES}
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
-LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
-LIBTOOL_LINK = $(LIBTOOL) --mode=link
-LIBTOOL_INSTALL = $(LIBTOOL) --mode=install
-LIBTOOL_UNINSTALL = $(LIBTOOL) --mode=uninstall
+LIBTOOL_COMPILE = ${LIBTOOL} --mode=compile
+LIBTOOL_LINK = ${LIBTOOL} --mode=link
+LIBTOOL_INSTALL = ${LIBTOOL} --mode=install
+LIBTOOL_UNINSTALL = ${LIBTOOL} --mode=uninstall
 AR = ar
 AR_FLAGS = rc
 RANLIB = @RANLIB@
@@ -58,7 +58,7 @@ INSTALL_DATA = @INSTALL_DATA@
 
 SHELL = /bin/sh
 
-# Needed by $(LIBTOOL).
+# Needed by ${LIBTOOL}.
 top_builddir = ..
 
 # When this Makefile is called with SUBDIR=some_subdirectory, it builds
@@ -67,62 +67,62 @@ top_builddir = ..
 SUBDIR = .
 
 # Define the search path for sources.
-# The variable $(aux_srcdir) is needed because new versions of aufoconf tend to
-# remove $(srcdir), ${srcdir} and so on...
+# The variable ${aux_srcdir} is needed because new versions of aufoconf tend to
+# remove ${srcdir}, ${srcdir} and so on...
 aux_srcdir = @srcdir@
-VPATH = $(aux_srcdir)/$(SUBDIR)
+VPATH = ${aux_srcdir}/${SUBDIR}
 
 # Add subdirectory specific flags.
-include $(srcdir)/$(SUBDIR)/Makeflags
-override CPPFLAGS += $(SUBDIR_INCLUDES)
+include ${srcdir}/${SUBDIR}/Makeflags
+override CPPFLAGS += ${SUBDIR_INCLUDES}
 
 # Need to know the system name.
 SYSTEM := $(shell uname -s)
 
-FILES_CC := $(notdir $(wildcard $(srcdir)/$(SUBDIR)/*.cc))
-FILES_CC := $(filter-out %.i.cc, $(FILES_CC))
-ASMFILES_CC := $(patsubst cl_asm_@host_cpu@_%.cc,cl_asm_%.cc, $(filter cl_asm_@host_cpu@_%.cc, $(FILES_CC)))
-FILES_CC := $(filter-out cl_asm_%.cc, $(FILES_CC))
+FILES_CC := $(notdir $(wildcard ${srcdir}/${SUBDIR}/*.cc))
+FILES_CC := $(filter-out %.i.cc, ${FILES_CC})
+ASMFILES_CC := $(patsubst cl_asm_@host_cpu@_%.cc,cl_asm_%.cc, $(filter cl_asm_@host_cpu@_%.cc, ${FILES_CC}))
+FILES_CC := $(filter-out cl_asm_%.cc, ${FILES_CC})
 
-FILES_I_CC := $(patsubst %.cc,%.i.cc,$(FILES_CC))
+FILES_I_CC := $(patsubst %.cc,%.i.cc,${FILES_CC})
 
-FILES_S := $(patsubst %.cc,%.s,$(FILES_CC))
+FILES_S := $(patsubst %.cc,%.s,${FILES_CC})
 
-FILES_LO := $(patsubst %.cc,%.lo,$(FILES_CC))
+FILES_LO := $(patsubst %.cc,%.lo,${FILES_CC})
 
-ASMFILES_S := $(patsubst %.cc,%.s,$(ASMFILES_CC))
+ASMFILES_S := $(patsubst %.cc,%.s,${ASMFILES_CC})
 
-ASMFILES_LO := $(patsubst %.cc,%.lo,$(ASMFILES_CC))
+ASMFILES_LO := $(patsubst %.cc,%.lo,${ASMFILES_CC})
 
-OBJECTS_LO = $(FILES_LO) $(ASMFILES_LO)
+OBJECTS_LO = ${FILES_LO} ${ASMFILES_LO}
 
-SUBDIRS := $(patsubst $(srcdir)/%/.,%,$(wildcard $(srcdir)/$(SUBDIR)/*/.))
+SUBDIRS := $(patsubst ${srcdir}/%/.,%,$(wildcard ${srcdir}/${SUBDIR}/*/.))
 # Avoid certain subdirectories:
 #   private/ and old/ don't contain valid sources,
 #   CVS/, RCS/ and SCCS/ are created when people put the sources under version control,
 #   ii_files/ is created during "make" by SGI C++.
-SUBDIRS := $(filter-out old ./old private ./private CVS %/CVS RCS %/RCS SCCS %/SCCS ii_files ./ii_files,$(SUBDIRS))
+SUBDIRS := $(filter-out old ./old private ./private CVS %/CVS RCS %/RCS SCCS %/SCCS ii_files ./ii_files,${SUBDIRS})
 
-SUBDIRS_TARGET := $(patsubst %,%.target,$(SUBDIRS))
-SUBDIRS_DIRDEP := $(patsubst %,%.dirdep,$(SUBDIRS))
+SUBDIRS_TARGET := $(patsubst %,%.target,${SUBDIRS})
+SUBDIRS_DIRDEP := $(patsubst %,%.dirdep,${SUBDIRS})
 
-ifeq ($(SUBDIR),.)
-ALLFILES_CC := $(notdir $(wildcard $(srcdir)/*.cc) $(foreach subdir,$(SUBDIRS), $(wildcard $(srcdir)/$(subdir)/*.cc) $(wildcard $(srcdir)/$(subdir)/*/*.cc) $(wildcard $(srcdir)/$(subdir)/*/*/*.cc)))
-ALLFILES_CC := $(filter-out %.i.cc, $(ALLFILES_CC))
-ALLASMFILES_CC := $(patsubst cl_asm_@host_cpu@_%.cc,cl_asm_%.cc, $(filter cl_asm_@host_cpu@_%.cc, $(ALLFILES_CC)))
-ALLFILES_CC := $(filter-out cl_asm_%.cc, $(ALLFILES_CC))
-ALLFILES_LO := $(patsubst %.cc,%.lo,$(ALLFILES_CC))
-ALLASMFILES_LO := $(patsubst %.cc,%.lo,$(ALLASMFILES_CC))
-ALLOBJECTS_LO = $(ALLFILES_LO) $(ALLASMFILES_LO)
+ifeq (${SUBDIR},.)
+ALLFILES_CC := $(notdir $(wildcard ${srcdir}/*.cc) $(foreach subdir,${SUBDIRS}, $(wildcard ${srcdir}/${subdir}/*.cc) $(wildcard ${srcdir}/${subdir}/*/*.cc) $(wildcard ${srcdir}/${subdir}/*/*/*.cc)))
+ALLFILES_CC := $(filter-out %.i.cc, ${ALLFILES_CC})
+ALLASMFILES_CC := $(patsubst cl_asm_@host_cpu@_%.cc,cl_asm_%.cc, $(filter cl_asm_@host_cpu@_%.cc, ${ALLFILES_CC}))
+ALLFILES_CC := $(filter-out cl_asm_%.cc, ${ALLFILES_CC})
+ALLFILES_LO := $(patsubst %.cc,%.lo,${ALLFILES_CC})
+ALLASMFILES_LO := $(patsubst %.cc,%.lo,${ALLASMFILES_CC})
+ALLOBJECTS_LO = ${ALLFILES_LO} ${ALLASMFILES_LO}
 
-all : $(OBJECTS_LO) $(SUBDIRS_TARGET) libcln.la
+all : ${OBJECTS_LO} ${SUBDIRS_TARGET} libcln.la
 else
-all : $(OBJECTS_LO) $(SUBDIRS_TARGET)
+all : ${OBJECTS_LO} ${SUBDIRS_TARGET}
 endif
 
-alls : $(FILES_S) $(ASMFILES_S)
+alls : ${FILES_S} ${ASMFILES_S}
 
-allo : $(FILES_LO) $(ASMFILES_LO)
+allo : ${FILES_LO} ${ASMFILES_LO}
 
 ASMFLAGS := @ASMFLAGS@
 ifeq (@AS_UNDERSCORE@,true)
@@ -132,107 +132,107 @@ endif
 # Rules for normal compilation.
 
 %.lo : %.c
-	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $<
+	${LIBTOOL_COMPILE} ${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -c $<
 
 %.lo : %.cc
-	$(LIBTOOL_COMPILE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $<
+	${LIBTOOL_COMPILE} ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -c $<
 
 # Rules for normal compilation, only needed for debugging.
 
 %.s : %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+	${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -S $< -o $@
 
 %.s : %.cc
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+	${CXX} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -S $< -o $@
 
 # Rules for preprocessing.
 
 %.i : %.c
-	$(CPP) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+	${CPP} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} $< > $@
 
 %.i.cc : %.cc
-	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} $< > $@
 
 # Rules for assembly language files,
 
-ifneq ($(ASMFILES_LO),)
+ifneq (${ASMFILES_LO},)
 
 ifneq ($(filter @host_cpu@,sparc sparc64),)
-$(ASMFILES_S) : %.s : %.cc
-	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $(ASMFLAGS) $< | grep -v '^#' | grep -v '^ *#line' | sed -e 's/\([.%]\) /\1/g' -e 's/ , /,/g' -e 's/ :/:/g' -e 's/\$$/#/g' > $@
+${ASMFILES_S} : %.s : %.cc
+	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} ${ASMFLAGS} $< | grep -v '^#' | grep -v '^ *#line' | sed -e 's/\([.%]\) /\1/g' -e 's/ , /,/g' -e 's/ :/:/g' -e 's/\$$/#/g' > $@
 else
 ifeq (@host_cpu@,m68k)
-$(ASMFILES_S) : %.s : %.cc
+${ASMFILES_S} : %.s : %.cc
 ifeq (@AS_UNDERSCORE@,true)
-	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< | sed -e 's/\\#/#/g' -e 's/\$$//g' > $@
+	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -P ${ASMFLAGS} $< | sed -e 's/\\#/#/g' -e 's/\$$//g' > $@
 else
-	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< | sed -e 's/\\#/#/g' -e 's/\$$/%/g' > $@
+	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -P ${ASMFLAGS} $< | sed -e 's/\\#/#/g' -e 's/\$$/%/g' > $@
 endif
 else
 ifeq (@host_cpu@,hppa)
-$(ASMFILES_S) : %.s : %.cc
-	-$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< > $@
+${ASMFILES_S} : %.s : %.cc
+	-${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -P ${ASMFLAGS} $< > $@
 else
-$(ASMFILES_S) : %.s : %.cc
-	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -P $(ASMFLAGS) $< > $@
+${ASMFILES_S} : %.s : %.cc
+	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -P ${ASMFLAGS} $< > $@
 endif
 endif
 endif
 
 ifeq (@host_cpu@,hppa)
 # Only the native as groks the .SHORTDATA statements
-$(ASMFILES_LO) : %.lo : %.s
-	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $< \
-	|| COMPILER_PATH=/usr/ccs/bin $(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $< \
-	|| COMPILER_PATH=/bin $(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(TARGET_ARCH) -c $<
+${ASMFILES_LO} : %.lo : %.s
+	${LIBTOOL_COMPILE} ${CC} ${CFLAGS} ${TARGET_ARCH} -c $< \
+	|| COMPILER_PATH=/usr/ccs/bin ${LIBTOOL_COMPILE} ${CC} ${CFLAGS} ${TARGET_ARCH} -c $< \
+	|| COMPILER_PATH=/bin ${LIBTOOL_COMPILE} ${CC} ${CFLAGS} ${TARGET_ARCH} -c $<
 else
-$(ASMFILES_LO) : %.lo : %.s
-	$(LIBTOOL_COMPILE) $(CC) $(CFLAGS) $(ASMFLAGS) $(TARGET_ARCH) -c $<
+${ASMFILES_LO} : %.lo : %.s
+	${LIBTOOL_COMPILE} ${CC} ${CFLAGS} ${ASMFLAGS} ${TARGET_ARCH} -c $<
 endif
 
 endif
 
 
 # Recurse into subdirectories
-$(SUBDIRS_TARGET) : %.target : %.dirdep
-	$(MAKE) SUBDIR=$*
+${SUBDIRS_TARGET} : %.target : %.dirdep
+	${MAKE} SUBDIR=$*
 
-$(SUBDIRS_DIRDEP) : %.dirdep :
+${SUBDIRS_DIRDEP} : %.dirdep :
 
 
-ifeq ($(SUBDIR),.)
+ifeq (${SUBDIR},.)
 
-$(ALLOBJECTS_LO) : $(SUBDIRS_TARGET)
+${ALLOBJECTS_LO} : ${SUBDIRS_TARGET}
 
-libcln.la : $(LIBTOOL) $(ALLOBJECTS_LO)
-	echo $(ALLOBJECTS_LO) | tr ' ' '\n' > libcln.objectlist
-	$(LIBTOOL_LINK) $(CXX) -o libcln.la -rpath $(libdir) -version-info $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) $(LDFLAGS) $(LIBS) -objectlist libcln.objectlist
+libcln.la : ${LIBTOOL} ${ALLOBJECTS_LO}
+	echo ${ALLOBJECTS_LO} | tr ' ' '\n' > libcln.objectlist
+	${LIBTOOL_LINK} ${CXX} -o libcln.la -rpath ${libdir} -version-info ${CL_CURRENT}:${CL_REVISION}:${CL_AGE} ${LDFLAGS} ${LIBS} -objectlist libcln.objectlist
 
 install : all force
-	$(MKDIR) $(DESTDIR)$(libdir)
-	$(LIBTOOL_INSTALL) $(INSTALL_PROGRAM) libcln.la $(DESTDIR)$(libdir)/libcln.la
-	$(MKDIR) $(DESTDIR)$(includedir)/cln
-	$(INSTALL_DATA) $(top_srcdir)/include/cln/*.h $(DESTDIR)$(includedir)/cln
-	$(INSTALL_DATA) ../include/cln/*.h $(DESTDIR)$(includedir)/cln
+	${MKDIR} ${DESTDIR}${libdir}
+	${LIBTOOL_INSTALL} ${INSTALL_PROGRAM} libcln.la ${DESTDIR}${libdir}/libcln.la
+	${MKDIR} ${DESTDIR}${includedir}/cln
+	${INSTALL_DATA} ${top_srcdir}/include/cln/*.h ${DESTDIR}${includedir}/cln
+	${INSTALL_DATA} ../include/cln/*.h ${DESTDIR}${includedir}/cln
 
 installdirs : force
-	$(MKDIR) $(DESTDIR)$(libdir)
-	$(MKDIR) $(DESTDIR)$(includedir)/cln
+	${MKDIR} ${DESTDIR}${libdir}
+	${MKDIR} ${DESTDIR}${includedir}/cln
 
 uninstall : force
-	$(LIBTOOL_UNINSTALL) $(RM) $(DESTDIR)$(libdir)/libcln.la
-	$(RM) -r $(DESTDIR)$(includedir)/cln
+	${LIBTOOL_UNINSTALL} ${RM} ${DESTDIR}${libdir}/libcln.la
+	${RM} -r ${DESTDIR}${includedir}/cln
 
 check : all
 
 mostlyclean : clean
 
 clean : force
-	$(RM) *.s *.o *.lo *.a *.la *.objectlist core
-	$(RM) -r .libs _libs
+	${RM} *.s *.o *.lo *.a *.la *.objectlist core
+	${RM} -r .libs _libs
 
 distclean : clean
-	$(RM) config.status config.log config.cache Makefile
+	${RM} config.status config.log config.cache Makefile
 
 maintainer-clean : distclean
 

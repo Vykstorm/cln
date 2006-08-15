@@ -13,8 +13,8 @@ datarootdir = @datarootdir@
 datadir = @datadir@
 infodir = @infodir@
 mandir = @mandir@
-htmldir = $(datadir)/html
-dvidir = $(datadir)/dvi
+htmldir = ${datadir}/html
+dvidir = ${datadir}/dvi
 DESTDIR =
 
 # Programs used by "make":
@@ -41,84 +41,84 @@ PACKAGE = cln
 
 SHELL = /bin/sh
 
-VPATH = $(srcdir)
+VPATH = ${srcdir}
 
 all : info dvi ps html
 
 
-info : $(srcdir)/$(PACKAGE).info
+info : ${srcdir}/${PACKAGE}.info
 
-$(srcdir)/$(PACKAGE).info : $(srcdir)/$(PACKAGE).texi
-	cd $(srcdir) && $(MAKEINFO) --no-split $(PACKAGE).texi
+${srcdir}/${PACKAGE}.info : ${srcdir}/${PACKAGE}.texi
+	cd ${srcdir} && ${MAKEINFO} --no-split ${PACKAGE}.texi
 
-$(srcdir)/$(PACKAGE).texi : $(srcdir)/$(PACKAGE).tex
+${srcdir}/${PACKAGE}.texi : ${srcdir}/${PACKAGE}.tex
 	cp $< $@
-	$(EMACS) -batch $@ -load addnodes.el -f save-buffer
+	${EMACS} -batch $@ -load addnodes.el -f save-buffer
 	mv $@ $@~
 	sed -e 's,@detailmenu,,g' -e 's,@end detailmenu,,g' < $@~ > $@
-	$(RM) $@~
+	${RM} $@~
 
 
-dvi : $(srcdir)/$(PACKAGE).dvi
+dvi : ${srcdir}/${PACKAGE}.dvi
 
-$(srcdir)/$(PACKAGE).dvi : $(srcdir)/$(PACKAGE).texi
-	cd $(srcdir) && $(TEXI2DVI) $(PACKAGE).texi
-
-
-ps : $(srcdir)/$(PACKAGE).ps
-
-$(srcdir)/$(PACKAGE).ps : $(srcdir)/$(PACKAGE).dvi
-	$(DVIPS) -o $@ $<
+${srcdir}/${PACKAGE}.dvi : ${srcdir}/${PACKAGE}.texi
+	cd ${srcdir} && ${TEXI2DVI} ${PACKAGE}.texi
 
 
-html : $(PACKAGE).html $(PACKAGE)_toc.html
+ps : ${srcdir}/${PACKAGE}.ps
 
-$(PACKAGE).html : $(srcdir)/$(PACKAGE).texi
-	cd $(srcdir) && $(TEXI2HTML) -expandinfo -number -monolithic $(PACKAGE).texi
+${srcdir}/${PACKAGE}.ps : ${srcdir}/${PACKAGE}.dvi
+	${DVIPS} -o $@ $<
 
-$(PACKAGE)_toc.html : $(srcdir)/$(PACKAGE).texi
-	cd $(srcdir) && $(TEXI2HTML) -expandinfo -number -split_chapter $(PACKAGE).texi
+
+html : ${PACKAGE}.html ${PACKAGE}_toc.html
+
+${PACKAGE}.html : ${srcdir}/${PACKAGE}.texi
+	cd ${srcdir} && ${TEXI2HTML} -expandinfo -number -monolithic ${PACKAGE}.texi
+
+${PACKAGE}_toc.html : ${srcdir}/${PACKAGE}.texi
+	cd ${srcdir} && ${TEXI2HTML} -expandinfo -number -split_chapter ${PACKAGE}.texi
 
 
 install : all installdirs force
-	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).info $(DESTDIR)$(infodir)/$(PACKAGE).info
+	${INSTALL_DATA} ${srcdir}/${PACKAGE}.info ${DESTDIR}${infodir}/${PACKAGE}.info
 	@if (install-info --version && \
 	     install-info --version 2>&1 | sed 1q | fgrep -i -v debian) >/dev/null 2>&1; then \
-	  echo " install-info --info-dir=$(DESTDIR)$(infodir) $(DESTDIR)$(infodir)/$(PACKAGE).info";\
-	  install-info --info-dir=$(DESTDIR)$(infodir) $(DESTDIR)$(infodir)/$(PACKAGE).info || :;\
+	  echo " install-info --info-dir=${DESTDIR}${infodir} ${DESTDIR}${infodir}/${PACKAGE}.info";\
+	  install-info --info-dir=${DESTDIR}${infodir} ${DESTDIR}${infodir}/${PACKAGE}.info || :;\
 	else : ; fi
-	$(INSTALL_DATA) $(srcdir)/$(PACKAGE)_*.html $(DESTDIR)$(htmldir)
-	$(INSTALL_DATA) $(srcdir)/$(PACKAGE).dvi $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
+	${INSTALL_DATA} ${srcdir}/${PACKAGE}_*.html ${DESTDIR}${htmldir}
+	${INSTALL_DATA} ${srcdir}/${PACKAGE}.dvi ${DESTDIR}${dvidir}/${PACKAGE}.dvi
 
 installdirs : force
-	$(MKDIR) $(DESTDIR)$(datadir)
-	$(MKDIR) $(DESTDIR)$(infodir)
-	$(MKDIR) $(DESTDIR)$(htmldir)
-	$(MKDIR) $(DESTDIR)$(dvidir)
+	${MKDIR} ${DESTDIR}${datadir}
+	${MKDIR} ${DESTDIR}${infodir}
+	${MKDIR} ${DESTDIR}${htmldir}
+	${MKDIR} ${DESTDIR}${dvidir}
 
 uninstall : force
 	@if (install-info --version && \
 	     install-info --version 2>&1 | sed 1q | fgrep -i -v debian) >/dev/null 2>&1; then \
-	  echo " install-info --info-dir=$(DESTDIR)$(infodir) --remove $(DESTDIR)$(infodir)/$(PACKAGE).info"; \
-	  install-info --info-dir=$(DESTDIR)$(infodir) --remove $(DESTDIR)$(infodir)/$(PACKAGE).info; \
+	  echo " install-info --info-dir=${DESTDIR}${infodir} --remove ${DESTDIR}${infodir}/${PACKAGE}.info"; \
+	  install-info --info-dir=${DESTDIR}${infodir} --remove ${DESTDIR}${infodir}/${PACKAGE}.info; \
 	else :; fi
-	$(RM) $(DESTDIR)$(infodir)/$(PACKAGE).info
-	$(RM) $(DESTDIR)$(htmldir)/$(PACKAGE)_*.html
-	$(RM) $(DESTDIR)$(dvidir)/$(PACKAGE).dvi
+	${RM} ${DESTDIR}${infodir}/${PACKAGE}.info
+	${RM} ${DESTDIR}${htmldir}/${PACKAGE}_*.html
+	${RM} ${DESTDIR}${dvidir}/${PACKAGE}.dvi
 
 check : all
 
 mostlyclean : clean
 
 clean : force
-	$(RM) *~ *.aux *.toc *.cp *.fn *.ky *.pg *.tp *.vr *.my *.mys *.log core
+	${RM} *~ *.aux *.toc *.cp *.fn *.ky *.pg *.tp *.vr *.my *.mys *.log core
 
 distclean : clean
-	$(RM) Makefile
+	${RM} Makefile
 
 maintainer-clean : distclean
-	$(RM) *.info *.dvi *.ps *.html
-	if [ -f $(PACKAGE).tex ] ; then $(RM) $(PACKAGE).texi ; fi
+	${RM} *.info *.dvi *.ps *.html
+	if [ -f ${PACKAGE}.tex ] ; then ${RM} ${PACKAGE}.texi ; fi
 
 force :
 

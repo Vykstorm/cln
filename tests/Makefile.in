@@ -16,39 +16,40 @@ CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
-INCLUDES = -I../include -I$(top_srcdir)/include -I$(srcdir) -I$(top_srcdir)/src -I$(top_srcdir)/src/base -I$(top_srcdir)/src/float -I$(top_srcdir)/src/float/lfloat -I$(top_srcdir)/src/integer -I$(top_srcdir)/src/base/random -I$(top_srcdir)/src/base/digitseq -I$(top_srcdir)/src/base/digit -I../src/base -I$(top_srcdir)/src/base
-override CPPFLAGS += $(INCLUDES)
+INCLUDES = -I../include -I${top_srcdir}/include -I${srcdir} -I${top_srcdir}/src -I${top_srcdir}/src/base -I${top_srcdir}/src/float -I${top_srcdir}/src/float/lfloat -I${top_srcdir}/src/integer -I${top_srcdir}/src/base/random -I${top_srcdir}/src/base/digitseq -I${top_srcdir}/src/base/digit -I../src/base -I${top_srcdir}/src/base
+override CPPFLAGS += ${INCLUDES}
 LIBTOOL = @LIBTOOL@
-LIBTOOL_LINK = $(LIBTOOL) --mode=link
+LIBTOOL_LINK = ${LIBTOOL} --mode=link
 MV = mv
 LN = ln
 RM = rm -f
 @SET_MAKE@
+EXEEXT = @EXEEXT@
 
 #### End of system configuration section. ####
 
 SHELL = /bin/sh
 
-# Needed by $(LIBTOOL).
+# Needed by ${LIBTOOL}.
 top_builddir = ..
 
-VPATH = $(srcdir)
+VPATH = {(srcdir}
 
-FILES_CC := $(notdir $(wildcard $(srcdir)/*.cc))
-FILES_CC := $(filter-out %.i.cc, $(FILES_CC))
+FILES_CC := $(notdir $(wildcard ${srcdir}/*.cc))
+FILES_CC := $(filter-out %.i.cc, ${FILES_CC})
 
-FILES_I_CC := $(patsubst %.cc,%.i.cc,$(FILES_CC))
+FILES_I_CC := $(patsubst %.cc,%.i.cc,${FILES_CC})
 
-FILES_S := $(patsubst %.cc,%.s,$(FILES_CC))
+FILES_S := $(patsubst %.cc,%.s,${FILES_CC})
 
-FILES_O := $(patsubst %.cc,%.o,$(FILES_CC))
+FILES_O := $(patsubst %.cc,%.o,${FILES_CC})
 
-OBJECTS = $(FILES_O)
+OBJECTS = ${FILES_O}
 
 LIBS = ../src/libcln.la -lm
 LIBDEPS = ../src/libcln.la
 
-PROGRAMS = exam tests timemul timesquare timediv timesqrt timegcd timefact timeprint timeLFsqrt timeRAtoLF timeLFRAmul timeRALFdiv timepi timeexp1 timeeuler timecatalan timezeta3 timeLFln timeLFexp timeLFsin timeLFcos timeLFsinh timeLFcosh timeLFatan timeLFatanh timerecip2adic timediv2adic timeMIpow2recip timeMIpow2div timeMImisc5 timeUPMImul timesqrtmodp main
+PROGRAMS = $(addsuffix ${EXEEXT},exam tests timemul timesquare timediv timesqrt timegcd timefact timeprint timeLFsqrt timeRAtoLF timeLFRAmul timeRALFdiv timepi timeexp1 timeeuler timecatalan timezeta3 timeLFln timeLFexp timeLFsin timeLFcos timeLFsinh timeLFcosh timeLFatan timeLFatanh timerecip2adic timediv2adic timeMIpow2recip timeMIpow2div timeMImisc5 timeUPMImul timesqrtmodp main)
 MODULES_exam = exam exam_I exam_RA exam_SF exam_FF exam_DF exam_LF exam_I_gcd exam_I_sqrtp
 MODULES_tests = tests \
                 test_I \
@@ -94,74 +95,74 @@ MODULES_timeUPMImul = timeUPMImul
 MODULES_timesqrtmodp = timesqrtmodp
 MODULES_main = main
 
-all : exam tests
+all : exam${EXEEXT} tests${EXEEXT}
 
 %.s : %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+	${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -S $< -o $@
 
 %.s : %.cc
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -S $< -o $@
+	${CXX} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -S $< -o $@
 
 ifdef notyet
 
 %.o : %.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+	${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -c $< -o $@
 
 %.o : %.cc
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+	${CXX} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -c $< -o $@
 
 else
 
-$(FILES_O) : %.o : %.s
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+${FILES_O} : %.o : %.s
+	${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -c $< -o $@
 
 endif
 
 %.i : %.c
-	$(CPP) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+	${CPP} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} $< > $@
 
 %.i.cc : %.cc
-	$(CXXCPP) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) $< > $@
+	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} $< > $@
 
 ../src/libcln.a :
-	cd ../src ; $(MAKE) libcln.a
+	cd ../src ; ${MAKE} libcln.a
 
-exam : $(patsubst %,%.o,$(MODULES_exam))
-tests : $(patsubst %,%.o,$(MODULES_tests))
-timemul : $(patsubst %,%.o,$(MODULES_timemul))
-timesquare : $(patsubst %,%.o,$(MODULES_timesquare))
-timediv : $(patsubst %,%.o,$(MODULES_timediv))
-timesqrt : $(patsubst %,%.o,$(MODULES_timesqrt))
-timegcd : $(patsubst %,%.o,$(MODULES_timegcd))
-timefact : $(patsubst %,%.o,$(MODULES_timefact))
-timeprint : $(patsubst %,%.o,$(MODULES_timeprint))
-timeLFsqrt : $(patsubst %,%.o,$(MODULES_timeLFsqrt))
-timeRAtoLF : $(patsubst %,%.o,$(MODULES_timeRAtoLF))
-timeLFRAmul : $(patsubst %,%.o,$(MODULES_timeLFRAmul))
-timeRALFdiv : $(patsubst %,%.o,$(MODULES_timeRALFdiv))
-timepi : $(patsubst %,%.o,$(MODULES_timepi))
-timeexp1 : $(patsubst %,%.o,$(MODULES_timeexp1))
-timeeuler : $(patsubst %,%.o,$(MODULES_timeeuler))
-timecatalan : $(patsubst %,%.o,$(MODULES_timecatalan))
-timezeta3 : $(patsubst %,%.o,$(MODULES_timezeta3))
-timeLFln : $(patsubst %,%.o,$(MODULES_timeLFln))
-timeLFexp : $(patsubst %,%.o,$(MODULES_timeLFexp))
-timeLFsin : $(patsubst %,%.o,$(MODULES_timeLFsin))
-timeLFcos : $(patsubst %,%.o,$(MODULES_timeLFcos))
-timeLFsinh : $(patsubst %,%.o,$(MODULES_timeLFsinh))
-timeLFcosh : $(patsubst %,%.o,$(MODULES_timeLFcosh))
-timeLFatan : $(patsubst %,%.o,$(MODULES_timeLFatan))
-timeLFatanh : $(patsubst %,%.o,$(MODULES_timeLFatanh))
-timerecip2adic : $(patsubst %,%.o,$(MODULES_timerecip2adic))
-timediv2adic : $(patsubst %,%.o,$(MODULES_timediv2adic))
-timeMIpow2recip : $(patsubst %,%.o,$(MODULES_timeMIpow2recip))
-timeMIpow2div : $(patsubst %,%.o,$(MODULES_timeMIpow2div))
-timeMImisc5 : $(patsubst %,%.o,$(MODULES_timeMImisc5))
-timeUPMImul : $(patsubst %,%.o,$(MODULES_timeUPMImul))
-timesqrtmodp : $(patsubst %,%.o,$(MODULES_timesqrtmodp))
-main : $(patsubst %,%.o,$(MODULES_main))
-$(PROGRAMS) : % : $(LIBDEPS)
-	$(LIBTOOL_LINK) $(CXX) $(CXXFLAGS) $(TARGET_ARCH) $(patsubst %,%.o,$(MODULES_$(*F))) $(LDFLAGS) $(LIBS) -o $@
+exam${EXEEXT} : $(patsubst %,%.o,$(MODULES_exam))
+tests${EXEEXT} : $(patsubst %,%.o,$(MODULES_tests))
+timemul${EXEEXT} : $(patsubst %,%.o,$(MODULES_timemul))
+timesquare${EXEEXT} : $(patsubst %,%.o,$(MODULES_timesquare))
+timediv${EXEEXT} : $(patsubst %,%.o,$(MODULES_timediv))
+timesqrt${EXEEXT} : $(patsubst %,%.o,$(MODULES_timesqrt))
+timegcd${EXEEXT} : $(patsubst %,%.o,$(MODULES_timegcd))
+timefact${EXEEXT} : $(patsubst %,%.o,$(MODULES_timefact))
+timeprint${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeprint))
+timeLFsqrt${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFsqrt))
+timeRAtoLF${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeRAtoLF))
+timeLFRAmul${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFRAmul))
+timeRALFdiv${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeRALFdiv))
+timepi${EXEEXT} : $(patsubst %,%.o,$(MODULES_timepi))
+timeexp1${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeexp1))
+timeeuler${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeeuler))
+timecatalan${EXEEXT} : $(patsubst %,%.o,$(MODULES_timecatalan))
+timezeta3${EXEEXT} : $(patsubst %,%.o,$(MODULES_timezeta3))
+timeLFln${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFln))
+timeLFexp${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFexp))
+timeLFsin${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFsin))
+timeLFcos${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFcos))
+timeLFsinh${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFsinh))
+timeLFcosh${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFcosh))
+timeLFatan${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFatan))
+timeLFatanh${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeLFatanh))
+timerecip2adic${EXEEXT} : $(patsubst %,%.o,$(MODULES_timerecip2adic))
+timediv2adic${EXEEXT} : $(patsubst %,%.o,$(MODULES_timediv2adic))
+timeMIpow2recip${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeMIpow2recip))
+timeMIpow2div${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeMIpow2div))
+timeMImisc5${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeMImisc5))
+timeUPMImul${EXEEXT} : $(patsubst %,%.o,$(MODULES_timeUPMImul))
+timesqrtmodp${EXEEXT} : $(patsubst %,%.o,$(MODULES_timesqrtmodp))
+main${EXEEXT} : $(patsubst %,%.o,$(MODULES_main))
+${PROGRAMS} : %${EXEEXT} : ${LIBDEPS}
+	${LIBTOOL_LINK} ${CXX} ${CXXFLAGS} ${TARGET_ARCH} $(patsubst %,%.o,$(MODULES_$(*F))) ${LDFLAGS} ${LIBS} -o $@
 
 
 install : all
@@ -171,17 +172,17 @@ installdirs :
 uninstall :
 
 check : all
-	./exam
-	./tests
+	./exam${EXEEXT}
+	./tests${EXEEXT}
 
 mostlyclean : clean
 
 clean : force
-	$(RM) *.s *.o *.a exam tests main a.out core
-	$(RM) -r .libs _libs
+	${RM} *.s *.o *.a exam tests main a.out core
+	${RM} -r .libs _libs
 
 distclean : clean
-	$(RM) config.status config.log config.cache Makefile
+	${RM} config.status config.log config.cache Makefile
 
 maintainer-clean : distclean
 
