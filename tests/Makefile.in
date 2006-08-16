@@ -178,7 +178,7 @@ check : all
 mostlyclean : clean
 
 clean : force
-	${RM} *.s *.o *.a exam tests main a.out core
+	${RM} *.s *.o *.a exam tests${EXEEXT} main a.out core
 	${RM} -r .libs _libs
 
 distclean : clean

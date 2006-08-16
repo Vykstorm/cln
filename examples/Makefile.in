@@ -51,7 +51,7 @@ OBJECTS = ${FILES_O}
 LIBS = ../src/libcln.la -lm
 LIBDEPS = ../src/libcln.la
 
-PROGRAMS = contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi
+PROGRAMS = $(addsuffx ${EXEEXT},contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi)
 MODULES_contfrac = contfrac
 MODULES_e = e
 MODULES_fibonacci = fibonacci
