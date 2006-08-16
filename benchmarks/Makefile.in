@@ -48,7 +48,7 @@ OBJECTS = ${FILES_O}
 LIBS = ../src/libcln.la -lm
 LIBDEPS = ../src/libcln.la
 
-PROGRAMS = timebench1 timebench2a timebench2ap timebench2b
+PROGRAMS = $(addsuffix ${EXEEXT},timebench1 timebench2a timebench2ap timebench2b)
 MODULES_timebench1 = timebench1
 MODULES_timebench2a = timebench2a
 MODULES_timebench2ap = timebench2ap
