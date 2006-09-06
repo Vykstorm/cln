@@ -27,6 +27,7 @@ MV = mv
 LN = ln
 RM = rm -f
 @SET_MAKE@
+EXEEXT = @EXEEXT@
 
 #### End of system configuration section. ####
 
@@ -61,7 +62,7 @@ MODULES_nextprime = nextprime
 MODULES_perfnum = perfnum
 MODULES_pi = pi
 
-all : contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi
+all : $(addsuffix ${EXEEXT}, contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi)
 
 %.s : %.c
 	${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -S $< -o $@
@@ -81,15 +82,15 @@ all : contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi
 %.i.cc : %.cc
 	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} $< > $@
 
-contfrac : $(patsubst %,%.o,${MODULES_contfrac})
-e : $(patsubst %,%.o,${MODULES_e})
-fibonacci : $(patsubst %,%.o,${MODULES_fibonacci})
-legendre : $(patsubst %,%.o,${MODULES_legendre})
-lucaslehmer : $(patsubst %,%.o,${MODULES_lucaslehmer})
-nextprime : $(patsubst %,%.o,${MODULES_nextprime})
-perfnum : $(patsubst %,%.o,${MODULES_perfnum})
-pi : $(patsubst %,%.o,${MODULES_pi})
-${PROGRAMS} : % : ${LIBDEPS}
+contfrac${EXEEXT} : $(patsubst %,%.o,${MODULES_contfrac})
+e${EXEEXT} : $(patsubst %,%.o,${MODULES_e})
+fibonacci${EXEEXT} : $(patsubst %,%.o,${MODULES_fibonacci})
+legendre${EXEEXT} : $(patsubst %,%.o,${MODULES_legendre})
+lucaslehmer${EXEEXT} : $(patsubst %,%.o,${MODULES_lucaslehmer})
+nextprime${EXEEXT} : $(patsubst %,%.o,${MODULES_nextprime})
+perfnum${EXEEXT} : $(patsubst %,%.o,${MODULES_perfnum})
+pi${EXEEXT} : $(patsubst %,%.o,${MODULES_pi})
+${PROGRAMS} : %${EXEEXT} : ${LIBDEPS}
 	${LIBTOOL_LINK} ${CXX} ${CXXFLAGS} ${TARGET_ARCH} $(patsubst %,%.o,$(MODULES_$(*F))) ${LDFLAGS} ${LIBS} -o $@
 
 

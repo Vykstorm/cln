@@ -24,6 +24,7 @@ MV = mv
 LN = ln
 RM = rm -f
 @SET_MAKE@
+EXEEXT = @EXEEXT@
 
 #### End of system configuration section. ####
 
@@ -83,11 +84,11 @@ endif
 %.i.cc : %.cc
 	${CXXCPP} ${CXXFLAGS} ${CPPFLAGS} ${TARGET_ARCH} $< > $@
 
-timebench1 : $(patsubst %,%.o,${MODULES_timebench1})
-timebench2a : $(patsubst %,%.o,${MODULES_timebench2a})
-timebench2ap : $(patsubst %,%.o,${MODULES_timebench2ap})
-timebench2b : $(patsubst %,%.o,${MODULES_timebench2b})
-${PROGRAMS} : % : ${LIBDEPS}
+timebench1${EXEEXT} : $(patsubst %,%.o,${MODULES_timebench1})
+timebench2a${EXEEXT} : $(patsubst %,%.o,${MODULES_timebench2a})
+timebench2ap${EXEEXT} : $(patsubst %,%.o,${MODULES_timebench2ap})
+timebench2b${EXEEXT} : $(patsubst %,%.o,${MODULES_timebench2b})
+${PROGRAMS} : %${EXEEXT} : ${LIBDEPS}
 	${LIBTOOL_LINK} ${CXX} ${CXXFLAGS} ${TARGET_ARCH} $(patsubst %,%.o,$(MODULES_$(*F))) ${LDFLAGS} ${LIBS} -o $@
 
 
