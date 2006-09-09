@@ -644,11 +644,11 @@ are provided for the classes @code{cl_I}, @code{cl_RA}, @code{cl_R},
 Conversions from the C built-in types @samp{int} and @samp{unsigned int}
 are provided for the classes @code{cl_I}, @code{cl_RA}, @code{cl_R},
 @code{cl_N} and @code{cl_number}. However, these conversions emphasize
-efficiency. Their range is therefore limited:
+efficiency. On 32-bit systems, their range is therefore limited:
 
 @itemize @minus
 @item
-The conversion from @samp{int} works only if the argument is < 2^29 and > -2^29.
+The conversion from @samp{int} works only if the argument is < 2^29 and >= -2^29.
 @item
 The conversion from @samp{unsigned int} works only if the argument is < 2^29.
 @end itemize
@@ -656,11 +656,13 @@ The conversion from @samp{unsigned int} works only if the argument is < 2^29.
 In a declaration like @samp{cl_I x = 10;} the C++ compiler is able to
 do the conversion of @code{10} from @samp{int} to @samp{cl_I} at compile time
 already. On the other hand, code like @samp{cl_I x = 1000000000;} is
-in error.
+in error on 32-bit machines.
 So, if you want to be sure that an @samp{int} whose magnitude is not guaranteed
 to be < 2^29 is correctly converted to a @samp{cl_I}, first convert it to a
 @samp{long}. Similarly, if a large @samp{unsigned int} is to be converted to a
-@samp{cl_I}, first convert it to an @samp{unsigned long}.
+@samp{cl_I}, first convert it to an @samp{unsigned long}. On 64-bit machines
+there is no such restriction. There, conversions from arbitrary 32-bit @samp{int}
+values always works correctly.
 
 Conversions from the C built-in type @samp{float} are provided for the classes
 @code{cl_FF}, @code{cl_F}, @code{cl_R}, @code{cl_N} and @code{cl_number}.
@@ -3265,7 +3267,7 @@ object is gone.
 @item
 @cindex immediate numbers
 Small integers are represented as immediate values instead of pointers
-to heap allocated storage. This means that integers @code{> -2^29},
+to heap allocated storage. This means that integers @code{>= -2^29},
 @code{< 2^29} don't consume heap memory, unless they were explicitly allocated
 on the heap.
 @end itemize
