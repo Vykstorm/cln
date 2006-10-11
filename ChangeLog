@@ -1,3 +1,7 @@
+2006-10-11  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* tests/Makefile.in (VPATH): Fix syntax error.
+
 2006-09-14  Richard B. Kreckel  <kreckel@ginac.de>
 	
 	* examples/perfnum.cc: update to presumed 44th Mersenne prime.

@@ -33,7 +33,7 @@ SHELL = /bin/sh
 # Needed by ${LIBTOOL}.
 top_builddir = ..
 
-VPATH = {(srcdir}
+VPATH = ${srcdir}
 
 FILES_CC := $(notdir $(wildcard ${srcdir}/*.cc))
 FILES_CC := $(filter-out %.i.cc, ${FILES_CC})
