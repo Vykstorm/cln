@@ -47,6 +47,10 @@ namespace cln {
 #define D4(byte0,byte1,byte2,byte3)  (((uintD)(byte0)<<24)|((uintD)(byte1)<<16)|((uintD)(byte2)<<8)|((uintD)(byte3)))
 #define D8(byte0,byte1,byte2,byte3,byte4,byte5,byte6,byte7)  (((uintD)(byte0)<<56)|((uintD)(byte1)<<48)|((uintD)(byte2)<<40)|((uintD)(byte3)<<32)|((uintD)(byte4)<<24)|((uintD)(byte5)<<16)|((uintD)(byte6)<<8)|((uintD)(byte7)))
 
+// i386-pc-solaris #defines DS.
+// Grr...
+#undef DS
+
 struct DS {
 	uintD* MSDptr;
 	uintC len;

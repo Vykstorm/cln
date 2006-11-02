@@ -1,3 +1,7 @@
+2006-11-02  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/base/digitseq/cl_DS.h: #undef DS, needed for i386-Solaris.
+
 2006-10-11  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* tests/Makefile.in (VPATH): Fix syntax error.
