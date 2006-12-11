@@ -24,7 +24,7 @@ const cl_I cl_LF_to_I (const cl_LF& x)
 // Methode:
 // Falls x=0.0, Ergebnis 0.
 // Sonst (ASH Vorzeichen*Mantisse (e-16n)).
-      var uintL uexp = TheLfloat(x)->expo;
+      var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return 0; } // x=0.0 -> Ergebnis 0
       // Mantisse zu einem Integer machen:
       CL_ALLOCA_STACK;

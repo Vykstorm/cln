@@ -1,3 +1,71 @@
+2006-12-11  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Extend the exponent range from 32 bits to 64 bits on selected platforms.
+	* include/cln/number.h: Add signatures for operations with long long.
+	* include/cln/complex_class.h: Likewise.
+	* include/cln/real_class.h: Likewise.
+	* include/cln/real.h: Likewise.
+	* include/cln/rational_class.h: Likewise.
+	* include/cln/rational.h: Likewise.
+	* include/cln/integer_class.h: Likewise.
+	* include/cln/integer.h: Likewise.
+	* include/cln/float.h: Likewise.
+	* include/cln/lfloat.h: Likewise.
+	* include/cln/types.h (sintE and uintE): New types for exponents.
+	* include/cln/*float.h: Use the new types for exponents.
+	* include/cln/floatformat.h (float_format_t): Make underlying type
+	compatible with sintE.
+	* doc/cln.tex: Document changed float_exponent return value.
+	* src/float/cl_F.h: Likewise.
+	* src/float/ffloat/misc/cl_FF_exponent.cc: Likewise.
+	* src/float/input/cl_F_read.cc: Likewise.
+	* src/float/lfloat/cl_LF.h: Likewise.
+	* src/float/lfloat/cl_LF_impl.h: Likewise.
+	* src/float/lfloat/algebraic/cl_LF_sqrt.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_1plus.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_I_div.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_I_mul.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_compare.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_div.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_from_I.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_fround.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_ftrunc.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_futrunc.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_mul.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_scale.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_scale_I.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_square.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_to_I.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_decode.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_exponent.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_idecode.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_shortenrel.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_shortenwith.cc: Likewise.
+	* src/float/misc/cl_F_decode.cc: Likewise.
+	* src/float/misc/cl_F_exponent.cc: Likewise.
+	* src/float/misc/cl_F_shortenrel.cc: Likewise.
+	* src/float/misc/cl_float_format.cc: Likewise.
+	* src/float/output/cl_F_dprint.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_exponent.cc: Likewise.
+	* src/float/transcendental/cl_F_atanhx.cc: Likewise.
+	* src/float/transcendental/cl_F_atanx.cc: Likewise.
+	* src/float/transcendental/cl_F_cosh.cc: Likewise.
+	* src/float/transcendental/cl_F_expx.cc: Likewise.
+	* src/float/transcendental/cl_F_lnx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinhx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinx.cc: Likewise.
+	* src/float/transcendental/cl_LF_pi.cc: Likewise.
+	* src/integer/cl_I.h: Likewise.
+	* src/complex/algebraic/cl_LF_hypot.cc: Likewise.
+	* src/complex/elem/division/cl_C_LF_recip.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_exponent.cc: Likewise.
+	* src/integer/conv/cl_I_from_Q2.cc: Added.
+	* src/base/cl_low.h (isqrtC): New function, for 64 bit falls back to...
+	* src/base/low/cl_low_isqrt.cc (isqrt): ...this new implementation.
+	* src/base/cl_macros.h (bitc): Make sure 64 bit is used if required by
+	exponent operations.
+	* examples/pi.cc: Support more than 646456614 decimal digits.
+
 2006-11-02  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/digitseq/cl_DS.h: #undef DS, needed for i386-Solaris.

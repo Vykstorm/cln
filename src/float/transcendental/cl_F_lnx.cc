@@ -49,7 +49,7 @@ const cl_LF lnx_naive (const cl_LF& x)
 		return y;
 	var uintL actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(y);
+	var sintE e = float_exponent(y);
 	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_LF,x);
@@ -60,7 +60,7 @@ const cl_LF lnx_naive (const cl_LF& x)
 	//       f¸r ln(1+y), naive2: limit_slope = 11/16 = 0.7,
 	//       f¸r atanh(z), naive1: limit_slope = 0.6,
 	//       f¸r atanh(z), naive1: limit_slope = 0.5.
-	var sintL e_limit = -1-floor(isqrt(d),2); // -1-floor(sqrt(d))
+	var sintL e_limit = -1-floor(isqrtC(d),2); // -1-floor(sqrt(d))
 	while (e > e_limit) {
 		// e > -1-floor(sqrt(d)) -> muﬂ |y| verkleinern.
 		x = sqrt(x); // x := (sqrt x)
@@ -147,13 +147,13 @@ const cl_F lnx_naive (const cl_F& x)
 	if (zerop(y)) // y=0.0 -> y als Ergebnis
 		return y;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(y);
+	var sintE e = float_exponent(y);
 	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_F,x);
 	var uintL k = 0; // Rekursionsz‰hler k:=0
 	// Bei e <= -1-floor(sqrt(d)) kann die Potenzreihe angewandt werden.
-	var sintL e_limit = -1-isqrt(d); // -1-floor(sqrt(d))
+	var sintL e_limit = -1-isqrtC(d); // -1-floor(sqrt(d))
 	while (e > e_limit) {
 		// e > -1-floor(sqrt(d)) -> muﬂ |y| verkleinern.
 		x = sqrt(x); // x := (sqrt x)

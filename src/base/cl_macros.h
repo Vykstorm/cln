@@ -152,7 +152,7 @@ namespace cln {
 
 // Return 2^n, n a constant expression.
 // Same as bit(n), but undefined if n<0 or n>={long_}long_bitsize.
-  #ifdef HAVE_FAST_LONGLONG
+  #if defined(HAVE_FAST_LONGLONG) || defined(intQsize)
     #define bitc(n)  (1ULL << (((n) >= 0 && (n) < long_long_bitsize) ? (n) : 0))
   #else
     #define bitc(n)  (1UL << (((n) >= 0 && (n) < long_bitsize) ? (n) : 0))

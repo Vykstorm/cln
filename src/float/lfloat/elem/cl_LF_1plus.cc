@@ -35,15 +35,15 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
 // Normalisiere, fertig.
       var cl_LF x1 = arg1;
       var cl_LF x2 = arg2;
-      var uintL uexp1 = TheLfloat(arg1)->expo;
-      var uintL uexp2 = TheLfloat(arg2)->expo;
+      var uintE uexp1 = TheLfloat(arg1)->expo;
+      var uintE uexp2 = TheLfloat(arg2)->expo;
       if (uexp1 < uexp2)
         // x1 und x2 vertauschen
-        { x1 = arg2; x2 = arg1; swap(uintL, uexp1,uexp2); }
+        { x1 = arg2; x2 = arg1; swap(uintE, uexp1,uexp2); }
       // uexp1 >= uexp2
       if (uexp2==0) { return x1; } // x2=0.0 -> x1 als Ergebnis
       var uintC len = TheLfloat(x1)->len; // Länge n von x1 und x2
-      var uintL expdiff = uexp1-uexp2; // e1-e2
+      var uintE expdiff = uexp1-uexp2; // e1-e2
       if ((expdiff == 0) && (TheLfloat(x1)->sign != TheLfloat(x2)->sign))
         // verschiedene Vorzeichen, aber gleicher Exponent
         { // Vorzeichen des Ergebnisses festlegen:
@@ -54,7 +54,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
           if (erg<0) // |x1| < |x2|
             // x1 und x2 vertauschen, expdiff bleibt =0
             { x1.pointer = arg2.pointer; x2.pointer = arg1.pointer;
-              swap(uintL, uexp1,uexp2);
+              swap(uintE, uexp1,uexp2);
             }
         }
       if (expdiff >= intDsize * len + 2) // e1-e2 >= 16n+2 ?
@@ -172,7 +172,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
                 rounding_bits = 0; // und keine weiteren Rundungsbits
                 // Exponenten um intDsize*k erniedrigen:
                 k = intDsize*k;
-               {var uintL uexp = TheLfloat(y)->expo;
+               {var uintE uexp = TheLfloat(y)->expo;
                 #if !(LF_exp_low==1)
                 if (uexp < k+LF_exp_low)
                 #else
@@ -205,7 +205,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
                     rounding_bits = 0; // = rounding_bits << s;
                   }
                 // Exponenten um s erniedrigen:
-               {var uintL uexp = TheLfloat(y)->expo;
+               {var uintE uexp = TheLfloat(y)->expo;
                 #if !(LF_exp_low==1)
                 if (uexp < s+LF_exp_low)
                 #else

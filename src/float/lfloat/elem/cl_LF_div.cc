@@ -41,9 +41,9 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
       var uintC len1 = TheLfloat(x1)->len;
       var uintC len2 = TheLfloat(x2)->len;
       var uintC len = (len1 < len2 ? len1 : len2); // min. Länge n von x1 und x2
-      var uintL uexp2 = TheLfloat(x2)->expo;
+      var uintE uexp2 = TheLfloat(x2)->expo;
       if (uexp2==0) { cl_error_division_by_0(); } // x2=0.0 -> Error
-      var uintL uexp1 = TheLfloat(x1)->expo;
+      var uintE uexp1 = TheLfloat(x1)->expo;
       if (uexp1==0) // x1=0.0 -> Ergebnis 0.0
         { if (len < len1) return shorten(x1,len); else return x1; }
       // Exponenten subtrahieren:
@@ -55,7 +55,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
         }
         else
         { uexp1 = uexp1 - uexp2; // Carry
-          if (uexp1 < (uintL)(LF_exp_low-1-LF_exp_mid))
+          if (uexp1 < (uintE)(LF_exp_low-1-LF_exp_mid))
             { if (underflow_allowed())
                 { cl_error_floating_point_underflow(); }
                 else

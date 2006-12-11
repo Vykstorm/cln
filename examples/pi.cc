@@ -23,7 +23,7 @@ usage (ostream &os)
 int
 main (int argc, char * argv[])
 {
-	int digits = 100;
+	long digits = 100;
 	if (argc > 1) {
 		if (argc == 2 && !strcmp(argv[1],"--help")) {
 			usage(cout);
@@ -46,7 +46,7 @@ main (int argc, char * argv[])
 			return 0;
 		}
 		if (argc == 2 && isdigit(argv[1][0])) {
-			digits = atoi(argv[1]);
+			digits = atol(argv[1]);
 		} else {
 			usage(cerr);
 			return 1;

@@ -14,7 +14,7 @@
 namespace cln {
 
 MAYBE_INLINE
-sintL float_exponent (const cl_DF& x)
+sintE float_exponent (const cl_DF& x)
 {
 	var uintL uexp = DF_uexp(TheDfloat(x)->dfloat_value_semhi);
 	if (uexp==0) { return 0; }

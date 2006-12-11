@@ -30,10 +30,10 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
       var uintC len1 = TheLfloat(x1)->len;
       var uintC len2 = TheLfloat(x2)->len;
       var uintC len = (len1 < len2 ? len1 : len2); // min. L�ge n von x1 und x2
-      var uintL uexp1 = TheLfloat(x1)->expo;
+      var uintE uexp1 = TheLfloat(x1)->expo;
       if (uexp1==0) // x1=0.0 -> Ergebnis 0.0
         { if (len < len1) return shorten(x1,len); else return x1; }
-      var uintL uexp2 = TheLfloat(x2)->expo;
+      var uintE uexp2 = TheLfloat(x2)->expo;
       if (uexp2==0) // x2=0.0 -> Ergebnis 0.0
         { if (len < len2) return shorten(x2,len); else return x2; }
       // Exponenten addieren:
@@ -49,7 +49,7 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
         }   }
         else
         // Carry
-        { if (uexp1 > (uintL)(LF_exp_mid+LF_exp_high+1)) { cl_error_floating_point_overflow(); } }
+        { if (uexp1 > (uintE)(LF_exp_mid+LF_exp_high+1)) { cl_error_floating_point_overflow(); } }
       uexp1 = uexp1 - LF_exp_mid;
       // Nun ist LF_exp_low <= uexp1 <= LF_exp_high+1.
       // neues Long-Float allozieren:

@@ -23,9 +23,9 @@ const cl_LF scale_float (const cl_LF& x, sintC delta)
   // delta muﬂ ein Integer betragsm‰ﬂig <= LF_exp_high-LF_exp_low sein.
   // Neues LF mit um delta vergrˆﬂertem Exponenten bilden.
       if (delta == 0) { return x; } // delta=0 -> x als Ergebnis
-      var uintL uexp = TheLfloat(x)->expo;
+      var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
-      var uintC udelta = delta;
+      var uintE udelta = delta;
       if (delta >= 0) {
         // udelta = delta >=0
 	if (   ((uexp = uexp+udelta) < udelta) // Exponent-‹berlauf?
@@ -33,8 +33,8 @@ const cl_LF scale_float (const cl_LF& x, sintC delta)
 	   )
 	  { cl_error_floating_point_overflow(); }
       } else {
-        // delta <0, udelta = 2^intCsize+delta
-	if (   ((uintL)(-(uexp = uexp+udelta)) <= (uintC)(-udelta)) // oder Exponent-Unterlauf?
+        // delta <0, udelta = 2^intEsize+delta
+	if (   ((uintE)(-(uexp = uexp+udelta)) <= (uintE)(-udelta)) // oder Exponent-Unterlauf?
 	    || (uexp < LF_exp_low) // oder Exponent zu klein?
 	   )
 	  { cl_error_floating_point_underflow(); }

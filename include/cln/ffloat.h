@@ -243,7 +243,7 @@ extern const decoded_ffloat decode_float (const cl_FF& x);
 // den Exponenten von (decode-float x).
 // x = 0.0 liefert 0.
 // x = (-1)^s * 2^e * m liefert e.
-extern sintL float_exponent (const cl_FF& x);
+extern sintE float_exponent (const cl_FF& x);
 
 // float_radix(x) liefert (float-radix x), wo x ein Float ist.
 inline sintL float_radix (const cl_FF& x)

@@ -28,15 +28,15 @@ const cl_LF cl_LF_shortenrelative (const cl_LF& x, const cl_LF& y)
 	// dx := float_digits(x), dy := float_digits(y).
 	// 1 ulp(x) = 2^(ex-dx), 1 ulp(y) = 2^(ey-dy).
 	// Falls ex-dx < ey-dy, x von Precision dx auf dy-ey+ex verkürzen.
-	var sintL ey = float_exponent(y);
+	var sintE ey = float_exponent(y);
 	var sintC dy = float_precision(y);
 	if (dy==0) // zerop(y) ?
 		cl_abort();
-	var sintL ex = float_exponent(x);
+	var sintE ex = float_exponent(x);
 	var sintC dx = float_precision(x);
 	if (dx==0) // zerop(x) ?
 		return x;
-	var sintL d = ex - ey;
+	var sintE d = ex - ey;
 	if (ex>=0 && ey<0 && d<0) // d overflow?
 		return x;
 	if (ex<0 && ey>=0 && d>=0) // d underflow?

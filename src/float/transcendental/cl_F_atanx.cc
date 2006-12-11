@@ -51,7 +51,7 @@ static const cl_LF atanx_naive (const cl_LF& x)
 		return x;
 	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionsz‰hler k:=0
@@ -61,7 +61,7 @@ static const cl_LF atanx_naive (const cl_LF& x)
 	// F¸r naive1: limit_scope = 0.5.
 	// F¸r naive2: limit_scope = 0.375 (ca. 0.5 f¸r kleine len, 0.35 f¸r
 	// groﬂe len).
-	var uintL sqrt_d = floor(isqrt(d)*3,8); // limit_slope*floor(sqrt(d))
+	var uintL sqrt_d = floor(isqrtC(d)*3,8); // limit_slope*floor(sqrt(d))
 	var cl_LF xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
 		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
@@ -120,11 +120,11 @@ static const cl_F atanx_naive (const cl_F& x)
 	if (zerop(x))
 		return x;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionsz‰hler k:=0
-	var uintL sqrt_d = floor(isqrt(d),2); // limit_slope*floor(sqrt(d))
+	var uintL sqrt_d = floor(isqrtC(d),2); // limit_slope*floor(sqrt(d))
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 20% zu
 	// schlecht). Ein guter Wert ist limit_scope = 0.5.

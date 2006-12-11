@@ -62,7 +62,7 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 	//   (/ (expt a 2) t)
 	// )
 	var uintC actuallen = len + 1; // 1 Schutz-Digit
-	var uintC uexp_limit = LF_exp_mid - intDsize*len;
+	var uintE uexp_limit = LF_exp_mid - intDsize*len;
 	// Ein Long-Float ist genau dann betragsm‰ﬂig <2^-n, wenn
 	// sein Exponent < LF_exp_mid-n = uexp_limit ist.
 	var cl_LF a = cl_I_to_LF(1,actuallen);
@@ -112,7 +112,7 @@ const cl_LF compute_pi_brent_salamin_quartic (uintC len)
 	// Hence,
 	//   pi = AGM(1,1/sqrt(2))^2 * 1/(1/2 - sum(k even, 2^k*[....])).
 	var uintC actuallen = len + 1; // 1 Schutz-Digit
-	var uintC uexp_limit = LF_exp_mid - intDsize*len;
+	var uintE uexp_limit = LF_exp_mid - intDsize*len;
 	var cl_LF one = cl_I_to_LF(1,actuallen);
 	var cl_LF a = one;
 	var cl_LF wa = one;

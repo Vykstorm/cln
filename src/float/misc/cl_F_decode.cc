@@ -84,14 +84,14 @@ inline const decoded_float decode_float (const cl_LF& x)
 {
 	// x entpacken:
 	var cl_signean sign;
-	var sintL exp;
+	var sintE exp;
 	var uintC mantlen;
 	var const uintD* mantMSDptr;
 	LF_decode(x, { return decoded_float(x, 0, encode_LF1(mantlen)); },
 		     sign=,exp=,mantMSDptr=,mantlen=,);
 	return decoded_float(
 		encode_LFu(0,0+LF_exp_mid,mantMSDptr,mantlen), // (-1)^0 * 2^0 * m erzeugen
-		L_to_I(exp), // e als Fixnum
+		E_to_I(exp), // e als Fixnum
 		encode_LF1s(sign,mantlen) // (-1)^s erzeugen
 	       );
 }

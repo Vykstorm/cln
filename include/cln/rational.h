@@ -33,6 +33,12 @@ inline const cl_RA operator+ (const long x, const cl_RA& y)
 	{ return cl_I(x) + y; }
 inline const cl_RA operator+ (const unsigned long x, const cl_RA& y)
 	{ return cl_I(x) + y; }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator+ (const long long x, const cl_RA& y)
+	{ return cl_I(x) + y; }
+inline const cl_RA operator+ (const unsigned long long x, const cl_RA& y)
+	{ return cl_I(x) + y; }
+#endif
 inline const cl_RA operator+ (const cl_RA& x, const int y)
 	{ return x + cl_I(y); }
 inline const cl_RA operator+ (const cl_RA& x, const unsigned int y)
@@ -41,6 +47,12 @@ inline const cl_RA operator+ (const cl_RA& x, const long y)
 	{ return x + cl_I(y); }
 inline const cl_RA operator+ (const cl_RA& x, const unsigned long y)
 	{ return x + cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator+ (const cl_RA& x, const long long y)
+	{ return x + cl_I(y); }
+inline const cl_RA operator+ (const cl_RA& x, const unsigned long long y)
+	{ return x + cl_I(y); }
+#endif
 
 // (- r s), wo r und s rationale Zahlen sind.
 extern const cl_RA operator- (const cl_RA& r, const cl_RA& s);
@@ -53,6 +65,12 @@ inline const cl_RA operator- (const long x, const cl_RA& y)
 	{ return cl_I(x) - y; }
 inline const cl_RA operator- (const unsigned long x, const cl_RA& y)
 	{ return cl_I(x) - y; }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator- (const long long x, const cl_RA& y)
+	{ return cl_I(x) - y; }
+inline const cl_RA operator- (const unsigned long long x, const cl_RA& y)
+	{ return cl_I(x) - y; }
+#endif
 inline const cl_RA operator- (const cl_RA& x, const int y)
 	{ return x - cl_I(y); }
 inline const cl_RA operator- (const cl_RA& x, const unsigned int y)
@@ -61,6 +79,12 @@ inline const cl_RA operator- (const cl_RA& x, const long y)
 	{ return x - cl_I(y); }
 inline const cl_RA operator- (const cl_RA& x, const unsigned long y)
 	{ return x - cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator- (const cl_RA& x, const long long y)
+	{ return x - cl_I(y); }
+inline const cl_RA operator- (const cl_RA& x, const unsigned long long y)
+	{ return x - cl_I(y); }
+#endif
 
 // (1+ r), wo r eine rationale Zahl ist.
 extern const cl_RA plus1 (const cl_RA& r);
@@ -116,6 +140,12 @@ inline const cl_RA operator* (const long x, const cl_RA& y)
 	{ return cl_I(x) * y; }
 inline const cl_RA operator* (const unsigned long x, const cl_RA& y)
 	{ return cl_I(x) * y; }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator* (const long long x, const cl_RA& y)
+	{ return cl_I(x) * y; }
+inline const cl_RA operator* (const unsigned long long x, const cl_RA& y)
+	{ return cl_I(x) * y; }
+#endif
 inline const cl_RA operator* (const cl_RA& x, const int y)
 	{ return x * cl_I(y); }
 inline const cl_RA operator* (const cl_RA& x, const unsigned int y)
@@ -124,6 +154,12 @@ inline const cl_RA operator* (const cl_RA& x, const long y)
 	{ return x * cl_I(y); }
 inline const cl_RA operator* (const cl_RA& x, const unsigned long y)
 	{ return x * cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator* (const cl_RA& x, const long long y)
+	{ return x * cl_I(y); }
+inline const cl_RA operator* (const cl_RA& x, const unsigned long long y)
+	{ return x * cl_I(y); }
+#endif
 
 // Quadrat (* r r), wo r eine rationale Zahl ist.
 extern const cl_RA square (const cl_RA& r);
@@ -139,6 +175,12 @@ inline const cl_RA operator/ (const long x, const cl_RA& y)
 	{ return cl_I(x) / y; }
 inline const cl_RA operator/ (const unsigned long x, const cl_RA& y)
 	{ return cl_I(x) / y; }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator/ (const long long x, const cl_RA& y)
+	{ return cl_I(x) / y; }
+inline const cl_RA operator/ (const unsigned long long x, const cl_RA& y)
+	{ return cl_I(x) / y; }
+#endif
 inline const cl_RA operator/ (const cl_RA& x, const int y)
 	{ return x / cl_I(y); }
 inline const cl_RA operator/ (const cl_RA& x, const unsigned int y)
@@ -147,6 +189,12 @@ inline const cl_RA operator/ (const cl_RA& x, const long y)
 	{ return x / cl_I(y); }
 inline const cl_RA operator/ (const cl_RA& x, const unsigned long y)
 	{ return x / cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_RA operator/ (const cl_RA& x, const long long y)
+	{ return x / cl_I(y); }
+inline const cl_RA operator/ (const cl_RA& x, const unsigned long long y)
+	{ return x / cl_I(y); }
+#endif
 
 // Return type for rounding operators.
 // x / y  --> (q,r) with x = y*q+r.
@@ -273,6 +321,10 @@ inline cl_RA& operator+= (cl_RA& x, const int y) { return x = x + y; }
 inline cl_RA& operator+= (cl_RA& x, const unsigned int y) { return x = x + y; }
 inline cl_RA& operator+= (cl_RA& x, const long y) { return x = x + y; }
 inline cl_RA& operator+= (cl_RA& x, const unsigned long y) { return x = x + y; }
+#ifdef HAVE_LONGLONG
+inline cl_RA& operator+= (cl_RA& x, const long long y) { return x = x + y; }
+inline cl_RA& operator+= (cl_RA& x, const unsigned long long y) { return x = x + y; }
+#endif
 inline cl_RA& operator++ /* prefix */ (cl_RA& x) { return x = plus1(x); }
 inline void operator++ /* postfix */ (cl_RA& x, int dummy) { (void)dummy; x = plus1(x); }
 inline cl_RA& operator-= (cl_RA& x, const cl_RA& y) { return x = x - y; }
@@ -280,6 +332,10 @@ inline cl_RA& operator-= (cl_RA& x, const int y) { return x = x - y; }
 inline cl_RA& operator-= (cl_RA& x, const unsigned int y) { return x = x - y; }
 inline cl_RA& operator-= (cl_RA& x, const long y) { return x = x - y; }
 inline cl_RA& operator-= (cl_RA& x, const unsigned long y) { return x = x - y; }
+#ifdef HAVE_LONGLONG
+inline cl_RA& operator-= (cl_RA& x, const long long y) { return x = x - y; }
+inline cl_RA& operator-= (cl_RA& x, const unsigned long long y) { return x = x - y; }
+#endif
 inline cl_RA& operator-- /* prefix */ (cl_RA& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_RA& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_RA& operator*= (cl_RA& x, const cl_RA& y) { return x = x * y; }

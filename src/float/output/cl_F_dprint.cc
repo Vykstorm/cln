@@ -61,12 +61,13 @@ namespace cln {
 // typedef
 struct cl_decimal_decoded_float {
 	char * a;
-	uintL k;
+	uintC k;
 	cl_I e;
 	cl_I s;
 // Constructor.
-	cl_decimal_decoded_float (char * ap, uintL kp, const cl_I& ep, const cl_I& sp) : a(ap), k(kp), e(ep), s(sp) {}
+	cl_decimal_decoded_float (char * ap, uintC kp, const cl_I& ep, const cl_I& sp) : a(ap), k(kp), e(ep), s(sp) {}
 };
+
 
 static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
 {
@@ -120,21 +121,41 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     //  1838395/6107016 1936274/6432163 13456039/44699994
     //  15392313/51132157 44240665/146964308 59632978/198096465
     //  103873643/345060773 475127550/1578339557 579001193/1923400330
+    //  24793177656/82361153417 149338067129/496090320832
+    //  174131244785/578451474249 845863046269/2809896217828
+    //  1865857337323/6198243909905 6443435058238/21404627947543
     // )
     // e>=0 : wähle lg(2) < a/b < lg(2) + 1/e,
     //        dann ist d <= floor(e*a/b) <= d+1 .
     // e<0  : wähle lg(2) - 1/abs(e) < a/b < lg(2),
     //        dann ist d <= floor(e*a/b) <= d+1 .
-    // Es ist bekannt, daß abs(e) <= 2^31 + 2^20 .
+    // Es ist bekannt, dass abs(e) <= 2^31 + 2^32*64, falls intEsize == 32,
+    //            bzw. dass abs(e) <= 2^63 + 2^64*64, falls intEsize == 64.
+    // (Hierbei steht 64 für die maximale intDsize und es wurde benutzt,
+    // dass intEsize >= intCsize.)
     // Unser d sei := floor(e*a/b)-1. (d /= 0, da abs(e) >= 7.)
     d = minus1(minusp(e)
                ? (e >= -970
                   ? floor1(e*3,10) // Näherungsbruch 3/10
-                  : floor1(e*21306,70777) // Näherungsbruch 21306/70777
+#if (intEsize==32)
+                  : floor1(e*97879,325147) // Näherungsbruch 97879/325147
+#else
+                  : (e >= -1800000000LL
+                     ? floor1(e*8651,28738) // Näherungsbruch 8651/28738
+                     : floor1(e*24793177656LL,82361153417LL) // Näherungsbruch 24793177656/82361153417
+                    )
+#endif
                  )
                : (e <= 22000
                   ? floor1(e*28,93) // Näherungsbruch 28/93
-                  : floor1(e*12655,42039) // Näherungsbruch 12655/42039
+#if (intEsize==32)
+                  : floor1(e*1838395,6107016) // Näherungsbruch 1838395/6107016
+#else
+                  : (e <= 3300000000LL
+                     ? floor1(e*12655,42039) // Näherungsbruch 12655/42039
+                     : floor1(e*149338067129LL,496090320832LL) // Näherungsbruch 149338067129/496090320832
+                    )
+#endif
                  )
               );
     // Das wahre d wird durch diese Schätzung entweder getroffen
@@ -248,10 +269,18 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // |e| ist recht klein -> man kann 2^e und 10^d exakt ausrechnen
     if (!minusp(e)) {
       // e >= 0. Schätze d = floor(e*lg(2)) wie oben.
-      // Es ist e<=2*l<2^21.
+      // Es ist e<=2*l<2^39, falls intCsize == 32,
+      //   bzw. e<=2*l<2^71, falls intCsize == 64.
       d = (e <= 22000
            ? floor1(e*28,93) // Näherungsbruch 28/93
-           : floor1(e*4004,13301) // Näherungsbruch 4004/13301
+#if (intCsize==32)
+           : floor1(e*1838395,6107016) // Näherungsbruch 1838395/6107016
+#else
+           : (e <= 3300000000LL
+              ? floor1(e*12655,42039) // Näherungsbruch 12655/42039
+              : floor1(e*149338067129LL,496090320832LL) // Näherungsbruch 149338067129/496090320832
+             )
+#endif
           );
       // Das wahre d wird durch diese Schätzung entweder getroffen
       // oder um 1 überschätzt, aber das können wir leicht feststellen.
@@ -267,10 +296,18 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
       a2 = floor1(minus1(ash(oben,e)),zehn_d);
     } else {
       // e < 0. Schätze d = floor(e*lg(2)) wie oben.
-      // Es ist |e|<=2*l<2^21.
+      // Es ist |e|<=2*l<2^39, falls intCsize == 32,
+      //   bzw. |e|<=2*l<2^71, falls intCsize == 64.
       d = (e >= -970
            ? floor1(e*3,10) // Näherungsbruch 3/10
-           : floor1(e*643,2136) // Näherungsbruch 643/2136
+#if (intCsize==32)
+           : floor1(e*97879,325147) // Näherungsbruch 97879/325147
+#else
+           : (e >= -1800000000LL
+              ? floor1(e*8651,28738) // Näherungsbruch 8651/28738
+              : floor1(e*24793177656LL,82361153417LL) // Näherungsbruch 24793177656/82361153417
+             )
+#endif
           );
       // Das wahre d wird durch diese Schätzung entweder getroffen
       // oder um 1 überschätzt, aber das können wir leicht feststellen.
@@ -317,8 +354,8 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // Nun a in einen Dezimalstring umwandeln
     // und dann Nullen am Schluß streichen:
     var char* as = cl_decimal_string(a); // Ziffernfolge zu a>0
-    var uintL las = ::strlen(as); // Länge der Ziffernfolge
-    var uintL k = las; // Länge ohne die gestrichenen Nullen am Schluß
+    var uintC las = ::strlen(as); // Länge der Ziffernfolge
+    var uintC k = las; // Länge ohne die gestrichenen Nullen am Schluß
     var cl_I ee = k+d; // a * 10^d = a * 10^(-k+ee)
     while (as[k-1] == '0') // eine 0 am Schluß?
       { // ja -> a := a / 10 (wird aber nicht mehr gebraucht),
@@ -355,7 +392,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     }
   }
   var char* as = cl_decimal_string(a); // Ziffernfolge zu a>0
-  var uintL k = ::strlen(as);
+  var uintC k = ::strlen(as);
   ASSERT(as[k-1] != '0');
   return cl_decimal_decoded_float(as,k,k+d,sign);
 }
@@ -365,7 +402,7 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
 {
   var cl_decimal_decoded_float z_decoded = decode_float_decimal(z);
   var char * & mantstring = z_decoded.a;
-  var uintL& mantlen = z_decoded.k;
+  var uintC& mantlen = z_decoded.k;
   var cl_I& expo = z_decoded.e;
   var cl_I& sign = z_decoded.s;
   // arg in Dezimaldarstellung: +/- 0.mant * 10^expo, wobei
@@ -405,7 +442,7 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
           fprintchar(stream,mantstring[i]);
       }
       fprintchar(stream,'.');
-      { for (uintL i = scale; i < mantlen; i++)
+      { for (uintC i = scale; i < mantlen; i++)
           fprintchar(stream,mantstring[i]);
       }
     } else {

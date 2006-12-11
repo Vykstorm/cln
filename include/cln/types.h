@@ -96,6 +96,18 @@
     typedef unsigned int  uintC;
   #endif
 
+// Integer type used for lfloat exponents.
+// Constraint: sizeof(uintE) >= sizeof(uintC)
+#if (defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__powerpc64__) || defined(__x86_64__) || defined(__i386__)))
+    #define intEsize 64
+    typedef sint64  sintE;
+    typedef uint64  uintE;
+  #else
+    #define intEsize 32
+    typedef sint32  sintE;
+    typedef uint32  uintE;
+  #endif
+
 // Integer type as large as a pointer.
 // Assumption: sizeof(long) == sizeof(void*)
   #define intPsize long_bitsize

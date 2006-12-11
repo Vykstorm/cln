@@ -14,7 +14,7 @@
 namespace cln {
 
 MAYBE_INLINE
-sintL float_exponent (const cl_FF& x)
+sintE float_exponent (const cl_FF& x)
 {
 	var uintL uexp = FF_uexp(cl_ffloat_value(x));
 	if (uexp==0) { return 0; }

@@ -83,6 +83,12 @@ inline const cl_R operator* (const long x, const cl_LF& y)
 	{ return cl_I(x) * y; }
 inline const cl_R operator* (const unsigned long x, const cl_LF& y)
 	{ return cl_I(x) * y; }
+#ifdef HAVE_LONGLONG
+inline const cl_R operator* (const long long x, const cl_LF& y)
+	{ return cl_I(x) * y; }
+inline const cl_R operator* (const unsigned long long x, const cl_LF& y)
+	{ return cl_I(x) * y; }
+#endif
 inline const cl_R operator* (const cl_LF& x, const int y)
 	{ return x * cl_I(y); }
 inline const cl_R operator* (const cl_LF& x, const unsigned int y)
@@ -91,6 +97,12 @@ inline const cl_R operator* (const cl_LF& x, const long y)
 	{ return x * cl_I(y); }
 inline const cl_R operator* (const cl_LF& x, const unsigned long y)
 	{ return x * cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_R operator* (const cl_LF& x, const long long y)
+	{ return x * cl_I(y); }
+inline const cl_R operator* (const cl_LF& x, const unsigned long long y)
+	{ return x * cl_I(y); }
+#endif
 // Spezialfall x = y.
 // Liefert zu einem Long-Float x : (* x x), ein LF.
 extern const cl_LF square (const cl_LF& x);
@@ -127,6 +139,12 @@ inline const cl_LF operator/ (const cl_LF& x, const long y)
 	{ return x / cl_I(y); }
 inline const cl_LF operator/ (const cl_LF& x, const unsigned long y)
 	{ return x / cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_LF operator/ (const cl_LF& x, const long long y)
+	{ return x / cl_I(y); }
+inline const cl_LF operator/ (const cl_LF& x, const unsigned long long y)
+	{ return x / cl_I(y); }
+#endif
 inline const cl_R operator/ (const int x, const cl_LF& y)
 	{ return cl_I(x) / y; }
 inline const cl_R operator/ (const unsigned int x, const cl_LF& y)
@@ -135,6 +153,12 @@ inline const cl_R operator/ (const long x, const cl_LF& y)
 	{ return cl_I(x) / y; }
 inline const cl_R operator/ (const unsigned long x, const cl_LF& y)
 	{ return cl_I(x) / y; }
+#ifdef HAVE_LONGLONG
+inline const cl_R operator/ (const long long x, const cl_LF& y)
+	{ return cl_I(x) / y; }
+inline const cl_R operator/ (const unsigned long long x, const cl_LF& y)
+	{ return cl_I(x) / y; }
+#endif
 
 // Liefert zu einem Long-Float x>=0 : (sqrt x), ein LF.
 extern const cl_LF sqrt (const cl_LF& x);
@@ -333,7 +357,7 @@ extern const decoded_lfloat decode_float (const cl_LF& x);
 // den Exponenten von (decode-float x).
 // x = 0.0 liefert 0.
 // x = (-1)^s * 2^e * m liefert e.
-extern sintL float_exponent (const cl_LF& x);
+extern sintE float_exponent (const cl_LF& x);
 
 // float_radix(x) liefert (float-radix x), wo x ein Float ist.
 inline sintL float_radix (const cl_LF& x)

@@ -20,12 +20,12 @@ const cl_LF square (const cl_LF& x)
 {
 // Methode: wie operator*(x,x).
       var uintC len = TheLfloat(x)->len;
-      var uintL uexp = TheLfloat(x)->expo;
+      var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) // x=0.0 -> Ergebnis 0.0
         { return x; }
       // Exponenten addieren:
       // (uexp-LF_exp_mid) + (uexp-LF_exp_mid) = (2*uexp-LF_exp_mid)-LF_exp_mid
-      if ((sintL)uexp >= 0)
+      if ((sintE)uexp >= 0)
         // kein Carry
         { uexp = 2*uexp;
           if (uexp < LF_exp_mid+LF_exp_low)
@@ -37,7 +37,7 @@ const cl_LF square (const cl_LF& x)
         else
         // Carry
         { uexp = 2*uexp;
-          if (uexp > (uintL)(LF_exp_mid+LF_exp_high+1)) { cl_error_floating_point_overflow(); }
+          if (uexp > (uintE)(LF_exp_mid+LF_exp_high+1)) { cl_error_floating_point_overflow(); }
         }
       uexp = uexp - LF_exp_mid;
       // Nun ist LF_exp_low <= uexp <= LF_exp_high+1.

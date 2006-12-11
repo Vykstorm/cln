@@ -61,4 +61,39 @@ uintL isqrt (uintL x)
      }}
 }
 
+#ifdef HAVE_LONGLONG
+uintL isqrt (uintQ x)
+{
+  // As isqrt (uintL) above, but with 64-bit numbers.
+     if (x==0) return 0; // x=0 -> y=0
+     { var uintC k2; integerlength64(x,k2=); // 2^(k2-1) <= x < 2^k2
+      {var uintC k1 = floor(k2-1,2); // k1 = k-1, k as above
+       if (k1 < 32-1)
+         // k < 32
+         { var uintL y = (x >> (k1+2)) | bit(k1); // always 2^(k-1) <= y < 2^k
+           loop
+             { var uintL z;
+               divu_6432_3232(high32(x),low32(x),y, z=,); // z := x/y (works, since x/y < 2^(2k)/2^(k-1) = 2^(k+1) <= 2^32)
+               if (z >= y) break;
+               y = floor(z+y,2); // geht, da z+y < 2*y < 2^(k+1) <= 2^32
+             }
+           return y;
+         }
+         else
+         // k = 32, careful!
+         { var uintL x1 = high32(x);
+           var uintL y = (x >> (32+1)) | bit(32-1); // stets 2^(k-1) <= y < 2^k
+           loop
+             { var uintL z;
+               if (x1 >= y) break; // division x/y would overflow -> z > y
+               divu_6432_3232(high32(x),low32(x),y, z=,); // divide x/y
+               if (z >= y) break;
+               y = floor(z+y,2);
+             }
+           return y;
+         }
+     }}
+}
+#endif
+
 }  // namespace cln

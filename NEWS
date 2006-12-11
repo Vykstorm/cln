@@ -1,3 +1,32 @@
+2006-mm-dd, version 1.2.0
+=========================
+
+Implementation changes
+----------------------
+
+* Added support for huge numbers...
+
+
+2006-08-08, version 1.1.13
+==========================
+
+* Compilation fixes for 64-bit brokenness introduced in last release.
+
+
+2006-08-06, version 1.1.12
+==========================
+
+Implementation changes
+----------------------
+
+* Fix rare assertion when printing quite large floats.
+
+Other changes
+-------------
+
+* Compilation fixes for several platforms: *BSD, Intel Mac, and MinGW.
+
+
 2005-11-23, version 1.1.11
 ==========================
 

@@ -131,7 +131,7 @@ const cl_F read_float (const cl_read_flags& flags, const char * string, const ch
 			ptr_after_prec = skip_digits(ptr,string_limit,10);
 			if (ptr_after_prec == ptr) goto not_float_syntax;
 			var cl_I prec1 = digits_to_I(ptr,ptr_after_prec-ptr,10);
-			var uintC prec2 = cl_I_to_UL(prec1);
+			var uintC prec2 = cl_I_to_UC(prec1);
 			prec = (float_base==10 ? float_format(prec2)
 			                       : (float_format_t)((uintC)((1+prec2)*::log((double)float_base)*1.442695041)+1)
 			       );
@@ -155,7 +155,7 @@ const cl_F read_float (const cl_read_flags& flags, const char * string, const ch
 				  (float_base==10 ? float_format(prec2)
 				                  : (float_format_t)((uintC)((1+prec2)*::log((double)float_base)*1.442695041)+1)
 				  );
-				if ((uintC)precx > (uintC)prec)
+				if ((uintE)precx > (uintE)prec)
 					prec = precx;
 			}
 		}

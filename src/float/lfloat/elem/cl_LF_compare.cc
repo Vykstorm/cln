@@ -32,8 +32,8 @@ cl_signean compare (const cl_LF& x, const cl_LF& y)
         { if (!minusp(x))
             // y>=0, x>=0
             { // Vergleiche Exponenten und Mantissen:
-              { var uintL x_uexp = TheLfloat(x)->expo;
-                var uintL y_uexp = TheLfloat(y)->expo;
+              { var uintE x_uexp = TheLfloat(x)->expo;
+                var uintE y_uexp = TheLfloat(y)->expo;
                 if (x_uexp < y_uexp) return signean_minus; // x<y
                 if (x_uexp > y_uexp) return signean_plus; // x>y
               }
@@ -72,8 +72,8 @@ cl_signean compare (const cl_LF& x, const cl_LF& y)
             else
             // y<0, x<0
             { // Vergleiche Exponenten und Mantissen:
-              { var uintL x_uexp = TheLfloat(x)->expo;
-                var uintL y_uexp = TheLfloat(y)->expo;
+              { var uintE x_uexp = TheLfloat(x)->expo;
+                var uintE y_uexp = TheLfloat(y)->expo;
                 if (x_uexp < y_uexp) return signean_plus; // |x|<|y| -> x>y
                 if (x_uexp > y_uexp) return signean_minus; // |x|>|y| -> x<y
               }

@@ -234,6 +234,11 @@ inline sint64 FN_to_Q (const cl_I& x)
 	return cl_I(cl_I_constructor_from_UQ(wert));
   }
 
+  extern cl_private_thing cl_I_constructor_from_Q2 (sint64 wert_hi, uint64 wert_lo );
+  inline const cl_I Q2_to_I( sint64 wert_hi, uint64 wert_lo)
+  {
+	return cl_I(cl_I_constructor_from_Q2(wert_hi, wert_lo));
+  }
 #endif
 
 // Wandelt Doppel-Longword in Integer um.
@@ -290,6 +295,26 @@ inline sint64 FN_to_Q (const cl_I& x)
   #define UV_to_I(wert)  UQ_to_I(wert)
 #endif
 
+// Wandelt sintE in Integer um.
+// E_to_I(wert)
+// > wert: Wert des Integers, ein sintE.
+// < ergebnis: Integer mit diesem Wert.
+#if (intEsize<=32)
+  #define E_to_I(wert)  L_to_I(wert)
+#else
+  #define E_to_I(wert)  Q_to_I(wert)
+#endif
+
+// Wandelt uintE in Integer >=0 um.
+// UE_to_I(wert)
+// > wert: Wert des Integers, ein uintE.
+// < ergebnis: Integer mit diesem Wert.
+#if (intEsize<=32)
+  #define UE_to_I(wert)  UL_to_I(wert)
+#else
+  #define UE_to_I(wert)  UQ_to_I(wert)
+#endif
+
 // Wandelt uintD in Integer >=0 um.
 // UD_to_I(wert)
 // > wert: Wert des Integers, ein uintD.
@@ -313,6 +338,14 @@ inline const cl_I minus (uintL x, uintL y)
 #endif
 }
 
+#ifdef intQsize
+
+inline const cl_I minus (uintQ x, uintQ y)
+{
+	return Q2_to_I( (x<y ? -1 : 0), x-y );
+}
+
+#endif
 
 // Umwandlungsroutinen Digit sequence <--> Longword:
 

@@ -39,11 +39,11 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
       var uintC exp = integer_length(abs_x); // (integer-length x) < intDsize*2^intCsize
       // Teste, ob exp <= LF_exp_high-LF_exp_mid :
       if (   (log2_intDsize+intCsize < 32)
-          && ((uintL)(intDsize*bitc(intCsize)-1) <= (uintL)(LF_exp_high-LF_exp_mid))
+          && ((uintE)(intDsize*bitc(intCsize)-1) <= (uintE)(LF_exp_high-LF_exp_mid))
          )
         {} // garantiert exp <= intDsize*2^intCsize-1 <= LF_exp_high-LF_exp_mid
         else
-        { if (!(exp <= (uintL)(LF_exp_high-LF_exp_mid))) { cl_error_floating_point_overflow(); } }
+        { if (!(exp <= (uintE)(LF_exp_high-LF_exp_mid))) { cl_error_floating_point_overflow(); } }
       // Long-Float bauen:
       var Lfloat y = allocate_lfloat(len,exp+LF_exp_mid,sign);
       var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
@@ -91,7 +91,7 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
                { mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
                  // Exponenten incrementieren:
                  if (   (log2_intDsize+intCsize < 32)
-                     && ((uintL)(intDsize*bitc(intCsize)-1) < (uintL)(LF_exp_high-LF_exp_mid))
+                     && ((uintE)(intDsize*bitc(intCsize)-1) < (uintE)(LF_exp_high-LF_exp_mid))
                     )
                    // garantiert exp < intDsize*2^intCsize-1 <= LF_exp_high-LF_exp_mid
                    { (TheLfloat(y)->expo)++; } // jetzt exp <= LF_exp_high-LF_exp_mid

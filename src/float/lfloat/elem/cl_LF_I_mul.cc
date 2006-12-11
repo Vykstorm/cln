@@ -60,8 +60,8 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	}
 	// Produkt ist nun normalisiert: höchstes Bit =1.
 	// exponent := exponent(x) + intDsize*y_len - shiftcount
-	var uintL uexp = TheLfloat(x)->expo;
-	var uintL iexp = intDsize*y_len - shiftcount; // >= 0 !
+	var uintE uexp = TheLfloat(x)->expo;
+	var uintE iexp = intDsize*y_len - shiftcount; // >= 0 !
 	uexp = uexp + iexp;
 	if ((uexp < iexp) || (uexp > LF_exp_high))
 		cl_error_floating_point_overflow();

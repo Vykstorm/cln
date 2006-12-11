@@ -24,12 +24,12 @@ const cl_LF ftruncate (const cl_LF& x)
 // e>=16n -> Ergebnis x
 #if 0
       var cl_signean sign;
-      var sintL exp;
+      var sintE exp;
       var const uintD* mantMSDptr;
       var uintC mantlen;
       LF_decode(x, { return x; }, sign=,exp=,mantMSDptr=,mantlen=,);
       if (exp<=0) { return encode_LF0(mantlen); } // e<=0 -> Ergebnis 0.0
-      if ((uintL)exp >= intDsize*mantlen) // e>=16n -> x als Ergebnis
+      if ((uintE)exp >= intDsize*mantlen) // e>=16n -> x als Ergebnis
         { return x; }
         else
         // 0 < e < 16n
@@ -37,8 +37,8 @@ const cl_LF ftruncate (const cl_LF& x)
         { CL_ALLOCA_STACK;
           var uintD* MSDptr;
           num_stack_alloc(mantlen, MSDptr=,);
-          { var uintC count = floor((uintL)exp,intDsize); // zu kopierende Digits, < mantlen
-            var uintC bitcount = ((uintL)exp) % intDsize; // zu kopierende Bits danach, >=0, <intDsize
+          { var uintC count = floor((uintE)exp,intDsize); // zu kopierende Digits, < mantlen
+            var uintC bitcount = ((uintE)exp) % intDsize; // zu kopierende Bits danach, >=0, <intDsize
             var uintD* ptr =
               copy_loop_msp(mantMSDptr,MSDptr,count); // count ganze Digits kopieren
             msprefnext(ptr) = mspref(mantMSDptr,count) & minus_bitm(intDsize-bitcount); // dann bitcount Bits kopieren
@@ -48,12 +48,12 @@ const cl_LF ftruncate (const cl_LF& x)
         }
 #else
       var uintC len = TheLfloat(x)->len;
-      var uintL uexp = TheLfloat(x)->expo;
+      var uintE uexp = TheLfloat(x)->expo;
       if (uexp <= LF_exp_mid)
         { if (uexp == 0) { return x; } // x=0.0 -> Ergebnis 0.0
           return encode_LF0(len); // e<=0 -> Ergebnis 0.0
         }
-      var uintL exp = uexp - LF_exp_mid;
+      var uintE exp = uexp - LF_exp_mid;
       if (exp >= intDsize*len) // e>=16n -> x als Ergebnis
         { return x; }
       // 0 < e < 16n

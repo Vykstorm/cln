@@ -11,21 +11,26 @@
 
 namespace cln {
 
-float_format_t float_format (uintL n)
+float_format_t float_format (uintE n)
 {
 // Methode:
 // Mindestens 1+n Dezimalstellen (inklusive Vorkommastelle)
 // bedeutet mindestens ceiling((1+n)*ln(10)/ln(2)) Bin‰rstellen.
-// ln(10)/ln(2) = 3.321928095 = (bin‰r) 11.01010010011010011110000100101111...
-//                       = (bin‰r) 100 - 0.10101101100101100001111011010001
+// ln(10)/ln(2) = 3.321928095 = (bin‰r) 11.0101001001101001111000010010111100110100...
+//                       = (bin‰r) 100 - 0.1010110110010110000111101101000111001011...
 // Durch diese Berechnungsmethode wird das Ergebnis sicher >= (1+n)*ln(10)/ln(2)
-// sein, evtl. um ein paar Bit zu groﬂ, aber nicht zu klein.
+// sein, evtl. um ein paar Bit zu groﬂ aber nicht zu klein.
 	n = 1+n;
 	return (float_format_t)
 	       ((n << 2)
-		- (n >> 1) - (n >> 3) - (n >> 5) - (n >> 6) - (n >> 8)
-		- (n >> 9) - (n >> 12) - (n >> 14) - (n >> 15)
-	       );
+		- (n >> 1) - (n >> 3) - (n >> 5) - (n >> 6)
+		- (n >> 8) - (n >> 9) - (n >> 12) - (n >> 14)
+		- (n >> 15) - (n >> 20) - (n >> 21) - (n >> 22)
+		- (n >> 23) - (n >> 25) - (n >> 26) - (n >> 28)
+#if (intEsize>32)
+		- (n >> 32) - (n >> 33) - (n >> 34) - (n >> 35)
+#endif
+		);
 }
 
 }  // namespace cln

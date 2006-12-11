@@ -16,10 +16,10 @@ extern cl_class cl_class_lfloat;
 // Builds a long-float, without filling the mantissa.
 // allocate_lfloat(len,expo,sign)
 // > uintC len: length of mantissa (in digits)
-// > uint32 expo: exponent
+// > uintE expo: exponent
 // > cl_signean sign: sign (0 = +, -1 = -)
 // The long-float is only complete when the mantissa has been filled in!
-inline cl_heap_lfloat* allocate_lfloat (uintC len, uint32 expo, cl_signean sign)
+inline cl_heap_lfloat* allocate_lfloat (uintC len, uintE expo, cl_signean sign)
 {
 	cl_heap_lfloat* p = (cl_heap_lfloat*) malloc_hook(offsetofa(cl_heap_lfloat,data)+sizeof(uintD)*len);
 	p->refcount = 1;
@@ -60,17 +60,17 @@ inline cl_LF::cl_LF (cl_heap_lfloat* ptr) : cl_F ((cl_private_thing) ptr) {}
 // zerlegt ein Long-Float obj.
 // Ist obj=0.0, wird zero_statement ausgeführt.
 // Sonst: cl_signean sign = Vorzeichen (0 = +, -1 = -),
-//        sintL exp = Exponent (vorzeichenbehaftet),
+//        sintE exp = Exponent (vorzeichenbehaftet),
 //        UDS mantMSDptr/mantlen/mantLSDptr = Mantisse
 //          (>= 2^(intDsize*mantlen-1), < 2^(intDsize*mantlen)),
 //          mit mantlen>=LF_minlen.
   #define LF_decode(obj, zero_statement, sign_zuweisung,exp_zuweisung,mantMSDptr_zuweisung,mantlen_zuweisung,mantLSDptr_zuweisung)  \
     { var Lfloat _x = TheLfloat(obj);					\
-      var uintL uexp = _x->expo;					\
+      var uintE uexp = _x->expo;					\
       if (uexp==0)							\
         { mantlen_zuweisung _x->len; zero_statement } /* e=0 -> Zahl 0.0 */\
         else								\
-        { exp_zuweisung (sintL)(uexp - LF_exp_mid);	/* Exponent */	\
+        { exp_zuweisung (sintE)(uexp - LF_exp_mid);	/* Exponent */	\
           sign_zuweisung _x->sign;			/* Vorzeichen */\
           unused (mantMSDptr_zuweisung arrayMSDptr(_x->data, (uintP)(mantlen_zuweisung _x->len))); /* Mantissen-UDS */\
           unused (mantLSDptr_zuweisung arrayLSDptr(_x->data, (uintP)(mantlen_zuweisung _x->len))); \
@@ -112,12 +112,12 @@ inline const cl_LF encode_LF1 (uintC len)
 // Einpacken eines Long-Float:
 // encode_LFu(sign,uexp,mantMSDptr,mantlen) liefert ein Long-Float
 // > cl_signean sign: Vorzeichen
-// > uintL exp: Exponent + LF_exp_mid
+// > uintE exp: Exponent + LF_exp_mid
 // > uintD* mantMSDptr: Pointer auf eine NUDS mit gesetztem höchstem Bit
 // > uintC mantlen: Anzahl der Digits, >= LF_minlen
 // < cl_LF erg: neues Long-Float mit der UDS mantMSDptr/mantlen/.. als Mantisse
 // Der Exponent wird nicht auf Überlauf/Unterlauf getestet.
-inline const cl_LF encode_LFu (cl_signean sign, uintL uexp, const uintD* mantMSDptr, uintC mantlen)
+inline const cl_LF encode_LFu (cl_signean sign, uintE uexp, const uintD* mantMSDptr, uintC mantlen)
 {
 	var Lfloat erg = allocate_lfloat(mantlen,uexp,sign); /* Exponent */
 	copy_loop_msp(mantMSDptr,arrayMSDptr(TheLfloat(erg)->data,mantlen),mantlen); /* Mantisse übertragen */
@@ -127,20 +127,20 @@ inline const cl_LF encode_LFu (cl_signean sign, uintL uexp, const uintD* mantMSD
 // Einpacken eines Long-Float:
 // encode_LF(sign,exp,mantMSDptr,mantlen) liefert ein Long-Float
 // > cl_signean sign: Vorzeichen
-// > sintL exp: Exponent
+// > sintE exp: Exponent
 // > uintD* mantMSDptr: Pointer auf eine NUDS mit gesetztem höchstem Bit
 // > uintC mantlen: Anzahl der Digits, >= LF_minlen
 // < cl_LF erg: neues Long-Float mit der UDS mantMSDptr/mantlen/.. als Mantisse
 // Der Exponent wird nicht auf Überlauf/Unterlauf getestet.
-inline const cl_LF encode_LF (cl_signean sign, sintL exp, const uintD* mantMSDptr, uintC mantlen)
+inline const cl_LF encode_LF (cl_signean sign, sintE exp, const uintD* mantMSDptr, uintC mantlen)
 {
-	return encode_LFu(sign,LF_exp_mid+(uintL)exp,mantMSDptr,mantlen);
+	return encode_LFu(sign,LF_exp_mid+(uintE)exp,mantMSDptr,mantlen);
 }
 
 // Einpacken eines Long-Float:
 // encode_LF_array(sign,exp,mantarr,mantlen) liefert ein Long-Float
 // > cl_signean sign: Vorzeichen
-// > sintL exp: Exponent
+// > sintE exp: Exponent
 // > uintD mantarr[]: NUDS mit gesetztem höchstem Bit
 // > uintC mantlen: Anzahl der Digits, >= LF_minlen
 // < cl_LF erg: neues Long-Float mit der UDS mantarr[] als Mantisse

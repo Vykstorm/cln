@@ -77,7 +77,7 @@ inline uint32 highlow32_0 (uint16 high)
 	return (uint32)high << 16;
 }
 
-#ifdef HAVE_FAST_LONGLONG
+#ifdef HAVE_LONGLONG
 
 // High-Word einer 64-Bit-Zahl bestimmen
 // high32(wert)
@@ -107,7 +107,7 @@ inline uint64 highlow64_0 (uint32 high)
 	return (uint64)high << 32;
 }
 
-#endif /* HAVE_FAST_LONGLONG */
+#endif /* HAVE_LONGLONG */
 
 
 // Multipliziert zwei 16-Bit-Zahlen miteinander und liefert eine 32-Bit-Zahl:
@@ -1210,6 +1210,27 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // > uintL x : Radikand, >=0, <2^32
 // < uintL ergebnis : Wurzel, >=0, <2^16
   extern uintL isqrt (uintL x);
+
+#ifdef HAVE_LONGLONG
+// Extracts integer root of a 64-bit number and returns a 32-bit number.
+// isqrt(x)
+// > uintQ x : radicand, >=0, <2^64
+// < uintL result : square root, >=0, <2^32
+  extern uintL isqrt (uintQ x);
+#endif
+
+// Sorry for this. We need an isqrt function taking uintC arguments but we
+// cannot use overloading since this would lead to ambiguities with any of the
+// two signatures above.
+  inline uintL isqrtC (uintC x)
+  {
+#if (intCsize==32)
+      return isqrt((uintL)x);
+#else
+      return isqrt((uintQ)x);
+#endif
+  }
+
 
 // Zieht die Ganzzahl-Wurzel aus einer 64-Bit-Zahl und
 // liefert eine 32-Bit-Wurzel.

@@ -20,7 +20,7 @@
 
 namespace cln {
 
-sintL float_exponent (const cl_F& x)
+sintE float_exponent (const cl_F& x)
 {
 	floatcase(x
 	,	return float_exponent(x);

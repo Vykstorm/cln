@@ -84,8 +84,8 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	}
 	// Quotient MSDptr/len/.. ist nun normalisiert: höchstes Bit =1.
 	// exponent := exponent(x) - intDsize*y_len + shiftcount
-	var uintL uexp = TheLfloat(x)->expo;
-	var uintL dexp = intDsize*y_len - shiftcount; // >= 0 !
+	var uintE uexp = TheLfloat(x)->expo;
+	var uintE dexp = intDsize*y_len - shiftcount; // >= 0 !
 	if ((uexp < dexp) || ((uexp = uexp - dexp) < LF_exp_low)) {
 		if (underflow_allowed())
 			{ cl_error_floating_point_underflow(); }

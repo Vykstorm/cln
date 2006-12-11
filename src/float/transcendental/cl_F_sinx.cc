@@ -52,7 +52,7 @@ const cl_F sinxbyx_naive (const cl_F& x)
 	if (zerop(x))
 		return cl_float(1,x);
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e <= (-(sintC)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_F,x);
@@ -67,7 +67,7 @@ const cl_F sinxbyx_naive (const cl_F& x)
 	//  100       0.40-0.45
 	//  200       0.40-0.45
 	// Wähle limit_slope = 13/32 = 0.4.
-	var sintL e_limit = -1-floor(isqrt(d)*13,32); // -1-floor(sqrt(d))
+	var sintL e_limit = -1-floor(isqrtC(d)*13,32); // -1-floor(sqrt(d))
 	if (e > e_limit) {
 		// e > -1-limit_slope*floor(sqrt(d)) -> muß |x| verkleinern.
 		x = scale_float(x,e_limit-e);
@@ -91,7 +91,7 @@ const cl_F sinxbyx_naive (const cl_F& x)
 	while (e > e_limit) {
 		z = z - x2 * square(z);
 		x2 = scale_float(x2,2); // x^2 := x^2*4
-		e_limit++;
+		e--;
 	}
 	return z;
 }}
@@ -125,16 +125,16 @@ const cl_LF sinx_naive (const cl_LF& x)
 		return x;
 	var uintL actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e <= (-(sintC)d)>>1) // e <= (-d)/2 <==> e <= -ceiling(d/2) ?
 		return square(x); // ja -> x^2 als Ergebnis
  {	Mutable(cl_LF,x);
-	var sintL ee = e;
+	var sintE ee = e;
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 10% zu
 	// schlecht). Ein guter Wert für naive1 ist limit_slope = 0.6,
 	// für naive3 aber limit_slope = 0.5.
-	var sintL e_limit = -1-floor(isqrt(d),2); // -1-floor(sqrt(d))
+	var sintL e_limit = -1-floor(isqrtC(d),2); // -1-floor(sqrt(d))
 	if (e > e_limit) {
 		// e > -1-limit_slope*floor(sqrt(d)) -> muß |x| verkleinern.
 		x = scale_float(x,e_limit-e);
@@ -192,7 +192,7 @@ const cl_LF sinx_naive (const cl_LF& x)
 	var cl_LF z = square(powser_value); // sin^2 als Ergebnis
 	while (e > e_limit) {
 		z = cl_float(1,x) - square(cl_float(1,x) - scale_float(z,1)); // z := 1-(1-2*z)^2
-		e_limit++;
+		e--;
 	}
 	return z;
 }}

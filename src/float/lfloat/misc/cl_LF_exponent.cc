@@ -14,11 +14,11 @@
 namespace cln {
 
 MAYBE_INLINE
-sintL float_exponent (const cl_LF& x)
+sintE float_exponent (const cl_LF& x)
 {
-	var uintL uexp = TheLfloat(x)->expo;
+	var uintE uexp = TheLfloat(x)->expo;
 	if (uexp==0) { return 0; }
-	return (sintL)(uexp - LF_exp_mid);
+	return (sintE)(uexp - LF_exp_mid);
 }
 
 }  // namespace cln

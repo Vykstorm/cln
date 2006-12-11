@@ -24,7 +24,7 @@ nonreturning_function(extern, cl_error_floating_point_underflow, (void));
 // SF           1           8             16
 // FF           1           8             23
 // DF           1          11             52
-// LF           1          32         intDsize*n >= 53
+// LF           1       32 or 64      intDsize*n >= 53
 
 
 // Konversionen ohne Rundung:

@@ -24,9 +24,9 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
   // delta muﬂ ein Integer betragsm‰ﬂig <= LF_exp_high-LF_exp_low sein.
   // Neues LF mit um delta vergrˆﬂertem Exponenten bilden.
       if (eq(delta,0)) { return x; } // delta=0 -> x als Ergebnis
-      var uintL uexp = TheLfloat(x)->expo;
+      var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
-      var uintV udelta;
+      var uintE udelta;
       // |delta| muﬂ <= LF_exp_high-LF_exp_low < 2^32 sein. Wie bei I_to_UL:
 	if (fixnump(delta)) {
 		// Fixnum

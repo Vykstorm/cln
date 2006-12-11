@@ -35,7 +35,7 @@ const cl_LF sqrt (const cl_LF& x)
 //     sonst aufrunden.
 //   Bei rounding overflow Mantisse um 1 Bit nach rechts schieben
 //     und Exponent incrementieren.
-      var uintL uexp = TheLfloat(x)->expo;
+      var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; } // x=0.0 -> 0.0 als Ergebnis
       var uintC len = TheLfloat(x)->len;
       // Radikanden bilden:
@@ -59,7 +59,7 @@ const cl_LF sqrt (const cl_LF& x)
          clear_loop_msp(ptr,len+1); // n+1 Nulldigits anh�gen
         }
       // Compute ((uexp - LF_exp_mid + 1) >> 1) + LF_exp_mid without risking
-      // uintL overflow.
+      // uintE overflow.
       uexp = ((uexp - ((LF_exp_mid - 1) & 1)) >> 1) - ((LF_exp_mid - 1) >> 1)
              + LF_exp_mid;
       // Ergebnis allozieren:

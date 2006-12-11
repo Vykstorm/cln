@@ -19,7 +19,7 @@ MAYBE_INLINE
 const cl_idecoded_float integer_decode_float (const cl_LF& x)
 {
 	// x entpacken:
-	var uintL uexp = TheLfloat(x)->expo;
+	var uintE uexp = TheLfloat(x)->expo;
 	if (uexp == 0)
 		{ return cl_idecoded_float(0, 0, 1); }
 	var cl_signean sign = TheLfloat(x)->sign;

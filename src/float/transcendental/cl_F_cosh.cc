@@ -29,7 +29,7 @@ const cl_F cosh (const cl_F& x)
 //   cosh(x) = 1+x*y*(sinh(y)/y)^2 errechnen.
 // falls e>=0: y:=exp(x) errechnen, (scale-float (+ y (/ y)) -1) bilden.
 
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e < 0) { // Exponent e abtesten
 		// e<0
 		if (zerop(x))

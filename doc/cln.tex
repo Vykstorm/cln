@@ -2025,7 +2025,7 @@ The following functions provide an abstract interface to the underlying
 representation of floating-point numbers.
 
 @table @code
-@item sintL float_exponent (const @var{type}& x)
+@item sintE float_exponent (const @var{type}& x)
 @cindex @code{float_exponent ()}
 Returns the exponent @code{e} of @code{x}.
 For @code{x = 0.0}, this is 0. For @code{x} non-zero, this is the unique
@@ -2118,7 +2118,7 @@ The type @code{float_format_t} describes a floating-point format.
 @cindex @code{float_format_t}
 
 @table @code
-@item float_format_t float_format (uintL n)
+@item float_format_t float_format (uintE n)
 @cindex @code{float_format ()}
 Returns the smallest float format which guarantees at least @code{n}
 decimal digits in the mantissa (after the decimal point).

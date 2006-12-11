@@ -43,6 +43,14 @@ CL_DEFINE_AS_CONVERSION(cl_I)
   inline unsigned long cl_I_to_ulong (const cl_I& x) { return cl_I_to_UQ(x); }
 #endif
 
+#if (intCsize==long_bitsize)
+  inline uintC cl_I_to_UC (const cl_I& x) { return cl_I_to_ulong(x); }
+  inline sintC cl_I_to_C  (const cl_I& x) { return cl_I_to_long(x);  }
+#elif (intCsize==int_bitsize)
+  inline uintC cl_I_to_UC (const cl_I& x) { return cl_I_to_uint(x); }
+  inline sintC cl_I_to_C  (const cl_I& x) { return cl_I_to_int(x);  }
+#endif
+
 
 // Logische Operationen auf Integers:
 
@@ -191,6 +199,12 @@ inline const cl_I operator+ (const long x, const cl_I& y)
 	{ return cl_I(x) + y; }
 inline const cl_I operator+ (const unsigned long x, const cl_I& y)
 	{ return cl_I(x) + y; }
+#ifdef HAVE_LONGLONG
+inline const cl_I operator+ (const long long x, const cl_I& y)
+	{ return cl_I(x) + y; }
+inline const cl_I operator+ (const unsigned long long x, const cl_I& y)
+	{ return cl_I(x) + y; }
+#endif
 inline const cl_I operator+ (const cl_I& x, const int y)
 	{ return x + cl_I(y); }
 inline const cl_I operator+ (const cl_I& x, const unsigned int y)
@@ -199,6 +213,12 @@ inline const cl_I operator+ (const cl_I& x, const long y)
 	{ return x + cl_I(y); }
 inline const cl_I operator+ (const cl_I& x, const unsigned long y)
 	{ return x + cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_I operator+ (const cl_I& x, const long long y)
+	{ return x + cl_I(y); }
+inline const cl_I operator+ (const cl_I& x, const unsigned long long y)
+	{ return x + cl_I(y); }
+#endif
 
 // (- x), wenn x ein Integer ist. Ergebnis Integer.
 extern const cl_I operator- (const cl_I& x);
@@ -214,6 +234,12 @@ inline const cl_I operator- (const long x, const cl_I& y)
 	{ return cl_I(x) - y; }
 inline const cl_I operator- (const unsigned long x, const cl_I& y)
 	{ return cl_I(x) - y; }
+#ifdef HAVE_LONGLONG
+inline const cl_I operator- (const long long x, const cl_I& y)
+	{ return cl_I(x) - y; }
+inline const cl_I operator- (const unsigned long long x, const cl_I& y)
+	{ return cl_I(x) - y; }
+#endif
 inline const cl_I operator- (const cl_I& x, const int y)
 	{ return x - cl_I(y); }
 inline const cl_I operator- (const cl_I& x, const unsigned int y)
@@ -222,6 +248,12 @@ inline const cl_I operator- (const cl_I& x, const long y)
 	{ return x - cl_I(y); }
 inline const cl_I operator- (const cl_I& x, const unsigned long y)
 	{ return x - cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_I operator- (const cl_I& x, const long long y)
+	{ return x - cl_I(y); }
+inline const cl_I operator- (const cl_I& x, const unsigned long long y)
+	{ return x - cl_I(y); }
+#endif
 
 // (abs x), wenn x ein Integer ist. Ergebnis Integer.
 extern const cl_I abs (const cl_I& x);
@@ -310,6 +342,12 @@ inline const cl_I operator* (const long x, const cl_I& y)
 	{ return cl_I(x) * y; }
 inline const cl_I operator* (const unsigned long x, const cl_I& y)
 	{ return cl_I(x) * y; }
+#ifdef HAVE_LONGLONG
+inline const cl_I operator* (const long long x, const cl_I& y)
+	{ return cl_I(x) * y; }
+inline const cl_I operator* (const unsigned long long x, const cl_I& y)
+	{ return cl_I(x) * y; }
+#endif
 inline const cl_I operator* (const cl_I& x, const int y)
 	{ return x * cl_I(y); }
 inline const cl_I operator* (const cl_I& x, const unsigned int y)
@@ -318,6 +356,12 @@ inline const cl_I operator* (const cl_I& x, const long y)
 	{ return x * cl_I(y); }
 inline const cl_I operator* (const cl_I& x, const unsigned long y)
 	{ return x * cl_I(y); }
+#ifdef HAVE_LONGLONG
+inline const cl_I operator* (const cl_I& x, const long long y)
+	{ return x * cl_I(y); }
+inline const cl_I operator* (const cl_I& x, const unsigned long long y)
+	{ return x * cl_I(y); }
+#endif
 
 // (EXPT x 2), wo x Integer ist.
 extern const cl_I square (const cl_I& x);

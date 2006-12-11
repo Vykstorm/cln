@@ -53,12 +53,12 @@ const cl_LF atanhx (const cl_LF& x)
 		return x;
 	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	if (actuallen >= 34) {
 		DeclareType(cl_LF,x);
-		var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintL)(-e),intDsize));
+		var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintE)(-e),intDsize));
 		return cl_float(scale_float(ln((1+xx)/(1-xx)),-1),x);
 	}
 	var uintL k = 0; // Rekursionsz‰hler k:=0
@@ -67,7 +67,7 @@ const cl_LF atanhx (const cl_LF& x)
 	// schlecht). Ein guter Wert ist:
 	// f¸r naive1: limit_scope = 0.625 = 5/8,
 	// f¸r naive2: limit_scope = 0.4 = 13/32.
-	var uintL sqrt_d = floor(isqrt(d)*13,32); // limit_slope*floor(sqrt(d))
+	var uintL sqrt_d = floor(isqrtC(d)*13,32); // limit_slope*floor(sqrt(d))
 	var cl_LF xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
 		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
@@ -130,14 +130,14 @@ const cl_F atanhx (const cl_F& x)
 	if (zerop(x))
 		return x;
 	var uintC d = float_digits(x);
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionsz‰hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 15% zu
 	// schlecht). Ein guter Wert ist limit_scope = 0.625 = 5/8.
-	var uintL sqrt_d = floor(isqrt(d)*5,8); // limit_slope*floor(sqrt(d))
+	var uintL sqrt_d = floor(isqrtC(d)*5,8); // limit_slope*floor(sqrt(d))
 	var cl_F xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
 		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
