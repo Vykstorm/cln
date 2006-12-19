@@ -115,11 +115,6 @@ int main()
 #endif
   flipped_double();
 
-#if defined(__cplusplus)
   if (ferror(stdout)) return 1;
   return 0;
-#else
-  if (ferror(stdout)) { exit(1); }
-  exit(0);
-#endif
 }

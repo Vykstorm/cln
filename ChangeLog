@@ -1,3 +1,9 @@
+2006-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* autoconf/intparam.c (main): Use 'return', not exit().
+	* autoconf/floatparam.c (main): Likewise.
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
 2006-12-11  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Extend the exponent range from 32 bits to 64 bits on selected platforms.
