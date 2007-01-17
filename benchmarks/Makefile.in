@@ -55,7 +55,7 @@ MODULES_timebench2a = timebench2a
 MODULES_timebench2ap = timebench2ap
 MODULES_timebench2b = timebench2b
 
-all : timebench2a timebench2ap timebench2b
+all : $(addsuffix ${EXEEXT}, timebench2a timebench2ap timebench2b)
 
 %.s : %.c
 	${CC} ${CFLAGS} ${CPPFLAGS} ${TARGET_ARCH} -S $< -o $@
