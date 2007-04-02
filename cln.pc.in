@@ -6,5 +6,6 @@ includedir=@includedir@
 Name: cln
 Description: Class Library for Numbers
 Version: @CL_VERSION@
-Libs: -L${libdir} -lcln @LIBS@
-Cflags: -I${includedir} @CPPFLAGS@
+Libs: -L${libdir} -lcln
+Libs.private: @LIBS@
+Cflags: -I${includedir}

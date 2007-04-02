@@ -189,4 +189,4 @@ changequote([,])dnl
     cp "$srcdir/$f" "$f"
   fi
 done
-AC_OUTPUT([Makefile src/Makefile tests/Makefile benchmarks/Makefile examples/Makefile doc/Makefile cln-config cln-config.1 cln.spec cln.pc], [chmod +x cln-config])
+AC_OUTPUT([Makefile src/Makefile tests/Makefile benchmarks/Makefile examples/Makefile doc/Makefile cln.spec cln.pc])

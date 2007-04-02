@@ -34,8 +34,8 @@ This file documents @sc{cln}, a Class Library for Numbers.
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
 Richard B. Kreckel, @code{<kreckel@@ginac.de>}.
 
-Copyright (C)  Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006.
-Copyright (C)  Richard B. Kreckel 2000, 2001, 2002, 2003, 2004, 2005, 2006.
+Copyright (C)  Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
+Copyright (C)  Richard B. Kreckel 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -69,9 +69,9 @@ by the author.
 @author by Bruno Haible
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005.
+Copyright @copyright{} Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
 @sp 0
-Copyright @copyright{} Richard Kreckel 2000, 2001, 2002, 2003, 2004, 2005.
+Copyright @copyright{} Richard Kreckel 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
 
 @sp 2
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
@@ -348,7 +348,7 @@ or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
 If you use @code{g++} 3.x, I recommend adding @samp{-finline-limit=1000}
 to the CXXFLAGS. This is essential for good code.
 
-If you use @code{g++} gcc-2.95.x or gcc-3.x , I recommend adding
+If you use @code{g++} gcc-2.95.x or gcc-3.x, I recommend adding
 @samp{-fno-exceptions} to the CXXFLAGS. This will likely generate better code.
 
 If you use @code{g++} from gcc-3.0.4 or older on Sparc, add either
@@ -3367,73 +3367,33 @@ need special flags for compiling. The library has been installed to a
 public directory as well (normally @code{/usr/local/lib}), hence when
 linking a CLN application it is sufficient to give the flag @code{-lcln}.
 
-Since CLN version 1.1, there are two tools to make the creation of
-software packages that use CLN easier:
-@itemize @bullet
-@item
-@cindex @code{cln-config}
-@code{cln-config} is a shell script that you can use to determine the
-compiler and linker command line options required to compile and link a
-program with CLN.  Start it with @code{--help} to learn about its options
-or consult the manpage that comes with it.
-@item
-@cindex @code{AC_PATH_CLN}
-@code{AC_PATH_CLN} is for packages configured using GNU automake.
-The synopsis is:
-@example
-@code{AC_PATH_CLN([@var{MIN-VERSION}, [@var{ACTION-IF-FOUND} [, @var{ACTION-IF-NOT-FOUND}]]])}
+@cindex @code{pkg-config}
+To make the creation of software packages that use CLN easier, the
+@code{pkg-config} utility can be used.  CLN provides all the necessary
+metainformation in a file called @code{cln.pc} (installed in
+@code{/usr/local/lib/pkgconfig} by default).  A program using CLN can
+be compiled and linked using @footnote{If you installed CLN to
+non-standard location @var{prefix}, you need to set the
+@env{PKG_CONFIG_PATH} environment variable to @var{prefix}/lib/pkgconfig
+for this to work.}
+@example 
+g++ `pkg-config --libs cln` `pkg-config --cflags cln` prog.cc -o prog
 @end example
-This macro determines the location of CLN using @code{cln-config}, which
-is either found in the user's path, or from the environment variable
-@code{CLN_CONFIG}.  It tests the installed libraries to make sure that
-their version is not earlier than @var{MIN-VERSION} (a default version
-will be used if not specified). If the required version was found, sets
-the @env{CLN_CPPFLAGS} and the @env{CLN_LIBS} variables. This
-macro is in the file @file{cln.m4} which is installed in
-@file{$datadir/aclocal}. Note that if automake was installed with a
-different @samp{--prefix} than CLN, you will either have to manually
-move @file{cln.m4} to automake's @file{$datadir/aclocal}, or give
-aclocal the @samp{-I} option when running it. Here is a possible example
-to be included in your package's @file{configure.ac}:
+
+Software using GNU autoconf can check for CLN with the 
+@code{PKG_CHECK_MODULES} macro supplied with @code{pkg-config}.
 @example
-AC_PATH_CLN(1.1.0, [
-  LIBS="$LIBS $CLN_LIBS"
-  CPPFLAGS="$CPPFLAGS $CLN_CPPFLAGS"
-], AC_MSG_ERROR([No suitable installed version of CLN could be found.]))
+PKG_CHECK_MODULES([CLN], [cln >= @var{MIN-VERSION}])
 @end example
-@end itemize
-
-
-@section Compatibility to old CLN versions
-@cindex namespace
-@cindex compatibility
-
-As of CLN version 1.1 all non-macro identifiers were hidden in namespace
-@code{cln} in order to avoid potential name clashes with other C++
-libraries. If you have an old application, you will have to manually
-port it to the new scheme. The following principles will help during
-the transition:
-@itemize @bullet
-@item
-All headers are now in a separate subdirectory. Instead of including
-@code{cl_}@var{something}@code{.h}, include
-@code{cln/}@var{something}@code{.h} now.
-@item
-All public identifiers (typenames and functions) have lost their
-@code{cl_} prefix.  Exceptions are all the typenames of number types,
-(cl_N, cl_I, cl_MI, @dots{}), rings, symbolic types (cl_string,
-cl_symbol) and polynomials (cl_UP_@var{type}).  (This is because their
-names would not be mnemonic enough once the namespace @code{cln} is
-imported. Even in a namespace we favor @code{cl_N} over @code{N}.)
-@item
-All public @emph{functions} that had by a @code{cl_} in their name still
-carry that @code{cl_} if it is intrinsic part of a typename (as in
-@code{cl_I_to_int ()}).
-@end itemize
-When developing other libraries, please keep in mind not to import the
-namespace @code{cln} in one of your public header files by saying
-@code{using namespace cln;}. This would propagate to other applications
-and can cause name clashes there.
+This will check for CLN version at least @var{MIN-VERSION}.  If the
+required version was found, the variables @var{CLN_CFLAGS} and
+@var{CLN_LIBS} are set.  Otherwise the configure script aborts.  If this
+is not the desired behaviour, use the following code instead
+@footnote{See the @code{pkg-config} documentation for more details.}
+@example
+PKG_CHECK_MODULES([CLN], [cln >= @var{MIN-VERSION}], [],
+ [AC_MSG_WARNING([No suitable version of CLN can be found])])
+@end example
 
 
 @section Include files

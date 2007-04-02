@@ -1,3 +1,13 @@
+2007-04-02  Alexei Sheplyakov  <varg@theor.jinr.ru>
+
+	Debian Bug#412103:
+	* cln.pc.in: list -lgmp in Libs.private instead of in Libs.
+	* doc/cln.tex: Undocument cln-config, properly document pkg-config.
+	* cln-config.1.in: Remove.
+	* cln-config.in: Remove.
+	* cln.m4: Remove.
+	* configure.ac: Don't output cln-config and cln-config.1.
+
 2006-12-24  Bruno Haible  <bruno@clisp.org>
 
 	Make autoconfiguration work with gcc-4.3 snapshots.
