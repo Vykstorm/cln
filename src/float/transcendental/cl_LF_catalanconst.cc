@@ -50,35 +50,37 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 {
 	// Same formula as above, using a binary splitting evaluation.
 	// See [Borwein, Borwein, section 10.2.3].
-	var uintC actuallen = len + 2; // 2 Schutz-Digits
+	struct rational_series_stream : cl_pqb_series_stream {
+		cl_I n;
+		static cl_pqb_series_term computenext (cl_pqb_series_stream& thisss)
+		{
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var cl_I n = thiss.n;
+			var cl_pqb_series_term result;
+			if (n==0) {
+				result.p = 1;
+				result.q = 1;
+				result.b = 1;
+			} else {
+				result.p = n;
+				result.b = 2*n+1;
+				result.q = result.b << 1; // 2*(2*n+1)
+			}
+			thiss.n = n+1;
+			return result;
+		}
+		rational_series_stream ()
+			: cl_pqb_series_stream (rational_series_stream::computenext),
+			  n (0) {}
+	} series;
+	var uintC actuallen = len + 2; // 2 guard digits
 	// Evaluate a sum(0 <= n < N, a(n)/b(n) * (p(0)...p(n))/(q(0)...q(n)))
 	// with appropriate N, and
 	//   a(n) = 1, b(n) = 2*n+1,
 	//   p(n) = n for n>0, q(n) = 2*(2*n+1) for n>0.
 	var uintC N = (intDsize/2)*actuallen;
 	// 4^-N <= 2^(-intDsize*actuallen).
-	CL_ALLOCA_STACK;
-	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintC n;
-	init1(cl_I, bv[0]) (1);
-	init1(cl_I, pv[0]) (1);
-	init1(cl_I, qv[0]) (1);
-	for (n = 1; n < N; n++) {
-		init1(cl_I, bv[n]) (2*n+1);
-		init1(cl_I, pv[n]) (n);
-		init1(cl_I, qv[n]) (2*(2*n+1));
-	}
-	var cl_pqb_series series;
-	series.bv = bv;
-	series.pv = pv; series.qv = qv; series.qsv = NULL;
 	var cl_LF fsum = eval_rational_series(N,series,actuallen);
-	for (n = 0; n < N; n++) {
-		bv[n].~cl_I();
-		pv[n].~cl_I();
-		qv[n].~cl_I();
-	}
 	var cl_LF g =
 	  scale_float(The(cl_LF)(3*fsum)
 	              + The(cl_LF)(pi(actuallen))
@@ -229,30 +231,66 @@ const cl_LF compute_catalanconst_cvz2 (uintC len)
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
 
-// Timings of the above algorithms, on an i486 33 MHz, running Linux.
-//    N      ram    ramfast  exp1    exp2    cvz1    cvz2
-//    10     0.055   0.068   0.32    0.91    0.076   0.11
-//    25     0.17    0.26    0.95    3.78    0.23    0.43
-//    50     0.43    0.73    2.81   11.5     0.63    1.36
-//   100     1.32    2.24    8.82   34.1     1.90    4.48
-//   250     6.60   10.4    48.7   127.5    10.3    20.8
-//   500    24.0    30.9   186     329      38.4    58.6
-//  1000    83.0    89.0   944     860     149     163
-//  2500   446     352    6964    3096    1032     545
-//  5000  1547     899
-// asymp.    N^2     FAST    N^2     FAST    N^2     FAST
+
+const cl_LF compute_catalanconst_lupas (uintC len)
+{
+	// G = 19/18 * sum(n=0..infty,
+	//                 mul(m=1..n, -32*((80*m^3+72*m^2-18*m-19)*m^3)/
+	//                             (10240*m^6+14336*m^5+2560*m^4-3072*m^3-888*m^2+72*m+27))).
+	struct rational_series_stream : cl_pq_series_stream {
+		cl_I n;
+		static cl_pq_series_term computenext (cl_pq_series_stream& thisss)
+		{
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var cl_I n = thiss.n;
+			var cl_pq_series_term result;
+			if (zerop(n)) {
+				result.p = 1;
+				result.q = 1;
+			} else {
+				// Compute -32*((80*n^3+72*n^2-18*n-19)*n^3) (using Horner scheme):
+				result.p = (19+(18+(-72-80*n)*n)*n)*n*n*n << 5;
+				// Compute 10240*n^6+14336*n^5+2560*n^4-3072*n^3-888*n^2+72*n+27:
+				result.q = 27+(72+(-888+(-3072+(2560+(14336+10240*n)*n)*n)*n)*n)*n;
+			}
+			thiss.n = plus1(n);
+			return result;
+		}
+		rational_series_stream ()
+			: cl_pq_series_stream (rational_series_stream::computenext),
+			  n (0) {}
+	} series;
+	var uintC actuallen = len + 2; // 2 guard digits
+	var uintC N = (intDsize/2)*actuallen;
+	var cl_LF fsum = eval_rational_series(N,series,actuallen);
+	var cl_LF g = fsum*cl_I_to_LF(19,actuallen)/cl_I_to_LF(18,actuallen);
+	return shorten(g,len);
+}
+// Bit complexity (N = len): O(log(N)^2*M(N)).
+
+// Timings of the above algorithms, on an AMD Opteron 1.7 GHz, running Linux/x86.
+//    N      ram    ramfast  exp1    exp2    cvz1    cvz2    lupas
+//    25     0.0011  0.0010  0.0094  0.0107  0.0021  0.0016  0.0034
+//    50     0.0030  0.0025  0.0280  0.0317  0.0058  0.0045  0.0095
+//   100     0.0087  0.0067  0.0854  0.0941  0.0176  0.0121  0.0260
+//   250     0.043   0.029   0.462   0.393   0.088   0.055   0.109
+//   500     0.15    0.086   1.7     1.156   0.323   0.162   0.315
+//  1000     0.57    0.25    7.5     3.23    1.27    0.487   0.864
+//  2500     3.24    1.10   52.2    12.4     8.04    2.02    3.33
+//  5000    13.1     3.06  218      32.7    42.1     5.59    8.80
+// 10000    52.7     8.2   910      85.3   216.7    15.3    22.7
+// 25000   342      29.7  6403     295    1643      54.5    77.3
+// 50000            89.9                           139     195
+//100000           227                             363     483
+// asymp.    N^2     FAST    N^2     FAST    N^2     FAST    FAST
+
 // (FAST means O(log(N)^2*M(N)))
 //
-// The "exp1" and "exp2" algorithms are always about 10 to 15 times slower
-// than the "ram" and "ramfast" algorithms.
-// The break-even point between "ram" and "ramfast" is at about N = 1410.
+// The "ramfast" algorithm is always fastest.
 
 const cl_LF compute_catalanconst (uintC len)
 {
-	if (len >= 1410)
-		return compute_catalanconst_ramanujan_fast(len);
-	else
-		return compute_catalanconst_ramanujan(len);
+	return compute_catalanconst_ramanujan_fast(len);
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).
 

@@ -19,6 +19,27 @@ namespace cln {
 
 const cl_LF zeta3 (uintC len)
 {
+	struct rational_series_stream : cl_pqa_series_stream {
+		uintC n;
+		static cl_pqa_series_term computenext (cl_pqa_series_stream& thisss)
+		{
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var uintC n = thiss.n;
+			var cl_pqa_series_term result;
+			if (n==0) {
+				result.p = 1;
+			} else {
+				result.p = -expt_pos(n,5);
+			}
+			result.q = expt_pos(2*n+1,5)<<5;
+			result.a = 205*square((cl_I)n) + 250*(cl_I)n + 77;
+			thiss.n = n+1;
+			return result;
+		}
+		rational_series_stream ()
+			: cl_pqa_series_stream (rational_series_stream::computenext),
+			  n (0) {}
+	} series;
 	// Method:
 	//            /infinity                                  \ 
 	//            | -----       (n + 1)       2              |
@@ -41,28 +62,7 @@ const cl_LF zeta3 (uintC len)
 	var uintC actuallen = len+2; // 2 Schutz-Digits
 	var uintC N = ceiling(actuallen*intDsize,10);
 	// 1024^-N <= 2^(-intDsize*actuallen).
-	CL_ALLOCA_STACK;
-	var cl_I* av = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintC n;
-	for (n = 0; n < N; n++) {
-		init1(cl_I, av[n]) (205*square((cl_I)n) + 250*(cl_I)n + 77);
-		if (n==0)
-			init1(cl_I, pv[n]) (1);
-		else
-			init1(cl_I, pv[n]) (-expt_pos(n,5));
-		init1(cl_I, qv[n]) (expt_pos(2*n+1,5)<<5);
-	}
-	var cl_pqa_series series;
-	series.av = av;
-	series.pv = pv; series.qv = qv; series.qsv = NULL;
 	var cl_LF sum = eval_rational_series(N,series,actuallen);
-	for (n = 0; n < N; n++) {
-		av[n].~cl_I();
-		pv[n].~cl_I();
-		qv[n].~cl_I();
-	}
 	return scale_float(shorten(sum,len),-1);
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).

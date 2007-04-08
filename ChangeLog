@@ -1,3 +1,14 @@
+2007-04-09  Richard B. Kreckel  <kreckel@ginac.de>
+
+	More memory efficient constants:
+	* src/float/transcendental/cl_LF_pi.cc (compute_pi_ramanujan_163_fast):
+	Compute series coefficients on demand, using a series stream object.
+	* src/float/transcendental/cl_LF_zeta3.cc (zeta3): Likewise.
+	* src/float/transcendental/cl_LF_catalanconst.cc
+	(compute_catalanconst_ramanujan_fast): Likewise.
+	(compute_catalanconst_lupas): New function.
+	(compute_catalanconst): Simplify, based on new benchmark.
+
 2007-04-02  Alexei Sheplyakov  <varg@theor.jinr.ru>
 
 	Debian Bug#412103:

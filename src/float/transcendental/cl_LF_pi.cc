@@ -191,6 +191,31 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 {
 	// Same formula as above, using a binary splitting evaluation.
 	// See [Borwein, Borwein, section 10.2.3].
+	struct rational_series_stream : cl_pqa_series_stream {
+		uintC n;
+		static cl_pqa_series_term computenext (cl_pqa_series_stream& thisss)
+		{
+			static const cl_I A = "163096908";
+			static const cl_I B = "6541681608";
+			static const cl_I J1 = "10939058860032000"; // 72*abs(J)
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var uintC n = thiss.n;
+			var cl_pqa_series_term result;
+			if (n==0) {
+				result.p = 1;
+				result.q = 1;
+			} else {
+				result.p = -((cl_I)(6*n-5)*(cl_I)(2*n-1)*(cl_I)(6*n-1));
+				result.q = (cl_I)n*(cl_I)n*(cl_I)n*J1;
+			}
+			result.a = A+n*B;
+			thiss.n = n+1;
+			return result;
+		}
+		rational_series_stream ()
+			: cl_pqa_series_stream (rational_series_stream::computenext),
+			  n (0) {}
+	} series;
 	var uintC actuallen = len + 4; // 4 Schutz-Digits
 	static const cl_I A = "163096908";
 	static const cl_I B = "6541681608";
@@ -205,32 +230,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 	var uintC N = (n_slope*actuallen)/32 + 1;
 	// N > intDsize*log(2)/log(|J|) * actuallen, hence
 	// |J|^-N < 2^(-intDsize*actuallen).
-	CL_ALLOCA_STACK;
-	var cl_I* av = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
-	var uintC n;
-	for (n = 0; n < N; n++) {
-		init1(cl_I, av[n]) (A+n*B);
-		if (n==0) {
-			init1(cl_I, pv[n]) (1);
-			init1(cl_I, qv[n]) (1);
-		} else {
-			init1(cl_I, pv[n]) (-((cl_I)(6*n-5)*(cl_I)(2*n-1)*(cl_I)(6*n-1)));
-			init1(cl_I, qv[n]) ((cl_I)n*(cl_I)n*(cl_I)n*J1);
-		}
-	}
-	var cl_pqa_series series;
-	series.av = av;
-	series.pv = pv; series.qv = qv;
-	series.qsv = (len >= 35 ? qsv : 0); // 5% speedup for large len's
 	var cl_LF fsum = eval_rational_series(N,series,actuallen);
-	for (n = 0; n < N; n++) {
-		av[n].~cl_I();
-		pv[n].~cl_I();
-		qv[n].~cl_I();
-	}
 	static const cl_I J3 = "262537412640768000"; // -1728*J
 	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
 	return shorten(pires,len); // verkürzen und fertig
