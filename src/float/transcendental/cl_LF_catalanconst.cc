@@ -234,6 +234,10 @@ const cl_LF compute_catalanconst_cvz2 (uintC len)
 
 const cl_LF compute_catalanconst_lupas (uintC len)
 {
+        // [Alexandru Lupas. Formulae for Some Classical Constants.
+        //  Proceedings of ROGER-2000.
+        //  http://www.lacim.uqam.ca/~plouffe/articles/alupas1.pdf]
+        // [http://mathworld.wolfram.com/CatalansConstant.html]
 	// G = 19/18 * sum(n=0..infty,
 	//                 mul(m=1..n, -32*((80*m^3+72*m^2-18*m-19)*m^3)/
 	//                             (10240*m^6+14336*m^5+2560*m^4-3072*m^3-888*m^2+72*m+27))).
