@@ -201,15 +201,15 @@ const cl_LF lnx_ratseries (const cl_LF& x)
 		if (zerop(x1_.mantissa))
 			break;
 		var uintC lm = integer_length(x1_.mantissa);
-		var uintL me = cl_I_to_UL(- x1_.exponent);
+		var uintE me = cl_I_to_UE(- x1_.exponent);
 		var cl_I p;
-		var uintC lq;
+		var uintE lq;
 		var cl_boolean last_step = cl_false;
 		if (lm >= me) { // |x'| >= 1/2 ?
 			p = x1_.sign; // 1 or -1
 			lq = 1;
 		} else {
-			var uintL n = me - lm; // |x'| < 2^-n with n maximal
+			var uintE n = me - lm; // |x'| < 2^-n with n maximal
 			// Set p to the first n bits of |x'|:
 			if (lm > n) {
 				p = x1_.mantissa >> (lm - n);
@@ -227,7 +227,7 @@ const cl_LF lnx_ratseries (const cl_LF& x)
 			if (2*n >= lm)
 				last_step = cl_true;
 		}
-		y = y + scale_float(cl_I_to_LF(p,len),-(sintC)lq);
+		y = y + scale_float(cl_I_to_LF(p,len),-(sintE)lq);
 		if (last_step)
 			break;
 		x = x * cl_exp_aux(-p,lq,len);

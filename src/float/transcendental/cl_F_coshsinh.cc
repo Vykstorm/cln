@@ -33,7 +33,7 @@ const cosh_sinh_t cosh_sinh (const cl_F& x)
 //   (scale-float (+ y (/ y)) -1) und (scale-float (- y (/ y)) -1) bilden.
 // Genauigkeit wieder verringern.
 
-	var sintL e = float_exponent(x);
+	var sintE e = float_exponent(x);
 	if (e < 0) { // Exponent e abtesten
 		// e<0
 		if (zerop(x) || (e <= (1-(sintC)float_digits(x))>>1))
@@ -54,7 +54,7 @@ const cosh_sinh_t cosh_sinh (const cl_F& x)
 			#endif
 			if (TheLfloat(x)->len >= 585) {
 				// verwende exp(x), schneller als cl_coshsinh_ratseries
-				var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintL)(-e),intDsize));
+				var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintE)(-e),intDsize));
 				var cl_F y = exp(xx);
 				var cl_F y_inv = recip(y);
 				return cosh_sinh_t(

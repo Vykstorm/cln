@@ -26,17 +26,17 @@ const cl_LF_cosh_sinh_t cl_coshsinh_ratseries (const cl_LF& x)
 	var uintC len = TheLfloat(x)->len;
 	var cl_idecoded_float x_ = integer_decode_float(x);
 	// x = (-1)^sign * 2^exponent * mantissa
-	var uintL lq = cl_I_to_UL(- x_.exponent);
+	var uintE lq = cl_I_to_UE(- x_.exponent);
 	var const cl_I& p = x_.mantissa;
 	// Compute sinh(p/2^lq) and cosh(p/2^lq) by splitting into pieces.
 	var cl_boolean first_factor = cl_true;
 	var cl_LF_cosh_sinh_t product;
-	var uintL b1;
-	var uintL b2;
+	var uintE b1;
+	var uintE b2;
 	for (b1 = 0, b2 = 1; b1 < lq; b1 = b2, b2 = 2*b2) {
 		// Piece containing bits b1+1..b2 after "decimal point"
 		// in the binary representation of (p/2^lq).
-		var uintL lqk = (lq >= b2 ? b2 : lq);
+		var uintE lqk = (lq >= b2 ? b2 : lq);
 		var cl_I pk = ldb(p,cl_byte(lqk-b1,lq-lqk));
 		// Compute sinh(pk/2^lqk) and cosh(pk/2^lqk).
 		if (!zerop(pk)) {

@@ -195,15 +195,15 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 		var cl_idecoded_float y_ = integer_decode_float(y);
 		// y = (-1)^sign * 2^exponent * mantissa
 		var uintC lm = integer_length(y_.mantissa);
-		var uintL me = cl_I_to_UL(- y_.exponent);
+		var uintE me = cl_I_to_UE(- y_.exponent);
 		var cl_I p;
-		var uintC lq;
+		var uintE lq;
 		var cl_boolean last_step = cl_false;
 		if (lm >= me) { // |y| >= 1/2 ?
 			p = y_.sign; // 1 or -1
 			lq = 1;
 		} else {
-			var uintL n = me - lm; // |y| < 2^-n with n maximal
+			var uintE n = me - lm; // |y| < 2^-n with n maximal
 			// Set p to the first n bits of |y|:
 			if (lm > n) {
 				p = y_.mantissa >> (lm - n);
@@ -221,7 +221,7 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 			if (2*n >= lm)
 				last_step = cl_true;
 		}
-		z = z + scale_float(cl_I_to_LF(p,len),-(sintC)lq);
+		z = z + scale_float(cl_I_to_LF(p,len),-(sintE)lq);
 		if (last_step)
 			break;
 		var cl_LF_cos_sin_t cis_z = cl_cossin_aux(-p,lq,len);

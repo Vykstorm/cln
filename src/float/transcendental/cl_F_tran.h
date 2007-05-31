@@ -19,7 +19,7 @@ extern const cl_LF pi (uintC len); // computes it even further
 // cl_exp_aux(p,lq,len) liefert die Zahl exp(p/2^lq) mit len Digits.
 // 0 < |p| < 2^lq.
 // Es sollte |p|^2 < 2^lq sein, sonst ist das nicht effizient.
-extern const cl_LF cl_exp_aux (const cl_I& p, uintC lq, uintC len);
+extern const cl_LF cl_exp_aux (const cl_I& p, uintE lq, uintC len);
 
 // cl_cossin_aux(p,lq,len) liefert cos(p/2^lq) und sin(p/2^lq) mit len Digits.
 // 0 < |p| < 2^lq.
@@ -31,7 +31,7 @@ struct cl_LF_cos_sin_t {
 	cl_LF_cos_sin_t (const cl_LF& u, const cl_LF& v) : cos (u), sin (v) {}
 	cl_LF_cos_sin_t () {}
 };
-extern const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintC lq, uintC len);
+extern const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len);
 
 // cl_coshsinh_aux(p,lq,len) liefert cosh(p/2^lq) und sinh(p/2^lq) mit len Digits.
 // 0 < |p| < 2^lq.
@@ -43,7 +43,7 @@ struct cl_LF_cosh_sinh_t {
 	cl_LF_cosh_sinh_t (const cl_LF& u, const cl_LF& v) : cosh (u), sinh (v) {}
 	cl_LF_cosh_sinh_t () {}
 };
-extern const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintC lq, uintC len);
+extern const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintE lq, uintC len);
 
 // atanhx(x) liefert zu einem Float x (betragsmäßig <1/2) atanh(x) als Float.
 extern const cl_F atanhx (const cl_F& x);

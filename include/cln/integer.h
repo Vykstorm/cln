@@ -32,23 +32,37 @@ CL_DEFINE_AS_CONVERSION(cl_I)
   inline unsigned int cl_I_to_uint (const cl_I& x) { return cl_I_to_UL(x); }
 #endif
 
+// Convert an integer to a 64-bit 'quad' type.
+#ifdef intQsize
+ extern uint64 cl_I_to_UQ (const cl_I& obj);
+ extern sint64 cl_I_to_Q (const cl_I& obj);
+#endif
+
 // Convert an integer to a C `long' or `unsigned long'.
 #if (long_bitsize==32)
   inline long          cl_I_to_long  (const cl_I& x) { return cl_I_to_L(x);  }
   inline unsigned long cl_I_to_ulong (const cl_I& x) { return cl_I_to_UL(x); }
 #elif (long_bitsize==64)
-  extern uint64 cl_I_to_UQ (const cl_I& obj);
-  extern sint64 cl_I_to_Q (const cl_I& obj);
   inline long          cl_I_to_long  (const cl_I& x) { return cl_I_to_Q(x);  }
   inline unsigned long cl_I_to_ulong (const cl_I& x) { return cl_I_to_UQ(x); }
 #endif
 
+// Convert an integer to a counter type.
 #if (intCsize==long_bitsize)
   inline uintC cl_I_to_UC (const cl_I& x) { return cl_I_to_ulong(x); }
   inline sintC cl_I_to_C  (const cl_I& x) { return cl_I_to_long(x);  }
 #elif (intCsize==int_bitsize)
   inline uintC cl_I_to_UC (const cl_I& x) { return cl_I_to_uint(x); }
   inline sintC cl_I_to_C  (const cl_I& x) { return cl_I_to_int(x);  }
+#endif
+
+// Convert an integer to an exponent type.
+#if (intEsize==intLsize)
+  inline uintE cl_I_to_UE (const cl_I& x) { return cl_I_to_UL(x); }
+  inline sintE cl_I_to_E  (const cl_I& x) { return cl_I_to_L(x);  }
+#elif (intEsize==intQsize)
+  inline uintE cl_I_to_UE (const cl_I& x) { return cl_I_to_UQ(x); }
+  inline sintE cl_I_to_E  (const cl_I& x) { return cl_I_to_Q(x);  }
 #endif
 
 

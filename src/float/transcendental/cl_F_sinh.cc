@@ -41,7 +41,7 @@ const cl_F sinh (const cl_F& x)
 				// verwende exp(x), schneller als cl_coshsinh_ratseries
 				// (aber nur bei 0 > e > -d/2, denn wir müssen, um
 				// Auslöschung zu verhindern, |e| Bits dazunehmen)
-				var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintL)(-float_exponent(x)),intDsize));
+				var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintE)(-float_exponent(x)),intDsize));
 				var cl_F y = exp(xx);
 				var cl_F z = scale_float(y - recip(y), -1); // (/ (- y (/ y)) 2)
 				return cl_float(z,x);

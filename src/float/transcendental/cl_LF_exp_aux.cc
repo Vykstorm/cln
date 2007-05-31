@@ -22,10 +22,10 @@
 
 namespace cln {
 
-const cl_LF cl_exp_aux (const cl_I& p, uintC lq, uintC len)
+const cl_LF cl_exp_aux (const cl_I& p, uintE lq, uintC len)
 {
  {	Mutable(cl_I,p);
-	var uintC lp = integer_length(p); // now |p| < 2^lp.
+	var uintE lp = integer_length(p); // now |p| < 2^lp.
 	if (!(lp <= lq)) cl_abort();
 	lp = lq - lp; // now |p/2^lq| < 2^-lp.
 	// Minimize lq (saves computation time).

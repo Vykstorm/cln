@@ -1,3 +1,18 @@
+2007-05-31  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/integer.h (cl_I_to_E, cl_I_to_UE): New functions.
+	* src/float/transcendental/cl_LF_exp_aux.cc: Make lq argument an uintE.
+	* src/float/transcendental/cl_LF_cossin_aux.cc: Likewise.
+	* src/float/transcendental/cl_LF_coshsinh_aux.cc: Likewise.
+	* src/float/transcendental/cl_F_tran.h: Change declaration of lq.
+	* src/float/transcendental/cl_F_lnx.cc: Fix some exponent types.
+	* src/float/transcendental/cl_F_expx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinh.cc: Likewise.
+	* src/float/transcendental/cl_F_atanx.cc: Likewise.
+	* src/float/transcendental/cl_F_coshsinh.cc: Likewise.
+	* src/float/transcendental/cl_LF_cossin.cc: Likewise.
+	* src/float/transcendental/cl_LF_coshsinh.cc: Likewise.
+
 2007-04-09  Richard B. Kreckel  <kreckel@ginac.de>
 
 	More memory efficient constants:
