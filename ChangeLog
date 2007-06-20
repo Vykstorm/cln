@@ -1,3 +1,8 @@
+2007-06-20  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* cln.spec.in (Source0): Package is bzip2-compressed.
+	Reported by Markus Grabner <grabner@icg.tugraz.at>.
+
 2007-05-31  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/integer.h (cl_I_to_E, cl_I_to_UE): New functions.
