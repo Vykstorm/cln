@@ -39,7 +39,7 @@ const cl_LF shorten (const cl_LF& x, uintC len)
               // Übertrag durch Aufrunden
               { mspref(arrayMSDptr(TheLfloat(y)->data,len),0) = bit(intDsize-1); // Mantisse := 10...0
                 // Exponent erhöhen:
-                if (++(TheLfloat(y)->expo) == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+                if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); }
           }   }
       }
       return y;

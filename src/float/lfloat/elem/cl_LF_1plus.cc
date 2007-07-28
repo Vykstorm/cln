@@ -124,7 +124,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
              { if ( inc_loop_lsp(ptr,i) )
                  // Übertrag über das erste Digit hinaus
                  { // Exponent von y incrementieren:
-                   if ( ++(TheLfloat(y)->expo) == LF_exp_high+1 ) { cl_error_floating_point_overflow(); }
+                   if ( ++(TheLfloat(y)->expo) == LF_exp_high+1 ) { throw floating_point_overflow_exception(); }
                    // normalisiere durch Schieben um 1 Bit nach rechts:
                   {var uintD carry_rechts =
                      shift1right_loop_msp(y_mantMSDptr,len,~(uintD)0);
@@ -179,7 +179,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
                 if (uexp <= k)
                 #endif
                   { if (underflow_allowed())
-                      { cl_error_floating_point_underflow(); }
+                      { throw floating_point_underflow_exception(); }
                       else
                       { return encode_LF0(len); } // Ergebnis 0.0
                   }
@@ -212,7 +212,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
                 if (uexp <= s)
                 #endif
                   { if (underflow_allowed())
-                      { cl_error_floating_point_underflow(); }
+                      { throw floating_point_underflow_exception(); }
                       else
                       { return encode_LF0(len); } // Ergebnis 0.0
                   }
@@ -232,7 +232,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
            { // Übertrag durchs Aufrunden
              mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
              // Exponent erhöhen:
-             if (++(TheLfloat(y)->expo) == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+             if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); }
            }
        ab: // abrunden
          ;

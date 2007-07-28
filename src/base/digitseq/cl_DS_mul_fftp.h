@@ -283,7 +283,7 @@ static inline void shift (const fftp_word& a, fftp_word& b)
 #ifdef FFTP_EXTERNAL_LOOPS
 	#ifdef DEBUG_FFTP
 	if (shiftrightcopy_loop_msp(arrayMSDptr(a._w,3),arrayMSDptr(b._w,3),3,1,0))
-		cl_abort();
+		throw runtime_exception();
 	#else
 	shiftrightcopy_loop_msp(arrayMSDptr(a._w,3),arrayMSDptr(b._w,3),3,1,0);
 	#endif
@@ -301,13 +301,13 @@ static inline void shift (const fftp_word& a, fftp_word& b)
 	#ifdef DEBUG_FFTP
 	carry = tmp << 31;
 	if (carry)
-		cl_abort();
+		throw runtime_exception();
 	#endif
 #endif
 }
 
 #ifdef DEBUG_FFTP_OPERATIONS
-#define check_fftp_word(x)  if (compare_loop_msp(arrayMSDptr((x)._w,3),arrayMSDptr(p._w,3),3) >= 0) cl_abort()
+#define check_fftp_word(x)  if (compare_loop_msp(arrayMSDptr((x)._w,3),arrayMSDptr(p._w,3),3) >= 0) throw runtime_exception()
 #else
 #define check_fftp_word(x)
 #endif
@@ -394,7 +394,7 @@ static void mulp (const fftp_word& a, const fftp_word& b, fftp_word& r)
 	// c[0..3] now contains q, c[4..6] contains (c mod 7*2^n).
 	#ifdef DEBUG_FFTP
 	if (lspref(cLSDptr,6) > 0)
-		cl_abort();
+		throw runtime_exception();
 	#endif
 	#if 0
 	if (compare_loop_msp(cLSDptr lspop 6,arrayMSDptr(p._w,3),3) >= 0) // q >= p ?
@@ -407,7 +407,7 @@ static void mulp (const fftp_word& a, const fftp_word& b, fftp_word& r)
 #error "mulp not implemented for this prime"
 #endif
 	if ((sint32)r.w2 < 0)
-		cl_abort();
+		throw runtime_exception();
 	check_fftp_word(r);
 }
 #ifdef DEBUG_FFTP_OPERATIONS
@@ -420,7 +420,7 @@ static void mulp_doublecheck (const fftp_word& a, const fftp_word& b, fftp_word&
 	mulp(ma,mb, or);
 	mulp(a,b, r);
 	if (compare_loop_msp(arrayMSDptr(r._w,3),arrayMSDptr(or._w,3),3))
-		cl_abort();
+		throw runtime_exception();
 }
 #define mulp mulp_doublecheck
 #endif /* DEBUG_FFTP_OPERATIONS */
@@ -483,10 +483,10 @@ static void fftp_convolution (const uintL n, const uintC N, // N = 2^n
 		var fftp_word w_N;
 		mulp(w[N-1],fftp_roots_of_1[n], w_N);
 		if (!(w_N.w2 == 0 && w_N.w1 == 0 && w_N.w0 == 1))
-			cl_abort();
+			throw runtime_exception();
 		w_N = w[N>>1];
 		if (!(w_N.w2 == p.w2 && w_N.w1 == p.w1 && w_N.w0 == p.w0 - 1))
-			cl_abort();
+			throw runtime_exception();
 	}
 	#endif
 	var bool squaring = (x == y);
@@ -698,7 +698,7 @@ static void mulu_fft_modp (const uintD* sourceptr1, uintC len1,
 			mulu_loop_lsp(lspref(sourceptr2,0),sourceptr1,tmpptr,len1);
 			if (addto_loop_lsp(tmpptr,destptr,len1+1))
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
-					cl_abort();
+					throw runtime_exception();
 		} else {
 			var uintC destlenp = len1 + len2p - 1;
 			// destlenp = min(N,destlen-1).
@@ -738,7 +738,7 @@ static void mulu_fft_modp (const uintD* sourceptr1, uintC len1,
 			// Check result.
 			for (i = 0; i < N; i++)
 				if (!(z[i].w2 < N))
-					cl_abort();
+					throw runtime_exception();
 			#endif
 			// Add result to destptr[-destlen..-1]:
 			{
@@ -775,7 +775,7 @@ static void mulu_fft_modp (const uintD* sourceptr1, uintC len1,
 				// ac2 = 0.
 				if (ac1 > 0) {
 					if (!((i += 2) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					if ((ac0 += tmp) < tmp)
 						++ac1;
@@ -787,24 +787,24 @@ static void mulu_fft_modp (const uintD* sourceptr1, uintC len1,
 					lsshrink(ptr);
 					if (ac1 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				} else if (ac0 > 0) {
 					if (!((i += 1) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					ac0 += tmp;
 					lspref(ptr,0) = ac0;
 					lsshrink(ptr);
 					if (ac0 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				}
 			}
 			#ifdef DEBUG_FFTP
 			// If destlenp < N, check that the remaining z[i] are 0.
 			for (i = destlenp; i < N; i++)
 				if (z[i].w2 > 0 || z[i].w1 > 0 || z[i].w0 > 0)
-					cl_abort();
+					throw runtime_exception();
 			#endif
 		}
 		// Decrement len2.

@@ -2,7 +2,7 @@
 
 #include "cln/SV_ringelt.h"
 #include "cln/integer.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -142,7 +142,7 @@ static const _cl_UP gen_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	// Negate. No normalization necessary, since the degree doesn't change.
 	var sintL i = xlen-1;
 	var _cl_ring_element hicoeff = R->_uminus(x[i]);
-	if (R->_zerop(hicoeff)) cl_abort();
+	if (R->_zerop(hicoeff)) throw runtime_exception();
 	var cl_SV_ringelt result = cl_SV_ringelt(cl_make_heap_SV_ringelt_uninit(xlen));
 	init1(_cl_ring_element, result[i]) (hicoeff);
 	for (i-- ; i >= 0; i--)
@@ -253,7 +253,7 @@ static const _cl_UP gen_mul (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const 
 	}
 	// Normalize (not necessary in integral domains).
 	//gen_normalize(R,result,len);
-	if (R->_zerop(result[len-1])) cl_abort();
+	if (R->_zerop(result[len-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -292,7 +292,7 @@ static const _cl_UP gen_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	init1(_cl_ring_element, result[0]) (R->_square(x[0]));
 	// Normalize (not necessary in integral domains).
 	//gen_normalize(R,result,len);
-	if (R->_zerop(result[len-1])) cl_abort();
+	if (R->_zerop(result[len-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -312,7 +312,7 @@ static const _cl_UP gen_exptpos (cl_heap_univpoly_ring* UPR, const _cl_UP& x, co
 
 static const _cl_UP gen_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, const _cl_UP& y)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
  {
 	DeclarePoly(cl_SV_ringelt,y);
 	var cl_heap_ring* R = TheRing(UPR->basering());
@@ -326,7 +326,7 @@ static const _cl_UP gen_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_eleme
 		init1(_cl_ring_element, result[i]) (R->_mul(x,y[i]));
 	// Normalize (not necessary in integral domains).
 	//gen_normalize(R,result,ylen);
-	if (R->_zerop(result[ylen-1])) cl_abort();
+	if (R->_zerop(result[ylen-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -350,7 +350,7 @@ static sintL gen_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 
 static const _cl_UP gen_monomial (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, uintL e)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
 	var cl_heap_ring* R = TheRing(UPR->basering());
 	if (R->_zerop(x))
 		return _cl_UP(UPR, cl_null_SV_ringelt);
@@ -385,8 +385,8 @@ static const _cl_UP gen_create (cl_heap_univpoly_ring* UPR, sintL deg)
 static void gen_set_coeff (cl_heap_univpoly_ring* UPR, _cl_UP& x, uintL index, const cl_ring_element& y)
 {{
 	DeclareMutablePoly(cl_SV_ringelt,x);
-	if (!(UPR->basering() == y.ring())) cl_abort();
-	if (!(index < x.length())) cl_abort();
+	if (!(UPR->basering() == y.ring())) throw runtime_exception();
+	if (!(index < x.length())) throw runtime_exception();
 	x[index] = y;
 }}
 
@@ -407,7 +407,7 @@ static const cl_ring_element gen_eval (cl_heap_univpoly_ring* UPR, const _cl_UP&
 	// Else compute (...(x[len-1]*y+x[len-2])*y ...)*y + x[0].
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	if (!(y.ring() == R)) cl_abort();
+	if (!(y.ring() == R)) throw runtime_exception();
 	var uintL len = x.length();
 	if (len==0)
 		return R->zero();

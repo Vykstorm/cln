@@ -11,7 +11,7 @@ CL_PROVIDE(cl_GV_number)
 
 // Implementation.
 
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_offsetof.h"
 
 namespace cln {
@@ -46,9 +46,9 @@ static inline const cl_heap_GV_number * outcast (const cl_GV_inner<cl_number>* v
 struct cl_heap_GV_number_general : public cl_heap_GV_number {
 	cl_number data[1];
 	// Standard allocation disabled.
-	void* operator new (size_t size) { unused size; cl_abort(); return (void*)1; }
+	void* operator new (size_t size) { unused size; throw runtime_exception(); }
 	// Standard deallocation disabled.
-	void operator delete (void* ptr) { unused ptr; cl_abort(); }
+	void operator delete (void* ptr) { unused ptr; throw runtime_exception(); }
 	// No default constructor.
 	cl_heap_GV_number_general ();
 };
@@ -81,9 +81,9 @@ static void general_copy_elements (const cl_GV_inner<cl_number>* srcvec, uintC s
 		var uintC srclen = srcv->v.length();
 		var uintC destlen = destv->v.length();
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))
-			cl_abort();
+			throw runtime_exception();
 		if (!(destindex <= destindex+count && destindex+count <= destlen))
-			cl_abort();
+			throw runtime_exception();
 		do {
 			destv->data[destindex++] = srcv->data[srcindex++];
 		} while (--count > 0);

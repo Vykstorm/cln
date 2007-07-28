@@ -11,7 +11,7 @@
 
 #include "cln/lfloat.h"
 #include "cln/integer.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_LF.h"
 
 namespace cln {
@@ -28,7 +28,7 @@ static void eval_p_series_aux (uintC N1, uintC N2,
 {
 	switch (N2 - N1) {
 	case 0:
-		cl_abort(); break;
+		throw runtime_exception(); break;
 	case 1:
 		if (P) { *P = args.pv[N1]; }
 		*T = args.pv[N1];

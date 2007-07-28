@@ -13,7 +13,7 @@ CL_PROVIDE(cl_GV_I)
 
 #include "cl_I.h"
 #include "cl_DS.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_offsetof.h"
 
 namespace cln {
@@ -70,9 +70,9 @@ static inline cl_GV_I_vectorops* outcast (cl_GV_vectorops<cl_I>* vectorops)
 struct cl_heap_GV_I_general : public cl_heap_GV_I {
 	cl_I data[1];
 	// Standard allocation disabled.
-	void* operator new (size_t size) { unused size; cl_abort(); return (void*)1; }
+	void* operator new (size_t size) { unused size; throw runtime_exception(); }
 	// Standard deallocation disabled.
-	void operator delete (void* ptr) { unused ptr; cl_abort(); }
+	void operator delete (void* ptr) { unused ptr; throw runtime_exception(); }
 	// No default constructor.
 	cl_heap_GV_I_general ();
 };
@@ -105,9 +105,9 @@ static void general_copy_elements (const cl_GV_inner<cl_I>* srcvec, uintC srcind
 		var uintC srclen = srcv->v.length();
 		var uintC destlen = destv->v.length();
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))
-			cl_abort();
+			throw runtime_exception();
 		if (!(destindex <= destindex+count && destindex+count <= destlen))
-			cl_abort();
+			throw runtime_exception();
 		do {
 			destv->data[destindex++] = srcv->data[srcindex++];
 		} while (--count > 0);
@@ -140,9 +140,9 @@ cl_heap_GV_I* cl_make_heap_GV_I (uintC len)
 struct cl_heap_GV_I_bits##m : public cl_heap_GV_I {			\
 	uint_t data[1];							\
 	/* Standard allocation disabled. */				\
-	void* operator new (size_t size) { unused size; cl_abort(); return (void*)1; } \
+	void* operator new (size_t size) { unused size; throw runtime_exception(); } \
 	/* Standard deallocation disabled. */				\
-	void operator delete (void* ptr) { unused ptr; cl_abort(); }	\
+	void operator delete (void* ptr) { unused ptr; throw runtime_exception(); } \
 	/* No default constructor. */					\
 	cl_heap_GV_I_bits##m ();					\
 };									\
@@ -158,9 +158,9 @@ static void bits##m##_copy_elements (const cl_GV_inner<cl_I>* srcvec, uintC srci
 		var uintC srclen = srcv->v.length();				\
 		var uintC destlen = destv->v.length();				\
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))	\
-			cl_abort();						\
+			throw runtime_exception();	       			\
 		if (!(destindex <= destindex+count && destindex+count <= destlen)) \
-			cl_abort();						\
+			throw runtime_exception();	       			\
 		if (m == intDsize) {						\
 			var const uintD* srcptr = &srcv->data[srcindex];	\
 			var uintD* destptr = &destv->data[destindex];		\
@@ -293,7 +293,7 @@ static void bits1_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 			return;
 		}
 	}
-	cl_abort();
+	throw runtime_exception();
 }
 
 
@@ -315,7 +315,7 @@ static void bits2_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 			return;
 		}
 	}
-	cl_abort();
+	throw runtime_exception();
 }
 
 
@@ -337,7 +337,7 @@ static void bits4_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 			return;
 		}
 	}
-	cl_abort();
+	throw runtime_exception();
 }
 
 
@@ -369,7 +369,7 @@ static void bits8_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 			return;
 		}
 	}
-	cl_abort();
+	throw runtime_exception();
 }
 
 
@@ -401,7 +401,7 @@ static void bits16_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I&
 			return;
 		}
 	}
-	cl_abort();
+	throw runtime_exception();
 }
 
 

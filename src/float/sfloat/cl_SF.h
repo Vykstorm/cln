@@ -105,13 +105,13 @@ inline const cl_SF encode_SF (cl_signean sign, sintL exp, uintL mant)
 {
 	if (exp < (sintL)(SF_exp_low-SF_exp_mid))
 	  { if (underflow_allowed())
-	      { cl_error_floating_point_underflow(); }
+	      { throw floating_point_underflow_exception(); }
 	      else
 	      { return SF_0; }
 	  }
 	else
 	if (exp > (sintL)(SF_exp_high-SF_exp_mid))
-	  { cl_error_floating_point_overflow(); }
+	  { throw floating_point_overflow_exception(); }
 	else
 	return make_SF(sign, exp+SF_exp_mid, mant);
 }

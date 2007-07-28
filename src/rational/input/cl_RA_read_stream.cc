@@ -99,10 +99,10 @@ const cl_RA read_rational (std::istream& stream, const cl_read_flags& flags)
 
 	// Handle syntax error.
 syntax1:	buffer.push(c);
-	read_number_bad_syntax(buffer.start_pointer(),buffer.end_pointer());
+	throw read_number_bad_syntax_exception(buffer.start_pointer(),buffer.end_pointer());
 
 	// Handle premature EOF.
-eof:	read_number_eof();
+eof:	throw read_number_eof_exception();
 }
 
 }  // namespace cln

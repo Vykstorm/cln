@@ -43,7 +43,7 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
          )
         {} // garantiert exp <= intDsize*2^intCsize-1 <= LF_exp_high-LF_exp_mid
         else
-        { if (!(exp <= (uintE)(LF_exp_high-LF_exp_mid))) { cl_error_floating_point_overflow(); } }
+        { if (!(exp <= (uintE)(LF_exp_high-LF_exp_mid))) { throw floating_point_overflow_exception(); } }
       // Long-Float bauen:
       var Lfloat y = allocate_lfloat(len,exp+LF_exp_mid,sign);
       var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
@@ -96,7 +96,7 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
                    // garantiert exp < intDsize*2^intCsize-1 <= LF_exp_high-LF_exp_mid
                    { (TheLfloat(y)->expo)++; } // jetzt exp <= LF_exp_high-LF_exp_mid
                    else
-                   { if (++(TheLfloat(y)->expo) == LF_exp_high+1) { cl_error_floating_point_overflow(); } }
+                   { if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); } }
                }
            ab: // abrunden
              ;

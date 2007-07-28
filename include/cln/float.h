@@ -12,6 +12,7 @@
 #include "cln/ffloat_class.h"
 #include "cln/dfloat_class.h"
 #include "cln/lfloat_class.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -733,11 +734,36 @@ inline cl_F& operator/= (cl_F& x, const float y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const double y) { return x = x / y; }
 #endif
 
+// Thrown when a floating-point exception occurs.
+class floating_point_exception : public runtime_exception {
+public:
+	explicit floating_point_exception(const std::string & what)
+		: runtime_exception(what) {}
+};
+
+// Thrown when NaN occurs.
+class floating_point_nan_exception : public floating_point_exception {
+public:
+	floating_point_nan_exception();
+};
+
+// Thrown when overflow occurs.
+class floating_point_overflow_exception : public floating_point_exception {
+public:
+	floating_point_overflow_exception();
+};
+
+// Thrown when underflow occurs.
+class floating_point_underflow_exception : public floating_point_exception {
+public:
+	floating_point_underflow_exception();
+};
+
 
 CL_REQUIRE(cl_ieee)
 
 
-// If this is true, floating point underflow returns zero instead of an error.
+// If this is true, floating point underflow returns zero instead of throwing an exception.
 extern cl_boolean cl_inhibit_floating_point_underflow;
 
 }  // namespace cln

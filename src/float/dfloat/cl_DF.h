@@ -161,13 +161,13 @@ inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintQ mant)
 {
       if (exp < (sintL)(DF_exp_low-DF_exp_mid))
         { if (underflow_allowed())
-            { cl_error_floating_point_underflow(); }
+            { throw floating_point_underflow_exception(); }
             else
             { return cl_DF_0; }
         }
       else
       if (exp > (sintL)(DF_exp_high-DF_exp_mid))
-        { cl_error_floating_point_overflow(); }
+        { throw floating_point_overflow_exception(); }
       else
       return allocate_dfloat
         (  ((sint64)sign & bit(63))                  /* Vorzeichen */
@@ -188,13 +188,13 @@ inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintL manthi, uintL ma
 {
       if (exp < (sintL)(DF_exp_low-DF_exp_mid))
         { if (underflow_allowed())
-            { cl_error_floating_point_underflow(); }
+            { throw floating_point_underflow_exception(); }
             else
             { return cl_DF_0; }
         }
       else
       if (exp > (sintL)(DF_exp_high-DF_exp_mid))
-        { cl_error_floating_point_overflow(); }
+        { throw floating_point_overflow_exception(); }
       else
       return allocate_dfloat
         (  ((sint32)sign & bit(31))                       /* Vorzeichen */
@@ -234,7 +234,7 @@ inline double DF_to_double (const cl_DF& obj)
               )								\
               && underflow_allowed()					\
              )								\
-            { cl_error_floating_point_underflow(); } /* subnormal oder noch kleiner -> Underflow */\
+            { throw floating_point_underflow_exception(); } /* subnormal oder noch kleiner -> Underflow */\
             else							\
             { ergebnis_zuweisung cl_DF_0; } /* +/- 0.0 -> 0.0 */	\
         }								\
@@ -242,12 +242,12 @@ inline double DF_to_double (const cl_DF& obj)
             && (((~_erg.eksplicit) & ((uint64)bit(DF_exp_len+DF_mant_len)-bit(DF_mant_len))) == 0) /* e=2047 ? */\
            )								\
         { if (maybe_nan && !((_erg.eksplicit<<(64-DF_mant_len)) == 0))	\
-            { cl_error_division_by_0(); } /* NaN, also Singularität -> "Division durch 0" */\
+            { throw division_by_0_exception(); } /* NaN, also Singularität -> "Division durch 0" */\
           else /* Infinity */						\
           if (!maybe_overflow || maybe_divide_0)			\
-            { cl_error_division_by_0(); } /* Infinity, Division durch 0 */\
+            { throw division_by_0_exception(); } /* Infinity, Division durch 0 */\
             else							\
-            { cl_error_floating_point_overflow(); } /* Infinity, Overflow */\
+            { throw floating_point_overflow_exception(); } /* Infinity, Overflow */\
         }								\
       else								\
         { ergebnis_zuweisung allocate_dfloat(_erg.eksplicit); }		\
@@ -262,7 +262,7 @@ inline double DF_to_double (const cl_DF& obj)
               )   )                                                       \
               && underflow_allowed()                                      \
              )                                                            \
-            { cl_error_floating_point_underflow(); } /* subnormal oder noch kleiner -> Underflow */\
+            { throw floating_point_underflow_exception(); } /* subnormal oder noch kleiner -> Underflow */\
             else                                                          \
             { ergebnis_zuweisung cl_DF_0; } /* +/- 0.0 -> 0.0           */\
         }                                                                 \
@@ -270,12 +270,12 @@ inline double DF_to_double (const cl_DF& obj)
             && (((~_erg.eksplicit.semhi) & ((uint32)bit(DF_exp_len+DF_mant_len-32)-bit(DF_mant_len-32))) == 0) /* e=2047 ?  */\
            )                                                              \
         { if (maybe_nan && !(((_erg.eksplicit.semhi<<(64-DF_mant_len)) == 0) && (_erg.eksplicit.mlo==0))) \
-            { cl_error_division_by_0(); } /* NaN, also Singularität -> "Division durch 0"  */\
+            { throw division_by_0_exception(); } /* NaN, also Singularität -> "Division durch 0"  */\
           else /* Infinity                                              */\
           if (!maybe_overflow || maybe_divide_0)                          \
-            { cl_error_division_by_0(); } /* Infinity, Division durch 0 */\
+            { throw division_by_0_exception(); } /* Infinity, Division durch 0 */\
             else                                                          \
-            { cl_error_floating_point_overflow(); } /* Infinity, Overflow */\
+            { throw floating_point_overflow_exception(); } /* Infinity, Overflow */\
         }                                                                 \
       else                                                                \
         { ergebnis_zuweisung allocate_dfloat(_erg.eksplicit.semhi,_erg.eksplicit.mlo); }  \

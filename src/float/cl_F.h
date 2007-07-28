@@ -9,9 +9,6 @@
 
 namespace cln {
 
-nonreturning_function(extern, cl_error_floating_point_overflow, (void));
-nonreturning_function(extern, cl_error_floating_point_underflow, (void));
-
 #define underflow_allowed()  (! cl_inhibit_floating_point_underflow)
 
 
@@ -70,10 +67,6 @@ extern const cl_FF cl_LF_to_FF (const cl_LF& x);
 
 // cl_LF_to_DF(x) wandelt ein Long-Float x in ein Double-Float um.
 extern const cl_DF cl_LF_to_DF (const cl_LF& x);
-
-
-// Fehlermeldung wegen NaN
-nonreturning_function(extern, cl_error_floating_point_nan, (void));
 
 
 // Runtime typing support.

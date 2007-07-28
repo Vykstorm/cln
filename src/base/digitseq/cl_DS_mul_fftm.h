@@ -469,7 +469,7 @@ static void mulu_fftm (const uintL r, const uintC R, // R = 2^r
 		var uintC zerodigits = chlen - zchlen;
 		for (i = 0; i < M; i++)
 			if (DS_test_loop(Z(i) lspop chlen,zerodigits,Z(i) lspop zchlen))
-				cl_abort();
+				throw runtime_exception();
 	}
 	#endif
 	// Put together result.
@@ -479,14 +479,14 @@ static void mulu_fftm (const uintL r, const uintC R, // R = 2^r
 		if (zchlen <= destlen) {
 			if (addto_loop_lsp(Z(i),destptr,zchlen))
 				if (inc_loop_lsp(destptr lspop zchlen,destlen-zchlen))
-					cl_abort();
+					throw runtime_exception();
 		} else {
 			#ifdef DEBUG_FFTM
 			if (DS_test_loop(Z(i) lspop zchlen,zchlen-destlen,Z(i) lspop destlen))
-				cl_abort();
+				throw runtime_exception();
 			#endif
 			if (addto_loop_lsp(Z(i),destptr,destlen))
-				cl_abort();
+				throw runtime_exception();
 		}
 		if (destlen <= k) {
 			i++;
@@ -496,7 +496,7 @@ static void mulu_fftm (const uintL r, const uintC R, // R = 2^r
 	#ifdef DEBUG_FFTM
 	// Check that Z(i)..Z(M-1) are all zero.
 	if (test_loop_up(&arrZ[chlen*i],chlen*(M-i)))
-		cl_abort();
+		throw runtime_exception();
 	#endif
 	#undef diff
 	#undef sum
@@ -562,7 +562,7 @@ static uintC numpieces (uintL r, uintL m, uintC len1, uintC len2)
 	var uintC piecelen2 = (M+1-ceiling(len1,k))*k;
 	#ifdef DEBUG_FFTM
 	if ((sintC)piecelen2 <= 0)
-		cl_abort();
+		throw runtime_exception();
 	#endif
 	return ceiling(len2,piecelen2);
 }
@@ -592,7 +592,7 @@ static void mulu_fft_modm (const uintD* sourceptr1, uintC len1,
 	}
 	#ifdef DEBUG_FFTM
 	if (!(m > 0 && m <= r+1 && okfor(r,m,len1,len1)))
-		cl_abort();
+		throw runtime_exception();
 	#endif
 	if (okfor(r,m,len1,len2)) {
 		if ((m <= r) && (r > log2_intDsize+2) && okfor(r-1,m,len1,ceiling(len2,2)))
@@ -644,7 +644,7 @@ static void mulu_fft_modm (const uintD* sourceptr1, uintC len1,
 		}
 		if (addto_loop_lsp(tmpptr,destptr,destlenp))
 			if (inc_loop_lsp(destptr lspop destlenp,destlen-destlenp))
-				cl_abort();
+				throw runtime_exception();
 		// Decrement len2.
 		destptr = destptr lspop len2p;
 		destlen -= len2p;

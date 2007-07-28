@@ -42,7 +42,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
       var uintC len2 = TheLfloat(x2)->len;
       var uintC len = (len1 < len2 ? len1 : len2); // min. Länge n von x1 und x2
       var uintE uexp2 = TheLfloat(x2)->expo;
-      if (uexp2==0) { cl_error_division_by_0(); } // x2=0.0 -> Error
+      if (uexp2==0) { throw division_by_0_exception(); } // x2=0.0 -> Error
       var uintE uexp1 = TheLfloat(x1)->expo;
       if (uexp1==0) // x1=0.0 -> Ergebnis 0.0
         { if (len < len1) return shorten(x1,len); else return x1; }
@@ -50,14 +50,14 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
       // (uexp1-LF_exp_mid) - (uexp2-LF_exp_mid) = (uexp1-uexp2+LF_exp_mid)-LF_exp_mid
       if (uexp1 >= uexp2)
         { uexp1 = uexp1 - uexp2; // kein Carry
-          if (uexp1 > LF_exp_high-LF_exp_mid) { cl_error_floating_point_overflow(); }
+          if (uexp1 > LF_exp_high-LF_exp_mid) { throw floating_point_overflow_exception(); }
           uexp1 = uexp1 + LF_exp_mid;
         }
         else
         { uexp1 = uexp1 - uexp2; // Carry
           if (uexp1 < (uintE)(LF_exp_low-1-LF_exp_mid))
             { if (underflow_allowed())
-                { cl_error_floating_point_underflow(); }
+                { throw floating_point_underflow_exception(); }
                 else
                 { return encode_LF0(len); } // Ergebnis 0.0
             }
@@ -105,7 +105,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
              shiftrightcopy_loop_msp(q.MSDptr mspop 1,y_mantMSDptr,len,1,
                                      /* carry links = mspref(q.MSDptr,0) = 1 */ 1 );
            // Exponenten incrementieren:
-           if (++(TheLfloat(y)->expo) == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+           if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); }
            // Runden:
            if ( (carry_rechts == 0) // herausgeschobenes Bit =0 -> abrunden
                 || ( (lspref(q.LSDptr,0)==0) // =1 und weitere Bits >0 oder Rest >0 -> aufrunden
@@ -138,14 +138,14 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
                  // Übertrag durchs Aufrunden
                  { mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
                    // Exponenten incrementieren:
-                   if (++(TheLfloat(y)->expo) == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+                   if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); }
              }   }
          }
       }
       // LF_exp_low <= exp <= LF_exp_high sicherstellen:
       if (TheLfloat(y)->expo == LF_exp_low-1)
         { if (underflow_allowed())
-            { cl_error_floating_point_underflow(); }
+            { throw floating_point_underflow_exception(); }
             else
             { return encode_LF0(len); } // Ergebnis 0.0
         }

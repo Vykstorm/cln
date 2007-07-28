@@ -30,7 +30,7 @@ const cl_R log (const cl_R& a, const cl_R& b)
 	Mutable(cl_R,b);
 	if (rationalp(b)) {
 		// b rational
-		if (eq(b,1)) { cl_error_division_by_0(); }
+		if (eq(b,1)) { throw division_by_0_exception(); }
 		if (rationalp(a)) {
 			// a,b beide rational
 			var cl_RA l;

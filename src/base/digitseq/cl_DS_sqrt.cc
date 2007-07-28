@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cl_low.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -155,7 +155,7 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
           // 1/4 <= d < 2, | sqrt(a) - d | < beta^-n.
           if (mspref(d_MSDptr,0) > 0)
             { dec_loop_lsp(d_MSDptr mspop (n+1),n+1);
-              if (mspref(d_MSDptr,0) > 0) cl_abort();
+              if (mspref(d_MSDptr,0) > 0) throw runtime_exception();
             }
           // D is our guess for B. Square to see how much we have to correct.
           cl_UDS_mul_square(d_MSDptr mspop (1+n),n,d2_MSDptr mspop 2*n);
@@ -171,13 +171,13 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
             { dec_loop_lsp(b_->LSDptr,n);
               dec_loop_lsp(d_MSDptr mspop (1+n),1+n); // store 2*D+1
               if (!addto_loop_lsp(d_MSDptr mspop (1+n),a_MSDptr mspop 2*n,1+n))
-                cl_abort();
+                throw runtime_exception();
               if (!inc_loop_lsp(a_MSDptr mspop (n-1),n-1))
-                cl_abort();
+                throw runtime_exception();
             }
           else if (test_loop_msp(a_MSDptr,n-1))
             // guessed way too low
-            cl_abort();
+            throw runtime_exception();
           else if (compare_loop_msp(a_MSDptr mspop (n-1),d_MSDptr,1+n) > 0)
             // guessed too low, increment D
             { inc_loop_lsp(b_->LSDptr,n);
@@ -185,7 +185,7 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
               subfrom_loop_lsp(d_MSDptr mspop (1+n),a_MSDptr mspop 2*n,1+n);
               inc_loop_lsp(d_MSDptr mspop (1+n),1+n); // store 2*D
               if (compare_loop_msp(a_MSDptr mspop (n-1),d_MSDptr,1+n) > 0)
-                cl_abort();
+                throw runtime_exception();
             }
           else
             // guessed ok

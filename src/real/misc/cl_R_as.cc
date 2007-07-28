@@ -40,7 +40,7 @@ const cl_R& cl_R_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_R,x);
 		return x;
 	} else
-		cl_as_error(x,"a real number",filename,line);
+		throw as_exception(x,"a real number",filename,line);
 }
 
 }  // namespace cln

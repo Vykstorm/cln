@@ -26,17 +26,10 @@ Known to work with:
 
 The "make" step takes about 30 minutes, on a P-III / 1 GHz / 512 MB.
 
-If you use g++ from gcc-3.x, I recommend adding "-fno-exceptions" to the
-CXXFLAGS. This will likely generate better code.
-
 If you use g++ from gcc-3.0.4 or older on Sparc, add either "-O", "-O1" or
 "-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2", g++ miscompiles
 the division routines. Do not use gcc-3.0 on Sparc for compiling CLN, it
 won't work at all.
-
-If you use g++ on OSF/1 or Tru64 using gcc-3.0.n with n larger than 1, you
-should not add -fno-exceptions to the CXXFLAGS, since that will generate
-wrong code (gcc-3.1 is okay again, as is gcc-3.0).
 
 More detailed installation instructions can be found in the documentation,
 in the doc/ directory.

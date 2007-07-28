@@ -27,7 +27,7 @@ const cl_LF& cl_LF_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_LF,x);
 		return x;
 	} else
-		cl_as_error(x,"a long-float number",filename,line);
+		throw as_exception(x,"a long-float number",filename,line);
 }
 
 }  // namespace cln

@@ -231,13 +231,13 @@ public:
 	// High-level operations.
 	void fprint (std::ostream& stream, const cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		_fprint(stream,x);
 	}
 	cl_boolean equal (const cl_UP& x, const cl_UP& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return _equal(x,y);
 	}
 	const cl_UP zero ()
@@ -246,24 +246,24 @@ public:
 	}
 	cl_boolean zerop (const cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _zerop(x);
 	}
 	const cl_UP plus (const cl_UP& x, const cl_UP& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_plus(x,y));
 	}
 	const cl_UP minus (const cl_UP& x, const cl_UP& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_minus(x,y));
 	}
 	const cl_UP uminus (const cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_uminus(x));
 	}
 	const cl_UP one ()
@@ -276,33 +276,33 @@ public:
 	}
 	const cl_UP mul (const cl_UP& x, const cl_UP& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_mul(x,y));
 	}
 	const cl_UP square (const cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_square(x));
 	}
 	const cl_UP expt_pos (const cl_UP& x, const cl_I& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_expt_pos(x,y));
 	}
 	const cl_UP scalmul (const cl_ring_element& x, const cl_UP& y)
 	{
-		if (!(y.ring() == this)) cl_abort();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_UP(this,_scalmul(x,y));
 	}
 	sintL degree (const cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _degree(x);
 	}
 	sintL ldegree (const cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _ldegree(x);
 	}
 	const cl_UP monomial (const cl_ring_element& x, uintL e)
@@ -311,7 +311,7 @@ public:
 	}
 	const cl_ring_element coeff (const cl_UP& x, uintL index)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _coeff(x,index);
 	}
 	const cl_UP create (sintL deg)
@@ -320,17 +320,17 @@ public:
 	}
 	void set_coeff (cl_UP& x, uintL index, const cl_ring_element& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		_set_coeff(x,index,y);
 	}
 	void finalize (cl_UP& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		_finalize(x);
 	}
 	const cl_ring_element eval (const cl_UP& x, const cl_ring_element& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _eval(x,y);
 	}
 	// Property operations.

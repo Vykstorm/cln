@@ -184,7 +184,7 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 		if (rationalp(realpart(y))) // Realteil von y >0 exakt.
 			return 0;
 		if (!plusp(realpart(y))) // Realteil von y <=0 ?
-			cl_error_division_by_0();
+			throw division_by_0_exception();
 		else {
 			var cl_R f = contagion(contagion(x),contagion(y));
 			// ein Float, da sonst x = Fixnum 0 gewesen wäre

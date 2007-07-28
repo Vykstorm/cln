@@ -43,7 +43,7 @@ const cl_DF scale_float (const cl_DF& x, sintC delta)
 #endif
             }
             else
-            { cl_error_floating_point_overflow(); }
+            { throw floating_point_overflow_exception(); }
         }
         else
         // delta<0
@@ -58,7 +58,7 @@ const cl_DF scale_float (const cl_DF& x, sintC delta)
             }
             else
             if (underflow_allowed())
-              { cl_error_floating_point_underflow(); }
+              { throw floating_point_underflow_exception(); }
               else
               { return cl_DF_0; }
         }

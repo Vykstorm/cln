@@ -2,7 +2,7 @@
 
 #include "cln/GV_modinteger.h"
 #include "cln/modinteger.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -154,7 +154,7 @@ static const _cl_UP modint_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	// Negate. No normalization necessary, since the degree doesn't change.
 	var sintL i = xlen-1;
 	var _cl_MI hicoeff = R->_uminus(x[i]);
-	if (R->_zerop(hicoeff)) cl_abort();
+	if (R->_zerop(hicoeff)) throw runtime_exception();
 	var cl_GV_MI result = cl_GV_MI(xlen,R);
 	result[i] = hicoeff;
 	for (i-- ; i >= 0; i--)
@@ -269,7 +269,7 @@ static const _cl_UP modint_mul (cl_heap_univpoly_ring* UPR, const _cl_UP& x, con
 	}
 	// Normalize (not necessary in integral domains).
 	//modint_normalize(R,result,len);
-	if (R->_zerop(result[len-1])) cl_abort();
+	if (R->_zerop(result[len-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -308,7 +308,7 @@ static const _cl_UP modint_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	result[0] = R->_square(x[0]);
 	// Normalize (not necessary in integral domains).
 	//modint_normalize(R,result,len);
-	if (R->_zerop(result[len-1])) cl_abort();
+	if (R->_zerop(result[len-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -328,7 +328,7 @@ static const _cl_UP modint_exptpos (cl_heap_univpoly_ring* UPR, const _cl_UP& x,
 
 static const _cl_UP modint_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, const _cl_UP& y)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
  {
 	DeclarePoly(_cl_MI,x);
 	DeclarePoly(cl_GV_MI,y);
@@ -367,7 +367,7 @@ static sintL modint_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 
 static const _cl_UP modint_monomial (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, uintL e)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
  {	DeclarePoly(_cl_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
 	if (R->_zerop(x))
@@ -404,9 +404,9 @@ static const _cl_UP modint_create (cl_heap_univpoly_ring* UPR, sintL deg)
 static void modint_set_coeff (cl_heap_univpoly_ring* UPR, _cl_UP& x, uintL index, const cl_ring_element& y)
 {{
 	DeclareMutablePoly(cl_GV_MI,x);
-	if (!(UPR->basering() == y.ring())) cl_abort();
+	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(_cl_MI,y);
-	if (!(index < x.length())) cl_abort();
+	if (!(index < x.length())) throw runtime_exception();
 	x[index] = y;
 }}}
 
@@ -426,7 +426,7 @@ static const cl_ring_element modint_eval (cl_heap_univpoly_ring* UPR, const _cl_
 	// If y = 0, return x[0].
 	// Else compute (...(x[len-1]*y+x[len-2])*y ...)*y + x[0].
 	DeclarePoly(cl_GV_MI,x);
-	if (!(UPR->basering() == y.ring())) cl_abort();
+	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(_cl_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
 	var uintL len = x.length();

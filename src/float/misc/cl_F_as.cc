@@ -35,7 +35,7 @@ const cl_F& cl_F_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_F,x);
 		return x;
 	} else
-		cl_as_error(x,"a floating-point number",filename,line);
+		throw as_exception(x,"a floating-point number",filename,line);
 }
 
 }  // namespace cln

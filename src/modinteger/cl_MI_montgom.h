@@ -135,7 +135,7 @@ static const cl_MI_x montgom_recip (cl_heap_modint_ring* _R, const _cl_MI& x)
 	if (eq(g,1))
 		return cl_MI(R, mod((minusp(u) ? u + R->modulus : u) << (2*R->n), R->modulus));
 	if (zerop(xr))
-		cl_error_division_by_0();
+		throw division_by_0_exception();
 	return cl_notify_composite(R,xr);
 }
 
@@ -149,7 +149,7 @@ static const cl_MI_x montgom_div (cl_heap_modint_ring* _R, const _cl_MI& x, cons
 	if (eq(g,1))
 		return cl_MI(R, mod((x.rep * (minusp(u) ? u + R->modulus : u)) << R->n, R->modulus));
 	if (zerop(yr))
-		cl_error_division_by_0();
+		throw division_by_0_exception();
 	return cl_notify_composite(R,yr);
 }
 
@@ -230,7 +230,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 	var cl_I U = DS_to_I(U_LSDptr lspop U_len,U_len);
 	var cl_I V_N = 1 - U*M;
 	if (ldb_test(V_N,cl_byte(n,0)))
-		cl_abort();
+		throw runtime_exception();
 	var cl_I V = V_N >> n;
 	return new cl_heap_modint_ring_montgom(M,m,n,V);
 }

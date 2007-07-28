@@ -5,7 +5,6 @@
 #include "cl_2DS.h"
 #include <cln/random.h>
 #include "cl_random_impl.h"
-#include <cln/abort.h>
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
@@ -46,7 +45,7 @@ int main (int argc, char * argv[])
 	div2adic(a_len,a_LSDptr,b_len,b_LSDptr,q_LSDptr);
 	div2adic_algo = 1;
 	div2adic(a_len,a_LSDptr,b_len,b_LSDptr,q1_LSDptr);
-	if (compare_loop_msp(q_MSDptr,q1_MSDptr,a_len)) cl_abort();
+	if (compare_loop_msp(q_MSDptr,q1_MSDptr,a_len)) abort();
 	// Time.
 	div2adic_algo = 0;
 	{ CL_TIMING;

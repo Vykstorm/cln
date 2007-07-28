@@ -82,7 +82,7 @@ static const cl_MI_x std_recip (cl_heap_modint_ring* R, const _cl_MI& x)
 	if (eq(g,1))
 		return cl_MI(R, (minusp(u) ? u + R->modulus : u));
 	if (zerop(xr))
-		cl_error_division_by_0();
+		throw division_by_0_exception();
 	return cl_notify_composite(R,xr);
 }
 
@@ -95,7 +95,7 @@ static const cl_MI_x std_div (cl_heap_modint_ring* R, const _cl_MI& x, const _cl
 	if (eq(g,1))
 		return cl_MI(R, mod(x.rep * (minusp(u) ? u + R->modulus : u), R->modulus));
 	if (zerop(yr))
-		cl_error_division_by_0();
+		throw division_by_0_exception();
 	return cl_notify_composite(R,yr);
 }
 
@@ -258,7 +258,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 		// Compute a = x^n_digits[nnk-1].
 		{
 			var uintL d = n_digits[nnk-1];
-			if (d == 0) cl_abort();
+			if (d == 0) throw runtime_exception();
 			var uintL d2;
 			if (k <= 8)
 				d2 = ord2_table[d];
@@ -271,7 +271,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 			if (d==0 && maxodd > 1 && d2>0) {
 				a = x2; d2--;
 			}
-			if (!(d2 < k)) cl_abort();
+			if (!(d2 < k)) throw runtime_exception();
 			for ( ; d2>0; d2--)
 				a = R->_square(a);
 		}
@@ -292,7 +292,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 			} else
 				d2 = k;
 			// Square d2 times.
-			if (!(d2 <= k)) cl_abort();
+			if (!(d2 <= k)) throw runtime_exception();
 			for ( ; d2>0; d2--)
 				a = R->_square(a);
 		}

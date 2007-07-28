@@ -34,7 +34,7 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 	if (eq(y,0)) {
 		// y=0 (exakt)
 		if (zerop(x)) // x=0 -> Error
-			{ cl_error_division_by_0(); }
+			{ throw division_by_0_exception(); }
 		if (minusp(x)) // x<0 -> pi in Default-Float-Genauigkeit
 			{ return pi(); }
 		return 0; // x>0 -> 0
@@ -42,7 +42,7 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 	elif (eq(x,0)) {
 		// x=0 (exakt)
 		if (zerop(y)) // y=0 -> Error
-			{ cl_error_division_by_0(); }
+			{ throw division_by_0_exception(); }
 		if (minusp(y)) // y<0 -> -pi/2
 			{ return - scale_float(pi(),-1); }
 		return scale_float(pi(),-1); // y>0 -> pi/2

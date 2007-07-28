@@ -7,6 +7,7 @@
 #include "cln/malloc.h"
 #include "cln/proplist.h"
 #include "cln/number.h"
+#include "cln/exception.h"
 #include "cln/io.h"
 
 namespace cln {
@@ -235,13 +236,13 @@ public:
 	// High-level operations.
 	void fprint (std::ostream& stream, const cl_ring_element& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		_fprint(stream,x);
 	}
 	cl_boolean equal (const cl_ring_element& x, const cl_ring_element& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return _equal(x,y);
 	}
 	const cl_ring_element zero ()
@@ -250,24 +251,24 @@ public:
 	}
 	cl_boolean zerop (const cl_ring_element& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _zerop(x);
 	}
 	const cl_ring_element plus (const cl_ring_element& x, const cl_ring_element& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_ring_element(this,_plus(x,y));
 	}
 	const cl_ring_element minus (const cl_ring_element& x, const cl_ring_element& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_ring_element(this,_minus(x,y));
 	}
 	const cl_ring_element uminus (const cl_ring_element& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_ring_element(this,_uminus(x));
 	}
 	const cl_ring_element one ()
@@ -280,18 +281,18 @@ public:
 	}
 	const cl_ring_element mul (const cl_ring_element& x, const cl_ring_element& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_ring_element(this,_mul(x,y));
 	}
 	const cl_ring_element square (const cl_ring_element& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_ring_element(this,_square(x));
 	}
 	const cl_ring_element expt_pos (const cl_ring_element& x, const cl_I& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_ring_element(this,_expt_pos(x,y));
 	}
 	// Property operations.
@@ -363,7 +364,20 @@ inline const cl_ring_element operator* (const cl_ring_element& x, const cl_I& y)
 
 
 // Ring of uninitialized elements.
-// Any operation results in a run-time error.
+// Any operation results in an exception being thrown.
+
+// Thrown when an attempt is made to perform an operation on an uninitialized ring.
+class uninitialized_ring_exception : public runtime_exception {
+public:
+	uninitialized_ring_exception ();
+};
+
+// Thrown when a ring element is uninitialized.
+class uninitialized_exception : public runtime_exception {
+public:
+	explicit uninitialized_exception (const _cl_ring_element& obj);
+	uninitialized_exception (const _cl_ring_element& obj_x, const _cl_ring_element& obj_y);
+};
 
 extern const cl_ring cl_no_ring;
 extern cl_class cl_class_no_ring;

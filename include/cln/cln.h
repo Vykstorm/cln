@@ -18,7 +18,7 @@
 // Miscellaneous.
 #include "cln/random.h"
 #include "cln/malloc.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cln/floatformat.h"
 #include "cln/io.h"
 #include "cln/condition.h"

@@ -55,7 +55,7 @@ const cl_univpoly_ring find_univpoly_ring (const cl_ring& r)
 		store_univpoly_ring(R);
 		ring_in_table = get_univpoly_ring(r);
 		if (!ring_in_table)
-			cl_abort();
+			throw runtime_exception();
 	}
 	return *ring_in_table;
 }

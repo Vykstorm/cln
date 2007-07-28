@@ -17,20 +17,20 @@ cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val_)
       if (exp == 0) // e=0 ?
         // vorzeichenbehaftete 0.0 oder subnormale Zahl
         { if (!((val << 1) == 0) && underflow_allowed())
-            { cl_error_floating_point_underflow(); }
+            { throw floating_point_underflow_exception(); }
             else
             { return as_cl_private_thing(cl_FF_0); } // +/- 0.0 -> 0.0
         }
       elif (exp == 255) // e=255 ?
         { if (!((val << (32-FF_mant_len)) == 0))
-            { cl_error_floating_point_nan(); } // NaN
+            { throw floating_point_nan_exception(); } // NaN
             else
-            { cl_error_floating_point_overflow(); } // Infinity, Overflow
+            { throw floating_point_overflow_exception(); } // Infinity, Overflow
         }
       else
         { // Der Exponent muß um FF_exp_mid-126 erhöht werden.
           if ((FF_exp_mid>126) && (exp > FF_exp_high-FF_exp_mid+126))
-            { cl_error_floating_point_overflow(); } // Overflow
+            { throw floating_point_overflow_exception(); } // Overflow
           val += (FF_exp_mid - 126) << FF_mant_len;
           #if defined(CL_WIDE_POINTERS)
           return as_cl_private_thing(allocate_ffloat(val));

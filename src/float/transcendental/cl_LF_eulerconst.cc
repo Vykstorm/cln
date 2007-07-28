@@ -14,7 +14,6 @@
 #include "cl_LF.h"
 #include "cln/integer.h"
 #include "cl_alloca.h"
-#include "cln/abort.h"
 
 namespace cln {
 

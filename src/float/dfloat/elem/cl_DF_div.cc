@@ -69,10 +69,10 @@ const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
       #if (cl_word_size==64)
       var uint64 mantx1;
       var uint64 mantx2;
-      DF_decode(x2, { cl_error_division_by_0(); }, sign2=,exp2=,mantx2=);
+      DF_decode(x2, { throw division_by_0_exception(); }, sign2=,exp2=,mantx2=);
       DF_decode(x1, { return x1; }, sign1=,exp1=,mantx1=);
       #else
-      DF_decode2(x2, { cl_error_division_by_0(); }, sign2=,exp2=,manthi2=,mantlo2=);
+      DF_decode2(x2, { throw division_by_0_exception(); }, sign2=,exp2=,manthi2=,mantlo2=);
       DF_decode2(x1, { return x1; }, sign1=,exp1=,manthi1=,mantlo1=);
       #endif
       exp1 = exp1 - exp2; // Differenz der Exponenten

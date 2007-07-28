@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_N.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -25,7 +25,7 @@ namespace cln {
             // auch y Fixnum >=0
             { var uintV x_ = FN_to_UV(x);
               var uintV y_ = FN_to_UV(y);
-              if (y_==0) { cl_error_division_by_0(); }
+              if (y_==0) { throw division_by_0_exception(); }
               elif (x_ < y_)
                 // Trivialfall: q=0, r=x
                 goto trivial;

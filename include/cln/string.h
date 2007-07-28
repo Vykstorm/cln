@@ -5,7 +5,7 @@
 
 #include "cln/object.h"
 #include "cln/io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include <cstring>
 
 namespace cln {
@@ -18,9 +18,9 @@ private:
 	unsigned long length;	// length (in characters)
 	char data[1];		// the characters, plus a '\0' at the end
 	// Standard allocation disabled.
-	void* operator new (size_t size) { (void)size; cl_abort(); return (void*)1; }
+	void* operator new (size_t size) { (void)size; throw runtime_exception(); }
 	// Standard deallocation disabled.
-	void operator delete (void* ptr) { (void)ptr; cl_abort(); }
+	void operator delete (void* ptr) { (void)ptr; throw runtime_exception(); }
 	// No default constructor.
 	cl_heap_string ();
 private:
@@ -52,7 +52,7 @@ public:
 	// Return a specific character.
 	char operator[] (unsigned long i) const
 	{
-		if (!(i < length())) cl_abort(); // Range check.
+		if (!(i < length())) throw runtime_exception(); // Range check.
 		return ((cl_heap_string*)pointer)->data[i];
 	}
 	// New ANSI C++ compilers also want the following.

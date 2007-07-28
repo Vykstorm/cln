@@ -1,10 +1,11 @@
-2006-mm-dd, version 1.2.0
+2007-mm-dd, version 1.2.0
 =========================
 
 Implementation changes
 ----------------------
 
 * Added support for huge numbers...
+* CLN now uses C++ exceptions for error handling.
 * Dropped the cln-config script. Please use pkg-config instead.
 
 

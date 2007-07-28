@@ -4,6 +4,7 @@
 #define _CL_MACROS_H
 
 #include "cln/types.h"
+#include "cln/exception.h"
 
 // Concatenation of macroexpanded tokens.
 // Example:
@@ -73,10 +74,7 @@
 
 // Denotes a point where control flow can never arrive.
 // NOTREACHED
-  #define NOTREACHED  cl_notreached_abort(__FILE__,__LINE__);
-namespace cln {
-  nonreturning_function(extern,cl_notreached_abort, (const char* filename, int lineno));
-}  // namespace cln
+  #define NOTREACHED  throw notreached_exception(__FILE__,__LINE__);
 
 // Check an arithmetic expression.
 // ASSERT(expr)

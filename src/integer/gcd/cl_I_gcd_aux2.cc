@@ -54,7 +54,7 @@ static uintD floorDD (uintDD x, uintDD y)
 		var uintDD p = muluDD_unchecked(q,y);
 		#ifdef DEBUG_GCD
 		if (x < p)
-			cl_abort();
+			throw runtime_exception();
 		#endif
 		x -= p;
 	}
@@ -66,7 +66,7 @@ static uintD floorDD (uintDD x, uintDD y)
 			#ifdef DEBUG_GCD
 			x -= y;
 			if (x >= y)
-				cl_abort();
+				throw runtime_exception();
 			#endif
 		}
 	}
@@ -118,7 +118,7 @@ void partial_gcd (uintDD z1, uintDD z2, partial_gcd_result* erg)
 				if (x2 > ~x1) goto done;
 				if (y2 > ~y1) goto done;
 				#ifdef DEBUG_GCD
-				if (z1 < z2) cl_abort();
+				if (z1 < z2) throw runtime_exception();
 				#endif
 				// Now really subtract.
 				x1 += x2;
@@ -166,7 +166,7 @@ void partial_gcd (uintDD z1, uintDD z2, partial_gcd_result* erg)
 				if (x1 > ~x2) goto done;
 				if (y1 > ~y2) goto done;
 				#ifdef DEBUG_GCD
-				if (z2 < z1) cl_abort();
+				if (z2 < z1) throw runtime_exception();
 				#endif
 				// Now really subtract.
 				x2 += x1;
@@ -219,7 +219,7 @@ static uintD floorDD (uintD xhi, uintD xlo, uintD yhi, uintD ylo)
 		muluD(q,yhi,      , phi +=);
 		#ifdef DEBUG_GCD
 		if ((xhi < phi) || ((xhi == phi) && (xlo < plo)))
-			cl_abort();
+			throw runtime_exception();
 		#endif
 		xhi = xhi - phi;
 		if (xlo < plo)
@@ -240,7 +240,7 @@ static uintD floorDD (uintD xhi, uintD xlo, uintD yhi, uintD ylo)
 				xhi -= 1;
 			xlo = xlo - ylo;
 			if ((xhi > yhi) || ((xhi == yhi) && (xlo >= ylo)))
-				cl_abort();
+				throw runtime_exception();
 			#endif
 		}
 	}
@@ -316,8 +316,8 @@ void partial_gcd (uintD z1hi, uintD z1lo, uintD z2hi, uintD z2lo, partial_gcd_re
 				if (x2 > ~x1) goto done;
 				if (y2 > ~y1) goto done;
 				#ifdef DEBUG_GCD
-				if (z1hi < z2hi) cl_abort();
-				if (z1hi == z2hi) if (z1lo < z2lo) cl_abort();
+				if (z1hi < z2hi) throw runtime_exception();
+				if (z1hi == z2hi) if (z1lo < z2lo) throw runtime_exception();
 				#endif
 				// Now really subtract.
 				x1 += x2;
@@ -412,8 +412,8 @@ void partial_gcd (uintD z1hi, uintD z1lo, uintD z2hi, uintD z2lo, partial_gcd_re
 				if (x1 > ~x2) goto done;
 				if (y1 > ~y2) goto done;
 				#ifdef DEBUG_GCD
-				if (z2hi < z1hi) cl_abort();
-				if (z2hi == z1hi) if (z2lo < z1lo) cl_abort();
+				if (z2hi < z1hi) throw runtime_exception();
+				if (z2hi == z1hi) if (z2lo < z1lo) throw runtime_exception();
 				#endif
 				// Now really subtract.
 				x2 += x1;

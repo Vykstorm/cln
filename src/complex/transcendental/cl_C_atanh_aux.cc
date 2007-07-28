@@ -71,7 +71,7 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 		var cl_R v;
 		if (!minusp(xx)) {
 			if (zerop(xx))
-				{ cl_error_division_by_0(); }
+				{ throw division_by_0_exception(); }
 			v = 0;
 		} else {
 			// (1+x)/(1-x) < 0 -> Betrag nehmen, Imaginärteil berechnen:
@@ -112,7 +112,7 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 			var cl_F num = _1_plus_x*_1_plus_x + yf_2; // (1+x)^2+y^2, ein Float >=0
 			var cl_F den = _1_minus_x*_1_minus_x + yf_2; // (1-x)^2+y^2, ein Float >=0
 			if (zerop(den))
-				{ cl_error_division_by_0(); }
+				{ throw division_by_0_exception(); }
 			u = scale_float(ln(num/den),-2);
 		}
 	}

@@ -13,11 +13,12 @@
 // Implementation.
 
 #include <cstring>
+#include <sstream>
 #include "cln/input.h"
 #include "cln/integer.h"
 #include "cln/integer_io.h"
 #include "cl_I.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -49,7 +50,7 @@ static const char * skip_digits (const char * ptr, const char * string_limit, un
   if (end_of_parse)							\
     { *end_of_parse = (ptr); }						\
   else									\
-    { if ((ptr) != string_limit) { read_number_junk((ptr),string,string_limit); } }
+    { if ((ptr) != string_limit) { throw read_number_junk_exception((ptr),string,string_limit); } }
 
 const cl_RA read_rational (const cl_read_flags& flags, const char * string, const char * string_limit, const char * * end_of_parse)
 {
@@ -83,10 +84,10 @@ const cl_RA read_rational (const cl_read_flags& flags, const char * string, cons
 						goto not_rational_syntax;
 					var cl_I base = read_integer(10,0,ptr,0,base_end_ptr-ptr);
 					if (!((base >= 2) && (base <= 36))) {
-						fprint(std::cerr, "Base must be an integer in the range from 2 to 36, not ");
-						fprint(std::cerr, base);
-						fprint(std::cerr, "\n");
-						cl_abort();
+						std::ostringstream buf;
+						fprint(buf, "Base must be an integer in the range from 2 to 36, not ");
+						fprint(buf, base);
+						throw runtime_exception(buf.str());
 					}
 					rational_base = FN_to_UV(base); ptr = base_end_ptr;
 					break;
@@ -146,7 +147,7 @@ not_rational_syntax:
 		*end_of_parse = string;
 		return 0; // dummy return
 	}
-	read_number_bad_syntax(string,string_limit);
+	throw read_number_bad_syntax_exception(string,string_limit);
 }
 
 }  // namespace cln

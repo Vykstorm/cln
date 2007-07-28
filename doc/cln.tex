@@ -3,13 +3,9 @@
 @setfilename cln.info
 @settitle CLN, a Class Library for Numbers
 @c @setchapternewpage off
-@c For `info' only.
-@paragraphindent 0
-@c For TeX only.
-@iftex
 @c I hate putting "@noindent" in front of every paragraph.
-@parindent=0pt
-@end iftex
+@c For `info' and TeX only.
+@paragraphindent 0
 @c %**end of header
 
 @direntry
@@ -228,7 +224,8 @@ CLN aims at being easily integrated into larger software packages:
 @item
 The garbage collection imposes no burden on the main application.
 @item
-The library provides hooks for memory allocation and exceptions.
+The library provides hooks for memory allocation and throws exceptions
+in case of errors.
 @item
 @cindex namespace
 All non-macro identifiers are hidden in namespace @code{cln} in 
@@ -246,7 +243,7 @@ This section describes how to install the CLN package on your system.
 @subsection C++ compiler
 
 To build CLN, you need a C++ compiler.
-Actually, you need GNU @code{g++ 2.95} or newer.
+Actually, you need GNU @code{g++ 3.0.0} or newer.
 
 The following C++ features are used:
 classes, member functions, overloading of functions and operators,
@@ -254,7 +251,7 @@ constructors and destructors, inline, const, multiple inheritance,
 templates and namespaces.
 
 The following C++ features are not used:
-@code{new}, @code{delete}, virtual inheritance, exceptions.
+@code{new}, @code{delete}, virtual inheritance.
 
 CLN relies on semi-automatic ordering of initializations of static and
 global variables, a feature which I could implement for GNU g++
@@ -325,13 +322,10 @@ Examples:
 
 @example
 $ CC="gcc" CFLAGS="-O" CXX="g++" CXXFLAGS="-O" ./configure
-$ CC="gcc -V egcs-2.91.60" CFLAGS="-O -g" \
-  CXX="g++ -V egcs-2.91.60" CXXFLAGS="-O -g" ./configure
-$ CC="gcc -V 2.95.2" CFLAGS="-O2 -fno-exceptions" \
-  CXX="g++ -V 2.95.2" CFLAGS="-O2 -fno-exceptions" ./configure
-$ CC="gcc -V 3.0.4" CFLAGS="-O2 -finline-limit=1000 -fno-exceptions" \
-  CXX="g++ -V 3.0.4" CFLAGS="-O2 -finline-limit=1000 -fno-exceptions" \
+$ CC="gcc -V 3.0.4" CFLAGS="-O2 -finline-limit=1000" \
+  CXX="g++ -V 3.0.4" CXXFLAGS="-O2 -finline-limit=1000" \
   ./configure
+$ CC="gcc-4.1" CFLAGS="-O2" CXX="g++-4.1" CXXFLAGS="-O2" ./configure
 @end example
 
 Note that for these environment variables to take effect, you have to set
@@ -348,23 +342,11 @@ or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
 If you use @code{g++} 3.x, I recommend adding @samp{-finline-limit=1000}
 to the CXXFLAGS. This is essential for good code.
 
-If you use @code{g++} gcc-2.95.x or gcc-3.x, I recommend adding
-@samp{-fno-exceptions} to the CXXFLAGS. This will likely generate better code.
-
 If you use @code{g++} from gcc-3.0.4 or older on Sparc, add either
 @samp{-O}, @samp{-O1} or @samp{-O2 -fno-schedule-insns} to the
 CXXFLAGS. With full @samp{-O2}, @code{g++} miscompiles the division
-routines. If you use @code{g++} older than 2.95.3 on Sparc you should
-also specify @samp{--disable-shared} because of bad code produced in the
-shared library. Also, do not use gcc-3.0 on Sparc for compiling CLN, it
+routines. Also, do not use gcc-3.0 on Sparc for compiling CLN, it
 won't work at all.
-
-If you use @code{g++} on OSF/1 or Tru64 using gcc-2.95.x, you should
-specify @samp{--disable-shared} because of linker problems with
-duplicate symbols in shared libraries.  If you use @code{g++} from
-gcc-3.0.n, with n larger than 1, you should @emph{not} add
-@samp{-fno-exceptions} to the CXXFLAGS, since that will generate wrong
-code (gcc-3.1 is okay again, as is gcc-3.0).
 
 Also, please do not compile CLN with @code{g++} using the @code{-O3}
 optimization level.  This leads to inferior code quality.
@@ -401,7 +383,7 @@ some place where your compiler cannot find it by default, you must help
 an example:
 
 @example
-$ CC="gcc" CFLAGS="-O2" CXX="g++" CXXFLAGS="-O2 -fno-exceptions" \
+$ CC="gcc" CFLAGS="-O2" CXX="g++" CXXFLAGS="-O2" \
   CPPFLAGS="-I/opt/gmp/include" LDFLAGS="-L/opt/gmp/lib" ./configure --with-gmp
 @end example
 
@@ -2461,7 +2443,7 @@ affect the input syntax. The string starts at @code{string} and ends at
 @code{NULL}, denoting the entire string, i.e. equivalent to
 @code{string_limit = string + strlen(string)}. If @code{end_of_parse} is
 @code{NULL}, the string in memory must contain exactly one number and nothing
-more, else a fatal error will be signalled. If @code{end_of_parse}
+more, else an exception will be thrown. If @code{end_of_parse}
 is not @code{NULL}, @code{*end_of_parse} will be assigned a pointer past
 the last parsed character (i.e. @code{string_limit} if nothing came after
 the number). Whitespace is not allowed.
@@ -3451,10 +3433,10 @@ Flags for customizing input operations.
 Flags for customizing output operations.
 @item <cln/malloc.h>
 @code{malloc_hook}, @code{free_hook}.
-@item <cln/abort.h>
-@code{cl_abort}.
+@item <cln/exception.h>
+Exception base class.
 @item <cln/condition.h>
-Conditions/exceptions.
+Conditions.
 @item <cln/string.h>
 Strings.
 @item <cln/symbol.h>
@@ -3604,17 +3586,22 @@ available from the library:
 
 @itemize @bullet
 @item The library does type checks, range checks, consistency checks at
-many places. When one of these fails, the function @code{cl_abort()} is
-called. Its default implementation is to perform an @code{exit(1)}, so
-you won't have a core dump. But for debugging, it is best to set a
-breakpoint at this function:
+many places. When one of these fails, an exception of a type derived from
+@code{runtime_exception} is thrown. When an exception is cought, the stack
+has already been unwound, so it is may not be possible to tell at which
+point the exception was thrown. For debugging, it is best to set up a
+catchpoint at the event of throwning a C++ exception:
 @example
-(gdb) break cl_abort
+(gdb) catch throw
 @end example
-When this breakpoint is hit, look at the stack's backtrace:
+When this catchpoint is hit, look at the stack's backtrace:
 @example
 (gdb) where
 @end example
+When control over the type of exception is required, it may be possible
+to set a breakpoint at the @code{g++} runtime library function
+@code{__raise_exception}. Refer to the documentation of GNU @code{gdb}
+for details.
 
 @item The debugger's normal @code{print} command doesn't know about
 CLN's types and therefore prints mostly useless hexadecimal addresses.
@@ -3666,32 +3653,54 @@ Unfortunately, this feature does not seem to work under all circumstances.
 @cindex customizing
 
 @section Error handling
+@cindex Exception
+@cindex Error handling
 
-When a fatal error occurs, an error message is output to the standard error
-output stream, and the function @code{cl_abort} is called. The default
-version of this function (provided in the library) terminates the application.
-To catch such a fatal error, you need to define the function @code{cl_abort}
-yourself, with the prototype
+@cindex @code{runtime_exception}
+CLN signals abnormal situations by throwning exceptions. All exceptions
+thrown by the library are of type @code{runtime_exception} or of a
+derived type. Class @code{cln::runtime_exception} in turn is derived
+from the C++ standard library class @code{std::runtime_error} and
+inherits the @code{.what()} member function that can be used to query
+details about the cause of error.
+
+The most important classes thrown by the library are
+
+@cindex @code{floating_point_exception}
+@cindex @code{read_number_exception}
 @example
-#include <cln/abort.h>
-void cl_abort (void);
+                  Exception base class
+                    runtime_exception
+                    <cln/exception.h>
+                            | 
+           +----------------+----------------+
+           |                                 |
+ Malformed number input             Floating-point error
+ read_number_exception            floating_poing_exception
+   <cln/number_io.h>                   <cln/float.h>
 @end example
-@cindex @code{cl_abort ()}
-This function must not return control to its caller.
+
+CLN has many more exception classes that allow for more fine-grained
+control but I refrain from documenting them all here. They are all
+declared in the public header files and they are all subclasses of the
+above exceptions, so catching those you are always on the safe side.
 
 
 @section Floating-point underflow
 @cindex underflow
 
-Floating point underflow denotes the situation when a floating-point number
-is to be created which is so close to @code{0} that its exponent is too
-low to be represented internally. By default, this causes a fatal error.
-If you set the global variable
+@cindex @code{floating_point_underflow_exception}
+Floating point underflow denotes the situation when a floating-point
+number is to be created which is so close to @code{0} that its exponent
+is too low to be represented internally. By default, this causes the
+exception @code{floating_point_underflow_exception} (subclass of
+@code{floating_point_exception}) to be thrown. If you set the global
+variable
 @example
 cl_boolean cl_inhibit_floating_point_underflow
 @end example
-to @code{cl_true}, the error will be inhibited, and a floating-point zero
-will be generated instead.  The default value of 
+to @code{cl_true}, the exception will be inhibited, and a floating-point
+zero will be generated instead.  The default value of 
 @code{cl_inhibit_floating_point_underflow} is @code{cl_false}.
 
 

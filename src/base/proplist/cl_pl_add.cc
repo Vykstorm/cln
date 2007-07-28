@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -19,7 +19,7 @@ void cl_property::dummy () {}
 void cl_property_list::add_property (cl_property* new_property)
 {
 	if (new_property->next)
-		cl_abort();
+		throw runtime_exception();
 	new_property->next = list;
 	list = new_property;
 }

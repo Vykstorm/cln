@@ -5,6 +5,7 @@
 
 #include "cln/number.h"
 #include "cln/integer_class.h"
+#include "cln/exception.h"
 #include "cln/random.h"
 
 namespace cln {
@@ -164,6 +165,12 @@ inline cl_boolean evenp (const cl_I& x)
 // (ASH x y), wo x und y Integers sind. Ergebnis Integer.
 extern const cl_I ash (const cl_I& x, sintC y);
 extern const cl_I ash (const cl_I& x, const cl_I& y);
+
+// Thrown when shift amount is too large.
+class ash_exception : public runtime_exception {
+public:
+	explicit ash_exception (const cl_I& badamount);
+};
 
 // (LOGCOUNT x), wo x ein Integer ist. Ergebnis uintL.
 extern uintC logcount (const cl_I& x);
@@ -420,6 +427,12 @@ struct cl_I_div_t {
 // > x,y: Integers
 // < ergebnis: Quotient x/y, ein Integer
   extern const cl_I exquo (const cl_I& x, const cl_I& y);
+
+// Thrown when quotient is no integer.
+class exquo_exception : public runtime_exception {
+public:
+	exquo_exception (const cl_I& x, const cl_I& y);
+};
 
 // mod(x,y) = (mod x y), wo x,y Integers sind.
   extern const cl_I mod (const cl_I& x, const cl_I& y);

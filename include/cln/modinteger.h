@@ -11,7 +11,7 @@
 #include "cln/io.h"
 #include "cln/proplist.h"
 #include "cln/condition.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #undef random // Linux defines random() as a macro!
 
 namespace cln {
@@ -141,9 +141,9 @@ public:
 	cl_MI_x (cl_composite_condition* c) : value (), condition (c) {}
 	cl_MI_x (const cl_MI& x) : value (x), condition (NULL) {}
 	// Cast operators.
-	//operator cl_MI& () { if (condition) cl_abort(); return value; }
-	//operator const cl_MI& () const { if (condition) cl_abort(); return value; }
-	operator cl_MI () const { if (condition) cl_abort(); return value; }
+	//operator cl_MI& () { if (condition) throw runtime_exception(); return value; }
+	//operator const cl_MI& () const { if (condition) throw runtime_exception(); return value; }
+	operator cl_MI () const { if (condition) throw runtime_exception(); return value; }
 };
 
 
@@ -253,13 +253,13 @@ public:
 	// High-level operations.
 	void fprint (std::ostream& stream, const cl_MI& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		_fprint(stream,x);
 	}
 	cl_boolean equal (const cl_MI& x, const cl_MI& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return _equal(x,y);
 	}
 	const cl_MI random (random_state& randomstate = default_random_state)
@@ -272,24 +272,24 @@ public:
 	}
 	cl_boolean zerop (const cl_MI& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _zerop(x);
 	}
 	const cl_MI plus (const cl_MI& x, const cl_MI& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_MI(this,_plus(x,y));
 	}
 	const cl_MI minus (const cl_MI& x, const cl_MI& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_MI(this,_minus(x,y));
 	}
 	const cl_MI uminus (const cl_MI& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_MI(this,_uminus(x));
 	}
 	const cl_MI one ()
@@ -302,34 +302,34 @@ public:
 	}
 	const cl_MI mul (const cl_MI& x, const cl_MI& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return cl_MI(this,_mul(x,y));
 	}
 	const cl_MI square (const cl_MI& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_MI(this,_square(x));
 	}
 	const cl_MI expt_pos (const cl_MI& x, const cl_I& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return cl_MI(this,_expt_pos(x,y));
 	}
 	const cl_MI_x recip (const cl_MI& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _recip(x);
 	}
 	const cl_MI_x div (const cl_MI& x, const cl_MI& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
-		if (!(y.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
+		if (!(y.ring() == this)) throw runtime_exception();
 		return _div(x,y);
 	}
 	const cl_MI_x expt (const cl_MI& x, const cl_I& y)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _expt(x,y);
 	}
 	const cl_I reduce_modulo (const cl_I& x)
@@ -338,7 +338,7 @@ public:
 	}
 	const cl_I retract (const cl_MI& x)
 	{
-		if (!(x.ring() == this)) cl_abort();
+		if (!(x.ring() == this)) throw runtime_exception();
 		return _retract(x);
 	}
 	// Miscellaneous.

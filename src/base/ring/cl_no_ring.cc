@@ -11,71 +11,85 @@ CL_PROVIDE(cl_no_ring)
 
 // Implementation.
 
+#include <sstream>
 #include "cln/io.h"
-#include "cln/abort.h"
 
 namespace cln {
 
-nonreturning_function(static, uninitialized_ring, (void));
-static void uninitialized_ring ()
+uninitialized_ring_exception::uninitialized_ring_exception ()
+	: runtime_exception("Uninitialized ring operation called.")
+{}
+
+static inline const std::string
+uninitialized_error_msg (const _cl_ring_element& obj)
 {
-	fprint(std::cerr, "Uninitialized ring operation called\n");
-	cl_abort();
+	std::ostringstream buf;
+	fprint(buf, "Uninitialized ring element @0x");
+	fprinthexadecimal(buf, (unsigned long)(void*)&obj);
+	fprint(buf, ": 0x");
+        fprinthexadecimal(buf, (unsigned long)obj.rep.word);
+	return buf.str();
 }
 
-nonreturning_function(static, uninitialized_error, (const _cl_ring_element&));
-static void uninitialized_error (const _cl_ring_element& obj)
+static inline const std::string
+uninitialized_error_msg (const _cl_ring_element& obj_x, const _cl_ring_element& obj_y)
 {
-	fprint(std::cerr, "Uninitialized ring element @0x");
-	fprinthexadecimal(std::cerr, (unsigned long)(void*)&obj);
-	fprint(std::cerr, ": 0x");
-        fprinthexadecimal(std::cerr, (unsigned long)obj.rep.word);
-	fprint(std::cerr, "\n");
-	cl_abort();
+	std::ostringstream buf;
+	fprint(buf, "Uninitialized ring elements @0x");
+	fprinthexadecimal(buf, (unsigned long)(void*)&obj_x);
+	fprint(buf, ": 0x");
+        fprinthexadecimal(buf, (unsigned long)obj_x.rep.word);
+	fprint(buf, ", @0x");
+	fprinthexadecimal(buf, (unsigned long)(void*)&obj_y);
+	fprint(buf, ": 0x");
+        fprinthexadecimal(buf, (unsigned long)obj_y.rep.word);
+	return buf.str();
 }
 
-#if (defined(__sparc__) && !defined(__GNUC__))
-  // avoid Sun C++ 4.1 compiler bug
-  #define RETDUMMY  return *(_cl_ring_element*)R
-#else
-  #define RETDUMMY  return *(_cl_ring_element*)0
-#endif
+uninitialized_exception::uninitialized_exception (const _cl_ring_element& obj)
+	: runtime_exception(uninitialized_error_msg(obj))
+{}
+
+uninitialized_exception::uninitialized_exception (const _cl_ring_element& obj_x, const _cl_ring_element& obj_y)
+	: runtime_exception(uninitialized_error_msg(obj_x, obj_y))
+{}
+
 
 static const _cl_ring_element dummy_op0 (cl_heap_ring* R)
 {
 	unused R;
-	uninitialized_ring(); RETDUMMY;
+	throw uninitialized_ring_exception();
 }
 
 static const _cl_ring_element dummy_op1 (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
-	uninitialized_error(x); RETDUMMY;
+	throw uninitialized_exception(x);
 }
 
 static const _cl_ring_element dummy_op2 (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
-	uninitialized_error(x); uninitialized_error(y); RETDUMMY;
+	throw uninitialized_exception(x, y);
 }
 
 static void dummy_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_element& x)
 {
 	unused R;
 	unused stream;
-	uninitialized_error(x);
+	throw uninitialized_exception(x);
 }
 static cl_boolean dummy_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
-	uninitialized_error(x); uninitialized_error(y); return cl_false;
+	throw uninitialized_exception(x, y);
 }
 
 #define dummy_zero dummy_op0
 static cl_boolean dummy_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
-	uninitialized_error(x); return cl_false;
+	throw uninitialized_exception(x);
 }
 #define dummy_plus dummy_op2
 #define dummy_minus dummy_op2
@@ -86,7 +100,7 @@ static const _cl_ring_element dummy_canonhom (cl_heap_ring* R, const cl_I& x)
 {
 	unused R;
 	(void)&x; // unused x;
-	uninitialized_ring(); RETDUMMY;
+	throw uninitialized_ring_exception();
 }
 #define dummy_mul dummy_op2
 #define dummy_square dummy_op1
@@ -94,7 +108,7 @@ static const _cl_ring_element dummy_expt_pos (cl_heap_ring* R, const _cl_ring_el
 {
 	unused R;
 	(void)&y; // unused y;
-	uninitialized_error(x); RETDUMMY;
+	throw uninitialized_exception(x);
 }
 
 static cl_ring_setops dummy_setops = {

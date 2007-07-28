@@ -34,7 +34,7 @@ const cl_R operator/ (const cl_R& x, const cl_R& y)
 	if (eq(x,0))
 		// 0 / y = exakte 0, auﬂer wenn y=0
 		{ if (zerop(y))
-			{ cl_error_division_by_0(); }
+			{ throw division_by_0_exception(); }
 		  else
 			return 0;
 		}

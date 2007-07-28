@@ -9,8 +9,8 @@
 
 // Implementation.
 
+#include "cln/exception.h"
 #include "cl_RA.h"
-#include "cl_N.h"
 #include "cl_I.h"
 
 namespace cln {
@@ -23,7 +23,7 @@ const cl_RA recip (const cl_RA& r)
 // a>0 -> Ergebnis b/a (mit ggT(b,a)=1).
 // a<0 -> Ergebnis (- b)/(- a) (mit ggT(-b,-a)=1).
 	if (zerop(r))
-		cl_error_division_by_0();
+		throw division_by_0_exception();
 	var cl_I a;
 	var cl_I b;
 	RA_numden_I_I(r, a = , b = );

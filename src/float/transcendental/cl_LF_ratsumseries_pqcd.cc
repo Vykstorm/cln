@@ -11,7 +11,6 @@
 
 #include "cln/lfloat.h"
 #include "cln/integer.h"
-#include "cln/abort.h"
 #include "cl_LF.h"
 
 namespace cln {

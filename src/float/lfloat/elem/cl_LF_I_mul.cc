@@ -64,7 +64,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	var uintE iexp = intDsize*y_len - shiftcount; // >= 0 !
 	uexp = uexp + iexp;
 	if ((uexp < iexp) || (uexp > LF_exp_high))
-		cl_error_floating_point_overflow();
+		throw floating_point_overflow_exception();
 	// Runden:
 	var uintD* midptr = prodMSDptr mspop len;
 	var uintC restlen = prodlen - len;
@@ -82,7 +82,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	  { if ( inc_loop_lsp(midptr,len) )
 	      // Übertrag durchs Aufrunden
 	      { mspref(prodMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
-	        if (++uexp == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+	        if (++uexp == LF_exp_high+1) { throw floating_point_overflow_exception(); }
 	  }   }
 	return encode_LFu(TheLfloat(x)->sign ^ sign, uexp, prodMSDptr, len);
 }

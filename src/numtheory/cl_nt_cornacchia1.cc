@@ -80,7 +80,7 @@ const cornacchia_t cornacchia1 (const cl_I& d, const cl_I& p)
 	if (init.condition)
 		return init.condition;
 	if (init.solutions != 2)
-		cl_abort();
+		throw runtime_exception();
 	// Euclidean algorithm.
 	var cl_I a = p;
 	var cl_I b = R->retract(init.solution[0]);

@@ -55,7 +55,7 @@ const cl_N log (const cl_N& a, const cl_N& b)
 		{
 			var cl_R angle = phase(a);
 			if (eq(angle,0)) // = Fixnum 0 <==> (= a 0) -> Error
-				{ cl_error_division_by_0(); }
+				{ throw division_by_0_exception(); }
 		 {	DeclareType(cl_F,angle);
 			var cl_F bf = cl_somefloat(b,angle); // (float b)
 			im = angle / ln(bf);

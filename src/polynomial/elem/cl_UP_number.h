@@ -3,7 +3,7 @@
 #include "cln/SV_number.h"
 #include "cln/number.h"
 #include "cln/integer.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -142,7 +142,7 @@ static const _cl_UP num_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	// Negate. No normalization necessary, since the degree doesn't change.
 	var sintL i = xlen-1;
 	var cl_number hicoeff = ops.uminus(x[i]);
-	if (ops.zerop(hicoeff)) cl_abort();
+	if (ops.zerop(hicoeff)) throw runtime_exception();
 	var cl_SV_number result = cl_SV_number(cl_make_heap_SV_number_uninit(xlen));
 	init1(cl_number, result[i]) (hicoeff);
 	for (i-- ; i >= 0; i--)
@@ -251,7 +251,7 @@ static const _cl_UP num_mul (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const 
 	}
 	// Normalize (not necessary in integral domains).
 	//num_normalize(ops,result,len);
-	if (ops.zerop(result[len-1])) cl_abort();
+	if (ops.zerop(result[len-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -290,7 +290,7 @@ static const _cl_UP num_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	init1(cl_number, result[0]) (ops.square(x[0]));
 	// Normalize (not necessary in integral domains).
 	//num_normalize(ops,result,len);
-	if (ops.zerop(result[len-1])) cl_abort();
+	if (ops.zerop(result[len-1])) throw runtime_exception();
 	return _cl_UP(UPR, result);
 }}
 
@@ -310,7 +310,7 @@ static const _cl_UP num_exptpos (cl_heap_univpoly_ring* UPR, const _cl_UP& x, co
 
 static const _cl_UP num_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, const _cl_UP& y)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
  {
 	DeclarePoly(cl_number,x);
 	DeclarePoly(cl_SV_number,y);
@@ -349,7 +349,7 @@ static sintL num_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 
 static const _cl_UP num_monomial (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, uintL e)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
  {	DeclarePoly(cl_number,x);
 	var cl_number_ring_ops<cl_number>& ops = *TheNumberRing(UPR->basering())->ops;
 	if (ops.zerop(x))
@@ -385,9 +385,9 @@ static const _cl_UP num_create (cl_heap_univpoly_ring* UPR, sintL deg)
 static void num_set_coeff (cl_heap_univpoly_ring* UPR, _cl_UP& x, uintL index, const cl_ring_element& y)
 {{
 	DeclareMutablePoly(cl_SV_number,x);
-	if (!(UPR->basering() == y.ring())) cl_abort();
+	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(cl_number,y);
-	if (!(index < x.length())) cl_abort();
+	if (!(index < x.length())) throw runtime_exception();
 	x[index] = y;
 }}}
 
@@ -407,7 +407,7 @@ static const cl_ring_element num_eval (cl_heap_univpoly_ring* UPR, const _cl_UP&
 	// If y = 0, return x[0].
 	// Else compute (...(x[len-1]*y+x[len-2])*y ...)*y + x[0].
 	DeclarePoly(cl_SV_number,x);
-	if (!(UPR->basering() == y.ring())) cl_abort();
+	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(cl_number,y);
 	var cl_heap_number_ring* R = TheNumberRing(UPR->basering());
 	var cl_number_ring_ops<cl_number>& ops = *R->ops;

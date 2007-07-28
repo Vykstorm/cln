@@ -59,7 +59,7 @@ const cl_FF operator/ (const cl_FF& x1, const cl_FF& x2)
       var cl_signean sign2;
       var sintL exp2;
       var uintL mant2;
-      FF_decode(x2, { cl_error_division_by_0(); }, sign2=,exp2=,mant2=);
+      FF_decode(x2, { throw division_by_0_exception(); }, sign2=,exp2=,mant2=);
       FF_decode(x1, { return x1; }, sign1=,exp1=,mant1=);
       exp1 = exp1 - exp2; // Differenz der Exponenten
       sign1 = sign1 ^ sign2; // Ergebnis-Vorzeichen

@@ -36,7 +36,7 @@ const cl_SF scale_float (const cl_SF& x, const cl_I& delta)
               return encode_SF(sign,exp,mant);
             }
             else
-            { cl_error_floating_point_overflow(); }
+            { throw floating_point_overflow_exception(); }
         }
         else
         // delta<0
@@ -50,7 +50,7 @@ const cl_SF scale_float (const cl_SF& x, const cl_I& delta)
             }
             else
             if (underflow_allowed())
-              { cl_error_floating_point_underflow(); }
+              { throw floating_point_underflow_exception(); }
               else
               { return SF_0; }
         }

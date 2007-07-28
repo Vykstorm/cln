@@ -21,7 +21,7 @@ const cl_N log (const cl_N& x)
 // (complex (log (abs x)) (phase x))
 	var cl_R r = abs(x);
 	if (zerop(r)) // (abs x) = 0 -> Error
-		{ cl_error_division_by_0(); }
+		{ throw division_by_0_exception(); }
 	return complex(ln(r),phase(x));
 }
 

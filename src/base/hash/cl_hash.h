@@ -5,7 +5,7 @@
 
 #include "cln/object.h"
 #include "cln/malloc.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_iterator.h"
 
 namespace cln {
@@ -132,7 +132,7 @@ protected:
             return index;
         }
         #if !(defined(__hppa__) && !defined(__GNUC__)) // workaround HP CC problem
-        cl_abort();
+        throw runtime_exception();
         #endif
         return -1; // dummy
     }
@@ -170,7 +170,7 @@ public:
     htentry& next ()
     {
         if (_index < 0)
-            cl_abort();
+            throw runtime_exception();
         var long old_index = _index;
         do { _index--; }
            while (_index >= 0 && _entries[_index].next < 0);

@@ -27,7 +27,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 // Else divide the mantissa of x by the absolute value of y, then round.
 	if (TheLfloat(x)->expo == 0) {
 		if (zerop(y))
-			cl_error_division_by_0();
+			throw division_by_0_exception();
 		else
 			return x;
 	}
@@ -88,7 +88,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	var uintE dexp = intDsize*y_len - shiftcount; // >= 0 !
 	if ((uexp < dexp) || ((uexp = uexp - dexp) < LF_exp_low)) {
 		if (underflow_allowed())
-			{ cl_error_floating_point_underflow(); }
+			{ throw floating_point_underflow_exception(); }
 		else
 			{ return encode_LF0(len); }
 	}
@@ -107,7 +107,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	      // Übertrag durchs Aufrunden
 	      { mspref(MSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
 	        // Exponenten incrementieren:
-	        if (++uexp ==  LF_exp_high+1) { cl_error_floating_point_overflow(); }
+	        if (++uexp ==  LF_exp_high+1) { throw floating_point_overflow_exception(); }
 	  }   }
 	return encode_LFu(TheLfloat(x)->sign ^ sign, uexp, MSDptr, len);
 }

@@ -11,8 +11,6 @@ CL_PROVIDE(cl_SV_ringelt)
 
 // Implementation.
 
-#include "cln/abort.h"
-
 namespace cln {
 
 static void cl_svector_ringelt_destructor (cl_heap* pointer)

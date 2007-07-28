@@ -13,7 +13,7 @@
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
 #include "cln/integer.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_alloca.h"
 
 namespace cln {
@@ -137,7 +137,7 @@ const cl_LF compute_zeta_cvz2 (int s, uintC len)
 const cl_LF zeta (int s, uintC len)
 {
 	if (!(s > 1))
-		cl_abort();
+		throw runtime_exception();
 	if (len < 280*(uintL)s)
 		return compute_zeta_cvz1(s,len);
 	else

@@ -14,7 +14,8 @@
 #include "cl_DS.h"
 #include "cln/io.h"
 #include "cln/integer_io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
+#include <sstream>
 
 namespace cln {
 
@@ -57,10 +58,10 @@ uint32 cl_I_to_UL (const cl_I& obj)
 		#undef IF_LENGTH
 	}
 	bad: // unpassendes Objekt
-	fprint(std::cerr, "Not a 32-bit integer: ");
-	fprint(std::cerr, obj);
-	fprint(std::cerr, "\n");
-	cl_abort();
+	std::ostringstream buf;
+	fprint(buf, "Not a 32-bit integer: ");
+	fprint(buf, obj);
+	throw runtime_exception(buf.str());
 }
 
 }  // namespace cln

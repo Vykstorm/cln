@@ -27,7 +27,7 @@ const cl_DF& cl_DF_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_DF,x);
 		return x;
 	} else
-		cl_as_error(x,"a double-float number",filename,line);
+		throw as_exception(x,"a double-float number",filename,line);
 }
 
 }  // namespace cln

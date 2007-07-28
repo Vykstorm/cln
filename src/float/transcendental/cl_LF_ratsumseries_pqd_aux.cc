@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/integer.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -19,7 +19,7 @@ void eval_pqd_series_aux (uintC N, cl_pqd_series_term* args, cl_pqd_series_resul
 	// N = N2-N1
 	switch (N) {
 	case 0:
-		cl_abort(); break;
+		throw runtime_exception(); break;
 	case 1:
 		if (!rightmost) { Z.P = args[0].p; }
 		Z.Q = args[0].q;

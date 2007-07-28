@@ -5,7 +5,7 @@
 
 #include "cln/object.h"
 #include "cln/V.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include <cstdlib>
 
 namespace cln {
@@ -50,14 +50,14 @@ public:
 	const T & operator[] (unsigned long index) const
 	{
 		#ifndef CL_SV_NO_RANGECHECKS
-		if (!(index < length())) cl_abort();
+		if (!(index < length())) throw runtime_exception();
 		#endif
 		return data()[index];
 	}
 	T & operator[] (unsigned long index)
 	{
 		#ifndef CL_SV_NO_RANGECHECKS
-		if (!(index < length())) cl_abort();
+		if (!(index < length())) throw runtime_exception();
 		#endif
 		return data()[index];
 	}

@@ -197,8 +197,7 @@
 
 
 #include "cln/floatparam.h"
-#include "cln/io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 
 #if defined(HAVE_LONGDOUBLE) && (long_double_mant_bits > double_mant_bits) && (defined(__i386__) || defined(__m68k__) || (defined(__sparc__) && 0))
@@ -413,7 +412,7 @@ static uintC shuffle (uintL n, uintC x)
 			}
 		x >>= 1;
 	} while (!(--n == 0));
-	cl_abort();
+	throw runtime_exception();
 }
 
 #if 0 // unused
@@ -431,7 +430,7 @@ static uintC invshuffle (uintL n, uintC x)
 		}
 		v <<= 1;
 	} while (!(--n == 0));
-	cl_abort();
+	throw runtime_exception();
 }
 #endif
 
@@ -714,8 +713,7 @@ static void fill_factor (uintC N, fftr_real* x, uintL l,
 	if (max_l(2) > intDsize && l > intDsize) {
 		// l > intDsize
 		if (max_l(2) > 64 && l > 64) {
-			fprint(std::cerr, "FFT problem: l > 64 not supported by pow2_table\n");
-			cl_abort();
+			throw runtime_exception("FFT problem: l > 64 not supported by pow2_table");
 		}
 		var fftr_real carry = 0;
 		var sintL carrybits = 0; // number of bits in carry (>=0, <l)
@@ -738,11 +736,11 @@ static void fill_factor (uintC N, fftr_real* x, uintL l,
 			i++;
 		}
 		if (i > N)
-			cl_abort();
+			throw runtime_exception();
 	} else if (max_l(2) >= intDsize && l == intDsize) {
 		// l = intDsize
 		if (len > N)
-			cl_abort();
+			throw runtime_exception();
 		for (i = 0; i < len; i++) {
 			var uintD digit = lsprefnext(sourceptr);
 			x[i] = (fftr_real)digit;
@@ -769,14 +767,14 @@ static void fill_factor (uintC N, fftr_real* x, uintL l,
 		}
 		while (carrybits > 0) {
 			if (!(i < N))
-				cl_abort();
+				throw runtime_exception();
 			x[i] = (fftr_real)(carry & l_mask);
 			carry >>= l;
 			carrybits -= l;
 			i++;
 		}
 		if (len > 0)
-			cl_abort();
+			throw runtime_exception();
 	}
 	for ( ; i < N; i++)
 		x[i] = (fftr_real)0;
@@ -929,7 +927,7 @@ static uintD* unfill_product (uintL n, uintC N, // N = 2^n
 			if (!(digit >= (fftr_real)0
 			      && z[i] > digit - (fftr_real)0.5
 			      && z[i] < digit + (fftr_real)0.5))
-				cl_abort();
+				throw runtime_exception();
 			#endif
 			if (shift > 0)
 				digit = digit * fftr_pow2_table[shift];
@@ -987,8 +985,7 @@ static inline void mulu_fftr_nocheck (const uintD* sourceptr1, uintC len1,
 	for ( ; ; k++) {
 		if (k >= sizeof(max_l_table)/sizeof(max_l_table[0])
 		    || max_l_table[k] <= 0) {
-			fprint(std::cerr, "FFT problem: numbers too big, floating point precision not sufficient\n");
-			cl_abort();
+			throw runtime_exception("FFT problem: numbers too big, floating point precision not sufficient");
 		}
 		if (2*ceiling(len1*intDsize,max_l_table[k])-1 <= ((uintC)1 << k))
 			break;
@@ -1040,7 +1037,7 @@ static inline void mulu_fftr_nocheck (const uintD* sourceptr1, uintC len1,
 			mulu_loop_lsp(lspref(sourceptr2,0),sourceptr1,tmpptr,len1);
 			if (addto_loop_lsp(tmpptr,destptr,len1+1))
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
-					cl_abort();
+					throw runtime_exception();
 		} else {
 			var bool squaring = ((sourceptr1 == sourceptr2) && (len1 == len2p));
 			// Fill factor x.
@@ -1061,7 +1058,7 @@ static inline void mulu_fftr_nocheck (const uintD* sourceptr1, uintC len1,
 				for (var uintC i = 0; i < N; i++)
 					if (!(z[i] > re_lo_limit
 					      && z[i] < re_hi_limit))
-						cl_abort();
+						throw runtime_exception();
 			}
 			#endif
 			var uintD* tmpLSDptr = arrayLSDptr(tmpprod,tmpprod_len);
@@ -1073,16 +1070,16 @@ static inline void mulu_fftr_nocheck (const uintD* sourceptr1, uintC len1,
 			    tmpMSDptr - tmpLSDptr;
 			  #endif
 			if (tmplen > tmpprod_len)
-			  cl_abort();
+			  throw runtime_exception();
 			// Add result to destptr[-destlen..-1]:
 			if (tmplen > destlen) {
 				if (test_loop_msp(tmpMSDptr,tmplen-destlen))
-					cl_abort();
+					throw runtime_exception();
 				tmplen = destlen;
 			}
 			if (addto_loop_lsp(tmpLSDptr,destptr,tmplen))
 				if (inc_loop_lsp(destptr lspop tmplen,destlen-tmplen))
-					cl_abort();
+					throw runtime_exception();
 		}
 		// Decrement len2.
 		destptr = destptr lspop len2p;
@@ -1137,7 +1134,6 @@ static void mulu_fftr (const uintD* sourceptr1, uintC len1,
 	var uintD checksum = multiply_checksum(checksum1,checksum2);
 	mulu_fftr_nocheck(sourceptr1,len1,sourceptr2,len2,destptr);
 	if (!(checksum == compute_checksum(destptr,len1+len2))) {
-		fprint(std::cerr, "FFT problem: checksum error\n");
-		cl_abort();
+		throw runtime_exception("FFT problem: checksum error.");
 	}
 }

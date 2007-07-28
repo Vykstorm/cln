@@ -85,7 +85,7 @@ static const cl_MI_x pow2_recip (cl_heap_modint_ring* _R, const _cl_MI& x)
 		if (R->m1 == 0)
 			return cl_MI(R, 0);
 		if (zerop(xr))
-			cl_error_division_by_0();
+			throw division_by_0_exception();
 		else
 			return cl_notify_composite(R,xr);
 	} else
@@ -110,7 +110,7 @@ static const cl_MI_x pow2_div (cl_heap_modint_ring* _R, const _cl_MI& x, const _
 		if (R->m1 == 0)
 			return cl_MI(R, 0);
 		if (zerop(yr))
-			cl_error_division_by_0();
+			throw division_by_0_exception();
 		else
 			return cl_notify_composite(R,yr);
 	} else

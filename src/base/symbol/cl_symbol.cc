@@ -92,7 +92,7 @@ cl_symbol::cl_symbol (const cl_string& s)
 		symbol_table.put(s);
 		sym_in_table = symbol_table.get(s);
 		if (!sym_in_table)
-			cl_abort();
+			throw runtime_exception();
 	}
 	var cl_heap* p = sym_in_table->heappointer;
 	cl_inc_pointer_refcount(p);

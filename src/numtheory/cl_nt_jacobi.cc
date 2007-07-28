@@ -11,7 +11,7 @@
 
 #include "cln/integer.h"
 #include "cl_I.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_xmacros.h"
 
 namespace cln {
@@ -20,9 +20,9 @@ int jacobi (const cl_I& a, const cl_I& b)
 {
 	// Check b > 0, b odd.
 	if (!(b > 0))
-		cl_abort();
+		throw runtime_exception();
 	if (!oddp(b))
-		cl_abort();
+		throw runtime_exception();
  {	Mutable(cl_I,a);
 	Mutable(cl_I,b);
 	// Ensure 0 <= a < b.

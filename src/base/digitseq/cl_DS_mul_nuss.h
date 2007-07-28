@@ -409,7 +409,7 @@ static void mul_doublecheck (const nuss_inword& a, const nuss_inword& b, nuss_ou
 		subfrom_loop_lsp(arrayLSDptr(a._iw,2),arrayLSDptr(or._ow,4) lspop 2,2);
 	mul(a,b, r);
 	if (compare_loop_msp(arrayMSDptr(r._ow,4),arrayMSDptr(or._ow,4),4))
-		cl_abort();
+		throw runtime_exception();
 }
 #define mul mul_doublecheck
 #endif
@@ -739,7 +739,7 @@ static inline void shift (const nuss_outword& a, nuss_outword& b)
 #elif defined(NUSS_OUT_EXTERNAL_LOOPS)
 	#ifdef DEBUG_NUSS
 	if (shiftrightcopy_loop_msp(arrayMSDptr(a._ow,4),arrayMSDptr(b._ow,4),4,1,mspref(arrayMSDptr(a._ow,4),0)>>31))
-		cl_abort();
+		throw runtime_exception();
 	#else
 	shiftrightcopy_loop_msp(arrayMSDptr(a._ow,4),arrayMSDptr(b._ow,4),4,1,mspref(arrayMSDptr(a._ow,4),0)>>31);
 	#endif
@@ -760,7 +760,7 @@ static inline void shift (const nuss_outword& a, nuss_outword& b)
 	#ifdef DEBUG_NUSS
 	carry = tmp << 31;
 	if (carry)
-		cl_abort();
+		throw runtime_exception();
 	#endif
 #endif
 }
@@ -915,7 +915,7 @@ static inline void shift (const nuss_outword& a, nuss_outword& b)
 #ifdef NUSS_OUT_EXTERNAL_LOOPS
 	#ifdef DEBUG_NUSS
 	if (shiftrightcopy_loop_msp(arrayMSDptr(a._ow,3),arrayMSDptr(b._ow,3),3,1,mspref(arrayMSDptr(a._ow,3),0)>>63))
-		cl_abort();
+		throw runtime_exception();
 	#else
 	shiftrightcopy_loop_msp(arrayMSDptr(a._ow,3),arrayMSDptr(b._ow,3),3,1,mspref(arrayMSDptr(a._ow,3),0)>>63);
 	#endif
@@ -933,7 +933,7 @@ static inline void shift (const nuss_outword& a, nuss_outword& b)
 	#ifdef DEBUG_NUSS
 	carry = tmp << 63;
 	if (carry)
-		cl_abort();
+		throw runtime_exception();
 	#endif
 #endif
 }
@@ -1390,7 +1390,7 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 			mulu_loop_lsp(lspref(sourceptr2,0),sourceptr1,tmpptr,len1);
 			if (addto_loop_lsp(tmpptr,destptr,len1+1))
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
-					cl_abort();
+					throw runtime_exception();
 		} else {
 			var uintC destlenp = len1 + len2p - 1;
 			// destlenp = min(N,destlen-1).
@@ -1426,7 +1426,7 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 			// Check result.
 			for (i = 0; i < N; i++)
 				if (!(z[i].ow3 == 0))
-					cl_abort();
+					throw runtime_exception();
 			#endif
 			// Add result to destptr[-destlen..-1]:
 			{
@@ -1463,7 +1463,7 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 				// ac2 = 0.
 				if (ac1 > 0) {
 					if (!((i += 2) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					if ((ac0 += tmp) < tmp)
 						++ac1;
@@ -1475,24 +1475,24 @@ static void mulu_nussbaumer (const uintD* sourceptr1, uintC len1,
 					lsshrink(ptr);
 					if (ac1 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				} else if (ac0 > 0) {
 					if (!((i += 1) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					ac0 += tmp;
 					lspref(ptr,0) = ac0;
 					lsshrink(ptr);
 					if (ac0 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				}
 			}
 			#ifdef DEBUG_NUSS
 			// If destlenp < N, check that the remaining z[i] are 0.
 			for (i = destlenp; i < N; i++)
 				if (z[i].ow2 > 0 || z[i].ow1 > 0 || z[i].ow0 > 0)
-					cl_abort();
+					throw runtime_exception();
 			#endif
 		}
 		// Decrement len2.

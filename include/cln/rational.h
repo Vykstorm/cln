@@ -6,6 +6,7 @@
 #include "cln/number.h"
 #include "cln/rational_class.h"
 #include "cln/integer_class.h"
+#include "cln/exception.h"
 
 namespace cln {
 

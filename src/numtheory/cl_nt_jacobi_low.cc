@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_xmacros.h"
 
 namespace cln {
@@ -33,7 +33,7 @@ inline int jacobi_aux (uintV a, uintV b)
 			switch (b % 4) {
 				case 1: break;
 				case 3: v = -v; break;
-				default: cl_abort();
+				default: throw runtime_exception();
 			}
 			continue;
 		}
@@ -44,7 +44,7 @@ inline int jacobi_aux (uintV a, uintV b)
 			switch (b % 8) {
 				case 1: case 7: break;
 				case 3: case 5: v = -v; break;
-				default: cl_abort();
+				default: throw runtime_exception();
 			}
 			continue;
 		}
@@ -65,9 +65,9 @@ int jacobi (sintV a, sintV b)
 {
 	// Check b > 0, b odd.
 	if (!(b > 0))
-		cl_abort();
+		throw runtime_exception();
 	if ((b & 1) == 0)
-		cl_abort();
+		throw runtime_exception();
 	// Ensure 0 <= a < b.
 	if (a >= 0)
 		a = (uintV)a % (uintV)b;

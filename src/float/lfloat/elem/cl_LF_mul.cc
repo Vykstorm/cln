@@ -43,13 +43,13 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
         // kein Carry
         { if (uexp1 < LF_exp_mid+LF_exp_low)
             { if (underflow_allowed())
-                { cl_error_floating_point_underflow(); }
+                { throw floating_point_underflow_exception(); }
                 else
                 { return encode_LF0(len); } // Ergebnis 0.0
         }   }
         else
         // Carry
-        { if (uexp1 > (uintE)(LF_exp_mid+LF_exp_high+1)) { cl_error_floating_point_overflow(); } }
+        { if (uexp1 > (uintE)(LF_exp_mid+LF_exp_high+1)) { throw floating_point_overflow_exception(); } }
       uexp1 = uexp1 - LF_exp_mid;
       // Nun ist LF_exp_low <= uexp1 <= LF_exp_high+1.
       // neues Long-Float allozieren:
@@ -77,7 +77,7 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
            // Exponenten decrementieren:
            if (--(TheLfloat(y)->expo) == LF_exp_low-1)
              { if (underflow_allowed())
-                 { cl_error_floating_point_underflow(); }
+                 { throw floating_point_underflow_exception(); }
                  else
                  { return encode_LF0(len); } // Ergebnis 0.0
              }
@@ -103,7 +103,7 @@ const cl_LF operator* (const cl_LF& x1, const cl_LF& x2)
                 (TheLfloat(y)->expo)++; // Exponent wieder zurck-erhhen
           }   }
         // LF_exp_low <= exp <= LF_exp_high sicherstellen:
-        if (TheLfloat(y)->expo == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+        if (TheLfloat(y)->expo == LF_exp_high+1) { throw floating_point_overflow_exception(); }
       }}
       return y;
 }

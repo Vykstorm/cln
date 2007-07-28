@@ -49,7 +49,7 @@ public:
         var long index = this->_slots[hashcode(key) % this->_modulus] - 1;
         while (index >= 0) {
             if (!(index < this->_size))
-                cl_abort();
+                throw runtime_exception();
             if (equal(key,hashkey(this->_entries[index].entry.val)))
                 return &this->_entries[index].entry.val;
             index = this->_entries[index].next - 1;
@@ -65,7 +65,7 @@ public:
             var long index = this->_slots[hcode % this->_modulus] - 1;
             while (index >= 0) {
                 if (!(index < this->_size))
-                    cl_abort();
+                    throw runtime_exception();
                 if (equal(key,hashkey(this->_entries[index].entry.val)))
                     return;
                 index = this->_entries[index].next - 1;
@@ -87,7 +87,7 @@ public:
         while (*_index > 0) {
             var long index = *_index - 1;
             if (!(index < this->_size))
-                cl_abort();
+                throw runtime_exception();
             if (equal(key,hashkey(this->_entries[index].entry.val))) {
                 // Remove _entries[index].entry
                 *_index = this->_entries[index].next;

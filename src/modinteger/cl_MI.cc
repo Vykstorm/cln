@@ -18,7 +18,7 @@ CL_PROVIDE(cl_MI)
 #include "cln/integer_io.h"
 #include "cl_N.h"
 #include "cl_MI.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_alloca.h"
 
 // MacOS X does "#define _R 0x00040000L"
@@ -42,7 +42,7 @@ cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_m
 {
 	refcount = 0; // will be incremented by the `cl_modint_ring' constructor
 	type = &cl_class_modint_ring;
-	if (minusp(m)) cl_abort();
+	if (minusp(m)) throw runtime_exception();
 	if (!cln::zerop(m)) {
 		var uintC b = integer_length(m-1);
 		// m <= 2^b, hence one needs b bits for a representative mod m.
@@ -172,7 +172,7 @@ const cl_modint_ring find_modint_ring (const cl_I& m)
 		store_modint_ring(R);
 		ring_in_table = get_modint_ring(m);
 		if (!ring_in_table)
-			cl_abort();
+			throw runtime_exception();
 	}
 	return *ring_in_table;
 }}

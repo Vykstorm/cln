@@ -12,19 +12,20 @@
 #include "cln/number.h"
 #include "cln/io.h"
 #include "cln/integer_io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_I.h"
 #include "cl_DS.h"
+#include <sstream>
 
 namespace cln {
 
 cl_boolean isqrt (const cl_I& x, cl_I* w)
 {
 	if (minusp(x)) {
-		fprint(std::cerr, "isqrt: applied to negative number: ");
-		fprint(std::cerr, x);
-		fprint(std::cerr, "\n");
-		cl_abort();
+		std::ostringstream buf;
+		fprint(buf, "isqrt: applied to negative number: ");
+		fprint(buf, x);
+		throw runtime_exception(buf.str());
 	}
 	CL_ALLOCA_STACK;
 	var const uintD* x_MSDptr;

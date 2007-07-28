@@ -4,7 +4,7 @@
 #include "cln/modinteger.h"
 #include "cln/GV_integer.h"
 #include "cl_DS.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -966,7 +966,7 @@ static const _cl_UP gf2_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 // Scalar multiplication of GF(2)-polynomials is trivial: 0*y = 0, 1*y = y.
 static const _cl_UP gf2_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_element& x, const _cl_UP& y)
 {
-	if (!(UPR->basering() == x.ring())) cl_abort();
+	if (!(UPR->basering() == x.ring())) throw runtime_exception();
  {
 	DeclarePoly(_cl_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
@@ -981,7 +981,7 @@ static const _cl_UP gf2_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_eleme
 static const cl_ring_element gf2_eval (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const cl_ring_element& y)
 {{
 	DeclarePoly(cl_GV_MI,x);
-	if (!(UPR->basering() == y.ring())) cl_abort();
+	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(_cl_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
 	var const cl_heap_GV_I_bits1 * xv = (const cl_heap_GV_I_bits1 *) x.heappointer;

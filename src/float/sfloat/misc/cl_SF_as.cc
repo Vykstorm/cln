@@ -27,7 +27,7 @@ const cl_SF& cl_SF_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_SF,x);
 		return x;
 	} else
-		cl_as_error(x,"a short-float number",filename,line);
+		throw as_exception(x,"a short-float number",filename,line);
 }
 
 }  // namespace cln

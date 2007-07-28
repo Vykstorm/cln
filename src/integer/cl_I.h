@@ -7,7 +7,7 @@
 #include "cln/integer.h"
 #include "cl_macros.h"
 #include "cln/malloc.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include "cl_offsetof.h"
 #include "cl_DS.h"
 
@@ -474,9 +474,9 @@ inline sintD FN_MSD (cl_uint word)
 
 #if (FN_maxlength==1)
   #define FN_LSD0(word)  FN_MSD(word)
-  #define FN_LSD1(word)  (cl_abort(), (uintD)0)  // never used
-  #define FN_LSD2(word)  (cl_abort(), (uintD)0)  // never used
-  #define FN_LSD3(word)  (cl_abort(), (uintD)0)  // never used
+  #define FN_LSD1(word)  (throw runtime_exception(), (uintD)0)  // never used
+  #define FN_LSD2(word)  (throw runtime_exception(), (uintD)0)  // never used
+  #define FN_LSD3(word)  (throw runtime_exception(), (uintD)0)  // never used
 #endif
 #if (FN_maxlength==2)
   inline uintD FN_LSD0 (cl_uint word)
@@ -484,8 +484,8 @@ inline sintD FN_MSD (cl_uint word)
 	return (uintD)(word >> cl_value_shift);
   }
   #define FN_LSD1(word)  FN_MSD(word)
-  #define FN_LSD2(word)  (cl_abort(), (uintD)0)  // never used
-  #define FN_LSD3(word)  (cl_abort(), (uintD)0)  // never used
+  #define FN_LSD2(word)  (throw runtime_exception(), (uintD)0)  // never used
+  #define FN_LSD3(word)  (throw runtime_exception(), (uintD)0)  // never used
 #endif
 #if (FN_maxlength==4)
   inline uintD FN_LSD0 (cl_uint word)
@@ -655,9 +655,6 @@ inline sintD FN_MSD (cl_uint word)
 // > x,y: Integers >=0
 // < q,r: Quotient q, Rest r
   extern const cl_I_div_t cl_divide (const cl_I& x, const cl_I& y);
-
-// Fehler, wenn Quotient keine ganze Zahl ist
-  nonreturning_function(extern, cl_error_exquo, (const cl_I& x, const cl_I& y));
 
 
 // ggT und kgV von Integers

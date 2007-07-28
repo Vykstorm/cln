@@ -11,7 +11,7 @@
 
 #include <cstdlib>
 #include "cln/io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 #ifndef malloc
   extern "C" void* malloc (size_t size);
@@ -28,8 +28,7 @@ static void* xmalloc (size_t size)
 	void* ptr = malloc(size);
 	if (ptr)
 		return ptr;
-	fprint(std::cerr, "Out of virtual memory.\n");
-	cl_abort();
+	throw runtime_exception("Out of virtual memory.");
 }
 
 void* (*malloc_hook) (size_t size) = xmalloc;

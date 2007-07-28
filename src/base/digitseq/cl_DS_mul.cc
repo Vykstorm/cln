@@ -11,7 +11,7 @@
 
 #include "cl_low.h"
 #include "cln/malloc.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -499,7 +499,7 @@ namespace cln {
             var uintD tmpprod_xxx = cl_alloc_array(uintD,len1+len2);
             mulu_xxx(sourceptr1,len1,sourceptr2,len2,arrayLSDptr(tmpprod_xxx,len1+len2));
             if (compare_loop_msp(destptr lspop (len1+len2),arrayMSDptr(tmpprod_xxx,len1+len2),len1+len2))
-              cl_abort();
+              throw runtime_exception();
           }
           #endif
         }

@@ -36,7 +36,7 @@ const cl_RA& cl_RA_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_RA,x);
 		return x;
 	} else
-		cl_as_error(x,"a rational number",filename,line);
+		throw as_exception(x,"a rational number",filename,line);
 }
 
 }  // namespace cln

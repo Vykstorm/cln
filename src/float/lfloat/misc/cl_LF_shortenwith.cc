@@ -9,8 +9,6 @@
 
 // Implementation.
 
-#include "cln/abort.h"
-
 #undef MAYBE_INLINE2
 #define MAYBE_INLINE2 inline
 #include "cl_LF_precision.cc"

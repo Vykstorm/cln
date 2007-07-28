@@ -13,7 +13,7 @@
 #include "cl_LF_impl.h"
 #include "cl_F.h"
 #include "cl_DS.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -99,7 +99,7 @@ const cl_LF sqrt (const cl_LF& x)
             }
             else
             // �ertrag durch Rundungsfehler
-            { if (test_loop_msp(y_mantMSDptr,len)) cl_abort();
+            { if (test_loop_msp(y_mantMSDptr,len)) throw runtime_exception();
               mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
               (TheLfloat(y)->expo)++; // Exponenten incrementieren
             }

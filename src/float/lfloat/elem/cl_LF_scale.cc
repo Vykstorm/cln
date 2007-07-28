@@ -31,13 +31,13 @@ const cl_LF scale_float (const cl_LF& x, sintC delta)
 	if (   ((uexp = uexp+udelta) < udelta) // Exponent-‹berlauf?
 	    || (uexp > LF_exp_high) // oder Exponent zu groﬂ?
 	   )
-	  { cl_error_floating_point_overflow(); }
+	  { throw floating_point_overflow_exception(); }
       } else {
         // delta <0, udelta = 2^intEsize+delta
 	if (   ((uintE)(-(uexp = uexp+udelta)) <= (uintE)(-udelta)) // oder Exponent-Unterlauf?
 	    || (uexp < LF_exp_low) // oder Exponent zu klein?
 	   )
-	  { cl_error_floating_point_underflow(); }
+	  { throw floating_point_underflow_exception(); }
       }
       var uintC len = TheLfloat(x)->len;
       return encode_LFu(TheLfloat(x)->sign,uexp,arrayMSDptr(TheLfloat(x)->data,len),len);

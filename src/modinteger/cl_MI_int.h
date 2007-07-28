@@ -31,8 +31,7 @@ static const _cl_MI int_random (cl_heap_modint_ring* R, random_state& randomstat
 {
 	unused R;
 	unused randomstate;
-	fprint(std::cerr, "Z / 0 Z not a finite set - no equidistributed random function.\n");
-	cl_abort();
+	throw runtime_exception("Z / 0 Z not a finite set - no equidistributed random function.");
 #if ((defined(__sparc__) || defined(__sparc64__)) && !defined(__GNUC__)) // Sun CC wants a return value
 	return _cl_MI(R, 0);
 #endif
@@ -83,7 +82,7 @@ static const cl_MI_x int_recip (cl_heap_modint_ring* R, const _cl_MI& x)
 {
 	var const cl_I& xr = x.rep;
 	if (eq(xr,1) || eq(xr,-1)) { return cl_MI(R,x); }
-	if (zerop(xr)) { cl_error_division_by_0(); }
+	if (zerop(xr)) { throw division_by_0_exception(); }
 	return cl_notify_composite(R,xr);
 }
 
@@ -92,7 +91,7 @@ static const cl_MI_x int_div (cl_heap_modint_ring* R, const _cl_MI& x, const _cl
 	var const cl_I& yr = y.rep;
 	if (eq(yr,1)) { return cl_MI(R,x.rep); }
 	if (eq(yr,-1)) { return cl_MI(R,-x.rep); }
-	if (zerop(yr)) { cl_error_division_by_0(); }
+	if (zerop(yr)) { throw division_by_0_exception(); }
 	return cl_notify_composite(R,yr);
 }
 
@@ -112,7 +111,7 @@ static const cl_MI_x int_expt (cl_heap_modint_ring* R, const _cl_MI& x, const cl
 			return cl_MI(R,expt_pos(x.rep,y));
 	}
 	// y < 0, x nonunit.
-	if (zerop(x.rep)) { cl_error_division_by_0(); }
+	if (zerop(x.rep)) { throw division_by_0_exception(); }
 	return cl_notify_composite(R,x.rep);
 }
 

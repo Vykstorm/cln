@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cl_LF.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -25,7 +25,7 @@ const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y)
 	var sintE ey = float_exponent(y);
 	var sintC dy = float_precision(y);
 	if (dy==0) // zerop(y) ?
-		cl_abort();
+		throw runtime_exception();
 	var sintE ex = float_exponent(x);
 	var sintC dx = float_precision(x);
 	if (dx==0) // zerop(x) ?

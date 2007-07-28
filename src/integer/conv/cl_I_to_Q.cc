@@ -15,7 +15,8 @@
 #include "cl_DS.h"
 #include "cln/io.h"
 #include "cln/integer_io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
+#include <sstream>
 
 namespace cln {
 
@@ -131,10 +132,10 @@ sint64 cl_I_to_Q (const cl_I& obj)
 		#undef IF_LENGTH
 	}
 	bad: // unpassendes Objekt
-	fprint(std::cerr, "Not a 64-bit integer: ");
-	fprint(std::cerr, obj);
-	fprint(std::cerr, "\n");
-	cl_abort();
+	std::ostringstream buf;
+	fprint(buf, "Not a 64-bit integer: ");
+	fprint(buf, obj);
+	throw runtime_exception(buf.str());
     }
 }
 

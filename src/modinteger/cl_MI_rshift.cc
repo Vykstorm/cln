@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/integer.h"
-#include "cl_N.h"
+#include "cln/exception.h"
 #include "cl_MI.h"
 
 namespace cln {
@@ -22,7 +22,7 @@ const cl_MI operator>> (const cl_MI& x, sintC y) // assume 0 <= y < 2^(intCsize-
 	var const cl_modint_ring& R = x.ring();
 	if (!oddp(R->modulus)) {
 		if (R->modulus == 2)
-			cl_error_division_by_0();
+			throw division_by_0_exception();
 		else
 			return (cl_MI_x)cl_notify_composite(R,2);
 	}
@@ -37,7 +37,7 @@ const cl_MI operator>> (const cl_MI& x, sintC y) // assume 0 <= y < 2^(intCsize-
 	// Use algorithm 1 for small y, algorithm 2 for large y.
 #if 0
 	if (y <= 2*R->bits)
-		cl_abort(); // not yet implemented
+		throw runtime_exception(); // not yet implemented
 	else
 #endif
 		return R->div(x, expt_pos(R->canonhom(2), (cl_I)(long)y));

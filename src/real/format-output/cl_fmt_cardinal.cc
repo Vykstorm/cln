@@ -9,9 +9,10 @@
 
 // Implementation.
 
+#include <sstream>
 #include "cln/integer.h"
 #include "cln/integer_io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -107,10 +108,10 @@ void format_cardinal (std::ostream& stream, const cl_I& argument)
 		var uintL * small_piece_ptr = &small_pieces[0];
 		do {
 			if (*illion_ptr == NULL) {
-				fprint(std::cerr, "format_cardinal: argument too large: ");
-				fprint(std::cerr, argument);
-				fprint(std::cerr, "\n");
-				cl_abort();
+				std::ostringstream buf;
+				fprint(buf, "format_cardinal: argument too large: ");
+				fprint(buf, argument);
+				throw runtime_exception(buf.str());
 			}
 			var cl_I_div_t div = floor2(arg,1000);
 			var const cl_I& thousands = div.quotient;

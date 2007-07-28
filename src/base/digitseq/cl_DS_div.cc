@@ -9,8 +9,7 @@
 
 // Implementation.
 
-#include "cl_N.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -173,7 +172,7 @@ namespace cln {
       while ((a_len>0) && (mspref(a_MSDptr,0)==0)) { msshrink(a_MSDptr); a_len--; }
       // b normalisieren (b_MSDptr erhöhen, b_len erniedrigen):
       loop
-        { if (b_len==0) { cl_error_division_by_0(); }
+        { if (b_len==0) { throw division_by_0_exception(); }
           if (mspref(b_MSDptr,0)==0) { msshrink(b_MSDptr); b_len--; }
           else break;
         }
@@ -293,11 +292,11 @@ namespace cln {
                       if (subfrom_loop_lsp(b_LSDptr,p_LSDptr,b_len))
                         dec_loop_lsp(p_LSDptr lspop b_len,j+2);
                       if ((mspref(p_MSDptr,0) > 0) || (compare_loop_msp(p_MSDptr mspop 1,r_MSDptr,a_len+1) > 0))
-                        cl_abort();
+                        throw runtime_exception();
                 }   }
               // Rest bestimmen:
               subfrom_loop_lsp(p_LSDptr,r_LSDptr,a_len+1);
-              if (test_loop_msp(r_MSDptr,j)) cl_abort();
+              if (test_loop_msp(r_MSDptr,j)) throw runtime_exception();
               r_MSDptr = r_LSDptr lspop b_len; // = r_MSDptr mspop (j+1);
               // d ist um höchstens 2 zu klein, muß also evtl. zweimal um 1
               // incrementieren, bis der Rest < b wird.
@@ -310,10 +309,10 @@ namespace cln {
                       if (subfrom_loop_lsp(b_LSDptr,r_LSDptr,b_len))
                         lspref(r_LSDptr,b_len) -= 1;
                       if ((lspref(r_MSDptr,0) > 0) || (compare_loop_msp(r_MSDptr,b_MSDptr,b_len) >= 0))
-                        cl_abort();
+                        throw runtime_exception();
                 }   }
               // r ist fertig, q := d.
-              if (mspref(d_MSDptr,0) > 0) cl_abort();
+              if (mspref(d_MSDptr,0) > 0) throw runtime_exception();
               q_len = j+1; copy_loop_msp(d_MSDptr mspop 1,q_MSDptr,q_len);
             }
             else

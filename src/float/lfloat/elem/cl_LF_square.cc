@@ -30,14 +30,14 @@ const cl_LF square (const cl_LF& x)
         { uexp = 2*uexp;
           if (uexp < LF_exp_mid+LF_exp_low)
             { if (underflow_allowed())
-                { cl_error_floating_point_underflow(); }
+                { throw floating_point_underflow_exception(); }
                 else
                 { return encode_LF0(len); } // Ergebnis 0.0
         }   }
         else
         // Carry
         { uexp = 2*uexp;
-          if (uexp > (uintE)(LF_exp_mid+LF_exp_high+1)) { cl_error_floating_point_overflow(); }
+          if (uexp > (uintE)(LF_exp_mid+LF_exp_high+1)) { throw floating_point_overflow_exception(); }
         }
       uexp = uexp - LF_exp_mid;
       // Nun ist LF_exp_low <= uexp <= LF_exp_high+1.
@@ -57,7 +57,7 @@ const cl_LF square (const cl_LF& x)
            // Exponenten decrementieren:
            if ((TheLfloat(y)->expo)-- == LF_exp_low-1)
              { if (underflow_allowed())
-                 { cl_error_floating_point_underflow(); }
+                 { throw floating_point_underflow_exception(); }
                  else
                  { return encode_LF0(len); } // Ergebnis 0.0
              }
@@ -83,7 +83,7 @@ const cl_LF square (const cl_LF& x)
                 (TheLfloat(y)->expo)++; // Exponent wieder zurück-erhöhen
           }   }
         // LF_exp_low <= exp <= LF_exp_high sicherstellen:
-        if (TheLfloat(y)->expo == LF_exp_high+1) { cl_error_floating_point_overflow(); }
+        if (TheLfloat(y)->expo == LF_exp_high+1) { throw floating_point_overflow_exception(); }
       }}
       return y;
 }

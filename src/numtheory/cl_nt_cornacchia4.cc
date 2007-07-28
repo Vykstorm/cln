@@ -92,7 +92,7 @@ const cornacchia_t cornacchia4 (const cl_I& d, const cl_I& p)
 	if (init.condition)
 		return init.condition;
 	if (init.solutions != 2)
-		cl_abort();
+		throw runtime_exception();
 	// Compute x with x^2+d == 0 mod 4*p.
 	var cl_I x0 = R->retract(init.solution[0]);
 	if (evenp(x0)) { x0 = p-x0; } // Enforce x0^2+d == 0 mod 4.

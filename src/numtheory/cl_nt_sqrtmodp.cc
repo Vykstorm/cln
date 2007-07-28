@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cl_I.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 #undef floor
 #include <cmath>
@@ -287,7 +287,7 @@ static const sqrt_mod_p_t tonelli_shanks_sqrt (const cl_modint_ring& R, const cl
 
 const sqrt_mod_p_t sqrt_mod_p (const cl_modint_ring& R, const cl_MI& a)
 {
-	if (!(a.ring() == R)) cl_abort();
+	if (!(a.ring() == R)) throw runtime_exception();
 	var cl_I& p = R->modulus;
 	var cl_I aa = R->retract(a);
 	switch (jacobi(aa,p)) {

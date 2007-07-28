@@ -11,8 +11,6 @@ CL_PROVIDE(cl_SV_number)
 
 // Implementation.
 
-#include "cln/abort.h"
-
 namespace cln {
 
 static void cl_svector_number_destructor (cl_heap* pointer)

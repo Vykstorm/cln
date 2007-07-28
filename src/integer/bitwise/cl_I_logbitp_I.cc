@@ -13,7 +13,8 @@
 #include "cl_DS.h"
 #include "cln/io.h"
 #include "cln/integer_io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
+#include <sstream>
 
 namespace cln {
 
@@ -44,10 +45,10 @@ cl_boolean logbitp (const cl_I& x, const cl_I& y)
         }
         else
         // x<0
-        { fprint(std::cerr, "logbitp: Index is negative: ");
-          fprint(std::cerr, x);
-          fprint(std::cerr, "\n");
-          cl_abort();
+        { std::ostringstream buf;
+          fprint(buf, "logbitp: Index is negative: ");
+          fprint(buf, x);
+          throw runtime_exception(buf.str());
         }
 }
 

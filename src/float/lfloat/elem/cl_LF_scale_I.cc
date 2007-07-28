@@ -92,7 +92,7 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 	    || (uexp > LF_exp_high) // oder Exponent zu groﬂ?
 	   )
 	  overflow:
-	  { cl_error_floating_point_overflow(); }
+	  { throw floating_point_overflow_exception(); }
 	goto ok;
 
       neg: // delta <0, udelta = 2^32+delta
@@ -100,7 +100,7 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 	    || (uexp < LF_exp_low) // oder Exponent zu klein?
 	   )
 	  underflow:
-	  { cl_error_floating_point_underflow(); }
+	  { throw floating_point_underflow_exception(); }
 	goto ok;
 
       ok:

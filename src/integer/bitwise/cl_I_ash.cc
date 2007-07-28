@@ -11,7 +11,6 @@
 
 #include "cl_I.h"
 #include "cl_DS.h"
-#include "cl_I_ash.h"
 
 namespace cln {
 
@@ -42,7 +41,7 @@ const cl_I ash (const cl_I& x, sintC y)
 		var const uintD* x_LSDptr;
 		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,cl_false,); // DS zu x bilden.
 		if (k >= (uintC)(~len)) // kann len+k+1 Überlauf geben?
-			{ cl_ash_error(y); } // ja -> Fehler
+			{ throw ash_exception(y); } // ja -> Fehler
 		num_stack_alloc_1(len+k,,LSDptr=);
 		LSDptr = clear_loop_lsp(LSDptr,k); // k Nulldigits
 	       {var uintD* MSDptr = copy_loop_lsp(x_LSDptr,LSDptr,len);

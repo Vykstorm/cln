@@ -63,7 +63,7 @@ private:
 				ht->remove(hashkey(v));
 				if (v.pointer_p()) {
 					var cl_heap* p = v.heappointer;
-					if (!(--p->refcount == 0)) cl_abort();
+					if (!(--p->refcount == 0)) throw runtime_exception();
 					cl_free_heap_object(p);
 				}
 				removed++;

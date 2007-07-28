@@ -6,7 +6,7 @@
 #include "cln/object.h"
 #include "cln/malloc.h"
 #include "cl_sstring.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -56,7 +56,7 @@ inline uintL cl_spushstring::length () const
 }
 inline char cl_spushstring::operator[] (uintL i) const
 {
-	if (!(i < index)) cl_abort();
+	if (!(i < index)) throw runtime_exception();
 	return buffer[i];
 }
 

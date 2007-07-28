@@ -144,13 +144,13 @@ inline const cl_FF encode_FF (cl_signean sign, sintL exp, uintL mant)
 {
 	if (exp < (sintL)(FF_exp_low-FF_exp_mid))
 		{ if (underflow_allowed())
-			{ cl_error_floating_point_underflow(); }
+			{ throw floating_point_underflow_exception(); }
 			else
 			{ return cl_FF_0; }
 		}
 	else
 	if (exp > (sintL)(FF_exp_high-FF_exp_mid))
-		{ cl_error_floating_point_overflow(); }
+		{ throw floating_point_overflow_exception(); }
 	else
 	return make_FF(sign, exp+FF_exp_mid, mant & (bit(FF_mant_len)-1));
 }
@@ -191,7 +191,7 @@ inline float FF_to_float (const cl_FF& obj)
               )								\
               && underflow_allowed()					\
              )								\
-            { cl_error_floating_point_underflow(); } /* subnormal oder noch kleiner -> Underflow */\
+            { throw floating_point_underflow_exception(); } /* subnormal oder noch kleiner -> Underflow */\
             else							\
             { ergebnis_zuweisung cl_FF_0; } /* +/- 0.0 -> 0.0 */	\
         }								\
@@ -199,12 +199,12 @@ inline float FF_to_float (const cl_FF& obj)
             && (((~_erg.eksplicit) & ((uint32)bit(FF_exp_len+FF_mant_len)-bit(FF_mant_len))) == 0) /* e=255 ? */\
            )								\
         { if (maybe_nan && !((_erg.eksplicit << (32-FF_mant_len)) == 0)) \
-            { cl_error_division_by_0(); } /* NaN, also Singularität -> "Division durch 0" */\
+            { throw division_by_0_exception(); } /* NaN, also Singularität -> "Division durch 0" */\
           else /* Infinity */						\
           if (!maybe_overflow || maybe_divide_0)			\
-            { cl_error_division_by_0(); } /* Infinity, Division durch 0 */\
+            { throw division_by_0_exception(); } /* Infinity, Division durch 0 */\
             else							\
-            { cl_error_floating_point_overflow(); } /* Infinity, Overflow */\
+            { throw floating_point_overflow_exception(); } /* Infinity, Overflow */\
         }								\
       else								\
         { ergebnis_zuweisung allocate_ffloat(_erg.eksplicit); }		\

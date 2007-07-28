@@ -1,3 +1,215 @@
+2007-07-28  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Remove exception hooks in favor of real C++ exceptions:
+	* include/cln/exception.h: New file...
+	* include/cln/cln.h: ...included here...
+	* include/cln/rational.h: ...and here.
+	* include/cln/abort.h: Removed.
+	* include/cln/integer.h (ash_exception, exquo_exception): Add exception
+	types.
+	* include/cln/float.h (floating_point_exception,
+	floating_point_nan_exception, floating_point_overflow_exception,
+	floating_point_underflow_exception): Likewise.
+	* include/cln/number_io.h (read_number_exception,
+	read_number_bad_syntax_exception, read_number_junk_exception,
+	read_number_eof_exception): Likewise.
+	* include/cln/object.h (CL_DEFINE_CONVERTER): Replace dynamic assertion
+	with a compile-time assertion.
+	* include/cln/GV.h: Replace nonreturning functions with exceptions.
+	* include/cln/modinteger.h: Likewise.
+	* include/cln/SV.h: Likewise.
+	* include/cln/ring.h: Likewise.
+	* include/cln/string.h: Likewise.
+	* include/cln/univpoly.h: Likewise.
+	* src/base/cl_abort.cc: Removed.
+	* src/base/cl_N_err_d0.cc: Removed.
+	* src/base/cl_d0_exception.cc: New file.
+	* src/base/cl_as_err.cc: Removed.
+	* src/base/cl_as_exception.cc: New file.
+	* src/base/cl_notreached.cc: Removed.
+	* src/base/cl_notreached_exception.cc: New file.
+	* src/base/input/cl_read_err_bad.cc: Removed.
+	* src/base/input/cl_read_bad_syntax_exception.cc: New file.
+	* src/base/input/cl_read_err_junk.cc: Removed.
+	* src/base/input/cl_read_junk_exception.cc: New file.
+	* src/base/input/cl_read_err_eof.cc: Removed.
+	* src/base/input/cl_read_eof_exception.cc: New file.
+	* src/base/cl_N.h (cl_as_error): Removed (see cln/exception.h).
+	* src/base/macros.h (NOTREACHED): Throw.
+	* src/base/cl_malloc.cc (xmalloc): Throw.
+	* src/base/digitseq/cl_2DS_div.cc: Throw.
+	* src/base/digitseq/cl_DS_div.cc: Throw.
+	* src/base/digitseq/cl_DS_mul.cc: Throw.
+	* src/base/digitseq/cl_DS_mul_fftc.h: Throw.
+	* src/base/digitseq/cl_DS_mul_fftcs.h: Throw.
+	* src/base/digitseq/cl_DS_mul_fftm.h: Throw.
+	* src/base/digitseq/cl_DS_mul_fftp.h: Throw.
+	* src/base/digitseq/cl_DS_mul_fftp3.h: Throw.
+	* src/base/digitseq/cl_DS_mul_fftp3m.h: Throw.
+	* src/base/digitseq/cl_DS_mul_fftr.h: Throw.
+	* src/base/digitseq/cl_DS_mul_nuss.h: Throw.
+	* src/base/digitseq/cl_DS_recipsqrt.cc: Throw.
+	* src/base/digitseq/cl_DS_sqrt.cc: Throw.
+	* src/base/hash/cl_hash.h: Throw.
+	* src/base/hash/cl_hash1.h: Throw.
+	* src/base/hash/cl_hash1weak.h: Throw.
+	* src/base/hash/cl_hash2.h: Throw.
+	* src/base/hash/cl_hash2weak.h: Throw.
+	* src/base/hash/cl_hashset.h: Throw.
+	* src/base/hash/cl_hashuniq.h: Throw.
+	* src/base/hash/cl_hashuniqweak.h: Throw.
+	* src/base/proplist/cl_pl_add.cc: Throw.
+	* src/base/ring/cl_no_ring.cc: Throw.
+	* src/base/string/cl_spushstring.h: Throw.
+	* src/base/symbol/cl_symbol.cc: Throw.
+	* src/integer/bitwise/cl_I_ash.h: Removed (see cln/integer.h.)
+	* src/integer/bitwise/cl_I_asherr.cc: Removed.
+	* src/integer/bitwise/cl_I_ash_exception.cc: New file.
+	* src/integer/division/cl_I_exquoerr.cc: Removed.
+	* src/integer/division/cl_I_exquo_exception.cc: New file.
+	* src/integer/cl_I.h: Throw.
+	* src/integer/division/cl_I_exquopos.cc: Throw.
+	* src/integer/bitwise/cl_I_logbitp_I.cc: Throw.
+	* src/integer/bitwise/cl_I_ash.cc: Throw.
+	* src/integer/bitwise/cl_I_ash_I.cc: Throw.
+	* src/integer/division/cl_I_exquo.cc: Throw.
+	* src/integer/gcd/cl_I_gcd_aux2.cc: Throw.
+	* src/integer/conv/cl_I_to_L.cc: Throw.
+	* src/integer/conv/cl_I_to_Q.cc: Throw.
+	* src/integer/conv/cl_I_to_UL.cc: Throw.
+	* src/integer/conv/cl_I_to_UQ.cc: Throw.
+	* src/integer/conv/cl_I_to_digits.cc: Throw.
+	* src/integer/elem/cl_I_div.cc: Throw.
+	* src/integer/algebraic/cl_I_sqrt.cc: Throw.
+	* src/integer/input/cl_I_read.cc: Throw.
+	* src/integer/input/cl_I_read_stream.cc: Throw.
+	* src/integer/misc/cl_I_as.cc: Throw.
+	* src/rational/elem/cl_RA_from_I_I_div.cc: Throw.
+	* src/rational/elem/cl_RA_recip.cc: Throw.
+	* src/rational/input/cl_RA_read.cc: Throw.
+	* src/rational/input/cl_RA_read_stream.cc: Throw.
+	* src/rational/input/cl_RA_readparsed.cc: Throw.
+	* src/rational/misc/cl_RA_as.cc: Throw.
+	* src/float/base/cl_F_err_nan.cc: Removed.
+	* src/float/base/cl_F_nan_exception.cc: New file.
+	* src/float/base/cl_F_err_un.cc: Removed.
+	* src/float/base/cl_F_underflow_exception.cc: New file.
+	* src/float/base/cl_F_err_ov.cc: Removed.
+	* src/float/base/cl_F_overflow_exception.cc: New file.
+	* src/float/cl_F.h (cl_error_floating_point_nan,
+	cl_error_floating_point_overflow, cl_error_floating_point_underflow):
+	Removed (see cln/float.h.)
+	* src/float/sfloat/cl_SF.h: Throw.
+	* src/float/sfloat/elem/cl_SF_div.cc: Throw.
+	* src/float/sfloat/elem/cl_SF_from_RA.cc: Throw.
+	* src/float/sfloat/elem/cl_SF_scale.cc: Throw.
+	* src/float/sfloat/elem/cl_SF_scale_I.cc: Throw.
+	* src/float/sfloat/misc/cl_SF_as.cc: Throw.
+	* src/float/ffloat/cl_FF.h: Throw.
+	* src/float/ffloat/conv/cl_FF_from_float.cc: Throw.
+	* src/float/ffloat/elem/cl_FF_div.cc: Throw.
+	* src/float/ffloat/elem/cl_FF_from_RA.cc: Throw.
+	* src/float/ffloat/elem/cl_FF_scale.cc: Throw.
+	* src/float/ffloat/elem/cl_FF_scale_I.cc: Throw.
+	* src/float/ffloat/misc/cl_FF_as.cc: Throw.
+	* src/float/dfloat/cl_DF.h: Throw.
+	* src/float/dfloat/conv/cl_DF_from_double.cc: Throw.
+	* src/float/dfloat/elem/cl_DF_div.cc: Throw.
+	* src/float/dfloat/elem/cl_DF_from_RA.cc: Throw.
+	* src/float/dfloat/elem/cl_DF_scale.cc: Throw.
+	* src/float/dfloat/elem/cl_DF_scale_I.cc: Throw.
+	* src/float/dfloat/misc/cl_DF_as.cc: Throw.
+	* src/float/lfloat/algebraic/cl_LF_sqrt.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_1plus.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_I_div.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_I_mul.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_div.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_from_I.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_mul.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_scale.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_scale_I.cc: Throw.
+	* src/float/lfloat/elem/cl_LF_square.cc: Throw.
+	* src/float/lfloat/misc/cl_LF_as.cc: Throw.
+	* src/float/lfloat/misc/cl_LF_shorten.cc: Throw.
+	* src/float/lfloat/misc/cl_LF_shortenrel.cc: Throw.
+	* src/float/lfloat/misc/cl_LF_shortenwith.cc: Throw.
+	* src/float/input/cl_F_read.cc: Throw.
+	* src/float/input/cl_F_read_stream.cc: Throw.
+	* src/float/misc/cl_F_as.cc: Throw.
+	* src/float/misc/cl_F_shortenrel.cc: Throw.
+	* src/float/transcendental/cl_LF_coshsinh_aux.cc: Throw.
+	* src/float/transcendental/cl_LF_cossin_aux.cc: Throw.
+	* src/float/transcendental/cl_LF_exp_aux.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_a.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_ab.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_b.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_p.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pa.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pab.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pb.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pq.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pqa.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pqab.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_pqb.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_q.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_qa.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_qab.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_qb.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_stream_pq.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_stream_pqa.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_stream_pqab.cc: Throw.
+	* src/float/transcendental/cl_LF_ratseries_stream_pqb.cc: Throw.
+	* src/float/transcendental/cl_LF_ratsumseries_pqcd_aux.cc: Throw.
+	* src/float/transcendental/cl_LF_ratsumseries_pqd.cc: Throw.
+	* src/float/transcendental/cl_LF_ratsumseries_pqd_aux.cc: Throw.
+	* src/float/transcendental/cl_LF_zeta_int.cc: Throw.
+	* src/real/elem/cl_R_div.cc: Throw.
+	* src/real/format-output/cl_fmt_cardinal.cc: Throw.
+	* src/real/format-output/cl_fmt_newroman.cc: Throw.
+	* src/real/format-output/cl_fmt_oldroman.cc: Throw.
+	* src/real/input/cl_R_read.cc: Throw.
+	* src/real/input/cl_R_read_stream.cc: Throw.
+	* src/real/misc/cl_R_as.cc: Throw.
+	* src/real/random/cl_R_random.cc: Throw.
+	* src/real/transcendental/cl_R_atan2.cc: Throw.
+	* src/real/transcendental/cl_R_log.cc: Throw.
+	* src/complex/input/cl_N_read.cc: Throw.
+	* src/complex/input/cl_N_read_stream.cc: Throw.
+	* src/complex/misc/cl_N_as.cc: Throw.
+	* src/complex/transcendental/cl_C_atanh_aux.cc: Throw.
+	* src/complex/transcendental/cl_C_expt_C.cc: Throw.
+	* src/complex/transcendental/cl_C_log.cc: Throw.
+	* src/complex/transcendental/cl_C_log2.cc: Throw.
+	* src/numtheory/cl_nt_cornacchia1.cc: Throw.
+	* src/numtheory/cl_nt_cornacchia4.cc: Throw.
+	* src/numtheory/cl_nt_isprobprime.cc: Throw.
+	* src/numtheory/cl_nt_jacobi.cc: Throw.
+	* src/numtheory/cl_nt_jacobi_low.cc: Throw.
+	* src/numtheory/cl_nt_sqrtmodp.cc: Throw.
+	* src/modinteger/cl_MI.cc: Throw.
+	* src/modinteger/cl_MI_int.h: Throw.
+	* src/modinteger/cl_MI_montgom.h: Throw.
+	* src/modinteger/cl_MI_pow2.h: Throw.
+	* src/modinteger/cl_MI_rshift.cc: Throw.
+	* src/modinteger/cl_MI_std.h: Throw.
+	* src/polynomial/elem/cl_UP_GF2.h: Throw.
+	* src/polynomial/elem/cl_UP_MI.h: Throw.
+	* src/polynomial/elem/cl_UP_gen.h: Throw.
+	* src/polynomial/elem/cl_UP_named.cc: Throw.
+	* src/polynomial/elem/cl_UP_no_ring.cc (uninitialized_error, 
+	uninitialized_ring): Removed (see cln/ring.h.)
+	* src/polynomial/elem/cl_UP_number.h: Throw.
+	* src/polynomial/elem/cl_UP_unnamed.cc: Throw.
+	* src/vector/cl_GV_I.cc: Throw.
+	* src/vector/cl_GV_number.cc: Throw.
+	* tests/timediv2adic-compare.cc: Use default abort(), not cl_abort().
+	* tests/timeprint-compare.cc: Likewise.
+	* tests/timerecip2adic-compare.cc: Likewise.
+	* doc/cln.tex: Document the exception classes.
+	* examples/contfrac.cc: Use try/catch instead of setjmp/longjmp.
+	* INSTALL: undocument -fno-exceptions.
+	* README: Add exceptions to list of used C++ features.
+
 2007-06-20  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* cln.spec.in (Source0): Package is bzip2-compressed.

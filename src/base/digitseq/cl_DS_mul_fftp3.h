@@ -86,7 +86,7 @@ static const fftp3_word fftp3_roots_of_1 [27+1] =
 #define FFTP3_BACKWARD CLEVER
 
 #ifdef DEBUG_FFTP3_OPERATIONS
-#define check_fftp3_word(x)  if ((x.w1 >= p1) || (x.w2 >= p2) || (x.w3 >= p3)) cl_abort()
+#define check_fftp3_word(x)  if ((x.w1 >= p1) || (x.w2 >= p2) || (x.w3 >= p3)) throw runtime_exception()
 #else
 #define check_fftp3_word(x)
 #endif
@@ -290,7 +290,7 @@ static void mulp3_doublecheck (const fftp3_word& a, const fftp3_word& b, fftp3_w
 	mulp3(ma,mb, or);
 	mulp3(a,b, r);
 	if (!((r.w1 == or.w1) && (r.w2 == or.w2) && (r.w3 == or.w3)))
-		cl_abort();
+		throw runtime_exception();
 }
 #define mulp3 mulp3_doublecheck
 #endif /* DEBUG_FFTP3_OPERATIONS */
@@ -350,10 +350,10 @@ static void fftp3_convolution (const uintL n, const uintC N, // N = 2^n
 		var fftp3_word w_N;
 		mulp3(w[N-1],fftp3_roots_of_1[n], w_N);
 		if (!(w_N.w1 == 1 && w_N.w2 == 1 && w_N.w3 == 1))
-			cl_abort();
+			throw runtime_exception();
 		w_N = w[N>>1];
 		if (!(w_N.w1 == p1-1 && w_N.w2 == p2-1 && w_N.w3 == p3-1))
-			cl_abort();
+			throw runtime_exception();
 	}
 	#endif
 	var bool squaring = (x == y);
@@ -565,7 +565,7 @@ static void mulu_fft_modp3 (const uintD* sourceptr1, uintC len1,
 			mulu_loop_lsp(lspref(sourceptr2,0),sourceptr1,tmpptr,len1);
 			if (addto_loop_lsp(tmpptr,destptr,len1+1))
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
-					cl_abort();
+					throw runtime_exception();
 		} else {
 			var uintC destlenp = len1 + len2p - 1;
 			// destlenp = min(N,destlen-1).
@@ -603,7 +603,7 @@ static void mulu_fft_modp3 (const uintD* sourceptr1, uintC len1,
 					combinep3(z[i],arrayLSDptr(z_i,3));
 					#ifdef DEBUG_FFTP3
 					if (!(arrayLSref(z_i,3,2) < N))
-						cl_abort();
+						throw runtime_exception();
 					#endif
 					// Add z[i] to the accumulator.
 					tmp = arrayLSref(z_i,3,0);
@@ -631,7 +631,7 @@ static void mulu_fft_modp3 (const uintD* sourceptr1, uintC len1,
 				// ac2 = 0.
 				if (ac1 > 0) {
 					if (!((i += 2) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					if ((ac0 += tmp) < tmp)
 						++ac1;
@@ -643,24 +643,24 @@ static void mulu_fft_modp3 (const uintD* sourceptr1, uintC len1,
 					lsshrink(ptr);
 					if (ac1 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				} else if (ac0 > 0) {
 					if (!((i += 1) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					ac0 += tmp;
 					lspref(ptr,0) = ac0;
 					lsshrink(ptr);
 					if (ac0 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				}
 			}
 			#ifdef DEBUG_FFTP3
 			// If destlenp < N, check that the remaining z[i] are 0.
 			for (i = destlenp; i < N; i++)
 				if (z[i].w1 > 0 || z[i].w2 > 0 || z[i].w3 > 0)
-					cl_abort();
+					throw runtime_exception();
 			#endif
 		}
 		// Decrement len2.

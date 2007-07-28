@@ -11,7 +11,6 @@
 
 #include "cl_I.h"
 #include "cl_DS.h"
-#include "cl_I_ash.h"
 
 namespace cln {
 
@@ -39,19 +38,19 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 		if (bignump(y)) {
 			#if (log2_intDsize+intCsize <= cl_value_len-1)
 			// y >= 2^(cl_value_len-1) >= intDsize*2^intCsize
-			cl_ash_error(y);
+			throw ash_exception(y);
 			#else
 			// y >= 2^(cl_value_len-1)
 			// usable only if y < intDsize*2^intCsize
 			var cl_heap_bignum* bn = TheBignum(y);
 			var uintC len = bn->length;
 			if (len > ceiling(log2_intDsize+intCsize+1,intDsize))
-				cl_ash_error(y);
+				throw ash_exception(y);
 			// bn_minlength <= len <= ceiling(log2_intDsize+intCsize+1,intDsize).
 			if (bn_minlength == ceiling(log2_intDsize+intCsize+1,intDsize)
 			    || len == ceiling(log2_intDsize+intCsize+1,intDsize))
 				if (mspref(arrayMSDptr(bn->data,len),0) >= (uintD)bit((log2_intDsize+intCsize)%intDsize))
-					cl_ash_error(y);
+					throw ash_exception(y);
 			#if (log2_intDsize+intCsize > intDsize)
 			#define IF_LENGTH(i)  \
 			  if (bn_minlength <= i && i <= ceiling(log2_intDsize+intCsize+1,intDsize) && (i == ceiling(log2_intDsize+intCsize+1,intDsize) || len == i))
@@ -66,7 +65,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 			else IF_LENGTH(5)
 				k = get_uint4D_Dptr(arrayLSDptr(bn->data,5) lspop 1);
 			else
-				cl_abort();
+				throw runtime_exception();
 			#undef IF_LENGTH
 			k = k << (intDsize-log2_intDsize);
 			#else
@@ -87,7 +86,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 		var const uintD* x_LSDptr;
 		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,cl_false,); // DS zu x bilden.
 		if (k >= (uintC)(~len)) // kann len+k+1 Überlauf geben?
-			{ cl_ash_error(y); } // ja -> Fehler
+			{ throw ash_exception(y); } // ja -> Fehler
 		num_stack_alloc_1(len+k,,LSDptr=);
 		LSDptr = clear_loop_lsp(LSDptr,k); // k Nulldigits
 		var uintD* MSDptr = copy_loop_lsp(x_LSDptr,LSDptr,len);
@@ -143,7 +142,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 			else IF_LENGTH(5)
 				k = ~get_sint4D_Dptr(arrayLSDptr(bn->data,5) lspop 1);
 			else
-				cl_abort();
+				throw runtime_exception();
 			#undef IF_LENGTH
 			k = k << (intDsize-log2_intDsize);
 			#else

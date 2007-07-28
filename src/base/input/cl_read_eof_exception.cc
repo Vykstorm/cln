@@ -1,4 +1,4 @@
-// read_number_eof().
+// read_number_eof_exception().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -10,14 +10,11 @@
 // Implementation.
 
 #include "cln/io.h"
-#include "cln/abort.h"
 
 namespace cln {
 
-void read_number_eof (void)
-{
-	fprint(std::cerr, "read_number: end of stream encountered\n");
-	cl_abort();
-}
+read_number_eof_exception::read_number_eof_exception ()
+	: read_number_exception("read_number: end of stream encountered")
+{}
 
 }  // namespace cln

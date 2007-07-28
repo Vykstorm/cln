@@ -44,10 +44,10 @@ const cl_FF cl_RA_to_FF (const cl_RA& x)
       var sintC lendiff = (sintC)integer_length(a) // (integer-length a)
                           - (sintC)integer_length(b); // (integer-length b)
       if (lendiff > FF_exp_high-FF_exp_mid) // Exponent >= n-m > Obergrenze ?
-        { cl_error_floating_point_overflow(); } // -> Overflow
+        { throw floating_point_overflow_exception(); } // -> Overflow
       if (lendiff < FF_exp_low-FF_exp_mid-2) // Exponent <= n-m+2 < Untergrenze ?
         { if (underflow_allowed())
-            { cl_error_floating_point_underflow(); } // -> Underflow
+            { throw floating_point_underflow_exception(); } // -> Underflow
             else
             { return cl_FF_0; }
         }

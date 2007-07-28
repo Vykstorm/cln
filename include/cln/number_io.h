@@ -5,31 +5,35 @@
 
 #include "cln/io.h"
 #include "cln/number.h"
+#include "cln/exception.h"
 
 namespace cln {
 
 // Input.
 
+class read_number_exception : public runtime_exception {
+public:
+	explicit read_number_exception(const std::string & what)
+		: runtime_exception(what) {}
+};
+
 // Finish with bad syntax.
-#ifdef _CL_MACROS_H
-nonreturning_function(extern, read_number_bad_syntax, (const char * string, const char * string_limit));
-#else
-extern void read_number_bad_syntax (const char * string, const char * string_limit);
-#endif
+class read_number_bad_syntax_exception : public read_number_exception {
+public:
+	read_number_bad_syntax_exception(const char * string, const char * string_limit);
+};
 
 // Finish with junk after the number.
-#ifdef _CL_MACROS_H
-nonreturning_function(extern, read_number_junk, (const char * string_rest, const char * string, const char * string_limit));
-#else
-extern void read_number_junk (const char * string_rest, const char * string, const char * string_limit);
-#endif
+class read_number_junk_exception : public read_number_exception {
+public:
+	read_number_junk_exception(const char * string_rest, const char * string, const char * string_limit);
+};
 
-// Finish with EOF.
-#ifdef _CL_MACROS_H
-nonreturning_function(extern, read_number_eof, (void));
-#else
-extern void read_number_eof (void);
-#endif
+// Finish with premature EOF.
+class read_number_eof_exception : public read_number_exception {
+public:
+	read_number_eof_exception();
+};
 
 struct cl_read_flags;
 

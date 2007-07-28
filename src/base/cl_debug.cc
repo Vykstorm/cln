@@ -10,7 +10,6 @@
 // Implementation.
 
 #include "cln/io.h"
-#include "cln/abort.h"
 
 namespace cln {
 

@@ -5,7 +5,6 @@
 #include "cl_2DS.h"
 #include <cln/random.h>
 #include "cl_random_impl.h"
-#include <cln/abort.h>
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
@@ -40,7 +39,7 @@ int main (int argc, char * argv[])
 	recip2adic(len,a_LSDptr,b_LSDptr);
 	recip2adic_threshold = threshold;
 	recip2adic(len,a_LSDptr,bn_LSDptr);
-	if (compare_loop_msp(b_MSDptr,bn_MSDptr,len)) cl_abort();
+	if (compare_loop_msp(b_MSDptr,bn_MSDptr,len)) abort();
 	// Time.
 	recip2adic_threshold = 1000000;
 	{ CL_TIMING;

@@ -10,6 +10,7 @@
 // Implementation.
 
 #include "cl_N.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -40,7 +41,7 @@ const cl_N& cl_N_As (const cl_number& x, const char * filename, int line)
 		DeclareType(cl_N,x);
 		return x;
 	} else
-		cl_as_error(x,"a number",filename,line);
+		throw as_exception(x,"a number",filename,line);
 }
 
 }  // namespace cln

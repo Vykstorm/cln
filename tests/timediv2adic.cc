@@ -5,7 +5,6 @@
 #include "cl_2DS.h"
 #include <cln/random.h>
 #include "cl_random_impl.h"
-#include <cln/abort.h>
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>

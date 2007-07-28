@@ -11,7 +11,7 @@
 
 #include "cl_2D.h"
 #include "cl_DS.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -126,7 +126,7 @@ void div2adic (uintC a_len, const uintD* a_LSDptr, uintC b_len, const uintD* b_L
       cl_UDS_mul(q_LSDptr,b_len,b_LSDptr,b_len,p_LSDptr);
       // Überprüfen, daß p == a mod 2^(intDsize*b_len):
       if (compare_loop_msp(a_LSDptr lspop b_len,p_LSDptr lspop b_len,b_len))
-        cl_abort();
+        throw runtime_exception();
       // Quotient q und "Rest" (a-b*q)/2^(intDsize*b_len) ablegen:
       copy_loop_lsp(q_LSDptr,dest_LSDptr,b_len);
       if (lendiff <= b_len)

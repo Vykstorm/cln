@@ -14,7 +14,7 @@
 #include "cl_LF.h"
 #include "cln/integer.h"
 #include "cl_alloca.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 #undef floor
 #include <cmath>
@@ -30,7 +30,7 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len)
 {
  {	Mutable(cl_I,p);
 	var uintE lp = integer_length(p); // now |p| < 2^lp.
-	if (!(lp <= lq)) cl_abort();
+	if (!(lp <= lq)) throw runtime_exception();
 	lp = lq - lp; // now |p/2^lq| < 2^-lp.
 	// Minimize lq (saves computation time).
 	{

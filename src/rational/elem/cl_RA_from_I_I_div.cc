@@ -9,8 +9,8 @@
 
 // Implementation.
 
+#include "cln/exception.h"
 #include "cl_I.h"
-#include "cl_N.h"
 
 namespace cln {
 
@@ -21,7 +21,7 @@ const cl_RA I_I_div_RA (const cl_I& a, const cl_I& b)
 // Falls b>0: I_posI_div_RA anwenden.
 // Falls b<0: I_posI_div_RA auf (- a) und (- b) anwenden.
 	if (eq(b,0))
-		cl_error_division_by_0();
+		throw division_by_0_exception();
 	if (minusp(b))
 		return I_posI_div_RA(-a,-b);
 	else

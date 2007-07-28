@@ -8,9 +8,6 @@
 
 namespace cln {
 
-nonreturning_function(extern, cl_error_division_by_0, (void));
-nonreturning_function(extern, cl_as_error, (const cl_number& obj, const char * typestring, const char * filename, int line));
-
 // For the equal-invariant hashcode, we take a mixture of exponent, length
 // and the most significant 32 bits. To ensure that equal(x,y) implies
 // equal_hashcode(x) == equal_hashcode(y) we must make sure that

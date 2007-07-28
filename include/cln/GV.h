@@ -5,7 +5,7 @@
 
 #include "cln/object.h"
 #include "cln/V.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 #include <cstdlib>
 
 namespace cln {
@@ -172,7 +172,7 @@ template <class T>
 inline cl_GV_index<T>::operator T () const
 {
 	#ifndef CL_GV_NO_RANGECHECKS
-	if (!(index < vec->len)) cl_abort();
+	if (!(index < vec->len)) throw runtime_exception();
 	#endif
 	return vec->vectorops->element(vec,index);
 }
@@ -181,7 +181,7 @@ template <class T>
 inline void cl_GV_index<T>::operator= (const T& x) const
 {
 	#ifndef CL_GV_NO_RANGECHECKS
-	if (!(index < vec->len)) cl_abort();
+	if (!(index < vec->len)) throw runtime_exception();
 	#endif
 	vec->vectorops->set_element(vec,index,x);
 }
@@ -190,7 +190,7 @@ template <class T>
 inline cl_GV_constindex<T>::operator T () const
 {
 	#ifndef CL_GV_NO_RANGECHECKS
-	if (!(index < vec->len)) cl_abort();
+	if (!(index < vec->len)) throw runtime_exception();
 	#endif
 	return vec->vectorops->element(vec,index);
 }
@@ -255,7 +255,7 @@ public:
 		const cl_heap_GV<T> * hsrc = (const cl_heap_GV<T> *) src.pointer;
 		cl_heap_GV<T> * hdest = (cl_heap_GV<T> *) dest.pointer;
 		if (!(hsrc->v.vectorops == hdest->v.vectorops))
-			cl_abort();
+			throw runtime_exception();
 		hsrc->v.vectorops->copy_elements(&hsrc->v,srcindex,&hdest->v,destindex,count);
 	}
 	// Private pointer manipulations.

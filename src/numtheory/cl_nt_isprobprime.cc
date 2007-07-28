@@ -10,14 +10,20 @@
 // Implementation.
 
 #include "cl_IF.h"
-#include "cln/abort.h"
+#include "cln/integer_io.h"
+#include "cln/exception.h"
+#include <sstream>
 
 namespace cln {
 
 cl_boolean isprobprime (const cl_I& n)
 {
-	if (!(n > 0))
-		cl_abort();
+	if (!(n > 0)) {
+		std::ostringstream buf;
+		fprint(buf, n);
+		fprint(buf, " is not a positive integer.");
+		throw runtime_exception(buf.str());
+	}
 	// With a Miller-Rabin count = 50 the final error probability is
 	// 4^-50 < 10^-30.
 	var int count = 50;

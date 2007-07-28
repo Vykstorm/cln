@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cl_low.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
 
 namespace cln {
 
@@ -138,24 +138,24 @@ namespace cln {
 	      // xm*yn*yn < 1
 	      { neg_loop_lsp(y3_MSDptr mspop (m+2),m+2);
 	        mspref(y3_MSDptr,0) += 1;
-	        if (test_loop_msp(y3_MSDptr,n)) cl_abort(); // check 0 <= y3 < beta^-(n-1)
+	        if (test_loop_msp(y3_MSDptr,n)) throw runtime_exception(); // check 0 <= y3 < beta^-(n-1)
 	        cl_UDS_mul(y_MSDptr mspop (n+2),n+2,
 	                   y3_MSDptr mspop (m+2),m+2-n,
 	                   y4_MSDptr mspop (m+4));
 	        shift1right_loop_msp(y4_MSDptr,m+3-n,0);
 	        if (addto_loop_lsp(y4_MSDptr mspop (m+3-n),y_MSDptr mspop (m+2),m+3-n))
-	          if ((n<1) || inc_loop_lsp(y_MSDptr mspop (n-1),n-1)) cl_abort();
+	          if ((n<1) || inc_loop_lsp(y_MSDptr mspop (n-1),n-1)) throw runtime_exception();
 	      }
 	      else
 	      // xm*yn*yn >= 1 (this can happen since xm >= xn)
 	      { mspref(y3_MSDptr,0) -= 1;
-	        if (test_loop_msp(y3_MSDptr,n)) cl_abort(); // check 0 >= y3 > -beta^-(n-1)
+	        if (test_loop_msp(y3_MSDptr,n)) throw runtime_exception(); // check 0 >= y3 > -beta^-(n-1)
 	        cl_UDS_mul(y_MSDptr mspop (n+2),n+2,
 	                   y3_MSDptr mspop (m+2),m+2-n,
 	                   y4_MSDptr mspop (m+4));
 	        shift1right_loop_msp(y4_MSDptr,m+3-n,0);
 	        if (subfrom_loop_lsp(y4_MSDptr mspop (m+3-n),y_MSDptr mspop (m+2),m+3-n))
-	          if ((n<1) || dec_loop_lsp(y_MSDptr mspop (n-1),n-1)) cl_abort();
+	          if ((n<1) || dec_loop_lsp(y_MSDptr mspop (n-1),n-1)) throw runtime_exception();
 	      }
 	    n = m;
 	    // n = ceiling(b_len/2^k) limbs of y have now been computed.

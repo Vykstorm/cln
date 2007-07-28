@@ -25,14 +25,14 @@ Features:
 - Interoperability:
     - Garbage collection with no burden on
       the main application,
-    - hooks for memory allocation and exceptions.
+    - hooks for memory allocation.
 
 Requires: C++ compiler g++.
 The following C++ features are used:
 classes, member functions, overloading of functions and operators,
 constructors and destructors, inline, const, multiple inheritance,
-templates and namespaces.
+templates, namespaces, and exceptions.
 The following C++ features are not used:
-new, delete, virtual inheritance, exceptions.
+new, delete, virtual inheritance.
 
 Homepage: <http://www.ginac.de/CLN>

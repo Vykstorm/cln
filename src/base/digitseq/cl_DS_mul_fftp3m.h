@@ -222,7 +222,7 @@ static const fftp3m_word fftp3m_roots_of_1 [26+1] =
 #define FFTP3M_BACKWARD CLEVER
 
 #ifdef DEBUG_FFTP3M_OPERATIONS
-#define check_fftp3m_word(x)  if ((x.w1 >= p1) || (x.w2 >= p2) || (x.w3 >= p3)) cl_abort()
+#define check_fftp3m_word(x)  if ((x.w1 >= p1) || (x.w2 >= p2) || (x.w3 >= p3)) throw runtime_exception()
 #else
 #define check_fftp3m_word(x)
 #endif
@@ -349,7 +349,7 @@ static void combinep3m (const fftp3m_word& r, uintD* resLSDptr)
 	#endif
 	#ifdef DEBUG_FFTP3M_OPERATIONS
 	if (compare_loop_msp(sumLSDptr lspop 3,arrayMSDptr(p123,3),3) >= 0)
-		cl_abort();
+		throw runtime_exception();
 	#endif
 	// Renormalize the division's remainder: shift right by 4 bits.
 	shiftrightcopy_loop_msp(sumLSDptr lspop 3,resLSDptr lspop 3,3,4,0);
@@ -422,7 +422,7 @@ static void mulp3m (const fftp3m_word& a, const fftp3m_word& b, fftp3m_word& res
 		divu_6432_3232(hi,lo,p, ,tmp=);				\
 		if (tmp != 0) { tmp = p-tmp; }				\
 		if (tmp != r)						\
-			cl_abort();					\
+			throw runtime_exception();					\
 		 * endif DEBUG_FFTP3M_OPERATIONS */			\
 		result_zuweisung r;					\
 	}
@@ -465,7 +465,7 @@ static void mulp3m_doublecheck (const fftp3m_word& a, const fftp3m_word& b, fftp
 	mulp3m(ma,mb, or);
 	mulp3m(a,b, r);
 	if (!((r.w1 == or.w1) && (r.w2 == or.w2) && (r.w3 == or.w3)))
-		cl_abort();
+		throw runtime_exception();
 }
 #define mulp3m mulp3m_doublecheck
 #endif /* DEBUG_FFTP3M_OPERATIONS */
@@ -527,12 +527,12 @@ static void fftp3m_convolution (const uintL n, const uintC N, // N = 2^n
 		if (!(   w_N.w1 == (uint32)1<<n1
 		      && w_N.w2 == (uint32)1<<n2
 		      && w_N.w3 == (uint32)1<<n3))
-			cl_abort();
+			throw runtime_exception();
 		w_N = w[N>>1];
 		if (!(   w_N.w1 == p1-((uint32)1<<n1)
 		      && w_N.w2 == p2-((uint32)1<<n2)
 		      && w_N.w3 == p3-((uint32)1<<n3)))
-			cl_abort();
+			throw runtime_exception();
 	}
 	#endif
 	var bool squaring = (x == y);
@@ -744,7 +744,7 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 			mulu_loop_lsp(lspref(sourceptr2,0),sourceptr1,tmpptr,len1);
 			if (addto_loop_lsp(tmpptr,destptr,len1+1))
 				if (inc_loop_lsp(destptr lspop (len1+1),destlen-(len1+1)))
-					cl_abort();
+					throw runtime_exception();
 		} else {
 			var uintC destlenp = len1 + len2p - 1;
 			// destlenp = min(N,destlen-1).
@@ -782,7 +782,7 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 					combinep3m(z[i],arrayLSDptr(z_i,3));
 					#ifdef DEBUG_FFTP3M
 					if (!(arrayLSref(z_i,3,2) < N))
-						cl_abort();
+						throw runtime_exception();
 					#endif
 					// Add z[i] to the accumulator.
 					tmp = arrayLSref(z_i,3,0);
@@ -810,7 +810,7 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 				// ac2 = 0.
 				if (ac1 > 0) {
 					if (!((i += 2) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					if ((ac0 += tmp) < tmp)
 						++ac1;
@@ -822,24 +822,24 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 					lsshrink(ptr);
 					if (ac1 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				} else if (ac0 > 0) {
 					if (!((i += 1) <= destlen))
-						cl_abort();
+						throw runtime_exception();
 					tmp = lspref(ptr,0);
 					ac0 += tmp;
 					lspref(ptr,0) = ac0;
 					lsshrink(ptr);
 					if (ac0 < tmp)
 						if (inc_loop_lsp(ptr,destlen-i))
-							cl_abort();
+							throw runtime_exception();
 				}
 			}
 			#ifdef DEBUG_FFTP3M
 			// If destlenp < N, check that the remaining z[i] are 0.
 			for (i = destlenp; i < N; i++)
 				if (z[i].w1 > 0 || z[i].w2 > 0 || z[i].w3 > 0)
-					cl_abort();
+					throw runtime_exception();
 			#endif
 		}
 		// Decrement len2.

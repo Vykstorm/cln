@@ -9,8 +9,6 @@
 
 // Implementation.
 
-#include "cln/abort.h"
-
 namespace cln {
 
 // Compute the reciprocal value of a digit sequence.

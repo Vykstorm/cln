@@ -7,7 +7,6 @@
 #include <cln/timing.h>
 #include <cl_print.h>
 #include <cln/malloc.h>
-#include <cln/abort.h>
 
 int main (int argc, char * argv[])
 {
@@ -26,7 +25,7 @@ int main (int argc, char * argv[])
 	{
 		char* p = (cl_digits_algo = 0, cl_decimal_string(a));
 		char* q = (cl_digits_algo = 1, cl_decimal_string(a));
-		if (strcmp(p,q)) cl_abort();
+		if (strcmp(p,q)) abort();
 		free_hook(p);
 		free_hook(q);
 	}

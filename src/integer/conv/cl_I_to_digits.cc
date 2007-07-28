@@ -49,7 +49,7 @@ namespace cln {
 static inline void I_to_digits_noshrink (const cl_I& X, uintD base, uintC erg_len, cl_digits* erg)
 {
   I_to_digits(X,base,erg);
-  if (erg->len > erg_len) cl_abort();
+  if (erg->len > erg_len) throw runtime_exception();
   var uintC count = erg_len - erg->len;
   if (count > 0)
     { var uintB* ptr = erg->MSBptr;
@@ -179,10 +179,10 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           // floor(2^ilen_X/B) = floor(floor(2^(2*ilen_B)/B)/2^(2*ilen_B-ilen_X))
           var cl_I q = (X * (p->inv_base_pow >> (2*ilen_B-ilen_X))) >> ilen_X;
           var cl_I r = X - q * p->base_pow;
-          if (r < 0) cl_abort();
+          if (r < 0) throw runtime_exception();
           if (r >= p->base_pow)
             { q = q+1; r = r - p->base_pow;
-              if (r >= p->base_pow) cl_abort();
+              if (r >= p->base_pow) throw runtime_exception();
             }
           #else
           var cl_I_div_t q_r = floor2(X,p->base_pow);

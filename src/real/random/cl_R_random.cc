@@ -13,7 +13,8 @@
 #include "cl_RA.h"
 #include "cln/io.h"
 #include "cln/real_io.h"
-#include "cln/abort.h"
+#include "cln/exception.h"
+#include <sstream>
 
 namespace cln {
 
@@ -32,10 +33,10 @@ const cl_R random_R (random_state& r, const cl_R& n)
 			}
 		}
 	}
-	fprint(std::cerr, "random: argument should be positive and an integer or float: ");
-	fprint(std::cerr, n);
-	fprint(std::cerr, "\n");
-	cl_abort();
+	std::ostringstream buf;
+	fprint(buf, "random: argument should be positive and an integer or float: ");
+	fprint(buf, n);
+	throw runtime_exception(buf.str());
 }
 
 }  // namespace cln
