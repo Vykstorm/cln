@@ -21,7 +21,7 @@ namespace cln {
 // isprobprime(n), n integer > 0,
 // returns true when n is probably prime.
 // This is pretty quick, but no caching is done.
-  extern cl_boolean isprobprime (const cl_I& n);
+  extern bool isprobprime (const cl_I& n);
 
 // nextprobprime(x) returns the smallest probable prime >= x.
   extern const cl_I nextprobprime (const cl_R& x);

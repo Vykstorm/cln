@@ -968,7 +968,7 @@ Returns a 32-bit hash code that is the same for any two numbers which are
 the same according to @code{==}. This hash code depends on the number's value,
 not its type or precision.
 
-@item cl_boolean zerop (const @var{type}& x)
+@item bool zerop (const @var{type}& x)
 @cindex @code{zerop ()}
 Compare against zero: @code{x == 0}
 @end table
@@ -993,11 +993,11 @@ Compares @code{x} and @code{y}. Returns +1 if @code{x}>@code{y},
 @cindex @code{operator > ()}
 Comparison, as in C and C++.
 
-@item cl_boolean minusp (const @var{type}& x)
+@item bool minusp (const @var{type}& x)
 @cindex @code{minusp ()}
 Compare against zero: @code{x < 0}
 
-@item cl_boolean plusp (const @var{type}& x)
+@item bool plusp (const @var{type}& x)
 @cindex @code{plusp ()}
 Compare against zero: @code{x > 0}
 
@@ -1255,7 +1255,7 @@ floating-point approximation.
 The classes @code{cl_RA}, @code{cl_I} define the following operation:
 
 @table @code
-@item cl_boolean sqrtp (const @var{type}& x, @var{type}* root)
+@item bool sqrtp (const @var{type}& x, @var{type}* root)
 @cindex @code{sqrtp ()}
 This tests whether @code{x} is a perfect square. If so, it returns true
 and the exact square root in @code{*root}, else it returns false.
@@ -1264,7 +1264,7 @@ and the exact square root in @code{*root}, else it returns false.
 Furthermore, for integers, similarly:
 
 @table @code
-@item cl_boolean isqrt (const @var{type}& x, @var{type}* root)
+@item bool isqrt (const @var{type}& x, @var{type}* root)
 @cindex @code{isqrt ()}
 @code{x} should be >= 0. This function sets @code{*root} to
 @code{floor(sqrt(x))} and returns the same value as @code{sqrtp}:
@@ -1275,7 +1275,7 @@ For @code{n}th roots, the classes @code{cl_RA}, @code{cl_I}
 define the following operation:
 
 @table @code
-@item cl_boolean rootp (const @var{type}& x, const cl_I& n, @var{type}* root)
+@item bool rootp (const @var{type}& x, const cl_I& n, @var{type}* root)
 @cindex @code{rootp ()}
 @code{x} must be >= 0. @code{n} must be > 0.
 This tests whether @code{x} is an @code{n}th power of a rational number.
@@ -1778,12 +1778,12 @@ which combines two bits into one bit): @code{boole_clr}, @code{boole_set},
 Other functions that view integers as bit strings:
 
 @table @code
-@item cl_boolean logtest (const cl_I& x, const cl_I& y)
+@item bool logtest (const cl_I& x, const cl_I& y)
 @cindex @code{logtest ()}
 Returns true if some bit is set in both @code{x} and @code{y}, i.e. if
 @code{logand(x,y) != 0}.
 
-@item cl_boolean logbitp (const cl_I& n, const cl_I& x)
+@item bool logbitp (const cl_I& n, const cl_I& x)
 @cindex @code{logbitp ()}
 Returns true if the @code{n}th bit (from the right) of @code{x} is set.
 Bit 0 is the least significant bit.
@@ -1810,7 +1810,7 @@ The constructor @code{cl_byte(size,position)} constructs a @code{cl_byte}.
 extracts the bits of @code{n} described by the bit interval @code{b}
 and returns them as a nonnegative integer with @code{b.size} bits.
 
-@item cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
+@item bool ldb_test (const cl_I& n, const cl_byte& b)
 @cindex @code{ldb_test ()}
 Returns true if some bit described by the bit interval @code{b} is set in
 @code{n}.
@@ -1852,12 +1852,12 @@ The following operations on integers as bit strings are efficient shortcuts
 for common arithmetic operations:
 
 @table @code
-@item cl_boolean oddp (const cl_I& x)
+@item bool oddp (const cl_I& x)
 @cindex @code{oddp ()}
 Returns true if the least significant bit of @code{x} is 1. Equivalent to
 @code{mod(x,2) != 0}.
 
-@item cl_boolean evenp (const cl_I& x)
+@item bool evenp (const cl_I& x)
 @cindex @code{evenp ()}
 Returns true if the least significant bit of @code{x} is 0. Equivalent to
 @code{mod(x,2) == 0}.
@@ -1925,9 +1925,9 @@ value, in the following sense: If @code{a} and @code{b} are non-zero, and
 This function returns the least common multiple of @code{a} and @code{b},
 normalized to be >= 0.
 
-@item cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
+@item bool logp (const cl_I& a, const cl_I& b, cl_RA* l)
 @cindex @code{logp ()}
-@itemx cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* l)
+@itemx bool logp (const cl_RA& a, const cl_RA& b, cl_RA* l)
 @code{a} must be > 0. @code{b} must be >0 and != 1. If log(a,b) is
 rational number, this function returns true and sets *l = log(a,b), else
 it returns false.
@@ -1945,7 +1945,7 @@ $\left({a\over b}\right)$,
 @code{a,b} must be integers, @code{b>0} and odd. The result is 0
 iff gcd(a,b)>1.
 
-@item cl_boolean isprobprime (const cl_I& n)
+@item bool isprobprime (const cl_I& n)
 @cindex prime
 @cindex @code{isprobprime()}
 Returns true if @code{n} is a small prime or passes the Miller-Rabin 
@@ -2485,7 +2485,7 @@ The float format used when reading floats with exponent marker @samp{e}.
 @item float_format_t float_flags.default_lfloat_format
 The float format used when reading floats with exponent marker @samp{l}.
 
-@item cl_boolean float_flags.mantissa_dependent_float_format
+@item bool float_flags.mantissa_dependent_float_format
 When this flag is true, floats specified with more digits than corresponding
 to the exponent marker they contain, but without @var{_nnn} suffix, will get a
 precision corresponding to their number of significant digits.
@@ -2557,12 +2557,12 @@ The structure type @code{cl_print_flags} contains the following fields:
 @item unsigned int rational_base
 The base in which rational numbers are printed. Default is @code{10}.
 
-@item cl_boolean rational_readably
+@item bool rational_readably
 If this flag is true, rational numbers are printed with radix specifiers in
 Common Lisp syntax (@code{#@var{n}R} or @code{#b} or @code{#o} or @code{#x}
 prefixes, trailing dot). Default is false.
 
-@item cl_boolean float_readably
+@item bool float_readably
 If this flag is true, type specific exponent markers have precedence over 'E'.
 Default is false.
 
@@ -2570,7 +2570,7 @@ Default is false.
 Floating point numbers of this format will be printed using the 'E' exponent
 marker. Default is @code{float_format_ffloat}.
 
-@item cl_boolean complex_readably
+@item bool complex_readably
 If this flag is true, complex numbers will be printed using the Common Lisp
 syntax @code{#C(@var{realpart} @var{imagpart})}. Default is false.
 
@@ -2606,11 +2606,11 @@ Given a ring @code{R}, the following members can be used.
 @table @code
 @item void R->fprint (std::ostream& stream, const cl_ring_element& x)
 @cindex @code{fprint ()}
-@itemx cl_boolean R->equal (const cl_ring_element& x, const cl_ring_element& y)
+@itemx bool R->equal (const cl_ring_element& x, const cl_ring_element& y)
 @cindex @code{equal ()}
 @itemx cl_ring_element R->zero ()
 @cindex @code{zero ()}
-@itemx cl_boolean R->zerop (const cl_ring_element& x)
+@itemx bool R->zerop (const cl_ring_element& x)
 @cindex @code{zerop ()}
 @itemx cl_ring_element R->plus (const cl_ring_element& x, const cl_ring_element& y)
 @cindex @code{plus ()}
@@ -2653,7 +2653,7 @@ Type tests can be performed for any of @code{cl_C_ring}, @code{cl_R_ring},
 @code{cl_RA_ring}, @code{cl_I_ring}:
 
 @table @code
-@item cl_boolean instanceof (const cl_number& x, const cl_number_ring& R)
+@item bool instanceof (const cl_number& x, const cl_number_ring& R)
 @cindex @code{instanceof ()}
 Tests whether the given number is an element of the number ring R.
 @end table
@@ -2817,7 +2817,7 @@ or an error message is issued.
 Compares two modular integers, belonging to the same modular integer ring,
 for equality.
 
-@item cl_boolean zerop (const cl_MI& x)
+@item bool zerop (const cl_MI& x)
 @cindex @code{zerop ()}
 Returns true if @code{x} is @code{0 mod N}.
 @end table
@@ -3120,7 +3120,7 @@ Returns the square of a univariate polynomial.
 Compares two univariate polynomials, belonging to the same univariate
 polynomial ring, for equality.
 
-@item cl_boolean zerop (const cl_UP& x)
+@item bool zerop (const cl_UP& x)
 @cindex @code{zerop ()}
 Returns true if @code{x} is @code{0 in R}.
 
@@ -3697,11 +3697,11 @@ exception @code{floating_point_underflow_exception} (subclass of
 @code{floating_point_exception}) to be thrown. If you set the global
 variable
 @example
-cl_boolean cl_inhibit_floating_point_underflow
+bool cl_inhibit_floating_point_underflow
 @end example
-to @code{cl_true}, the exception will be inhibited, and a floating-point
+to @code{true}, the exception will be inhibited, and a floating-point
 zero will be generated instead.  The default value of 
-@code{cl_inhibit_floating_point_underflow} is @code{cl_false}.
+@code{cl_inhibit_floating_point_underflow} is @code{false}.
 
 
 @section Customizing I/O

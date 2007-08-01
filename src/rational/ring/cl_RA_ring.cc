@@ -23,7 +23,7 @@ static void RA_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_ele
 	fprint(stream,The(cl_RA)(x));
 }
 
-static cl_boolean RA_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
+static bool RA_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
 	return equal(The(cl_RA)(x),The(cl_RA)(y));
@@ -34,7 +34,7 @@ static const _cl_ring_element RA_zero (cl_heap_ring* R)
 	return _cl_ring_element(R, (cl_RA)0);
 }
 
-static cl_boolean RA_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool RA_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
 	return zerop(The(cl_RA)(x));
@@ -80,13 +80,11 @@ static const _cl_ring_element RA_expt_pos (cl_heap_ring* R, const _cl_ring_eleme
 	return _cl_ring_element(R, expt_pos(The(cl_RA)(x),y));
 }
 
-static cl_boolean cl_RA_p (const cl_number& x)
+static bool cl_RA_p (const cl_number& x)
 {
-	return (cl_boolean)
-	       (!x.pointer_p()
+	return (!x.pointer_p()
 		? x.nonpointer_tag() == cl_FN_tag
-		: (x.pointer_type()->flags & cl_class_flags_subclass_rational) != 0
-	       );
+		: (x.pointer_type()->flags & cl_class_flags_subclass_rational) != 0);
 }
 
 static cl_ring_setops RA_setops = {

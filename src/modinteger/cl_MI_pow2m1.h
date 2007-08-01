@@ -22,7 +22,7 @@ static inline const cl_I pow2m1_reduce_modulo (cl_heap_modint_ring* _R, const cl
 	//   mod(x,m) = mod(x0+x1+x2+...,m).
 	// If x<0, apply this to -1-x, and use mod(x,m) = m-1-mod(-1-x,m).
  {	Mutable(cl_I,x);
-	var cl_boolean sign = minusp(x);
+	var bool sign = minusp(x);
 	if (sign) { x = lognot(x); }
 	var const uintC m1 = R->m1;
 	if (x >= R->modulus) {

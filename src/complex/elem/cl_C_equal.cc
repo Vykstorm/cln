@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean equal (const cl_N& x, const cl_N& y)
+bool equal (const cl_N& x, const cl_N& y)
 {
 // Methode:
 // Falls beide reell, klar.
@@ -31,7 +31,7 @@ cl_boolean equal (const cl_N& x, const cl_N& y)
 			DeclareType(cl_C,y);
 			// x reell, y komplex
 			if (!zerop(imagpart(y)))
-				return cl_false;
+				return false;
 			return equal(x,realpart(y));
 		}
 	} else {
@@ -40,16 +40,16 @@ cl_boolean equal (const cl_N& x, const cl_N& y)
 			DeclareType(cl_R,y);
 			// x komplex, y reell
 			if (!zerop(imagpart(x)))
-				return cl_false;
+				return false;
 			return equal(realpart(x),y);
 		} else {
 			DeclareType(cl_C,y);
 			// x,y beide komplex
 			if (!equal(realpart(x),realpart(y)))
-				return cl_false;
+				return false;
 			if (!equal(imagpart(x),imagpart(y)))
-				return cl_false;
-			return cl_true;
+				return false;
+			return true;
 		}
 	}
 }

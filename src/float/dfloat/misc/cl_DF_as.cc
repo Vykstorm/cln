@@ -13,12 +13,12 @@
 
 namespace cln {
 
-inline cl_boolean cl_DF_p (const cl_number& x)
+inline bool cl_DF_p (const cl_number& x)
 {
 	if (x.pointer_p())
 		if (x.heappointer->type == &cl_class_dfloat)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 const cl_DF& cl_DF_As (const cl_number& x, const char * filename, int line)

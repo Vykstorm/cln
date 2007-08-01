@@ -1,3 +1,8 @@
+2007-08-01  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* */*: Remove cl_boolean, cl_true, and cl_false in favor of built-in
+	C++ bool, true, and false.
+
 2007-07-28  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Remove exception hooks in favor of real C++ exceptions:

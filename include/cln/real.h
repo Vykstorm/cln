@@ -17,13 +17,13 @@ CL_DEFINE_AS_CONVERSION(cl_R)
 
 
 // zerop(x) testet, ob (= x 0).
-extern cl_boolean zerop (const cl_R& x);
+extern bool zerop (const cl_R& x);
 
 // minusp(x) testet, ob (< x 0).
-extern cl_boolean minusp (const cl_R& x);
+extern bool minusp (const cl_R& x);
 
 // plusp(x) testet, ob (> x 0).
-extern cl_boolean plusp (const cl_R& x);
+extern bool plusp (const cl_R& x);
 
 
 // R_to_SF(x) wandelt eine reelle Zahl x in ein Short-Float um.
@@ -361,7 +361,7 @@ inline const cl_RA rational (const cl_RA& x) { return x; }
 
 
 // equal(x,y) vergleicht zwei reelle Zahlen x und y auf Gleichheit.
-extern cl_boolean equal (const cl_R& x, const cl_R& y);
+extern bool equal (const cl_R& x, const cl_R& y);
 // equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
 extern uint32 equal_hashcode (const cl_R& x);
 

@@ -165,29 +165,29 @@ not_rational_syntax:
 		}
 		var const char * ptr_after_sign = ptr;
 		var const char * ptr_after_intpart = skip_digits(ptr_after_sign,string_limit,float_base);
-		var cl_boolean have_dot = cl_false;
+		var bool have_dot = false;
 		var const char * ptr_before_fracpart = ptr_after_intpart;
 		var const char * ptr_after_fracpart = ptr_after_intpart;
 		ptr = ptr_after_intpart;
 		if (ptr != string_limit)
 		  if (*ptr == '.') {
-			have_dot = cl_true;
+			have_dot = true;
 			ptr_before_fracpart = ptr+1;
 			ptr_after_fracpart = skip_digits(ptr_before_fracpart,string_limit,float_base);
 		}
 		ptr = ptr_after_fracpart;
 		var char exponent_marker;
-		var cl_boolean have_exponent;
+		var bool have_exponent;
 		var const char * ptr_in_exponent = ptr;
 		var const char * ptr_after_exponent = ptr;
 		if ((ptr == string_limit) || !(((*ptr >= '0') && (*ptr <= '9')) || ((*ptr >= 'A') && (*ptr <= 'Z') && (*ptr != 'I')) || ((*ptr >= 'a') && (*ptr <= 'z') && (*ptr != 'i')) || (*ptr == '.') || (*ptr == '/'))) {
 			// No exponent.
-			have_exponent = cl_false;
+			have_exponent = false;
 			// Must have at least one fractional part digit.
 			if (ptr_after_fracpart == ptr_before_fracpart) goto not_float_syntax;
 			exponent_marker = 'E';
 		} else {
-			have_exponent = cl_true;
+			have_exponent = true;
 			// Must have at least one digit.
 			if (ptr_after_sign == ptr_after_intpart)
 				if (ptr_after_fracpart == ptr_before_fracpart)

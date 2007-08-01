@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
+bool logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 {
 // Methode:
 // a=1 -> Ergebnis 0
@@ -32,7 +32,7 @@ cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 //              -log(a2/a1,b1/b2) liefern
 
 	if (eq(a,1)) { // a=1 -> Ergebnis 0
-		*pl = 0; return cl_true;
+		*pl = 0; return true;
 	}
 	if (integerp(b)) {
 		// b Integer
@@ -47,13 +47,13 @@ cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 			var const cl_I& a1 = numerator(a);
 			var const cl_I& a2 = denominator(a);
 			if (!eq(a1,1))
-				return cl_false;
+				return false;
 			// a1=1
 			var cl_RA l;
 			if (logp(a2,b,&l)) {
-				*pl = -l; return cl_true;
+				*pl = -l; return true;
 			} else
-				return cl_false;
+				return false;
 		}
 	} else {
 		// a rational, b Ratio
@@ -69,16 +69,16 @@ cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 			if (logp(a2,b2,&l2)) {
 				if (eq(b1,1)) {
 					if (eq(a1,1))
-						{ *pl = l2; return cl_true; }
+						{ *pl = l2; return true; }
 					else
-						return cl_false;
+						return false;
 				} else {
 					var cl_RA l1;
 					// rationalen log(a1,b1) versuchen
 					if (logp(a1,b1,&l1))
 						if (l1 == l2)
-							{ *pl = l2; return cl_true; }
-					return cl_false;
+							{ *pl = l2; return true; }
+					return false;
 				}
 			}
 		}
@@ -88,19 +88,19 @@ cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* pl)
 			if (logp(a1,b2,&l2)) {
 				if (eq(b1,1)) {
 					if (eq(a2,1))
-						{ *pl = -l2; return cl_true; }
+						{ *pl = -l2; return true; }
 					else
-						return cl_false;
+						return false;
 				} else {
 					var cl_RA l1;
 					// rationalen log(a2,b1) versuchen
 					if (logp(a2,b1,&l1))
 						if (l1 == l2)
-							{ *pl = -l2; return cl_true; }
+							{ *pl = -l2; return true; }
 				}
 			}
 		}
-		return cl_false;
+		return false;
 	}
 }
 

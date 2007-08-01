@@ -17,11 +17,11 @@ namespace cln {
 
 char * print_integer_to_string (unsigned int base, const cl_I& z)
 {
-	var cl_boolean minus_p = cl_false;
+	var bool minus_p = false;
 	var cl_I abs_z;
 	if (minusp(z)) {
 		// z<0 -> später Vorzeichen ausgeben:
-		minus_p = cl_true;
+		minus_p = true;
 		abs_z = -z;
 	} else
 		abs_z = z;

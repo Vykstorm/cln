@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean sqrtp (const cl_RA& x, cl_RA* w)
+bool sqrtp (const cl_RA& x, cl_RA* w)
 {
 // Methode:
 // Bei Integers: klar.
@@ -29,13 +29,13 @@ cl_boolean sqrtp (const cl_RA& x, cl_RA* w)
 	var const cl_I& b = denominator(x);
 	var cl_I d;
 	if (!sqrtp(b,&d)) // Nenner auf Quadratzahl testen
-		return cl_false;
+		return false;
 	var const cl_I& a = numerator(x);
 	var cl_I c;
 	if (!sqrtp(a,&c)) // Zähler auf Quadratzahl testen
-		return cl_false;
+		return false;
 	// beides Quadratzahlen -> Quotient der Wurzeln bilden
-	*w = I_I_to_RT(c,d); return cl_true;
+	*w = I_I_to_RT(c,d); return true;
 }}
 
 }  // namespace cln

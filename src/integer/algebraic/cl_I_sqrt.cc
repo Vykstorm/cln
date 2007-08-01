@@ -19,7 +19,7 @@
 
 namespace cln {
 
-cl_boolean isqrt (const cl_I& x, cl_I* w)
+bool isqrt (const cl_I& x, cl_I* w)
 {
 	if (minusp(x)) {
 		std::ostringstream buf;
@@ -31,9 +31,9 @@ cl_boolean isqrt (const cl_I& x, cl_I* w)
 	var const uintD* x_MSDptr;
 	var uintC x_len;
 	var const uintD* x_LSDptr;
-	I_to_NDS_nocopy(x, x_MSDptr=,x_len=,x_LSDptr=,cl_true,); // Digit sequence >=0 zu x
+	I_to_NDS_nocopy(x, x_MSDptr=,x_len=,x_LSDptr=,true,); // Digit sequence >=0 zu x
 	var DS y;
-	var cl_boolean squarep;
+	var bool squarep;
 	UDS_sqrt(x_MSDptr,x_len,x_LSDptr, &y, squarep=); // Wurzel ziehen
 	*w = NUDS_to_I(y.MSDptr,y.len); // als Integer
 	return squarep;

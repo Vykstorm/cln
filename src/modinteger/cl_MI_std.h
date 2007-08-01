@@ -35,7 +35,7 @@ static const _cl_MI std_zero (cl_heap_modint_ring* R)
 	return _cl_MI(R, 0);
 }
 
-static cl_boolean std_zerop (cl_heap_modint_ring* R, const _cl_MI& x)
+static bool std_zerop (cl_heap_modint_ring* R, const _cl_MI& x)
 {
 	unused R;
 	return zerop(x.rep);
@@ -208,7 +208,7 @@ static const _cl_MI std_expt_pos (cl_heap_modint_ring* R, const _cl_MI& x, const
 		{
 			var const uintD* n_LSDptr;
 			var const uintD* n_MSDptr;
-			I_to_NDS_nocopy(n, n_MSDptr=,,n_LSDptr=,cl_false,);
+			I_to_NDS_nocopy(n, n_MSDptr=,,n_LSDptr=,false,);
 			var const uintL k_mask = bit(k)-1;
 			var uintD carry = 0;
 			var unsigned int carrybits = 0;

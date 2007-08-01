@@ -14,7 +14,7 @@
 
 namespace cln {
 
-void eval_pqcd_series_aux (uintC N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, cl_boolean rightmost)
+void eval_pqcd_series_aux (uintC N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, bool rightmost)
 {
 	// N = N2-N1
 	switch (N) {
@@ -60,7 +60,7 @@ void eval_pqcd_series_aux (uintC N, cl_pqcd_series_term* args, cl_pqcd_series_re
 		var uintC Nm = N/2; // midpoint
 		// Compute left part.
 		var cl_pqcd_series_result L;
-		eval_pqcd_series_aux(Nm,args+0,L,cl_false);
+		eval_pqcd_series_aux(Nm,args+0,L,false);
 		// Compute right part.
 		var cl_pqcd_series_result R;
 		eval_pqcd_series_aux(N-Nm,args+Nm,R,rightmost);

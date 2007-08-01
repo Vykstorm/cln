@@ -17,8 +17,8 @@ namespace cln {
 
 void format_integer (std::ostream& stream, const cl_I& arg,
 	unsigned int base, sintL mincol, char padchar,
-	char commachar, uintL commainterval, cl_boolean commaflag,
-	cl_boolean positive_sign_flag)
+	char commachar, uintL commainterval, bool commaflag,
+	bool positive_sign_flag)
 {
 	if ((mincol == 0) && !commaflag && !positive_sign_flag) {
 		// Normale Ausgabe tut's.
@@ -29,7 +29,7 @@ void format_integer (std::ostream& stream, const cl_I& arg,
 	var uintL oldstring_length = ::strlen(oldstring);
 	var uintL number_of_digits = (minusp(arg) ? oldstring_length-1 : oldstring_length);
 	var uintL number_of_commas = (commaflag ? floor(number_of_digits-1,commainterval) : 0);
-	var cl_boolean positive_sign = (cl_boolean) (positive_sign_flag && (arg > 0));
+	var bool positive_sign = positive_sign_flag && (arg > 0);
 	var uintL newstring_length = (positive_sign ? 1 : 0) + oldstring_length + number_of_commas;
 	var char* newstring = (char *) malloc_hook(newstring_length+1);
 	newstring[newstring_length] = '\0'; // newstring termination
@@ -56,7 +56,7 @@ void format_integer (std::ostream& stream, const cl_I& arg,
 		}
 	}
 #if 0
-	format_padded_string(stream,mincol,1,0,padchar,cl_true,newstring);
+	format_padded_string(stream,mincol,1,0,padchar,true,newstring);
 #else // expand this special case of format_padded_string inline:
 	if ((sintL)newstring_length < mincol)
 		format_padding(stream,mincol-newstring_length,padchar);

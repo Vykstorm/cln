@@ -15,7 +15,7 @@
 
 namespace cln {
 
-cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
+bool ldb_test (const cl_I& n, const cl_byte& b)
 {
       // Methode:
       // (ldb-test (byte s p) n)
@@ -31,19 +31,19 @@ cl_boolean ldb_test (const cl_I& n, const cl_byte& b)
       //       extrahiere die Bits p,...,p+s-1 von n und teste sie.
       var uintC s = b.size;
       var uintC p = b.position;
-      if (s==0) return cl_false;
+      if (s==0) return false;
       var uintC l = integer_length(n); // l = (integer-length n)
       if (l<=p)
         // l<=p
         if (!minusp(n))
-          return cl_false; // n>=0
+          return false; // n>=0
           else
-          return cl_true; // n<0
+          return true; // n<0
         else
         // l>p
         { var uintC ps = p+s;
           if (ps>l) // p+s>l ?
-            return cl_true;
+            return true;
           // Bits p,...,q-1 mit q = min(p+s,l) = p+s extrahieren und testen:
           return ldb_extract_test(n,p,ps);
         }

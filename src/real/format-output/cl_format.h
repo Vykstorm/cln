@@ -37,14 +37,14 @@ inline void format_padding (std::ostream& stream, sintL count, char ch)
 // werden mindestens minpad Zeichen eingefügt, eventuelle weitere dann in
 // Blöcken à colinc Zeichen. Falls padleftflag, werden sie links eingefügt,
 // sonst rechts vom String.
-extern void format_padded_string (std::ostream& stream, sintL mincol, sintL colinc, sintL minpad, char padchar, cl_boolean padleftflag, const char * str);
+extern void format_padded_string (std::ostream& stream, sintL mincol, sintL colinc, sintL minpad, char padchar, bool padleftflag, const char * str);
 
 // gibt den Integer arg auf den Stream aus:
 // in Zahlenbasis base, mit Vorzeichen (+ nur falls >0 und positive-sign-flag),
 // bei commaflag alle drei Stellen unterbrochen durch ein Zeichen commachar.
 // Das Ganze links aufgefüllt mit padchar's, so daß die Gesamtbreite mindestens
 // mincol ist.
-extern void format_integer (std::ostream& stream, const cl_I& arg, unsigned int base, sintL mincol, char padchar, char commachar, uintL commainterval, cl_boolean commaflag, cl_boolean positive_sign_flag);
+extern void format_integer (std::ostream& stream, const cl_I& arg, unsigned int base, sintL mincol, char padchar, char commachar, uintL commainterval, bool commaflag, bool positive_sign_flag);
 
 // format_scale_exponent(arg) liefert zur Floating-Point-Zahl arg
 // drei Werte: mantissa und n, mit
@@ -62,11 +62,11 @@ CL_REQUIRE(cl_fmt_scaleexp)
 struct digits_with_dot {
 	char * string; // Mit malloc_hook() alloziert, mit free_hook() freizugeben.
 	uintL length; // strlen(string)
-	cl_boolean dot_comes_first; // string[0] == '.' ?
-	cl_boolean dot_comes_last; // string[strlen(string)-1] == '.' ?
+	bool dot_comes_first; // string[0] == '.' ?
+	bool dot_comes_last; // string[strlen(string)-1] == '.' ?
 	uintL dot_position; // string[dot_position] is '.'
 // Constructor.
-	digits_with_dot (char* s, uintL l, cl_boolean df, cl_boolean dl, uintL dp)
+	digits_with_dot (char* s, uintL l, bool df, bool dl, uintL dp)
 		: string(s), length(l), dot_comes_first(df), dot_comes_last(dl), dot_position(dp) {}
 };
 extern const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width, const sintL d, const sintL k, const sintL dmin);

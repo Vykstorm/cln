@@ -15,21 +15,21 @@ struct cl_print_rational_flags {
 	unsigned int rational_base;
 	// Flag whether to print radix specifiers in Common Lisp syntax for
 	// rational numbers (#nR or #b or #o or #x prefixes, trailing dot).
-	cl_boolean rational_readably;
+	bool rational_readably;
 // Constructor.
 	cl_print_rational_flags () :
 		rational_base (10),
-		rational_readably (cl_false) {}
+		rational_readably (false) {}
 };
 
 struct cl_print_float_flags {
 	// Flag whether to prefer type specific exponent markers over 'E'.
-	cl_boolean float_readably;
+	bool float_readably;
 	// If !float_readably, the format which earns the 'E' exponent marker.
 	float_format_t default_float_format;
 // Constructor.
 	cl_print_float_flags () :
-		float_readably (cl_false),
+		float_readably (false),
 		default_float_format (float_format_ffloat) {}
 };
 
@@ -37,10 +37,10 @@ struct cl_print_real_flags : cl_print_rational_flags, cl_print_float_flags {};
 
 struct cl_print_complex_flags {
 	// Flag whether to use the Common Lisp #C(realpart imagpart) syntax,
-	cl_boolean complex_readably;
+	bool complex_readably;
 // Constructor.
 	cl_print_complex_flags () :
-		complex_readably (cl_false) {}
+		complex_readably (false) {}
 };
 
 struct cl_print_number_flags : cl_print_real_flags, cl_print_complex_flags {};

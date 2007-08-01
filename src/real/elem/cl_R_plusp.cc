@@ -11,14 +11,14 @@
 
 namespace cln {
 
-cl_boolean plusp (const cl_R& x)
+bool plusp (const cl_R& x)
 {
 	if (minusp(x))
-		return cl_false; // x<0 -> nein
+		return false; // x<0 -> nein
 	elif (zerop(x))
-		return cl_false; // x=0 -> nein
+		return false; // x=0 -> nein
 	else
-		return cl_true; // sonst ist x>0.
+		return true; // sonst ist x>0.
 }
 
 }  // namespace cln

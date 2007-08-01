@@ -55,15 +55,15 @@ namespace cln {
 //
 // Break-even-point. When in doubt, prefer to choose the standard algorithm.
 #if CL_USE_GMP
-  static inline cl_boolean cl_recip_suitable (uintC m, uintC n) // n <= m
+  static inline bool cl_recip_suitable (uintC m, uintC n) // n <= m
     { if (n < 2000)
-        return cl_false;
+        return false;
       else // when n >= 4400/(m/n)^2, i.e. (m/66)^2 > n
         { var uintC mq = floor(m,66);
           if ((mq >= bit(intCsize/2)) || (mq*mq > n))
-            return cl_true;
+            return true;
           else
-            return cl_false;
+            return false;
         }
     }
 #else
@@ -93,15 +93,15 @@ namespace cln {
 // 1.8*N / N : Newton for N >=  500
 // 1.9*N / N : Newton for N >=  500
 // 2.0*N / N : Newton for N >=  500
-  static inline cl_boolean cl_recip_suitable (uintC m, uintC n) // n <= m
+  static inline bool cl_recip_suitable (uintC m, uintC n) // n <= m
     { if (n < 500)
-        return cl_false;
+        return false;
       else // when n >= 2100/(m/n)^2, i.e. (m/46)^2 > n
         { var uintC mq = floor(m,46);
           if ((mq >= bit(intCsize/2)) || (mq*mq > n))
-            return cl_true;
+            return true;
           else
-            return cl_false;
+            return false;
         }
     }
 #endif

@@ -137,9 +137,9 @@ extern uintD* clear_loop_down (uintD* destptr, uintC count);
 
 #ifdef TEST_LOOPS
 
-extern cl_boolean test_loop_up (const uintD* ptr, uintC count);
+extern bool test_loop_up (const uintD* ptr, uintC count);
 
-extern cl_boolean test_loop_down (const uintD* ptr, uintC count);
+extern bool test_loop_down (const uintD* ptr, uintC count);
 
 #endif
 
@@ -169,7 +169,7 @@ extern void not_loop_up (uintD* xptr, uintC count);
 
 #ifdef TEST_LOOPS
 
-extern cl_boolean and_test_loop_up (const uintD* xptr, const uintD* yptr, uintC count);
+extern bool and_test_loop_up (const uintD* xptr, const uintD* yptr, uintC count);
 
 extern cl_signean compare_loop_up (const uintD* xptr, const uintD* yptr, uintC count);
 
@@ -259,7 +259,7 @@ extern void not_loop_down (uintD* xptr, uintC count);
 
 #ifdef TEST_LOOPS
 
-extern cl_boolean and_test_loop_down (const uintD* xptr, const uintD* yptr, uintC count);
+extern bool and_test_loop_down (const uintD* xptr, const uintD* yptr, uintC count);
 
 extern cl_signean compare_loop_down (const uintD* xptr, const uintD* yptr, uintC count);
 
@@ -628,18 +628,18 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // test_loop_up(ptr,count)
 // testet count (uintC>=0) Digits aufwärts ab ptr, ob darunter eines /=0 ist.
 // Ergebnis /=0, falls ja.
-  inline cl_boolean test_loop_up (const uintD* ptr, uintC count)
-    { dotimesC(count,count, { if (*ptr++) return cl_true; } );
-      return cl_false;
+  inline bool test_loop_up (const uintD* ptr, uintC count)
+    { dotimesC(count,count, { if (*ptr++) return true; } );
+      return false;
     }
 
 // Test-Schleife:
 // test_loop_down(ptr,count)
 // testet count (uintC>=0) Digits abwärts ab ptr, ob darunter eines /=0 ist.
 // Ergebnis /=0, falls ja.
-  inline cl_boolean test_loop_down (const uintD* ptr, uintC count)
-    { dotimesC(count,count, { if (*--ptr) return cl_true; } );
-      return cl_false;
+  inline bool test_loop_down (const uintD* ptr, uintC count)
+    { dotimesC(count,count, { if (*--ptr) return true; } );
+      return false;
     }
 
 #endif
@@ -730,10 +730,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // AND-Test-Schleife:
 // and_test_loop_up(xptr,yptr,count);
 // verknüpft count (uintC>=0) Digits aufwärts ab xptr und ab yptr durch AND
-// und testet, ob sich dabei ein Digit /=0 ergibt. Ergebnis cl_true, falls ja.
-  inline cl_boolean and_test_loop_up (const uintD* xptr, const uintD* yptr, uintC count)
-    { dotimesC(count,count, { if (*xptr++ & *yptr++) return cl_true; } );
-      return cl_false;
+// und testet, ob sich dabei ein Digit /=0 ergibt. Ergebnis true, falls ja.
+  inline bool and_test_loop_up (const uintD* xptr, const uintD* yptr, uintC count)
+    { dotimesC(count,count, { if (*xptr++ & *yptr++) return true; } );
+      return false;
     }
 
 // Vergleichsschleife:
@@ -1444,10 +1444,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // AND-Test-Schleife:
 // and_test_loop_down(xptr,yptr,count);
 // verknüpft count (uintC>=0) Digits abwärts ab xptr und ab yptr durch AND
-// und testet, ob sich dabei ein Digit /=0 ergibt. Ergebnis cl_true, falls ja.
-  inline cl_boolean and_test_loop_down (const uintD* xptr, const uintD* yptr, uintC count)
-    { dotimesC(count,count, { if (*--xptr & *--yptr) return cl_true; } );
-      return cl_false;
+// und testet, ob sich dabei ein Digit /=0 ergibt. Ergebnis true, falls ja.
+  inline bool and_test_loop_down (const uintD* xptr, const uintD* yptr, uintC count)
+    { dotimesC(count,count, { if (*--xptr & *--yptr) return true; } );
+      return false;
     }
 
 // Vergleichsschleife:
@@ -2661,7 +2661,7 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
 // UDS_sqrt(a_MSDptr,a_len,a_LSDptr, &b, squarep=)
 // > a_MSDptr/a_len/a_LSDptr: eine UDS
 // < NUDS b: Gaußklammer der Wurzel aus a
-// < squarep: cl_true falls a = b^2, cl_false falls b^2 < a < (b+1)^2.
+// < squarep: true falls a = b^2, false falls b^2 < a < (b+1)^2.
 // a wird nicht modifiziert.
 // Vorzeichenerweiterung von b ist erlaubt.
 // num_stack wird erniedrigt.
@@ -2671,7 +2671,7 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
       num_stack_alloc_1(ceiling(_a_len,2),(b_)->MSDptr=,);		\
       squarep_zuweisung cl_UDS_sqrt(a_MSDptr,_a_len,a_LSDptr,b_);	\
     }
-  extern cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS* b_);
+  extern bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS* b_);
 
 
 // Auxiliary function for approximately computing 1/x

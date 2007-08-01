@@ -59,7 +59,7 @@ const cl_DF sqrt (const cl_DF& x)
       #endif
       {CL_ALLOCA_STACK;
        var DS wurzel;
-       var cl_boolean exactp;
+       var bool exactp;
        UDS_sqrt(arrayMSDptr(mant,128/intDsize),128/intDsize,arrayLSDptr(mant,128/intDsize), &wurzel, exactp=);
        // wurzel = isqrt(2^74_75 * mant), eine 64-Bit-Zahl.
        mantx = get_64_Dptr(wurzel.MSDptr);
@@ -117,7 +117,7 @@ const cl_DF sqrt (const cl_DF& x)
       #endif
       {CL_ALLOCA_STACK;
        var DS wurzel;
-       var cl_boolean exactp;
+       var bool exactp;
        UDS_sqrt(arrayMSDptr(mant,128/intDsize),128/intDsize,arrayLSDptr(mant,128/intDsize), &wurzel, exactp=);
        // wurzel = isqrt(2^74_75 * mant), eine 64-Bit-Zahl.
        {var uintD* ptr = wurzel.MSDptr;

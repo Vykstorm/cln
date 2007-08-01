@@ -101,7 +101,7 @@ namespace cln {
           // x in NDS umwandeln, als UDS auffassen:
           BN_to_NDS_nocopy(x, x_MSDptr=,x_len=,x_LSDptr=);
           // y in NDS umwandeln, als UDS auffassen:
-          I_to_NDS_nocopy(y, y_MSDptr=,y_len=,y_LSDptr=,/*cl_true*/cl_false,);
+          I_to_NDS_nocopy(y, y_MSDptr=,y_len=,y_LSDptr=,/*true*/false,);
           // dividieren:
          {var DS q;
           var DS r;

@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean rootp (const cl_RA& x, const cl_I& n, cl_RA* w)
+bool rootp (const cl_RA& x, const cl_I& n, cl_RA* w)
 {
 // Methode:
 // Bei Integers: klar.
@@ -29,13 +29,13 @@ cl_boolean rootp (const cl_RA& x, const cl_I& n, cl_RA* w)
 	var const cl_I& b = denominator(x);
 	var cl_I d;
 	if (!rootp(b,n,&d)) // Nenner auf n-te Potenz testen
-		return cl_false;
+		return false;
 	var const cl_I& a = numerator(x);
 	var cl_I c;
 	if (!rootp(a,n,&c)) // Zähler auf n-te Potenz testen
-		return cl_false;
+		return false;
 	// beides n-te Potenzen -> Quotient der Wurzeln bilden
-	*w = I_I_to_RT(c,d); return cl_true;
+	*w = I_I_to_RT(c,d); return true;
 }}
 
 }  // namespace cln

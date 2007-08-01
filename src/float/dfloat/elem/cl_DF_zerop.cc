@@ -14,12 +14,12 @@
 namespace cln {
 
 MAYBE_INLINE
-cl_boolean zerop (const cl_DF& x)
+bool zerop (const cl_DF& x)
 {
 #if 0
-	return (cl_boolean) (DF_uexp(TheDfloat(x)->dfloat_value_semhi) == 0);
+	return DF_uexp(TheDfloat(x)->dfloat_value_semhi) == 0;
 #else // this is faster
-	return (cl_boolean) (TheDfloat(x)->dfloat_value_semhi == 0);
+	return TheDfloat(x)->dfloat_value_semhi == 0;
 #endif
 }
 

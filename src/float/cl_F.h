@@ -75,12 +75,12 @@ extern cl_class cl_class_dfloat;
 extern cl_class cl_class_lfloat;
 
 // Type test.
-inline cl_boolean longfloatp (const cl_F& x)
+inline bool longfloatp (const cl_F& x)
 {
 	if (x.pointer_p())
 		if (x.pointer_type() == &cl_class_lfloat)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 // Macro: verteilt je nach Float-Typ eines Floats x auf 4 Statements.

@@ -198,7 +198,7 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 		var uintE me = cl_I_to_UE(- y_.exponent);
 		var cl_I p;
 		var uintE lq;
-		var cl_boolean last_step = cl_false;
+		var bool last_step = false;
 		if (lm >= me) { // |y| >= 1/2 ?
 			p = y_.sign; // 1 or -1
 			lq = 1;
@@ -219,7 +219,7 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 			// after the next big multiplication. This saves one
 			// big multiplication at the end.
 			if (2*n >= lm)
-				last_step = cl_true;
+				last_step = true;
 		}
 		z = z + scale_float(cl_I_to_LF(p,len),-(sintE)lq);
 		if (last_step)

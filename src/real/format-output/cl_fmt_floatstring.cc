@@ -46,7 +46,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 		for (sintL i = 1; i <= places; i++) string[i] = '0';
 		string[1+places] = '\0';
 		return digits_with_dot(string, 1+places,
-				cl_true, (cl_boolean)(places==0), 0
+				true, (places==0), 0
 			);
 	}
 	// significand : Integer >0
@@ -124,10 +124,10 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 	//        = 1 + Stelle der 1. signifikanten Ziffer
 	//        oder =0, falls k>=0
 	// Ausführung der Rundung:
-	var cl_boolean letzte_stelle_p = cl_false; // d oder width angegeben?
+	var bool letzte_stelle_p = false; // d oder width angegeben?
 	var sintL letzte_stelle = 0; // falls d oder width angegeben waren:
 				     // Stelle der letzten signifikanten Ziffer
-	var cl_boolean halbzahlig = cl_false; // zeigt an, ob hinten genau ein 0.500000 wegfällt
+	var bool halbzahlig = false; // zeigt an, ob hinten genau ein 0.500000 wegfällt
 	do {
 		// Solange das Ergebnis auch nach Aufrundung >= 1 bliebe,
 		// eine Vorkommastelle mehr einplanen:
@@ -144,7 +144,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 			if (dmin > 0)
 				if (letzte_stelle > -dmin)
 					letzte_stelle = -dmin;
-			letzte_stelle_p = cl_true;
+			letzte_stelle_p = true;
 		}
 		elif (width > 0) {
 			// Falls nicht d, nur width angegeben:
@@ -160,7 +160,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 			if (dmin > 0)
 				if (letzte_stelle > -dmin)
 					letzte_stelle = -dmin;
-			letzte_stelle_p = cl_true;
+			letzte_stelle_p = true;
 		}
 		if (letzte_stelle_p) {
 			var sintL ziffernzahl = letzte_stelle - stelle;
@@ -180,7 +180,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 				aufrund_einh = dezimal_einh;
 			// Jetzt darf auch um eine (halbe) DEZIMAL-Einheit gerundet werden.
 			if (aufrund_einh == dezimal_einh)
-				halbzahlig = cl_true;
+				halbzahlig = true;
 		}
 	} until (((numerator << 1) + aufrund_einh) < (denominator << 1));
 	// stelle = Position der ersten signifikanten Stelle + 1
@@ -225,7 +225,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 		digit_count++;
 	}
 	// letzte signifikante Ziffer ausgeben:
-	if (letzte_stelle_p ? (cl_boolean)(stelle >= letzte_stelle) : cl_true) {
+	if (letzte_stelle_p ? (stelle >= letzte_stelle) : true) {
 		digit = (abrunden && !aufrunden ? digit :
 			 aufrunden && !abrunden ? digit+1 :
 			 (numerator<<1) <= denominator ? digit : digit+1);
@@ -247,8 +247,8 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 			digit_count++;
 		}
 	return digits_with_dot(digitstring.contents(), digit_count+1,
-			(cl_boolean)(point_pos==0),
-			(cl_boolean)(point_pos==digit_count),
+			point_pos==0,
+			point_pos==digit_count,
 			point_pos
 		);
 }

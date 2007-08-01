@@ -60,7 +60,7 @@ static void modint_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, con
 	}
 }}
 
-static cl_boolean modint_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
+static bool modint_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	DeclarePoly(cl_GV_MI,y);
@@ -68,11 +68,11 @@ static cl_boolean modint_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, con
 	var sintL xlen = x.length();
 	var sintL ylen = y.length();
 	if (!(xlen == ylen))
-		return cl_false;
+		return false;
 	for (var sintL i = xlen-1; i >= 0; i--)
 		if (!R->_equal(x[i],y[i]))
-			return cl_false;
-	return cl_true;
+			return false;
+	return true;
 }}
 
 static const _cl_UP modint_zero (cl_heap_univpoly_ring* UPR)
@@ -80,15 +80,15 @@ static const _cl_UP modint_zero (cl_heap_univpoly_ring* UPR)
 	return _cl_UP(UPR, cl_null_GV_I);
 }
 
-static cl_boolean modint_zerop (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+static bool modint_zerop (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {
 	unused UPR;
  {	DeclarePoly(cl_GV_MI,x);
 	var sintL xlen = x.length();
 	if (xlen == 0)
-		return cl_true;
+		return true;
 	else
-		return cl_false;
+		return false;
 }}
 
 static const _cl_UP modint_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)

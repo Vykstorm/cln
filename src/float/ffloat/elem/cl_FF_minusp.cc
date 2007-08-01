@@ -14,9 +14,9 @@
 namespace cln {
 
 MAYBE_INLINE
-cl_boolean minusp (const cl_FF& x)
+bool minusp (const cl_FF& x)
 {
-	return (cl_boolean) ((sint32)cl_ffloat_value(x) < 0);
+	return (sint32)cl_ffloat_value(x) < 0;
 }
 
 }  // namespace cln

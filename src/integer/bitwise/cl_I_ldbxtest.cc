@@ -15,11 +15,11 @@
 
 namespace cln {
 
-cl_boolean ldb_extract_test (const cl_I& x, uintC p, uintC q)
+bool ldb_extract_test (const cl_I& x, uintC p, uintC q)
     { var const uintD* MSDptr;
       var uintC len;
       var const uintD* LSDptr;
-      I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,cl_true, { return cl_false; } ); // NDS zu x bilden
+      I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,true, { return false; } ); // NDS zu x bilden
       // MSDptr erhöhen und len erniedrigen, so daß len = ceiling(q/intDsize) wird:
       { var uintC qD = ceiling(q,intDsize); // ceiling(q/intDsize)
         // wegen q<=l ist qD = ceiling(q/intDsize) <= ceiling((l+1)/intDsize) = len, also
@@ -33,7 +33,7 @@ cl_boolean ldb_extract_test (const cl_I& x, uintC p, uintC q)
         len -= pD;
       }
       // Jetzt enthält MSDptr/len/LSDptr genau die maßgeblichen Digits.
-      if (len==0) return cl_false; // len=0 -> keine Bits abzutesten
+      if (len==0) return false; // len=0 -> keine Bits abzutesten
       q = ((q-1)%intDsize); // q := intDsize - (intDsize*ceiling(q/intDsize) - q) - 1
       p = p%intDsize; // p := p - intDsize*floor(p/intDsize)
       // Jetzt ist 0 <= q < intDsize, 0 <= p < intDsize.
@@ -45,16 +45,16 @@ cl_boolean ldb_extract_test (const cl_I& x, uintC p, uintC q)
         // 1 Digit maßgeblich, wird von beiden Seiten angeschnitten:
         // Ein AND 2^(q+1)-2^p erreicht dies.
         if (!(((uintD)(bitm(q+1)-bit(p)) & mspref(MSDptr,0)) == 0))
-          return cl_true;
+          return true;
           else
-          return cl_false;
+          return false;
       // mindestens 2 Digits. Teste erst die Randdigits, dann die inneren:
       if (!(((msprefnext(MSDptr) & (uintD)(bitm(q+1)-1)) == 0) &&
             ((lsprefnext(LSDptr) & (uintD)(minus_bit(p))) == 0)
          ) )
-        return cl_true;
+        return true;
       len--; // die beiden Randdigits sind jetzt abgezogen.
-      if (DS_test_loop(MSDptr,len,LSDptr)) { return cl_true; } else { return cl_false; }
+      if (DS_test_loop(MSDptr,len,LSDptr)) { return true; } else { return false; }
     }
 
 }  // namespace cln

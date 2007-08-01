@@ -37,13 +37,13 @@ inline bool operator> (const cl_DF& x, const cl_DF& y)
 	{ return compare(x,y)>0; }
 
 // minusp(x) == (< x 0)
-extern cl_boolean minusp (const cl_DF& x);
+extern bool minusp (const cl_DF& x);
 
 // zerop(x) stellt fest, ob ein Double-Float x = 0.0 ist.
-extern cl_boolean zerop (const cl_DF& x);
+extern bool zerop (const cl_DF& x);
 
 // plusp(x) == (> x 0)
-extern cl_boolean plusp (const cl_DF& x);
+extern bool plusp (const cl_DF& x);
 
 // Liefert zu zwei Double-Float x und y : (+ x y), ein DF.
 extern const cl_DF operator+ (const cl_DF& x, const cl_DF& y);

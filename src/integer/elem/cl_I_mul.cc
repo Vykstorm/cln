@@ -52,8 +52,8 @@ const cl_I operator* (const cl_I& x, const cl_I& y)
       var const uintD* yLSDptr;
       var uintD* ergMSDptr;
       var uintC erglen;
-      I_to_NDS_nocopy(x, xMSDptr = , xlen = , xLSDptr = , cl_false,);
-      I_to_NDS_nocopy(y, yMSDptr = , ylen = , yLSDptr = , cl_false,);
+      I_to_NDS_nocopy(x, xMSDptr = , xlen = , xLSDptr = , false,);
+      I_to_NDS_nocopy(y, yMSDptr = , ylen = , yLSDptr = , false,);
       DS_DS_mul_DS(xMSDptr,xlen,xLSDptr,yMSDptr,ylen,yLSDptr, ergMSDptr=,erglen=,);
       return DS_to_I(ergMSDptr,erglen);
 }

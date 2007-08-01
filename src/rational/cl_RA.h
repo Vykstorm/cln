@@ -45,25 +45,25 @@ inline cl_RA::cl_RA (cl_heap_ratio* ptr)
 #endif
 
 // Type tests.
-inline cl_boolean rationalp (const cl_RA& x)
-	{ unused x; return cl_true; }
-inline cl_boolean integerp (const cl_RA& x)
+inline bool rationalp (const cl_RA& x)
+	{ unused x; return true; }
+inline bool integerp (const cl_RA& x)
 {
 	if (!x.pointer_p())
-		return cl_true;
+		return true;
 	else
 		if (x.pointer_type() == &cl_class_bignum)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
-inline cl_boolean ratiop (const cl_RA& x)
+inline bool ratiop (const cl_RA& x)
 {
 	if (!x.pointer_p())
-		return cl_false;
+		return false;
 	else
 		if (x.pointer_type() == &cl_class_bignum)
-			return cl_false;
-	return cl_true;
+			return false;
+	return true;
 }
 
 
@@ -74,10 +74,10 @@ class cl_RT : public cl_RA {
 public:
 };
 
-inline cl_boolean integerp (const cl_RT& x)
-	{ unused x; return cl_false; }
-inline cl_boolean ratiop (const cl_RT& x)
-	{ unused x; return cl_true; }
+inline bool integerp (const cl_RT& x)
+	{ unused x; return false; }
+inline bool ratiop (const cl_RT& x)
+	{ unused x; return true; }
 
 // Access numerator and denominator.
 inline const cl_I& numerator (const cl_RT& x)
@@ -89,9 +89,9 @@ inline const cl_I& denominator (const cl_RT& x)
 // Sign test:
 
 // (MINUSP x) == (< x 0)
-inline cl_boolean minusp (const cl_RT& x)
+inline bool minusp (const cl_RT& x)
 	{ return minusp(numerator(x)); }
-inline cl_boolean minusp (const cl_RA& x)
+inline bool minusp (const cl_RA& x)
 {
 	if (ratiop(x)) {
 		DeclareType(cl_RT,x);
@@ -103,17 +103,17 @@ inline cl_boolean minusp (const cl_RA& x)
 }
 
 // (ZEROP x) == (= x 0)
-inline cl_boolean zerop (const cl_RT& x)
-	{ unused x; return cl_false; }
-inline cl_boolean zerop (const cl_RA& x)
+inline bool zerop (const cl_RT& x)
+	{ unused x; return false; }
+inline bool zerop (const cl_RA& x)
 {
-	return (cl_boolean)(x.word == cl_combine(cl_FN_tag,0));
+	return x.word == cl_combine(cl_FN_tag,0);
 }
 
 // (EQ x y) == (= x y), assuming y a fixnum
-inline cl_boolean eq (const cl_RA& x, sint32 y)
+inline bool eq (const cl_RA& x, sint32 y)
 {
-	return (cl_boolean)(x.word == cl_combine(cl_FN_tag,y));
+	return x.word == cl_combine(cl_FN_tag,y);
 }
 
 // Liefert zu den Integers a und b mit b>1 und ggT(a,b)=1 den Bruch a/b.

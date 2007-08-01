@@ -21,7 +21,7 @@ const cl_I mkf_extract (const cl_I& x, uintC p, uintC q)
       var const uintD* MSDptr;
       var uintC len;
       var const uintD* LSDptr;
-      I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,cl_true, { return 0; } ); // NDS zu x bilden
+      I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,true, { return 0; } ); // NDS zu x bilden
       // MSDptr erhöhen und len erniedrigen, so daß len = ceiling(q/intDsize) wird:
       { var uintC qD = ceiling(q,intDsize); // ceiling(q/intDsize)
         // wegen q<=l ist qD = ceiling(q/intDsize) <= ceiling((l+1)/intDsize) = len, also

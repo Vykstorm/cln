@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean logtest (const cl_I& x, const cl_I& y)
+bool logtest (const cl_I& x, const cl_I& y)
 {
     // Methode:
     //  Fixnums separat behandeln.
@@ -27,42 +27,42 @@ cl_boolean logtest (const cl_I& x, const cl_I& y)
         if (fixnump(y))
           // beides Fixnums
           { if ((x.word & y.word & cl_combine(0,~(cl_uint)0))==0)
-              return cl_false;
+              return false;
               else
-              return cl_true;
+              return true;
           }
           else
           // x Fixnum, y Bignum, also ist x echt kürzer
-          { if (FN_V_minusp(x,FN_to_V(x))) return cl_true; // x<0 -> ja.
+          { if (FN_V_minusp(x,FN_to_V(x))) return true; // x<0 -> ja.
             // x>=0. Kombiniere x mit den pFN_maxlength letzten Digits von y.
            {var const uintD* yLSDptr;
             var uintV x_ = FN_to_V(x);
             BN_to_NDS_nocopy(y, ,,yLSDptr=);
             #if (pFN_maxlength > 1)
             doconsttimes(pFN_maxlength-1,
-              if (lsprefnext(yLSDptr) & (uintD)x_) return cl_true;
+              if (lsprefnext(yLSDptr) & (uintD)x_) return true;
               x_ = x_ >> intDsize;
               );
             #endif
-            if (lsprefnext(yLSDptr) & (uintD)x_) return cl_true;
-            return cl_false;
+            if (lsprefnext(yLSDptr) & (uintD)x_) return true;
+            return false;
           }}
         else
         if (fixnump(y))
           // x Bignum, y Fixnum, analog wie oben, nur x und y vertauscht
-          { if (FN_V_minusp(y,FN_to_V(y))) return cl_true; // y<0 -> ja.
+          { if (FN_V_minusp(y,FN_to_V(y))) return true; // y<0 -> ja.
             // y>=0. Kombiniere y mit den pFN_maxlength letzten Digits von x.
            {var const uintD* xLSDptr;
             var uintV y_ = FN_to_V(y);
             BN_to_NDS_nocopy(x, ,,xLSDptr=);
             #if (pFN_maxlength > 1)
             doconsttimes(pFN_maxlength-1,
-              if (lsprefnext(xLSDptr) & (uintD)y_) return cl_true;
+              if (lsprefnext(xLSDptr) & (uintD)y_) return true;
               y_ = y_ >> intDsize;
               );
             #endif
-            if (lsprefnext(xLSDptr) & (uintD)y_) return cl_true;
-            return cl_false;
+            if (lsprefnext(xLSDptr) & (uintD)y_) return true;
+            return false;
           }}
           else
           // x,y Bignums
@@ -78,14 +78,14 @@ cl_boolean logtest (const cl_I& x, const cl_I& y)
               { if (xlen<ylen)
                   { // x ist die echt kürzere DS.
                     if ((sintD)mspref(xMSDptr,0)<0) // der echt kürzere ist negativ?
-                      return cl_true;
+                      return true;
                     // Der echt kürzere ist positiv.
                     yMSDptr = yMSDptr mspop (ylen-xlen);
                   }
                   else
                   { // y ist die echt kürzere DS.
                     if ((sintD)mspref(yMSDptr,0)<0) // der echt kürzere ist negativ?
-                      return cl_true;
+                      return true;
                     // Der echt kürzere ist positiv.
                     xMSDptr = xMSDptr mspop (xlen-ylen);
                     xlen = ylen;

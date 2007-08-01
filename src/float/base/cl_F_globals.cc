@@ -11,7 +11,7 @@
 
 namespace cln {
 
-cl_boolean cl_inhibit_floating_point_underflow = cl_false;
+bool cl_inhibit_floating_point_underflow = false;
 
 float_format_t default_float_format      = float_format_ffloat;
 

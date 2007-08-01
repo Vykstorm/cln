@@ -33,7 +33,7 @@ protected:
     long * _slots;  // vector of length _modulus
     htxentry * _entries; // vector of length _size
     void* _total_vector;
-    cl_boolean (*_garcol_fun) (cl_heap*); // Function to make room in the table.
+    bool (*_garcol_fun) (cl_heap*); // Function to make room in the table.
                                // Putting some intelligent function here turns
                                // a normal hash table into a "weak" hash table.
 public:
@@ -144,7 +144,7 @@ protected:
     }
 private:
     // Default function to make room in a hash table.
-    static cl_boolean no_garcol (cl_heap* ht) { unused ht; return cl_false; }
+    static bool no_garcol (cl_heap* ht) { unused ht; return false; }
 };
 
 template <class htentry>

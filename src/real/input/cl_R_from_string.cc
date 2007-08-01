@@ -18,7 +18,7 @@ cl_read_flags cl_R_read_flags = {
 	syntax_real,
 	lsyntax_all,
 	10,
-	{ float_format_ffloat, float_format_lfloat_min, cl_true }
+	{ float_format_ffloat, float_format_lfloat_min, true }
 };
 
 cl_R::cl_R (const char * string)

@@ -14,7 +14,7 @@ CL_DEFINE_AS_CONVERSION(cl_N)
 
 
 // zerop(x) testet, ob (= x 0).
-extern cl_boolean zerop (const cl_N& x);
+extern bool zerop (const cl_N& x);
 
 
 // Liefert zu reellen Zahlen a und b die komplexe Zahl a+bi.
@@ -68,7 +68,7 @@ extern const cl_N signum (const cl_N& x);
 extern const cl_N sqrt (const cl_N& x);
 
 // equal(x,y) vergleicht zwei Zahlen x und y auf Gleichheit.
-extern cl_boolean equal (const cl_N& x, const cl_N& y);
+extern bool equal (const cl_N& x, const cl_N& y);
 // equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
 extern uint32 equal_hashcode (const cl_N& x);
 

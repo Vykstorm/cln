@@ -23,7 +23,7 @@ static void N_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_elem
 	fprint(stream,The(cl_N)(x));
 }
 
-static cl_boolean N_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
+static bool N_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
 	return equal(The(cl_N)(x),The(cl_N)(y));
@@ -34,7 +34,7 @@ static const _cl_ring_element N_zero (cl_heap_ring* R)
 	return _cl_ring_element(R, (cl_N)0);
 }
 
-static cl_boolean N_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool N_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
 	// Here we return true only if x is the *exact* zero. Because we
@@ -84,12 +84,10 @@ static const _cl_ring_element N_expt_pos (cl_heap_ring* R, const _cl_ring_elemen
 	return _cl_ring_element(R, expt(The(cl_N)(x),y));
 }
 
-static cl_boolean cl_N_p (const cl_number& x)
+static bool cl_N_p (const cl_number& x)
 {
-	return (cl_boolean)
-	       (!x.pointer_p()
-		|| (x.pointer_type()->flags & cl_class_flags_subclass_complex) != 0
-	       );
+	return (!x.pointer_p()
+		|| (x.pointer_type()->flags & cl_class_flags_subclass_complex) != 0);
 }
 
 static cl_ring_setops N_setops = {

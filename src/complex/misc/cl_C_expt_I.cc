@@ -49,7 +49,7 @@ const cl_N expt (const cl_N& x, const cl_I& y)
 		return expt(x,y);
 	}
 	if (eq(y,0)) { return 1; } // y=0 -> Ergebnis 1
-	var cl_boolean y_negative = minusp(y);
+	var bool y_negative = minusp(y);
 	var cl_I abs_y = (y_negative ? -y : y); // Betrag von y nehmen
 	var cl_N z = expt_pos(x,abs_y); // (expt x (abs y))
 	return (y_negative ? recip(z) : z); // evtl. noch Kehrwert nehmen

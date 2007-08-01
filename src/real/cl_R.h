@@ -15,29 +15,29 @@ extern cl_class cl_class_dfloat;
 extern cl_class cl_class_lfloat;
 
 // Type tests.
-inline cl_boolean rationalp (const cl_R& x)
+inline bool rationalp (const cl_R& x)
 {
 	if (!x.pointer_p()) {
 		if (x.nonpointer_tag() == cl_FN_tag)
-			return cl_true;
+			return true;
 	} else {
 		if (x.pointer_type()->flags & cl_class_flags_subclass_rational)
-			return cl_true;
+			return true;
 	}
-	return cl_false;
+	return false;
 }
-inline cl_boolean integerp (const cl_R& x)
+inline bool integerp (const cl_R& x)
 {
 	if (!x.pointer_p()) {
 		if (x.nonpointer_tag() == cl_FN_tag)
-			return cl_true;
+			return true;
 	} else {
 		if (x.pointer_type() == &cl_class_bignum)
-			return cl_true;
+			return true;
 	}
-	return cl_false;
+	return false;
 }
-inline cl_boolean floatp (const cl_R& x)
+inline bool floatp (const cl_R& x)
 {
 	if (!x.pointer_p()) {
 		switch (x.nonpointer_tag()) {
@@ -45,22 +45,22 @@ inline cl_boolean floatp (const cl_R& x)
 		#if defined(CL_WIDE_POINTERS)
 		case cl_FF_tag:
 		#endif
-			return cl_true;
+			return true;
 		}
 	} else {
 		if (x.pointer_type()->flags & cl_class_flags_subclass_float)
-			return cl_true;
+			return true;
 	}
-	return cl_false;
+	return false;
 }
 
 // Comparison with a fixnum.
-inline cl_boolean eq (const cl_R& x, sint32 y)
+inline bool eq (const cl_R& x, sint32 y)
 {
-	return (cl_boolean)(x.word == cl_combine(cl_FN_tag,y));
+	return x.word == cl_combine(cl_FN_tag,y);
 }
 
-inline cl_boolean exact_zerop (const cl_R& x)
+inline bool exact_zerop (const cl_R& x)
 {
 	return eq(x,0);
 }

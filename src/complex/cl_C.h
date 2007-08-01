@@ -48,28 +48,28 @@ inline cl_N::cl_N (cl_heap_complex* ptr)
 #endif
 
 // Type tests
-inline cl_boolean realp (const cl_N& x)
+inline bool realp (const cl_N& x)
 {
 	if (x.pointer_p())
 		if (x.heappointer->type == &cl_class_complex)
-			return cl_false;
-	return cl_true;
+			return false;
+	return true;
 }
-inline cl_boolean complexp (const cl_N& x)
+inline bool complexp (const cl_N& x)
 {
 	if (x.pointer_p())
 		if (x.heappointer->type == &cl_class_complex)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 // Comparison with a fixnum.
-inline cl_boolean eq (const cl_N& x, sint32 y)
+inline bool eq (const cl_N& x, sint32 y)
 {
-	return (cl_boolean)(x.word == cl_combine(cl_FN_tag,y));
+	return x.word == cl_combine(cl_FN_tag,y);
 }
 
-inline cl_boolean exact_zerop (const cl_N& x)
+inline bool exact_zerop (const cl_N& x)
 {
 	return eq(x,0);
 }
@@ -82,10 +82,10 @@ class cl_C : public cl_N {
 public:
 };
 
-inline cl_boolean realp (const cl_C& x)
-	{ unused x; return cl_false; }
-inline cl_boolean complexp (const cl_C& x)
-	{ unused x; return cl_true; }
+inline bool realp (const cl_C& x)
+	{ unused x; return false; }
+inline bool complexp (const cl_C& x)
+	{ unused x; return true; }
 
 
 // Liefert zu reellen Zahlen a und b /= Fixnum 0 die komplexe Zahl a+bi.

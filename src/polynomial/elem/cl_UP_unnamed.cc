@@ -26,12 +26,12 @@ namespace cln {
 // any more except from the hash table and the ring. Note that the ring contains
 // exactly one reference to the base ring.
 
-static cl_boolean maygc_htentry (const cl_htentry_from_rcpointer_to_rcpointer& entry)
+static bool maygc_htentry (const cl_htentry_from_rcpointer_to_rcpointer& entry)
 {
 	if (!entry.key.pointer_p() || (entry.key.heappointer->refcount == 2))
 		if (!entry.val.pointer_p() || (entry.val.heappointer->refcount == 1))
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 static const cl_wht_from_rcpointer_to_rcpointer univpoly_ring_table = cl_wht_from_rcpointer_to_rcpointer(maygc_htentry);

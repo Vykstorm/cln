@@ -37,13 +37,13 @@ inline bool operator> (const cl_SF& x, const cl_SF& y)
 	{ return compare(x,y)>0; }
 
 // minusp(x) == (< x 0)
-extern cl_boolean minusp (const cl_SF& x);
+extern bool minusp (const cl_SF& x);
 
 // zerop(x) stellt fest, ob ein Short-Float x = 0.0 ist.
-extern cl_boolean zerop (const cl_SF& x);
+extern bool zerop (const cl_SF& x);
 
 // plusp(x) == (> x 0)
-extern cl_boolean plusp (const cl_SF& x);
+extern bool plusp (const cl_SF& x);
 
 // Liefert zu zwei Short-Float x und y : (+ x y), ein SF.
 extern const cl_SF operator+ (const cl_SF& x, const cl_SF& y);

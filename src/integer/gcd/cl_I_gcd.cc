@@ -492,7 +492,7 @@ namespace cln {
                    // b normalisieren:
                    while (mspref(b_MSDptr,0)==0) { msshrink(b_MSDptr); b_len--; }
              }   }
-             if (cl_false)
+             if (false)
                { subtract: // Ersetze (a,b) := (a-b,b).
                  if (!( subfrom_loop_lsp(b_LSDptr,a_LSDptr,b_len) ==0))
                    // ‹bertrag nach b_len Stellen, muﬂ also a_len=b_len+1 sein.
@@ -501,7 +501,7 @@ namespace cln {
              // a normalisieren:
              while (mspref(a_MSDptr,0)==0) { msshrink(a_MSDptr); a_len--; }
            }
-           if (cl_false)
+           if (false)
              { divide: // Ersetze (a,b) := (b , a mod b).
               {var uintD* old_a_LSDptr = a_LSDptr;
                var DS q;

@@ -23,7 +23,7 @@
 
 namespace cln {
 
-cl_boolean minusp (const cl_R& x)
+bool minusp (const cl_R& x)
 #if 0
 GEN_R_OP1_2(x, minusp, return)
 #else // fully inlined, faster

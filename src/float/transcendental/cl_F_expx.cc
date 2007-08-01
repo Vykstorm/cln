@@ -151,7 +151,7 @@ const cl_LF expx_ratseries (const cl_LF& x)
 	//  (b) 311 317 305 312 295 291 286 293 291 284 295 284 293 287 288 305
 	// (a): N=300, time in 0.01 sec. (b): N=1000, time in 0.1 sec.
 	// Values 2.5 <= c <= 3.2 seem best. Let's choose c = 2.875.
-	var cl_boolean first_factor = cl_true;
+	var bool first_factor = true;
 	var cl_LF product;
 	var uintE b1;
 	var uintE b2;
@@ -166,7 +166,7 @@ const cl_LF expx_ratseries (const cl_LF& x)
 			var cl_LF factor = cl_exp_aux(pk,lqk,len);
 			if (first_factor) {
 				product = factor;
-				first_factor = cl_false;
+				first_factor = false;
 			} else
 				product = product * factor;
 		}

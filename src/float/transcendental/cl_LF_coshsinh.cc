@@ -29,7 +29,7 @@ const cl_LF_cosh_sinh_t cl_coshsinh_ratseries (const cl_LF& x)
 	var uintE lq = cl_I_to_UE(- x_.exponent);
 	var const cl_I& p = x_.mantissa;
 	// Compute sinh(p/2^lq) and cosh(p/2^lq) by splitting into pieces.
-	var cl_boolean first_factor = cl_true;
+	var bool first_factor = true;
 	var cl_LF_cosh_sinh_t product;
 	var uintE b1;
 	var uintE b2;
@@ -44,7 +44,7 @@ const cl_LF_cosh_sinh_t cl_coshsinh_ratseries (const cl_LF& x)
 			var cl_LF_cosh_sinh_t factor = cl_coshsinh_aux(pk,lqk,len);
 			if (first_factor) {
 				product = factor;
-				first_factor = cl_false;
+				first_factor = false;
 			} else
 				product = product * factor;
 		}

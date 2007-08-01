@@ -44,7 +44,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	var const uintD* y_MSDptr;
 	var uintC y_len;
 	var const uintD* y_LSDptr;
-	I_to_NDS_nocopy(abs_y, y_MSDptr=,y_len=,y_LSDptr=,cl_false,); // NDS zu y bilden, y_len>0
+	I_to_NDS_nocopy(abs_y, y_MSDptr=,y_len=,y_LSDptr=,false,); // NDS zu y bilden, y_len>0
 	// y nicht zu einer NUDS normalisieren! (Damit ein Bit Spielraum ist.)
 	// Zähler bilden: x * 2^(intDsize*y_len)
 	var uintD* z_MSDptr;

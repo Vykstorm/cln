@@ -20,7 +20,7 @@
 
 namespace cln {
 
-cl_boolean minusp (const cl_F& x)
+bool minusp (const cl_F& x)
 {
 	floatcase(x
 	,	return minusp(x);

@@ -38,14 +38,14 @@ private:
 	// Garbage collection.
 	// Before growing the table, we check whether we can remove unused
 	// entries.
-	static cl_boolean garcol (cl_heap* _ht)
+	static bool garcol (cl_heap* _ht)
 	{
 		var cl_heap_weak_hashtable_uniq* ht = (cl_heap_weak_hashtable_uniq*)_ht;
 		// Now ht->_garcol_fun = garcol.
 		// It is not worth doing a garbage collection if the table
 		// is small, say, has fewer than 100 entries.
 		if (ht->_count < 100)
-			return cl_false;
+			return false;
 		// Do a garbage collection.
 		var long removed = 0;
 		for (long i = 0; i < ht->_size; i++)
@@ -71,24 +71,24 @@ private:
 		    }
 		if (removed == 0)
 			// Unsuccessful. Let the table grow immediately.
-			return cl_false;
+			return false;
 		else if (2*removed < ht->_count) {
 			// Table shrank by less than a factor of 1/1.5.
 			// Don't expand the table now, but expand it next time.
 			ht->_garcol_fun = garcol_nexttime;
-			return cl_true;
+			return true;
 		} else {
 			// Table shrank much. Don't expand the table now,
 			// and try a GC next time.
-			return cl_true;
+			return true;
 		}
 	}
-	static cl_boolean garcol_nexttime (cl_heap* _ht)
+	static bool garcol_nexttime (cl_heap* _ht)
 	{
 		var cl_heap_weak_hashtable_uniq* ht = (cl_heap_weak_hashtable_uniq*)_ht;
 		// Now ht->_garcol_fun = garcol_nexttime.
 		ht->_garcol_fun = garcol;
-		return cl_false;
+		return false;
 	}
 };
 

@@ -444,7 +444,7 @@ namespace cln {
                    // b normalisieren:
                    while (mspref(b_MSDptr,0)==0) { msshrink(b_MSDptr); b_len--; }
              }   }
-             if (cl_false)
+             if (false)
                { subtract: // Ersetze (a,b) := (a-b,b).
                  NUDS_likobi0_NUDS(&uAa,&uAb); // uAa := uAa + uAb
                  NUDS_likobi0_NUDS(&uBa,&uBb); // uBa := uBa + uBb
@@ -455,7 +455,7 @@ namespace cln {
              // a normalisieren:
              while (mspref(a_MSDptr,0)==0) { msshrink(a_MSDptr); a_len--; }
            }
-           if (cl_false)
+           if (false)
              { divide: // Ersetze (a,b) := (b , a mod b).
               {var uintD* old_a_LSDptr = a_LSDptr;
                var DS q;

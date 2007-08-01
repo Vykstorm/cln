@@ -9,7 +9,7 @@ int test_I_isqrt (int iterations)
 		cl_I a = testrandom_I();
 		if (a >= 0) {
 			cl_I w;
-			cl_boolean squarep = isqrt(a,&w);
+			bool squarep = isqrt(a,&w);
 			ASSERT1(w >= 0 && expt_pos(w,2) <= a && a < expt_pos(w+1,2), a);
 			ASSERT1(squarep ? w*w==a : w*w<a, a);
 		}

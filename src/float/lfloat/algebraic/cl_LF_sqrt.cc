@@ -107,7 +107,7 @@ const cl_LF sqrt (const cl_LF& x)
         }
 #endif
       var DS w;
-      var cl_boolean exactp;
+      var bool exactp;
       UDS_sqrt(r_MSDptr,r_len,r_LSDptr, &w, exactp=);
       // w ist die Ganzzahl-Wurzel, eine n+1-Digit-Zahl.
       copy_loop_msp(w.MSDptr,y_mantMSDptr,len); // NUDS nach y kopieren

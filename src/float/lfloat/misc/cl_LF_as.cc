@@ -13,12 +13,12 @@
 
 namespace cln {
 
-inline cl_boolean cl_LF_p (const cl_number& x)
+inline bool cl_LF_p (const cl_number& x)
 {
 	if (x.pointer_p())
 		if (x.heappointer->type == &cl_class_lfloat)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 const cl_LF& cl_LF_As (const cl_number& x, const char * filename, int line)

@@ -39,7 +39,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	var const uintD* y_MSDptr;
 	var uintC y_len;
 	var const uintD* y_LSDptr;
-	I_to_NDS_nocopy(abs_y, y_MSDptr=,y_len=,y_LSDptr=,cl_false,); // NDS zu y bilden, y_len>0
+	I_to_NDS_nocopy(abs_y, y_MSDptr=,y_len=,y_LSDptr=,false,); // NDS zu y bilden, y_len>0
 	if (mspref(y_MSDptr,0)==0) y_len--; // NUDS zu y bilden, y_len>0
 	// Multiplizieren.
 	var uintD* prodMSDptr;

@@ -49,7 +49,7 @@ const cl_LF cl_I_to_LF (const cl_I& x, uintC len)
       var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
       var const uintD* x_MSDptr;
       var uintC x_len;
-      I_to_NDS_nocopy(abs_x, x_MSDptr=,x_len=,,cl_false,); // NDS zu x bilden, x_len>0
+      I_to_NDS_nocopy(abs_x, x_MSDptr=,x_len=,,false,); // NDS zu x bilden, x_len>0
       // x_MSDptr/x_len/.. um (exp mod 16) Bits nach rechts shiften und in
       // y einfüllen (genauer: nur maximal len Digits davon):
       {var uintL shiftcount = exp % intDsize;

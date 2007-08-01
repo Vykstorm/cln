@@ -37,13 +37,13 @@ inline bool operator> (const cl_LF& x, const cl_LF& y)
 	{ return compare(x,y)>0; }
 
 // minusp(x) == (< x 0)
-extern cl_boolean minusp (const cl_LF& x);
+extern bool minusp (const cl_LF& x);
 
 // zerop(x) stellt fest, ob ein Long-Float x = 0.0 ist.
-extern cl_boolean zerop (const cl_LF& x);
+extern bool zerop (const cl_LF& x);
 
 // plusp(x) == (> x 0)
-extern cl_boolean plusp (const cl_LF& x);
+extern bool plusp (const cl_LF& x);
 
 // Liefert zu zwei Long-Float x und y : (+ x y), ein LF.
 extern const cl_LF operator+ (const cl_LF& x, const cl_LF& y);

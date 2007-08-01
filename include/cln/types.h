@@ -68,16 +68,6 @@
     typedef uint64 uintQ;
   #endif
 
-// Boolean type.
-#if 1
-  typedef enum { cl_false = 0, cl_true = 1 }
-          cl_boolean;
-#else
-  typedef bool cl_boolean;
-  #define cl_false 0
-  #define cl_true  1
-#endif
-
 // Type for three values (0, +1, -1).
   typedef int  cl_signean;
   #define signean_plus  1

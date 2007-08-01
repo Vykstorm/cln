@@ -20,8 +20,8 @@ extern const cl_I ldb_extract (const cl_I& x, uintC p, uintC q);
 
 // Teste, ob eines der Bits p,...,q-1 der Zahl x /=0 ist,
 // wobei 0 <= p <= q <= l = (integer-length x).
-// Ergebnis (wie bei LDB-TEST) cl_false wenn nein, cl_true wenn ja.
-extern cl_boolean ldb_extract_test (const cl_I& x, uintC p, uintC q);
+// Ergebnis (wie bei LDB-TEST) false wenn nein, true wenn ja.
+extern bool ldb_extract_test (const cl_I& x, uintC p, uintC q);
 
 // Extrahiere die Bits p,...,q-1 der Zahl x,
 // wobei 0 <= p <= q <= l = (integer-length x).

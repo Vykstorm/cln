@@ -19,12 +19,12 @@ namespace cln {
 // Falls n >= integer_length(x): NEIN. (Da y>=2, müßte x>=2^n gelten.)
 // Hier also n>0 klein...
 
-cl_boolean rootp (const cl_I& x, uintL n, cl_I* w)
+bool rootp (const cl_I& x, uintL n, cl_I* w)
 {
 	if (eq(x,0) || eq(x,1)) // x=0 oder x=1 ?
-	  { *w = x; return cl_true; } // ja -> x als Ergebnis
+	  { *w = x; return true; } // ja -> x als Ergebnis
 	if (n >= integer_length(x))
-	  { return cl_false; }
+	  { return false; }
 	return cl_rootp_aux(x,n,w);
 }
 

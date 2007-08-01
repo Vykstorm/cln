@@ -25,7 +25,7 @@ typedef _cl_hashtable_iterator<cl_htentry_from_rcpointer_to_rcpointer> cl_hashta
 
 struct cl_wht_from_rcpointer_to_rcpointer : public cl_rcpointer {
 	// Constructors.
-	cl_wht_from_rcpointer_to_rcpointer (cl_boolean (*maygc_htentry) (const cl_htentry_from_rcpointer_to_rcpointer&));
+	cl_wht_from_rcpointer_to_rcpointer (bool (*maygc_htentry) (const cl_htentry_from_rcpointer_to_rcpointer&));
 	cl_wht_from_rcpointer_to_rcpointer (const cl_wht_from_rcpointer_to_rcpointer&);
 	// Assignment operators.
 	cl_wht_from_rcpointer_to_rcpointer& operator= (const cl_wht_from_rcpointer_to_rcpointer&);

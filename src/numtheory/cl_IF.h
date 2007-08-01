@@ -48,7 +48,7 @@ extern uint32 cl_trialdivision (const cl_I& n, uint32 d1, uint32 d2);
 // Returns true if n looks like a prime (with error probability < 4^-count).
 // Returns false if n is definitely composite, and then sets factor = some
 // nontrivial factor or 0.
-extern cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor);
+extern bool cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor);
 
 }  // namespace cln
 

@@ -56,7 +56,7 @@ static void gen_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, const 
 	}
 }}
 
-static cl_boolean gen_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
+static bool gen_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
 {{
 	DeclarePoly(cl_SV_ringelt,x);
 	DeclarePoly(cl_SV_ringelt,y);
@@ -64,11 +64,11 @@ static cl_boolean gen_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const 
 	var sintL xlen = x.length();
 	var sintL ylen = y.length();
 	if (!(xlen == ylen))
-		return cl_false;
+		return false;
 	for (var sintL i = xlen-1; i >= 0; i--)
 		if (!R->_equal(x[i],y[i]))
-			return cl_false;
-	return cl_true;
+			return false;
+	return true;
 }}
 
 static const _cl_UP gen_zero (cl_heap_univpoly_ring* UPR)
@@ -76,15 +76,15 @@ static const _cl_UP gen_zero (cl_heap_univpoly_ring* UPR)
 	return _cl_UP(UPR, cl_null_SV_ringelt);
 }
 
-static cl_boolean gen_zerop (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
+static bool gen_zerop (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {
 	unused UPR;
  {	DeclarePoly(cl_SV_ringelt,x);
 	var sintL xlen = x.length();
 	if (xlen == 0)
-		return cl_true;
+		return true;
 	else
-		return cl_false;
+		return false;
 }}
 
 static const _cl_UP gen_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)

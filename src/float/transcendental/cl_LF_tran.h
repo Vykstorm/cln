@@ -227,7 +227,7 @@ struct cl_pqcd_series_result {
 	cl_I D;
 	cl_I V;
 };
-extern void eval_pqcd_series_aux (uintC N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, cl_boolean rightmost = cl_true);
+extern void eval_pqcd_series_aux (uintC N, cl_pqcd_series_term* args, cl_pqcd_series_result& Z, bool rightmost = true);
 // Ditto, but returns U/S.
 extern const cl_LF eval_pqcd_series (uintC N, cl_pqcd_series_term* args, uintC len);
 
@@ -255,7 +255,7 @@ struct cl_pqd_series_result {
 	cl_I D;
 	cl_I V;
 };
-extern void eval_pqd_series_aux (uintC N, cl_pqd_series_term* args, cl_pqd_series_result& Z, cl_boolean rightmost = cl_true);
+extern void eval_pqd_series_aux (uintC N, cl_pqd_series_term* args, cl_pqd_series_result& Z, bool rightmost = true);
 // Ditto, but returns U/S.
 extern const cl_LF eval_pqd_series (uintC N, cl_pqd_series_term* args, uintC len);
 

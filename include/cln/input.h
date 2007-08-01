@@ -17,7 +17,7 @@ struct cl_read_float_flags {
 	// Flag whether floats specified with more digits than corresponding
 	// to the exponent marker they contain, but without _nnn suffix, will
 	// get a precision corresponding to their number of significant digits.
-	cl_boolean mantissa_dependent_float_format;
+	bool mantissa_dependent_float_format;
 };
 
 // Specifies the possible results of a read operation.

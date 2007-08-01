@@ -121,7 +121,7 @@ void format_cardinal (std::ostream& stream, const cl_I& argument)
 			arg = thousands;
 		} while (arg > 0);
 		// Roll back the recursion.
-		var cl_boolean first_piece = cl_true;
+		var bool first_piece = true;
 		do {
 			var uintL small = *--small_piece_ptr;
 			var const char * illion = *--illion_ptr;
@@ -130,7 +130,7 @@ void format_cardinal (std::ostream& stream, const cl_I& argument)
 					fprint(stream,", ");
 				format_small_cardinal(stream,small);
 				fprint(stream,illion);
-				first_piece = cl_false;
+				first_piece = false;
 			}
 		} until (illion_ptr == &illions[0]);
 	}

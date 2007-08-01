@@ -22,9 +22,9 @@ namespace cln {
 // > n: ein Integer >0
 // > Annahme: x > 1 und n < (integer-length x).
 // < w: Integer (expt x (/ n)) falls x eine n-te Potenz
-// < ergebnis: cl_true         ........................, cl_false sonst
+// < ergebnis: true         ........................, false sonst
 
-cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
+bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
 {
 
 // Methode:
@@ -59,16 +59,16 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
 
       while ((n % 2) == 0) // n gerade?
         { if (!sqrtp(x,&x)) // Quadratwurzel ziehen versuchen
-            { return cl_false; } // nicht ganzzahlig -> fertig
+            { return false; } // nicht ganzzahlig -> fertig
           n = n >> 1; // n := (/ n 2)
         }
       // Nun ist n ungerade.
-      if (n==1) { *w = x; return cl_true; } // n=1 -> x als Ergebnis
+      if (n==1) { *w = x; return true; } // n=1 -> x als Ergebnis
       var uintC oq = 0; // Shift von y am Schluß
       {var uintC o = ord2(x);
        if (!(o==0))
          {var uintL o_r; divu_3232_3232(o,n, oq=,o_r=); // o_r = o mod n
-          if (!(o_r==0)) { return cl_false; } // o nicht durch n teilbar -> fertig
+          if (!(o_r==0)) { return false; } // o nicht durch n teilbar -> fertig
           // oq = o/n.
           // dividiere x durch 2^o:
           x = ash(x,-(sintC)o);
@@ -93,7 +93,7 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
        n_UDS_ok: ; // n_MSDptr/n_len/n_LSDptr ist NUDS zu n.
       }
       #endif
-      I_to_NDS_nocopy(x, ,x_len=,x_LSDptr=,cl_false,); // UDS zu x bilden, x_len>0
+      I_to_NDS_nocopy(x, ,x_len=,x_LSDptr=,false,); // UDS zu x bilden, x_len>0
       var uintD x_lsd = lspref(x_LSDptr,0); // letztes Digit von x
       var uintD y_lsd; // n-te Wurzel von x_lsd mod 2^intDsize
       y_lsd = 1; // Wurzel mod 2^1
@@ -185,7 +185,7 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
           // mit x vergleichen:
           if (!(x == c))
             // Die ganze Rechnung war umsonst.
-            { return cl_false; }
+            { return false; }
         }
         // y ist tatsächlich n-te Wurzel von x.
         // Noch mit 2^oq multiplizieren:
@@ -193,7 +193,7 @@ cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w)
           { *w = y; }
           else
           { *w = ash(y,oq); }
-        return cl_true;
+        return true;
       }
 }
 

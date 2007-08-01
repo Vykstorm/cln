@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean equal (const cl_RA& r, const cl_RA& s)
+bool equal (const cl_RA& r, const cl_RA& s)
 {
 // Methode:
 // r,s Integer -> klar
@@ -29,20 +29,20 @@ cl_boolean equal (const cl_RA& r, const cl_RA& s)
 			return equal(r,s);
 		} else
 			// r Integer, s Ratio
-			return cl_false;
+			return false;
 	else
 		if (integerp(s))
 			// r Ratio, s Integer
-			return cl_false;
+			return false;
 		else {
 			DeclareType(cl_RT,r);
 			DeclareType(cl_RT,s);
 			// r,s Ratios
 			if (!equal(numerator(r),numerator(s)))
-				return cl_false;
+				return false;
 			if (!equal(denominator(r),denominator(s)))
-				return cl_false;
-			return cl_true;
+				return false;
+			return true;
 		}
 }
 

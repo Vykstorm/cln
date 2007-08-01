@@ -39,7 +39,7 @@ const cl_I square (const cl_I& x)
       var const uintD* xMSDptr;
       var uintC xlen;
       var const uintD* xLSDptr;
-      I_to_NDS_nocopy(x, xMSDptr = , xlen = , xLSDptr = , cl_false,);
+      I_to_NDS_nocopy(x, xMSDptr = , xlen = , xLSDptr = , false,);
       var uintD* ergMSDptr;
       var uintC erglen = 2*xlen;
       var uintD* ergLSDptr;

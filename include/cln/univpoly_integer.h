@@ -63,7 +63,7 @@ class cl_heap_univpoly_integer_ring : public cl_heap_univpoly_ring {
 	{
 		cl_heap_univpoly_ring::fprint(stream,x);
 	}
-	cl_boolean equal (const cl_UP_I& x, const cl_UP_I& y)
+	bool equal (const cl_UP_I& x, const cl_UP_I& y)
 	{
 		return cl_heap_univpoly_ring::equal(x,y);
 	}
@@ -71,7 +71,7 @@ class cl_heap_univpoly_integer_ring : public cl_heap_univpoly_ring {
 	{
 		return The2(cl_UP_I)(cl_heap_univpoly_ring::zero());
 	}
-	cl_boolean zerop (const cl_UP_I& x)
+	bool zerop (const cl_UP_I& x)
 	{
 		return cl_heap_univpoly_ring::zerop(x);
 	}

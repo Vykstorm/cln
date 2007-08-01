@@ -31,13 +31,13 @@ struct cl_idecoded_float {
 
 
 // zerop(x) testet, ob (= x 0).
-extern cl_boolean zerop (const cl_F& x);
+extern bool zerop (const cl_F& x);
 
 // minusp(x) testet, ob (< x 0).
-extern cl_boolean minusp (const cl_F& x);
+extern bool minusp (const cl_F& x);
 
 // plusp(x) testet, ob (> x 0).
-extern cl_boolean plusp (const cl_F& x);
+extern bool plusp (const cl_F& x);
 
 
 // cl_F_to_SF(x) wandelt ein Float x in ein Short-Float um und rundet dabei.
@@ -764,7 +764,7 @@ CL_REQUIRE(cl_ieee)
 
 
 // If this is true, floating point underflow returns zero instead of throwing an exception.
-extern cl_boolean cl_inhibit_floating_point_underflow;
+extern bool cl_inhibit_floating_point_underflow;
 
 }  // namespace cln
 

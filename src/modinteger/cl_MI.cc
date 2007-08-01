@@ -61,7 +61,7 @@ cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_m
 }
 
 
-static cl_boolean modint_equal (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
+static bool modint_equal (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y)
 {
 	unused R;
 	return equal(x.rep,y.rep);
@@ -141,12 +141,12 @@ namespace cln {
 // any more except from the hash table and the ring. Note that the ring contains
 // exactly one reference to the modulus.
 
-static cl_boolean maygc_htentry (const cl_htentry_from_integer_to_rcpointer& entry)
+static bool maygc_htentry (const cl_htentry_from_integer_to_rcpointer& entry)
 {
 	if (!entry.key.pointer_p() || (entry.key.heappointer->refcount == 2))
 		if (!entry.val.pointer_p() || (entry.val.heappointer->refcount == 1))
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 static const cl_wht_from_integer_to_rcpointer modint_ring_table = cl_wht_from_integer_to_rcpointer(maygc_htentry);

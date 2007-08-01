@@ -183,7 +183,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 	CL_ALLOCA_STACK;
 	var uintC len;
 	var const uintD* M_LSDptr;
-	I_to_NDS_nocopy(M, ,len=,M_LSDptr=,cl_false,);
+	I_to_NDS_nocopy(M, ,len=,M_LSDptr=,false,);
 	if (lspref(M_LSDptr,len-1)==0) { len--; } // normalize
 	// Compute U as 2-adic inverse of M.
 	var uintD* U_LSDptr;
@@ -194,7 +194,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 	var uintC i_min;
 	var uintC i_max;
 	var uintC i = floor(m,2);
-	var cl_boolean negative;
+	var bool negative;
 	if (U_bit(i)) {
 		for (; --i > 0; )
 			if (!U_bit(i)) break;
@@ -203,7 +203,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 		for (; ++i < m; )
 			if (!U_bit(i)) break;
 		i_max = i;
-		negative = cl_true;
+		negative = true;
 	} else {
 		for (; --i > 0; )
 			if (U_bit(i)) break;
@@ -212,7 +212,7 @@ static cl_heap_modint_ring* try_make_modint_ring_montgom (const cl_I& M)
 		for (; ++i < m; )
 			if (U_bit(i)) break;
 		i_max = i;
-		negative = cl_false;
+		negative = false;
 	}
 	#undef U_bit
 	// OK, all the bits i_max-1..i_min of U are equal.

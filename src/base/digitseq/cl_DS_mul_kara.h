@@ -44,7 +44,7 @@
       if (sourceptr1 == sourceptr2)
         if (len1 == len2)
           { mulu_karatsuba_square(sourceptr1,len1,destptr); return; }
-      var cl_boolean first_part = cl_true; // Flag, ob jetzt das erste Teilprodukt berechnet wird
+      var bool first_part = true; // Flag, ob jetzt das erste Teilprodukt berechnet wird
       if (len2 >= 2*len1)
         { CL_SMALL_ALLOCA_STACK;
           // Teilprodukte von jeweils len1 mal len1 Digits bilden:
@@ -130,7 +130,7 @@
                  if (first_part)
                    { copy_loop_lsp(prod_LSDptr,destptr,2*len1);
                      destptr = destptr lspop len1;
-                     first_part = cl_false;
+                     first_part = false;
                    }
                    else
                    { var uintD carry =

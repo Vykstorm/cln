@@ -6,6 +6,7 @@ Implementation changes
 
 * Added support for huge numbers...
 * CLN now uses C++ exceptions for error handling.
+* Removed cl_boolean. Use built-in C++ bool instead.
 * Dropped the cln-config script. Please use pkg-config instead.
 
 

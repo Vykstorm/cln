@@ -18,10 +18,10 @@ cl_print_flags default_print_flags;
 AT_INITIALIZATION(default_print_flags)
 {
 	default_print_flags.rational_base = 10;
-	default_print_flags.rational_readably = cl_false;
-	default_print_flags.float_readably = cl_false;
+	default_print_flags.rational_readably = false;
+	default_print_flags.float_readably = false;
 	default_print_flags.default_float_format = float_format_ffloat;
-	default_print_flags.complex_readably = cl_false;
+	default_print_flags.complex_readably = false;
 	default_print_flags.vector_syntax = vsyntax_pretty;
 	default_print_flags.univpoly_varname = "x";
 }

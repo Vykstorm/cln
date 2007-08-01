@@ -15,8 +15,8 @@ public:
 // Assignment operators.
 	cl_LF& operator= (const cl_LF&);
 // Optimization of method pointer_p().
-	cl_boolean pointer_p() const
-		{ return cl_true; }
+	bool pointer_p() const
+		{ return true; }
 // Faster pointer_p() gives a faster copy constructor (but not destructor!!!).
 	cl_LF (const cl_LF& x);
 // Other constructors.

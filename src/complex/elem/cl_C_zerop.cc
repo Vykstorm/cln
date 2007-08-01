@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean zerop (const cl_N& x)
+bool zerop (const cl_N& x)
 {
 	if (realp(x)) {
 		DeclareType(cl_R,x);
@@ -26,8 +26,8 @@ cl_boolean zerop (const cl_N& x)
 		var const cl_R& b = imagpart(x);
 		if (zerop(a))
 			if (zerop(b))
-				return cl_true;
-		return cl_false;
+				return true;
+		return false;
 	}
 }
 

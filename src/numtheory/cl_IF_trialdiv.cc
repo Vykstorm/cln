@@ -26,7 +26,7 @@ uint32 cl_trialdivision (const cl_I& n, uint32 d1, uint32 d2)
 	CL_ALLOCA_STACK;
 	var const uintD* n_MSDptr;
 	var uintC n_len;
-	I_to_NDS_nocopy(n, n_MSDptr=,n_len=,,cl_false,);
+	I_to_NDS_nocopy(n, n_MSDptr=,n_len=,,false,);
 	if (mspref(n_MSDptr,0)==0) { msshrink(n_MSDptr); n_len--; }
 	// Make room for a quotient.
 	var uintD* q_MSDptr;

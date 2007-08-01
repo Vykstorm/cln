@@ -19,7 +19,7 @@ cl_read_flags cl_SF_read_flags = {
 	syntax_sfloat,
 	lsyntax_all,
 	10,
-	{ float_format_sfloat, float_format_lfloat_min, cl_false }
+	{ float_format_sfloat, float_format_lfloat_min, false }
 };
 
 cl_SF::cl_SF (const char * string)

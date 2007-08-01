@@ -10,9 +10,9 @@ int test_I_sqrtp (int iterations)
 		cl_I a = testrandom_I();
 		if (a >= 0) {
 			cl_I w;
-			cl_boolean squarep = sqrtp(a,&w);
+			bool squarep = sqrtp(a,&w);
 			cl_I correct_w;
-			cl_boolean correct_squarep = isqrt(a,&correct_w);
+			bool correct_squarep = isqrt(a,&correct_w);
 			ASSERT1(squarep == correct_squarep, a);
 			if (squarep)
 				ASSERT1(w == correct_w, a);

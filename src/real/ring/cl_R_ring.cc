@@ -24,7 +24,7 @@ static void R_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_elem
 	fprint(stream,The(cl_R)(x));
 }
 
-static cl_boolean R_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
+static bool R_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
 	return equal(The(cl_R)(x),The(cl_R)(y));
@@ -35,7 +35,7 @@ static const _cl_ring_element R_zero (cl_heap_ring* R)
 	return _cl_ring_element(R, (cl_R)0);
 }
 
-static cl_boolean R_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool R_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
 	// Here we return true only if x is the *exact* zero. Because we
@@ -85,12 +85,10 @@ static const _cl_ring_element R_expt_pos (cl_heap_ring* R, const _cl_ring_elemen
 	return _cl_ring_element(R, expt(The(cl_R)(x),y));
 }
 
-static cl_boolean cl_R_p (const cl_number& x)
+static bool cl_R_p (const cl_number& x)
 {
-	return (cl_boolean)
-	       (!x.pointer_p()
-		|| (x.pointer_type()->flags & cl_class_flags_subclass_real) != 0
-	       );
+	return (!x.pointer_p()
+		|| (x.pointer_type()->flags & cl_class_flags_subclass_real) != 0);
 }
 
 static cl_ring_setops R_setops = {

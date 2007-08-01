@@ -21,7 +21,7 @@ const cl_I random_I (random_state& randomstate, const cl_I& n)
 	var const uintD* n_MSDptr;
 	var uintC n_len;
 	var const uintD* n_LSDptr;
-	I_to_NDS_nocopy(n, n_MSDptr=,n_len=,n_LSDptr=,cl_false,); // Digit sequence >0 zu n
+	I_to_NDS_nocopy(n, n_MSDptr=,n_len=,n_LSDptr=,false,); // Digit sequence >0 zu n
 	var uintD* MSDptr;
 	var uintC len = n_len + ceiling(16,intDsize); // 16 Bits mehr
 	// neue UDS mit len Zufallsdigits bilden:

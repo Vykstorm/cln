@@ -18,7 +18,7 @@ cl_read_flags cl_I_read_flags = {
 	syntax_integer,
 	lsyntax_all,
 	10,
-	{ float_format_ffloat, float_format_lfloat_min, cl_true }
+	{ float_format_ffloat, float_format_lfloat_min, true }
 };
 
 cl_I::cl_I (const char * string)

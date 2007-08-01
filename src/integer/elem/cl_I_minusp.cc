@@ -15,7 +15,7 @@
 
 namespace cln {
 
-cl_boolean minusp (const cl_I& x)
+bool minusp (const cl_I& x)
 {
 	return inline_minusp(x);
 }

@@ -335,14 +335,14 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
   //    wird er gewählt, die anderen vergessen.
   // 3. Sonst wird unter allen noch möglichen Werten der zu x
   //    nächstgelegene gewählt.
-  var cl_boolean d_shift = cl_false; // Flag, ob im 1. Schritt d incrementiert wurde
+  var bool d_shift = false; // Flag, ob im 1. Schritt d incrementiert wurde
   var cl_I a; // das ausgewählte a
   // 1.
   {
     var cl_I b1 = ceiling1(a1,10);
     var cl_I b2 = floor1(a2,10);
     if (b1 <= b2) // noch eine durch 10 teilbare Zahl a ?
-      { a1 = b1; a2 = b2; d = d+1; d_shift = cl_true; }
+      { a1 = b1; a2 = b2; d = d+1; d_shift = true; }
       else
       goto keine_10_mehr;
   }

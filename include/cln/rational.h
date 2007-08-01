@@ -97,7 +97,7 @@ extern const cl_RA minus1 (const cl_RA& r);
 extern const cl_RA abs (const cl_RA& r);
 
 // equal(r,s) vergleicht zwei rationale Zahlen r und s auf Gleichheit.
-extern cl_boolean equal (const cl_RA& r, const cl_RA& s);
+extern bool equal (const cl_RA& r, const cl_RA& s);
 // equal_hashcode(r) liefert einen equal-invarianten Hashcode für r.
 extern uint32 equal_hashcode (const cl_RA& r);
 
@@ -119,13 +119,13 @@ inline bool operator> (const cl_RA& x, const cl_RA& y)
 	{ return compare(x,y)>0; }
 
 // minusp(x) == (< x 0)
-extern cl_boolean minusp (const cl_RA& x);
+extern bool minusp (const cl_RA& x);
 
 // zerop(x) stellt fest, ob eine rationale Zahl = 0 ist.
-extern cl_boolean zerop (const cl_RA& x);
+extern bool zerop (const cl_RA& x);
 
 // plusp(x) == (> x 0)
-extern cl_boolean plusp (const cl_RA& x);
+extern bool plusp (const cl_RA& x);
 
 // Kehrwert (/ r), wo r eine rationale Zahl ist.
 extern const cl_RA recip (const cl_RA& r);
@@ -277,8 +277,8 @@ extern const cl_RA expt (const cl_RA& x, const cl_I& y);
 // sqrtp(x,&w)
 // > x: eine rationale Zahl >=0
 // < w: rationale Zahl (sqrt x) falls x Quadratzahl
-// < ergebnis: cl_true   ..................., cl_false sonst
-  extern cl_boolean sqrtp (const cl_RA& x, cl_RA* w);
+// < ergebnis: true      ..................., false sonst
+  extern bool sqrtp (const cl_RA& x, cl_RA* w);
 
 // Stellt fest, ob eine rationale Zahl >=0 die n-te Potenz einer rationalen Zahl
 // ist.
@@ -286,9 +286,9 @@ extern const cl_RA expt (const cl_RA& x, const cl_I& y);
 // > x: eine rationale Zahl >=0
 // > n: ein Integer >0
 // < w: exakte n-te Wurzel (expt x (/ n)) falls x eine n-te Potenz
-// < ergebnis: cl_true                    ........................, cl_false sonst
-  extern cl_boolean rootp (const cl_RA& x, uintL n, cl_RA* w);
-  extern cl_boolean rootp (const cl_RA& x, const cl_I& n, cl_RA* w);
+// < ergebnis: true                       ........................, false sonst
+  extern bool rootp (const cl_RA& x, uintL n, cl_RA* w);
+  extern bool rootp (const cl_RA& x, const cl_I& n, cl_RA* w);
 
 // Liefert zu Integers a>0, b>1 den Logarithmus log(a,b),
 // falls er eine rationale Zahl ist.
@@ -296,8 +296,8 @@ extern const cl_RA expt (const cl_RA& x, const cl_I& y);
 // > a: ein Integer >0
 // > b: ein Integer >1
 // < l: log(a,b)       falls er eine exakte rationale Zahl ist
-// < ergebnis: cl_true ......................................., cl_false sonst
-  extern cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l);
+// < ergebnis: true    ......................................., false sonst
+  extern bool logp (const cl_I& a, const cl_I& b, cl_RA* l);
 
 // Liefert zu rationalen Zahlen a>0, b>0 den Logarithmus log(a,b),
 // falls er eine rationale Zahl ist.
@@ -305,8 +305,8 @@ extern const cl_RA expt (const cl_RA& x, const cl_I& y);
 // > a: eine rationale Zahl >0
 // > b: eine rationale Zahl >0, /=1
 // < l: log(a,b)       falls er eine exakte rationale Zahl ist
-// < ergebnis: cl_true ......................................., cl_false sonst
-  extern cl_boolean logp (const cl_RA& a, const cl_RA& b, cl_RA* l);
+// < ergebnis: true    ......................................., false sonst
+  extern bool logp (const cl_RA& a, const cl_RA& b, cl_RA* l);
 
 // Konversion zu einem C "float".
 extern float float_approx (const cl_RA& x);

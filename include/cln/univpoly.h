@@ -115,12 +115,12 @@ struct _cl_univpoly_setops /* cf. _cl_ring_setops */ {
 	// equality
 	// (Be careful: This is not well-defined for polynomials with
 	// floating-point coefficients.)
-	cl_boolean (* equal) (cl_heap_univpoly_ring* R, const _cl_UP& x, const _cl_UP& y);
+	bool (* equal) (cl_heap_univpoly_ring* R, const _cl_UP& x, const _cl_UP& y);
 };
 struct _cl_univpoly_addops /* cf. _cl_ring_addops */ {
 	// 0
 	const _cl_UP (* zero) (cl_heap_univpoly_ring* R);
-	cl_boolean (* zerop) (cl_heap_univpoly_ring* R, const _cl_UP& x);
+	bool (* zerop) (cl_heap_univpoly_ring* R, const _cl_UP& x);
 	// x+y
 	const _cl_UP (* plus) (cl_heap_univpoly_ring* R, const _cl_UP& x, const _cl_UP& y);
 	// x-y
@@ -188,11 +188,11 @@ public:
 	// Low-level operations.
 	void _fprint (std::ostream& stream, const _cl_UP& x)
 		{ setops->fprint(this,stream,x); }
-	cl_boolean _equal (const _cl_UP& x, const _cl_UP& y)
+	bool _equal (const _cl_UP& x, const _cl_UP& y)
 		{ return setops->equal(this,x,y); }
 	const _cl_UP _zero ()
 		{ return addops->zero(this); }
-	cl_boolean _zerop (const _cl_UP& x)
+	bool _zerop (const _cl_UP& x)
 		{ return addops->zerop(this,x); }
 	const _cl_UP _plus (const _cl_UP& x, const _cl_UP& y)
 		{ return addops->plus(this,x,y); }
@@ -234,7 +234,7 @@ public:
 		if (!(x.ring() == this)) throw runtime_exception();
 		_fprint(stream,x);
 	}
-	cl_boolean equal (const cl_UP& x, const cl_UP& y)
+	bool equal (const cl_UP& x, const cl_UP& y)
 	{
 		if (!(x.ring() == this)) throw runtime_exception();
 		if (!(y.ring() == this)) throw runtime_exception();
@@ -244,7 +244,7 @@ public:
 	{
 		return cl_UP(this,_zero());
 	}
-	cl_boolean zerop (const cl_UP& x)
+	bool zerop (const cl_UP& x)
 	{
 		if (!(x.ring() == this)) throw runtime_exception();
 		return _zerop(x);
@@ -383,7 +383,7 @@ inline bool operator!= (const cl_UP& x, const cl_UP& y)
 	{ return !x.ring()->equal(x,y); }
 
 // Compare against 0.
-inline cl_boolean zerop (const cl_UP& x)
+inline bool zerop (const cl_UP& x)
 	{ return x.ring()->zerop(x); }
 
 // Multiply.
@@ -540,7 +540,7 @@ class cl_heap_univpoly_specialized_ring : public cl_heap_univpoly_ring {
 	{
 		cl_heap_univpoly_ring::fprint(stream,x);
 	}
-	cl_boolean equal (const cl_UP_specialized<T>& x, const cl_UP_specialized<T>& y)
+	bool equal (const cl_UP_specialized<T>& x, const cl_UP_specialized<T>& y)
 	{
 		return cl_heap_univpoly_ring::equal(x,y);
 	}
@@ -548,7 +548,7 @@ class cl_heap_univpoly_specialized_ring : public cl_heap_univpoly_ring {
 	{
 		return The2(cl_UP_specialized<T>)(cl_heap_univpoly_ring::zero());
 	}
-	cl_boolean zerop (const cl_UP_specialized<T>& x)
+	bool zerop (const cl_UP_specialized<T>& x)
 	{
 		return cl_heap_univpoly_ring::zerop(x);
 	}

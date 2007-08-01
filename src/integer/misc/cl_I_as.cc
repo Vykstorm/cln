@@ -15,19 +15,19 @@ namespace cln {
 
 // Cf. cl_I_p in cl_I_ring.cc.
 // But here, for better inlining in g++, it is preferrable to finish every
-// alternative with either "return cl_true;" or "return cl_false;".
+// alternative with either "return true;" or "return false;".
 
-inline cl_boolean cl_I_p (const cl_number& x)
+inline bool cl_I_p (const cl_number& x)
 {
 	if (!x.pointer_p())
 		switch (x.nonpointer_tag()) {
 		case cl_FN_tag:
-			return cl_true;
+			return true;
 		}
 	else
 		if (x.pointer_type() == &cl_class_bignum)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 const cl_I& cl_I_As (const cl_number& x, const char * filename, int line)

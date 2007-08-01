@@ -14,7 +14,7 @@
 
 namespace cln {
 
-cl_boolean sqrtp (const cl_I& x, cl_I* w)
+bool sqrtp (const cl_I& x, cl_I* w)
 {
 // Methode:
 // [Henri Cohen: A course in computational algebraic number theory, 2nd prnt.,
@@ -54,31 +54,31 @@ cl_boolean sqrtp (const cl_I& x, cl_I* w)
       var uintC x_len;
       var const uintD* x_LSDptr;
       I_to_NDS_nocopy(x, x_MSDptr=,x_len=,x_LSDptr=, // Digit sequence >=0 zu x
-                      cl_true, { *w = 0; return cl_true; } // 0 is a square
+                      true, { *w = 0; return true; } // 0 is a square
                      );
       // Check mod 64.
       { var uintD lsd = lspref(x_LSDptr,0);
         if (!squares_mod_64[lsd & 63])
-          { return cl_false; } // not a square mod 64 -> not a square
+          { return false; } // not a square mod 64 -> not a square
       }
       // Check mod 63.
       { var cl_I_div_t div63 = cl_divide(x,L_to_FN(63));
         if (!squares_mod_63[FN_to_UV(div63.remainder)])
-          { return cl_false; } // not a square mod 63 -> not a square
+          { return false; } // not a square mod 63 -> not a square
       }
       // Check mod 65.
       { var cl_I_div_t div65 = cl_divide(x,L_to_FN(65));
         if (!squares_mod_65[FN_to_UV(div65.remainder)])
-          { return cl_false; } // not a square mod 65 -> not a square
+          { return false; } // not a square mod 65 -> not a square
       }
       // Check mod 11.
       { var cl_I_div_t div11 = cl_divide(x,L_to_FN(11));
         if (!squares_mod_11[FN_to_UV(div11.remainder)])
-          { return cl_false; } // not a square mod 11 -> not a square
+          { return false; } // not a square mod 11 -> not a square
       }
       // Check with full precision.
       { var DS y;
-        var cl_boolean squarep;
+        var bool squarep;
         UDS_sqrt(x_MSDptr,x_len,x_LSDptr, &y, squarep=); // Wurzel ziehen
         if (squarep)
           { *w = NUDS_to_I(y.MSDptr,y.len); } // als Integer

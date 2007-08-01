@@ -23,7 +23,7 @@
 
 namespace cln {
 
-cl_boolean zerop (const cl_R& x)
+bool zerop (const cl_R& x)
 #if 0
 GEN_R_OP1_2(x, zerop, return)
 #else // fully inlined, faster

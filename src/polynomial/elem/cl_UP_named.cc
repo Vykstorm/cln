@@ -39,13 +39,13 @@ namespace cln {
 // the ring contains exactly one reference to the base ring and exactly one
 // reference to the name (on the property list).
 
-static cl_boolean maygc_htentry (const cl_htentry_from_rcpointer2_to_rcpointer& entry)
+static bool maygc_htentry (const cl_htentry_from_rcpointer2_to_rcpointer& entry)
 {
 	if (!entry.key1.pointer_p() || (entry.key1.heappointer->refcount == 2))
 		if (!entry.key2.pointer_p() || (entry.key2.heappointer->refcount == 2))
 			if (!entry.val.pointer_p() || (entry.val.heappointer->refcount == 1))
-				return cl_true;
-	return cl_false;
+				return true;
+	return false;
 }
 
 static const cl_wht_from_rcpointer2_to_rcpointer univpoly_ring_table = cl_wht_from_rcpointer2_to_rcpointer(maygc_htentry);

@@ -77,35 +77,35 @@ inline cl_I::cl_I (cl_heap_bignum* ptr)
 // Integers in general.
 
 // Type tests.
-inline cl_boolean integerp (const cl_I& x)
-	{ unused x; return cl_true; }
-inline cl_boolean fixnump (const cl_I& x)
-	{ return (cl_boolean) !x.pointer_p(); }
-inline cl_boolean bignump (const cl_I& x)
+inline bool integerp (const cl_I& x)
+	{ unused x; return true; }
+inline bool fixnump (const cl_I& x)
+	{ return !x.pointer_p(); }
+inline bool bignump (const cl_I& x)
 	{ return x.pointer_p(); }
 
 // Sign test:
 
 // (MINUSP x) == (< x 0)
-inline cl_boolean minusp (const cl_I& x)
+inline bool minusp (const cl_I& x)
 {
 	if (fixnump(x))
 		// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
-		return (cl_boolean)((cl_sint) x.word < 0);
+		return (cl_sint) x.word < 0;
 	else
-		return (cl_boolean)((sintD)mspref(arrayMSDptr(TheBignum(x)->data,TheBignum(x)->length),0) < 0);
+		return (sintD)mspref(arrayMSDptr(TheBignum(x)->data,TheBignum(x)->length),0) < 0;
 }
 
 // (ZEROP x) == (= x 0)
-inline cl_boolean zerop (const cl_I& x)
+inline bool zerop (const cl_I& x)
 {
-	return (cl_boolean)(x.word == cl_combine(cl_FN_tag,0));
+	return x.word == cl_combine(cl_FN_tag,0);
 }
 
 // (EQ x y) == (= x y), assuming y a fixnum
-inline cl_boolean eq (const cl_I& x, sint32 y)
+inline bool eq (const cl_I& x, sint32 y)
 {
-	return (cl_boolean)(x.word == cl_combine(cl_FN_tag,y));
+	return x.word == cl_combine(cl_FN_tag,y);
 }
 
 
@@ -626,7 +626,7 @@ inline sintD FN_MSD (cl_uint word)
     var uintD CONCAT(FN_store_,__LINE__) [FN_maxlength];		\
     { var const cl_I& obj_from_I_to_NDS = (obj);			\
       if (fixnump(obj_from_I_to_NDS))					\
-        { FN_to_NDS(arrayLSDptr(CONCAT(FN_store_,__LINE__),FN_maxlength), cl_FN_word(obj_from_I_to_NDS), MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung, cl_true,); } \
+        { FN_to_NDS(arrayLSDptr(CONCAT(FN_store_,__LINE__),FN_maxlength), cl_FN_word(obj_from_I_to_NDS), MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung, true,); } \
         else                                                              \
         { BN_to_NDS(obj_from_I_to_NDS,MSDptr_zuweisung,len_zuweisung, LSDptr_zuweisung); } \
     }
@@ -641,7 +641,7 @@ inline sintD FN_MSD (cl_uint word)
     var uintD CONCAT(FN_store_,__LINE__) [1+FN_maxlength];		\
     { var const cl_I& obj_from_I_to_NDS = (obj);			\
       if (fixnump(obj_from_I_to_NDS))					\
-        { FN_to_NDS(arrayLSDptr(CONCAT(FN_store_,__LINE__),1+FN_maxlength), cl_FN_word(obj_from_I_to_NDS), MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung, cl_true,); } \
+        { FN_to_NDS(arrayLSDptr(CONCAT(FN_store_,__LINE__),1+FN_maxlength), cl_FN_word(obj_from_I_to_NDS), MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung, true,); } \
         else                                                              \
         { BN_to_NDS_1(obj_from_I_to_NDS,MSDptr_zuweisung,len_zuweisung, LSDptr_zuweisung); } \
     }
@@ -680,8 +680,8 @@ inline sintD FN_MSD (cl_uint word)
 // > n: ein Integer >0
 // > Annahme: x > 1 und n < (integer-length x).
 // < w: Integer (expt x (/ n)) falls x eine n-te Potenz
-// < ergebnis: cl_true         ........................, cl_false sonst
-  extern cl_boolean cl_rootp_aux (cl_I x, uintL n, cl_I* w);
+// < ergebnis: true            ........................, false sonst
+  extern bool cl_rootp_aux (cl_I x, uintL n, cl_I* w);
 
 
 // Hilfsfunktion zur Eingabe von Integers
@@ -721,19 +721,19 @@ inline sintD FN_MSD (cl_uint word)
 class cl_FN : public cl_I {
 public:
 // Optimization of method pointer_p().
-	cl_boolean pointer_p() const
-		{ return cl_false; }
+	bool pointer_p() const
+		{ return false; }
 };
 
-inline cl_boolean fixnump (const cl_FN& x)
-	{ unused x; return cl_true; }
-inline cl_boolean bignump (const cl_FN& x)
-	{ unused x; return cl_false; }
+inline bool fixnump (const cl_FN& x)
+	{ unused x; return true; }
+inline bool bignump (const cl_FN& x)
+	{ unused x; return false; }
 
-inline cl_boolean minusp (const cl_FN& x)
+inline bool minusp (const cl_FN& x)
 {
 	// This assumes cl_value_shift + cl_value_len == cl_pointer_size.
-	return (cl_boolean)((cl_sint) x.word < 0);
+	return (cl_sint) x.word < 0;
 }
 
 
@@ -743,21 +743,21 @@ inline cl_boolean minusp (const cl_FN& x)
 class cl_BN : public cl_I {
 public:
 // Optimization of method pointer_p().
-	cl_boolean pointer_p() const
-		{ return cl_true; }
+	bool pointer_p() const
+		{ return true; }
 };
 
-inline cl_boolean fixnump (const cl_BN& x)
-	{ unused x; return cl_false; }
-inline cl_boolean bignump (const cl_BN& x)
-	{ unused x; return cl_true; }
+inline bool fixnump (const cl_BN& x)
+	{ unused x; return false; }
+inline bool bignump (const cl_BN& x)
+	{ unused x; return true; }
 
-inline cl_boolean minusp (const cl_BN& x)
+inline bool minusp (const cl_BN& x)
 {
-	return (cl_boolean)((sintD)mspref(arrayMSDptr(TheBignum(x)->data,TheBignum(x)->length),0) < 0);
+	return (sintD)mspref(arrayMSDptr(TheBignum(x)->data,TheBignum(x)->length),0) < 0;
 }
-inline cl_boolean zerop (const cl_BN& x)
-	{ unused x; return cl_false; }
+inline bool zerop (const cl_BN& x)
+	{ unused x; return false; }
 
 }  // namespace cln
 

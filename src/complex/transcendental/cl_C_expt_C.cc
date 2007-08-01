@@ -152,7 +152,7 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 				if (rationalp(realpart(x)) && rationalp(imagpart(x)))
 					goto complex_rational;
 			}
-			if (cl_false) {
+			if (false) {
 				complex_rational:
 				// x in Q(i)
 				var uintC k = power2p(n);

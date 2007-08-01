@@ -146,21 +146,21 @@ extern const cl_I boole (cl_boole op, const cl_I& x, const cl_I& y);
 // Prüft, ob (LOGTEST x y), wo x und y Integers sind.
 // (LOGTEST x y) = (NOT (ZEROP (LOGAND x y))).
 // < ergebnis: /=0, falls ja; =0, falls nein.
-extern cl_boolean logtest (const cl_I& x, const cl_I& y);
+extern bool logtest (const cl_I& x, const cl_I& y);
 
 // Prüft, ob (LOGBITP x y), wo x und y Integers sind.
 // Ergebnis: /=0, wenn ja; =0, wenn nein.
-extern cl_boolean logbitp (uintC x, const cl_I& y);
-extern cl_boolean logbitp (const cl_I& x, const cl_I& y);
+extern bool logbitp (uintC x, const cl_I& y);
+extern bool logbitp (const cl_I& x, const cl_I& y);
 
 // Prüft, ob (ODDP x), wo x ein Integer ist.
 // Ergebnis: /=0, falls ja; =0, falls nein.
-extern cl_boolean oddp (const cl_I& x);
+extern bool oddp (const cl_I& x);
 
 // Prüft, ob (EVENP x), wo x ein Integer ist.
 // Ergebnis: /=0, falls ja; =0, falls nein.
-inline cl_boolean evenp (const cl_I& x)
-	{ return (cl_boolean) (!oddp(x)); }
+inline bool evenp (const cl_I& x)
+	{ return !oddp(x); }
 
 // (ASH x y), wo x und y Integers sind. Ergebnis Integer.
 extern const cl_I ash (const cl_I& x, sintC y);
@@ -293,7 +293,7 @@ inline const cl_I operator>> (const cl_I& x, const cl_I& y) // assume y >= 0
 // Vergleich von Integers
 
 // equal(x,y) vergleicht zwei Integers x und y auf Gleichheit.
-extern cl_boolean equal (const cl_I& x, const cl_I& y);
+extern bool equal (const cl_I& x, const cl_I& y);
 // equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
 extern uint32 equal_hashcode (const cl_I& x);
 
@@ -315,13 +315,13 @@ inline bool operator> (const cl_I& x, const cl_I& y)
 	{ return compare(x,y)>0; }
 
 // minusp(x) == (< x 0)
-extern cl_boolean minusp (const cl_I& x);
+extern bool minusp (const cl_I& x);
 
 // plusp(x) == (> x 0)
-extern cl_boolean plusp (const cl_I& x);
+extern bool plusp (const cl_I& x);
 
 // zerop(x) stellt fest, ob ein Integer = 0 ist.
-extern cl_boolean zerop (const cl_I& x);
+extern bool zerop (const cl_I& x);
 
 
 // BYTE-Operationen auf Integers
@@ -337,8 +337,8 @@ struct cl_byte {
 extern const cl_I ldb (const cl_I& n, const cl_byte& b);
 
 // ldb_test(n,byte) führt (LDB-TEST byte n) aus, wobei n ein Integer ist.
-// Ergebnis: cl_false wenn nein (also alle fraglichen Bits =0), cl_true wenn ja.
-extern cl_boolean ldb_test (const cl_I& n, const cl_byte& b);
+// Ergebnis: false wenn nein (also alle fraglichen Bits =0), true wenn ja.
+extern bool ldb_test (const cl_I& n, const cl_byte& b);
 
 // (MASK-FIELD byte n), wo n ein Integer ist.
 extern const cl_I mask_field (const cl_I& n, const cl_byte& b);
@@ -529,8 +529,8 @@ public:
 // isqrt(x,&w)
 // > x: Integer (sollte >=0 sein)
 // < w: (isqrt x)
-// < ergebnis: cl_true falls x Quadratzahl, cl_false sonst
-  extern cl_boolean isqrt (const cl_I& x, cl_I* w);
+// < ergebnis: true falls x Quadratzahl, false sonst
+  extern bool isqrt (const cl_I& x, cl_I* w);
 // Wenn das boolesche Ergebnis uninteressant ist:
   inline const cl_I isqrt (const cl_I& x) { cl_I w; isqrt(x,&w); return w; }
 
@@ -538,17 +538,17 @@ public:
 // sqrtp(x,&w)
 // > x: ein Integer >=0
 // < w: Integer (sqrt x) falls x Quadratzahl
-// < ergebnis: cl_true   ..................., cl_false sonst
-  extern cl_boolean sqrtp (const cl_I& x, cl_I* w);
+// < ergebnis: true      ..................., false sonst
+  extern bool sqrtp (const cl_I& x, cl_I* w);
 
 // Stellt fest, ob ein Integer >=0 eine n-te Potenz ist.
 // rootp(x,n,&w)
 // > x: ein Integer >=0
 // > n: ein Integer >0
 // < w: Integer (expt x (/ n)) falls x eine n-te Potenz
-// < ergebnis: cl_true         ........................, cl_false sonst
-  extern cl_boolean rootp (const cl_I& x, uintL n, cl_I* w);
-  extern cl_boolean rootp (const cl_I& x, const cl_I& n, cl_I* w);
+// < ergebnis: true            ........................, false sonst
+  extern bool rootp (const cl_I& x, uintL n, cl_I* w);
+  extern bool rootp (const cl_I& x, const cl_I& n, cl_I* w);
 
 
 // max(x,y) liefert (max x y), wo x und y ganze Zahlen sind.

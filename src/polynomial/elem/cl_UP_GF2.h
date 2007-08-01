@@ -13,7 +13,7 @@ struct cl_heap_GV_I_bits1 : public cl_heap_GV_I {
 	uintD data[1];
 };
 
-static cl_boolean gf2_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
+static bool gf2_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	DeclarePoly(cl_GV_MI,y);
@@ -23,12 +23,12 @@ static cl_boolean gf2_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const 
 	var uintL xlen = xv->v.length();
 	var uintL ylen = yv->v.length();
 	if (!(xlen == ylen))
-		return cl_false;
+		return false;
 	// We can compare full words since unused bits in the last word are 0.
 	var uintL count = ceiling(xlen,intDsize);
 	if (compare_loop_up(xv->data,yv->data,count) != 0)
-		return cl_false;
-	return cl_true;
+		return false;
+	return true;
 }}
 
 static const _cl_UP gf2_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP& y)

@@ -19,12 +19,12 @@ namespace cln {
 // Falls n >= integer_length(x): NEIN. (Da y>=2, müßte x>=2^n gelten.)
 // Hier also n>0 klein...
 
-cl_boolean rootp (const cl_I& x, const cl_I& n, cl_I* w)
+bool rootp (const cl_I& x, const cl_I& n, cl_I* w)
 {
 	if (eq(x,0) || eq(x,1)) // x=0 oder x=1 ?
-	  { *w = x; return cl_true; } // ja -> x als Ergebnis
+	  { *w = x; return true; } // ja -> x als Ergebnis
 	if (n >= (cl_I)(unsigned long)integer_length(x))
-	  { return cl_false; }
+	  { return false; }
 	// Nun ist n < (integer-length x). Also paßt n in ein uintC.
 	return cl_rootp_aux(x,cl_I_to_ulong(n),w);
 }

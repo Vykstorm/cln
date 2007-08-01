@@ -18,8 +18,8 @@ namespace cln {
 const cl_I testrandom_I (random_state& randomstate)
 {
   var uint32 ran = random32(randomstate);
-  var cl_boolean negative = (cl_boolean)(ran & 1);
-  var cl_boolean algo = (cl_boolean)((ran>>1) & 1);
+  var bool negative = (ran & 1);
+  var bool algo = ((ran>>1) & 1);
   ran = ran >> 2;
   ran = ran & ((1<<8)-1);
   var uintC len =

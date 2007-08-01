@@ -153,14 +153,14 @@ struct _cl_modint_setops /* cf. _cl_ring_setops */ {
 	// print
 	void (* fprint) (cl_heap_modint_ring* R, std::ostream& stream, const _cl_MI& x);
 	// equality
-	cl_boolean (* equal) (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y);
+	bool (* equal) (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y);
 	// random number
 	const _cl_MI (* random) (cl_heap_modint_ring* R, random_state& randomstate);
 };
 struct _cl_modint_addops /* cf. _cl_ring_addops */ {
 	// 0
 	const _cl_MI (* zero) (cl_heap_modint_ring* R);
-	cl_boolean (* zerop) (cl_heap_modint_ring* R, const _cl_MI& x);
+	bool (* zerop) (cl_heap_modint_ring* R, const _cl_MI& x);
 	// x+y
 	const _cl_MI (* plus) (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI& y);
 	// x-y
@@ -216,13 +216,13 @@ public:
 	// Low-level operations.
 	void _fprint (std::ostream& stream, const _cl_MI& x)
 		{ setops->fprint(this,stream,x); }
-	cl_boolean _equal (const _cl_MI& x, const _cl_MI& y)
+	bool _equal (const _cl_MI& x, const _cl_MI& y)
 		{ return setops->equal(this,x,y); }
 	const _cl_MI _random (random_state& randomstate)
 		{ return setops->random(this,randomstate); }
 	const _cl_MI _zero ()
 		{ return addops->zero(this); }
-	cl_boolean _zerop (const _cl_MI& x)
+	bool _zerop (const _cl_MI& x)
 		{ return addops->zerop(this,x); }
 	const _cl_MI _plus (const _cl_MI& x, const _cl_MI& y)
 		{ return addops->plus(this,x,y); }
@@ -256,7 +256,7 @@ public:
 		if (!(x.ring() == this)) throw runtime_exception();
 		_fprint(stream,x);
 	}
-	cl_boolean equal (const cl_MI& x, const cl_MI& y)
+	bool equal (const cl_MI& x, const cl_MI& y)
 	{
 		if (!(x.ring() == this)) throw runtime_exception();
 		if (!(y.ring() == this)) throw runtime_exception();
@@ -270,7 +270,7 @@ public:
 	{
 		return cl_MI(this,_zero());
 	}
-	cl_boolean zerop (const cl_MI& x)
+	bool zerop (const cl_MI& x)
 	{
 		if (!(x.ring() == this)) throw runtime_exception();
 		return _zerop(x);
@@ -407,7 +407,7 @@ inline bool operator!= (const cl_I& x, const cl_MI& y)
 	{ return !y.ring()->equal(y.ring()->canonhom(x),y); }
 
 // Compare against 0.
-inline cl_boolean zerop (const cl_MI& x)
+inline bool zerop (const cl_MI& x)
 	{ return x.ring()->zerop(x); }
 
 // Multiply.

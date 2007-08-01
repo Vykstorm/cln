@@ -158,13 +158,13 @@ struct _cl_ring_setops {
 	// print
 	void (* fprint) (cl_heap_ring* R, std::ostream& stream, const _cl_ring_element& x);
 	// equality
-	cl_boolean (* equal) (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y);
+	bool (* equal) (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y);
 	// ...
 };
 struct _cl_ring_addops {
 	// 0
 	const _cl_ring_element (* zero) (cl_heap_ring* R);
-	cl_boolean (* zerop) (cl_heap_ring* R, const _cl_ring_element& x);
+	bool (* zerop) (cl_heap_ring* R, const _cl_ring_element& x);
 	// x+y
 	const _cl_ring_element (* plus) (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y);
 	// x-y
@@ -211,11 +211,11 @@ public:
 	// Low-level operations.
 	void _fprint (std::ostream& stream, const _cl_ring_element& x)
 		{ setops->fprint(this,stream,x); }
-	cl_boolean _equal (const _cl_ring_element& x, const _cl_ring_element& y)
+	bool _equal (const _cl_ring_element& x, const _cl_ring_element& y)
 		{ return setops->equal(this,x,y); }
 	const _cl_ring_element _zero ()
 		{ return addops->zero(this); }
-	cl_boolean _zerop (const _cl_ring_element& x)
+	bool _zerop (const _cl_ring_element& x)
 		{ return addops->zerop(this,x); }
 	const _cl_ring_element _plus (const _cl_ring_element& x, const _cl_ring_element& y)
 		{ return addops->plus(this,x,y); }
@@ -239,7 +239,7 @@ public:
 		if (!(x.ring() == this)) throw runtime_exception();
 		_fprint(stream,x);
 	}
-	cl_boolean equal (const cl_ring_element& x, const cl_ring_element& y)
+	bool equal (const cl_ring_element& x, const cl_ring_element& y)
 	{
 		if (!(x.ring() == this)) throw runtime_exception();
 		if (!(y.ring() == this)) throw runtime_exception();
@@ -249,7 +249,7 @@ public:
 	{
 		return cl_ring_element(this,_zero());
 	}
-	cl_boolean zerop (const cl_ring_element& x)
+	bool zerop (const cl_ring_element& x)
 	{
 		if (!(x.ring() == this)) throw runtime_exception();
 		return _zerop(x);
@@ -338,7 +338,7 @@ inline bool operator!= (const cl_ring_element& x, const cl_ring_element& y)
 	{ return !x.ring()->equal(x,y); }
 
 // Compare against 0.
-inline cl_boolean zerop (const cl_ring_element& x)
+inline bool zerop (const cl_ring_element& x)
 	{ return x.ring()->zerop(x); }
 
 // Multiply.
@@ -396,9 +396,9 @@ inline cl_ring_element::cl_ring_element ()
 
 template <class T>
 struct cl_number_ring_ops {
-	cl_boolean (* contains) (const cl_number&);
-	cl_boolean (* equal) (const T&, const T&);
-	cl_boolean (* zerop) (const T&);
+	bool (* contains) (const cl_number&);
+	bool (* equal) (const T&, const T&);
+	bool (* zerop) (const T&);
 	const T (* plus) (const T&, const T&);
 	const T (* minus) (const T&, const T&);
 	const T (* uminus) (const T&);
@@ -427,7 +427,7 @@ public:
 };
 
 // Type test.
-inline cl_boolean instanceof (const cl_number& x, const cl_number_ring& R)
+inline bool instanceof (const cl_number& x, const cl_number_ring& R)
 {
 	return ((cl_heap_number_ring*) R.heappointer)->ops->contains(x);
 }

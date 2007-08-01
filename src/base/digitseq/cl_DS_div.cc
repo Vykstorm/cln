@@ -58,14 +58,14 @@ namespace cln {
 // Break-even-point, should be acceptable for both architectures.
 // When in doubt, prefer to choose the standard algorithm.
 #if CL_USE_GMP
-  static inline cl_boolean cl_recip_suitable (uintL m, uintL n) // m > n
+  static inline bool cl_recip_suitable (uintL m, uintL n) // m > n
     { if (n < 900)
-        return cl_false;
+        return false;
       else
         if (n < 2200)
-          return (cl_boolean)((m >= n+50) && (m < 2*n-600));
+          return (m >= n+50) && (m < 2*n-600);
         else
-          return (cl_boolean)(m >= n+30);
+          return m >= n+30;
     }
 #else
 // Use the old default values from CLN version <= 1.0.3 as a crude estimate.
@@ -95,14 +95,14 @@ namespace cln {
 //   n = 2000: Newton faster for m >= 2020
 //   n = 2500: Newton faster for m >= 2520
 //   n = 5000: Newton faster for m >= 5020
-  static inline cl_boolean cl_recip_suitable (uintL m, uintL n) // m > n
+  static inline bool cl_recip_suitable (uintL m, uintL n) // m > n
     { if (n < 500)
-        return cl_false;
+        return false;
       else
         if (n < 1000)
-          return (cl_boolean)((m >= n+30) && (m < 3*n-600));
+          return (m >= n+30) && (m < 3*n-600);
         else
-          return (cl_boolean)(m >= n+20);
+          return m >= n+20;
     }
 #endif
 

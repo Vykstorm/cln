@@ -15,7 +15,7 @@
 
 namespace cln {
 
-cl_boolean zerop (const cl_RA& x)
+bool zerop (const cl_RA& x)
 {
 	return inline_zerop(x);
 }

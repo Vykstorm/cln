@@ -29,8 +29,8 @@ namespace cln {
 // Newton faster for 3200<N            Newton faster for 2750<N
 // When in doubt, prefer to choose the standard algorithm.
 #if CL_USE_GMP
-  static inline cl_boolean cl_recipsqrt_suitable (uintC n)
-  { return (cl_boolean)(n >= 3200); }
+  static inline bool cl_recipsqrt_suitable (uintC n)
+  { return n >= 3200; }
 #else
 // Use the old default values from CLN version <= 1.0.3 as a crude estimate.
 // Time for square root of a_len = 2*N by b_len = N digits,
@@ -47,8 +47,8 @@ namespace cln {
 //    5000   24.1    10.7
 //   10000   98      23.2
 //   -----> Newton faster for 1570 <= N <= 1790 and for N >= 2100.
-  static inline cl_boolean cl_recipsqrt_suitable (uintC n)
-  { return (cl_boolean)(n >= 2100); }
+  static inline bool cl_recipsqrt_suitable (uintC n)
+  { return n >= 2100; }
 #endif
 
 // Bildet zu einer Unsigned Digit sequence a die Wurzel
@@ -56,7 +56,7 @@ namespace cln {
 // squarep = cl_UDS_sqrt(a_MSDptr,a_len,a_LSDptr, &b);
 // > a_MSDptr/a_len/a_LSDptr: eine UDS
 // < NUDS b: Gauﬂklammer der Wurzel aus a
-// < squarep: cl_true falls a = b^2, cl_false falls b^2 < a < (b+1)^2.
+// < squarep: true falls a = b^2, false falls b^2 < a < (b+1)^2.
 // Methode:
 // erst A normalisieren. A=0 --> B=0, fertig.
 // W‰hle n so, daﬂ beta^(2n-2) <= A < beta^(2n).
@@ -102,12 +102,12 @@ namespace cln {
 //     Ergebnis ist [b[n-1],...,b[0]] * 2^(-s), schiebe also im Speicher
 //       [b[n],...,b[0]] um s+1 Bits nach rechts.
 //     Das Ergebnis ist eine NUDS der L‰nge n.
-cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS* b_)
+bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS* b_)
 {
       // A normalisieren:
       while ((a_len>0) && (mspref(a_MSDptr,0)==0)) { msshrink(a_MSDptr); a_len--; }
       if (a_len==0) // A=0 -> B := NUDS 0
-        { b_->LSDptr = b_->MSDptr; b_->len = 0; return cl_true; }
+        { b_->LSDptr = b_->MSDptr; b_->len = 0; return true; }
       CL_ALLOCA_STACK;
       // n und s bestimmen:
       var uintC n = ceiling(a_len,2); // a_len = 2n oder 2n-1, n>0.
@@ -195,9 +195,9 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
             shiftright_loop_msp(b_->MSDptr,n,s);
           // Teste, ob alle a[n],...,a[0]=0 sind:
           if (test_loop_msp(a_MSDptr mspop (n-1),n+1))
-            return cl_false;
+            return false;
           else
-            return cl_true; // ja -> Wurzel exakt
+            return true; // ja -> Wurzel exakt
         }
       // Platz f¸r B belegen:
       { var uintD* b_MSDptr = b_->MSDptr mspop -1; // ab hier n+1 Digits Platz
@@ -354,9 +354,9 @@ cl_boolean cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDpt
         b_->MSDptr = b_MSDptr; b_->len = n; b_->LSDptr = b_ptr;
         // Teste, ob alle a[n],...,a[0]=0 sind:
         if (test_loop_msp(a_mptr,n+1))
-          { return cl_false; }
+          { return false; }
           else
-          { return cl_true; } // ja -> Wurzel exakt
+          { return true; } // ja -> Wurzel exakt
       }}
 }
 // Bit complexity (N := a_len): O(M(N)).

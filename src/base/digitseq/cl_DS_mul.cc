@@ -354,23 +354,23 @@ namespace cln {
   const unsigned int cl_fftm_threshold2 = 2*cl_fftm_threshold;
   //   len1 > cl_fftm_threshold1 && len2 > cl_fftm_threshold2
   //   && len1 >= cl_fftm_threshold1 + cl_fftm_threshold/(len2-cl_fftm_threshold1)*(cl_fftm_threshold-cl_fftm_threshold1).
-  static inline cl_boolean cl_fftm_suitable (uintC len1, uintC len2)
+  static inline bool cl_fftm_suitable (uintC len1, uintC len2)
     { if (len1 >= cl_fftm_threshold)
-        return cl_true;
+        return true;
       if (len1 > cl_fftm_threshold1)
         if (len2 > cl_fftm_threshold2)
           { const unsigned int prod_threshold = cl_fftm_threshold*(cl_fftm_threshold-cl_fftm_threshold1);
             if (len1-cl_fftm_threshold1 >= prod_threshold)
-              return cl_true;
+              return true;
             if (len2-cl_fftm_threshold1 >= prod_threshold)
-              return cl_true;
+              return true;
             var uint32 hi;
             var uint32 lo;
             mulu32(len1-cl_fftm_threshold1,len2-cl_fftm_threshold1, hi=,lo=);
             if (hi > 0 || lo >= prod_threshold)
-              return cl_true;
+              return true;
           }
-      return cl_false;
+      return false;
     }
     
 #if 0 // Doesn't seem to be worth the effort

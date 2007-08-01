@@ -204,7 +204,7 @@ const cl_LF lnx_ratseries (const cl_LF& x)
 		var uintE me = cl_I_to_UE(- x1_.exponent);
 		var cl_I p;
 		var uintE lq;
-		var cl_boolean last_step = cl_false;
+		var bool last_step = false;
 		if (lm >= me) { // |x'| >= 1/2 ?
 			p = x1_.sign; // 1 or -1
 			lq = 1;
@@ -225,7 +225,7 @@ const cl_LF lnx_ratseries (const cl_LF& x)
 			// after the next big multiplication. This saves one
 			// big multiplication at the end.
 			if (2*n >= lm)
-				last_step = cl_true;
+				last_step = true;
 		}
 		y = y + scale_float(cl_I_to_LF(p,len),-(sintE)lq);
 		if (last_step)

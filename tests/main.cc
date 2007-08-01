@@ -49,7 +49,7 @@ int main (int argc, char* argv[])
 #if 0
 	cl_I a = "77371252437321868671713407";
 	cl_I w;
-	cl_boolean squarep = isqrt(a,&w);
+	bool squarep = isqrt(a,&w);
 	DUMP(squarep);
 	DUMP(w);
 	DUMP(expt_pos(w,2) <= a);

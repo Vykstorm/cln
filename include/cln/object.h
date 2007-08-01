@@ -71,13 +71,13 @@ typedef uintP  cl_uint;  // This ought to be called `cl_word'.
 #endif
 
 // Distinguish immediate data from pointers.
-inline cl_boolean cl_pointer_p (cl_uint word)
+inline bool cl_pointer_p (cl_uint word)
 {
-	return (cl_boolean)((word & (cl_word_alignment-1)) == 0);
+	return (word & (cl_word_alignment-1)) == 0;
 }
-inline cl_boolean cl_immediate_p (cl_uint word)
+inline bool cl_immediate_p (cl_uint word)
 {
-	return (cl_boolean)((word & (cl_word_alignment-1)) != 0);
+	return (word & (cl_word_alignment-1)) != 0;
 }
 
 // Immediate data: Fixnum, Short Float, maybe Single Float.
@@ -310,7 +310,7 @@ public:
 // Assignment operator.
 	cl_gcobject& operator= (const cl_gcobject&);
 // Distinguish immediate data from pointer.
-	cl_boolean pointer_p() const
+	bool pointer_p() const
 		{ return cl_pointer_p(word); }
 // Reference counting.
 	void inc_pointer_refcount () const
@@ -360,8 +360,8 @@ public:
 // Assignment operator.
 	cl_gcpointer& operator= (const cl_gcpointer&);
 // Distinguish immediate data from pointer.
-	cl_boolean pointer_p() const
-		{ return cl_true; }
+	bool pointer_p() const
+		{ return true; }
 // Reference counting.
 	void inc_pointer_refcount () const
 		{ cl_inc_pointer_refcount(heappointer); }
@@ -410,7 +410,7 @@ public:
 // Assignment operator.
 	cl_rcobject& operator= (const cl_rcobject&);
 // Distinguish immediate data from pointer.
-	cl_boolean pointer_p() const
+	bool pointer_p() const
 		{ return cl_pointer_p(word); }
 // Reference counting.
 	void inc_pointer_refcount () const
@@ -460,8 +460,8 @@ public:
 // Assignment operator.
 	cl_rcpointer& operator= (const cl_rcpointer&);
 // Distinguish immediate data from pointer.
-	cl_boolean pointer_p() const
-		{ return cl_true; }
+	bool pointer_p() const
+		{ return true; }
 // Reference counting.
 	void inc_pointer_refcount () const
 		{ cl_inc_pointer_refcount(heappointer); }

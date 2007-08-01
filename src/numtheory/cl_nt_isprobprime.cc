@@ -16,7 +16,7 @@
 
 namespace cln {
 
-cl_boolean isprobprime (const cl_I& n)
+bool isprobprime (const cl_I& n)
 {
 	if (!(n > 0)) {
 		std::ostringstream buf;
@@ -38,12 +38,12 @@ cl_boolean isprobprime (const cl_I& n)
 			if (i < cl_small_prime_table_size
 			    && ((unsigned int) cl_small_prime_table[i] == nn
 			        || nn == 2))
-				return cl_true;
+				return true;
 			else
-				return cl_false;
+				return false;
 		}
 		if ((nn % 2) == 0 || cl_trialdivision(nn,1,trialdivide_limit))
-			return cl_false;
+			return false;
 		// For small n, only few Miller-Rabin tests are needed.
 		if (nn < 2000U) count = 1; // {2}
 		else if (nn < 1300000U) count = 2; // {2,3}
@@ -53,10 +53,10 @@ cl_boolean isprobprime (const cl_I& n)
 		var uint32 nhi = cl_I_to_UL(ldb(n,cl_byte(32,32)));
 		var uint32 nlo = cl_I_to_UL(ldb(n,cl_byte(32,0)));
 		if ((nlo % 2) == 0 || cl_trialdivision(nhi,nlo,1,trialdivide_limit))
-			return cl_false;
+			return false;
 	} else {
 		if (evenp(n) || cl_trialdivision(n,1,trialdivide_limit))
-			return cl_false;
+			return false;
 	}
 	// Step 2: Miller-Rabin test.
 	return cl_miller_rabin_test(n,count,NULL);

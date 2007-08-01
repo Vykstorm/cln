@@ -23,7 +23,7 @@ static void I_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_elem
 	fprint(stream,The(cl_I)(x));
 }
 
-static cl_boolean I_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
+static bool I_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
 	return equal(The(cl_I)(x),The(cl_I)(y));
@@ -34,7 +34,7 @@ static const _cl_ring_element I_zero (cl_heap_ring* R)
 	return _cl_ring_element(R, (cl_I)0);
 }
 
-static cl_boolean I_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool I_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
 	return zerop(The(cl_I)(x));
@@ -80,13 +80,11 @@ static const _cl_ring_element I_expt_pos (cl_heap_ring* R, const _cl_ring_elemen
 	return _cl_ring_element(R, expt_pos(The(cl_I)(x),y));
 }
 
-static cl_boolean cl_I_p (const cl_number& x)
+static bool cl_I_p (const cl_number& x)
 {
-	return (cl_boolean)
-	       (!x.pointer_p()
+	return (!x.pointer_p()
 		? x.nonpointer_tag() == cl_FN_tag
-		: x.pointer_type() == &cl_class_bignum
-	       );
+		: x.pointer_type() == &cl_class_bignum);
 }
 
 static cl_ring_setops I_setops = {

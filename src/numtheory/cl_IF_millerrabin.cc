@@ -13,7 +13,7 @@
 
 namespace cln {
 
-cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
+bool cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 {
 	// [Cohen], section 8.2, algorithm 8.2.2.
 	var cl_modint_ring R = find_modint_ring(n); // Z/nZ
@@ -45,7 +45,7 @@ cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 				// (b-1)*(b+1) == 0 mod n, hence n not prime.
 				if (factor)
 					*factor = gcd(R->retract(b)-1,n);
-				return cl_false;
+				return false;
 			}
 			b = new_b;
 		}
@@ -57,11 +57,11 @@ cl_boolean cl_miller_rabin_test (const cl_I& n, int count, cl_I* factor)
 			else
 				*factor = 0;
 		}
-		return cl_false;
+		return false;
 	    passed:
 		;
 	}
-	return cl_true;
+	return true;
 }
 
 }  // namespace cln

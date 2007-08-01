@@ -15,7 +15,7 @@
 
 namespace cln {
 
-cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
+bool logp (const cl_I& a, const cl_I& b, cl_RA* l)
 {
 // Methode:
 //   log(a,b) soll Bruch c/d mit teilerfremdem c>=0,d>0 ergeben.
@@ -58,7 +58,7 @@ cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
 		if (a >= b) {
 			var cl_I_div_t div = cl_divide(a,b); // a durch b dividieren
 			if (!eq(div.remainder,0)) // Rest /=0 ?
-				return cl_false; // -> fertig
+				return false; // -> fertig
 			a = div.quotient;  // a := a/b
 			ud = uc + ud; vd = vc + vd;
 		} else {
@@ -68,7 +68,7 @@ cl_boolean logp (const cl_I& a, const cl_I& b, cl_RA* l)
 		}
 	}
 	// a=1 -> c=0,d=1 -> Ergebnis ud/vd
-	*l = I_I_to_RA(UL_to_I(ud),UL_to_I(vd)); return cl_true;
+	*l = I_I_to_RA(UL_to_I(ud),UL_to_I(vd)); return true;
 }}
 
 }  // namespace cln

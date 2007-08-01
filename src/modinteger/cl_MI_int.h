@@ -42,7 +42,7 @@ static const _cl_MI int_zero (cl_heap_modint_ring* R)
 	return _cl_MI(R, 0);
 }
 
-static cl_boolean int_zerop (cl_heap_modint_ring* R, const _cl_MI& x)
+static bool int_zerop (cl_heap_modint_ring* R, const _cl_MI& x)
 {
 	unused R;
 	return zerop(x.rep);

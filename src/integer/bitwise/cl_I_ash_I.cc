@@ -84,7 +84,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 		var uintD* LSDptr;
 		var uintC len;
 		var const uintD* x_LSDptr;
-		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,cl_false,); // DS zu x bilden.
+		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,false,); // DS zu x bilden.
 		if (k >= (uintC)(~len)) // kann len+k+1 Überlauf geben?
 			{ throw ash_exception(y); } // ja -> Fehler
 		num_stack_alloc_1(len+k,,LSDptr=);

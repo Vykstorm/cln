@@ -40,20 +40,20 @@ static void null_fprint (cl_heap_ring* R, std::ostream& stream, const _cl_ring_e
 	fprint(stream,"0");
 }
 
-static cl_boolean null_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
+static bool null_equal (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)
 {
 	unused R;
 	unused x;
 	unused y;
-	return cl_true;
+	return true;
 }
 
 #define null_zero null_op0
-static cl_boolean null_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool null_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
 	unused x;
-	return cl_true;
+	return true;
 }
 #define null_plus null_op2
 #define null_minus null_op2

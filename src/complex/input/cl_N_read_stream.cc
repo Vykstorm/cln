@@ -24,17 +24,17 @@ public:
 	char* end_pointer (void) { return buffer+index; }
 };
 
-static cl_boolean number_char_p (char c)
+static bool number_char_p (char c)
 {
 	if ((c >= '0') && (c <= '9'))
-		return cl_true;
+		return true;
 	if (((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')))
-		return cl_true;
+		return true;
 	switch (c) {
 		case '+': case '-': case '.': case '_': case '/':
-			return cl_true;
+			return true;
 		default:
-			return cl_false;
+			return false;
 	}
 }
 

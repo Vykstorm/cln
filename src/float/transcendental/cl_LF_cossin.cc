@@ -29,7 +29,7 @@ const cl_LF_cos_sin_t cl_cossin_ratseries (const cl_LF& x)
 	var uintE lq = cl_I_to_UE(- x_.exponent);
 	var const cl_I& p = x_.mantissa;
 	// Compute sin(p/2^lq) and cos(p/2^lq) by splitting into pieces.
-	var cl_boolean first_factor = cl_true;
+	var bool first_factor = true;
 	var cl_LF_cos_sin_t product;
 	var uintE b1;
 	var uintE b2;
@@ -44,7 +44,7 @@ const cl_LF_cos_sin_t cl_cossin_ratseries (const cl_LF& x)
 			var cl_LF_cos_sin_t factor = cl_cossin_aux(pk,lqk,len);
 			if (first_factor) {
 				product = factor;
-				first_factor = cl_false;
+				first_factor = false;
 			} else
 				product = product * factor;
 		}

@@ -13,12 +13,12 @@
 
 namespace cln {
 
-inline cl_boolean cl_SF_p (const cl_number& x)
+inline bool cl_SF_p (const cl_number& x)
 {
 	if (!x.pointer_p())
 		if (cl_tag((x).word) == cl_SF_tag)
-			return cl_true;
-	return cl_false;
+			return true;
+	return false;
 }
 
 const cl_SF& cl_SF_As (const cl_number& x, const char * filename, int line)

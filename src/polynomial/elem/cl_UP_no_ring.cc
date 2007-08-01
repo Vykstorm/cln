@@ -39,14 +39,14 @@ static void dummy_fprint (cl_heap_univpoly_ring* R, std::ostream& stream, const 
 	unused stream;
 	throw uninitialized_exception(x);
 }
-static cl_boolean dummy_equal (cl_heap_univpoly_ring* R, const _cl_UP& x, const _cl_UP& y)
+static bool dummy_equal (cl_heap_univpoly_ring* R, const _cl_UP& x, const _cl_UP& y)
 {
 	unused R;
 	throw uninitialized_exception(x, y);
 }
 
 #define dummy_zero dummy_op0
-static cl_boolean dummy_zerop (cl_heap_univpoly_ring* R, const _cl_UP& x)
+static bool dummy_zerop (cl_heap_univpoly_ring* R, const _cl_UP& x)
 {
 	unused R;
 	throw uninitialized_exception(x);

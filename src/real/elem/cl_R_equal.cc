@@ -15,12 +15,12 @@
 
 namespace cln {
 
-inline cl_boolean equal (const cl_F& x, const cl_F& y)
+inline bool equal (const cl_F& x, const cl_F& y)
 {
-	return (cl_boolean) (compare(x,y) == 0);
+	return compare(x,y) == 0;
 }
 
-cl_boolean equal (const cl_R& x, const cl_R& y)
+bool equal (const cl_R& x, const cl_R& y)
 {
 // Methode:
 // Beide rational oder beide Floats -> klar.
@@ -35,17 +35,17 @@ cl_boolean equal (const cl_R& x, const cl_R& y)
 			return equal(x,y);
 		,	// x rational, y Float -> x in Float umwandeln
 			if (!power2p(denominator(x)))
-				return cl_false;
+				return false;
 			if (!equal(cl_float(x,y),y))
-				return cl_false;
+				return false;
 			return equal(x,rational(y));
 		);
 	,	realcase2(y
 		,	// x Float, y rational -> y in Float umwandeln
 			if (!power2p(denominator(y)))
-				return cl_false;
+				return false;
 			if (!equal(x,cl_float(y,x)))
-				return cl_false;
+				return false;
 			return equal(rational(x),y);
 		,	// beides Floats
 			return equal(x,y);

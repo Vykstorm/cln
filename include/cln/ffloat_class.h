@@ -15,11 +15,11 @@ public:
 // Assignment operators.
 	cl_FF& operator= (const cl_FF&);
 // Optimization of method pointer_p().
-	cl_boolean pointer_p() const
+	bool pointer_p() const
 #if defined(CL_WIDE_POINTERS)
-		{ return cl_false; }
+		{ return false; }
 #else
-		{ return cl_true; }
+		{ return true; }
 #endif
 // Faster pointer_p() gives a faster copy constructor (but not destructor!!!).
 	cl_FF (const cl_FF& x);

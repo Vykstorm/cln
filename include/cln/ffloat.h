@@ -37,13 +37,13 @@ inline bool operator> (const cl_FF& x, const cl_FF& y)
 	{ return compare(x,y)>0; }
 
 // minusp(x) == (< x 0)
-extern cl_boolean minusp (const cl_FF& x);
+extern bool minusp (const cl_FF& x);
 
 // zerop(x) stellt fest, ob ein Single-Float x = 0.0 ist.
-extern cl_boolean zerop (const cl_FF& x);
+extern bool zerop (const cl_FF& x);
 
 // plusp(x) == (> x 0)
-extern cl_boolean plusp (const cl_FF& x);
+extern bool plusp (const cl_FF& x);
 
 // Liefert zu zwei Single-Float x und y : (+ x y), ein FF.
 extern const cl_FF operator+ (const cl_FF& x, const cl_FF& y);

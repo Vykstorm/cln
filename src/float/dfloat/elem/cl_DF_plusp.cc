@@ -19,14 +19,14 @@
 namespace cln {
 
 MAYBE_INLINE2
-cl_boolean plusp (const cl_DF& x)
+bool plusp (const cl_DF& x)
 {
 	if (minusp(x))
-		return cl_false; // x<0 -> nein
+		return false; // x<0 -> nein
 	elif (zerop(x))
-		return cl_false; // x=0 -> nein
+		return false; // x=0 -> nein
 	else
-		return cl_true; // sonst ist x>0.
+		return true; // sonst ist x>0.
 }
 
 }  // namespace cln
