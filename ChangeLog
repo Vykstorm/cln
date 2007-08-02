@@ -1,3 +1,7 @@
+2007-08-02  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/base/digitseq/cl_DS_div.cc (cl_recip_suitable): uintC arguments.
+
 2007-08-01  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* */*: Remove cl_boolean, cl_true, and cl_false in favor of built-in

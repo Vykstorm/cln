@@ -58,7 +58,7 @@ namespace cln {
 // Break-even-point, should be acceptable for both architectures.
 // When in doubt, prefer to choose the standard algorithm.
 #if CL_USE_GMP
-  static inline bool cl_recip_suitable (uintL m, uintL n) // m > n
+  static inline bool cl_recip_suitable (uintC m, uintC n) // m > n
     { if (n < 900)
         return false;
       else
@@ -95,7 +95,7 @@ namespace cln {
 //   n = 2000: Newton faster for m >= 2020
 //   n = 2500: Newton faster for m >= 2520
 //   n = 5000: Newton faster for m >= 5020
-  static inline bool cl_recip_suitable (uintL m, uintL n) // m > n
+  static inline bool cl_recip_suitable (uintC m, uintC n) // m > n
     { if (n < 500)
         return false;
       else
