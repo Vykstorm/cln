@@ -160,8 +160,10 @@ CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,
 dnl
 dnl           interfacing to GNU gmp (must be at least version 3)
 dnl
-AC_ARG_WITH(gmp, [  --with-gmp              use external fast low-level functions from GNU MP 3.
-                          [default=yes]], ,with_gmp="yes")
+AC_ARG_WITH(gmp, AS_HELP_STRING([--with-gmp], 
+  [use external fast low-level functions from GNU MP (default: yes).]),
+  with_gmp="$withval",
+  with_gmp="yes")
 if test "$with_gmp" = yes; then
   CL_GMP_H_VERSION
   if test "$cl_cv_new_gmp_h" = no; then with_gmp="no"; fi
