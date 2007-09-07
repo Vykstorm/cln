@@ -255,9 +255,17 @@ struct cl_pqd_series_result {
 	cl_I D;
 	cl_I V;
 };
+struct cl_pqd_series_stream {
+	cl_pqd_series_term (*nextfn)(cl_pqd_series_stream&);
+	cl_pqd_series_term next () { return nextfn(*this); }
+	// Constructor.
+	cl_pqd_series_stream( cl_pqd_series_term (*n)(cl_pqd_series_stream&)) : nextfn (n) {}
+};
 extern void eval_pqd_series_aux (uintC N, cl_pqd_series_term* args, cl_pqd_series_result& Z, bool rightmost = true);
+extern void eval_pqd_series_aux (uintC N, cl_pqd_series_stream& args, cl_pqd_series_result& Z, bool rightmost = true);
 // Ditto, but returns U/S.
 extern const cl_LF eval_pqd_series (uintC N, cl_pqd_series_term* args, uintC len);
+extern const cl_LF eval_pqd_series (uintC N, cl_pqd_series_stream& args, uintC len);
 
 }  // namespace cln
 

@@ -1,3 +1,13 @@
+2007-09-07  Richard B. Kreckel  <kreckel@ginac.de>
+
+	More memory efficient Euler-Mascheroni constant:
+	* src/float/transcendental/cl_LF_tran.h (cl_pqd_series_stream): New.
+	* src/float/transcendental/cl_LF_ratsumseries_stream_pqd.cc: New file.
+	* src/float/transcendental/cl_LF_ratsumseries_stream_pqd_aux.cc: New 
+	file.
+	* src/float/transcendental/cl_LF_eulerconst.cc: Compute series
+	coefficients on demand, using a series stream object.
+
 2007-08-02  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/digitseq/cl_DS_div.cc (cl_recip_suitable): uintC arguments.

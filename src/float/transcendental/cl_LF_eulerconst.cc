@@ -447,16 +447,26 @@ const cl_LF compute_eulerconst_besselintegral4 (uintC len)
 	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
-	CL_ALLOCA_STACK;
-	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
-	var uintC n;
-	for (n = 0; n < N; n++) {
-		init1(cl_I, args[n].p) (x);
-		init1(cl_I, args[n].q) (square((cl_I)(n+1)));
-		init1(cl_I, args[n].d) (n+1);
-	}
+	struct rational_series_stream : cl_pqd_series_stream {
+		uintC n;
+		cl_I x;
+		static cl_pqd_series_term computenext (cl_pqd_series_stream& thisss)
+		{
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var uintC n = thiss.n;
+			var cl_pqd_series_term result;
+			result.p = thiss.x;
+			result.q = square((cl_I)(n+1));
+			result.d = n+1;
+			thiss.n = n+1;
+			return result;
+		}
+		rational_series_stream (const cl_I& _x)
+			: cl_pqd_series_stream (rational_series_stream::computenext),
+			  n (0), x (_x) {}
+	} series(x);
 	var cl_pqd_series_result sums;
-	eval_pqd_series_aux(N,args,sums);
+	eval_pqd_series_aux(N,series,sums);
 	// Instead of computing  fsum = 1 + T/Q  and  gsum = V/(D*Q)
 	// and then dividing them, to compute  gsum/fsum, we save two
 	// divisions by computing  V/(D*(Q+T)).
@@ -464,11 +474,6 @@ const cl_LF compute_eulerconst_besselintegral4 (uintC len)
 	  cl_I_to_LF(sums.V,actuallen)
 	  / The(cl_LF)(sums.D * cl_I_to_LF(sums.Q+sums.T,actuallen))
 	  - ln(cl_I_to_LF(sx,actuallen));
-	for (n = 0; n < N; n++) {
-		args[n].p.~cl_I();
-		args[n].q.~cl_I();
-		args[n].d.~cl_I();
-	}
 	return shorten(result,len); // verkürzen und fertig
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
