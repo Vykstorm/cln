@@ -9,6 +9,11 @@ Implementation changes
 * Removed cl_boolean. Use built-in C++ bool instead.
 * Dropped the cln-config script. Please use pkg-config instead.
 
+Algorithmic changes
+-------------------
+
+* Save a lot of memory during computation of some constants.
+
 
 2006-08-08, version 1.1.13
 ==========================
