@@ -1,3 +1,40 @@
+2007-09-13  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Truncated binary splitting for even more memory efficiency:
+	* src/float/transcendental/cl_LF_tran.h: Added new overloads. See below.
+	* src/float/transcendental/cl_LF_ratseries_stream_pq.cc: Removed and
+	moved everything to...
+	* src/float/transcendental/cl_LF_ratseries_pq.cc: ...here. Added an
+	overload for truncated expansion.
+	* src/float/transcendental/cl_LF_ratseries_stream_pqa.cc: Removed and
+	moved everything to...
+	* src/float/transcendental/cl_LF_ratseries_pqa.cc: ...here. Added an
+	overload for truncated expansion.
+	* src/float/transcendental/cl_LF_ratseries_stream_pqb.cc: Removed and
+	moved everything to...
+	* src/float/transcendental/cl_LF_ratseries_pqb.cc: ...here. Added an
+	overload for truncated expansion.
+	* src/float/transcendental/cl_LF_ratseries_stream_pqab.cc: Removed and
+	moved everything to...
+	* src/float/transcendental/cl_LF_ratseries_pqab.cc: ...here. Added an
+	overload for truncated expansion.
+	* src/float/transcendental/cl_LF_ratsumseries_pqcd_aux.cc: Added
+	overloads for streamed and truncated expansion.
+	* src/float/transcendental/cl_LF_ratsumseries_pqcd.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratsumseries_stream_pqd_aux.cc: Removed
+	and moved everything to...
+	* src/float/transcendental/cl_LF_ratsumseries_pqd_aux.cc: ...here. Added
+	an overload for truncated expansion.
+	* src/float/transcendental/cl_LF_ratsumseries_stream_pqd.cc: Removed
+	and moved everything to...
+	* src/float/transcendental/cl_LF_ratsumseries_pqd.cc: ...here. Added an
+	overload for truncated expansion.
+	* src/float/transcendental/cl_LF_pi.cc: Use truncated series.
+	* src/float/transcendental/cl_LF_catalanconst.cc: Likewise.
+	* src/float/transcendental/cl_LF_eulerconst.cc: Likewise.
+	* src/float/transcendental/cl_LF_zeta_int.cc: Likewise.
+	* src/float/transcendental/cl_LF_zeta3.cc: Likewise.
+
 2007-09-07  Richard B. Kreckel  <kreckel@ginac.de>
 
 	More memory efficient Euler-Mascheroni constant:

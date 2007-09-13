@@ -80,7 +80,7 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 	//   p(n) = n for n>0, q(n) = 2*(2*n+1) for n>0.
 	var uintC N = (intDsize/2)*actuallen;
 	// 4^-N <= 2^(-intDsize*actuallen).
-	var cl_LF fsum = eval_rational_series(N,series,actuallen);
+	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
 	var cl_LF g =
 	  scale_float(The(cl_LF)(3*fsum)
 	              + The(cl_LF)(pi(actuallen))
@@ -217,7 +217,7 @@ const cl_LF compute_catalanconst_cvz2 (uintC len)
 		                        ? square((cl_I)(2*n+1))
 		                        : -square((cl_I)(2*n+1)));
 	}
-	var cl_pqd_series_result sums;
+	var cl_pqd_series_result<cl_I> sums;
 	eval_pqd_series_aux(N,args,sums);
 	// Here we need U/(1+S) = V/D(Q+T).
 	var cl_LF result =
@@ -266,7 +266,7 @@ const cl_LF compute_catalanconst_lupas (uintC len)
 	} series;
 	var uintC actuallen = len + 2; // 2 guard digits
 	var uintC N = (intDsize/2)*actuallen;
-	var cl_LF fsum = eval_rational_series(N,series,actuallen);
+	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
 	var cl_LF g = fsum*cl_I_to_LF(19,actuallen)/cl_I_to_LF(18,actuallen);
 	return shorten(g,len);
 }

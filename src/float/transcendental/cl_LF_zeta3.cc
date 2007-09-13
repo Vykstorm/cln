@@ -62,7 +62,7 @@ const cl_LF zeta3 (uintC len)
 	var uintC actuallen = len+2; // 2 Schutz-Digits
 	var uintC N = ceiling(actuallen*intDsize,10);
 	// 1024^-N <= 2^(-intDsize*actuallen).
-	var cl_LF sum = eval_rational_series(N,series,actuallen);
+	var cl_LF sum = eval_rational_series(N,series,actuallen,actuallen);
 	return scale_float(shorten(sum,len),-1);
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).

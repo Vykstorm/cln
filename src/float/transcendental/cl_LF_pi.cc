@@ -230,7 +230,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 	var uintC N = (n_slope*actuallen)/32 + 1;
 	// N > intDsize*log(2)/log(|J|) * actuallen, hence
 	// |J|^-N < 2^(-intDsize*actuallen).
-	var cl_LF fsum = eval_rational_series(N,series,actuallen);
+	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
 	static const cl_I J3 = "262537412640768000"; // -1728*J
 	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
 	return shorten(pires,len); // verkürzen und fertig
