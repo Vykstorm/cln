@@ -17,10 +17,10 @@ namespace cln {
 const cl_LF extend (const cl_LF& x, uintC len)
 {
       var Lfloat y = allocate_lfloat(len,TheLfloat(x)->expo,TheLfloat(x)->sign); // neues LF
-      { var uintC oldlen = TheLfloat(x)->len; // alte L‰nge, < len
+      { var uintC oldlen = TheLfloat(x)->len; // alte L√§nge, < len
         // Mantisse von x nach y kopieren:
         var uintD* ptr = copy_loop_msp(arrayMSDptr(TheLfloat(x)->data,oldlen),arrayMSDptr(TheLfloat(y)->data,len),oldlen);
-        // und mit Null-Digits erg‰nzen:
+        // und mit Null-Digits erg√§nzen:
         clear_loop_msp(ptr,len-oldlen);
       }
       return y;

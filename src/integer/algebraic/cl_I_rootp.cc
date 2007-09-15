@@ -16,7 +16,7 @@ namespace cln {
 // Methode:
 // Falls x=0 oder x=1: x = x^n -> JA, x als Ergebnis.
 // Hier also x>1. Suche ein Integer y > 1 mit x=y^n.
-// Falls n >= integer_length(x): NEIN. (Da y>=2, müßte x>=2^n gelten.)
+// Falls n >= integer_length(x): NEIN. (Da y>=2, mÃ¼ÃŸte x>=2^n gelten.)
 // Hier also n>0 klein...
 
 bool rootp (const cl_I& x, uintL n, cl_I* w)

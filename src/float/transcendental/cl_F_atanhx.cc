@@ -32,8 +32,8 @@ namespace cln {
 //   (denn bei e<=-d/2 ist x^2 < 2^(-d), also
 //   1 <= atanh(x)/x = 1+x^2/3+x^4/5+... < 1+x^2/2 < 1+2^(-d-1) < 1+2^(-d),
 //   also ist atanh(x)/x, auf d Bits gerundet, gleich 1.0).
-// Bei groﬂem d verwende die Formel ln((1+x)/(1-x))/2 (asymptotisch schneller),
-//   aber erhˆhe die Genauigkeit, so daﬂ beim Bilden von 1+x keine Bits verloren
+// Bei gro√üem d verwende die Formel ln((1+x)/(1-x))/2 (asymptotisch schneller),
+//   aber erh√∂he die Genauigkeit, so da√ü beim Bilden von 1+x keine Bits verloren
 //   gehen.
 // Bei e<=-sqrt(d) verwende die Potenzreihe
 //   atanh(x)/x = sum(j=0..inf,(x^2)^j/(2j+1)):
@@ -61,20 +61,20 @@ const cl_LF atanhx (const cl_LF& x)
 		var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintE)(-e),intDsize));
 		return cl_float(scale_float(ln((1+xx)/(1-xx)),-1),x);
 	}
-	var uintL k = 0; // Rekursionsz‰hler k:=0
+	var uintL k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 15% zu
 	// schlecht). Ein guter Wert ist:
-	// f¸r naive1: limit_scope = 0.625 = 5/8,
-	// f¸r naive2: limit_scope = 0.4 = 13/32.
+	// f√ºr naive1: limit_scope = 0.625 = 5/8,
+	// f√ºr naive2: limit_scope = 0.4 = 13/32.
 	var uintL sqrt_d = floor(isqrtC(d)*13,32); // limit_slope*floor(sqrt(d))
 	var cl_LF xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
-		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-limit_slope*floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		var sintL e_limit = 1+sqrt_d; // 1+limit_slope*floor(sqrt(d))
 		xx = recip(abs(xx)); // 1/|x|
 		do {
-		  // n‰chstes x nach der Formel x := x+sqrt(x^2 - 1) berechnen:
+		  // n√§chstes x nach der Formel x := x+sqrt(x^2 - 1) berechnen:
 		  xx = sqrt(square(xx) + cl_float(-1,xx)) + xx;
 		  k = k+1;
 		} until (float_exponent(xx) > e_limit);
@@ -133,18 +133,18 @@ const cl_F atanhx (const cl_F& x)
 	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
-	var uintL k = 0; // Rekursionsz‰hler k:=0
+	var uintL k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 15% zu
 	// schlecht). Ein guter Wert ist limit_scope = 0.625 = 5/8.
 	var uintL sqrt_d = floor(isqrtC(d)*5,8); // limit_slope*floor(sqrt(d))
 	var cl_F xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
-		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-limit_slope*floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		var sintL e_limit = 1+sqrt_d; // 1+limit_slope*floor(sqrt(d))
 		xx = recip(abs(xx)); // 1/|x|
 		do {
-		  // n‰chstes x nach der Formel x := x+sqrt(x^2 - 1) berechnen:
+		  // n√§chstes x nach der Formel x := x+sqrt(x^2 - 1) berechnen:
 		  xx = sqrt(square(xx) + cl_float(-1,xx)) + xx;
 		  k = k+1;
 		} until (float_exponent(xx) > e_limit);

@@ -11,7 +11,7 @@
 // multiplication, multiplication by the Nth root and unity and division
 // by N. Hence we can use the domain Z/(p^m Z) even if p is not a prime!
 
-// We use the Schönhage-Strassen choice of the modulus: p = 2^R+1. This
+// We use the SchÃ¶nhage-Strassen choice of the modulus: p = 2^R+1. This
 // has two big advantages: Multiplication and division by 2 (which is a
 // (2R)th root of unity) or a power of 2 is just a shift and an subtraction.
 // And multiplication mod p is just a normal multiplication, followed by

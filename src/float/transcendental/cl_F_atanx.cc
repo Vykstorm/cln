@@ -54,21 +54,21 @@ static const cl_LF atanx_naive (const cl_LF& x)
 	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
-	var uintL k = 0; // Rekursionsz‰hler k:=0
+	var uintL k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 20% zu
 	// schlecht). Ein guter Wert ist:
-	// F¸r naive1: limit_scope = 0.5.
-	// F¸r naive2: limit_scope = 0.375 (ca. 0.5 f¸r kleine len, 0.35 f¸r
-	// groﬂe len).
+	// F√ºr naive1: limit_scope = 0.5.
+	// F√ºr naive2: limit_scope = 0.375 (ca. 0.5 f√ºr kleine len, 0.35 f√ºr
+	// gro√üe len).
 	var uintL sqrt_d = floor(isqrtC(d)*3,8); // limit_slope*floor(sqrt(d))
 	var cl_LF xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
-		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-limit_slope*floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		var sintL e_limit = 1+sqrt_d; // 1+limit_slope*floor(sqrt(d))
 		xx = recip(abs(xx)); // 1/|x|
 		do {
-		  // n‰chstes x nach der Formel x := x+sqrt(x^2 + 1) berechnen:
+		  // n√§chstes x nach der Formel x := x+sqrt(x^2 + 1) berechnen:
 		  xx = sqrt(square(xx) + cl_float(1,xx)) + xx;
 		  k = k+1;
 		} until (float_exponent(xx) > e_limit);
@@ -123,18 +123,18 @@ static const cl_F atanx_naive (const cl_F& x)
 	var sintE e = float_exponent(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
-	var uintL k = 0; // Rekursionsz‰hler k:=0
+	var uintL k = 0; // Rekursionsz√§hler k:=0
 	var uintL sqrt_d = floor(isqrtC(d),2); // limit_slope*floor(sqrt(d))
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist schlecht (ca. 20% zu
 	// schlecht). Ein guter Wert ist limit_scope = 0.5.
 	var cl_F xx = x;
 	if (e >= (sintL)(-sqrt_d)) {
-		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-limit_slope*floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		var sintL e_limit = 1+sqrt_d; // 1+limit_slope*floor(sqrt(d))
 		xx = recip(abs(xx)); // 1/|x|
 		do {
-		  // n‰chstes x nach der Formel x := x+sqrt(x^2 + 1) berechnen:
+		  // n√§chstes x nach der Formel x := x+sqrt(x^2 + 1) berechnen:
 		  xx = sqrt(square(xx) + cl_float(1,xx)) + xx;
 		  k = k+1;
 		} until (float_exponent(xx) > e_limit);

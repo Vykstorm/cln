@@ -48,7 +48,7 @@ bool equal (const cl_I& x, const cl_I& y)
             { var uintC xlen = TheBignum(x)->length;
               var uintC ylen = TheBignum(y)->length;
               if (xlen==ylen)
-                // gleiche Länge -> digitweise vergleichen
+                // gleiche LÃ¤nge -> digitweise vergleichen
                 return compare_loop_msp(BN_MSDptr(x),BN_MSDptr(y),xlen) == 0;
                 else
                 return false;

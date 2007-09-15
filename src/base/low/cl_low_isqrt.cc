@@ -21,15 +21,15 @@ uintL isqrt (uintL x)
   // Methode:
   // x=0 -> y=0, fertig.
   // y := 2^k als Anfangswert, wobei k>0, k<=16 mit 2^(2k-2) <= x < 2^(2k) sei.
-  // y := floor((y + floor(x/y))/2) als nächster Wert,
+  // y := floor((y + floor(x/y))/2) als nÃ¤chster Wert,
   // solange z := floor(x/y) < y, setze y := floor((y+z)/2).
   // y ist fertig.
   // (Beweis:
   //  1. Die Folge der y ist streng monoton fallend.
-  //  2. Stets gilt y >= floor(sqrt(x)) (denn für alle y>0 ist
+  //  2. Stets gilt y >= floor(sqrt(x)) (denn fÃ¼r alle y>0 ist
   //     y + x/y >= 2*sqrt(x) und daher  floor((y + floor(x/y))/2) =
   //     floor(y/2 + x/(2*y)) >= floor(sqrt(x)) ).
-  //  3. Am Schluß gilt x >= y^2.
+  //  3. Am SchluÃŸ gilt x >= y^2.
   // )
      if (x==0) return 0; // x=0 -> y=0
      { var uintC k2; integerlength32(x,k2=); // 2^(k2-1) <= x < 2^k2
@@ -51,7 +51,7 @@ uintL isqrt (uintL x)
            var uintL y = (x >> (16+1)) | bit(16-1); // stets 2^(k-1) <= y < 2^k
            loop
              { var uintL z;
-               if (x1 >= y) break; // Division x/y ergäbe Überlauf -> z > y
+               if (x1 >= y) break; // Division x/y ergÃ¤be Ãœberlauf -> z > y
                divu_3216_1616(x,y, z=,); // Dividiere x/y
                if (z >= y) break;
                y = floor(z+y,2);

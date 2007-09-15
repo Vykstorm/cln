@@ -74,7 +74,7 @@ const cl_LF cl_exp_aux (const cl_I& p, uintE lq, uintC len)
 		pv[n].~cl_I();
 		qv[n].~cl_I();
 	}
-	return shorten(fsum,len); // verkürzen und fertig
+	return shorten(fsum,len); // verkÃ¼rzen und fertig
 }}
 // Bit complexity (N = len, and if p has length O(log N) and ql = O(log N)):
 // O(log(N)*M(N)).

@@ -20,11 +20,11 @@ bool ldb_extract_test (const cl_I& x, uintC p, uintC q)
       var uintC len;
       var const uintD* LSDptr;
       I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,true, { return false; } ); // NDS zu x bilden
-      // MSDptr erhˆhen und len erniedrigen, so daﬂ len = ceiling(q/intDsize) wird:
+      // MSDptr erh√∂hen und len erniedrigen, so da√ü len = ceiling(q/intDsize) wird:
       { var uintC qD = ceiling(q,intDsize); // ceiling(q/intDsize)
         // wegen q<=l ist qD = ceiling(q/intDsize) <= ceiling((l+1)/intDsize) = len, also
-        // paﬂt qD ebenso wie len in ein uintC.
-        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erhˆhen
+        // pa√üt qD ebenso wie len in ein uintC.
+        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erh√∂hen
         len = qD; // len um len-qD erniedrigen
       }
       // LSDptr und len um floor(p/intDsize) erniedrigen:
@@ -32,17 +32,17 @@ bool ldb_extract_test (const cl_I& x, uintC p, uintC q)
         LSDptr = LSDptr lspop pD;
         len -= pD;
       }
-      // Jetzt enth‰lt MSDptr/len/LSDptr genau die maﬂgeblichen Digits.
+      // Jetzt enth√§lt MSDptr/len/LSDptr genau die ma√ügeblichen Digits.
       if (len==0) return false; // len=0 -> keine Bits abzutesten
       q = ((q-1)%intDsize); // q := intDsize - (intDsize*ceiling(q/intDsize) - q) - 1
       p = p%intDsize; // p := p - intDsize*floor(p/intDsize)
       // Jetzt ist 0 <= q < intDsize, 0 <= p < intDsize.
-      // Vom ersten Digit m¸ssen die vorderen intDsize-1-q Bits unber¸cksichtigt bleiben.
+      // Vom ersten Digit m√ºssen die vorderen intDsize-1-q Bits unber√ºcksichtigt bleiben.
       // Ein AND 2^(q+1)-1 erreicht dies.
-      // Vom letzten Digit m¸ssen die hinteren p Bits unber¸cksichtigt bleiben.
+      // Vom letzten Digit m√ºssen die hinteren p Bits unber√ºcksichtigt bleiben.
       // Ein AND -2^p erreicht dies.
       if (--len==0)
-        // 1 Digit maﬂgeblich, wird von beiden Seiten angeschnitten:
+        // 1 Digit ma√ügeblich, wird von beiden Seiten angeschnitten:
         // Ein AND 2^(q+1)-2^p erreicht dies.
         if (!(((uintD)(bitm(q+1)-bit(p)) & mspref(MSDptr,0)) == 0))
           return true;

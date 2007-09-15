@@ -86,7 +86,7 @@ const decoded_float format_scale_exponent (const cl_F& arg)
 	var cl_F abs_arg = abs(arg);
 	var decoded_float decoded = decode_float(abs_arg);
 	var cl_I& expon = decoded.exponent;
-	var cl_I expon10a = truncate1(expon*lg2); // nicht round, um Überlauf zu vermeiden
+	var cl_I expon10a = truncate1(expon*lg2); // nicht round, um Ãœberlauf zu vermeiden
 	var cl_F signif10a = abs_arg / expt(ten,expon10a);
 	// Maybe need to increment expon10.
 	var cl_I expon10b = expon10a;

@@ -560,7 +560,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // Kopierschleife:
 // destptr = copy_loop_up(sourceptr,destptr,count);
-// kopiert count (uintC>=0) Digits aufw‰rts von sourceptr nach destptr
+// kopiert count (uintC>=0) Digits aufw√§rts von sourceptr nach destptr
 // und liefert das neue destptr.
   inline uintD* copy_loop_up (const uintD* sourceptr, uintD* destptr, uintC count)
     { dotimesC(count,count, { *destptr++ = *sourceptr++; } );
@@ -569,7 +569,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // Kopierschleife:
 // destptr = copy_loop_down(sourceptr,destptr,count);
-// kopiert count (uintC>=0) Digits abw‰rts von sourceptr nach destptr
+// kopiert count (uintC>=0) Digits abw√§rts von sourceptr nach destptr
 // und liefert das neue destptr.
   inline uintD* copy_loop_down (const uintD* sourceptr, uintD* destptr, uintC count)
     { dotimesC(count,count, { *--destptr = *--sourceptr; } );
@@ -580,18 +580,18 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 #ifndef FILL_LOOPS
 
-// F¸llschleife:
+// F√ºllschleife:
 // destptr = fill_loop_up(destptr,count,filler);
-// kopiert count (uintC>=0) mal das Digit filler aufw‰rts nach destptr
+// kopiert count (uintC>=0) mal das Digit filler aufw√§rts nach destptr
 // und liefert das neue destptr.
   inline uintD* fill_loop_up (uintD* destptr, uintC count, uintD filler)
     { dotimesC(count,count, { *destptr++ = filler; } );
       return destptr;
     }
 
-// F¸llschleife:
+// F√ºllschleife:
 // destptr = fill_loop_down(destptr,count,filler);
-// kopiert count (uintC>=0) mal das Digit filler abw‰rts nach destptr
+// kopiert count (uintC>=0) mal das Digit filler abw√§rts nach destptr
 // und liefert das neue destptr.
   inline uintD* fill_loop_down (uintD* destptr, uintC count, uintD filler)
     { dotimesC(count,count, { *--destptr = filler; } );
@@ -602,18 +602,18 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 #ifndef CLEAR_LOOPS
 
-// Lˆsch-Schleife:
+// L√∂sch-Schleife:
 // destptr = clear_loop_up(destptr,count);
-// lˆscht count (uintC>=0) Digits aufw‰rts ab destptr
+// l√∂scht count (uintC>=0) Digits aufw√§rts ab destptr
 // und liefert das neue destptr.
   inline uintD* clear_loop_up (uintD* destptr, uintC count)
     { dotimesC(count,count, { *destptr++ = 0; } );
       return destptr;
     }
 
-// Lˆsch-Schleife:
+// L√∂sch-Schleife:
 // destptr = clear_loop_down(destptr,count);
-// lˆscht count (uintC>=0) Digits abw‰rts ab destptr
+// l√∂scht count (uintC>=0) Digits abw√§rts ab destptr
 // und liefert das neue destptr.
   inline uintD* clear_loop_down (uintD* destptr, uintC count)
     { dotimesC(count,count, { *--destptr = 0; } );
@@ -626,7 +626,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // Test-Schleife:
 // test_loop_up(ptr,count)
-// testet count (uintC>=0) Digits aufw‰rts ab ptr, ob darunter eines /=0 ist.
+// testet count (uintC>=0) Digits aufw√§rts ab ptr, ob darunter eines /=0 ist.
 // Ergebnis /=0, falls ja.
   inline bool test_loop_up (const uintD* ptr, uintC count)
     { dotimesC(count,count, { if (*ptr++) return true; } );
@@ -635,7 +635,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // Test-Schleife:
 // test_loop_down(ptr,count)
-// testet count (uintC>=0) Digits abw‰rts ab ptr, ob darunter eines /=0 ist.
+// testet count (uintC>=0) Digits abw√§rts ab ptr, ob darunter eines /=0 ist.
 // Ergebnis /=0, falls ja.
   inline bool test_loop_down (const uintD* ptr, uintC count)
     { dotimesC(count,count, { if (*--ptr) return true; } );
@@ -650,28 +650,28 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // OR-Schleife:
 // or_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch OR.
   inline void or_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *xptr++ |= *yptr++; } ); }
 
 // XOR-Schleife:
 // xor_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch XOR.
   inline void xor_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *xptr++ ^= *yptr++; } ); }
 
 // AND-Schleife:
 // and_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch AND.
   inline void and_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *xptr++ &= *yptr++; } ); }
 
 // EQV-Schleife:
 // eqv_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch EQV (NOT XOR).
   inline void eqv_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count,
@@ -681,7 +681,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // NAND-Schleife:
 // nand_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch NAND (NOT AND).
   inline void nand_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count,
@@ -691,7 +691,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // NOR-Schleife:
 // nor_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch NOR (NOT OR).
   inline void nor_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count,
@@ -701,21 +701,21 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // ANDC2-Schleife:
 // andc2_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch ANDC2 (AND NOT).
   inline void andc2_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *xptr++ &= ~(*yptr++); } ); }
 
 // ORC2-Schleife:
 // orc2_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch ORC2 (OR NOT).
   inline void orc2_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *xptr++ |= ~(*yptr++); } ); }
 
 // NOT-Schleife:
 // not_loop_up(xptr,count);
-// verkn¸pft count (uintC>0) Digits aufw‰rts ab xptr mit Ziel ab xptr
+// verkn√ºpft count (uintC>0) Digits aufw√§rts ab xptr mit Ziel ab xptr
 // durch NOT.
   inline void not_loop_up (uintD* xptr, uintC count)
     { dotimespC(count,count,
@@ -729,7 +729,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // AND-Test-Schleife:
 // and_test_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr durch AND
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr durch AND
 // und testet, ob sich dabei ein Digit /=0 ergibt. Ergebnis true, falls ja.
   inline bool and_test_loop_up (const uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { if (*xptr++ & *yptr++) return true; } );
@@ -756,9 +756,9 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 #ifndef ADDSUB_LOOPS
 
 // Additionsschleife:
-// ¸bertrag = add_loop_down(sourceptr1,sourceptr2,destptr,count);
-// addiert count (uintC>=0) Digits abw‰rts von sourceptr1, von sourceptr2
-// abw‰rts nach destptr und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = add_loop_down(sourceptr1,sourceptr2,destptr,count);
+// addiert count (uintC>=0) Digits abw√§rts von sourceptr1, von sourceptr2
+// abw√§rts nach destptr und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   inline uintD add_loop_down (const uintD* sourceptr1, const uintD* sourceptr2, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -784,9 +784,9 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Additionsschleife:
-// ¸bertrag = addto_loop_down(sourceptr,destptr,count);
-// addiert count (uintC>=0) Digits abw‰rts von sourceptr, von destptr
-// abw‰rts nach destptr und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = addto_loop_down(sourceptr,destptr,count);
+// addiert count (uintC>=0) Digits abw√§rts von sourceptr, von destptr
+// abw√§rts nach destptr und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   inline uintD addto_loop_down (const uintD* sourceptr, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -812,20 +812,20 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Incrementierschleife:
-// ¸bertrag = inc_loop_down(ptr,count);
-// incrementiert count (uintC>=0) Digits abw‰rts von ptr, so lange bis kein
-// ‹bertrag mehr auftritt und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = inc_loop_down(ptr,count);
+// incrementiert count (uintC>=0) Digits abw√§rts von ptr, so lange bis kein
+// √úbertrag mehr auftritt und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   inline uintD inc_loop_down (uintD* ptr, uintC count)
     { dotimesC(count,count,
-        { if (!( ++(*--ptr) == 0 )) return 0; } // kein weiterer ‹bertrag
+        { if (!( ++(*--ptr) == 0 )) return 0; } // kein weiterer √úbertrag
         );
-      return 1; // weiterer ‹bertrag
+      return 1; // weiterer √úbertrag
     }
 
 // Subtraktionsschleife:
-// ¸bertrag = sub_loop_down(sourceptr1,sourceptr2,destptr,count);
-// subtrahiert count (uintC>=0) Digits abw‰rts von sourceptr1, von sourceptr2
-// abw‰rts nach destptr und liefert den ‹bertrag (0 oder /=0, was -1 bedeutet).
+// √ºbertrag = sub_loop_down(sourceptr1,sourceptr2,destptr,count);
+// subtrahiert count (uintC>=0) Digits abw√§rts von sourceptr1, von sourceptr2
+// abw√§rts nach destptr und liefert den √úbertrag (0 oder /=0, was -1 bedeutet).
   inline uintD sub_loop_down (const uintD* sourceptr1, const uintD* sourceptr2, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -851,10 +851,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Subtraktionsschleife:
-// ¸bertrag = subx_loop_down(sourceptr1,sourceptr2,destptr,count,carry);
-// subtrahiert count (uintC>=0) Digits abw‰rts von sourceptr1 und addiert
-// einen Carry (0 oder -1), von sourceptr2 abw‰rts nach destptr und
-// liefert den ‹bertrag (0 oder /=0, was -1 bedeutet).
+// √ºbertrag = subx_loop_down(sourceptr1,sourceptr2,destptr,count,carry);
+// subtrahiert count (uintC>=0) Digits abw√§rts von sourceptr1 und addiert
+// einen Carry (0 oder -1), von sourceptr2 abw√§rts nach destptr und
+// liefert den √úbertrag (0 oder /=0, was -1 bedeutet).
   inline uintD subx_loop_down (const uintD* sourceptr1, const uintD* sourceptr2, uintD* destptr, uintC count, uintD carry)
     { var uintD source1;
       var uintD source2;
@@ -884,10 +884,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }   }
 
 // Subtraktionsschleife:
-// ¸bertrag = subfrom_loop_down(sourceptr,destptr,count);
-// subtrahiert count (uintC>=0) Digits abw‰rts von sourceptr, von destptr
-// abw‰rts nach destptr (dest := dest - source)
-// und liefert den ‹bertrag (0 oder /=0, was -1 bedeutet).
+// √ºbertrag = subfrom_loop_down(sourceptr,destptr,count);
+// subtrahiert count (uintC>=0) Digits abw√§rts von sourceptr, von destptr
+// abw√§rts nach destptr (dest := dest - source)
+// und liefert den √úbertrag (0 oder /=0, was -1 bedeutet).
   inline uintD subfrom_loop_down (const uintD* sourceptr, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -913,20 +913,20 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Decrementierschleife:
-// ¸bertrag = dec_loop_down(ptr,count);
-// decrementiert count (uintC>=0) Digits abw‰rts von ptr, so lange bis kein
-// ‹bertrag mehr auftritt und liefert den ‹bertrag (0 oder -1).
+// √ºbertrag = dec_loop_down(ptr,count);
+// decrementiert count (uintC>=0) Digits abw√§rts von ptr, so lange bis kein
+// √úbertrag mehr auftritt und liefert den √úbertrag (0 oder -1).
   inline uintD dec_loop_down (uintD* ptr, uintC count)
     { dotimesC(count,count,
-        { if (!( (*--ptr)-- == 0 )) return 0; } // kein weiterer ‹bertrag
+        { if (!( (*--ptr)-- == 0 )) return 0; } // kein weiterer √úbertrag
         );
-      return (uintD)(-1); // weiterer ‹bertrag
+      return (uintD)(-1); // weiterer √úbertrag
     }
 
 // Negierschleife:
-// ¸bertrag = neg_loop_down(ptr,count);
-// negiert count (uintC>=0) Digits abw‰rts von ptr,
-// und liefert den ‹bertrag (0 oder -1).
+// √ºbertrag = neg_loop_down(ptr,count);
+// negiert count (uintC>=0) Digits abw√§rts von ptr,
+// und liefert den √úbertrag (0 oder -1).
   inline uintD neg_loop_down (uintD* ptr, uintC count)
     { // erstes Digit /=0 suchen:
       until (count==0) { if (!(*--ptr == 0)) goto L1; count--; }
@@ -942,9 +942,9 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 #ifndef SHIFT_LOOPS
 
 // Schiebeschleife um 1 Bit nach links:
-// ¸bertrag = shift1left_loop_down(ptr,count);
-// schiebt count (uintC>=0) Digits abw‰rts von ptr um 1 Bit nach links,
-// und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = shift1left_loop_down(ptr,count);
+// schiebt count (uintC>=0) Digits abw√§rts von ptr um 1 Bit nach links,
+// und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   #if HAVE_DD
   inline uintD shift1left_loop_down (uintD* ptr, uintC count)
     { var uintDD accu = 0;
@@ -967,10 +967,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um i Bits nach links:
-// ¸bertrag = shiftleft_loop_down(ptr,count,i,¸bertrag_init);
-// schiebt count (uintC>=0) Digits abw‰rts von ptr um i Bits (0<i<intDsize)
-// nach links, schiebt dabei die i Bits aus ¸bertrag_init rechts rein,
-// und liefert den ‹bertrag (was links rauskommt, >=0, <2^i).
+// √ºbertrag = shiftleft_loop_down(ptr,count,i,√ºbertrag_init);
+// schiebt count (uintC>=0) Digits abw√§rts von ptr um i Bits (0<i<intDsize)
+// nach links, schiebt dabei die i Bits aus √ºbertrag_init rechts rein,
+// und liefert den √úbertrag (was links rauskommt, >=0, <2^i).
   #if HAVE_DD
   inline uintD shiftleft_loop_down (uintD* ptr, uintC count, uintC i, uintD carry)
     { var uintDD accu = (uintDD)carry;
@@ -993,11 +993,11 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebe- und Kopierschleife um i Bits nach links:
-// ¸bertrag = shiftleftcopy_loop_down(sourceptr,destptr,count,i);
-// kopiert count (uintC>=0) Digits abw‰rts von sourceptr nach destptr
+// √ºbertrag = shiftleftcopy_loop_down(sourceptr,destptr,count,i);
+// kopiert count (uintC>=0) Digits abw√§rts von sourceptr nach destptr
 // und schiebt sie dabei um i Bits (0<i<intDsize) nach links,
-// wobei ganz rechts mit i Nullbits aufgef¸llt wird,
-// und liefert den ‹bertrag (was links rauskommt, >=0, <2^i).
+// wobei ganz rechts mit i Nullbits aufgef√ºllt wird,
+// und liefert den √úbertrag (was links rauskommt, >=0, <2^i).
   #if HAVE_DD
   inline uintD shiftleftcopy_loop_down (const uintD* sourceptr, uintD* destptr, uintC count, uintC i)
     { var uintDD accu = 0;
@@ -1021,10 +1021,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um 1 Bit nach rechts:
-// ¸bertrag = shift1right_loop_up(ptr,count,¸bertrag_init);
-// schiebt count (uintC>=0) Digits aufw‰rts von ptr um 1 Bit nach rechts,
-// wobei links das Bit ¸bertrag_init (sollte =0 oder =-1 sein) hineingeschoben
-// wird, und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = shift1right_loop_up(ptr,count,√ºbertrag_init);
+// schiebt count (uintC>=0) Digits aufw√§rts von ptr um 1 Bit nach rechts,
+// wobei links das Bit √ºbertrag_init (sollte =0 oder =-1 sein) hineingeschoben
+// wird, und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   #if HAVE_DD
   inline uintD shift1right_loop_up (uintD* ptr, uintC count, uintD carry)
     { var uintDD accu = (sintDD)(sintD)carry & ((uintDD)1 << (2*intDsize-1)); // 0 oder bit(2*intDsize-1)
@@ -1047,17 +1047,17 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um i Bits nach rechts:
-// ¸bertrag = shiftright_loop_up(ptr,count,i);
-// schiebt count (uintC>=0) Digits aufw‰rts von ptr um i Bits (0<i<intDsize)
+// √ºbertrag = shiftright_loop_up(ptr,count,i);
+// schiebt count (uintC>=0) Digits aufw√§rts von ptr um i Bits (0<i<intDsize)
 // nach rechts, wobei links Nullen eingeschoben werden,
-// und liefert den ‹bertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
+// und liefert den √úbertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
   #if HAVE_DD
   inline uintD shiftright_loop_up (uintD* ptr, uintC count, uintC i)
     { var uintDD accu = 0;
       dotimesC(count,count,
-        { // Die oberen i Bits von (uintD)accu bilden hier den ‹bertrag.
+        { // Die oberen i Bits von (uintD)accu bilden hier den √úbertrag.
           accu = highlowDD_0(lowD(accu));
-          // Die oberen i Bits von (uintDD)accu bilden hier den ‹bertrag.
+          // Die oberen i Bits von (uintDD)accu bilden hier den √úbertrag.
           accu = (highlowDD_0(*ptr)>>i)+accu; *ptr++ = highD(accu);
         });
       return lowD(accu);
@@ -1076,18 +1076,18 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um i Bits nach rechts:
-// ¸bertrag = shiftrightsigned_loop_up(ptr,count,i);
-// schiebt count (uintC>0) Digits aufw‰rts von ptr um i Bits (0<i<intDsize)
+// √ºbertrag = shiftrightsigned_loop_up(ptr,count,i);
+// schiebt count (uintC>0) Digits aufw√§rts von ptr um i Bits (0<i<intDsize)
 // nach rechts, wobei links das MSBit ver-i-facht wird,
-// und liefert den ‹bertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
+// und liefert den √úbertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
   #if HAVE_DD
   inline uintD shiftrightsigned_loop_up (uintD* ptr, uintC count, uintC i)
-    { var uintDD accu = // ‹bertrag mit i Vorzeichenbits initialisieren
+    { var uintDD accu = // √úbertrag mit i Vorzeichenbits initialisieren
                            highlowDD_0(sign_of_sintD((sintD)(*ptr)))>>i;
       dotimespC(count,count,
-        { // Die oberen i Bits von (uintD)accu bilden hier den ‹bertrag.
+        { // Die oberen i Bits von (uintD)accu bilden hier den √úbertrag.
           accu = highlowDD_0(lowD(accu));
-          // Die oberen i Bits von (uintDD)accu bilden hier den ‹bertrag.
+          // Die oberen i Bits von (uintDD)accu bilden hier den √úbertrag.
           accu = (highlowDD_0(*ptr)>>i)+accu; *ptr++ = highD(accu);
         });
       return lowD(accu);
@@ -1111,19 +1111,19 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebe- und Kopier-Schleife um i Bits nach rechts:
-// ¸bertrag = shiftrightcopy_loop_up(sourceptr,destptr,count,i,carry);
-// kopiert count (uintC>=0) Digits aufw‰rts von sourceptr nach destptr
+// √ºbertrag = shiftrightcopy_loop_up(sourceptr,destptr,count,i,carry);
+// kopiert count (uintC>=0) Digits aufw√§rts von sourceptr nach destptr
 // und schiebt sie dabei um i Bits (0<i<intDsize) nach rechts, wobei carry
 // (sozusagen als sourceptr[-1]) die i Bits ganz links bestimmt,
-// und liefert den ‹bertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
+// und liefert den √úbertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
   #if HAVE_DD
   inline uintD shiftrightcopy_loop_up (const uintD* sourceptr, uintD* destptr, uintC count, uintC i, uintD carry)
-    { var uintDD accu = // ‹bertrag mit carry initialisieren
+    { var uintDD accu = // √úbertrag mit carry initialisieren
                            highlowDD_0(carry)>>i;
       dotimesC(count,count,
-        { // Die oberen i Bits von (uintD)accu bilden hier den ‹bertrag.
+        { // Die oberen i Bits von (uintD)accu bilden hier den √úbertrag.
           accu = highlowDD_0(lowD(accu));
-          // Die oberen i Bits von (uintDD)accu bilden hier den ‹bertrag.
+          // Die oberen i Bits von (uintDD)accu bilden hier den √úbertrag.
           accu = (highlowDD_0(*sourceptr++)>>i)+accu; *destptr++ = highD(accu);
         });
       return lowD(accu);
@@ -1222,7 +1222,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // muluadd_loop_down(digit,sourceptr,destptr,len);
 // multipliziert die UDS  sourceptr[-len..-1]  (len>0)
 // mit dem einzelnen digit, legt das Ergebnis in der UDS  destptr[-len..-1]
-// ab und liefert den weiteren ‹bertrag.
+// ab und liefert den weiteren √úbertrag.
   #if HAVE_DD
   inline uintD muluadd_loop_down (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
     { var uintDD carry = 0;
@@ -1264,7 +1264,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // mulusub_loop_down(digit,sourceptr,destptr,len);
 // multipliziert die UDS  sourceptr[-len..-1]  (len>0)  mit dem einzelnen
 // digit, subtrahiert das Ergebnis von der UDS  destptr[-len..-1]  und liefert
-// den weiteren ‹bertrag (>=0, evtl. von destptr[-len-1] zu subtrahieren).
+// den weiteren √úbertrag (>=0, evtl. von destptr[-len-1] zu subtrahieren).
   #if HAVE_DD
   inline uintD mulusub_loop_down (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
     { var uintDD carry = 0;
@@ -1280,7 +1280,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
           return lowD(carry);
         }
         else
-        return 0; // nichts zu subtrahieren -> kein ‹bertrag
+        return 0; // nichts zu subtrahieren -> kein √úbertrag
     }
   #else
   inline uintD mulusub_loop_down (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
@@ -1300,7 +1300,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
           return carry;
         }
         else
-        return 0; // nichts zu subtrahieren -> kein ‹bertrag
+        return 0; // nichts zu subtrahieren -> kein √úbertrag
     }
   #endif
 
@@ -1364,28 +1364,28 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // OR-Schleife:
 // or_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch OR.
   inline void or_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *--xptr |= *--yptr; } ); }
 
 // XOR-Schleife:
 // xor_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch XOR.
   inline void xor_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *--xptr ^= *--yptr; } ); }
 
 // AND-Schleife:
 // and_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch AND.
   inline void and_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *--xptr &= *--yptr; } ); }
 
 // EQV-Schleife:
 // eqv_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch EQV (NOT XOR).
   inline void eqv_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count,
@@ -1395,7 +1395,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // NAND-Schleife:
 // nand_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch NAND (NOT AND).
   inline void nand_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count,
@@ -1405,7 +1405,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // NOR-Schleife:
 // nor_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch NOR (NOT OR).
   inline void nor_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count,
@@ -1415,21 +1415,21 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // ANDC2-Schleife:
 // andc2_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch ANDC2 (AND NOT).
   inline void andc2_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *--xptr &= ~(*--yptr); } ); }
 
 // ORC2-Schleife:
 // orc2_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch ORC2 (OR NOT).
   inline void orc2_loop_down (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *--xptr |= ~(*--yptr); } ); }
 
 // NOT-Schleife:
 // not_loop_down(xptr,count);
-// verkn¸pft count (uintC>0) Digits abw‰rts ab xptr mit Ziel ab xptr
+// verkn√ºpft count (uintC>0) Digits abw√§rts ab xptr mit Ziel ab xptr
 // durch NOT.
   inline void not_loop_down (uintD* xptr, uintC count)
     { dotimespC(count,count,
@@ -1443,7 +1443,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // AND-Test-Schleife:
 // and_test_loop_down(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits abw‰rts ab xptr und ab yptr durch AND
+// verkn√ºpft count (uintC>=0) Digits abw√§rts ab xptr und ab yptr durch AND
 // und testet, ob sich dabei ein Digit /=0 ergibt. Ergebnis true, falls ja.
   inline bool and_test_loop_down (const uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { if (*--xptr & *--yptr) return true; } );
@@ -1470,9 +1470,9 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 #ifndef ADDSUB_LOOPS
 
 // Additionsschleife:
-// ¸bertrag = add_loop_up(sourceptr1,sourceptr2,destptr,count);
-// addiert count (uintC>=0) Digits aufw‰rts von sourceptr1, von sourceptr2
-// aufw‰rts nach destptr und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = add_loop_up(sourceptr1,sourceptr2,destptr,count);
+// addiert count (uintC>=0) Digits aufw√§rts von sourceptr1, von sourceptr2
+// aufw√§rts nach destptr und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   inline uintD add_loop_up (const uintD* sourceptr1, const uintD* sourceptr2, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -1498,9 +1498,9 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Additionsschleife:
-// ¸bertrag = addto_loop_up(sourceptr,destptr,count);
-// addiert count (uintC>=0) Digits aufw‰rts von sourceptr, von destptr
-// aufw‰rts nach destptr und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = addto_loop_up(sourceptr,destptr,count);
+// addiert count (uintC>=0) Digits aufw√§rts von sourceptr, von destptr
+// aufw√§rts nach destptr und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   inline uintD addto_loop_up (const uintD* sourceptr, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -1526,20 +1526,20 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Incrementierschleife:
-// ¸bertrag = inc_loop_up(ptr,count);
-// incrementiert count (uintC>=0) Digits aufw‰rts von ptr, so lange bis kein
-// ‹bertrag mehr auftritt und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = inc_loop_up(ptr,count);
+// incrementiert count (uintC>=0) Digits aufw√§rts von ptr, so lange bis kein
+// √úbertrag mehr auftritt und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   inline uintD inc_loop_up (uintD* ptr, uintC count)
     { dotimesC(count,count,
-        { if (!( ++(*ptr++) == 0 )) return 0; } // kein weiterer ‹bertrag
+        { if (!( ++(*ptr++) == 0 )) return 0; } // kein weiterer √úbertrag
         );
-      return 1; // weiterer ‹bertrag
+      return 1; // weiterer √úbertrag
     }
 
 // Subtraktionsschleife:
-// ¸bertrag = sub_loop_up(sourceptr1,sourceptr2,destptr,count);
-// subtrahiert count (uintC>=0) Digits aufw‰rts von sourceptr1, von sourceptr2
-// aufw‰rts nach destptr und liefert den ‹bertrag (0 oder /=0, was -1 bedeutet).
+// √ºbertrag = sub_loop_up(sourceptr1,sourceptr2,destptr,count);
+// subtrahiert count (uintC>=0) Digits aufw√§rts von sourceptr1, von sourceptr2
+// aufw√§rts nach destptr und liefert den √úbertrag (0 oder /=0, was -1 bedeutet).
   inline uintD sub_loop_up (const uintD* sourceptr1, const uintD* sourceptr2, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -1565,10 +1565,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Subtraktionsschleife:
-// ¸bertrag = subx_loop_up(sourceptr1,sourceptr2,destptr,count,carry);
-// subtrahiert count (uintC>=0) Digits aufw‰rts von sourceptr1 und addiert
-// einen Carry (0 oder -1), von sourceptr2 aufw‰rts nach destptr und
-// liefert den ‹bertrag (0 oder /=0, was -1 bedeutet).
+// √ºbertrag = subx_loop_up(sourceptr1,sourceptr2,destptr,count,carry);
+// subtrahiert count (uintC>=0) Digits aufw√§rts von sourceptr1 und addiert
+// einen Carry (0 oder -1), von sourceptr2 aufw√§rts nach destptr und
+// liefert den √úbertrag (0 oder /=0, was -1 bedeutet).
   inline uintD subx_loop_up (const uintD* sourceptr1, const uintD* sourceptr2, uintD* destptr, uintC count, uintD carry)
     { var uintD source1;
       var uintD source2;
@@ -1598,10 +1598,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }   }
 
 // Subtraktionsschleife:
-// ¸bertrag = subfrom_loop_up(sourceptr,destptr,count);
-// subtrahiert count (uintC>=0) Digits aufw‰rts von sourceptr, von destptr
-// aufw‰rts nach destptr (dest := dest - source)
-// und liefert den ‹bertrag (0 oder /=0, was -1 bedeutet).
+// √ºbertrag = subfrom_loop_up(sourceptr,destptr,count);
+// subtrahiert count (uintC>=0) Digits aufw√§rts von sourceptr, von destptr
+// aufw√§rts nach destptr (dest := dest - source)
+// und liefert den √úbertrag (0 oder /=0, was -1 bedeutet).
   inline uintD subfrom_loop_up (const uintD* sourceptr, uintD* destptr, uintC count)
     { var uintD source1;
       var uintD source2;
@@ -1627,20 +1627,20 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
     }
 
 // Decrementierschleife:
-// ¸bertrag = dec_loop_up(ptr,count);
-// decrementiert count (uintC>=0) Digits aufw‰rts von ptr, so lange bis kein
-// ‹bertrag mehr auftritt und liefert den ‹bertrag (0 oder -1).
+// √ºbertrag = dec_loop_up(ptr,count);
+// decrementiert count (uintC>=0) Digits aufw√§rts von ptr, so lange bis kein
+// √úbertrag mehr auftritt und liefert den √úbertrag (0 oder -1).
   inline uintD dec_loop_up (uintD* ptr, uintC count)
     { dotimesC(count,count,
-        { if (!( (*ptr++)-- == 0 )) return 0; } // kein weiterer ‹bertrag
+        { if (!( (*ptr++)-- == 0 )) return 0; } // kein weiterer √úbertrag
         );
-      return (uintD)(-1); // weiterer ‹bertrag
+      return (uintD)(-1); // weiterer √úbertrag
     }
 
 // Negierschleife:
-// ¸bertrag = neg_loop_up(ptr,count);
-// negiert count (uintC>=0) Digits aufw‰rts von ptr,
-// und liefert den ‹bertrag (0 oder -1).
+// √ºbertrag = neg_loop_up(ptr,count);
+// negiert count (uintC>=0) Digits aufw√§rts von ptr,
+// und liefert den √úbertrag (0 oder -1).
   inline uintD neg_loop_up (uintD* ptr, uintC count)
     { // erstes Digit /=0 suchen:
       until (count==0) { if (!(*ptr == 0)) goto L1; ptr++; count--; }
@@ -1656,9 +1656,9 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 #ifndef SHIFT_LOOPS
 
 // Schiebeschleife um 1 Bit nach links:
-// ¸bertrag = shift1left_loop_up(ptr,count);
-// schiebt count (uintC>=0) Digits aufw‰rts von ptr um 1 Bit nach links,
-// und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = shift1left_loop_up(ptr,count);
+// schiebt count (uintC>=0) Digits aufw√§rts von ptr um 1 Bit nach links,
+// und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   #if HAVE_DD
   inline uintD shift1left_loop_up (uintD* ptr, uintC count)
     { var uintDD accu = 0;
@@ -1681,10 +1681,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um i Bits nach links:
-// ¸bertrag = shiftleft_loop_up(ptr,count,i,¸bertrag_init);
-// schiebt count (uintC>=0) Digits aufw‰rts von ptr um i Bits (0<i<intDsize)
-// nach links, schiebt dabei die i Bits aus ¸bertrag_init rechts rein,
-// und liefert den ‹bertrag (was links rauskommt, >=0, <2^i).
+// √ºbertrag = shiftleft_loop_up(ptr,count,i,√ºbertrag_init);
+// schiebt count (uintC>=0) Digits aufw√§rts von ptr um i Bits (0<i<intDsize)
+// nach links, schiebt dabei die i Bits aus √ºbertrag_init rechts rein,
+// und liefert den √úbertrag (was links rauskommt, >=0, <2^i).
   #if HAVE_DD
   inline uintD shiftleft_loop_up (uintD* ptr, uintC count, uintC i, uintD carry)
     { var uintDD accu = (uintDD)carry;
@@ -1707,11 +1707,11 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebe- und Kopierschleife um i Bits nach links:
-// ¸bertrag = shiftleftcopy_loop_up(sourceptr,destptr,count,i);
-// kopiert count (uintC>=0) Digits aufw‰rts von sourceptr nach destptr
+// √ºbertrag = shiftleftcopy_loop_up(sourceptr,destptr,count,i);
+// kopiert count (uintC>=0) Digits aufw√§rts von sourceptr nach destptr
 // und schiebt sie dabei um i Bits (0<i<intDsize) nach links,
-// wobei ganz rechts mit i Nullbits aufgef¸llt wird,
-// und liefert den ‹bertrag (was links rauskommt, >=0, <2^i).
+// wobei ganz rechts mit i Nullbits aufgef√ºllt wird,
+// und liefert den √úbertrag (was links rauskommt, >=0, <2^i).
   #if HAVE_DD
   inline uintD shiftleftcopy_loop_up (const uintD* sourceptr, uintD* destptr, uintC count, uintC i)
     { var uintDD accu = 0;
@@ -1735,10 +1735,10 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um 1 Bit nach rechts:
-// ¸bertrag = shift1right_loop_down(ptr,count,¸bertrag_init);
-// schiebt count (uintC>=0) Digits abw‰rts von ptr um 1 Bit nach rechts,
-// wobei links das Bit ¸bertrag_init (sollte =0 oder =-1 sein) hineingeschoben
-// wird, und liefert den ‹bertrag (0 oder /=0, was 1 bedeutet).
+// √ºbertrag = shift1right_loop_down(ptr,count,√ºbertrag_init);
+// schiebt count (uintC>=0) Digits abw√§rts von ptr um 1 Bit nach rechts,
+// wobei links das Bit √ºbertrag_init (sollte =0 oder =-1 sein) hineingeschoben
+// wird, und liefert den √úbertrag (0 oder /=0, was 1 bedeutet).
   #if HAVE_DD
   inline uintD shift1right_loop_down (uintD* ptr, uintC count, uintD carry)
     { var uintDD accu = (sintDD)(sintD)carry & ((uintDD)1 << (2*intDsize-1)); // 0 oder bit(2*intDsize-1)
@@ -1761,17 +1761,17 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um i Bits nach rechts:
-// ¸bertrag = shiftright_loop_down(ptr,count,i);
-// schiebt count (uintC>=0) Digits abw‰rts von ptr um i Bits (0<i<intDsize)
+// √ºbertrag = shiftright_loop_down(ptr,count,i);
+// schiebt count (uintC>=0) Digits abw√§rts von ptr um i Bits (0<i<intDsize)
 // nach rechts, wobei links Nullen eingeschoben werden,
-// und liefert den ‹bertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
+// und liefert den √úbertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
   #if HAVE_DD
   inline uintD shiftright_loop_down (uintD* ptr, uintC count, uintC i)
     { var uintDD accu = 0;
       dotimesC(count,count,
-        { // Die oberen i Bits von (uintD)accu bilden hier den ‹bertrag.
+        { // Die oberen i Bits von (uintD)accu bilden hier den √úbertrag.
           accu = highlowDD_0(lowD(accu));
-          // Die oberen i Bits von (uintDD)accu bilden hier den ‹bertrag.
+          // Die oberen i Bits von (uintDD)accu bilden hier den √úbertrag.
           accu = (highlowDD_0(*--ptr)>>i)+accu; *ptr = highD(accu);
         });
       return lowD(accu);
@@ -1790,18 +1790,18 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebeschleife um i Bits nach rechts:
-// ¸bertrag = shiftrightsigned_loop_down(ptr,count,i);
-// schiebt count (uintC>0) Digits abw‰rts von ptr um i Bits (0<i<intDsize)
+// √ºbertrag = shiftrightsigned_loop_down(ptr,count,i);
+// schiebt count (uintC>0) Digits abw√§rts von ptr um i Bits (0<i<intDsize)
 // nach rechts, wobei links das MSBit ver-i-facht wird,
-// und liefert den ‹bertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
+// und liefert den √úbertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
   #if HAVE_DD
   inline uintD shiftrightsigned_loop_down (uintD* ptr, uintC count, uintC i)
-    { var uintDD accu = // ‹bertrag mit i Vorzeichenbits initialisieren
+    { var uintDD accu = // √úbertrag mit i Vorzeichenbits initialisieren
                            highlowDD_0(sign_of_sintD((sintD)(ptr[-1])))>>i;
       dotimespC(count,count,
-        { // Die oberen i Bits von (uintD)accu bilden hier den ‹bertrag.
+        { // Die oberen i Bits von (uintD)accu bilden hier den √úbertrag.
           accu = highlowDD_0(lowD(accu));
-          // Die oberen i Bits von (uintDD)accu bilden hier den ‹bertrag.
+          // Die oberen i Bits von (uintDD)accu bilden hier den √úbertrag.
           accu = (highlowDD_0(*--ptr)>>i)+accu; *ptr = highD(accu);
         });
       return lowD(accu);
@@ -1825,19 +1825,19 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
   #endif
 
 // Schiebe- und Kopier-Schleife um i Bits nach rechts:
-// ¸bertrag = shiftrightcopy_loop_down(sourceptr,destptr,count,i,carry);
-// kopiert count (uintC>=0) Digits abw‰rts von sourceptr nach destptr
+// √ºbertrag = shiftrightcopy_loop_down(sourceptr,destptr,count,i,carry);
+// kopiert count (uintC>=0) Digits abw√§rts von sourceptr nach destptr
 // und schiebt sie dabei um i Bits (0<i<intDsize) nach rechts, wobei carry
 // (sozusagen als sourceptr[0]) die i Bits ganz links bestimmt,
-// und liefert den ‹bertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
+// und liefert den √úbertrag (was rechts rauskommt, als Bits intDsize-1..intDsize-i).
   #if HAVE_DD
   inline uintD shiftrightcopy_loop_down (const uintD* sourceptr, uintD* destptr, uintC count, uintC i, uintD carry)
-    { var uintDD accu = // ‹bertrag mit carry initialisieren
+    { var uintDD accu = // √úbertrag mit carry initialisieren
                            highlowDD_0(carry)>>i;
       dotimesC(count,count,
-        { // Die oberen i Bits von (uintD)accu bilden hier den ‹bertrag.
+        { // Die oberen i Bits von (uintD)accu bilden hier den √úbertrag.
           accu = highlowDD_0(lowD(accu));
-          // Die oberen i Bits von (uintDD)accu bilden hier den ‹bertrag.
+          // Die oberen i Bits von (uintDD)accu bilden hier den √úbertrag.
           accu = (highlowDD_0(*--sourceptr)>>i)+accu; *--destptr = highD(accu);
         });
       return lowD(accu);
@@ -1936,7 +1936,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // muluadd_loop_up(digit,sourceptr,destptr,len);
 // multipliziert die UDS  sourceptr[0..len-1]  (len>0)
 // mit dem einzelnen digit, legt das Ergebnis in der UDS  destptr[0..len-1]
-// ab und liefert den weiteren ‹bertrag.
+// ab und liefert den weiteren √úbertrag.
   #if HAVE_DD
   inline uintD muluadd_loop_up (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
     { var uintDD carry = 0;
@@ -1978,7 +1978,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // mulusub_loop_up(digit,sourceptr,destptr,len);
 // multipliziert die UDS  sourceptr[0..len-1]  (len>0)  mit dem einzelnen
 // digit, subtrahiert das Ergebnis von der UDS  destptr[0..len-1]  und liefert
-// den weiteren ‹bertrag (>=0, evtl. von destptr[len] zu subtrahieren).
+// den weiteren √úbertrag (>=0, evtl. von destptr[len] zu subtrahieren).
   #if HAVE_DD
   inline uintD mulusub_loop_up (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
     { var uintDD carry = 0;
@@ -1994,7 +1994,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
           return lowD(carry);
         }
         else
-        return 0; // nichts zu subtrahieren -> kein ‹bertrag
+        return 0; // nichts zu subtrahieren -> kein √úbertrag
     }
   #else
   inline uintD mulusub_loop_up (uintD digit, const uintD* sourceptr, uintD* destptr, uintC len)
@@ -2014,7 +2014,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
           return carry;
         }
         else
-        return 0; // nichts zu subtrahieren -> kein ‹bertrag
+        return 0; // nichts zu subtrahieren -> kein √úbertrag
     }
   #endif
 
@@ -2097,7 +2097,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // XOR-Schleife:
 // xor_loop_up(xptr,yptr,count);
-// verkn¸pft count (uintC>=0) Digits aufw‰rts ab xptr und ab yptr
+// verkn√ºpft count (uintC>=0) Digits aufw√§rts ab xptr und ab yptr
 // mit Ziel ab xptr durch XOR.
   inline void xor_loop_up (uintD* xptr, const uintD* yptr, uintC count)
     { dotimesC(count,count, { *xptr++ ^= *yptr++; } ); }
@@ -2107,11 +2107,11 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 #if !defined(SHIFT_LOOPS) && CL_DS_BIG_ENDIAN_P
 
 // Schiebe- und Kopierschleife um i Bits nach links:
-// ¸bertrag = shiftleftcopy_loop_up(sourceptr,destptr,count,i);
-// kopiert count (uintC>=0) Digits aufw‰rts von sourceptr nach destptr
+// √ºbertrag = shiftleftcopy_loop_up(sourceptr,destptr,count,i);
+// kopiert count (uintC>=0) Digits aufw√§rts von sourceptr nach destptr
 // und schiebt sie dabei um i Bits (0<i<intDsize) nach links,
-// wobei ganz rechts mit i Nullbits aufgef¸llt wird,
-// und liefert den ‹bertrag (was links rauskommt, >=0, <2^i).
+// wobei ganz rechts mit i Nullbits aufgef√ºllt wird,
+// und liefert den √úbertrag (was links rauskommt, >=0, <2^i).
   #if HAVE_DD
   inline uintD shiftleftcopy_loop_up (const uintD* sourceptr, uintD* destptr, uintC count, uintC i)
     { var uintDD accu = 0;
@@ -2140,7 +2140,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // Schiebe- und XOR-Schleife:
 // shiftxor_loop_up(xptr,yptr,count,i);
-// verkn¸pft count+1 Digits aufw‰rts ab xptr mit count Digits aufw‰rts ab yptr,
+// verkn√ºpft count+1 Digits aufw√§rts ab xptr mit count Digits aufw√§rts ab yptr,
 // um i Bits verschoben, durch XOR. (count uintC>=0, 0<i<intDsize)
   #if HAVE_DD
   inline void shiftxor_loop_up (uintD* xptr, const uintD* yptr, uintC count, uintC i)
@@ -2267,11 +2267,11 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // Umwandlungsroutinen Digit-Sequence-Teil <--> Longword:
 
 // get_32_Dptr(ptr)
-//   holt die n‰chsten 32 Bits aus den 32/intDsize Digits ab ptr.
+//   holt die n√§chsten 32 Bits aus den 32/intDsize Digits ab ptr.
 // set_32_Dptr(ptr,wert);
 //   speichert den Wert wert (32 Bits) in die 32/intDsize Digits ab ptr.
 // get_max32_Dptr(count,ptr)
-//   holt die n‰chsten count Bits aus den ceiling(count/intDsize) Digits ab ptr.
+//   holt die n√§chsten count Bits aus den ceiling(count/intDsize) Digits ab ptr.
 // set_max32_Dptr(count,ptr,wert)
 //   speichert wert (count Bits) in die ceiling(count/intDsize) Digits ab ptr.
 // Jeweils ptr eine Variable vom Typ uintD*,
@@ -2348,11 +2348,11 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 #if (cl_word_size==64)
 // get_64_Dptr(ptr)
-//   holt die n‰chsten 64 Bits aus den 64/intDsize Digits ab ptr.
+//   holt die n√§chsten 64 Bits aus den 64/intDsize Digits ab ptr.
 // set_64_Dptr(ptr,wert);
 //   speichert den Wert wert (64 Bits) in die 64/intDsize Digits ab ptr.
 // get_max64_Dptr(count,ptr)
-//   holt die n‰chsten count Bits aus den ceiling(count/intDsize) Digits ab ptr.
+//   holt die n√§chsten count Bits aus den ceiling(count/intDsize) Digits ab ptr.
 // set_max64_Dptr(count,ptr,wert)
 //   speichert wert (count Bits) in die ceiling(count/intDsize) Digits ab ptr.
 // Jeweils ptr eine Variable vom Typ uintD*,
@@ -2489,8 +2489,8 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 // num_stack_alloc_1(need, MSDptr = , LSDptr = );
 // num_stack_small_alloc_1(need, MSDptr = , LSDptr = );
-// wie num_stack_alloc, nur daﬂ unterhalb von MSDptr noch ein Digit Platz
-// zus‰tzlich belegt wird.
+// wie num_stack_alloc, nur da√ü unterhalb von MSDptr noch ein Digit Platz
+// zus√§tzlich belegt wird.
 
 #define num_stack_array(need,low_zuweisung,high_zuweisung)  \
   {var uintC __need = (uintC)(need);				\
@@ -2524,47 +2524,47 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 
 
 // Macro: In der DS MSDptr/len/LSDptr wird eine 1 unterhalb des Pointers ptr
-// addiert. Unterhalb von MSDptr muﬂ 1 Digit Platz sein.
+// addiert. Unterhalb von MSDptr mu√ü 1 Digit Platz sein.
 // Dabei ist  ptr - MSDptr = count  und  0 < count <= len .
-// Eventuell wird MSDptr erniedrigt und len erhˆht.
+// Eventuell wird MSDptr erniedrigt und len erh√∂ht.
   #define DS_1_plus(ptr,count)  \
     {var uintD* ptr_from_DS_1_plus = (ptr);				\
      var uintC count_from_DS_1_plus = (count);				\
-     loop { if (--count_from_DS_1_plus==0) /* Z‰hler erniedrigen      */\
+     loop { if (--count_from_DS_1_plus==0) /* Z√§hler erniedrigen      */\
               { /* Beim Most Significant Digit angelangt              */\
                 lsprefnext(ptr_from_DS_1_plus) += 1;			\
                 /* jetzt ist ptr_from_DS_1_plus = MSDptr              */\
                 if (mspref(ptr_from_DS_1_plus,0) == (uintD)bit(intDsize-1)) \
-                  { /* 7FFF + 1 muﬂ zu 00008000 werden:               */\
+                  { /* 7FFF + 1 mu√ü zu 00008000 werden:               */\
                     lsprefnext(MSDptr) = 0;				\
                     len++;						\
                   }							\
                 break;							\
               }								\
             if (!((lsprefnext(ptr_from_DS_1_plus) += 1) == 0)) /* weiterincrementieren */\
-              break; /* kein weiterer ‹bertrag -> Schleife abbrechen  */\
+              break; /* kein weiterer √úbertrag -> Schleife abbrechen  */\
     }     }
 
 // Macro: In der DS MSDptr/len/LSDptr wird eine 1 unterhalb des Pointers ptr
-// subtrahiert. Unterhalb von MSDptr muﬂ 1 Digit Platz sein.
+// subtrahiert. Unterhalb von MSDptr mu√ü 1 Digit Platz sein.
 // Dabei ist  ptr - MSDptr = count  und  0 < count <= len .
-// Eventuell wird MSDptr erniedrigt und len erhˆht.
+// Eventuell wird MSDptr erniedrigt und len erh√∂ht.
   #define DS_minus1_plus(ptr,count)  \
     {var uintD* ptr_from_DS_minus1_plus = (ptr);			\
      var uintC count_from_DS_minus1_plus = (count);			\
-     loop { if (--count_from_DS_minus1_plus==0) /* Z‰hler erniedrigen */\
+     loop { if (--count_from_DS_minus1_plus==0) /* Z√§hler erniedrigen */\
               { /* Beim Most Significant Digit angelangt              */\
                 lsprefnext(ptr_from_DS_minus1_plus) -= 1;		\
                 /* jetzt ist ptr_from_DS_minus1_plus = MSDptr         */\
                 if (mspref(ptr_from_DS_minus1_plus,0) == (uintD)bit(intDsize-1)-1) \
-                  { /* 8000 - 1 muﬂ zu FFFF7FFF werden:               */\
+                  { /* 8000 - 1 mu√ü zu FFFF7FFF werden:               */\
                     lsprefnext(MSDptr) = (uintD)(-1);			\
                     len++;						\
                   }							\
                 break;							\
               }								\
             if (!((sintD)(lsprefnext(ptr_from_DS_minus1_plus) -= 1) == -1)) /* weiterdecrementieren */\
-              break; /* kein weiterer ‹bertrag -> Schleife abbrechen  */\
+              break; /* kein weiterer √úbertrag -> Schleife abbrechen  */\
     }     }
 
 
@@ -2574,7 +2574,7 @@ inline uintD divucopy_loop_down (uintD digit, const uintD* sourceptr, uintD* des
 // multipliziert die UDS  sourceptr1[-len1..-1]  (len1>0)
 //           mit der UDS  sourceptr2[-len1..-1]  (len2>0)
 // und legt das Ergebnis in der UDS  destptr[-len..-1]  (len=len1+len2) ab.
-// Unterhalb von destptr werden len Digits Platz benˆtigt.
+// Unterhalb von destptr werden len Digits Platz ben√∂tigt.
 extern void cl_UDS_mul (const uintD* sourceptr1, uintC len1,
                         const uintD* sourceptr2, uintC len2,
                         uintD* destptr);
@@ -2626,10 +2626,10 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
     if (MSD2_from_DSmal==0) { msprefnext(MSDptr0) = 0; len2_from_DSmal--; } \
     cl_UDS_mul((LSDptr1),len1_from_DSmal,(LSDptr2),len2_from_DSmal,LSDptr0); \
     if ((sintD)MSD1_from_DSmal < 0) /* n<0 ?                          */\
-      /* muﬂ m bzw. m+b^l subtrahieren, um k Digits verschoben:       */\
+      /* mu√ü m bzw. m+b^l subtrahieren, um k Digits verschoben:       */\
       { subfrom_loop_lsp(LSDptr2,LSDptr0 lspop len1,len2); }		\
     if ((sintD)MSD2_from_DSmal < 0) /* m<0 ?                          */\
-      /* muﬂ n bzw. n+b^k subtrahieren, um l Digits verschoben:       */\
+      /* mu√ü n bzw. n+b^k subtrahieren, um l Digits verschoben:       */\
       { subfrom_loop_lsp(LSDptr1,LSDptr0 lspop len2,len1); }
 
 
@@ -2642,12 +2642,12 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
 // q = q_MSDptr/q_len/q_LSDptr, r = r_MSDptr/r_len/r_LSDptr beides
 // Normalized Unsigned Digit sequences.
 // Vorsicht: q_LSDptr <= r_MSDptr,
-//           Vorzeichenerweiterung von r kann q zerstˆren!
+//           Vorzeichenerweiterung von r kann q zerst√∂ren!
 //           Vorzeichenerweiterung von q ist erlaubt.
 // a und b werden nicht modifiziert.
 // num_stack wird erniedrigt.
   #define UDS_divide(a_MSDptr,a_len,a_LSDptr,b_MSDptr,b_len,b_LSDptr,q_,r_)  \
-    /* Platz f¸rs Ergebnis machen. Brauche maximal a_len+1 Digits.    */\
+    /* Platz f√ºrs Ergebnis machen. Brauche maximal a_len+1 Digits.    */\
     var uintC _a_len = (a_len);						\
     var uintD* roomptr; num_stack_alloc_1(_a_len+1,roomptr=,);		\
     cl_UDS_divide(a_MSDptr,_a_len,a_LSDptr,b_MSDptr,b_len,b_LSDptr,roomptr,q_,r_);
@@ -2657,16 +2657,16 @@ extern void cl_UDS_mul_square (const uintD* sourceptr, uintC len,
 
 
 // Bildet zu einer Unsigned Digit sequence a die Wurzel
-// (genauer: Gauﬂklammer aus Wurzel aus a).
+// (genauer: Gau√üklammer aus Wurzel aus a).
 // UDS_sqrt(a_MSDptr,a_len,a_LSDptr, &b, squarep=)
 // > a_MSDptr/a_len/a_LSDptr: eine UDS
-// < NUDS b: Gauﬂklammer der Wurzel aus a
+// < NUDS b: Gau√üklammer der Wurzel aus a
 // < squarep: true falls a = b^2, false falls b^2 < a < (b+1)^2.
 // a wird nicht modifiziert.
 // Vorzeichenerweiterung von b ist erlaubt.
 // num_stack wird erniedrigt.
   #define UDS_sqrt(a_MSDptr,a_len,a_LSDptr,b_,squarep_zuweisung)  \
-    { /* ceiling(a_len,2) Digits Platz f¸rs Ergebnis machen:          */\
+    { /* ceiling(a_len,2) Digits Platz f√ºrs Ergebnis machen:          */\
       var uintC _a_len = (a_len);					\
       num_stack_alloc_1(ceiling(_a_len,2),(b_)->MSDptr=,);		\
       squarep_zuweisung cl_UDS_sqrt(a_MSDptr,_a_len,a_LSDptr,b_);	\

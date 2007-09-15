@@ -116,7 +116,7 @@ inline const cl_FF make_FF (cl_sint sign, unsigned int exp, cl_uint mant)
 // Entpacken eines Single-Float:
 // FF_decode(obj, zero_statement, sign=,exp=,mant=);
 // zerlegt ein Single-Float obj.
-// Ist obj=0.0, wird zero_statement ausgeführt.
+// Ist obj=0.0, wird zero_statement ausgefÃ¼hrt.
 // Sonst: cl_signean sign = Vorzeichen (0 = +, -1 = -),
 //        sintL exp = Exponent (vorzeichenbehaftet),
 //        uintL mant = Mantisse (>= 2^FF_mant_len, < 2^(FF_mant_len+1))
@@ -135,11 +135,11 @@ inline const cl_FF make_FF (cl_sint sign, unsigned int exp, cl_uint mant)
 // Einpacken eines Single-Float:
 // encode_FF(sign,exp,mant);
 // liefert ein Single-Float.
-// > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
+// > cl_signean sign: Vorzeichen, 0 fÃ¼r +, -1 fÃ¼r negativ.
 // > sintL exp: Exponent
 // > uintL mant: Mantisse, sollte >= 2^FF_mant_len und < 2^(FF_mant_len+1) sein.
 // < object ergebnis: ein Single-Float
-// Der Exponent wird auf Überlauf/Unterlauf getestet.
+// Der Exponent wird auf Ãœberlauf/Unterlauf getestet.
 inline const cl_FF encode_FF (cl_signean sign, sintL exp, uintL mant)
 {
 	if (exp < (sintL)(FF_exp_low-FF_exp_mid))
@@ -159,7 +159,7 @@ inline const cl_FF encode_FF (cl_signean sign, sintL exp, uintL mant)
 // Auspacken eines Floats:
 inline float FF_to_float (const cl_FF& obj)
 {
-  #if defined(CL_WIDE_POINTERS) // eines der beiden 32-Bit-Wörter
+  #if defined(CL_WIDE_POINTERS) // eines der beiden 32-Bit-WÃ¶rter
     #if defined(__GNUC__)
       return ((ffloatjanus) { eksplicit: cl_ffloat_value(obj) }).machine_float;
     #else
@@ -169,7 +169,7 @@ inline float FF_to_float (const cl_FF& obj)
     return TheFfloat(obj)->representation.machine_float;
   #endif
 }
-// Überprüfen und Einpacken eines von den 'float'-Routinen gelieferten
+// ÃœberprÃ¼fen und Einpacken eines von den 'float'-Routinen gelieferten
 // IEEE-Floats.
 // Klassifikation:
 //   1 <= e <= 254 : normalisierte Zahl
@@ -177,8 +177,8 @@ inline float FF_to_float (const cl_FF& obj)
 //   e=0, m=0: vorzeichenbehaftete 0.0
 //   e=255, m=0: vorzeichenbehaftete Infinity
 //   e=255, m/=0: NaN
-// Angabe der möglicherweise auftretenden Sonderfälle:
-//   maybe_overflow: Operation läuft über, liefert IEEE-Infinity
+// Angabe der mÃ¶glicherweise auftretenden SonderfÃ¤lle:
+//   maybe_overflow: Operation lÃ¤uft Ã¼ber, liefert IEEE-Infinity
 //   maybe_subnormal: Ergebnis sehr klein, liefert IEEE-subnormale Zahl
 //   maybe_underflow: Ergebnis sehr klein und /=0, liefert IEEE-Null
 //   maybe_divide_0: Ergebnis unbestimmt, liefert IEEE-Infinity
@@ -199,7 +199,7 @@ inline float FF_to_float (const cl_FF& obj)
             && (((~_erg.eksplicit) & ((uint32)bit(FF_exp_len+FF_mant_len)-bit(FF_mant_len))) == 0) /* e=255 ? */\
            )								\
         { if (maybe_nan && !((_erg.eksplicit << (32-FF_mant_len)) == 0)) \
-            { throw division_by_0_exception(); } /* NaN, also Singularität -> "Division durch 0" */\
+            { throw division_by_0_exception(); } /* NaN, also SingularitÃ¤t -> "Division durch 0" */\
           else /* Infinity */						\
           if (!maybe_overflow || maybe_divide_0)			\
             { throw division_by_0_exception(); } /* Infinity, Division durch 0 */\
@@ -212,7 +212,7 @@ inline float FF_to_float (const cl_FF& obj)
 #endif
 
 // Liefert zu einem Single-Float x : (futruncate x), ein FF.
-// x wird von der 0 weg zur nächsten ganzen Zahl gerundet.
+// x wird von der 0 weg zur nÃ¤chsten ganzen Zahl gerundet.
 extern const cl_FF futruncate (const cl_FF& x);
 
 // FF_to_I(x) wandelt ein Single-Float x, das eine ganze Zahl darstellt,

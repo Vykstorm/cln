@@ -21,11 +21,11 @@ const cl_LF futruncate (const cl_LF& x)
 // e<=0 -> Ergebnis 1.0 oder -1.0, je nach Vorzeichen von x.
 // 1<=e<16n -> Greife die letzten (16n-e) Bits von x heraus.
 //             Sind sie alle =0 -> Ergebnis x.
-//             Sonst setze sie alle auf 0 und erhöhe dann die vorderen e Bits
+//             Sonst setze sie alle auf 0 und erhÃ¶he dann die vorderen e Bits
 //             um 1.
-//             Kein Überlauf -> fertig.
+//             Kein Ãœberlauf -> fertig.
 //             Sonst (Ergebnis eine Zweierpotenz): Mantisse := .1000...000,
-//               e:=e+1. (Test auf Überlauf wegen e<=16n überflüssig)
+//               e:=e+1. (Test auf Ãœberlauf wegen e<=16n Ã¼berflÃ¼ssig)
 // e>=16n -> Ergebnis x.
 #if 0
       var cl_signean sign;
@@ -56,9 +56,9 @@ const cl_LF futruncate (const cl_LF& x)
               copy_loop_msp(mantMSDptr,MSDptr,count); // count ganze Digits kopieren
             if ((mspref(ptr,0) = ((mspref(mantptr,0) & mask) - mask)) == 0) // dann bitcount Bits kopieren und incrementieren
               { if (!( inc_loop_lsp(ptr,count) ==0)) // evtl. weiterincrementieren
-                  { mspref(MSDptr,0) = bit(intDsize-1); exp = exp+1; } // evtl. Exponenten erhöhen
+                  { mspref(MSDptr,0) = bit(intDsize-1); exp = exp+1; } // evtl. Exponenten erhÃ¶hen
               }
-            clear_loop_msp(ptr mspop 1,mantlen-count-1); // Rest mit Nullen füllen
+            clear_loop_msp(ptr mspop 1,mantlen-count-1); // Rest mit Nullen fÃ¼llen
           }
           return encode_LF(sign,exp,MSDptr,mantlen);
         }
@@ -92,9 +92,9 @@ const cl_LF futruncate (const cl_LF& x)
          copy_loop_msp(x_mantMSDptr,y_mantMSDptr,count); // count ganze Digits kopieren
        if ((mspref(ptr,0) = ((mspref(x_mantMSDptr,count) & mask) - mask)) == 0) // dann bitcount Bits kopieren und incrementieren
          { if (!( inc_loop_lsp(ptr,count) ==0)) // evtl. weiterincrementieren
-             { mspref(y_mantMSDptr,0) = bit(intDsize-1); (TheLfloat(y)->expo)++; } // evtl. Exponenten erhöhen
+             { mspref(y_mantMSDptr,0) = bit(intDsize-1); (TheLfloat(y)->expo)++; } // evtl. Exponenten erhÃ¶hen
          }
-       clear_loop_msp(ptr mspop 1,len-count-1); // Rest mit Nullen füllen
+       clear_loop_msp(ptr mspop 1,len-count-1); // Rest mit Nullen fÃ¼llen
       }
       return y;
 #endif

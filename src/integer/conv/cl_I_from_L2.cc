@@ -28,7 +28,7 @@ cl_private_thing cl_I_constructor_from_L2 (sint32 wert_hi, uint32 wert_lo)
 			return (cl_private_thing)(cl_combine(cl_FN_tag,(sint32)wert_lo));
 	}
 	// Bignum erzeugen:
-	// (dessen Länge  bn_minlength <= n <= ceiling(64/intDsize)  erfüllt)
+	// (dessen LÃ¤nge  bn_minlength <= n <= ceiling(64/intDsize)  erfÃ¼llt)
 	#define FILL_1_DIGIT(l,i,from) \
 		arrayLSref(ptr->data,l,i) = (uintD)from;
 	#define FILL_2_DIGIT(l,i,from) \

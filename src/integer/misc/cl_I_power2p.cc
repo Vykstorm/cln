@@ -37,7 +37,7 @@ uintC power2p (const cl_I& x) // x > 0
 	    var uintD msd = mspref(MSDptr,0);
 	    if (msd==0) { msshrink(MSDptr); msd = mspref(MSDptr,0); len--; }
 	    // len = Anzahl der Digits ab MSDptr, len>0, msd = erstes Digit (/=0)
-	    if (!((msd & (msd-1)) == 0)) return 0; // erstes Digit muﬂ Zweierpotenz sein
+	    if (!((msd & (msd-1)) == 0)) return 0; // erstes Digit mu√ü Zweierpotenz sein
 	    if (DS_test_loop(MSDptr mspop 1,len-1,LSDptr)) return 0; // danach alles Nullen
 	   {var uintL msdlen;
 	    integerlengthD(msd, msdlen=);

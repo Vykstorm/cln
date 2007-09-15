@@ -29,7 +29,7 @@ const cl_FF ftruncate (const cl_FF& x)
             { return x; }
             else
             { return allocate_ffloat
-                ( x_ & // Bitmaske: Bits 23-e..0 gelöscht, alle anderen gesetzt
+                ( x_ & // Bitmaske: Bits 23-e..0 gelÃ¶scht, alle anderen gesetzt
                   ~(bit(FF_mant_len+1+FF_exp_mid-uexp)-1)
                 );
         }   }

@@ -27,20 +27,20 @@ namespace cln {
 //             =0 -> Error,
 //             >0 (also |x|<1) -> u = 1/2 log((1+x)/(1-x)), v = 0.
 //             <0 (also |x|>1) -> u = 1/2 log(-(1+x)/(1-x)),
-//                                v = (-pi/2 für x>1, pi/2 für x<-1).
+//                                v = (-pi/2 fÃ¼r x>1, pi/2 fÃ¼r x<-1).
 // Sonst:
 //   1+x und 1-x errechnen.
 //   x und y in Floats umwandeln.
 //   |4x| und 1+x^2+y^2 errechnen,
 //   |4x| < 1+x^2+y^2 -> u = 1/2 atanh(2x/(1+x^2+y^2)),
 //   |4x| >= 1+x^2+y^2 -> u = 1/4 ln ((1+x^2+y^2)+2x)/((1+x^2+y^2)-2x)
-//                        oder besser (an der Singularität: |x|-1,|y| klein):
+//                        oder besser (an der SingularitÃ¤t: |x|-1,|y| klein):
 //                        u = 1/4 ln ((1+x)^2+y^2)/((1-x)^2+y^2).
 //   v = 1/2 atan(X=(1-x)(1+x)-y^2,Y=2y) * (-1 falls Y=0.0 und X<0.0 und x>=0.0,
 //                                          1 sonst)
 // Ergebnis ist reell nur, wenn z reell.
-// Real- und Imaginärteil des Ergebnisses sind Floats, außer wenn z reell oder
-// rein imaginär ist.
+// Real- und ImaginÃ¤rteil des Ergebnisses sind Floats, auÃŸer wenn z reell oder
+// rein imaginÃ¤r ist.
 
 inline const cl_C_R _atanh (const cl_N& z)
 {

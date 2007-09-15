@@ -29,7 +29,7 @@ const cl_R atan (const cl_R& x, const cl_R& y)
 // 0 <= |y| <= x  ->  atan(y/x)
 // 0 <= |x| <= y  ->  pi/2 - atan(x/y)
 // 0 <= |x| <= -y  ->  -pi/2 - atan(x/y)
-// 0 <= |y| <= -x  ->  für y>=0: pi + atan(y/x), für y<0: -pi + atan(y/x)
+// 0 <= |y| <= -x  ->  fÃ¼r y>=0: pi + atan(y/x), fÃ¼r y<0: -pi + atan(y/x)
 
 	if (eq(y,0)) {
 		// y=0 (exakt)

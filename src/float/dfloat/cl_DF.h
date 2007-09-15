@@ -108,7 +108,7 @@ inline cl_heap_dfloat* allocate_dfloat (uint32 semhi, uint32 mlo)
 #if (cl_word_size==64)
 // DF_decode(obj, zero_statement, sign=,exp=,mant=);
 // zerlegt ein Double-Float obj.
-// Ist obj=0.0, wird zero_statement ausgeführt.
+// Ist obj=0.0, wird zero_statement ausgefÃ¼hrt.
 // Sonst: cl_signean sign = Vorzeichen (0 = +, -1 = -),
 //        sintL exp = Exponent (vorzeichenbehaftet),
 //        uintQ mant = Mantisse (>= 2^DF_mant_len, < 2^(DF_mant_len+1))
@@ -127,7 +127,7 @@ inline cl_heap_dfloat* allocate_dfloat (uint32 semhi, uint32 mlo)
 #else
 // DF_decode2(obj, zero_statement, sign=,exp=,manthi=,mantlo=);
 // zerlegt ein Double-Float obj.
-// Ist obj=0.0, wird zero_statement ausgeführt.
+// Ist obj=0.0, wird zero_statement ausgefÃ¼hrt.
 // Sonst: cl_signean sign = Vorzeichen (0 = +, -1 = -),
 //        sintL exp = Exponent (vorzeichenbehaftet),
 //        uintL manthi,mantlo = Mantisse 2^32*manthi+mantlo
@@ -152,11 +152,11 @@ inline cl_heap_dfloat* allocate_dfloat (uint32 semhi, uint32 mlo)
 #if (cl_word_size==64)
 // encode_DF(sign,exp,mant)
 // liefert ein Double-Float.
-// > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
+// > cl_signean sign: Vorzeichen, 0 fÃ¼r +, -1 fÃ¼r negativ.
 // > sintL exp: Exponent
 // > uintQ mant: Mantisse, sollte >= 2^DF_mant_len und < 2^(DF_mant_len+1) sein.
 // < cl_DF ergebnis: ein Double-Float
-// Der Exponent wird auf Überlauf/Unterlauf getestet.
+// Der Exponent wird auf Ãœberlauf/Unterlauf getestet.
 inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintQ mant)
 {
       if (exp < (sintL)(DF_exp_low-DF_exp_mid))
@@ -178,12 +178,12 @@ inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintQ mant)
 #else
 // encode_DF(sign,exp,manthi,mantlo)
 // liefert ein Double-Float.
-// > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
+// > cl_signean sign: Vorzeichen, 0 fÃ¼r +, -1 fÃ¼r negativ.
 // > sintL exp: Exponent
 // > uintL manthi,mantlo: Mantisse 2^32*manthi+mantlo,
 //                        sollte >= 2^DF_mant_len und < 2^(DF_mant_len+1) sein.
 // < cl_DF ergebnis: ein Double-Float
-// Der Exponent wird auf Überlauf/Unterlauf getestet.
+// Der Exponent wird auf Ãœberlauf/Unterlauf getestet.
 inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintL manthi, uintL mantlo)
 {
       if (exp < (sintL)(DF_exp_low-DF_exp_mid))
@@ -211,7 +211,7 @@ inline double DF_to_double (const cl_DF& obj)
 {
 	return TheDfloat(obj)->representation.machine_double;
 }
-// Überprüfen und Einpacken eines von den 'double'-Routinen gelieferten
+// ÃœberprÃ¼fen und Einpacken eines von den 'double'-Routinen gelieferten
 // IEEE-Floats.
 // Klassifikation:
 //   1 <= e <= 2046 : normalisierte Zahl
@@ -219,8 +219,8 @@ inline double DF_to_double (const cl_DF& obj)
 //   e=0, m=0: vorzeichenbehaftete 0.0
 //   e=2047, m=0: vorzeichenbehaftete Infinity
 //   e=2047, m/=0: NaN
-// Angabe der möglicherweise auftretenden Sonderfälle:
-//   maybe_overflow: Operation läuft über, liefert IEEE-Infinity
+// Angabe der mÃ¶glicherweise auftretenden SonderfÃ¤lle:
+//   maybe_overflow: Operation lÃ¤uft Ã¼ber, liefert IEEE-Infinity
 //   maybe_subnormal: Ergebnis sehr klein, liefert IEEE-subnormale Zahl
 //   maybe_underflow: Ergebnis sehr klein und /=0, liefert IEEE-Null
 //   maybe_divide_0: Ergebnis unbestimmt, liefert IEEE-Infinity
@@ -242,7 +242,7 @@ inline double DF_to_double (const cl_DF& obj)
             && (((~_erg.eksplicit) & ((uint64)bit(DF_exp_len+DF_mant_len)-bit(DF_mant_len))) == 0) /* e=2047 ? */\
            )								\
         { if (maybe_nan && !((_erg.eksplicit<<(64-DF_mant_len)) == 0))	\
-            { throw division_by_0_exception(); } /* NaN, also Singularität -> "Division durch 0" */\
+            { throw division_by_0_exception(); } /* NaN, also SingularitÃ¤t -> "Division durch 0" */\
           else /* Infinity */						\
           if (!maybe_overflow || maybe_divide_0)			\
             { throw division_by_0_exception(); } /* Infinity, Division durch 0 */\
@@ -270,7 +270,7 @@ inline double DF_to_double (const cl_DF& obj)
             && (((~_erg.eksplicit.semhi) & ((uint32)bit(DF_exp_len+DF_mant_len-32)-bit(DF_mant_len-32))) == 0) /* e=2047 ?  */\
            )                                                              \
         { if (maybe_nan && !(((_erg.eksplicit.semhi<<(64-DF_mant_len)) == 0) && (_erg.eksplicit.mlo==0))) \
-            { throw division_by_0_exception(); } /* NaN, also Singularität -> "Division durch 0"  */\
+            { throw division_by_0_exception(); } /* NaN, also SingularitÃ¤t -> "Division durch 0"  */\
           else /* Infinity                                              */\
           if (!maybe_overflow || maybe_divide_0)                          \
             { throw division_by_0_exception(); } /* Infinity, Division durch 0 */\
@@ -284,7 +284,7 @@ inline double DF_to_double (const cl_DF& obj)
 #endif
 
 // Liefert zu einem Double-Float x : (futruncate x), ein DF.
-// x wird von der 0 weg zur nächsten ganzen Zahl gerundet.
+// x wird von der 0 weg zur nÃ¤chsten ganzen Zahl gerundet.
 extern const cl_DF futruncate (const cl_DF& x);
 
 // DF_to_I(x) wandelt ein Double-Float x, das eine ganze Zahl darstellt,

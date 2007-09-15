@@ -16,7 +16,7 @@
 
 namespace cln {
 
-#define GCD_ALGO 3  // 1: bin‰r, 2: Schulmethode, 3: Lehmer
+#define GCD_ALGO 3  // 1: bin√§r, 2: Schulmethode, 3: Lehmer
 
 
 #if (GCD_ALGO == 2)
@@ -51,7 +51,7 @@ namespace cln {
       var cl_I va = 0;
       var cl_I ub = 0;
       var cl_I vb = (minusp(b) ? cl_I(-1) : cl_I(1)); // vb := +/- 1
-      // Betr‰ge nehmen:
+      // Betr√§ge nehmen:
      {var cl_I abs_a = abs(a);
       var cl_I abs_b = abs(b);
       var cl_I& a = abs_a;
@@ -86,7 +86,7 @@ namespace cln {
 #if (GCD_ALGO == 3)
 // (xgcd A B) :==
 // wie oben bei (gcd A B).
-// Zus‰tzlich werden Variablen sA,sB,sk,uAa,uBa,uAb,uBb gef¸hrt,
+// Zus√§tzlich werden Variablen sA,sB,sk,uAa,uBa,uAb,uBb gef√ºhrt,
 // wobei sA,sB,sk Vorzeichen (+/- 1) und uAa,uBa,uAb,uBb Integers >=0 sind mit
 //     uAa * sA*A - uBa * sB*B = a,
 //   - uAb * sA*A + uBb * sB*B = b,
@@ -107,11 +107,11 @@ namespace cln {
 // Beim Ersetzen (a,b) := (b,a-q*b)
 //   ersetzt man (uAa,uBa,uAb,uBb) := (uAb,uBb,uAa+q*uAb,uBa+q*uBb),
 //               sk := -sk, (sA,sB) := (-sA,-sB).
-// Zum Schluﬂ ist a der ggT und a = uAa*sA * A + -uBa*sB * B
-// die gew¸nschte Linearkombination.
+// Zum Schlu√ü ist a der ggT und a = uAa*sA * A + -uBa*sB * B
+// die gew√ºnschte Linearkombination.
 // Da stets gilt sk*sA*A = |A|, sk*sB*B = |B|, a>=1, b>=1,
 // folgt 0 <= uAa <= |B|, 0 <= uAb <= |B|, 0 <= uBa <= |A|, 0 <= uBb <= |A|.
-// Ferner wird sk nie benutzt, braucht also nicht mitgef¸hrt zu werden.
+// Ferner wird sk nie benutzt, braucht also nicht mitgef√ºhrt zu werden.
 
   // Define this to 1 in order to use double-word sized a' and b'.
   // This gives better x1,y1,x2,y2, because normally the values x1,y1,x2,y2
@@ -119,7 +119,7 @@ namespace cln {
   // is lost. Actually, this flag multiplies the gcd speed by 1.5, not 2.0.
   #define DOUBLE_SPEED 1
 
-  // Bildet u := u + v, wobei f¸r u gen¸gend Platz sei:
+  // Bildet u := u + v, wobei f√ºr u gen√ºgend Platz sei:
   // (Benutzt v.MSDptr nicht.)
   static void NUDS_likobi0_NUDS (DS* u, DS* v)
     { var uintC u_len = u->len;
@@ -138,14 +138,14 @@ namespace cln {
         }   }
     }
 
-  // Bildet u := u + q*v, wobei f¸r u gen¸gend Platz sei:
+  // Bildet u := u + q*v, wobei f√ºr u gen√ºgend Platz sei:
   // (Dabei sei nachher u>0.)
   static void NUDS_likobi1_NUDS (DS* u, DS* v, uintD q)
     { var uintC v_len = v->len;
-      if (v_len>0) // nur nˆtig, falls v /=0
+      if (v_len>0) // nur n√∂tig, falls v /=0
         { var uintC u_len = u->len;
           var uintD carry;
-          if (u_len <= v_len) // evtl. u vergrˆﬂern
+          if (u_len <= v_len) // evtl. u vergr√∂√üern
             { u->MSDptr = clear_loop_lsp(u->MSDptr,v_len-u_len+1);
               u->len = u_len = v_len+1;
             } // Nun ist u_len > v_len.
@@ -159,7 +159,7 @@ namespace cln {
           while (mspref(u->MSDptr,0)==0) { msshrink(u->MSDptr); u->len--; } // normalisieren
     }   }
 
-  // Bildet (u,v) := (x1*u+y1*v,x2*u+y2*v), wobei f¸r u,v gen¸gend Platz sei:
+  // Bildet (u,v) := (x1*u+y1*v,x2*u+y2*v), wobei f√ºr u,v gen√ºgend Platz sei:
   // (Dabei sei u>0 oder v>0, nachher u>0 und v>0.)
   static void NUDS_likobi2_NUDS (DS* u, DS* v, partial_gcd_result* q, uintD* c_LSDptr, uintD* d_LSDptr)
     { var uintC u_len = u->len;
@@ -257,10 +257,10 @@ namespace cln {
        var DS uAb;
        var DS uBb;
        // Rechenregister:
-       var uintD* divroomptr; // Platz f¸r Divisionsergebnis
+       var uintD* divroomptr; // Platz f√ºr Divisionsergebnis
        var uintD* c_LSDptr;
        var uintD* d_LSDptr;
-       // Platz f¸r uAa,uBa,uAb,uBb besorgen:
+       // Platz f√ºr uAa,uBa,uAb,uBb besorgen:
        {var uintC u_len = b_len+1;
         num_stack_alloc(u_len,,uAa.LSDptr=); uAa.MSDptr = uAa.LSDptr;
         num_stack_alloc(u_len,,uAb.LSDptr=); uAb.MSDptr = uAb.LSDptr;
@@ -278,7 +278,7 @@ namespace cln {
        //           uAb = uAb.MSDptr/uAb.len/uAb.LSDptr,
        //           uBb = uBb.MSDptr/uBb.len/uBb.LSDptr,
        // alles NUDS.
-       // Platz f¸r zwei Rechenregister besorgen, mit je max(a_len,b_len)+1 Digits:
+       // Platz f√ºr zwei Rechenregister besorgen, mit je max(a_len,b_len)+1 Digits:
        {var uintC c_len = (a_len>=b_len ? a_len : b_len) + 1;
         num_stack_alloc(c_len,,c_LSDptr=);
         num_stack_alloc(c_len,divroomptr=,d_LSDptr=);
@@ -304,21 +304,21 @@ namespace cln {
            a_greater_b:
            // Hier a>b>0, beides NUDS.
            // Entscheidung, ob Division oder Linearkombination:
-           { var uintD a_msd; // f¸hrende intDsize Bits von a
+           { var uintD a_msd; // f√ºhrende intDsize Bits von a
              var uintD b_msd; // entsprechende Bits von b
              #if DOUBLE_SPEED
-             var uintD a_nsd; // n‰chste intDsize Bits von a
+             var uintD a_nsd; // n√§chste intDsize Bits von a
              var uintD b_nsd; // entsprechende Bits von b
              #endif
-             { var uintC len_diff = a_len-b_len; // L‰ngendifferenz
-               if (len_diff > 1) goto divide; // >=2 -> Bitl‰ngendifferenz>intDsize -> dividieren
+             { var uintC len_diff = a_len-b_len; // L√§ngendifferenz
+               if (len_diff > 1) goto divide; // >=2 -> Bitl√§ngendifferenz>intDsize -> dividieren
                #define bitlendiff_limit  (intDsize/2) // sollte >0,<intDsize sein
               {var uintC a_msd_size;
-               a_msd = mspref(a_MSDptr,0); // f¸hrendes Digit von a
-               integerlengthD(a_msd,a_msd_size=); // dessen Bit-L‰nge (>0,<=intDsize) berechnen
+               a_msd = mspref(a_MSDptr,0); // f√ºhrendes Digit von a
+               integerlengthD(a_msd,a_msd_size=); // dessen Bit-L√§nge (>0,<=intDsize) berechnen
                b_msd = mspref(b_MSDptr,0);
                #if HAVE_DD
-               {var uintDD b_msdd = // 2 f¸hrende Digits von b
+               {var uintDD b_msdd = // 2 f√ºhrende Digits von b
                   (len_diff==0
                    ? highlowDD(b_msd, (b_len==1 ? 0 : mspref(b_MSDptr,1)))
                    : (uintDD)b_msd
@@ -330,7 +330,7 @@ namespace cln {
                 b_nsd = lowD(highlowDD(lowD(b_msdd), (b_len<=2-len_diff ? 0 : mspref(b_MSDptr,2-len_diff))) >> a_msd_size);
                 #endif
                }
-               {var uintDD a_msdd = // 2 f¸hrende Digits von a
+               {var uintDD a_msdd = // 2 f√ºhrende Digits von a
                   highlowDD(a_msd, (a_len==1 ? 0 : mspref(a_MSDptr,1)));
                 a_msd = lowD(a_msdd >> a_msd_size);
                 #if DOUBLE_SPEED
@@ -345,9 +345,9 @@ namespace cln {
                        && (b_msd < (uintD)bit(a_msd_size-bitlendiff_limit))
                       )
                      goto divide;
-                   // Entscheidung f¸r Linearkombination ist gefallen.
-                   // a_msd und b_msd so erweitern, daﬂ a_msd die f¸hrenden
-                   // intDsize Bits von a enth‰lt:
+                   // Entscheidung f√ºr Linearkombination ist gefallen.
+                   // a_msd und b_msd so erweitern, da√ü a_msd die f√ºhrenden
+                   // intDsize Bits von a enth√§lt:
                   {var uintC shiftcount = intDsize-a_msd_size; // Shiftcount nach links (>=0, <intDsize)
                    if (shiftcount>0)
                      { a_msd = a_msd << shiftcount;
@@ -379,9 +379,9 @@ namespace cln {
                        || (b_msd < (uintD)bit(a_msd_size+intDsize-bitlendiff_limit))
                       )
                      goto divide;
-                   // Entscheidung f¸r Linearkombination ist gefallen.
-                   // a_msd und b_msd so erweitern, daﬂ a_msd die f¸hrenden
-                   // intDsize Bits von a enth‰lt:
+                   // Entscheidung f√ºr Linearkombination ist gefallen.
+                   // a_msd und b_msd so erweitern, da√ü a_msd die f√ºhrenden
+                   // intDsize Bits von a enth√§lt:
                    // 0 < a_msd_size < b_msd_size + bitlendiff_limit - intDsize <= bitlendiff_limit < intDsize.
                    a_msd = (a_msd << (intDsize-a_msd_size)) | (mspref(a_MSDptr,1) >> a_msd_size);
                    #if DOUBLE_SPEED
@@ -398,7 +398,7 @@ namespace cln {
                #undef bitlendiff_limit
              }}
              // Nun ist a_msd = a' > b' = b_msd.
-             { // Euklid-Algorithmus auf den f¸hrenden Digits durchf¸hren:
+             { // Euklid-Algorithmus auf den f√ºhrenden Digits durchf√ºhren:
                var partial_gcd_result likobi;
                #if DOUBLE_SPEED
                #if HAVE_DD
@@ -413,7 +413,7 @@ namespace cln {
                if (likobi.x2==0)
                  { // Ersetze (a,b) := (a-y1*b,b).
                    if (likobi.y1==1) goto subtract; // einfacherer Fall
-                   // Dazu evtl. a um 1 Digit erweitern, so daﬂ a_len=b_len+1:
+                   // Dazu evtl. a um 1 Digit erweitern, so da√ü a_len=b_len+1:
                    if (a_len == b_len) { lsprefnext(a_MSDptr) = 0; a_len++; }
                    // und y1*b von a subtrahieren:
                    mspref(a_MSDptr,0) -= mulusub_loop_lsp(likobi.y1,b_LSDptr,a_LSDptr,b_len);
@@ -426,7 +426,7 @@ namespace cln {
                    // Ersetze (uBa,uBb) := (x1*uBa+y1*uBb,x2*uBa+y2*uBb) :
                    NUDS_likobi2_NUDS(&uBa,&uBb,&likobi,c_LSDptr,d_LSDptr);
                    // Ersetze (a,b) := (x1*a-y1*b,-x2*a+y2*b).
-                   // Dazu evtl. b um 1 Digit erweitern, so daﬂ a_len=b_len:
+                   // Dazu evtl. b um 1 Digit erweitern, so da√ü a_len=b_len:
                    if (!(a_len==b_len)) { lsprefnext(b_MSDptr) = 0; b_len++; }
                    // c := x1*a-y1*b bilden:
                    mulu_loop_lsp(likobi.x1,a_LSDptr,c_LSDptr,a_len);
@@ -436,7 +436,7 @@ namespace cln {
                    mulu_loop_lsp(likobi.y2,b_LSDptr,d_LSDptr,a_len);
                    /* lspref(d_LSDptr,a_len) -= */
                      mulusub_loop_lsp(likobi.x2,a_LSDptr,d_LSDptr,a_len);
-                   // Wir wissen, daﬂ 0 < c < b und 0 < d < a. Daher m¸ﬂten
+                   // Wir wissen, da√ü 0 < c < b und 0 < d < a. Daher m√º√üten
                    // lspref(c_LSDptr,a_len) und lspref(d_LSDptr,a_len) =0 sein.
                    // a := c und b := d kopieren:
                    copy_loop_lsp(c_LSDptr,a_LSDptr,a_len);
@@ -449,7 +449,7 @@ namespace cln {
                  NUDS_likobi0_NUDS(&uAa,&uAb); // uAa := uAa + uAb
                  NUDS_likobi0_NUDS(&uBa,&uBb); // uBa := uBa + uBb
                  if (!( subfrom_loop_lsp(b_LSDptr,a_LSDptr,b_len) ==0))
-                   // ‹bertrag nach b_len Stellen, muﬂ also a_len=b_len+1 sein.
+                   // √úbertrag nach b_len Stellen, mu√ü also a_len=b_len+1 sein.
                    { mspref(a_MSDptr,0) -= 1; }
                }
              // a normalisieren:
@@ -463,7 +463,7 @@ namespace cln {
                cl_UDS_divide(a_MSDptr,a_len,a_LSDptr,b_MSDptr,b_len,b_LSDptr, divroomptr, &q,&r);
                a_MSDptr = b_MSDptr; a_len = b_len; a_LSDptr = b_LSDptr; // a := b
                b_len = r.len; if (b_len==0) goto return_a_coeffsb; // b=0 -> fertig
-               b_LSDptr = old_a_LSDptr; // b ¸bernimmt den vorherigen Platz von a
+               b_LSDptr = old_a_LSDptr; // b √ºbernimmt den vorherigen Platz von a
                b_MSDptr = copy_loop_lsp(r.LSDptr,b_LSDptr,b_len); // b := r kopieren
                // (uAa,uAb) := (uAb,uAa+q*uAb) :
                if (!(uAb.len==0))
@@ -472,7 +472,7 @@ namespace cln {
                    c.LSDptr = c_LSDptr; c.len = q.len + uAb.len;
                    if (lspref(c_LSDptr,c.len-1)==0) { c.len--; } // normalisieren
                    NUDS_likobi0_NUDS(&uAa,&c); // zu uAa addieren
-                 } // noch uAa,uAb vertauschen (sp‰ter)
+                 } // noch uAa,uAb vertauschen (sp√§ter)
                // (uBa,uBb) := (uBb,uBa+q*uBb) :
                if (!(uBb.len==0))
                  { cl_UDS_mul(q.LSDptr,q.len,uBb.LSDptr,uBb.len,c_LSDptr); // q * uBb
@@ -480,14 +480,14 @@ namespace cln {
                    c.LSDptr = c_LSDptr; c.len = q.len + uBb.len;
                    if (lspref(c_LSDptr,c.len-1)==0) { c.len--; } // normalisieren
                    NUDS_likobi0_NUDS(&uBa,&c); // zu uBa addieren
-                 } // noch uBa,uBb vertauschen (sp‰ter)
+                 } // noch uBa,uBb vertauschen (sp√§ter)
                goto a_greater_b_swap; // Nun ist a>b>0
              }}
          }
-       // Nun ist a = b. W‰hle diejenige der beiden Linearkombinationen
+       // Nun ist a = b. W√§hle diejenige der beiden Linearkombinationen
        //   a =  uAa*sA * A + -uBa*sB * B
        //   b = -uAb*sA * A +  uBb*sB * B
-       // die die betragsm‰ﬂig kleinsten Koeffizienten hat.
+       // die die betragsm√§√üig kleinsten Koeffizienten hat.
        // Teste auf uBa < uBb. (Das kann auftreten, z.B. bei
        // A=560014183, B=312839871 wird a=b=1, uAa < uAb, uBa < uBb.)
        // Falls uBa = uBb, teste auf uAa < uAb. (Das kann auftreten, z.B. bei

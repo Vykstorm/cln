@@ -1,7 +1,7 @@
 // Externe Routinen
 // Prozessor: SPARC
 // Compiler: GNU-C oder SUN-C
-// Parameter-Übergabe: in Registern %o0-%o5.
+// Parameter-Ãœbergabe: in Registern %o0-%o5.
 // Einstellungen: intCsize=32, intDsize=32.
 
 #ifdef ASM_UNDERSCORE /* SunOS 4 */
@@ -27,11 +27,11 @@
   #define DECLARE_FUNCTION(name)
 #endif
 
-  // Indikatoren für Anweisungen (Instruktionen) in Delay-Slots
-  // (diese werden VOR der vorigen Instruktion ausgeführt):
-  #define _             // Instruktion, die stets ausgeführt wird
-  #define __            // Instruktion, die nur im Sprung-Fall ausgeführt wird
-  // Abkürzungen für Anweisungen:
+  // Indikatoren fÃ¼r Anweisungen (Instruktionen) in Delay-Slots
+  // (diese werden VOR der vorigen Instruktion ausgefÃ¼hrt):
+  #define _             // Instruktion, die stets ausgefÃ¼hrt wird
+  #define __            // Instruktion, die nur im Sprung-Fall ausgefÃ¼hrt wird
+  // AbkÃ¼rzungen fÃ¼r Anweisungen:
   #define ret   jmp %i7+8    // return from subroutine
   #define retl  jmp %o7+8    // return from leaf subroutine (no save/restore)
 

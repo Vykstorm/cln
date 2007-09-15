@@ -13,7 +13,7 @@ namespace cln {
 // print_vector(stream,flags,fun,z);
 // > stream: Stream
 // > flags: Flags
-// > fun: Ausgabefunktion für die einzelnen Elemente
+// > fun: Ausgabefunktion fÃ¼r die einzelnen Elemente
 // > vector: Vektor
 extern void print_vector (std::ostream& stream, const cl_print_flags& flags, void (* fun) (std::ostream&, const cl_print_flags&, const cl_number&), const cl_GV_number& vector);
 

@@ -124,7 +124,7 @@ void div2adic (uintC a_len, const uintD* a_LSDptr, uintC b_len, const uintD* b_L
       var uintD* p_LSDptr;
       num_stack_alloc(2*b_len,,p_LSDptr=);
       cl_UDS_mul(q_LSDptr,b_len,b_LSDptr,b_len,p_LSDptr);
-      // ‹berpr¸fen, daﬂ p == a mod 2^(intDsize*b_len):
+      // √úberpr√ºfen, da√ü p == a mod 2^(intDsize*b_len):
       if (compare_loop_msp(a_LSDptr lspop b_len,p_LSDptr lspop b_len,b_len))
         throw runtime_exception();
       // Quotient q und "Rest" (a-b*q)/2^(intDsize*b_len) ablegen:
@@ -141,9 +141,9 @@ void div2adic (uintC a_len, const uintD* a_LSDptr, uintC b_len, const uintD* b_L
     { // Standard division.
       var uintD b0inv = div2adic(1,lspref(b_LSDptr,0)); // b'
       copy_loop_lsp(a_LSDptr,dest_LSDptr,a_len); // d := a
-      do { var uintD digit = lspref(dest_LSDptr,0); // n‰chstes d[j]
+      do { var uintD digit = lspref(dest_LSDptr,0); // n√§chstes d[j]
            digit = mul2adic(b0inv,digit);
-           // digit = n‰chstes c[j]
+           // digit = n√§chstes c[j]
            if (a_len <= b_len)
              { mulusub_loop_lsp(digit,b_LSDptr,dest_LSDptr,a_len); } // d := d - b * c[j] * beta^j
              else
@@ -157,7 +157,7 @@ void div2adic (uintC a_len, const uintD* a_LSDptr, uintC b_len, const uintD* b_L
              }   }
            // Nun ist lspref(dest_LSDptr,0) = 0.
            lspref(dest_LSDptr,0) = digit; // c[j] ablegen
-           lsshrink(dest_LSDptr); a_len--; // n‰chstes j
+           lsshrink(dest_LSDptr); a_len--; // n√§chstes j
          }
          until (a_len==lendiff);
     }

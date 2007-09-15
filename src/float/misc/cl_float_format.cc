@@ -15,11 +15,11 @@ float_format_t float_format (uintE n)
 {
 // Methode:
 // Mindestens 1+n Dezimalstellen (inklusive Vorkommastelle)
-// bedeutet mindestens ceiling((1+n)*ln(10)/ln(2)) Bin‰rstellen.
-// ln(10)/ln(2) = 3.321928095 = (bin‰r) 11.0101001001101001111000010010111100110100...
-//                       = (bin‰r) 100 - 0.1010110110010110000111101101000111001011...
+// bedeutet mindestens ceiling((1+n)*ln(10)/ln(2)) Bin√§rstellen.
+// ln(10)/ln(2) = 3.321928095 = (bin√§r) 11.0101001001101001111000010010111100110100...
+//                       = (bin√§r) 100 - 0.1010110110010110000111101101000111001011...
 // Durch diese Berechnungsmethode wird das Ergebnis sicher >= (1+n)*ln(10)/ln(2)
-// sein, evtl. um ein paar Bit zu groﬂ aber nicht zu klein.
+// sein, evtl. um ein paar Bit zu gro√ü aber nicht zu klein.
 	n = 1+n;
 	return (float_format_t)
 	       ((n << 2)

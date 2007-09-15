@@ -34,7 +34,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	if (ceiling(y_exp,intDsize) > len)
 		return x * cl_I_to_LF(y,len);
 #endif
-	// x länger als y, direkt multiplizieren.
+	// x lÃ¤nger als y, direkt multiplizieren.
 	CL_ALLOCA_STACK;
 	var const uintD* y_MSDptr;
 	var uintC y_len;
@@ -48,7 +48,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	                y_len,y_LSDptr,
 	                prodMSDptr=,prodlen=,);
 	// x fing mit 0 Nullbits an, y mit maximal intDsize-1 Nullbits,
-	// daher fängt das Produkt mit maximal intDsize Nullbits an.
+	// daher fÃ¤ngt das Produkt mit maximal intDsize Nullbits an.
 	var uintL shiftcount;
 	if (mspref(prodMSDptr,0)==0) {
 		shiftcount = intDsize;
@@ -58,7 +58,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 		if (shiftcount > 0)
 			shiftleft_loop_lsp(prodMSDptr mspop (len+1),len+1,shiftcount,0);
 	}
-	// Produkt ist nun normalisiert: höchstes Bit =1.
+	// Produkt ist nun normalisiert: hÃ¶chstes Bit =1.
 	// exponent := exponent(x) + intDsize*y_len - shiftcount
 	var uintE uexp = TheLfloat(x)->expo;
 	var uintE iexp = intDsize*y_len - shiftcount; // >= 0 !
@@ -69,7 +69,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	var uintD* midptr = prodMSDptr mspop len;
 	var uintC restlen = prodlen - len;
 	if ( (restlen==0)
-	     || ((sintD)mspref(midptr,0) >= 0) // nächstes Bit =0 -> abrunden
+	     || ((sintD)mspref(midptr,0) >= 0) // nÃ¤chstes Bit =0 -> abrunden
 	     || ( ((mspref(midptr,0) & ((uintD)bit(intDsize-1)-1)) ==0) // Bit =1, weitere Bits >0 -> aufrunden
 	          && !test_loop_msp(midptr mspop 1,restlen-1)
 	          // round-to-even
@@ -80,7 +80,7 @@ const cl_R cl_LF_I_mul (const cl_LF& x, const cl_I& y)
 	  else
 	  // aufrunden
 	  { if ( inc_loop_lsp(midptr,len) )
-	      // Übertrag durchs Aufrunden
+	      // Ãœbertrag durchs Aufrunden
 	      { mspref(prodMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
 	        if (++uexp == LF_exp_high+1) { throw floating_point_overflow_exception(); }
 	  }   }

@@ -37,7 +37,7 @@ float float_approx (const cl_DF& x)
 	  { mant = mant >> shiftcount;
 	    mant = mant+1;
 	    if (mant >= bit(FF_mant_len+1))
-	      // Überlauf durchs Runden
+	      // Ãœberlauf durchs Runden
 	      { mant = mant>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }
 	#else
@@ -58,7 +58,7 @@ float float_approx (const cl_DF& x)
 	  // aufrunden
 	  { manthi = manthi+1;
 	    if (manthi >= bit(FF_mant_len+1))
-	      // Überlauf durchs Runden
+	      // Ãœberlauf durchs Runden
 	      { manthi = manthi>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }
 	#define mant manthi

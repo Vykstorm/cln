@@ -31,7 +31,7 @@ const cl_DF ftruncate (const cl_DF& x)
             else
             // 1<=e<=52
             { return allocate_dfloat
-                ( x_ & // Bitmaske: Bits 52-e..0 gelöscht, alle anderen gesetzt
+                ( x_ & // Bitmaske: Bits 52-e..0 gelÃ¶scht, alle anderen gesetzt
                   ~(bit(DF_mant_len+1+DF_exp_mid-uexp)-1)
                 );
         }   }
@@ -49,13 +49,13 @@ const cl_DF ftruncate (const cl_DF& x)
             if (uexp > DF_exp_mid+DF_mant_len+1-32) // e > 21 ?
               { return allocate_dfloat
                   ( semhi,
-                    mlo & // Bitmaske: Bits 52-e..0 gelöscht, alle anderen gesetzt
+                    mlo & // Bitmaske: Bits 52-e..0 gelÃ¶scht, alle anderen gesetzt
                     ~(bit(DF_mant_len+1+DF_exp_mid-uexp)-1)
                   );
               }
               else
               { return allocate_dfloat
-                  ( semhi & // Bitmaske: Bits 20-e..0 gelöscht, alle anderen gesetzt
+                  ( semhi & // Bitmaske: Bits 20-e..0 gelÃ¶scht, alle anderen gesetzt
                     ~(bit(DF_mant_len+1+DF_exp_mid-32-uexp)-1),
                     0
                   );

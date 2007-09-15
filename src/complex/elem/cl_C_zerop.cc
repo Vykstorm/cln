@@ -21,7 +21,7 @@ bool zerop (const cl_N& x)
 		return zerop(x);
 	} else {
 		DeclareType(cl_C,x);
-		// x komplex, teste ob Real- und Imagin‰rteil beide = 0 sind.
+		// x komplex, teste ob Real- und Imagin√§rteil beide = 0 sind.
 		var const cl_R& a = realpart(x);
 		var const cl_R& b = imagpart(x);
 		if (zerop(a))

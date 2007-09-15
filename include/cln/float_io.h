@@ -14,7 +14,7 @@ namespace cln {
 // read_float(base,sign,string,index1,index4,index2,index3)
 // > base: Lesebasis (=10)
 // > sign: Vorzeichen (/=0 falls negativ)
-// > string: Simple-String (enthält Ziffern und evtl. Punkt und Exponentmarker)
+// > string: Simple-String (enthÃ¤lt Ziffern und evtl. Punkt und Exponentmarker)
 // > index1: Index vom Mantissenanfang (excl. Vorzeichen)
 // > index4: Index nach dem Mantissenende
 // > index2: Index beim Ende der Characters
@@ -58,7 +58,7 @@ extern void print_float (std::ostream& stream, const cl_print_number_flags& flag
 extern void print_float (std::ostream& stream, const cl_print_real_flags& flags, const cl_F& z);
 extern void print_float (std::ostream& stream, const cl_print_float_flags& flags, const cl_F& z);
 
-// Gibt ein Float binär (sehr primitiv) aus.
+// Gibt ein Float binÃ¤r (sehr primitiv) aus.
 // print_float_binary(stream,z);
 // > z: Float
 // > stream: Stream

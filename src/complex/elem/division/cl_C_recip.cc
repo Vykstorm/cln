@@ -42,18 +42,18 @@ const cl_N recip (const cl_N& x)
 //      c:=a*a+b*b, c:=1/c, liefere a*c+(-b*c)i.
 //    Falls a oder b Floats sind:
 //      Falls einer von beiden rational ist, runde ihn zum selben Float-Typ
-//        wie der andere und führe das UP durch.
-//      Falls beide Floats sind, erweitere auf den genaueren, führe das UP
+//        wie der andere und fÃ¼hre das UP durch.
+//      Falls beide Floats sind, erweitere auf den genaueren, fÃ¼hre das UP
 //        durch und runde wieder auf den ungenaueren.
 //      Das Ergebnis ist eine komplexe Zahl, da beide Komponenten Floats sind.
 // UP: [a,b Floats vom selben Typ]
 //  a=0.0 -> liefere die Komponenten a=0.0 und -1/b.
 //  b=0.0 -> liefere die Komponenten 1/a und b=0.0.
 //  e:=max(exponent(a),exponent(b)).
-//  a':=a/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren a':=a/2^e
+//  a':=a/2^e bzw. 0.0 bei UnderflowmÃ¶glichkeit (beim Skalieren a':=a/2^e
 //      oder beim Quadrieren a'*a':  2*(e-exponent(a))>exp_mid-exp_low-1
 //      d.h. exponent(b)-exponent(a)>floor((exp_mid-exp_low-1)/2) ).
-//  b':=b/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren b':=b/2^e
+//  b':=b/2^e bzw. 0.0 bei UnderflowmÃ¶glichkeit (beim Skalieren b':=b/2^e
 //      oder beim Quadrieren b'*b':  2*(e-exponent(b))>exp_mid-exp_low-1
 //      d.h. exponent(a)-exponent(b)>floor((exp_mid-exp_low-1)/2) ).
 //  c':=a'*a'+b'*b',

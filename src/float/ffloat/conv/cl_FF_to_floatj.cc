@@ -13,7 +13,7 @@ namespace cln {
 void cl_FF_to_float (const cl_FF& obj, ffloatjanus* val_)
 {
 	var ffloat val = cl_ffloat_value(obj);
-	// Der Exponent muß um FF_exp_mid-126 erniedrigt werden.
+	// Der Exponent muÃŸ um FF_exp_mid-126 erniedrigt werden.
 	if (FF_exp_mid>126)
 	  { var uintL exp = (val >> FF_mant_len) & (bit(FF_exp_len)-1); // e
 	    if (exp < FF_exp_mid-126+1)

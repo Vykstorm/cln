@@ -20,11 +20,11 @@ namespace cln {
 cl_private_thing cl_I_constructor_from_Q (sint64 wert)
 {
 	var uint64 test = wert & (sint64)minus_bit(cl_value_len-1);
-	// test enthält die Bits, die nicht in den Fixnum-Wert >= 0 reinpassen.
+	// test enthÃ¤lt die Bits, die nicht in den Fixnum-Wert >= 0 reinpassen.
 	if ((test == 0) || (test == (uint64)(sint64)minus_bit(cl_value_len-1)))
 		return (cl_private_thing)(cl_combine(cl_FN_tag,wert));
 	// Bignum erzeugen:
-	// (dessen Länge  bn_minlength <= n <= ceiling(32/intDsize)  erfüllt)
+	// (dessen LÃ¤nge  bn_minlength <= n <= ceiling(32/intDsize)  erfÃ¼llt)
 	if (wert >= 0) {
 		#define IF_LENGTH(i)  \
 		  if ((bn_minlength <= i) && (i*intDsize <= 64))	\

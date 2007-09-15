@@ -20,8 +20,8 @@ namespace cln {
 const cl_F cos (const cl_F& x)
 {
 // Methode:
-// Genauigkeit erhöhen,
-// (q,r) := (round x (float pi x)), so daß |r|<=pi/2.
+// Genauigkeit erhÃ¶hen,
+// (q,r) := (round x (float pi x)), so daÃŸ |r|<=pi/2.
 // e := Exponent aus (decode-float r), d := (float-digits r)
 // Bei r=0.0 oder e<=-d/2 liefere 1.0
 //   (denn bei e<=-d/2 ist r^2/2 < 2^(-d)/2 = 2^(-d-1), also
@@ -31,7 +31,7 @@ const cl_F cos (const cl_F& x)
 //   (sin(s)/s)^2 errechnen, cos(r) = 1-r*s*(sin(s)/s)^2 errechnen.
 // Falls q ungerade: Vorzeichenwechsel.
 
-	// Rechengenauigkeit erhöhen und durch pi dividieren:
+	// Rechengenauigkeit erhÃ¶hen und durch pi dividieren:
 	var cl_F cos_r;
 	if (longfloatp(x)) {
 		DeclareType(cl_LF,x);

@@ -44,7 +44,7 @@ inline uint32 equal_hashcode (const cl_BN& x)
 	var const uintD* MSDptr;
 	var uintC len;
 	BN_to_NDS_nocopy(x, MSDptr = , len = ,);
-	// Nicht alle führenden intDsize+1 Bits sind gleich.
+	// Nicht alle fÃ¼hrenden intDsize+1 Bits sind gleich.
 #if (intDsize==64)
 	var uint64 msd = mspref(MSDptr,0);
 	var uint64 msd2 = (len >= 2 ? mspref(MSDptr,1) : 0);
@@ -64,7 +64,7 @@ inline uint32 equal_hashcode (const cl_BN& x)
 		sign = 0;
 	}
 	var sintC exp = len * intDsize;
-	// Nicht alle führenden 65 Bits sind =0.
+	// Nicht alle fÃ¼hrenden 65 Bits sind =0.
 	if (msd==0) {
 		msd = msd2;
 		exp -= 64;
@@ -109,14 +109,14 @@ inline uint32 equal_hashcode (const cl_BN& x)
 		sign = 0;
 	}
 	var sintC exp = len * intDsize;
-	// Nicht alle führenden intDsize+1 Bits sind =0.
-	// Wegen intDsize<=32: Nicht alle führenden 33 Bits sind =0.
+	// Nicht alle fÃ¼hrenden intDsize+1 Bits sind =0.
+	// Wegen intDsize<=32: Nicht alle fÃ¼hrenden 33 Bits sind =0.
 	if (msd==0) {
 		msd = msd2;
 		exp -= 32;
 	}
-	// Nicht alle führenden 32 Bits sind =0.
-	// Führendes Bit auf 1 normalisieren:
+	// Nicht alle fÃ¼hrenden 32 Bits sind =0.
+	// FÃ¼hrendes Bit auf 1 normalisieren:
 	else {
 		var uintL s;
 		integerlength32(msd, s = 32 - );

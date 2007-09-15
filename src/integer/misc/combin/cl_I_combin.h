@@ -8,7 +8,7 @@
 
 namespace cln {
 
-// UP für Fakultät:
+// UP fÃ¼r FakultÃ¤t:
 // Bilde das Produkt prod(a < i <= b, 2*i+1), wobei 0 <= a < b klein.
 extern const cl_I cl_I_prod_ungerade (uintL a, uintL b);
 

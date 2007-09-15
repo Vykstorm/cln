@@ -22,7 +22,7 @@ const cl_I cl_I_prod_ungerade (uintL a, uintL b)
 		var cl_I produkt = faktor;
 		var uintC count;
 		dotimesC(count,diff-1,
-		  { faktor = faktor-2; // n‰chster Faktor
+		  { faktor = faktor-2; // n√§chster Faktor
 		    produkt = faktor*produkt; // mit bisherigem Produkt multiplizieren
 		  });
 		return produkt;

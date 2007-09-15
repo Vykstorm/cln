@@ -63,7 +63,7 @@ inline const cl_SF make_SF (cl_sint sign, unsigned int exp, cl_uint mant)
 // Entpacken eines Short-Float:
 // SF_decode(obj, zero_statement, sign=,exp=,mant=);
 // zerlegt ein Short-Float obj.
-// Ist obj=0.0, wird zero_statement ausgeführt.
+// Ist obj=0.0, wird zero_statement ausgefÃ¼hrt.
 // Sonst: cl_signean sign = Vorzeichen (0 = +, -1 = -),
 //        sintL exp = Exponent (vorzeichenbehaftet),
 //        uintL mant = Mantisse (>= 2^SF_mant_len, < 2^(SF_mant_len+1))
@@ -96,11 +96,11 @@ inline uintL SF_mant (const cl_SF& x)
 // Einpacken eines Short-Float:
 // encode_SF(sign,exp,mant)
 // liefert ein Short-Float.
-// > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
+// > cl_signean sign: Vorzeichen, 0 fÃ¼r +, -1 fÃ¼r negativ.
 // > sintL exp: Exponent
 // > uintL mant: Mantisse, sollte >= 2^SF_mant_len und < 2^(SF_mant_len+1) sein.
 // < object ergebnis: ein Short-Float
-// Der Exponent wird auf Überlauf/Unterlauf getestet.
+// Der Exponent wird auf Ãœberlauf/Unterlauf getestet.
 inline const cl_SF encode_SF (cl_signean sign, sintL exp, uintL mant)
 {
 	if (exp < (sintL)(SF_exp_low-SF_exp_mid))
@@ -118,7 +118,7 @@ inline const cl_SF encode_SF (cl_signean sign, sintL exp, uintL mant)
 
 
 // Liefert zu einem Short-Float x : (futruncate x), ein SF.
-// x wird von der 0 weg zur nächsten ganzen Zahl gerundet.
+// x wird von der 0 weg zur nÃ¤chsten ganzen Zahl gerundet.
 extern const cl_SF futruncate (const cl_SF& x);
 
 // SF_to_I(x) wandelt ein Short-Float x, das eine ganze Zahl darstellt,

@@ -22,7 +22,7 @@ MAYBE_INLINE2
 const cl_I NUDS_to_I (uintD* MSDptr, uintC len)
 {
 	if ((!(len==0)) && ((sintD)mspref(MSDptr,0) < 0))
-		// Falls die Länge >0 und das Most significant Bit = 1 sind,
+		// Falls die LÃ¤nge >0 und das Most significant Bit = 1 sind,
 		// die Digit Sequence um ein Nulldigit erweitern:
 		{ lsprefnext(MSDptr) = 0; len++; }
 	return NDS_to_I(MSDptr,len);

@@ -33,18 +33,18 @@ extern const cl_FF cl_SF_to_FF (const cl_SF& x);
 extern const cl_DF cl_SF_to_DF (const cl_SF& x);
 
 // cl_SF_to_LF(x,len) wandelt ein Short-Float x in ein Long-Float mit len Digits um.
-// > uintC len: gew¸nschte Anzahl Digits, >=LF_minlen
+// > uintC len: gew√ºnschte Anzahl Digits, >=LF_minlen
 extern const cl_LF cl_SF_to_LF (const cl_SF& x, uintC len);
 
 // cl_FF_to_DF(x) wandelt ein Single-Float x in ein Double-Float um.
 extern const cl_DF cl_FF_to_DF (const cl_FF& x);
 
 // cl_FF_to_LF(x,len) wandelt ein Single-Float x in ein Long-Float mit len Digits um.
-// > uintC len: gew¸nschte Anzahl Digits, >=LF_minlen
+// > uintC len: gew√ºnschte Anzahl Digits, >=LF_minlen
 extern const cl_LF cl_FF_to_LF (const cl_FF& x, uintC len);
 
 // cl_DF_to_LF(x,len) wandelt ein Double-Float x in ein Long-Float mit len Digits um.
-// > uintC len: gew¸nschte Anzahl Digits, >=LF_minlen
+// > uintC len: gew√ºnschte Anzahl Digits, >=LF_minlen
 extern const cl_LF cl_DF_to_LF (const cl_DF& x, uintC len);
 
 
@@ -115,7 +115,7 @@ inline bool longfloatp (const cl_F& x)
 #endif
 
 // Macro: verteilt je nach Float-Typ eines Floats x auf 4 Statements,
-// die x vom jeweiligen Float-Typ benutzen d¸rfen.
+// die x vom jeweiligen Float-Typ benutzen d√ºrfen.
 // floatcase(x, SF_statement,FF_statement,DF_statement,LF_statement);
 // x sollte eine Variable sein.
   #define floatcase(x, SF_statement,FF_statement,DF_statement,LF_statement) \
@@ -218,13 +218,13 @@ inline bool longfloatp (const cl_F& x)
 #define GEN_LF_OP2_AUX0(arg1,arg2,F_OP,r,ergebnis_zuweisung)  \
   var uintC len1 = TheLfloat(arg1)->len;				\
   var uintC len2 = TheLfloat(arg2)->len;				\
-  if (len1 == len2) /* gleich -> direkt ausf¸hren */			\
+  if (len1 == len2) /* gleich -> direkt ausf√ºhren */			\
     { ergebnis_zuweisung CONCAT(NOMAP,r) (LF, F_OP(arg1,arg2)); }	\
-  elif (len1 > len2) /* -> arg2 auf die L‰nge von arg1 bringen */	\
+  elif (len1 > len2) /* -> arg2 auf die L√§nge von arg1 bringen */	\
     { ergebnis_zuweisung CONCAT(MAP,r) (LF, LF_shorten_len2,		\
       F_OP(arg1,extend(arg2,len1)) );					\
     }									\
-  else /* (len1 < len2) -> arg1 auf die L‰nge von arg2 bringen */	\
+  else /* (len1 < len2) -> arg1 auf die L√§nge von arg2 bringen */	\
     { ergebnis_zuweisung CONCAT(MAP,r) (LF, LF_shorten_len1,		\
       F_OP(extend(arg1,len2),arg2) );					\
     }
@@ -263,7 +263,7 @@ extern const cl_F cl_F_shortenrelative (const cl_F& x, const cl_F& y);
 // Macro: dispatches according to a float_format_t value.
 // floatformatcase(value, SF_statement,FF_statement,DF_statement,LF_statement)
 // LF_statement darf auf `len' zugreifen, die zu `value' korrespondierende
-// Mantissenl‰nge (gemessen in Digits).
+// Mantissenl√§nge (gemessen in Digits).
   #define floatformatcase(value, SF_statement,FF_statement,DF_statement,LF_statement)  \
     { if ((value) <= float_format_sfloat) { SF_statement }		\
       elif ((value) <= float_format_ffloat) { FF_statement }		\

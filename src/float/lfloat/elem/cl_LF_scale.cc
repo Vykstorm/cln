@@ -20,16 +20,16 @@ const cl_LF scale_float (const cl_LF& x, sintC delta)
   // Methode:
   // delta=0 -> x als Ergebnis
   // x=0.0 -> x als Ergebnis
-  // delta muﬂ ein Integer betragsm‰ﬂig <= LF_exp_high-LF_exp_low sein.
-  // Neues LF mit um delta vergrˆﬂertem Exponenten bilden.
+  // delta mu√ü ein Integer betragsm√§√üig <= LF_exp_high-LF_exp_low sein.
+  // Neues LF mit um delta vergr√∂√üertem Exponenten bilden.
       if (delta == 0) { return x; } // delta=0 -> x als Ergebnis
       var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
       var uintE udelta = delta;
       if (delta >= 0) {
         // udelta = delta >=0
-	if (   ((uexp = uexp+udelta) < udelta) // Exponent-‹berlauf?
-	    || (uexp > LF_exp_high) // oder Exponent zu groﬂ?
+	if (   ((uexp = uexp+udelta) < udelta) // Exponent-√úberlauf?
+	    || (uexp > LF_exp_high) // oder Exponent zu gro√ü?
 	   )
 	  { throw floating_point_overflow_exception(); }
       } else {

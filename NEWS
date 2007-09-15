@@ -564,7 +564,7 @@ Implementation changes
 ----------------------
 
 * Moved the sources to subdirectories.
-  (Suggested by Jörg Arndt.)
+  (Suggested by JÃ¶rg Arndt.)
 
 Other changes
 -------------
@@ -668,7 +668,7 @@ Algorithmic changes
 -------------------
 
 * Speed up the multiplication of large numbers by use of an FFT based
-  algorithm (Schönhage-Strassen). The improvement is noticeable when both
+  algorithm (SchÃ¶nhage-Strassen). The improvement is noticeable when both
   factors have at least 1250 words = 40000 bits = 12000 decimal digits.
 
 * Speed up the functions `cl_I gcd (const cl_I&, const cl_I&)' and

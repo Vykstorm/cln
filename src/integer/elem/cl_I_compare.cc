@@ -32,8 +32,8 @@ cl_signean compare (const cl_I& x, const cl_I& y)
       //       x > 0 -> x > y
       //    y Bignum ->
       //       falls beide gleich lang -> wortweise vergleichen
-      //       x kürzer als y -> bei x,y > 0 : x < y, bei x,y < 0 : x > y
-      //       y kürzer als x -> bei x,y > 0 : x > y, bei x,y > 0 : x < y
+      //       x kÃ¼rzer als y -> bei x,y > 0 : x < y, bei x,y < 0 : x > y
+      //       y kÃ¼rzer als x -> bei x,y > 0 : x > y, bei x,y > 0 : x < y
       var uintC xlen;
       var uintC ylen;
       if (fixnump(x))
@@ -76,7 +76,7 @@ cl_signean compare (const cl_I& x, const cl_I& y)
                   ylen = TheBignum(y)->length;
                   if (xlen==ylen)
                     samelength:
-                    // gleiche Länge -> digitweise vergleichen
+                    // gleiche LÃ¤nge -> digitweise vergleichen
                     return compare_loop_msp(BN_MSDptr(x),BN_MSDptr(y),xlen);
                     else
                     return (xlen > ylen ? signean_plus : signean_minus);
@@ -97,7 +97,7 @@ cl_signean compare (const cl_I& x, const cl_I& y)
                 { xlen = TheBignum(x)->length;
                   ylen = TheBignum(y)->length;
                   if (xlen==ylen)
-                    // gleiche Länge -> wortweise vergleichen
+                    // gleiche LÃ¤nge -> wortweise vergleichen
                     goto samelength; // wie oben
                     else
                     return (xlen > ylen ? signean_minus : signean_plus);

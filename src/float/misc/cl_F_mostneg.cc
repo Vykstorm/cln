@@ -19,7 +19,7 @@ CL_PROVIDE(cl_F_mostneg)
 
 namespace cln {
 
-// Exponent so groﬂ wie mˆglich, Mantisse 1...1, Vorzeichen -.
+// Exponent so gro√ü wie m√∂glich, Mantisse 1...1, Vorzeichen -.
 
 static const cl_SF most_negative_SF =
 	make_SF(-1,SF_exp_high,bit(SF_mant_len+1)-1);

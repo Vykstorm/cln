@@ -24,7 +24,7 @@ extern const cl_N complex (const cl_R& a, const cl_R& b);
 // realpart(x) liefert den Realteil der Zahl x.
 extern const cl_R realpart (const cl_N& x);
 
-// imagpart(x) liefert den Imaginärteil der Zahl x.
+// imagpart(x) liefert den ImaginÃ¤rteil der Zahl x.
 extern const cl_R imagpart (const cl_N& x);
 
 // conjugate(x) liefert die konjugiert komplexe Zahl zur Zahl x.
@@ -69,7 +69,7 @@ extern const cl_N sqrt (const cl_N& x);
 
 // equal(x,y) vergleicht zwei Zahlen x und y auf Gleichheit.
 extern bool equal (const cl_N& x, const cl_N& y);
-// equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
+// equal_hashcode(x) liefert einen equal-invarianten Hashcode fÃ¼r x.
 extern uint32 equal_hashcode (const cl_N& x);
 
 inline bool operator== (const cl_N& x, const cl_N& y)

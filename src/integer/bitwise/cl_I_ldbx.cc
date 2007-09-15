@@ -21,11 +21,11 @@ const cl_I ldb_extract (const cl_I& x, uintC p, uintC q)
       var uintC len;
       var const uintD* LSDptr;
       I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,true, { return 0; } ); // NDS zu x bilden
-      // MSDptr erhˆhen und len erniedrigen, so daﬂ len = ceiling(q/intDsize) wird:
+      // MSDptr erh√∂hen und len erniedrigen, so da√ü len = ceiling(q/intDsize) wird:
       { var uintC qD = ceiling(q,intDsize); // ceiling(q/intDsize)
         // wegen q<=l ist qD = ceiling(q/intDsize) <= ceiling((l+1)/intDsize) = len, also
-        // paﬂt qD ebenso wie len in ein uintC.
-        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erhˆhen
+        // pa√üt qD ebenso wie len in ein uintC.
+        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erh√∂hen
         len = qD; // len um len-qD erniedrigen
       }
       // LSDptr und len um floor(p/intDsize) erniedrigen:
@@ -33,7 +33,7 @@ const cl_I ldb_extract (const cl_I& x, uintC p, uintC q)
         LSDptr = LSDptr lspop pD;
         len -= pD;
       }
-      // Jetzt enth‰lt MSDptr/len/LSDptr genau die maﬂgeblichen Digits.
+      // Jetzt enth√§lt MSDptr/len/LSDptr genau die ma√ügeblichen Digits.
       var uintD* newMSDptr;
       { var uintL i = p%intDsize; // p mod intDsize
         // Kopiere sie und schiebe sie dabei um i Bits nach rechts:
@@ -43,7 +43,7 @@ const cl_I ldb_extract (const cl_I& x, uintC p, uintC q)
           else
           { shiftrightcopy_loop_msp(MSDptr,newMSDptr,len,i,0); }
       }
-      // newMSDptr/len/.. = geschobene Kopie der maﬂgeblichen Digits
+      // newMSDptr/len/.. = geschobene Kopie der ma√ügeblichen Digits
       // Ausblenden der Bits mit Nummern >= q-p:
       { var uintC bitcount = intDsize*len - (q-p);
         // Anzahl vorne auszublendender Bits ( >=0, <= intDsize-1 + intDsize-1 )
@@ -53,7 +53,7 @@ const cl_I ldb_extract (const cl_I& x, uintC p, uintC q)
         if (bitcount > 0)
           { mspref(newMSDptr,0) &= (uintD)(bit(intDsize-bitcount)-1); }
       }
-      // Jetzt enth‰lt die UDS newMSDptr/len/.. die extrahierten Bits.
+      // Jetzt enth√§lt die UDS newMSDptr/len/.. die extrahierten Bits.
       return UDS_to_I(newMSDptr,len); // UDS in Integer umwandeln
     }
 

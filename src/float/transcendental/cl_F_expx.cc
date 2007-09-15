@@ -43,7 +43,7 @@ namespace cln {
 const cl_LF expx_naive (const cl_LF& x)
 {
 // Methode:
-// wie oben, mit adaptiver Genauigkeit w‰hrend der Potenzreihen-Summation.
+// wie oben, mit adaptiver Genauigkeit w√§hrend der Potenzreihen-Summation.
 	if (zerop(x))
 		return cl_float(1,x);
 	var uintL actuallen = TheLfloat(x)->len;
@@ -52,13 +52,13 @@ const cl_LF expx_naive (const cl_LF& x)
 	if (e < -(sintC)d) // e < -d ?
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_LF,x);
-	var uintE k = 0; // Rekursionsz‰hler k:=0
+	var uintE k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden. limit_slope = 1.0 ist nicht schlecht,
 	// auch im Bereich d = ca. 800.
 	var sintL e_limit = -1-isqrtC(d); // -1-floor(sqrt(d))
 	if (e > e_limit) {
-		// e > -1-floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		k = e - e_limit;
 		x = scale_float(x,-(sintE)k); // x := x/2^k
 		// Neuer Exponent = e-k = e_limit.
@@ -98,16 +98,16 @@ const cl_F expx_naive (const cl_F& x)
 	if (e < -(sintC)d) // e < -d ?
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_F,x);
-	var uintE k = 0; // Rekursionsz‰hler k:=0
+	var uintE k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
-	// angewandt werden. limit_slope = 1.0 ist nicht schlecht. F¸r
+	// angewandt werden. limit_slope = 1.0 ist nicht schlecht. F√ºr
 	// d > 1600 scheint der Bereich 2.0 <= limit_slope <= 2.6 am besten
-	// zu sein (mit bis zu 15% Beschleunigung gegen¸ber limit_slope = 1.0),
+	// zu sein (mit bis zu 15% Beschleunigung gegen√ºber limit_slope = 1.0),
 	// aber in diesem Bereich rechnen wir gar nicht.
-	// Wir w‰hlen limit_slope = 1.5.
+	// Wir w√§hlen limit_slope = 1.5.
 	var sintL e_limit = -1-floor(isqrtC(d)*3,2); // -1-floor(sqrt(d))
 	if (e > e_limit) {
-		// e > -1-floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		k = e - e_limit;
 		x = scale_float(x,-(sintE)k); // x := x/2^k
 		// Neuer Exponent = e-k = e_limit.

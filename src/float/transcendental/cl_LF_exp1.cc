@@ -56,7 +56,7 @@ const cl_LF compute_exp1 (uintC len)
 	for (n = 0; n < N; n++) {
 		qv[n].~cl_I();
 	}
-	return shorten(fsum,len); // verk¸rzen und fertig
+	return shorten(fsum,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(log(N)*M(N)).
 
@@ -77,20 +77,20 @@ const cl_LF compute_exp1 (uintC len)
 
 const cl_LF exp1 (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_exp1)->len; // vorhandene L‰nge
+	var uintC oldlen = TheLfloat(cl_LF_exp1)->len; // vorhandene L√§nge
 	if (len < oldlen)
 		return shorten(cl_LF_exp1,len);
 	if (len == oldlen)
 		return cl_LF_exp1;
 
 	// TheLfloat(cl_LF_exp1)->len um mindestens einen konstanten Faktor
-	// > 1 wachsen lassen, damit es nicht zu h‰ufig nachberechnet wird:
+	// > 1 wachsen lassen, damit es nicht zu h√§ufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
 	if (newlen < oldlen)
 		newlen = oldlen;
 
-	// gew¸nschte > vorhandene L‰nge -> muﬂ nachberechnen:
+	// gew√ºnschte > vorhandene L√§nge -> mu√ü nachberechnen:
 	cl_LF_exp1 = compute_exp1(newlen); // (exp 1)
 	return (len < newlen ? shorten(cl_LF_exp1,len) : cl_LF_exp1);
 }

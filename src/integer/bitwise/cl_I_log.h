@@ -9,7 +9,7 @@
 
 namespace cln {
 
-// Liefert die Anzahl Digits, die ein Integer als DS br‰uchte.
+// Liefert die Anzahl Digits, die ein Integer als DS br√§uchte.
 // (Leicht aufgerundet.)
 inline uintC I_to_DS_need (const cl_I& x)
 {

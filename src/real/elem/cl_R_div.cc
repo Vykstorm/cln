@@ -32,7 +32,7 @@ ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 const cl_R operator/ (const cl_R& x, const cl_R& y)
 {
 	if (eq(x,0))
-		// 0 / y = exakte 0, auﬂer wenn y=0
+		// 0 / y = exakte 0, au√üer wenn y=0
 		{ if (zerop(y))
 			{ throw division_by_0_exception(); }
 		  else

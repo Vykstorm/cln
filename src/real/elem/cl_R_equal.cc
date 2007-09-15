@@ -25,7 +25,7 @@ bool equal (const cl_R& x, const cl_R& y)
 // Methode:
 // Beide rational oder beide Floats -> klar.
 // Eine rational, eine Float ->
-//   Die rationale Zahl muß einen Zweierpotenz-Nenner haben, sonst verschieden.
+//   Die rationale Zahl muÃŸ einen Zweierpotenz-Nenner haben, sonst verschieden.
 //   Die rationale Zahl zum Float machen, vergleichen.
 //   Verschieden -> Das war's.
 //   Gleich -> Das Float mit RATIONAL rational machen, nochmals vergleichen.

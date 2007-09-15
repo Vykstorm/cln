@@ -112,7 +112,7 @@ const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintE lq, uintC len)
 	#else // TRIVIAL_SPEEDUP
 	var cl_LF coshsum = sqrt(cl_I_to_LF(1,actuallen) + square(sinhsum));
 	#endif
-	return cl_LF_cosh_sinh_t(shorten(coshsum,len),shorten(sinhsum,len)); // verkürzen und fertig
+	return cl_LF_cosh_sinh_t(shorten(coshsum,len),shorten(sinhsum,len)); // verkÃ¼rzen und fertig
 }}
 // Bit complexity (N = len, and if p has length O(log N) and ql = O(log N)):
 // O(log(N)*M(N)).

@@ -17,13 +17,13 @@ namespace cln {
 bool oddp (const cl_I& x)
 {
 	if (fixnump(x)) {
-		// Fixnum: Bit 0 abprüfen
+		// Fixnum: Bit 0 abprÃ¼fen
 		if (x.word & bit(cl_value_shift))
 			return true;
 		else
 			return false;
 	} else {
-		// Bignum: Bit 0 im letzten Digit abprüfen
+		// Bignum: Bit 0 im letzten Digit abprÃ¼fen
 		if (lspref(BN_LSDptr(x),0) & bit(0))
 			return true;
 		else

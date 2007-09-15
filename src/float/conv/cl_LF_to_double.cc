@@ -44,7 +44,7 @@ double double_approx (const cl_LF& x)
 	  { mant = mant >> shiftcount;
 	    mant = mant+1;
 	    if (mant >= bit(DF_mant_len+1))
-	      // Überlauf durchs Runden
+	      // Ãœberlauf durchs Runden
 	      { mant = mant>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }
 	if (exp > (sintL)(DF_exp_high-DF_exp_mid))
@@ -83,7 +83,7 @@ double double_approx (const cl_LF& x)
 	    if (mantlo==0)
 	      { manthi = manthi+1;
 	        if (manthi >= bit(DF_mant_len+1-32))
-	          // Überlauf durchs Runden
+	          // Ãœberlauf durchs Runden
 	          { manthi = manthi>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }   }
 	if (exp > (sintL)(DF_exp_high-DF_exp_mid))

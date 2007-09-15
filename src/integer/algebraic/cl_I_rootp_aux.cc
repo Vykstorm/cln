@@ -30,13 +30,13 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
 // Methode:
 // Falls x=0 oder x=1: x = x^n -> JA, x als Ergebnis.
 // Hier also x>1. Suche ein Integer y > 1 mit x=y^n.
-// Falls n >= integer_length(x): NEIN. (Da y>=2, müßte x>=2^n gelten.)
+// Falls n >= integer_length(x): NEIN. (Da y>=2, mÃ¼ÃŸte x>=2^n gelten.)
 // Hier also n>0 klein.
 // Solange n gerade ist: x := (sqrt x), n := (/ n 2). x nicht ganz -> NEIN.
 // Hier also n>0 ungerade.
 // Falls n=1: x = x^n -> JA, x als Ergebnis.
 // Falls o := ord2(x) nicht durch n teilbar ist: NEIN.
-// Sonst dividiere x durch 2^o, am Schluß y mit 2^(o/n) multiplizieren.
+// Sonst dividiere x durch 2^o, am SchluÃŸ y mit 2^(o/n) multiplizieren.
 // Hier also n>0 ungerade, x ungerade.
 // beta := 2^intDsize, m := ceiling(integer_length(x)/(intDsize*n)).
 // Suche ein y mit y>=0, y<beta^m mit  x == y^n mod beta^m :
@@ -44,14 +44,14 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
 //   (-1)^((n-1)*n/2) * Res(X^n-x,n*X^(n-1)) = +- n^n * x^(n-1), und diese ist
 //   nicht durch p=2 teilbar. Daher ist das Hensel-Lemma mit p=2 anwendbar.
 //   Verwende quadratisches Hensel-Lifting, bei linearem Hensel-Lifting der
-//   der Verwaltungsaufwand vergleichsweise größer ist und die schnelle
+//   der Verwaltungsaufwand vergleichsweise grÃ¶ÃŸer ist und die schnelle
 //   Multiplikation nicht zum Zuge kommt.
 //   Sei  y0 mod beta^k  mit  y0^n == x mod beta^k  bekannt. k=m -> fertig.
 //   Setze  y == y0 + beta^k*y1 mod beta^2k  an, wobei 2k := min(2*k,m).
-//   Dabei wird y1 mod beta^(2k-k) so gewählt, daß mod beta^2k
+//   Dabei wird y1 mod beta^(2k-k) so gewÃ¤hlt, daÃŸ mod beta^2k
 //   x == y^n == y0^n + n * y0^(n-1) * beta^k*y1. Dazu wird
 //   (x - y0^n) mod beta^2k errechnet, durch beta^k dividiert (die Division
-//   muß nach Voraussetzung an y0 aufgehen) und
+//   muÃŸ nach Voraussetzung an y0 aufgehen) und
 //   y1 := ((x-y0^n)/beta^k) / (n*y0^(n-1)) mod beta^(2k-k) gebildet.
 //   Damit hat man  (y0 + beta^k*y1)^n == x mod beta^2k . 2k=m -> fertig.
 //   Den Anfang (k=1) bekommt man analog, mit beta:=2 und k=1,k=2,k=4,...
@@ -64,7 +64,7 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
         }
       // Nun ist n ungerade.
       if (n==1) { *w = x; return true; } // n=1 -> x als Ergebnis
-      var uintC oq = 0; // Shift von y am Schluß
+      var uintC oq = 0; // Shift von y am SchluÃŸ
       {var uintC o = ord2(x);
        if (!(o==0))
          {var uintL o_r; divu_3232_3232(o,n, oq=,o_r=); // o_r = o mod n
@@ -97,7 +97,7 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
       var uintD x_lsd = lspref(x_LSDptr,0); // letztes Digit von x
       var uintD y_lsd; // n-te Wurzel von x_lsd mod 2^intDsize
       y_lsd = 1; // Wurzel mod 2^1
-      // Für k=1,2,4,...:
+      // FÃ¼r k=1,2,4,...:
       // y_lsd := y_lsd + 2^k * (x_lsd-y_lsd^n)/2^k / (n*y_lsd^(n-1))
       //        = y_lsd + (x_lsd-y_lsd^n) / (n*y_lsd^(n-1))
       doconsttimes(log2_intDsize, // log2(intDsize) Iterationen reichen aus
@@ -110,23 +110,23 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
       y_lsd_ok:
       ASSERT(expt_pos(y_lsd,n)==x_lsd);
       // Nun ist y_lsd^n == x_lsd mod beta=2^intDsize.
-      { var uintC m = ceiling(x_len,n); // für y nötige Länge, >0, <=x_len
+      { var uintC m = ceiling(x_len,n); // fÃ¼r y nÃ¶tige LÃ¤nge, >0, <=x_len
         var uintD* y_LSDptr;
         { var uintD* z1_LSDptr;
           var uintD* z2_LSDptr;
           var uintD* z3_LSDptr;
-          num_stack_alloc_1(m, ,y_LSDptr=); // Platz für y
+          num_stack_alloc_1(m, ,y_LSDptr=); // Platz fÃ¼r y
           {var uintC need = 2*m+(32/intDsize-1); // >= max(2*m,m+32/intDsize)
-           num_stack_alloc(need, ,z1_LSDptr=); // Platz für Rechenregister 1
-           num_stack_alloc(need, ,z2_LSDptr=); // Platz für Rechenregister 2
-           num_stack_alloc(need, ,z3_LSDptr=); // Platz für Rechenregister 3
+           num_stack_alloc(need, ,z1_LSDptr=); // Platz fÃ¼r Rechenregister 1
+           num_stack_alloc(need, ,z2_LSDptr=); // Platz fÃ¼r Rechenregister 2
+           num_stack_alloc(need, ,z3_LSDptr=); // Platz fÃ¼r Rechenregister 3
           }
          {var uintC k = 1; // y ist bisher mod beta^k bekannt
           lspref(y_LSDptr,0) = y_lsd; // Startwert von y
           until (k==m)
             { var uintC k2 = 2*k; if (k2>m) { k2=m; } // k2 = min(2*k,m) > k
               // bisheriges y mod beta^k2 mit n-1 potenzieren:
-              // Methode für z := y^(n-1) :
+              // Methode fÃ¼r z := y^(n-1) :
               //   zz:=y, e:=n-1.
               //   Solange e gerade, setze zz:=zz*zz, e:=e/2.
               //   z:=zz.
@@ -146,7 +146,7 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
                  }
                  while ((e & bit(0)) ==0); // solange e gerade
               z_LSDptr = zz_LSDptr; // z:=zz
-              // (zz nicht kopieren; ab der nächsten Veränderung von zz wird
+              // (zz nicht kopieren; ab der nÃ¤chsten VerÃ¤nderung von zz wird
               // {zz_LSDptr,z_LSDptr,free_LSDptr} = {z1_LSDptr,z2_LSDptr,z3_LSDptr}
               // gelten.)
               until ((e = e>>1) == 0)
@@ -187,9 +187,9 @@ bool cl_rootp_aux (cl_I x, uintL n, cl_I* w)
             // Die ganze Rechnung war umsonst.
             { return false; }
         }
-        // y ist tatsächlich n-te Wurzel von x.
+        // y ist tatsÃ¤chlich n-te Wurzel von x.
         // Noch mit 2^oq multiplizieren:
-        if (oq==0) // kein Shift nötig?
+        if (oq==0) // kein Shift nÃ¶tig?
           { *w = y; }
           else
           { *w = ash(y,oq); }

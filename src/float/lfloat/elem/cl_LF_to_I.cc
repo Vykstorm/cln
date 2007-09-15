@@ -34,13 +34,13 @@ const cl_I cl_LF_to_I (const cl_LF& x)
       var uintC len1 = len+1; // brauche 1 Digit mehr
       num_stack_alloc(len1, MSDptr=,LSDptr=);
       copy_loop_msp(arrayMSDptr(TheLfloat(x)->data,len),MSDptr mspop 1,len); // Mantisse kopieren
-      mspref(MSDptr,0) = 0; // und zusätzliches Nulldigit
+      mspref(MSDptr,0) = 0; // und zusÃ¤tzliches Nulldigit
       // Mantisse ist die UDS MSDptr/len1/LSDptr.
       if (minusp(x))
         // x<0 -> Mantisse negieren:
         { neg_loop_lsp(LSDptr,len1); }
       // Vorzeichen*Mantisse ist die DS MSDptr/len1/LSDptr.
-      // (ASH Vorzeichen*Mantisse (- e 16n)) durchführen:
+      // (ASH Vorzeichen*Mantisse (- e 16n)) durchfÃ¼hren:
       return ash(DS_to_I(MSDptr,len1),
                  minus(uexp, LF_exp_mid + intDsize*len)
                 );

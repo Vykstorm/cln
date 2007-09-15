@@ -14,11 +14,11 @@ namespace cln {
 // read_rational(base,sign,string,index1,index3,index2)
 // > base: Lesebasis (>=2, <=36)
 // > sign: Vorzeichen (/=0 falls negativ)
-// > string: Simple-String (enth‰lt Ziffern mit Wert <base und Bruchstrich)
+// > string: Simple-String (enth√§lt Ziffern mit Wert <base und Bruchstrich)
 // > index1: Index der ersten Ziffer
 // > index3: Index von '/'
 // > index2: Index nach der letzten Ziffer
-//   (also index3-index1 Z‰hler-Ziffern, index2-index3-1 Nenner-Ziffern)
+//   (also index3-index1 Z√§hler-Ziffern, index2-index3-1 Nenner-Ziffern)
 // < ergebnis: rationale Zahl
 extern const cl_RA read_rational (unsigned int base,
                    cl_signean sign, const char * string, uintL index1, uintL index3, uintL index2);

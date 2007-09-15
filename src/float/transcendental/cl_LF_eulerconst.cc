@@ -94,7 +94,7 @@ const cl_LF compute_eulerconst_expintegral (uintC len)
 		qv[n].~cl_I();
 	}
 	fsum = fsum - ln(cl_I_to_LF(z,actuallen)); // log(z) subtrahieren
-	return shorten(fsum,len); // verk¸rzen und fertig
+	return shorten(fsum,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
 
@@ -174,7 +174,7 @@ const cl_LF compute_eulerconst_expintegral1 (uintC len)
 		}
 	}
 	var cl_LF result = gsum/fsum - ln(cl_I_to_LF(x,actuallen));
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(N^2).
 
@@ -211,7 +211,7 @@ const cl_LF compute_eulerconst_expintegral2 (uintC len)
 		args[n].q.~cl_I();
 		args[n].d.~cl_I();
 	}
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
 
@@ -305,7 +305,7 @@ const cl_LF compute_eulerconst_besselintegral1 (uintC len)
 		}
 	}
 	var cl_LF result = gsum/fsum - ln(cl_I_to_LF(sx,actuallen));
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(N^2).
 
@@ -373,7 +373,7 @@ const cl_LF compute_eulerconst_besselintegral2 (uintC len)
 		qv[n].~cl_I();
 	}
 	var cl_LF result = gsum/fsum - ln(cl_I_to_LF(sx,actuallen));
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(N^2).
 // Memory consumption: O(N^2).
@@ -434,7 +434,7 @@ const cl_LF compute_eulerconst_besselintegral3 (uintC len)
 	var cl_rational_series_for_g gseries = cl_rational_series_for_g(x);
 	var cl_LF gsum = eval_rational_series(N,gseries,actuallen);
 	var cl_LF result = gsum/fsum - ln(cl_I_to_LF(sx,actuallen));
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(N^2).
 
@@ -475,7 +475,7 @@ const cl_LF compute_eulerconst_besselintegral4 (uintC len)
 	  cl_R_to_LF(sums.V,actuallen)
 	  / The(cl_LF)(sums.D * cl_R_to_LF(sums.Q+sums.T,actuallen))
 	  - ln(cl_R_to_LF(sx,actuallen));
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
 
@@ -507,20 +507,20 @@ const cl_LF compute_eulerconst (uintC len)
 
 const cl_LF eulerconst (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_eulerconst)->len; // vorhandene L‰nge
+	var uintC oldlen = TheLfloat(cl_LF_eulerconst)->len; // vorhandene L√§nge
 	if (len < oldlen)
 		return shorten(cl_LF_eulerconst,len);
 	if (len == oldlen)
 		return cl_LF_eulerconst;
 
 	// TheLfloat(cl_LF_eulerconst)->len um mindestens einen konstanten Faktor
-	// > 1 wachsen lassen, damit es nicht zu h‰ufig nachberechnet wird:
+	// > 1 wachsen lassen, damit es nicht zu h√§ufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
 	if (newlen < oldlen)
 		newlen = oldlen;
 
-	// gew¸nschte > vorhandene L‰nge -> muﬂ nachberechnen:
+	// gew√ºnschte > vorhandene L√§nge -> mu√ü nachberechnen:
 	cl_LF_eulerconst = compute_eulerconst(newlen);
 	return (len < newlen ? shorten(cl_LF_eulerconst,len) : cl_LF_eulerconst);
 }

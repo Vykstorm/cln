@@ -194,7 +194,7 @@
     }
 
 // doconsttimes(count,statement);
-// führt statement count mal aus (count mal der Code!),
+// fÃ¼hrt statement count mal aus (count mal der Code!),
 // wobei count eine constant-expression >=0, <=8 ist.
   #define doconsttimes(count_from_doconsttimes,statement_from_doconsttimes)  \
     { if (0 < (count_from_doconsttimes)) { statement_from_doconsttimes; } \
@@ -210,7 +210,7 @@
 // DOCONSTTIMES(count,macroname);
 // ruft count mal den Macro macroname auf (count mal der Code!),
 // wobei count eine constant-expression >=0, <=8 ist.
-// Dabei bekommt macroname der Reihe nach die Werte 0,...,count-1 übergeben.
+// Dabei bekommt macroname der Reihe nach die Werte 0,...,count-1 Ã¼bergeben.
   #define DOCONSTTIMES(count_from_DOCONSTTIMES,macroname_from_DOCONSTTIMES)  \
     { if (0 < (count_from_DOCONSTTIMES)) { macroname_from_DOCONSTTIMES((0 < (count_from_DOCONSTTIMES) ? 0 : 0)); } \
       if (1 < (count_from_DOCONSTTIMES)) { macroname_from_DOCONSTTIMES((1 < (count_from_DOCONSTTIMES) ? 1 : 0)); } \

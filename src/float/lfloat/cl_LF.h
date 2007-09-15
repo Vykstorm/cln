@@ -37,27 +37,27 @@ inline cl_heap_lfloat* TheLfloat (const cl_number& obj)
 
 
 // Liefert zu einem Long-Float x : (futruncate x), ein LF.
-// x wird von der 0 weg zur n‰chsten ganzen Zahl gerundet.
+// x wird von der 0 weg zur n√§chsten ganzen Zahl gerundet.
 extern const cl_LF futruncate (const cl_LF& x);
 
-// shorten(x,len) verk¸rzt ein Long-Float x auf gegebene L‰nge len
+// shorten(x,len) verk√ºrzt ein Long-Float x auf gegebene L√§nge len
 // und rundet dabei.
 // > cl_LF x: ein Long-FLoat
-// > uintC len: gew¸nschte L‰nge (>= LF_minlen, < TheLfloat(x)->len)
-// < cl_LF ergebnis: verk¸rztes Long-Float
+// > uintC len: gew√ºnschte L√§nge (>= LF_minlen, < TheLfloat(x)->len)
+// < cl_LF ergebnis: verk√ºrztes Long-Float
 extern const cl_LF shorten (const cl_LF& x, uintC len);
 
-// extend(x,len) verl‰ngert ein Long-Float x auf gegebene L‰nge len.
+// extend(x,len) verl√§ngert ein Long-Float x auf gegebene L√§nge len.
 // > cl_LF x: ein Long-FLoat
-// > uintC len: gew¸nschte L‰nge (> TheLfloat(x)->len)
-// < cl_LF ergebnis: verl‰ngertes Long-Float
+// > uintC len: gew√ºnschte L√§nge (> TheLfloat(x)->len)
+// < cl_LF ergebnis: verl√§ngertes Long-Float
 extern const cl_LF extend (const cl_LF& x, uintC len);
 
-// LF_to_LF(x,len) wandelt ein Long-Float x in ein Long-Float gegebener L‰nge
-// len um und rundet dabei nˆtigenfalls.
+// LF_to_LF(x,len) wandelt ein Long-Float x in ein Long-Float gegebener L√§nge
+// len um und rundet dabei n√∂tigenfalls.
 // > cl_LF x: ein Long-FLoat
-// > uintC len: gew¸nschte L‰nge (>= LF_minlen)
-// < cl_LF ergebnis: Long-Float gegebener L‰nge
+// > uintC len: gew√ºnschte L√§nge (>= LF_minlen)
+// < cl_LF ergebnis: Long-Float gegebener L√§nge
 extern const cl_LF LF_to_LF (const cl_LF& x, uintC len);
 
 // GEN_LF_OP2(arg1,arg2,LF_OP,ergebnis_zuweisung)
@@ -69,11 +69,11 @@ extern const cl_LF LF_to_LF (const cl_LF& x, uintC len);
 {									\
 	var uintC len1 = TheLfloat(arg1)->len;				\
 	var uintC len2 = TheLfloat(arg2)->len;				\
-	if (len1==len2) /* gleich -> direkt ausf¸hren */		\
+	if (len1==len2) /* gleich -> direkt ausf√ºhren */		\
 		return LF_OP(arg1,arg2);				\
-	elif (len1>len2) /* -> arg2 auf die L‰nge von arg1 bringen */	\
+	elif (len1>len2) /* -> arg2 auf die L√§nge von arg1 bringen */	\
 		return shorten(LF_OP(arg1,extend(arg2,len1)),len2);	\
-	else /* (len1<len2) -> arg1 auf die L‰nge von arg2 bringen */	\
+	else /* (len1<len2) -> arg1 auf die L√§nge von arg2 bringen */	\
 		return shorten(LF_OP(extend(arg1,len2),arg2),len1);	\
 }
 
@@ -128,11 +128,11 @@ extern const cl_LF cl_LF_RA_div (const cl_LF& x, const cl_RA& y);
 // cl_RA_LF_div(x,y) dividiert eine rationale Zahl x durch ein Long-Float y.
 extern const cl_R cl_RA_LF_div (const cl_RA& x, const cl_LF& y);
 
-// Vergrˆﬂert eine Long-Float-L‰nge n, so daﬂ aus d = intDsize*n
+// Vergr√∂√üert eine Long-Float-L√§nge n, so da√ü aus d = intDsize*n
 // mindestens d+sqrt(d)+2 wird.
 extern uintC cl_LF_len_incsqrt (uintC len);
 
-// Vergrˆﬂert eine Long-Float-L‰nge n, so daﬂ aus d = intDsize*n
+// Vergr√∂√üert eine Long-Float-L√§nge n, so da√ü aus d = intDsize*n
 // mindestens d+sqrt(d)+2+(LF_exp_len-1) wird.
 extern uintC cl_LF_len_incsqrtx (uintC len);
 

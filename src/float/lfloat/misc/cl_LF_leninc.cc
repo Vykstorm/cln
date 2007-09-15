@@ -14,13 +14,13 @@ namespace cln {
 uintC cl_LF_len_incsqrt (uintC n)
 {
 // Methode bei intDsize=16:
-// n -> n+1 für n<=12 wegen 16n+sqrt(16n)+2 < 16(n+1)
-// n -> n+2 für n<=56 wegen 16n+sqrt(16n)+2 < 16(n+2)
-// n -> n+4 für n<=240
-// n -> n+8 für n<=992
-// n -> n+16 für n<=4032
-// n -> n+32 für n<=16256
-// n -> n+65 für n<=65535
+// n -> n+1 fÃ¼r n<=12 wegen 16n+sqrt(16n)+2 < 16(n+1)
+// n -> n+2 fÃ¼r n<=56 wegen 16n+sqrt(16n)+2 < 16(n+2)
+// n -> n+4 fÃ¼r n<=240
+// n -> n+8 fÃ¼r n<=992
+// n -> n+16 fÃ¼r n<=4032
+// n -> n+32 fÃ¼r n<=16256
+// n -> n+65 fÃ¼r n<=65535
 // Allgemein: intDsize*n + sqrt(intDsize*n) + 2 < intDsize*(n+inc)
 // <==>       sqrt(intDsize*n) + 2 < intDsize*inc
 // <==>       sqrt(intDsize*n) < intDsize*inc - 2

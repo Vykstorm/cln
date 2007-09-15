@@ -24,7 +24,7 @@ const cl_LF cl_LF_shortenwith (const cl_LF& x, const cl_LF& y)
 	// x = 0.0 -> Precision egal, return x.
 	// ex := float_exponent(x), dx := float_digits(x), 1 ulp(x) = 2^(ex-dx).
 	// ey := float_exponent(y).
-	// Falls ex-dx < ey, x von Precision dx auf ex-ey verkürzen.
+	// Falls ex-dx < ey, x von Precision dx auf ex-ey verkÃ¼rzen.
 	var sintE ey = float_exponent(y);
 	var sintE ex = float_exponent(x);
 	var uintC dx = float_precision(x);

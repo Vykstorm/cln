@@ -23,7 +23,7 @@ const cl_I square (const cl_I& x)
       if (fixnump(x))
         { var sintV x_ = FN_to_V(x);
           #if (cl_value_len > 32)
-          // nur falls x ein Integer mit höchstens 32 Bit ist:
+          // nur falls x ein Integer mit hÃ¶chstens 32 Bit ist:
           if ((uintV)((sintV)sign_of(x_) ^ x_) < bit(31))
           #endif
             {
@@ -31,7 +31,7 @@ const cl_I square (const cl_I& x)
               var uint32 hi;
               var uint32 lo;
               mulu32((uint32)x_,(uint32)x_,hi=,lo=); // erst unsigned multiplizieren
-              if (x_ < 0) { hi -= 2*(uint32)x_; } // dann Korrektur für Vorzeichen
+              if (x_ < 0) { hi -= 2*(uint32)x_; } // dann Korrektur fÃ¼r Vorzeichen
               return L2_to_I(hi,lo);
             }
         }

@@ -17,7 +17,7 @@ namespace cln {
 const cl_R phase (const cl_N& x)
 {
 // Methode:
-// (= x 0) -> willkürliches Ergebnis 0
+// (= x 0) -> willkÃ¼rliches Ergebnis 0
 // x reell -> Winkel von (x,0) in Polarkoordinaten
 // x komplex -> Winkel von ((realpart x),(imagpart x)) in Polarkoordinaten
 	if (zerop(x))

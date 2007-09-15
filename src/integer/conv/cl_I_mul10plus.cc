@@ -24,7 +24,7 @@ const cl_I mul_10_plus_x (const cl_I& y, unsigned char x)
 	var uintD carry = mulusmall_loop_lsp(10,LSDptr,len,x); // mal 10, plus x
 	if (!(carry==0))
 		{ lsprefnext(MSDptr) = carry; len++; }
-	return UDS_to_I(MSDptr,len); // UDS als Integer zurück
+	return UDS_to_I(MSDptr,len); // UDS als Integer zurÃ¼ck
 }
 
 }  // namespace cln

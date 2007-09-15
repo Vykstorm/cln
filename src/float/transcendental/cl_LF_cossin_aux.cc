@@ -112,7 +112,7 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len)
 	#else // TRIVIAL_SPEEDUP
 	var cl_LF cossum = sqrt(cl_I_to_LF(1,actuallen) - square(sinsum));
 	#endif
-	return cl_LF_cos_sin_t(shorten(cossum,len),shorten(sinsum,len)); // verkürzen und fertig
+	return cl_LF_cos_sin_t(shorten(cossum,len),shorten(sinsum,len)); // verkÃ¼rzen und fertig
 }}
 // Bit complexity (N = len, and if p has length O(log N) and ql = O(log N)):
 // O(log(N)*M(N)).

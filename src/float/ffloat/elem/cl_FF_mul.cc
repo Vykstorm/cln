@@ -44,7 +44,7 @@ const cl_FF operator* (const cl_FF& x1, const cl_FF& x2)
                   TRUE, TRUE, // Overflow und subnormale Zahl abfangen
                   !(zerop(x1) || zerop(x2)), // ein Ergebnis +/- 0.0
                               // ist genau dann in Wirklichkeit ein Underflow
-                  FALSE, FALSE // keine Singularität, kein NaN als Ergebnis möglich
+                  FALSE, FALSE // keine SingularitÃ¤t, kein NaN als Ergebnis mÃ¶glich
                  );
   #else
       // x1,x2 entpacken:

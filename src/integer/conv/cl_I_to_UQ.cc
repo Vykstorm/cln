@@ -34,7 +34,7 @@ uint64 cl_I_to_UQ (const cl_I& obj)
 		if ((sintD)mspref(arrayMSDptr(bn->data,len),0) < 0)
 			goto bad;
 		#define IF_LENGTH(i)  \
-		  if (bn_minlength <= i) /* genau i Digits überhaupt möglich? */\
+		  if (bn_minlength <= i) /* genau i Digits Ã¼berhaupt mÃ¶glich? */\
 		    if (len == i) /* genau i Digits? */				\
 		      /* 2^((i-1)*intDsize-1) <= obj < 2^(i*intDsize-1) */	\
 		      if ( (i*intDsize-1 > 64)					\

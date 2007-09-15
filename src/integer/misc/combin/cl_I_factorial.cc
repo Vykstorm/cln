@@ -19,15 +19,15 @@ namespace cln {
   // Methode:
   // n <= 10 -> Ergebnis (Fixnum) aus Tabelle
   // Sonst:
-  //   Zweierpotenzen extra am Schluﬂ durch einen Shift um
+  //   Zweierpotenzen extra am Schlu√ü durch einen Shift um
   //   ord2(n!) = sum(k>=1, floor(n/2^k) ) = n - logcount(n)  Bits.
-  //   F¸r k>=1 wird jede ungerade Zahl m im Intervall n/2^k < m <= n/2^(k-1)
+  //   F√ºr k>=1 wird jede ungerade Zahl m im Intervall n/2^k < m <= n/2^(k-1)
   //   genau k mal gebraucht (als ungerader Anteil von m*2^0,...,m*2^(k-1) ).
   //   Zur Bestimmung des Produkts aller ungeraden Zahlen in einem Intervall
   //   a < m <= b verwenden wir eine rekursive Funktion, die nach Divide-and-
-  //   Conquer das Produkt ¸ber die Intervalle a < m <= c und c < m <= b
+  //   Conquer das Produkt √ºber die Intervalle a < m <= c und c < m <= b
   //   (c := floor((a+b)/2)) bestimmt und beide zusammenmultipliziert. Dies
-  //   vermeidet, daﬂ oft groﬂe Zahlen mit ganz kleinen Zahlen multipliziert
+  //   vermeidet, da√ü oft gro√üe Zahlen mit ganz kleinen Zahlen multipliziert
   //   werden.
 
 static uintV const fakul_table [] = {
@@ -103,9 +103,9 @@ const cl_I factorial (uintL n) // assume n >= 0 small
           var uintL A = n;
           var uintL B = n; // obere Intervallgrenze floor(n/2^(k-1))
           loop
-            { // 'A' enth‰lt floor(n/2^(k-1)).
+            { // 'A' enth√§lt floor(n/2^(k-1)).
               A = A >> 1; // untere Grenze floor(n/2^k)
-              // 'A' enth‰lt floor(n/2^k).
+              // 'A' enth√§lt floor(n/2^k).
               // Bilde Teilprodukt prod(A < i <= B & oddp(i), i)
               //       = prod(floor((A-1)/2) < i <= floor((B-1)/2), 2*i+1)
               // wobei B = floor(n/2^(k-1)), A = floor(n/2^k) = floor(B/2).

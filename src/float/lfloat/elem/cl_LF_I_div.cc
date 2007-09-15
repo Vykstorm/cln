@@ -39,14 +39,14 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	if (ceiling(y_exp,intDsize) > len)
 		return x / cl_I_to_LF(y,len);
 #endif
-	// x länger als y, direkt dividieren.
+	// x lÃ¤nger als y, direkt dividieren.
 	CL_ALLOCA_STACK;
 	var const uintD* y_MSDptr;
 	var uintC y_len;
 	var const uintD* y_LSDptr;
 	I_to_NDS_nocopy(abs_y, y_MSDptr=,y_len=,y_LSDptr=,false,); // NDS zu y bilden, y_len>0
 	// y nicht zu einer NUDS normalisieren! (Damit ein Bit Spielraum ist.)
-	// Zähler bilden: x * 2^(intDsize*y_len)
+	// ZÃ¤hler bilden: x * 2^(intDsize*y_len)
 	var uintD* z_MSDptr;
 	var uintC z_len;
 	var uintD* z_LSDptr;
@@ -82,7 +82,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 		}
 		msshrink(MSDptr);
 	}
-	// Quotient MSDptr/len/.. ist nun normalisiert: höchstes Bit =1.
+	// Quotient MSDptr/len/.. ist nun normalisiert: hÃ¶chstes Bit =1.
 	// exponent := exponent(x) - intDsize*y_len + shiftcount
 	var uintE uexp = TheLfloat(x)->expo;
 	var uintE dexp = intDsize*y_len - shiftcount; // >= 0 !
@@ -104,7 +104,7 @@ const cl_LF cl_LF_I_div (const cl_LF& x, const cl_I& y)
 	  else
 	  // aufrunden
 	  { if ( inc_loop_lsp(MSDptr mspop len,len) )
-	      // Übertrag durchs Aufrunden
+	      // Ãœbertrag durchs Aufrunden
 	      { mspref(MSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
 	        // Exponenten incrementieren:
 	        if (++uexp ==  LF_exp_high+1) { throw floating_point_overflow_exception(); }

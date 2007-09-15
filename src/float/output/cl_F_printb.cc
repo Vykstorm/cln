@@ -18,14 +18,14 @@ namespace cln {
 
 void print_float_binary (std::ostream& stream, const cl_F& z)
 {
-// Vorzeichen, Punkt, Mantisse (bin‰r), (Zweiersystem-)Exponent (dezimal)
+// Vorzeichen, Punkt, Mantisse (bin√§r), (Zweiersystem-)Exponent (dezimal)
 	cl_idecoded_float m_e_s = integer_decode_float(z);
 	var cl_I& m = m_e_s.mantissa;
 	var cl_I& s = m_e_s.sign;
 	// Vorzeichen ausgeben, falls <0:
 	if (eq(s,-1))
 		fprintchar(stream,'-');
-	// Mantisse bin‰r(!) ausgeben:
+	// Mantisse bin√§r(!) ausgeben:
 	fprintchar(stream,'.');
 	print_integer(stream,2,m);
 	// Exponent-Marker ausgeben:

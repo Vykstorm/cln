@@ -1,4 +1,4 @@
-  // Eine vereinfachte Version von mulu_karatsuba für den Fall
+  // Eine vereinfachte Version von mulu_karatsuba fÃ¼r den Fall
   // sourceptr1 == sourceptr2 && len1 == len2.
   // Weniger Variablen, eine Additionsschleife weniger, eine Kopierschleife
   // weniger, und bei rekursiven Aufrufen ist wieder
@@ -9,8 +9,8 @@
       CL_SMALL_ALLOCA_STACK;
       var uintC prod_len = 2*len;
       var uintD* prod_LSDptr = destptr;
-      var uintC k_hi = floor(len,2); // Länge der High-Teile: floor(len/2) >0
-      var uintC k_lo = len - k_hi; // Länge der Low-Teile: ceiling(len/2) >0
+      var uintC k_hi = floor(len,2); // LÃ¤nge der High-Teile: floor(len/2) >0
+      var uintC k_lo = len - k_hi; // LÃ¤nge der Low-Teile: ceiling(len/2) >0
       // Es gilt k_hi <= k_lo <= len, k_lo + k_hi = len.
       // Summe x1+x0 berechnen:
       var uintD* sum_MSDptr;
@@ -26,14 +26,14 @@
          }
        if (carry) { lsprefnext(sum_MSDptr) = 1; sum_len++; }
       }
-      // Platz für Produkte x0*x0, x1*x1:
+      // Platz fÃ¼r Produkte x0*x0, x1*x1:
       { var uintC prodhi_len = 2*k_hi;
         var uintD* prodhi_LSDptr = prod_LSDptr lspop 2*k_lo;
         // prod_MSDptr/2*len/prod_LSDptr wird zuerst die beiden
         // Produkte x1*x1 in prod_MSDptr/2*k_hi/prodhi_LSDptr
         //      und x0*x0 in prodhi_LSDptr/2*k_lo/prod_LSDptr,
         // dann das Produkt (b^k*x1+x0)*(b^k*x1+x0) enthalten.
-        // Platz fürs Produkt (x1+x0)*(x1+x0) belegen:
+        // Platz fÃ¼rs Produkt (x1+x0)*(x1+x0) belegen:
        {var uintD* prodmid_MSDptr;
         var uintC prodmid_len = 2*sum_len;
         var uintD* prodmid_LSDptr;
@@ -59,10 +59,10 @@
          // Carry um maximal 1 Digit weitertragen:
          if (!(carry==0)) { lspref(prodmid_LSDptr,2*k_lo) -= 1; }
         }
-        // prodmid_LSDptr[-prodmid_len..-1] enthält nun 2*x0*x1.
+        // prodmid_LSDptr[-prodmid_len..-1] enthÃ¤lt nun 2*x0*x1.
         // Dies ist < 2 * b^k_lo * b^k_hi = 2 * b^len,
-        // paßt also in len+1 Digits.
-        // prodmid_len, wenn möglich, um maximal 2 verkleinern:
+        // paÃŸt also in len+1 Digits.
+        // prodmid_len, wenn mÃ¶glich, um maximal 2 verkleinern:
         // (benutzt prodmid_len >= 2*k_lo >= len >= 2)
         if (mspref(prodmid_MSDptr,0)==0)
           { prodmid_len--;

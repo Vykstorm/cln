@@ -22,7 +22,7 @@ const cl_N conjugate (const cl_N& x)
 		DeclareType(cl_C,x);
 		var const cl_R& a = realpart(x);
 		var const cl_R& b = imagpart(x);
-		// Vorzeichenwechsel beim Imagin‰rteil
+		// Vorzeichenwechsel beim Imagin√§rteil
 		return complex_C(a,-b);
 	}
 }

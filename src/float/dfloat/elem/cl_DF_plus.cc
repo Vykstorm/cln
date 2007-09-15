@@ -27,11 +27,11 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
 // Also e1 >= e2.
 // Falls e1 - e2 >= 52 + 3, Ergebnis x1.
 // Schiebe beide Mantissen um 3 Bits nach links (Vorbereitung der Rundung:
-//   Bei e1-e2=0,1 ist keine Rundung nötig, bei e1-e2>1 ist der Exponent des
+//   Bei e1-e2=0,1 ist keine Rundung nÃ¶tig, bei e1-e2>1 ist der Exponent des
 //   Ergebnisses =e1-1, =e1 oder =e1+1. Brauche daher 1 Schutzbit und zwei
-//   Rundungsbits: 00 exakt, 01 1.Hälfte, 10 exakte Mitte, 11 2.Hälfte.)
+//   Rundungsbits: 00 exakt, 01 1.HÃ¤lfte, 10 exakte Mitte, 11 2.HÃ¤lfte.)
 // Schiebe die Mantisse von x2 um e0-e1 Bits nach rechts. (Dabei die Rundung
-// ausführen: Bit 0 ist das logische Oder der Bits 0,-1,-2,...)
+// ausfÃ¼hren: Bit 0 ist das logische Oder der Bits 0,-1,-2,...)
 // Falls x1,x2 selbes Vorzeichen haben: Addiere dieses zur Mantisse von x1.
 // Falls x1,x2 verschiedenes Vorzeichen haben: Subtrahiere dieses von der
 //   Mantisse von x1. <0 -> (Es war e1=e2) Vertausche die Vorzeichen, negiere.
@@ -41,9 +41,9 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
 #ifdef FAST_DOUBLE
       double_to_DF(DF_to_double(x1) + DF_to_double(x2), return ,
                    TRUE, TRUE, // Overflow und subnormale Zahl abfangen
-                   FALSE, // kein Underflow mit Ergebnis +/- 0.0 möglich
+                   FALSE, // kein Underflow mit Ergebnis +/- 0.0 mÃ¶glich
                           // (nach Definition der subnormalen Zahlen)
-                   FALSE, FALSE // keine Singularität, kein NaN als Ergebnis möglich
+                   FALSE, FALSE // keine SingularitÃ¤t, kein NaN als Ergebnis mÃ¶glich
                   );
 #else
 #if (cl_word_size==64)
@@ -87,10 +87,10 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
         { mant1 = mant1 + mant2; }
       // mant1 = Ergebnis-Mantisse >0, sign1 = Ergebnis-Vorzeichen,
       // exp1 = Ergebnis-Exponent.
-      // Außerdem: Bei expdiff=0,1 sind die zwei letzten Bits von mant1 Null,
+      // AuÃŸerdem: Bei expdiff=0,1 sind die zwei letzten Bits von mant1 Null,
       // bei expdiff>=2 ist mant1 >= 2^(DF_mant_len+2).
       // Stets ist mant1 < 2^(DF_mant_len+5). (Daher werden die 2 Rundungsbits
-      // nachher um höchstens eine Position nach links geschoben werden.)
+      // nachher um hÃ¶chstens eine Position nach links geschoben werden.)
       // [Knuth, S.201, leicht modifiziert:
       //   N1. m>=1 -> goto N4.
       //   N2. [Hier m<1] m>=1/2 -> goto N5.
@@ -129,8 +129,8 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
          // aufrunden
          { mant1 = mant1+1;
            if (mant1 >= bit(DF_mant_len+1))
-             // Bei Überlauf während der Rundung nochmals rechts schieben
-             // (Runden ist hier überflüssig):
+             // Bei Ãœberlauf wÃ¤hrend der Rundung nochmals rechts schieben
+             // (Runden ist hier Ã¼berflÃ¼ssig):
              { mant1 = mant1>>1; exp1 = exp1+1; } // Mantisse rechts schieben
          }
       }// Runden fertig
@@ -205,10 +205,10 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
         }
       // mant1 = Ergebnis-Mantisse >0, sign1 = Ergebnis-Vorzeichen,
       // exp1 = Ergebnis-Exponent.
-      // Außerdem: Bei expdiff=0,1 sind die zwei letzten Bits von mant1 Null,
+      // AuÃŸerdem: Bei expdiff=0,1 sind die zwei letzten Bits von mant1 Null,
       // bei expdiff>=2 ist mant1 >= 2^(DF_mant_len+2).
       // Stets ist mant1 < 2^(DF_mant_len+5). (Daher werden die 2 Rundungsbits
-      // nachher um höchstens eine Position nach links geschoben werden.)
+      // nachher um hÃ¶chstens eine Position nach links geschoben werden.)
       // [Knuth, S.201, leicht modifiziert:
       //   N1. m>=1 -> goto N4.
       //   N2. [Hier m<1] m>=1/2 -> goto N5.
@@ -252,8 +252,8 @@ const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
            if (mantlo1==0)
              { manthi1 = manthi1+1;
                if (manthi1 >= bit(DF_mant_len-32+1))
-                 // Bei Überlauf während der Rundung nochmals rechts schieben
-                 // (Runden ist hier überflüssig):
+                 // Bei Ãœberlauf wÃ¤hrend der Rundung nochmals rechts schieben
+                 // (Runden ist hier Ã¼berflÃ¼ssig):
                  { manthi1 = manthi1>>1; exp1 = exp1+1; } // Mantisse rechts schieben
          }   }
       }// Runden fertig

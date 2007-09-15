@@ -22,7 +22,7 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
 // Methode:
 // x ganz -> klar.
 // x = +/- a/b mit Integers a,b>0:
-//   Sei k,m so gew‰hlt, daﬂ
+//   Sei k,m so gew√§hlt, da√ü
 //     2^(k-1) <= a < 2^k, 2^(m-1) <= b < 2^m.
 //   Dann ist 2^(k-m-1) < a/b < 2^(k-m+1).
 //   Ergebnis-Vorzeichen := Vorzeichen von x.
@@ -33,18 +33,18 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
 //       Bei k-m>=16n+1 dividiere a durch (ash b (k-m-16n-1)),
 //       bei k-m<16n+1 dividiere (ash a (-k+m+16n+1)) durch b.
 //     Der erste Wert ist >=2^16n, <2^(16n+2).
-//     Falls er >=2^(16n+1) ist, erhˆhe Exponent um 1,
+//     Falls er >=2^(16n+1) ist, erh√∂he Exponent um 1,
 //       runde 2 Bits weg und schiebe dabei um 2 Bits nach rechts;
 //     falls er <2^(16n+1) ist,
 //       runde 1 Bit weg und schiebe dabei um 1 Bit nach rechts.
-// NB: Wenn a und b l‰nger sind als len, ist dieser Algorithmus weniger
+// NB: Wenn a und b l√§nger sind als len, ist dieser Algorithmus weniger
 //     effizient, als cl_float(a,len)/cl_float(b,len) zu berechnen. Aber
 //     es ist wichtig, dass cl_RA_to_LF nicht mehr als 0.5 ulp Fehler hat,
 //     deswegen belassen wir es beim ineffizienten aber exakten Algorithmus.
 //     Wenn es auf Rundungsfehler nicht ankommt, muss der Aufrufer im Fall
 //           ceiling(integer_length(a),intDsize) >= len
 //        && ceiling(integer_length(b),intDsize) >= len
-//     einen anderen Algorithmus w‰hlen.
+//     einen anderen Algorithmus w√§hlen.
       if (integerp(x)) {
         DeclareType(cl_I,x);
         return cl_I_to_LF(x,len);
@@ -57,8 +57,8 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
       if (!(sign==0)) { a = -a; } // Betrag nehmen, liefert a
       var sintC lendiff = (sintC)integer_length(a) // (integer-length a)
                           - (sintC)integer_length(b); // (integer-length b)
-      // |lendiff| < intDsize*2^intCsize. Da f¸r LF-Exponenten ein sintL zur
-      // Verf¸gung steht, braucht man keinen Test auf Overflow oder Underflow.
+      // |lendiff| < intDsize*2^intCsize. Da f√ºr LF-Exponenten ein sintL zur
+      // Verf√ºgung steht, braucht man keinen Test auf Overflow oder Underflow.
       var uintC difflimit = intDsize*len + 1; // 16n+1
       var cl_I zaehler;
       var cl_I nenner;
@@ -72,7 +72,7 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
         { zaehler = ash(a,(uintC)(difflimit - lendiff)); // (ash a -k+m+16n+1)
           nenner = b; // b
         }
-      // Division zaehler/nenner durchf¸hren:
+      // Division zaehler/nenner durchf√ºhren:
       var cl_I_div_t q_r = cl_divide(zaehler,nenner);
       var cl_I& q = q_r.quotient;
       var cl_I& r = q_r.remainder;
@@ -82,7 +82,7 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
       {var uintD* q_MSDptr = arrayMSDptr(TheBignum(q)->data,len+1);
        if (mspref(q_MSDptr,0) == 1) // erstes Digit =1 oder =2,3 ?
          // 2^16n <= q < 2^(16n+1), also 2^(k-m-1) < a/b < 2^(k-m).
-         { // Mantisse mit einer Schiebeschleife um 1 Bit nach rechts f¸llen:
+         { // Mantisse mit einer Schiebeschleife um 1 Bit nach rechts f√ºllen:
            var uintD rounding_bit =
              shiftrightcopy_loop_msp(q_MSDptr mspop 1,y_mantMSDptr,len,1,1);
            if ( (rounding_bit == 0) // herausgeschobenes Bit =0 -> abrunden
@@ -96,12 +96,12 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
          }
          else
          // 2^(16n+1) <= q < 2^(16n+2), also 2^(k-m) < a/b < 2^(k-m+1).
-         { // Mantisse mit einer Schiebeschleife um 2 Bit nach rechts f¸llen:
+         { // Mantisse mit einer Schiebeschleife um 2 Bit nach rechts f√ºllen:
            var uintD rounding_bits =
              shiftrightcopy_loop_msp(q_MSDptr mspop 1,y_mantMSDptr,len,2,mspref(q_MSDptr,0));
            (TheLfloat(y)->expo)++; // Exponenten incrementieren auf k-m+1
            if ( ((sintD)rounding_bits >= 0) // herausgeschobenes Bit =0 -> abrunden
-                || ( ((rounding_bits & bit(intDsize-2)) ==0) // =1 und n‰chstes Bit =1 oder Rest r > 0 -> aufrunden
+                || ( ((rounding_bits & bit(intDsize-2)) ==0) // =1 und n√§chstes Bit =1 oder Rest r > 0 -> aufrunden
                      && eq(r,0)
                      // round-to-even
                      && ((mspref(y_mantMSDptr,len-1) & bit(0)) ==0)
@@ -113,7 +113,7 @@ const cl_LF cl_RA_to_LF (const cl_RA& x, uintC len)
       }
       auf: // aufrunden
         { if ( inc_loop_lsp(y_mantMSDptr mspop len,len) )
-            // ‹bertrag durchs Aufrunden
+            // √úbertrag durchs Aufrunden
             { mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
               (TheLfloat(y)->expo)++; // Exponenten incrementieren
         }   }

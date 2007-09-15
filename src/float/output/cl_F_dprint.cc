@@ -13,20 +13,20 @@
 // Bruno Haible 8.9.1990 - 10.9.1990
 
 // Grundgedanken:
-// Jede Real-Zahl /= 0 repr‰sentiert ein (offenes) Intervall. Es wird die-
-// jenige Dezimalzahl mit mˆglichst wenig Stellen ausgegeben, die in diesem
+// Jede Real-Zahl /= 0 repr√§sentiert ein (offenes) Intervall. Es wird die-
+// jenige Dezimalzahl mit m√∂glichst wenig Stellen ausgegeben, die in diesem
 // Intervall liegt.
-// Um auch groﬂe Exponenten zu behandeln, werden Zweier- in Zehnerpotenzen
-// erst einmal n‰herungsweise umgerechnet. Nˆtigenfalls wird die Rechen-
-// genauigkeit erhˆht. Hierbei wird von den Long-Floats beliebiger
+// Um auch gro√üe Exponenten zu behandeln, werden Zweier- in Zehnerpotenzen
+// erst einmal n√§herungsweise umgerechnet. N√∂tigenfalls wird die Rechen-
+// genauigkeit erh√∂ht. Hierbei wird von den Long-Floats beliebiger
 // Genauigkeit Gebrauch gemacht.
 
-// St¸tzt sich auf:
+// St√ºtzt sich auf:
 // cl_ln2(digits) liefert ln(2) mit mindestens digits Mantissenbits.
 // cl_ln10(digits) liefert ln(10) mit mindestens digits Mantissenbits.
 // cl_decimal_string(integer) liefert zu einem Integer >0
 //   einen String mit seiner Dezimaldarstellung.
-// (substring string start [end]) wie subseq, jedoch f¸r Strings schneller.
+// (substring string start [end]) wie subseq, jedoch f√ºr Strings schneller.
 
 CL_REQUIRE(cl_F_ln2_var)
 CL_REQUIRE(cl_F_ln10_var)
@@ -49,14 +49,14 @@ namespace cln {
 // berechnet mit folgenden Eigenschaften:
 // s = sign(x).
 // Falls x/=0, betrachte |x| statt x. Also oBdA x>0.
-//   Seien x1 und x2 die n‰chstkleinere bzw. die n‰chstgrˆﬂere Zahl zu x
-//   vom selben Floating-Point-Format. Die Zahl x repr‰sentiert somit das
+//   Seien x1 und x2 die n√§chstkleinere bzw. die n√§chstgr√∂√üere Zahl zu x
+//   vom selben Floating-Point-Format. Die Zahl x repr√§sentiert somit das
 //   offene Intervall von (x+x1)/2 bis (x+x2)/2.
 //   a ist ein Integer >0, mit genau k Dezimalstellen (k>=1), und es gilt
 //   (x+x1)/2 < a*10^(-k+e) < (x+x2)/2 .
 //   Dabei ist k minimal, also a nicht durch 10 teilbar.
 // Falls x=0: a=0, k=1, e=0.
-// as ist die Ziffernfolge von a, der L‰nge k.
+// as ist die Ziffernfolge von a, der L√§nge k.
 
 // typedef
 struct cl_decimal_decoded_float {
@@ -96,26 +96,26 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     unten = minus1(ash(binmant2,1));
     untenshift = 1;
   }
-  // Bestimme d (ganz) und a1,a2 (ganz, >0) so, daﬂ
+  // Bestimme d (ganz) und a1,a2 (ganz, >0) so, da√ü
   // die ganzen a mit (x+x1)/2 < 10^d * a < (x+x2)/2 genau
   // die ganzen a mit a1 <= a <= a2 sind und 0 <= a2-a1 < 20 gilt.
   // Wandle dazu 2^e := 2^(binexpo-1) ins Dezimalsystem um.
   var cl_I e = binexpo - 1;
-  var bool e_gross = (abs(e) > ash(l,1)); // Ist |e| recht groﬂ, >2*l ?
-  var uintC g;     // Hilfsvariablen f¸r den Fall, daﬂ |e| groﬂ ist
+  var bool e_gross = (abs(e) > ash(l,1)); // Ist |e| recht gro√ü, >2*l ?
+  var uintC g;     // Hilfsvariablen f√ºr den Fall, da√ü |e| gro√ü ist
   var cl_I f;      //
-  var cl_I zehn_d; // Hilfsvariable 10^|d| f¸r den Fall, daﬂ |e| klein ist
+  var cl_I zehn_d; // Hilfsvariable 10^|d| f√ºr den Fall, da√ü |e| klein ist
   var cl_I d;  // Ergebnisvariablen
   var cl_I a1; //
   var cl_I a2; //
-  if (e_gross) { // Ist |e| recht groﬂ ?
-    // Da 2^e nur n‰herungsweise gehen kann, braucht man Schutzbits.
-    var uintL h = 16; // Anzahl der Schutzbits, muﬂ >= 3 sein
+  if (e_gross) { // Ist |e| recht gro√ü ?
+    // Da 2^e nur n√§herungsweise gehen kann, braucht man Schutzbits.
+    var uintL h = 16; // Anzahl der Schutzbits, mu√ü >= 3 sein
     neue_schutzbits:
     // Ziel: 2^e ~= 10^d * f/2^g, wobei 1 <= f/2^g < 10.
-    g = l + h; // Anzahl der g¸ltigen Bits von f
-    // Sch‰tze d = floor(e*lg(2))
-    // mit Hilfe der N‰herungsbr¸che von lg(2):
+    g = l + h; // Anzahl der g√ºltigen Bits von f
+    // Sch√§tze d = floor(e*lg(2))
+    // mit Hilfe der N√§herungsbr√ºche von lg(2):
     // (0 1/3 3/10 28/93 59/196 146/485 643/2136 4004/13301
     //  8651/28738 12655/42039 21306/70777 76573/254370 97879/325147
     //  1838395/6107016 1936274/6432163 13456039/44699994
@@ -125,48 +125,48 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     //  174131244785/578451474249 845863046269/2809896217828
     //  1865857337323/6198243909905 6443435058238/21404627947543
     // )
-    // e>=0 : w‰hle lg(2) < a/b < lg(2) + 1/e,
+    // e>=0 : w√§hle lg(2) < a/b < lg(2) + 1/e,
     //        dann ist d <= floor(e*a/b) <= d+1 .
-    // e<0  : w‰hle lg(2) - 1/abs(e) < a/b < lg(2),
+    // e<0  : w√§hle lg(2) - 1/abs(e) < a/b < lg(2),
     //        dann ist d <= floor(e*a/b) <= d+1 .
     // Es ist bekannt, dass abs(e) <= 2^31 + 2^32*64, falls intEsize == 32,
     //            bzw. dass abs(e) <= 2^63 + 2^64*64, falls intEsize == 64.
-    // (Hierbei steht 64 f¸r die maximale intDsize und es wurde benutzt,
+    // (Hierbei steht 64 f√ºr die maximale intDsize und es wurde benutzt,
     // dass intEsize >= intCsize.)
     // Unser d sei := floor(e*a/b)-1. (d /= 0, da abs(e) >= 7.)
     d = minus1(minusp(e)
                ? (e >= -970
-                  ? floor1(e*3,10) // N‰herungsbruch 3/10
+                  ? floor1(e*3,10) // N√§herungsbruch 3/10
 #if (intEsize==32)
-                  : floor1(e*97879,325147) // N‰herungsbruch 97879/325147
+                  : floor1(e*97879,325147) // N√§herungsbruch 97879/325147
 #else
                   : (e >= -1800000000LL
-                     ? floor1(e*8651,28738) // N‰herungsbruch 8651/28738
-                     : floor1(e*24793177656LL,82361153417LL) // N‰herungsbruch 24793177656/82361153417
+                     ? floor1(e*8651,28738) // N√§herungsbruch 8651/28738
+                     : floor1(e*24793177656LL,82361153417LL) // N√§herungsbruch 24793177656/82361153417
                     )
 #endif
                  )
                : (e <= 22000
-                  ? floor1(e*28,93) // N‰herungsbruch 28/93
+                  ? floor1(e*28,93) // N√§herungsbruch 28/93
 #if (intEsize==32)
-                  : floor1(e*1838395,6107016) // N‰herungsbruch 1838395/6107016
+                  : floor1(e*1838395,6107016) // N√§herungsbruch 1838395/6107016
 #else
                   : (e <= 3300000000LL
-                     ? floor1(e*12655,42039) // N‰herungsbruch 12655/42039
-                     : floor1(e*149338067129LL,496090320832LL) // N‰herungsbruch 149338067129/496090320832
+                     ? floor1(e*12655,42039) // N√§herungsbruch 12655/42039
+                     : floor1(e*149338067129LL,496090320832LL) // N√§herungsbruch 149338067129/496090320832
                     )
 #endif
                  )
               );
-    // Das wahre d wird durch diese Sch‰tzung entweder getroffen
-    // oder um 1 untersch‰tzt.
-    // Anders ausgedr¸ckt: 0 < e*log(2)-d*log(10) < 2*log(10).
+    // Das wahre d wird durch diese Sch√§tzung entweder getroffen
+    // oder um 1 untersch√§tzt.
+    // Anders ausgedr√ºckt: 0 < e*log(2)-d*log(10) < 2*log(10).
     // Nun f/2^g als exp(e*log(2)-d*log(10)) berechnen.
     // Da f < 100*2^g < 2^(g+7), sind g+7 Bits relative Genauigkeit
     // des Ergebnisses, also g+7 Bits absolute Genauigkeit von
-    // e*log(2)-d*log(10) nˆtig. Dazu mit l'=integerlength(e)
-    // f¸r log(2): g+7+l' Bits abs. Gen., g+7+l' Bits rel. Gen.,
-    // f¸r log(10): g+7+l' Bits abs. Gen., g+7+l'+2 Bist rel. Gen.
+    // e*log(2)-d*log(10) n√∂tig. Dazu mit l'=integerlength(e)
+    // f√ºr log(2): g+7+l' Bits abs. Gen., g+7+l' Bits rel. Gen.,
+    // f√ºr log(10): g+7+l' Bits abs. Gen., g+7+l'+2 Bist rel. Gen.
     var float_format_t gen = (float_format_t)(g + integer_length(e) + 9); // Genauigkeit
     var cl_F f2g = exp(The(cl_F)(e * cl_ln2(gen)) - The(cl_F)(d * cl_ln10(gen))); // f/2^g
     // Das so berechnete f/2^g ist >1, <100.
@@ -176,7 +176,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     if (f >= ash(10,g)) // f >= 10*2^g ?
       { f = floor1(f,10); d = d+1; }
     // Nun ist 2^e ~= 10^d * f/2^g, wobei 1 <= f/2^g < 10 und
-    // f ein Integer ist, der um hˆchstens 1 vom wahren Wert abweicht:
+    // f ein Integer ist, der um h√∂chstens 1 vom wahren Wert abweicht:
     // 10^d * (f-1)/2^g < 2^e < 10^d * (f+1)/2^g
     // Wir verkleinern nun das offene Intervall
     // von (x+x1)/2 = 2^(binexpo-1-untenshift) * unten
@@ -187,7 +187,7 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // und suchen darin Zahlen der Form 10^d * a mit ganzem a.
     // Wegen  oben - unten/2^untenshift >= 3/2
     // und  oben + unten/2^untenshift <= 4*binmant+1 < 2^(l+2) <= 2^(g-1)
-    // ist die Intervall-L‰nge
+    // ist die Intervall-L√§nge
     // = 10^d * ((f-1)*oben - (f+1)*unten/2^untenshift) / 2^g
     // = 10^d * ( f * (oben - unten/2^untenshift)
     //            - (oben + unten/2^untenshift) ) / 2^g
@@ -199,10 +199,10 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // mit a1 <= a <= a2, wobei a2 = floor((f-1)*oben/2^g) und
     // a1 = ceiling((f+1)*unten/2^(g+untenshift))
     //    = floor(((f+1)*unten-1)/2^(g+untenshift))+1 .
-    // Wir haben eben gesehen, daﬂ a1 <= a2 sein muﬂ.
+    // Wir haben eben gesehen, da√ü a1 <= a2 sein mu√ü.
     a1 = plus1(ash(minus1((f+1)*unten),-(g+untenshift)));
     a2 = ash((f-1)*oben,-g);
-    // Wir kˆnnen auch das offene Intervall
+    // Wir k√∂nnen auch das offene Intervall
     // von (x+x1)/2 = 2^(binexpo-1-untenshift) * unten
     // bis (x+x2)/2 = 2^(binexpo-1) * oben
     // in das (abgeschlossene) Intervall
@@ -213,26 +213,26 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // und sich a1' und a2' analog zu a1 und a2 berechnen.
     // Da (f-1)*oben/2^g und (f+1)*oben/2^g sich um 2*oben/2^g
     // < 2^(l+2-g) < 1 unterscheiden, unterscheiden sich a2 und
-    // a2' um hˆchstens 1.
+    // a2' um h√∂chstens 1.
     // Ebenso, wenn 'oben' durch 'unten/2^untenshift' ersetzt
-    // wird: a1' und a1 unterscheiden sich um hˆchstens 1.
+    // wird: a1' und a1 unterscheiden sich um h√∂chstens 1.
     // Ist nun a1' < a1 oder a2 < a2' , so ist die Zweierpotenz-
-    // N‰herung 10^d * f/2^g f¸r 2^e nicht genau genug gewesen,
-    // und man hat das Ganze mit erhˆhtem h zu wiederholen.
-    // Ausnahme (da hilft auch keine hˆhere Genauigkeit):
+    // N√§herung 10^d * f/2^g f√ºr 2^e nicht genau genug gewesen,
+    // und man hat das Ganze mit erh√∂htem h zu wiederholen.
+    // Ausnahme (da hilft auch keine h√∂here Genauigkeit):
     //   Wenn die obere oder untere Intervallgrenze (x+x2)/2 bzw.
     //   (x+x1)/2 selbst die Gestalt 10^d * a mit ganzem a hat.
     //   Dies testet man so:
     //     (x+x2)/2 = 2^e * oben == 10^d * a  mit ganzem a, wenn
-    //     - f¸r e>=0, (dann 0 <= d <= e): 5^d | oben,
-    //     - f¸r e<0, (dann e <= d < 0): 2^(d-e) | oben, was
-    //                nur f¸r d-e=0 der Fall ist.
+    //     - f√ºr e>=0, (dann 0 <= d <= e): 5^d | oben,
+    //     - f√ºr e<0, (dann e <= d < 0): 2^(d-e) | oben, was
+    //                nur f√ºr d-e=0 der Fall ist.
     //     (x+x1)/2 = 2^(e-untenshift) * unten == 10^d * a
     //     mit ganzem a, wenn
-    //     - f¸r e>0, (dann 0 <= d < e): 5^d | unten,
-    //     - f¸r e<=0, (dann e <= d <= 0): 2^(d-e+untenshift) | unten,
-    //                 was nur f¸r d-e+untenshift=0 der Fall ist.
-    // Da wir es jedoch mit groﬂem |e| zu tun haben, kann dieser
+    //     - f√ºr e>0, (dann 0 <= d < e): 5^d | unten,
+    //     - f√ºr e<=0, (dann e <= d <= 0): 2^(d-e+untenshift) | unten,
+    //                 was nur f√ºr d-e+untenshift=0 der Fall ist.
+    // Da wir es jedoch mit gro√üem |e| zu tun haben, kann dieser
     // Ausnahmefall hier gar nicht eintreten!
     // Denn im Falle e>=0: Aus e>=2*l und l>=11 folgt
     //   e >= (l+2)*ln(10)/ln(5) + ln(10)/ln(2),
@@ -256,67 +256,67 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
       if (a2 < a2prime)
         { h = 2*h; goto neue_schutzbits; } // h verdoppeln und alles wiederholen
     }
-    // Jetzt ist a1 der kleinste und a2 der grˆﬂte Wert, der
-    // f¸r a mˆglich ist.
+    // Jetzt ist a1 der kleinste und a2 der gr√∂√üte Wert, der
+    // f√ºr a m√∂glich ist.
     // Wegen  oben - unten/2^untenshift <= 2
-    // ist die obige Intervall-L‰nge
+    // ist die obige Intervall-L√§nge
     // = 10^d * ((f-1)*oben - (f+1)*unten/2^untenshift) / 2^g
     // < 10^d * ((f-1)*oben - (f-1)*unten/2^untenshift) / 2^g
     // = 10^d * (f-1)/2^g * (oben - unten/2^untenshift)
     // < 10^d * 10 * 2,
-    // also gibt es hˆchstens 20 mˆgliche Werte f¸r a.
+    // also gibt es h√∂chstens 20 m√∂gliche Werte f√ºr a.
   } else {
     // |e| ist recht klein -> man kann 2^e und 10^d exakt ausrechnen
     if (!minusp(e)) {
-      // e >= 0. Sch‰tze d = floor(e*lg(2)) wie oben.
+      // e >= 0. Sch√§tze d = floor(e*lg(2)) wie oben.
       // Es ist e<=2*l<2^39, falls intCsize == 32,
       //   bzw. e<=2*l<2^71, falls intCsize == 64.
       d = (e <= 22000
-           ? floor1(e*28,93) // N‰herungsbruch 28/93
+           ? floor1(e*28,93) // N√§herungsbruch 28/93
 #if (intCsize==32)
-           : floor1(e*1838395,6107016) // N‰herungsbruch 1838395/6107016
+           : floor1(e*1838395,6107016) // N√§herungsbruch 1838395/6107016
 #else
            : (e <= 3300000000LL
-              ? floor1(e*12655,42039) // N‰herungsbruch 12655/42039
-              : floor1(e*149338067129LL,496090320832LL) // N‰herungsbruch 149338067129/496090320832
+              ? floor1(e*12655,42039) // N√§herungsbruch 12655/42039
+              : floor1(e*149338067129LL,496090320832LL) // N√§herungsbruch 149338067129/496090320832
              )
 #endif
           );
-      // Das wahre d wird durch diese Sch‰tzung entweder getroffen
-      // oder um 1 ¸bersch‰tzt, aber das kˆnnen wir leicht feststellen.
+      // Das wahre d wird durch diese Sch√§tzung entweder getroffen
+      // oder um 1 √ºbersch√§tzt, aber das k√∂nnen wir leicht feststellen.
       zehn_d = The(cl_I)(expt(10,d)); // zehn_d = 10^d
       if (ash(1,e) < zehn_d) // falls 2^e < 10^d,
-        { d = d-1; zehn_d = exquo(zehn_d,10); } // Sch‰tzung korrigieren
+        { d = d-1; zehn_d = exquo(zehn_d,10); } // Sch√§tzung korrigieren
       // Nun ist 10^d <= 2^e < 10^(d+1) und zehn_d = 10^d.
       // a1 sei das kleinste ganze a > 2^(e-untenshift) * unten / 10^d,
-      // a2 sei das grˆﬂte ganze a < 2^e * oben / 10^d.
+      // a2 sei das gr√∂√üte ganze a < 2^e * oben / 10^d.
       // a1 = 1+floor(unten*2^e/(2^untenshift*10^d)),
       // a2 = floor((oben*2^e-1)/10^d).
       a1 = plus1(floor1(ash(unten,e),ash(zehn_d,untenshift)));
       a2 = floor1(minus1(ash(oben,e)),zehn_d);
     } else {
-      // e < 0. Sch‰tze d = floor(e*lg(2)) wie oben.
+      // e < 0. Sch√§tze d = floor(e*lg(2)) wie oben.
       // Es ist |e|<=2*l<2^39, falls intCsize == 32,
       //   bzw. |e|<=2*l<2^71, falls intCsize == 64.
       d = (e >= -970
-           ? floor1(e*3,10) // N‰herungsbruch 3/10
+           ? floor1(e*3,10) // N√§herungsbruch 3/10
 #if (intCsize==32)
-           : floor1(e*97879,325147) // N‰herungsbruch 97879/325147
+           : floor1(e*97879,325147) // N√§herungsbruch 97879/325147
 #else
            : (e >= -1800000000LL
-              ? floor1(e*8651,28738) // N‰herungsbruch 8651/28738
-              : floor1(e*24793177656LL,82361153417LL) // N‰herungsbruch 24793177656/82361153417
+              ? floor1(e*8651,28738) // N√§herungsbruch 8651/28738
+              : floor1(e*24793177656LL,82361153417LL) // N√§herungsbruch 24793177656/82361153417
              )
 #endif
           );
-      // Das wahre d wird durch diese Sch‰tzung entweder getroffen
-      // oder um 1 ¸bersch‰tzt, aber das kˆnnen wir leicht feststellen.
+      // Das wahre d wird durch diese Sch√§tzung entweder getroffen
+      // oder um 1 √ºbersch√§tzt, aber das k√∂nnen wir leicht feststellen.
       zehn_d = The(cl_I)(expt(10,-d)); // zehn_d = 10^(-d)
       if (integer_length(zehn_d) <= -e) // falls 2^e < 10^d,
-        { d = d-1; zehn_d = zehn_d*10; } // Sch‰tzung korrigieren
+        { d = d-1; zehn_d = zehn_d*10; } // Sch√§tzung korrigieren
       // Nun ist 10^d <= 2^e < 10^(d+1) und zehn_d = 10^(-d).
       // a1 sei das kleinste ganze a > 2^(e-untenshift) * unten / 10^d,
-      // a2 sei das grˆﬂte ganze a < 2^e * oben / 10^d.
+      // a2 sei das gr√∂√üte ganze a < 2^e * oben / 10^d.
       // a1 = 1+floor(unten*10^(-d)/2^(-e+untenshift)),
       // a2 = floor((oben*10^(-d)-1)/2^(-e))
       a1 = plus1(ash(unten*zehn_d,e-untenshift));
@@ -324,19 +324,19 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     }
   }
   // Nun sind die ganzen a mit (x+x1)/2 < 10^d * a < (x+x2)/2 genau
-  // die ganzen a mit a1 <= a <= a2. Deren gibt es hˆchstens 20.
+  // die ganzen a mit a1 <= a <= a2. Deren gibt es h√∂chstens 20.
   // Diese werden in drei Schritten auf einen einzigen reduziert:
-  // 1. Enth‰lt der Bereich eine durch 10 teilbare Zahl a ?
+  // 1. Enth√§lt der Bereich eine durch 10 teilbare Zahl a ?
   //    ja -> setze a1:=ceiling(a1/10), a2:=floor(a2/10), d:=d+1.
-  // Danach enth‰lt der Bereich a1 <= a <= a2 hˆchstens 10
-  // mˆgliche Werte f¸r a.
-  // 2. Falls jetzt einer der mˆglichen Werte durch 10 teilbar ist
+  // Danach enth√§lt der Bereich a1 <= a <= a2 h√∂chstens 10
+  // m√∂gliche Werte f√ºr a.
+  // 2. Falls jetzt einer der m√∂glichen Werte durch 10 teilbar ist
   //    (es kann nur noch einen solchen geben),
-  //    wird er gew‰hlt, die anderen vergessen.
-  // 3. Sonst wird unter allen noch mˆglichen Werten der zu x
-  //    n‰chstgelegene gew‰hlt.
+  //    wird er gew√§hlt, die anderen vergessen.
+  // 3. Sonst wird unter allen noch m√∂glichen Werten der zu x
+  //    n√§chstgelegene gew√§hlt.
   var bool d_shift = false; // Flag, ob im 1. Schritt d incrementiert wurde
-  var cl_I a; // das ausgew‰hlte a
+  var cl_I a; // das ausgew√§hlte a
   // 1.
   {
     var cl_I b1 = ceiling1(a1,10);
@@ -350,14 +350,14 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
   a = floor1(a2,10);
   if (10*a >= a1) {
     // Noch eine durch 10 teilbare Zahl -> durch 10 teilen.
-    d = d+1; // noch d erhˆhen, zehn-d wird nicht mehr gebraucht
+    d = d+1; // noch d erh√∂hen, zehn-d wird nicht mehr gebraucht
     // Nun a in einen Dezimalstring umwandeln
-    // und dann Nullen am Schluﬂ streichen:
+    // und dann Nullen am Schlu√ü streichen:
     var char* as = cl_decimal_string(a); // Ziffernfolge zu a>0
-    var uintC las = ::strlen(as); // L‰nge der Ziffernfolge
-    var uintC k = las; // L‰nge ohne die gestrichenen Nullen am Schluﬂ
+    var uintC las = ::strlen(as); // L√§nge der Ziffernfolge
+    var uintC k = las; // L√§nge ohne die gestrichenen Nullen am Schlu√ü
     var cl_I ee = k+d; // a * 10^d = a * 10^(-k+ee)
-    while (as[k-1] == '0') // eine 0 am Schluﬂ?
+    while (as[k-1] == '0') // eine 0 am Schlu√ü?
       { // ja -> a := a / 10 (wird aber nicht mehr gebraucht),
         // d := d+1 (wird aber nicht mehr gebraucht),
         k = k-1; as[k] = '\0';
@@ -370,10 +370,10 @@ static const cl_decimal_decoded_float decode_float_decimal (const cl_F& x)
     // a1=a2 -> keine Frage der Auswahl mehr:
     a = a1;
   } else {
-    // a1<a2 -> zu x n‰chstgelegenes 10^d * a w‰hlen:
+    // a1<a2 -> zu x n√§chstgelegenes 10^d * a w√§hlen:
     if (e_gross) {
       // a = round(f*2*binmant/2^g/(1oder10)) (beliebige Rundung)
-      //   = ceiling(floor(f*2*binmant/(1oder10)/2^(g-1))/2) w‰hlen:
+      //   = ceiling(floor(f*2*binmant/(1oder10)/2^(g-1))/2) w√§hlen:
       var cl_I temp = f * binmant2;
       if (d_shift) { temp = floor1(temp,10); }
       a = ash(plus1(ash(temp,1-g)),-1);
@@ -406,7 +406,7 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
   var cl_I& expo = z_decoded.e;
   var cl_I& sign = z_decoded.s;
   // arg in Dezimaldarstellung: +/- 0.mant * 10^expo, wobei
-  //  mant die Mantisse: als Simple-String mantstring mit L‰nge mantlen,
+  //  mant die Mantisse: als Simple-String mantstring mit L√§nge mantlen,
   //  expo der Dezimal-Exponent,
   //  sign das Vorzeichen (-1 oder 0 oder 1).
   if (eq(sign,-1)) // z < 0 ?
@@ -418,8 +418,8 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
   //   0 < expo < mantlen ->
   //     die ersten expo Ziffern, Punkt, die restlichen Ziffern
   //   expo >= mantlen -> alle Ziffern, expo-mantlen Nullen, Punkt, Null
-  //   Nach Mˆglichkeit kein Exponent// wenn nˆtig, Exponent 0.
-  // flag gelˆscht -> "scientific notation":
+  //   Nach M√∂glichkeit kein Exponent// wenn n√∂tig, Exponent 0.
+  // flag gel√∂scht -> "scientific notation":
   //   erste Ziffer, Punkt, die restlichen Ziffern, bei mantlen=1 eine Null
   //   Exponent.
   if (flag && !plusp(expo)) {
@@ -446,7 +446,7 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
           fprintchar(stream,mantstring[i]);
       }
     } else {
-      // scale>=mantlen -> es bleibt nichts f¸r die Nachkommastellen.
+      // scale>=mantlen -> es bleibt nichts f√ºr die Nachkommastellen.
       // alle Ziffern, dann scale-mantlen Nullen, dann Punkt und Null
       fprint(stream,mantstring);
       for (uintV i = mantlen; i < scale; i++)
@@ -476,7 +476,7 @@ void print_float (std::ostream& stream, const cl_print_float_flags& flags, const
     fprintchar(stream,exp_marker);
     print_integer(stream,10,expo);
   }
-  // Fertig. Aufr‰umen.
+  // Fertig. Aufr√§umen.
   free_hook(mantstring);
 }
 

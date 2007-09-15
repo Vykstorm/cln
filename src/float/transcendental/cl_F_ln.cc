@@ -22,12 +22,12 @@ const cl_F ln (const cl_F& x)
 {
 // Methode:
 // d := (float-digits x),
-// Genauigkeit um sqrt(d)+max(integer-length(e)) Bits erhöhen,
-// (m,e) := (decode-float x), so daß 1/2 <= m < 1.
-// m<2/3 -> m:=2m, e:=e-1, so daß 2/3 <= m <= 4/3.
+// Genauigkeit um sqrt(d)+max(integer-length(e)) Bits erhÃ¶hen,
+// (m,e) := (decode-float x), so daÃŸ 1/2 <= m < 1.
+// m<2/3 -> m:=2m, e:=e-1, so daÃŸ 2/3 <= m <= 4/3.
 // ln(m) errechnen, ln(x)=ln(m)+e*ln(2) als Ergebnis.
 
-	// Rechengenauigkeit erhöhen und m,e,s bestimmen:
+	// Rechengenauigkeit erhÃ¶hen und m,e,s bestimmen:
 	if (longfloatp(x) && (TheLfloat(x)->len >= 110)) {
 		DeclareType(cl_LF,x);
 		var decoded_lfloat m_e_s = decode_float(extend(x,TheLfloat(x)->len+1));

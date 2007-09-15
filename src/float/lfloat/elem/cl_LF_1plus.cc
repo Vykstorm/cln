@@ -24,9 +24,9 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
 // Falls e2=0, also x2=0.0, Ergebnis x1.
 // Falls e1 - e2 >= 16n+2, Ergebnis x1.
 // Erweitere die Mantissen rechts um 3 Bits (Bit -1 als Schutzbit, Bits -2,-3
-//   als Rundungsbits: 00 exakt, 01 1.Hälfte, 10 exakte Mitte, 11 2.Hälfte.)
+//   als Rundungsbits: 00 exakt, 01 1.HÃ¤lfte, 10 exakte Mitte, 11 2.HÃ¤lfte.)
 // Schiebe die Mantisse von x2 um e0-e1 Bits nach rechts. (Dabei die Rundung
-// ausführen: Bit -3 ist das logische Oder der Bits -3,-4,-5,...)
+// ausfÃ¼hren: Bit -3 ist das logische Oder der Bits -3,-4,-5,...)
 // Falls x1,x2 selbes Vorzeichen haben: Addiere dieses zur Mantisse von x1.
 // Falls x1,x2 verschiedenes Vorzeichen haben: Subtrahiere dieses von der
 //   Mantisse von x1. <0 -> (Es war e1=e2) Vertausche die Vorzeichen, negiere.
@@ -42,7 +42,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
         { x1 = arg2; x2 = arg1; swap(uintE, uexp1,uexp2); }
       // uexp1 >= uexp2
       if (uexp2==0) { return x1; } // x2=0.0 -> x1 als Ergebnis
-      var uintC len = TheLfloat(x1)->len; // Länge n von x1 und x2
+      var uintC len = TheLfloat(x1)->len; // LÃ¤nge n von x1 und x2
       var uintE expdiff = uexp1-uexp2; // e1-e2
       if ((expdiff == 0) && (TheLfloat(x1)->sign != TheLfloat(x2)->sign))
         // verschiedene Vorzeichen, aber gleicher Exponent
@@ -63,7 +63,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
       var Lfloat y = allocate_lfloat(len,uexp1,TheLfloat(x1)->sign);
       var uintL i = floor(expdiff,intDsize); // e1-e2 div 16 (>=0, <=n)
       var uintL j = expdiff % intDsize; // e1-e2 mod 16 (>=0, <16)
-      // Mantisse von x2 muß um intDsize*i+j Bits nach rechts geschoben werden.
+      // Mantisse von x2 muÃŸ um intDsize*i+j Bits nach rechts geschoben werden.
       var uintC x2_len = len - i; // n-i Digits von x2 gebraucht
       // x2_len Digits um j Bits nach rechts schieben und dabei kopieren:
       CL_ALLOCA_STACK;
@@ -76,8 +76,8 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
         else
         { rounding_bits = shiftrightcopy_loop_msp(arrayMSDptr(TheLfloat(x2)->data,len),x2_MSDptr,x2_len,j,0); }
       // x2_MSDptr/x2_len/x2_LSDptr sind die essentiellen Digits von x2.
-      // rounding_bits enthält die letzten j herausgeschobenen Bits.
-      // Aus rounding_bits und den nächsten i Digits die 3 Rundungsbits
+      // rounding_bits enthÃ¤lt die letzten j herausgeschobenen Bits.
+      // Aus rounding_bits und den nÃ¤chsten i Digits die 3 Rundungsbits
       // (als Bits intDsize-1..intDsize-3 von rounding_bits) aufbauen:
       if (j>=2)
         // j>=2 -> Bits -1,-2 sind OK, Bit -3 bestimmen:
@@ -87,14 +87,14 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
             }
             else
             { rounding_bits |= bit(intDsize-3); // Rundungsbit -3 setzen
-              rounding_bits &= bitm(intDsize)-bit(intDsize-3); // andere Bits löschen
+              rounding_bits &= bitm(intDsize)-bit(intDsize-3); // andere Bits lÃ¶schen
         }   }
         else
         // j<=3 -> Bits intDsize-4..0 von rounding_bits sind bereits Null.
-        // nächstes und weitere i-1 Digits heranziehen:
+        // nÃ¤chstes und weitere i-1 Digits heranziehen:
         { if (i > 0) // i=0 -> Bits -1,-2,-3 sind OK.
             { var uintD* ptr = arrayMSDptr(TheLfloat(x2)->data,len) mspop x2_len;
-              rounding_bits |= (mspref(ptr,0) >> j); // weitere relevante Bits des nächsten Digit dazu
+              rounding_bits |= (mspref(ptr,0) >> j); // weitere relevante Bits des nÃ¤chsten Digit dazu
               if ((rounding_bits & (bit(intDsize-3)-1)) ==0) // Alle Bits -3,-4,... =0 ?
                 { if (   (!((mspref(ptr,0) & (bit(3)-1)) ==0)) // j (<=3) untere Bits von ptr[0] alle =0 ?
                       || test_loop_msp(ptr mspop 1,i-1)
@@ -103,7 +103,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
                 }
                 else
                 { rounding_bits |= bit(intDsize-3); // Rundungsbit -3 setzen
-                  rounding_bits &= bitm(intDsize)-bit(intDsize-3); // andere Bits löschen
+                  rounding_bits &= bitm(intDsize)-bit(intDsize-3); // andere Bits lÃ¶schen
         }   }   }
       // x2 liegt in verschobener Form in der UDS x2_MSDptr/x2_len/x2_LSDptr
       // vor, mit Rundungsbits in Bit intDsize-1..intDsize-3 von rounding_bits.
@@ -119,10 +119,10 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
            // dann linken Mantissenteil (i Digits) direkt kopieren:
            var uintD* ptr =
              copy_loop_msp(arrayMSDptr(TheLfloat(x1)->data,len),y_mantMSDptr,i);
-           // dann Übertrag vom rechten zum linken Mantissenteil addieren:
+           // dann Ãœbertrag vom rechten zum linken Mantissenteil addieren:
            if (!(carry==0))
              { if ( inc_loop_lsp(ptr,i) )
-                 // Übertrag über das erste Digit hinaus
+                 // Ãœbertrag Ã¼ber das erste Digit hinaus
                  { // Exponent von y incrementieren:
                    if ( ++(TheLfloat(y)->expo) == LF_exp_high+1 ) { throw floating_point_overflow_exception(); }
                    // normalisiere durch Schieben um 1 Bit nach rechts:
@@ -144,10 +144,10 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
             // dann linken Mantissenteil (i Digits) direkt kopieren:
             var uintD* ptr =
               copy_loop_msp(arrayMSDptr(TheLfloat(x1)->data,len),y_mantMSDptr,i);
-            // dann Übertrag des rechten vom linken Mantissenteil subtrahieren:
+            // dann Ãœbertrag des rechten vom linken Mantissenteil subtrahieren:
             if (!(carry==0))
               { if ( dec_loop_lsp(ptr,i) )
-                  // Übertrag über das erste Digit hinaus, also e1=e2
+                  // Ãœbertrag Ã¼ber das erste Digit hinaus, also e1=e2
                   { NOTREACHED } // diesen Fall haben wir schon behandelt
               }
            }
@@ -165,7 +165,7 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
             nonzero_found: // Digit /=0 gefunden
             // UDS von ptr nach y_mantMSDptr um k Digits nach unten kopieren:
             if (k>0)
-              // mindestens ein führendes Nulldigit. Also war e1-e2 = 0 oder 1.
+              // mindestens ein fÃ¼hrendes Nulldigit. Also war e1-e2 = 0 oder 1.
               { ptr = copy_loop_msp(ptr,y_mantMSDptr,len-k); // len-k Digits verschieben
                 msprefnext(ptr) = rounding_bits; // Rundungsbits als weiteres Digit
                 clear_loop_msp(ptr,k-1); // dann k-1 Nulldigits
@@ -189,11 +189,11 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
            // NUDS y_mantMSDptr/len/y_mantLSDptr/rounding_bits normalisieren:
            {var uintL s;
             integerlengthD(mspref(y_mantMSDptr,0), s = intDsize - );
-            // s = Anzahl der führenden Nullbits im ersten Word (>=0, <intDsize)
+            // s = Anzahl der fÃ¼hrenden Nullbits im ersten Word (>=0, <intDsize)
             if (s > 0)
-              { // Muß die NUDS y_mantMSDptr/len/y_mantLSDptr/rounding_bits
+              { // MuÃŸ die NUDS y_mantMSDptr/len/y_mantLSDptr/rounding_bits
                 // um s Bits nach links schieben.
-                // (Bei e1-e2>1 ist dabei zwangsläufig s=1.)
+                // (Bei e1-e2>1 ist dabei zwangslÃ¤ufig s=1.)
                 if (s==1)
                   { shift1left_loop_lsp(y_mantLSDptr,len);
                     if (rounding_bits & bit(intDsize-1))
@@ -219,19 +219,19 @@ const cl_LF LF_LF_plus_LF (const cl_LF& arg1, const cl_LF& arg2)
                 TheLfloat(y)->expo = uexp - s;
               }}
          } }
-       // Hier enthält rounding_bits Bit -1 als Bit intDsize-1, Bit -2 als
+       // Hier enthÃ¤lt rounding_bits Bit -1 als Bit intDsize-1, Bit -2 als
        // Bit intDsize-2, Bit -3 als Oder(Bits intDsize-3..0) !
        // Runden. Dazu rounding_bits inspizieren:
-       if ((rounding_bits & bit(intDsize-1)) ==0) goto ab; // Bit -1 gelöscht -> abrunden
+       if ((rounding_bits & bit(intDsize-1)) ==0) goto ab; // Bit -1 gelÃ¶scht -> abrunden
        rounding_bits = rounding_bits<<1; // Bits -2,-3
        if (!(rounding_bits==0)) goto auf; // Bit -2 oder Bit -3 gesetzt -> aufrunden
        // round-to-even:
        if ((lspref(y_mantLSDptr,0) & bit(0)) ==0) goto ab;
        auf: // aufrunden
          if ( inc_loop_lsp(y_mantLSDptr,len) )
-           { // Übertrag durchs Aufrunden
+           { // Ãœbertrag durchs Aufrunden
              mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
-             // Exponent erhöhen:
+             // Exponent erhÃ¶hen:
              if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); }
            }
        ab: // abrunden

@@ -33,12 +33,12 @@ void format_integer (std::ostream& stream, const cl_I& arg,
 	var uintL newstring_length = (positive_sign ? 1 : 0) + oldstring_length + number_of_commas;
 	var char* newstring = (char *) malloc_hook(newstring_length+1);
 	newstring[newstring_length] = '\0'; // newstring termination
-	// newstring füllen:
+	// newstring fÃ¼llen:
 	{
 		// Erst Vorzeichen +:
 		if (positive_sign)
 			newstring[0] = '+';
-		// Dann oldstring in newstring übertragen, dabei Kommata überspringen:
+		// Dann oldstring in newstring Ã¼bertragen, dabei Kommata Ã¼berspringen:
 		var uintL oldpos = oldstring_length;
 		var uintL oldpos_mod = 0; // = (oldstring_length - oldpos) % commainterval
 		var uintL newpos = newstring_length;
@@ -48,7 +48,7 @@ void format_integer (std::ostream& stream, const cl_I& arg,
 				// Check whether ((oldstring_length - oldpos) % commainterval) == 0
 				if (++oldpos_mod == commainterval) {
 					oldpos_mod = 0;
-					// noch ein Komma einzufügen
+					// noch ein Komma einzufÃ¼gen
 					newstring[--newpos] = commachar;
 					number_of_commas--;
 				}

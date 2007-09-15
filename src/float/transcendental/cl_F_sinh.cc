@@ -19,14 +19,14 @@ namespace cln {
 const cl_F sinh (const cl_F& x)
 {
 // Methode:
-// Genauigkeit erhöhen,
+// Genauigkeit erhÃ¶hen,
 // e := Exponent aus (decode-float x)
 // falls e<0: (sinh(x)/x)^2 errechnen, Wurzel ziehen, mit x multiplizieren.
 // falls e>=0: y:=exp(x) errechnen, (scale-float (- y (/ y)) -1) bilden.
 
 	if (float_exponent(x) < 0) { // Exponent e abtesten
 		// e<0
-		// Rechengenauigkeit erhöhen
+		// Rechengenauigkeit erhÃ¶hen
 		if (longfloatp(x)) {
 			DeclareType(cl_LF,x);
 			#if 0
@@ -39,8 +39,8 @@ const cl_F sinh (const cl_F& x)
 			if ((TheLfloat(x)->len >= 500)
 			    && (float_exponent(x) > (-(sintC)float_digits(x))>>1)) {
 				// verwende exp(x), schneller als cl_coshsinh_ratseries
-				// (aber nur bei 0 > e > -d/2, denn wir müssen, um
-				// Auslöschung zu verhindern, |e| Bits dazunehmen)
+				// (aber nur bei 0 > e > -d/2, denn wir mÃ¼ssen, um
+				// AuslÃ¶schung zu verhindern, |e| Bits dazunehmen)
 				var cl_LF xx = extend(x,TheLfloat(x)->len+ceiling((uintE)(-float_exponent(x)),intDsize));
 				var cl_F y = exp(xx);
 				var cl_F z = scale_float(y - recip(y), -1); // (/ (- y (/ y)) 2)

@@ -133,7 +133,7 @@ inline bool eq (const cl_RA& x, sint32 y)
 // I_I_div_RA(a,b)
   extern const cl_RA I_I_div_RA (const cl_I& a, const cl_I& b);
 
-// Liefert den Zähler einer rationalen Zahl.
+// Liefert den ZÃ¤hler einer rationalen Zahl.
 // numerator(r)
 inline const cl_I numerator (const cl_RA& r)
 {
@@ -154,7 +154,7 @@ inline const cl_I denominator (const cl_RA& r)
 		return TheRatio(r)->denominator;
 }
 
-// Liefert Zähler und Nenner einer rationalen Zahl.
+// Liefert ZÃ¤hler und Nenner einer rationalen Zahl.
 // RA_numden_I_I(r, num=,den=);
 // > r: rationale Zahl
 // < num: (numerator r)
@@ -162,7 +162,7 @@ inline const cl_I denominator (const cl_RA& r)
   #define RA_numden_I_I(r,num_zuweisung,den_zuweisung)  \
     { if (integerp(r))							\
         { num_zuweisung *(const cl_I *)&r;				\
-          den_zuweisung 1; /* Zähler = r, Nenner = 1 */			\
+          den_zuweisung 1; /* ZÃ¤hler = r, Nenner = 1 */			\
         }								\
         else								\
         { num_zuweisung TheRatio(r)->numerator;				\

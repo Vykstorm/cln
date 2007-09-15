@@ -52,36 +52,36 @@ namespace cln {
 #endif
 
 // Bildet zu einer Unsigned Digit sequence a die Wurzel
-// (genauer: Gauﬂklammer aus Wurzel aus a).
+// (genauer: Gau√üklammer aus Wurzel aus a).
 // squarep = cl_UDS_sqrt(a_MSDptr,a_len,a_LSDptr, &b);
 // > a_MSDptr/a_len/a_LSDptr: eine UDS
-// < NUDS b: Gauﬂklammer der Wurzel aus a
+// < NUDS b: Gau√üklammer der Wurzel aus a
 // < squarep: true falls a = b^2, false falls b^2 < a < (b+1)^2.
 // Methode:
 // erst A normalisieren. A=0 --> B=0, fertig.
-// W‰hle n so, daﬂ beta^(2n-2) <= A < beta^(2n).
-// W‰hle s (0<=s<16) so, daﬂ beta^(2n)/4 <= A*2^(2s) < beta^(2n).
+// W√§hle n so, da√ü beta^(2n-2) <= A < beta^(2n).
+// W√§hle s (0<=s<16) so, da√ü beta^(2n)/4 <= A*2^(2s) < beta^(2n).
 // Setze A:=A*2^(2s) und kopiere dabei A. Suche B=floor(sqrt(A)).
-// Mache Platz f¸r B=[0,b[n-1],...,b[0]], (mit einem Nulldigit Platz davor,
+// Mache Platz f√ºr B=[0,b[n-1],...,b[0]], (mit einem Nulldigit Platz davor,
 // da dort nicht B, sondern 2*B abgespeichert werden wird).
-// Auf den Pl‰tzen [a[2n-1],...,a[2n-2j]] wird die Differenz
+// Auf den Pl√§tzen [a[2n-1],...,a[2n-2j]] wird die Differenz
 // [a[2n-1],...,a[2n-2j]] - [b[n-1],...,b[n-j]] ^ 2 abgespeichert.
 // Bestimme b[n-1] = floor(sqrt(a[2n-1]*beta+a[2n-2])) mit Heron/Newton:
 //   {x:=beta als vorheriger Anfangswert, dann:}
 //   x := floor((beta+a[2n-1])/2)
 //   wiederhole: d:=floor((a[2n-1]*beta+a[2n-2])/x).
-//               Falls d<beta (kein ‹berlauf) und d<x,
+//               Falls d<beta (kein √úberlauf) und d<x,
 //                 setze x:=floor((x+d)/2), nochmals.
 //   b[n-1]:=x. In B um ein Bit nach links verschoben abspeichern.
 // {Wegen a[2n-1]>=beta/4 ist b[n-1]>=beta/2.}
 // Erniedrige [a[2n-1],a[2n-2]] um b[n-1]^2.
-// F¸r j=1,...,n:
+// F√ºr j=1,...,n:
 //   {Hier [b[n-1],...,b[n-j]] = floor(sqrt(altes [a[2n-1],...,a[2n-2j]])),
 //     in [a[2n-1],...,a[2n-2j]] steht jetzt der Rest
 //     [a[2n-1],...,a[2n-2j]] - [b[n-1],...,b[n-j]]^2, er ist >=0 und
-//     und <= 2 * [b[n-1],...,b[n-j]], belegt daher hˆchstens j Digits und 1 Bit.
+//     und <= 2 * [b[n-1],...,b[n-j]], belegt daher h√∂chstens j Digits und 1 Bit.
 //     Daher sind nur [a[2n-j],...,a[2n-2j]] von Belang.}
-//   F¸r j<n: Bestimme die n‰chste Ziffer:
+//   F√ºr j<n: Bestimme die n√§chste Ziffer:
 //     b* := min(beta-1,floor([a[2n-j],...,a[2n-2j-1]]/(2*[b[n-1],...,b[n-j]]))).
 //     und [a[2n-j],...,a[2n-2j-1]] :=
 //         [a[2n-j],...,a[2n-2j-1]] - b* * 2 * [b[n-1],...,b[n-j]] (>= 0).
@@ -89,19 +89,19 @@ namespace cln {
 //       b* := min(beta-1,floor([a[2n-j],a[2n-j-1],a[2n-j-2]]/(2*b[n-1]))),
 //       [a[2n-j],...,a[2n-2j-1]] wie angegeben erniedigen.
 //       Solange die Differenz <0 ist, setze b* := b* - 1 und
-//         erhˆhe [a[2n-j],...,a[2n-2j-1]] um 2 * [b[n-1],...,b[n-j]].
+//         erh√∂he [a[2n-j],...,a[2n-2j-1]] um 2 * [b[n-1],...,b[n-j]].
 //     Erniedrige [a[2n-j],...,a[2n-2j-2]] um b* ^ 2.
 //     Tritt dabei ein negativer Carry auf,
 //       so setze b* := b* - 1,
 //          setze b[n-j-1] := b* (im Speicher um 1 Bit nach links verschoben),
-//          erhˆhe [a[2n-j],...,a[2n-2j-2]] um 2*[b[n-1],...,b[n-j-1]]+1.
+//          erh√∂he [a[2n-j],...,a[2n-2j-2]] um 2*[b[n-1],...,b[n-j-1]]+1.
 //       Sonst setze b[n-j-1] := b* (im Speicher um 1 Bit nach links verschoben).
-//     N‰chstes j.
-//   F¸r j=n:
+//     N√§chstes j.
+//   F√ºr j=n:
 //     Falls [a[n],...,a[0]] = [0,...,0], ist die Wurzel exakt, sonst nicht.
 //     Ergebnis ist [b[n-1],...,b[0]] * 2^(-s), schiebe also im Speicher
 //       [b[n],...,b[0]] um s+1 Bits nach rechts.
-//     Das Ergebnis ist eine NUDS der L‰nge n.
+//     Das Ergebnis ist eine NUDS der L√§nge n.
 bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS* b_)
 {
       // A normalisieren:
@@ -138,7 +138,7 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
       #define a_MSDptr  new_a_MSDptr
       // Nun ist A = a_MSDptr/2n/..
       if (cl_recipsqrt_suitable(n))
-        { // C := 1/sqrt(A) und dann D := A*C n‰herungsweise errechnen.
+        { // C := 1/sqrt(A) und dann D := A*C n√§herungsweise errechnen.
           // D evtl. korrigieren, liefert B.
           var uintD* c_MSDptr;
           var uintD* c_LSDptr;
@@ -199,7 +199,7 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
           else
             return true; // ja -> Wurzel exakt
         }
-      // Platz f¸r B belegen:
+      // Platz f√ºr B belegen:
       { var uintD* b_MSDptr = b_->MSDptr mspop -1; // ab hier n+1 Digits Platz
         var uintD b_msd;
         // B = [0,b[n-1],...,b[0]] = b_MSDptr/n+1/..
@@ -214,16 +214,16 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
           loop // Heron-Iterationsschleife
             { var uintD d;
               // Dividiere d := floor((a[2n-1]*beta+a[2n-2])/x) :
-              if (a_msd>=x) break; // ‹berlauf -> d>=beta -> fertig
+              if (a_msd>=x) break; // √úberlauf -> d>=beta -> fertig
               #if HAVE_DD
                 divuD(a_msdd,x, d=,);
               #else
                 divuD(a_msd,a_2msd,x, d=,);
               #endif
               if (d >= x) break; // d>=x -> fertig
-              // N‰chste Iteration: x := floor((x+d)/2)
+              // N√§chste Iteration: x := floor((x+d)/2)
               // (Da die Folge der x bekanntlich monoton fallend ist
-              // und bei b[n-1] >= beta/2 endet, muﬂ x >= beta/2 werden,
+              // und bei b[n-1] >= beta/2 endet, mu√ü x >= beta/2 werden,
               // d.h. x+d>=beta.)
               #if HAVE_DD
                 x = (uintD)(floor((uintDD)x + (uintDD)d, 2));
@@ -267,19 +267,19 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
                 var uintDD a_123dd = highlowDD(a_2d,a_3d);
                 a_123dd = a_123dd>>1; if (!(a_1d==0)) { a_123dd |= bit(2*intDsize-1); }
                 if (highD(a_123dd) >= b_msd)
-                  { b_stern = bitm(intDsize)-1; } // bei ‹berlauf: beta-1
+                  { b_stern = bitm(intDsize)-1; } // bei √úberlauf: beta-1
                   else
                   { divuD(a_123dd,b_msd, b_stern=,); }
               #else
                 a_3d = a_3d>>1; if (!((a_2d & bit(0)) ==0)) { a_3d |= bit(intDsize-1); }
                 a_2d = a_2d>>1; if (!(a_1d==0)) { a_2d |= bit(intDsize-1); }
                 if (a_2d >= b_msd)
-                  { b_stern = bitm(intDsize)-1; } // bei ‹berlauf: beta-1
+                  { b_stern = bitm(intDsize)-1; } // bei √úberlauf: beta-1
                   else
                   { divuD(a_2d,a_3d,b_msd, b_stern=,); }
               #endif
             }
-            // b_stern = b* in der ersten Sch‰tzung.
+            // b_stern = b* in der ersten Sch√§tzung.
             a_lptr = a_lptr mspop 1; // Pointer hinter a[2n-2j-1]
             // Subtraktion [a[2n-j],...,a[2n-2j-1]] -= b* * [b[n],b[n-1],...,b[n-j]] :
             { var uintD carry = mulusub_loop_lsp(b_stern,b_ptr,a_lptr,j+1);
@@ -287,15 +287,15 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
                 { mspref(a_mptr,0) -= carry; }
                 else
                 { mspref(a_mptr,0) -= carry; // a[2n-j] wird <0
-                  // negativer ‹bertrag -> b* nach unten korrigieren:
+                  // negativer √úbertrag -> b* nach unten korrigieren:
                   loop
                     { b_stern = b_stern-1; // b* := b* - 1
-                      // erhˆhe [a[2n-j],...,a[2n-2j-1]] um [b[n],...,b[n-j]]:
+                      // erh√∂he [a[2n-j],...,a[2n-2j-1]] um [b[n],...,b[n-j]]:
                       if (!(( addto_loop_lsp(b_ptr,a_lptr,j+1) ==0)))
-                        if ((mspref(a_mptr,0) += 1) ==0) // ‹bertrag zu a[2n-j]
+                        if ((mspref(a_mptr,0) += 1) ==0) // √úbertrag zu a[2n-j]
                           break; // macht a[2n-j] wieder >=0 -> Subtraktionsergebnis >=0
             }   }   }
-            // b_stern = b* in der zweiten Sch‰tzung.
+            // b_stern = b* in der zweiten Sch√§tzung.
             a_mptr = a_mptr mspop 1; // Pointer auf a[2n-j-1]
             a_lptr = a_lptr mspop 1; // Pointer hinter a[2n-2j-2]
             // Ziehe b* ^ 2 von [a[2n-j],...,a[2n-2j-2]] ab:
@@ -323,12 +323,12 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
             }}
             #endif
             if (TRUE)
-              { // muﬂ noch [a[2n-j],...,a[2n-2j]] um 1 erniedrigen:
+              { // mu√ü noch [a[2n-j],...,a[2n-2j]] um 1 erniedrigen:
                 if ( dec_loop_lsp(a_lptr lspop 2,j+1) ==0) goto b_stern_ok;
                 // Subtraktion von b*^2 lieferte negativen Carry
                 b_stern = b_stern-1; // b* := b* - 1
-                // erhˆhe [a[2n-j-1],...,a[2n-2j-2]] um [b[n],...,b[n-j],0] + 2 * b* + 1
-                if ((sintD)b_stern < 0) { mspref(b_ptr,-1) |= bit(0); } // hˆchstes Bit von b* in b[n-j] ablegen
+                // erh√∂he [a[2n-j-1],...,a[2n-2j-2]] um [b[n],...,b[n-j],0] + 2 * b* + 1
+                if ((sintD)b_stern < 0) { mspref(b_ptr,-1) |= bit(0); } // h√∂chstes Bit von b* in b[n-j] ablegen
                 mspref(b_ptr,0) = (uintD)(b_stern<<1)+1; // niedrige Bits von b* und eine 1 als b[n-j-1] ablegen
                 addto_loop_lsp(b_ptr mspop 1,a_lptr,j+2);
                 // (a[2n-j] wird nicht mehr gebraucht.)
@@ -338,7 +338,7 @@ bool cl_UDS_sqrt (const uintD* a_MSDptr, uintC a_len, const uintD* a_LSDptr, DS*
               else
               b_stern_ok:
               { // b* als b[n-j-1] ablegen:
-                if ((sintD)b_stern < 0) { mspref(b_ptr,-1) |= bit(0); } // hˆchstes Bit von b* in b[n-j] ablegen
+                if ((sintD)b_stern < 0) { mspref(b_ptr,-1) |= bit(0); } // h√∂chstes Bit von b* in b[n-j] ablegen
                 mspref(b_ptr,0) = (uintD)(b_stern<<1); // niedrige Bits von b* als b[n-j-1] ablegen
                 b_ptr = b_ptr mspop 1;
               }

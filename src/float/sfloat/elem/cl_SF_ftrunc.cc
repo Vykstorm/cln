@@ -28,7 +28,7 @@ const cl_SF ftruncate (const cl_SF& x)
             { return x; }
             else
             { return cl_SF_from_word(
-                x.word & // Bitmaske: Bits 16-e..0 gelöscht, alle anderen gesetzt
+                x.word & // Bitmaske: Bits 16-e..0 gelÃ¶scht, alle anderen gesetzt
                 ~(bit(SF_mant_len+SF_mant_shift + 1+SF_exp_mid-uexp) - bit(SF_mant_shift))
                 );
             }

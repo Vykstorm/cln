@@ -21,13 +21,13 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
   // Methode:
   // delta=0 -> x als Ergebnis
   // x=0.0 -> x als Ergebnis
-  // delta muﬂ ein Integer betragsm‰ﬂig <= LF_exp_high-LF_exp_low sein.
-  // Neues LF mit um delta vergrˆﬂertem Exponenten bilden.
+  // delta mu√ü ein Integer betragsm√§√üig <= LF_exp_high-LF_exp_low sein.
+  // Neues LF mit um delta vergr√∂√üertem Exponenten bilden.
       if (eq(delta,0)) { return x; } // delta=0 -> x als Ergebnis
       var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
       var uintE udelta;
-      // |delta| muﬂ <= LF_exp_high-LF_exp_low < 2^32 sein. Wie bei I_to_UL:
+      // |delta| mu√ü <= LF_exp_high-LF_exp_low < 2^32 sein. Wie bei I_to_UL:
 	if (fixnump(delta)) {
 		// Fixnum
 		var sintV sdelta = FN_to_V(delta);
@@ -40,7 +40,7 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 	    var cl_heap_bignum* bn = TheBignum(delta);
 	    if ((sintD)mspref(arrayMSDptr(bn->data,bn->length),0) >= 0) {
 		#define IF_LENGTH(i)  \
-		  if (bn_minlength <= i) /* genau i Digits ¸berhaupt mˆglich? */\
+		  if (bn_minlength <= i) /* genau i Digits √ºberhaupt m√∂glich? */\
 		    if (bn->length == i) /* genau i Digits? */			\
 		      /* 2^((i-1)*intDsize-1) <= delta < 2^(i*intDsize-1) */	\
 		      if ( (i*intDsize-1 > 32)					\
@@ -60,10 +60,10 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 		IF_LENGTH(5)
 			{ udelta = get_uint4D_Dptr(arrayLSDptr(bn->data,5)); goto pos; }
 		#undef IF_LENGTH
-		goto overflow; // delta zu groﬂ
+		goto overflow; // delta zu gro√ü
 	    } else {
 		#define IF_LENGTH(i)  \
-		  if (bn_minlength <= i) /* genau i Digits ¸berhaupt mˆglich? */\
+		  if (bn_minlength <= i) /* genau i Digits √ºberhaupt m√∂glich? */\
 		    if (bn->length == i) /* genau i Digits? */			\
 		      /* - 2^((i-1)*intDsize-1) > delta >= - 2^(i*intDsize-1) */\
 		      if ( (i*intDsize-1 > 32)					\
@@ -88,8 +88,8 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 	}
 
       pos: // udelta = delta >=0
-	if (   ((uexp = uexp+udelta) < udelta) // Exponent-‹berlauf?
-	    || (uexp > LF_exp_high) // oder Exponent zu groﬂ?
+	if (   ((uexp = uexp+udelta) < udelta) // Exponent-√úberlauf?
+	    || (uexp > LF_exp_high) // oder Exponent zu gro√ü?
 	   )
 	  overflow:
 	  { throw floating_point_overflow_exception(); }

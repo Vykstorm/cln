@@ -23,10 +23,10 @@ uintC logcount (const cl_I& x)
 	    if (FN_V_minusp(x,(sintV)x32)) { x32 = ~ x32; } // falls <0, komplementieren
             #if (intVsize>32)
             #define x64 x32
-            logcount_64(); // Bits von x32 z‰hlen
+            logcount_64(); // Bits von x32 z√§hlen
             #undef x64
             #else
-	    logcount_32(); // Bits von x32 z‰hlen
+	    logcount_32(); // Bits von x32 z√§hlen
             #endif
 	    return x32;
 	  }
@@ -34,8 +34,8 @@ uintC logcount (const cl_I& x)
           { var const uintD* MSDptr;
             var uintC len;
             BN_to_NDS_nocopy(x, MSDptr=,len=,); // DS zu x bilden, len>0.
-            var uintC bitcount = 0; // Bitz‰hler
-            var const uintD* ptr = MSDptr; // l‰uft durch die Digits durch
+            var uintC bitcount = 0; // Bitz√§hler
+            var const uintD* ptr = MSDptr; // l√§uft durch die Digits durch
             var uintD sign = sign_of_sintD(mspref(ptr,0)); // Vorzeichen
             dotimespC(len,len,
               { bitcount += (uintC)logcountD(msprefnext(ptr) ^ sign); });

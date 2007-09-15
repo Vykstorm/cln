@@ -20,11 +20,11 @@ const cl_I ash (const cl_I& x, const cl_I& y)
     // x = 0 -> 0 als Ergebnis
     // y = 0 -> x als Ergebnis
     // y > 0 -> y = intDsize*k + i, j=k+(1 falls i>0, 0 falls i=0).
-    //          j Wörter mehr reservieren, k Nullwörter, dann übertragen,
+    //          j WÃ¶rter mehr reservieren, k NullwÃ¶rter, dann Ã¼bertragen,
     //          bei i>0: um i Bits links schieben (i=1 geht einfacher).
-    // y < 0 -> y <= - intDsize * (Länge(A0) in Digits) -> Ergebnis = 0 oder -1.
-    //          Sonst: -y = intDsize*k + i mit k<Länge(A0).
-    //                  Übertrage die (Länge(A0)-k) MSDigits,
+    // y < 0 -> y <= - intDsize * (LÃ¤nge(A0) in Digits) -> Ergebnis = 0 oder -1.
+    //          Sonst: -y = intDsize*k + i mit k<LÃ¤nge(A0).
+    //                  Ãœbertrage die (LÃ¤nge(A0)-k) MSDigits,
     //                  falls i>0: schiebe sie um i Bits nach rechts (i=1 geht einfacher).
 	if (zerop(x))
 		return 0;		// x=0 -> 0 als Ergebnis
@@ -85,7 +85,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 		var uintC len;
 		var const uintD* x_LSDptr;
 		I_to_NDS_nocopy(x, ,len=,x_LSDptr=,false,); // DS zu x bilden.
-		if (k >= (uintC)(~len)) // kann len+k+1 Überlauf geben?
+		if (k >= (uintC)(~len)) // kann len+k+1 Ãœberlauf geben?
 			{ throw ash_exception(y); } // ja -> Fehler
 		num_stack_alloc_1(len+k,,LSDptr=);
 		LSDptr = clear_loop_lsp(LSDptr,k); // k Nulldigits
@@ -165,7 +165,7 @@ const cl_I ash (const cl_I& x, const cl_I& y)
 		var uintD* MSDptr;
 		var uintC len;
 		I_to_NDS(x, MSDptr=,len=,); // DS zu x bilden.
-		if (k>=len) goto sign; // -y >= intDsize*len -> Vorzeichen von x zurück
+		if (k>=len) goto sign; // -y >= intDsize*len -> Vorzeichen von x zurÃ¼ck
 		len -= k; // rechte k Digits einfach streichen
 		// Noch ist len>0. Um i Bits nach rechts schieben:
 		if (!(i==0)) // Bei i>0:

@@ -93,7 +93,7 @@ inline bool complexp (const cl_C& x)
 extern const cl_N complex_C (const cl_R& a, const cl_R& b);
 
 // realpart(x) liefert den Realteil der Zahl x.
-// imagpart(x) liefert den Imaginärteil der Zahl x.
+// imagpart(x) liefert den ImaginÃ¤rteil der Zahl x.
 inline const cl_R& realpart (const cl_C& x)
 {
 	return TheComplex(x)->realpart;
@@ -182,10 +182,10 @@ struct cl_C_R {
 	cl_C_R (const cl_R& re, const cl_R& im) : realpart(re), imagpart(im) {}
 };
 
-// Hilfsfunktion für atanh und atan: u+iv := artanh(x+iy). Liefert cl_C_R(u,v).
+// Hilfsfunktion fÃ¼r atanh und atan: u+iv := artanh(x+iy). Liefert cl_C_R(u,v).
 extern const cl_C_R atanh (const cl_R& x, const cl_R& y);
 
-// Hilfsfunktion für asinh und asin: u+iv := arsinh(x+iy). Liefert cl_C_R(u,v).
+// Hilfsfunktion fÃ¼r asinh und asin: u+iv := arsinh(x+iy). Liefert cl_C_R(u,v).
 extern const cl_C_R asinh (const cl_R& x, const cl_R& y);
 
 }  // namespace cln

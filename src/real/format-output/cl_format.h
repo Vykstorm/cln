@@ -1,4 +1,4 @@
-// Formatted output functions ‡ la Common Lisp.
+// Formatted output functions √† la Common Lisp.
 
 #ifndef _CL_FORMAT_H
 #define _CL_FORMAT_H
@@ -9,10 +9,10 @@
 
 namespace cln {
 
-// gibt arg als rˆmische Zahl auf stream aus, z.B. 4 als IIII.
+// gibt arg als r√∂mische Zahl auf stream aus, z.B. 4 als IIII.
 extern void format_old_roman (std::ostream& stream, const cl_I& arg);
 
-// gibt arg als rˆmische Zahl auf stream aus, z.B. 4 als IV.
+// gibt arg als r√∂mische Zahl auf stream aus, z.B. 4 als IV.
 extern void format_new_roman (std::ostream& stream, const cl_I& arg);
 
 extern const char * const cl_format_tens [10];
@@ -20,7 +20,7 @@ extern const char * const cl_format_tens [10];
 // gibt die ganze Zahl arg im Klartext auf englisch auf den Stream aus.
 extern void format_cardinal (std::ostream& stream, const cl_I& arg);
 
-// gibt eine ganze Zahl arg als Abz‰hlnummer im Klartext auf englisch
+// gibt eine ganze Zahl arg als Abz√§hlnummer im Klartext auf englisch
 // auf den stream aus.
 extern void format_ordinal (std::ostream& stream, const cl_I& arg);
 
@@ -32,17 +32,17 @@ inline void format_padding (std::ostream& stream, sintL count, char ch)
 }
 
 // gibt auf den Stream stream aus:
-// den String str, eventuell aufgef¸llt mit Padding characters padchar.
-// Und zwar so, daﬂ die Breite mindestens mincol ist. Um das zu erreichen,
-// werden mindestens minpad Zeichen eingef¸gt, eventuelle weitere dann in
-// Blˆcken ‡ colinc Zeichen. Falls padleftflag, werden sie links eingef¸gt,
+// den String str, eventuell aufgef√ºllt mit Padding characters padchar.
+// Und zwar so, da√ü die Breite mindestens mincol ist. Um das zu erreichen,
+// werden mindestens minpad Zeichen eingef√ºgt, eventuelle weitere dann in
+// Bl√∂cken √† colinc Zeichen. Falls padleftflag, werden sie links eingef√ºgt,
 // sonst rechts vom String.
 extern void format_padded_string (std::ostream& stream, sintL mincol, sintL colinc, sintL minpad, char padchar, bool padleftflag, const char * str);
 
 // gibt den Integer arg auf den Stream aus:
 // in Zahlenbasis base, mit Vorzeichen (+ nur falls >0 und positive-sign-flag),
 // bei commaflag alle drei Stellen unterbrochen durch ein Zeichen commachar.
-// Das Ganze links aufgef¸llt mit padchar's, so daﬂ die Gesamtbreite mindestens
+// Das Ganze links aufgef√ºllt mit padchar's, so da√ü die Gesamtbreite mindestens
 // mincol ist.
 extern void format_integer (std::ostream& stream, const cl_I& arg, unsigned int base, sintL mincol, char padchar, char commachar, uintL commainterval, bool commaflag, bool positive_sign_flag);
 
@@ -57,7 +57,7 @@ CL_REQUIRE(cl_fmt_scaleexp)
 // format_float_to_string(arg,width,d,k,dmin)
 // ergibt einen String zum Floating-point arg:
 // er hat den Wert von abs(arg)*expt(10,k), dabei mind. d Nachkommastellen
-// und hˆchstens die L‰nge width (width<=0 -> keine Einschr‰nkung).
+// und h√∂chstens die L√§nge width (width<=0 -> keine Einschr√§nkung).
 // Trotzdem wird nicht auf weniger als dmin Stellen gerundet.
 struct digits_with_dot {
 	char * string; // Mit malloc_hook() alloziert, mit free_hook() freizugeben.

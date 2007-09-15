@@ -30,7 +30,7 @@
   #error "Bogus CL_CPU_BIG_ENDIAN_P!"
 #endif
 
-// Auswahl der Floating-Point-F‰higkeiten:
+// Auswahl der Floating-Point-F√§higkeiten:
 // FAST_DOUBLE sollte definiert werden, wenn ein Floating-Point-Coprozessor
 // vorhanden ist, dessen `double'-Typ IEEE-Floating-Points mit 64 Bits sind.
 // FAST_FLOAT sollte definiert werden, wenn ein Floating-Point-Coprozessor
@@ -42,7 +42,7 @@
 #endif
 #if defined(__i386__) && (defined(linux) || defined(__linux__) || defined(NeXT))
   // Linux hat einen funktionierenden Floating-Point-Coprozessor-Emulator.
-  // NeXTstep l‰uft sowieso nur mit Floating-Point-Coprozessor.
+  // NeXTstep l√§uft sowieso nur mit Floating-Point-Coprozessor.
   // Aber auf Intel-Pentium-Prozessoren ist die FPU fehlerhaft.
   #define FAST_DOUBLE
   #define FAST_FLOAT

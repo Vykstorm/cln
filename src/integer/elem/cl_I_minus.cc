@@ -47,7 +47,7 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
               #endif
             }
             else
-            { // x ist Fixnum, y ist Bignum, also y l‰nger
+            { // x ist Fixnum, y ist Bignum, also y l√§nger
               #if (intDsize==64)
               var sint64 x_ = FN_to_V(x); // Wert von x
               #else
@@ -77,15 +77,15 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
                 var uintD* midptr = LSDptr lspop pFN_maxlength;
                 if (y_new < y_)
                   { // Carry.
-                    if (!FN_V_minusp(x,x_)) // k¸rzerer Summand war positiv
-                      // Dann ist ein positiver ‹bertrag weiterzutragen
+                    if (!FN_V_minusp(x,x_)) // k√ºrzerer Summand war positiv
+                      // Dann ist ein positiver √úbertrag weiterzutragen
                       // (Beispiel: 0002FFFC + 0007 = 00030003)
                       { DS_1_plus(midptr,len-pFN_maxlength); }
                   }
                   else
                   { // Kein Carry.
-                    if (FN_V_minusp(x,x_)) // k¸rzerer Summand war negativ
-                      // Dann ist ein negativer ‹bertrag weiterzutragen
+                    if (FN_V_minusp(x,x_)) // k√ºrzerer Summand war negativ
+                      // Dann ist ein negativer √úbertrag weiterzutragen
                       // (Beispiel: 00020003 + FFF5 = 0001FFF8)
                       { DS_minus1_plus(midptr,len-pFN_maxlength); }
               }   }
@@ -95,7 +95,7 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
         else
         { // x ist Bignum
           if (fixnump(y))
-            { // x ist Bignum, y ist Fixnum, also x l‰nger
+            { // x ist Bignum, y ist Fixnum, also x l√§nger
               #if (intDsize==64)
               var sint64 y_ = FN_to_V(y); // Wert von y
               #else
@@ -123,15 +123,15 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
                 var uintD* midptr = LSDptr lspop pFN_maxlength;
                 if (x_new > x_)
                   { // Carry.
-                    if (!FN_V_minusp(y,y_)) // k¸rzerer Summand war positiv
-                      // Dann ist ein negativer ‹bertrag weiterzutragen
+                    if (!FN_V_minusp(y,y_)) // k√ºrzerer Summand war positiv
+                      // Dann ist ein negativer √úbertrag weiterzutragen
                       // (Beispiel: 00030003 - 0007 = 0002FFFC)
                       { DS_minus1_plus(midptr,len-pFN_maxlength); }
                   }
                   else
                   { // Kein Carry.
-                    if (FN_V_minusp(y,y_)) // k¸rzerer Summand war negativ
-                      // Dann ist ein positiver ‹bertrag weiterzutragen
+                    if (FN_V_minusp(y,y_)) // k√ºrzerer Summand war negativ
+                      // Dann ist ein positiver √úbertrag weiterzutragen
                       // (Beispiel: 0002FFF8 - FFF5 = 00030003)
                       { DS_1_plus(midptr,len-pFN_maxlength); }
               }   }
@@ -140,36 +140,36 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
             else
             { // x und y sind Bignums
               if (TheBignum(x)->length > TheBignum(y)->length)
-                { // x das l‰ngere von beiden.
+                { // x das l√§ngere von beiden.
                   CL_ALLOCA_STACK;
                   BN_to_NDS_1(x, MSDptr=,len=,LSDptr=); // NDS zu x bilden.
                   var const uintD* yMSDptr;
                   var uintC ylen;
                   var const uintD* yLSDptr;
                   BN_to_NDS_nocopy(y, yMSDptr=,ylen=,yLSDptr=); // NDS zu y bilden.
-                  // yMSDptr/ylen/yLSDptr bilden die DS des k¸rzeren Arguments y.
+                  // yMSDptr/ylen/yLSDptr bilden die DS des k√ºrzeren Arguments y.
                   // Es ist len>ylen.
                   // subtrahieren:
                   { var uintD* midptr = LSDptr lspop ylen;
                     var uintD carry = subfrom_loop_lsp(yLSDptr,LSDptr,ylen);
                     if (carry)
                       { // Carry.
-                        if ((sintD)mspref(yMSDptr,0) >=0) // k¸rzerer Summand war positiv
-                          // Dann ist ein negativer ‹bertrag weiterzutragen
+                        if ((sintD)mspref(yMSDptr,0) >=0) // k√ºrzerer Summand war positiv
+                          // Dann ist ein negativer √úbertrag weiterzutragen
                           // (Beispiel: 00030003 - 0007 = 0002FFFC)
                           { DS_minus1_plus(midptr,len-ylen); }
                       }
                       else
                       { // Kein Carry.
-                        if ((sintD)mspref(yMSDptr,0) <0) // k¸rzerer Summand war negativ
-                          // Dann ist ein positiver ‹bertrag weiterzutragen
+                        if ((sintD)mspref(yMSDptr,0) <0) // k√ºrzerer Summand war negativ
+                          // Dann ist ein positiver √úbertrag weiterzutragen
                           // (Beispiel: 0002FFF8 - FFF5 = 00030003)
                           { DS_1_plus(midptr,len-ylen); }
                   }   }
                   return DS_to_I(MSDptr,len); // DS wieder zum Integer machen
                 }
                 else
-                { // y das l‰ngere von beiden.
+                { // y das l√§ngere von beiden.
                   CL_ALLOCA_STACK;
                   BN_to_NDS_1(y, MSDptr=,len=,LSDptr=); // NDS zu y bilden.
                   // vorsorglich 1 Digit mehr belegen:
@@ -183,22 +183,22 @@ const cl_I operator- (const cl_I& x, const cl_I& y)
                   var uintC xlen;
                   var const uintD* xLSDptr;
                   BN_to_NDS_nocopy(x, xMSDptr=,xlen=,xLSDptr=); // NDS zu x bilden.
-                  // xMSDptr/xlen/xLSDptr bilden die DS des k¸rzeren Arguments x.
+                  // xMSDptr/xlen/xLSDptr bilden die DS des k√ºrzeren Arguments x.
                   // Es ist jetzt len>xlen.
                   // addieren:
                   { var uintD* midptr = LSDptr lspop xlen;
                     var uintD carry = addto_loop_lsp(xLSDptr,LSDptr,xlen);
                     if (carry)
                       { // Carry.
-                        if ((sintD)mspref(xMSDptr,0) >=0) // k¸rzerer Summand war positiv
-                          // Dann ist ein positiver ‹bertrag weiterzutragen
+                        if ((sintD)mspref(xMSDptr,0) >=0) // k√ºrzerer Summand war positiv
+                          // Dann ist ein positiver √úbertrag weiterzutragen
                           // (Beispiel: 0002FFFC + 0007 = 00030003)
                           { DS_1_plus(midptr,len-xlen); }
                       }
                       else
                       { // Kein Carry.
-                        if ((sintD)mspref(xMSDptr,0) <0) // k¸rzerer Summand war negativ
-                          // Dann ist ein negativer ‹bertrag weiterzutragen
+                        if ((sintD)mspref(xMSDptr,0) <0) // k√ºrzerer Summand war negativ
+                          // Dann ist ein negativer √úbertrag weiterzutragen
                           // (Beispiel: 00020003 + FFF5 = 0001FFF8)
                           { DS_minus1_plus(midptr,len-xlen); }
                   }   }

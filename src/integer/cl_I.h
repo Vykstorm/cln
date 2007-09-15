@@ -351,7 +351,7 @@ inline const cl_I minus (uintQ x, uintQ y)
 
 #if (intDsize<=32)
 
-// Holt die n‰chsten pFN_maxlength Digits in ein uintV.
+// Holt die n√§chsten pFN_maxlength Digits in ein uintV.
 inline uintV pFN_maxlength_digits_at (const uintD* ptr)
 {
 #if (pFN_maxlength==1)
@@ -373,7 +373,7 @@ inline uintV pFN_maxlength_digits_at (const uintD* ptr)
 #endif
 }
 
-// Schreibt ein uintV in die n‰chsten pFN_maxlength Digits.
+// Schreibt ein uintV in die n√§chsten pFN_maxlength Digits.
 inline void set_pFN_maxlength_digits_at (uintD* ptr, uintV wert)
 {
 #if (pFN_maxlength==1)
@@ -425,7 +425,7 @@ inline void set_pFN_maxlength_digits_at (uintD* ptr, uintV wert)
 
 #elif (intDsize==64)
 
-// Holt die n‰chsten pFN_maxlength Digits in ein uint64.
+// Holt die n√§chsten pFN_maxlength Digits in ein uint64.
 inline uint64 pFN_maxlength_digits_at (const uintD* ptr)
 {
 	return (uint64)lspref(ptr,0);
@@ -444,13 +444,13 @@ inline uint64 pFN_maxlength_digits_at (const uintD* ptr)
 // Normalized Unsigned Digit Sequence to Integer
 // NUDS_to_I(MSDptr,len)
 // Normalized UDS MSDptr/len/.. in Integer >=0 umwandeln.
-// Unterhalb von MSDptr muﬂ 1 Digit Platz sein.
+// Unterhalb von MSDptr mu√ü 1 Digit Platz sein.
   extern const cl_I NUDS_to_I (uintD* MSDptr, uintC len);
 
 // Unsigned Digit Sequence to Integer
 // UDS_to_I(MSDptr,len)
 // UDS MSDptr/len/.. in Integer >=0 umwandeln.
-// Unterhalb von MSDptr muﬂ 1 Digit Platz sein.
+// Unterhalb von MSDptr mu√ü 1 Digit Platz sein.
   extern const cl_I UDS_to_I (uintD* MSDptr, uintC len);
 
 // Digit Sequence to Integer
@@ -551,7 +551,7 @@ inline sintD FN_MSD (cl_uint word)
   unused (LSDptr_zuweisung (destLSDptr));				\
 }
 
-// Bignum to Normalized Digit sequence, Kopieren unnˆtig
+// Bignum to Normalized Digit sequence, Kopieren unn√∂tig
 // BN_to_NDS_nocopy(obj, MSDptr=,len=,LSDptr=);
 // > obj: ein Bignum
 // < MSDptr/len/LSDptr: Normalized Digit sequence
@@ -602,11 +602,11 @@ inline sintD FN_MSD (cl_uint word)
       copy_loop_msp(BN_MSDptr(obj_from_BN_to_NDS),MSDptr_from_BN_to_NDS,len_from_BN_to_NDS); \
     }
 
-// Integer to Normalized Digit sequence, Kopieren unnˆtig.
+// Integer to Normalized Digit sequence, Kopieren unn√∂tig.
 // I_to_NDS_nocopy(obj, MSDptr=,len=,LSDptr=,check_for_0,zero_statement);
 // > obj: ein Integer
-// > check_for_0: ob obj mˆglicherweise =0 sein kann
-// > zero_statement: wird bei obj=0 ausgef¸hrt
+// > check_for_0: ob obj m√∂glicherweise =0 sein kann
+// > zero_statement: wird bei obj=0 ausgef√ºhrt
 // < MSDptr/len/LSDptr: Normalized Digit sequence
   #define I_to_NDS_nocopy(obj, MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung, check_for_0,zero_statement)  \
     var uintD CONCAT(FN_store_,__LINE__) [FN_maxlength];		\
@@ -659,8 +659,8 @@ inline sintD FN_MSD (cl_uint word)
 
 // ggT und kgV von Integers
 
-  // Teilfunktion f¸r die Durchf¸hrung des Euklid-Algorithmus auf
-  // den f¸hrenden Ziffern a' und b':
+  // Teilfunktion f√ºr die Durchf√ºhrung des Euklid-Algorithmus auf
+  // den f√ºhrenden Ziffern a' und b':
   // partial_gcd(a',b',&erg); mit a'>b'
   // liefert in erg: x1,y1,x2,y2 mit den in cl_I_gcd.cc angegebenen Invarianten.
   typedef struct { uintD x1,y1,x2,y2; } partial_gcd_result;
@@ -689,7 +689,7 @@ inline sintD FN_MSD (cl_uint word)
 // Wandelt eine Ziffernfolge in ein Integer >=0 um.
 // digits_to_I(MSBptr,len,base)
 // > base: Stellenwertsystem-Basis, >=2, <=36
-// > MSBptr/len/..: Ziffernfolge, bestehend aus Punkten (werden ¸berlesen)
+// > MSBptr/len/..: Ziffernfolge, bestehend aus Punkten (werden √ºberlesen)
 //     und Ziffern/Buchstaben mit Wert < base.
 // < ergebnis: der dargestellte Integer >=0
   extern const cl_I digits_to_I (const char * MSBptr, uintC len, uintD base);
@@ -697,7 +697,7 @@ inline sintD FN_MSD (cl_uint word)
 
 // Hilfsfunktion zur Ausgabe von Integers
 
-// cl_digits_need(len,base) liefert eine obere Absch‰tzung f¸r die Anzahl der
+// cl_digits_need(len,base) liefert eine obere Absch√§tzung f√ºr die Anzahl der
 // Ziffern im Stellenwertsystem der Basis base, die x >= 0 braucht.
   extern uintC cl_digits_need (const cl_I& x, uintL base);
 

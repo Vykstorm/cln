@@ -37,11 +37,11 @@ const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
 //   nach Rundung mant1/mant2 >=1/2, <=2*mant1<2.
 //   Bei mant1/mant2 >=1 brauche 52 Nachkommabits,
 //   bei mant1/mant2 <1 brauche 53 Nachkommabits.
-//   Fürs Runden: brauche ein Rundungsbit (Rest gibt an, ob exakt).
+//   FÃ¼rs Runden: brauche ein Rundungsbit (Rest gibt an, ob exakt).
 //   Brauche daher insgesamt 54 Nachkommabits von mant1/mant2.
 //   Dividiere daher (als Unsigned Integers) 2^54*(2^53*mant1) durch (2^53*mant2).
 //   Falls der Quotient >=2^54 ist, runde die letzten zwei Bits weg und
-//     erhöhe den Exponenten um 1.
+//     erhÃ¶he den Exponenten um 1.
 //   Falls der Quotient <2^54 ist, runde das letzte Bit weg. Bei rounding
 //     overflow schiebe um ein weiteres Bit nach rechts, incr. Exponenten.
 #if defined(FAST_DOUBLE) && !defined(__i386__)
@@ -50,7 +50,7 @@ const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
                    !zerop(x1), // ein Ergebnis +/- 0.0
                                // ist genau dann in Wirklichkeit ein Underflow
                    zerop(x2), // Division durch Null abfangen
-                   FALSE // kein NaN als Ergebnis möglich
+                   FALSE // kein NaN als Ergebnis mÃ¶glich
                   );
 #else
       // x1,x2 entpacken:
@@ -77,9 +77,9 @@ const cl_DF operator/ (const cl_DF& x1, const cl_DF& x2)
       #endif
       exp1 = exp1 - exp2; // Differenz der Exponenten
       sign1 = sign1 ^ sign2; // Ergebnis-Vorzeichen
-      // Dividiere 2^54*mant1 durch mant2 oder (äquivalent)
-      // 2^i*2^54*mant1 durch 2^i*mant2 für irgendein i mit 0 <= i <= 64-53 :
-      // wähle i = 64-(DF_mant_len+1), also i+(DF_mant_len+2) = 65.
+      // Dividiere 2^54*mant1 durch mant2 oder (Ã¤quivalent)
+      // 2^i*2^54*mant1 durch 2^i*mant2 fÃ¼r irgendein i mit 0 <= i <= 64-53 :
+      // wÃ¤hle i = 64-(DF_mant_len+1), also i+(DF_mant_len+2) = 65.
       #if (cl_word_size==64)
       mantx1 = mantx1 << 1;
       mantx2 = mantx2 << (64-(DF_mant_len+1));

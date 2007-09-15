@@ -18,7 +18,7 @@ bool rootp (const cl_RA& x, uintL n, cl_RA* w)
 {
 // Methode:
 // Bei Integers: klar.
-// Bei Brüchen a/b : muß a=c^n und b=d^n sein. Dann ist die Wurzel = c/d
+// Bei BrÃ¼chen a/b : muÃŸ a=c^n und b=d^n sein. Dann ist die Wurzel = c/d
 // (mit ggT(c,d)=1 und d>1).
 	if (integerp(x)) {
 		DeclareType(cl_I,x);
@@ -32,7 +32,7 @@ bool rootp (const cl_RA& x, uintL n, cl_RA* w)
 		return false;
 	var const cl_I& a = numerator(x);
 	var cl_I c;
-	if (!rootp(a,n,&c)) // Zähler auf n-te Potenz testen
+	if (!rootp(a,n,&c)) // ZÃ¤hler auf n-te Potenz testen
 		return false;
 	// beides n-te Potenzen -> Quotient der Wurzeln bilden
 	*w = I_I_to_RT(c,d); return true;

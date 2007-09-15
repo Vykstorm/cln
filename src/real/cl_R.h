@@ -67,7 +67,7 @@ inline bool exact_zerop (const cl_R& x)
 
 
 // Macro: verteilt je nach Real-Typ eines Floats x auf 2 Statements,
-// die x vom jeweiligen Real-Typ benutzen dürfen.
+// die x vom jeweiligen Real-Typ benutzen dÃ¼rfen.
 // realcase2(x, RA_statement,F_statement);
 // x sollte eine Variable sein.
   #define realcase2(x, RA_statement,F_statement) \
@@ -114,7 +114,7 @@ inline bool exact_zerop (const cl_R& x)
 #endif
 
 // Macro: verteilt je nach Real-Typ eines Floats x auf 7 Statements,
-// die x vom jeweiligen Real-Typ benutzen dürfen.
+// die x vom jeweiligen Real-Typ benutzen dÃ¼rfen.
 // realcase7(x, FN_statement,BN_statement,RT_statement,SF_statement,FF_statement,DF_statement,LF_statement);
 // x sollte eine Variable sein.
   #define realcase7(x, FN_statement,BN_statement,RT_statement,SF_statement,FF_statement,DF_statement,LF_statement) \
@@ -129,7 +129,7 @@ inline bool exact_zerop (const cl_R& x)
       )
 
 // Macro: verteilt je nach Real-Typ eines Floats x auf 6 Statements,
-// die x vom jeweiligen Real-Typ benutzen dürfen.
+// die x vom jeweiligen Real-Typ benutzen dÃ¼rfen.
 // realcase6(x, I_statement,RT_statement,SF_statement,FF_statement,DF_statement,LF_statement);
 // x sollte eine Variable sein.
   #define realcase6(x, I_statement,RT_statement,SF_statement,FF_statement,DF_statement,LF_statement) \
@@ -189,7 +189,7 @@ extern const cl_R contagion (const cl_R& x, const cl_R& y);
 }
 
 // cl_somefloat(x,y) wandelt eine reelle Zahl x in ein Float-Format um
-// (das von y, falls x rational ist) und rundet dabei nötigenfalls.
+// (das von y, falls x rational ist) und rundet dabei nÃ¶tigenfalls.
 // > x: eine reelle Zahl
 // > y: ein Float
 // < ergebnis: x als Float

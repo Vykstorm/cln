@@ -19,7 +19,7 @@ CL_PROVIDE(cl_F_leastneg)
 
 namespace cln {
 
-// Exponent so klein wie möglich, Mantisse 10...0, Vorzeichen -.
+// Exponent so klein wie mÃ¶glich, Mantisse 10...0, Vorzeichen -.
 
 static const cl_SF least_negative_SF =
 	make_SF(-1,SF_exp_low,bit(SF_mant_len));

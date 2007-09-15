@@ -29,7 +29,7 @@ const cl_I operator* (const cl_I& x, const cl_I& y)
         { var sintV x_ = FN_to_V(x);
           var sintV y_ = FN_to_V(y);
           #if (cl_value_len > 32)
-          // nur falls x und y Integers mit höchstens 32 Bit sind:
+          // nur falls x und y Integers mit hÃ¶chstens 32 Bit sind:
           if (((uintV)((sintV)sign_of(x_) ^ x_) < bit(31))
               && ((uintV)((sintV)sign_of(y_) ^ y_) < bit(31)))
           #endif
@@ -38,7 +38,7 @@ const cl_I operator* (const cl_I& x, const cl_I& y)
               var uint32 hi;
               var uint32 lo;
               mulu32((uint32)x_,(uint32)y_,hi=,lo=); // erst unsigned multiplizieren
-              if (x_ < 0) { hi -= (uint32)y_; } // dann Korrektur für Vorzeichen
+              if (x_ < 0) { hi -= (uint32)y_; } // dann Korrektur fÃ¼r Vorzeichen
               if (y_ < 0) { hi -= (uint32)x_; } // (vgl. DS_DS_mul_DS)
               return L2_to_I(hi,lo);
             }

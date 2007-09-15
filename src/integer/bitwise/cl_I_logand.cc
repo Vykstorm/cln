@@ -16,15 +16,15 @@
 namespace cln {
 
 // Logische Operationen auf Integers:
-// Methode: aus den Längen der beiden Argumente eine obere Schranke für
-// die Länge des Ergebnisses berechnen (das Maximum der beiden Längen und
-// FN_maxlength), so daß das MSD für unendlich viele Bits steht.
-// Dann beide Argumente in gleichgroße Digit sequences umwandeln, Operation
-// mit einer einfachen Schleife durchführen.
+// Methode: aus den LÃ¤ngen der beiden Argumente eine obere Schranke fÃ¼r
+// die LÃ¤nge des Ergebnisses berechnen (das Maximum der beiden LÃ¤ngen und
+// FN_maxlength), so daÃŸ das MSD fÃ¼r unendlich viele Bits steht.
+// Dann beide Argumente in gleichgroÃŸe Digit sequences umwandeln, Operation
+// mit einer einfachen Schleife durchfÃ¼hren.
 
 const cl_I logand (const cl_I& x, const cl_I& y)
     { if (fixnump(x) && fixnump(y)) // Beides Fixnums -> ganz einfach:
-        { // bitweise als Fixnum zurück
+        { // bitweise als Fixnum zurÃ¼ck
           return cl_I_from_word(x.word & y.word);
         }
       if (fixnump(x))
@@ -48,7 +48,7 @@ const cl_I logand (const cl_I& x, const cl_I& y)
        {var uintD* xptr; I_to_DS_n(x,n,xptr=); // Pointer in DS zu x
         var uintD* yptr; I_to_DS_n(y,n,yptr=); // Pointer in DS zu y
         var uintD* zptr = xptr; // Pointer aufs Ergebnis
-        and_loop_msp(xptr,yptr,n); // mit AND verknüpfen
+        and_loop_msp(xptr,yptr,n); // mit AND verknÃ¼pfen
         return DS_to_I(zptr,n); // Ergebnis als Integer
     } }}
 

@@ -46,7 +46,7 @@ const cl_FF cl_LF_to_FF (const cl_LF& x)
 	  { mant = mant >> shiftcount;
 	    mant = mant+1;
 	    if (mant >= bit(FF_mant_len+1))
-	      // Überlauf durchs Runden
+	      // Ãœberlauf durchs Runden
 	      { mant = mant>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }
 	return encode_FF(sign,exp,mant);

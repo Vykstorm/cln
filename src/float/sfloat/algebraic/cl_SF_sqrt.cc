@@ -23,7 +23,7 @@ const cl_SF sqrt (const cl_SF& x)
 // Ergebnis-Mantisse:
 //   Bilde aus [1,m15,...,m0,(19 Nullbits)] bei geradem e,
 //         aus [0,1,m15,...,m0,(18 Nullbits)] bei ungeradem e
-//   die Ganzzahl-Wurzel, eine 18-Bit-Zahl mit einer führenden 1.
+//   die Ganzzahl-Wurzel, eine 18-Bit-Zahl mit einer fÃ¼hrenden 1.
 //   Runde das letzte Bit weg:
 //     Bit 0 = 0 -> abrunden,
 //     Bit 0 = 1 und Wurzel exakt -> round-to-even,
@@ -35,7 +35,7 @@ const cl_SF sqrt (const cl_SF& x)
       var sintL exp;
       var uint32 mant;
       SF_decode(x, { return x; }, ,exp=,mant=);
-      // Um die 64-Bit-Ganzzahl-Wurzel ausnutzen zu können, fügen wir beim
+      // Um die 64-Bit-Ganzzahl-Wurzel ausnutzen zu kÃ¶nnen, fÃ¼gen wir beim
       // Radikanden 46 bzw. 47 statt 18 bzw. 19 Nullbits an.
       if (exp & bit(0))
         // e ungerade

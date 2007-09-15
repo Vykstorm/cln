@@ -18,7 +18,7 @@ double double_approx (const cl_DF& obj)
 	union { dfloat eksplicit; double machine_double; } u;
 	#define val u.eksplicit
 	val = TheDfloat(obj)->dfloat_value;
-	// Der Exponent muß um DF_exp_mid-1022 erniedrigt werden.
+	// Der Exponent muÃŸ um DF_exp_mid-1022 erniedrigt werden.
 	if (DF_exp_mid>1022)
 	  #if (cl_word_size==64)
 	  { var uintL exp = (val >> DF_mant_len) & (bit(DF_exp_len)-1); // e

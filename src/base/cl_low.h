@@ -176,7 +176,7 @@ inline uint32 mulu16 (uint16 arg1, uint16 arg2)
 // mulu32_unchecked(arg1,arg2)
 // > arg1, arg2 : zwei 32-Bit-Zahlen
 // < ergebnis : eine 32-Bit-Zahl
-// Es wird vorausgesetzt, daﬂ arg1*arg2 < 2^32.
+// Es wird vorausgesetzt, da√ü arg1*arg2 < 2^32.
 #if defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
 inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 {
@@ -190,7 +190,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 #elif defined(__sparc__) && !defined(NO_ASM)
   extern "C" uint32 mulu32_unchecked (uint32 x, uint32 y); // extern in Assembler
 #else
-  // Wir kˆnnen daf¸r auch die Bibliotheksroutine des C-Compilers nehmen:
+  // Wir k√∂nnen daf√ºr auch die Bibliotheksroutine des C-Compilers nehmen:
   inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   {
 	return arg1 * arg2;
@@ -299,7 +299,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     // mulu32_ extern in Assembler
     #if defined(__sparc__) || defined(__sparc64__)
       extern "C" uint32 _get_g1 (void);
-      #define mulu32_high  (_get_g1()) // R¸ckgabe im Register %g1
+      #define mulu32_high  (_get_g1()) // R√ºckgabe im Register %g1
     #elif !defined(__hppa__)
       #define NEED_VAR_mulu32_high
     #endif
@@ -388,7 +388,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     // mulu64_ extern in Assembler
     #if defined(__sparc64__)
       extern "C" uint64 _get_g2 (void);
-      #define mulu64_high  (_get_g2()) // R¸ckgabe im Register %g2
+      #define mulu64_high  (_get_g2()) // R√ºckgabe im Register %g2
     #else
       #define NEED_VAR_mulu64_high
     #endif
@@ -403,7 +403,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 16-Bit-Zahl durch eine 16-Bit-Zahl und
 // liefert einen 16-Bit-Quotienten und einen 16-Bit-Rest.
 // divu_1616_1616(x,y,q=,r=);
-// > uint16 x: Z‰hler
+// > uint16 x: Z√§hler
 // > uint16 y: Nenner
 // < uint16 q: floor(x/y)
 // < uint16 r: x mod y
@@ -418,9 +418,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 32-Bit-Zahl durch eine 16-Bit-Zahl und
 // liefert einen 16-Bit-Quotienten und einen 16-Bit-Rest.
 // divu_3216_1616(x,y,q=,r=);
-// > uint32 x: Z‰hler
+// > uint32 x: Z√§hler
 // > uint16 y: Nenner
-// > Es sei bekannt, daﬂ 0 <= x < 2^16*y .
+// > Es sei bekannt, da√ü 0 <= x < 2^16*y .
 // < uint16 q: floor(x/y)
 // < uint16 r: x mod y
 // < x = q*y+r
@@ -511,9 +511,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 32-Bit-Zahl durch eine 16-Bit-Zahl und
 // liefert einen 32-Bit-Quotienten und einen 16-Bit-Rest.
 // divu_3216_3216(x,y,q=,r=);
-// > uint32 x: Z‰hler
+// > uint32 x: Z√§hler
 // > uint16 y: Nenner
-// Es sei bekannt, daﬂ y>0.
+// Es sei bekannt, da√ü y>0.
 // < uint32 q: floor(x/y)
 // < uint16 r: x mod y
 // < x = q*y+r
@@ -561,9 +561,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 32-Bit-Zahl durch eine 32-Bit-Zahl und
 // liefert einen 32-Bit-Quotienten und einen 32-Bit-Rest.
 // divu_3232_3232(x,y,q=,r=);
-// > uint32 x: Z‰hler
+// > uint32 x: Z√§hler
 // > uint32 y: Nenner
-// Es sei bekannt, daﬂ y>0.
+// Es sei bekannt, da√ü y>0.
 // < uint32 q: floor(x/y)
 // < uint32 r: x mod y
 // < x = q*y+r
@@ -597,7 +597,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   // y habe genau n+k Bits (1 <= k <= n), d.h. 2^(n+k-1) <= y < 2^(n+k).
   // Schreibe  x = 2^k*x1 + x0  mit  x1 := floor(x/2^k)
   // und       y = 2^k*y1 + y0  mit  y1 := floor(y/2^k)
-  // und bilde den N‰herungs-Quotienten floor(x1/y1)
+  // und bilde den N√§herungs-Quotienten floor(x1/y1)
   // oder (noch besser) floor(x1/(y1+1)).
   // Wegen 0 <= x1 < 2^(2n) und 0 < 2^(n-1) <= y1 < 2^n
   // und  x1/(y1+1) <= x/y < x1/(y1+1) + 2
@@ -610,7 +610,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   // gilt  floor(x1/(y1+1)) <= floor(x/y) <= floor(x1/(y1+1)) + 2  .
   // Man bildet also  q:=floor(x1/(y1+1))  (ein Shift um n Bit oder
   // eine (2n)-durch-n-Bit-Division, mit Ergebnis q <= floor(x/y) < beta)
-  // und x-q*y und muﬂ hiervon noch hˆchstens 2 mal y abziehen und q
+  // und x-q*y und mu√ü hiervon noch h√∂chstens 2 mal y abziehen und q
   // incrementieren, um den Quotienten  q = floor(x/y)  und den Rest
   // x-floor(x/y)*y  der Division zu bekommen.
   #define divu_3232_3232(x,y,q_zuweisung,r_zuweisung)  \
@@ -628,7 +628,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
         { var uint32 _x1 = _x; /* x1 := x */				\
           var uint32 _y1 = _y; /* y1 := y */				\
           var uint16 _q;						\
-          do { _x1 = floor(_x1,2); _y1 = floor(_y1,2); } /* k erhˆhen */\
+          do { _x1 = floor(_x1,2); _y1 = floor(_y1,2); } /* k erh√∂hen */\
              until (_y1 <= (uint32)(bit(16)-1)); /* bis y1 < beta */	\
           { var uint16 _y2 = low16(_y1)+1; /* y1+1 bilden */		\
             if (_y2==0)							\
@@ -637,12 +637,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
               { divu_3216_1616(_x1,_y2,_q=,); } /* Division von x1 durch y1+1 */\
           }								\
           /* _q = q = floor(x1/(y1+1)) */				\
-          /* x-q*y bilden (eine 16-mal-32-Bit-Multiplikation ohne ‹berlauf): */\
+          /* x-q*y bilden (eine 16-mal-32-Bit-Multiplikation ohne √úberlauf): */\
           _x -= highlow32_0(mulu16(_q,high16(_y))); /* q * high16(y) * beta */\
           /* gefahrlos, da q*high16(y) <= q*y/beta <= x/beta < beta */	\
           _x -= mulu16(_q,low16(_y)); /* q * low16(y) */		\
           /* gefahrlos, da q*high16(y)*beta + q*low16(y) = q*y <= x */	\
-          /* Noch hˆchstens 2 mal y abziehen: */			\
+          /* Noch h√∂chstens 2 mal y abziehen: */			\
           if (_x >= _y)							\
             { _q += 1; _x -= _y;					\
               if (_x >= _y)						\
@@ -657,9 +657,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 64-Bit-Zahl durch eine 32-Bit-Zahl und
 // liefert einen 32-Bit-Quotienten und einen 32-Bit-Rest.
 // divu_6432_3232(xhi,xlo,y,q=,r=);
-// > uint32 xhi,xlo: x = 2^32*xhi+xlo = Z‰hler
+// > uint32 xhi,xlo: x = 2^32*xhi+xlo = Z√§hler
 // > uint32 y: Nenner
-// > Es sei bekannt, daﬂ 0 <= x < 2^32*y .
+// > Es sei bekannt, da√ü 0 <= x < 2^32*y .
 // < uint32 q: floor(x/y)
 // < uint32 r: x mod y
 // < x = q*y+r
@@ -758,7 +758,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     // divu_6432_3232_ extern in Assembler
     #if defined(__sparc__) || defined(__sparc64__)
       extern "C" uint32 _get_g1 (void);
-      #define divu_32_rest  (_get_g1()) // R¸ckgabe im Register %g1
+      #define divu_32_rest  (_get_g1()) // R√ºckgabe im Register %g1
     #else
       #define NEED_VAR_divu_32_rest
     #endif
@@ -772,9 +772,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 64-Bit-Zahl durch eine 32-Bit-Zahl und
 // liefert einen 32-Bit-Quotienten und einen 32-Bit-Rest.
 // divu_6432_3232_w(x,y,q=,r=);
-// > uint64 x: Z‰hler
+// > uint64 x: Z√§hler
 // > uint32 y: Nenner
-// > Es sei bekannt, daﬂ 0 <= x < 2^32*y .
+// > Es sei bekannt, da√ü 0 <= x < 2^32*y .
 // < uint32 q: floor(x/y)
 // < uint32 r: x mod y
 // < x = q*y+r
@@ -836,9 +836,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 64-Bit-Zahl durch eine 32-Bit-Zahl und
 // liefert einen 64-Bit-Quotienten und einen 32-Bit-Rest.
 // divu_6432_6432(x,y,q=,r=);
-// > uint64 x: Z‰hler
+// > uint64 x: Z√§hler
 // > uint32 y: Nenner
-// > Es sei bekannt, daﬂ y>0.
+// > Es sei bekannt, da√ü y>0.
 // < uint64 q: floor(x/y)
 // < uint32 r: x mod y
 // < x = q*y+r
@@ -908,9 +908,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 64-Bit-Zahl durch eine 64-Bit-Zahl und
 // liefert einen 64-Bit-Quotienten und einen 64-Bit-Rest.
 // divu_6464_6464(x,y,q=,r=);
-// > uint64 x: Z‰hler
+// > uint64 x: Z√§hler
 // > uint64 y: Nenner
-// > Es sei bekannt, daﬂ y>0.
+// > Es sei bekannt, da√ü y>0.
 // < uint64 q: floor(x/y)
 // < uint64 r: x mod y
 // < x = q*y+r
@@ -957,9 +957,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Dividiert eine 128-Bit-Zahl durch eine 64-Bit-Zahl und
 // liefert einen 64-Bit-Quotienten und einen 64-Bit-Rest.
 // divu_12864_6464(xhi,xlo,y,q=,r=);
-// > uint64 xhi,xlo: x = 2^64*xhi+xlo = Z‰hler
+// > uint64 xhi,xlo: x = 2^64*xhi+xlo = Z√§hler
 // > uint64 y: Nenner
-// > Es sei bekannt, daﬂ 0 <= x < 2^64*y .
+// > Es sei bekannt, da√ü 0 <= x < 2^64*y .
 // < uint64 q: floor(x/y)
 // < uint64 r: x mod y
 // < x = q*y+r
@@ -1000,15 +1000,15 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < boolean sqrtp: /=0, falls x=y^2
   // Methode:
   // y := 2^16 als Anfangswert,
-  // y := floor((y + floor(x/y))/2) als n‰chster Wert,
+  // y := floor((y + floor(x/y))/2) als n√§chster Wert,
   // solange z := floor(x/y) < y, setze y := floor((y+z)/2).
   // y ist fertig; x=y^2 genau dann, wenn z=y und die letzte Division aufging.
   // (Beweis:
   //  1. Die Folge der y ist streng monoton fallend.
-  //  2. Stets gilt y >= floor(sqrt(x)) (denn f¸r alle y>0 ist
+  //  2. Stets gilt y >= floor(sqrt(x)) (denn f√ºr alle y>0 ist
   //     y + x/y >= 2*sqrt(x) und daher  floor((y + floor(x/y))/2) =
   //     floor(y/2 + x/(2*y)) >= floor(sqrt(x)) ).
-  //  3. Am Schluﬂ gilt x >= y^2.
+  //  3. Am Schlu√ü gilt x >= y^2.
   // )
   #define isqrt_32_16(x,y_zuweisung,sqrtp_zuweisung)  \
     { var uint32 _x = (x);						\
@@ -1017,12 +1017,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       loop								\
         { var uint16 _z;						\
           var uint16 _r;						\
-          if (_x1 >= _y) /* Division _x/_y erg‰be ‹berlauf -> _z > _y */\
+          if (_x1 >= _y) /* Division _x/_y erg√§be √úberlauf -> _z > _y */\
             { unused (sqrtp_zuweisung FALSE); break; } 			\
           divu_3216_1616(_x,_y, _z=,_r=); /* Dividiere _x/_y */		\
           if (_z >= _y)							\
             { unused (sqrtp_zuweisung (_z == _y) && (_r == 0)); break; } \
-          _y = floor((uint16)(_z+_y),2) | bit(16-1); /* _y muﬂ >= 2^15 bleiben */\
+          _y = floor((uint16)(_z+_y),2) | bit(16-1); /* _y mu√ü >= 2^15 bleiben */\
         }								\
       y_zuweisung _y;							\
     }
@@ -1036,15 +1036,15 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 #if defined(__sparc__) || defined(__sparc64__) || defined(__m68k__) || defined(__hppa__)
   // Methode:
   // y := 2^32 als Anfangswert,
-  // y := floor((y + floor(x/y))/2) als n‰chster Wert,
+  // y := floor((y + floor(x/y))/2) als n√§chster Wert,
   // solange z := floor(x/y) < y, setze y := floor((y+z)/2).
   // y ist fertig; x=y^2 genau dann, wenn z=y und die letzte Division aufging.
   // (Beweis:
   //  1. Die Folge der y ist streng monoton fallend.
-  //  2. Stets gilt y >= floor(sqrt(x)) (denn f¸r alle y>0 ist
+  //  2. Stets gilt y >= floor(sqrt(x)) (denn f√ºr alle y>0 ist
   //     y + x/y >= 2*sqrt(x) und daher  floor((y + floor(x/y))/2) =
   //     floor(y/2 + x/(2*y)) >= floor(sqrt(x)) ).
-  //  3. Am Schluﬂ gilt x >= y^2.
+  //  3. Am Schlu√ü gilt x >= y^2.
   // )
   #define isqrt_64_32(xhi,xlo,y_zuweisung,sqrtp_zuweisung)  \
     { var uint32 _xhi = (xhi);						\
@@ -1053,12 +1053,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       loop								\
         { var uint32 _z;						\
           var uint32 _rest;						\
-          if (_xhi >= _y) /* Division _x/_y erg‰be ‹berlauf -> _z > _y */\
+          if (_xhi >= _y) /* Division _x/_y erg√§be √úberlauf -> _z > _y */\
             { sqrtp_zuweisung FALSE; break; }				\
           divu_6432_3232(_xhi,_xlo,_y, _z=,_rest=); /* Dividiere _x/_y */\
           if (_z >= _y)							\
             { sqrtp_zuweisung (_z == _y) && (_rest == 0); break; }	\
-          _y = floor(_z+_y,2) | bit(32-1); /* _y muﬂ >= 2^31 bleiben */	\
+          _y = floor(_z+_y,2) | bit(32-1); /* _y mu√ü >= 2^31 bleiben */	\
         }								\
       y_zuweisung _y;							\
     }
@@ -1066,20 +1066,20 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   // Methode:
   // Wie bei UDS_sqrt mit n=2.
   // y = 2^16*yhi + ylo ansetzen.
-  // Dann muﬂ
+  // Dann mu√ü
   //   yhi = floor(y/2^16) = floor(floor(sqrt(x))/2^16)
   //       = floor(sqrt(x)/2^16) = floor(sqrt(x/2^32)) = isqrt(xhi)
   // sein. Es folgt yhi >= 2^15.
-  // Danach sucht man das grˆﬂte ylo >=0 mit
+  // Danach sucht man das gr√∂√üte ylo >=0 mit
   // x - 2^32*yhi^2 >= 2*2^16*yhi*ylo + ylo^2.
   // Dazu setzen wir  xhi*2^32+xlo := x - 2^32*yhi^2
   // (also xhi := xhi - yhi^2, das ist >=0, <=2*yhi).
-  // Die Sch‰tzung f¸r die zweite Ziffer
+  // Die Sch√§tzung f√ºr die zweite Ziffer
   //     ylo' := min(2^16-1,floor((xhi*2^32+xlo)/(2*2^16*yhi)))
-  // erf¸llt ylo'-1 <= ylo <= ylo', ist also um hˆchstens 1 zu groﬂ.
+  // erf√ºllt ylo'-1 <= ylo <= ylo', ist also um h√∂chstens 1 zu gro√ü.
   // (Beweis: Rechte Ungleichung klar, da  ylo < 2^16  und
   //   xhi*2^32+xlo >= 2*2^16*yhi*ylo + ylo^2 >= 2*2^16*yhi*ylo
-  //   ==> (xhi*2^32+xlo)/(2*2^16*yhi) >= ylo  gelten muﬂ.
+  //   ==> (xhi*2^32+xlo)/(2*2^16*yhi) >= ylo  gelten mu√ü.
   //   Linke Ungleichung: Falls floor(...)>=2^16, ist
   //   xhi*2^32+xlo >= 2*2^16*2^16*yhi >= 2*2^16*yhi*(2^16-1) + 2^32
   //                >= 2*2^16*yhi*(2^16-1) + (2^16-1)^2
@@ -1098,7 +1098,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       isqrt_32_16(_xhi,_yhi=,); /* yhi := isqrt(xhi) */			\
       _xhi -= mulu16(_yhi,_yhi); /* jetzt 0 <= xhi <= 2*yhi */		\
       /* x = 2^32*yhi^2 + 2^32*xhi + xlo */				\
-      /* Sch‰tzung f¸r die zweite Ziffer berechnen: */			\
+      /* Sch√§tzung f√ºr die zweite Ziffer berechnen: */			\
       /* ylo := min(2^16-1,floor((xhi*2^32+xlo)/(2*2^16*yhi))) bilden: */\
      {var uint32 _z = (_xhi << 15) | (_xlo >> 17); /* < 2^15*(2*yhi+1) */\
       var uint32 _r = highlow32_0(_yhi);				\
@@ -1114,7 +1114,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       /* Versuche vom Rest 2^32*floor(r/2^15) + xlo  z zu subtrahieren. */\
       /* Falls Rest >= z (d.h. r>=2^15 oder xlo>=z), ist ylo fertig, */	\
       /* und es gilt x=y^2 genau dann, wenn r<2^15 und xlo=z. */	\
-      /* Sonst (d.h. r<2^15 und xlo<z), muﬂ man ylo erniedrigen. Dazu */\
+      /* Sonst (d.h. r<2^15 und xlo<z), mu√ü man ylo erniedrigen. Dazu */\
       /* setzt man  ylo := ylo-1, z := z-(2*ylo+1), */			\
       /* Rest := Rest + 2^17*yhi = xlo + 2^17*yhi >= 2^32 > z, also x>y^2. */\
       if (_r < bit(15))							\
@@ -1140,20 +1140,20 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   // Methode:
   // Wie bei UDS_sqrt mit n=2.
   // y = 2^32*yhi + ylo ansetzen.
-  // Dann muﬂ
+  // Dann mu√ü
   //   yhi = floor(y/2^32) = floor(floor(sqrt(x))/2^32)
   //       = floor(sqrt(x)/2^32) = floor(sqrt(x/2^64)) = isqrt(xhi)
   // sein. Es folgt yhi >= 2^31.
-  // Danach sucht man das grˆﬂte ylo >=0 mit
+  // Danach sucht man das gr√∂√üte ylo >=0 mit
   // x - 2^64*yhi^2 >= 2*2^32*yhi*ylo + ylo^2.
   // Dazu setzen wir  xhi*2^64+xlo := x - 2^64*yhi^2
   // (also xhi := xhi - yhi^2, das ist >=0, <=2*yhi).
-  // Die Sch‰tzung f¸r die zweite Ziffer
+  // Die Sch√§tzung f√ºr die zweite Ziffer
   //     ylo' := min(2^32-1,floor((xhi*2^64+xlo)/(2*2^32*yhi)))
-  // erf¸llt ylo'-1 <= ylo <= ylo', ist also um hˆchstens 1 zu groﬂ.
+  // erf√ºllt ylo'-1 <= ylo <= ylo', ist also um h√∂chstens 1 zu gro√ü.
   // (Beweis: Rechte Ungleichung klar, da  ylo < 2^32  und
   //   xhi*2^64+xlo >= 2*2^32*yhi*ylo + ylo^2 >= 2*2^32*yhi*ylo
-  //   ==> (xhi*2^64+xlo)/(2*2^32*yhi) >= ylo  gelten muﬂ.
+  //   ==> (xhi*2^64+xlo)/(2*2^32*yhi) >= ylo  gelten mu√ü.
   //   Linke Ungleichung: Falls floor(...)>=2^32, ist
   //   xhi*2^64+xlo >= 2*2^32*2^32*yhi >= 2*2^32*yhi*(2^32-1) + 2^64
   //                >= 2*2^32*yhi*(2^32-1) + (2^32-1)^2
@@ -1172,7 +1172,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       isqrt_64_32(high32(xhi),low32(xhi),yhi=,); /* yhi := isqrt(xhi) */\
       xhi -= mulu32_w(yhi,yhi); /* jetzt 0 <= xhi <= 2*yhi */		\
       /* x = 2^64*yhi^2 + 2^64*xhi + xlo */				\
-      /* Sch‰tzung f¸r die zweite Ziffer berechnen: */			\
+      /* Sch√§tzung f√ºr die zweite Ziffer berechnen: */			\
       /* ylo := min(2^32-1,floor((xhi*2^64+xlo)/(2*2^32*yhi))) bilden: */\
      {var uint64 z = (xhi << 31) | (xlo >> 33); /* < 2^31*(2*yhi+1) */	\
       var uint64 r = highlow64_0(yhi);					\
@@ -1188,7 +1188,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       /* Versuche vom Rest 2^64*floor(r/2^31) + xlo  z zu subtrahieren. */\
       /* Falls Rest >= z (d.h. r>=2^31 oder xlo>=z), ist ylo fertig, */	\
       /* und es gilt x=y^2 genau dann, wenn r<2^31 und xlo=z. */	\
-      /* Sonst (d.h. r<2^31 und xlo<z), muﬂ man ylo erniedrigen. Dazu */\
+      /* Sonst (d.h. r<2^31 und xlo<z), mu√ü man ylo erniedrigen. Dazu */\
       /* setzt man  ylo := ylo-1, z := z-(2*ylo+1), */			\
       /* Rest := Rest + 2^33*yhi = xlo + 2^33*yhi >= 2^64 > z, also x>y^2. */\
       if (r < bit(31))							\
@@ -1240,14 +1240,14 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   extern uintL isqrt (uintL x1, uintL x0);
 
 
-// Bits einer 8-Bit-Zahl z‰hlen:
+// Bits einer 8-Bit-Zahl z√§hlen:
 // integerlength8(digit,size=);
-// setzt size auf die hˆchste in digit vorkommende Bitnummer.
+// setzt size auf die h√∂chste in digit vorkommende Bitnummer.
 // > digit: ein uint8 >0
 // < size: >0, <=8, mit 2^(size-1) <= digit < 2^size
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define integerlength8(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit            */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit            */\
       __asm__("bfffo %1{#0:#8},%0" : "=d" (_zero_counter) : "dm" ((uint8)(digit)) ); \
       size_zuweisung (8-_zero_counter);                                              \
     }
@@ -1261,25 +1261,25 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   #define integerlength8(digit,size_zuweisung)  \
     { var uintC _bitsize = 1;					\
       var uintL _x8 = (uint8)(digit);				\
-      /* _x8 hat hˆchstens 8 Bits.                             */\
+      /* _x8 hat h√∂chstens 8 Bits.                             */\
       if (_x8 >= bit(4)) { _x8 = _x8>>4; _bitsize += 4; }		\
-      /* _x8 hat hˆchstens 4 Bits.                             */\
+      /* _x8 hat h√∂chstens 4 Bits.                             */\
       if (_x8 >= bit(2)) { _x8 = _x8>>2; _bitsize += 2; }		\
-      /* _x8 hat hˆchstens 2 Bits.                             */\
+      /* _x8 hat h√∂chstens 2 Bits.                             */\
       if (_x8 >= bit(1)) { /* _x8 = _x8>>1; */ _bitsize += 1; }	\
-      /* _x8 hat hˆchstens 1 Bit. Dieses Bit muﬂ gesetzt sein. */\
+      /* _x8 hat h√∂chstens 1 Bit. Dieses Bit mu√ü gesetzt sein. */\
       size_zuweisung _bitsize;					\
     }
 #endif
 
-// Bits einer 16-Bit-Zahl z‰hlen:
+// Bits einer 16-Bit-Zahl z√§hlen:
 // integerlength16(digit,size=);
-// setzt size auf die hˆchste in digit vorkommende Bitnummer.
+// setzt size auf die h√∂chste in digit vorkommende Bitnummer.
 // > digit: ein uint16 >0
 // < size: >0, <=16, mit 2^(size-1) <= digit < 2^size
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit              */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit              */\
       __asm__("bfffo %1{#0:#16},%0" : "=d" (_zero_counter) : "dm" ((uint16)(digit)) ); \
       size_zuweisung (16-_zero_counter);                                               \
     }
@@ -1288,14 +1288,14 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     integerlength32((uint32)(digit),size_zuweisung) // siehe unten
 #elif defined(__GNUC__) && defined(__i386__) && !defined(NO_ASM)
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintW _one_position; /* Position der f¸hrenden 1                 */\
+    { var uintW _one_position; /* Position der f√ºhrenden 1                 */\
       __asm__("bsrw %1,%0" : "=r" (_one_position) : "r" ((uint16)(digit)) ); \
       size_zuweisung (1+_one_position);                                      \
     }
 // Die weiteren kommen von gcc/longlong.h :
 #elif defined(__GNUC__) && defined(__ibm032__) && !defined(NO_ASM) // RT/ROMP
   #define integerlength16(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit   */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit   */\
       __asm__("clz %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
       size_zuweisung (16-_zero_counter);                                    \
     }
@@ -1303,27 +1303,27 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   #define integerlength16(digit,size_zuweisung)  \
     { var uintC _bitsize = 1;						\
       var uintWL _x16 = (uint16)(digit);					\
-      /* _x16 hat hˆchstens 16 Bits.                                   */\
+      /* _x16 hat h√∂chstens 16 Bits.                                   */\
       if (_x16 >= bit(8)) { _x16 = _x16>>8; _bitsize += 8; }		\
-      /* _x16 hat hˆchstens 8 Bits.                                    */\
+      /* _x16 hat h√∂chstens 8 Bits.                                    */\
       if (_x16 >= bit(4)) { _x16 = _x16>>4; _bitsize += 4; }		\
-      /* _x16 hat hˆchstens 4 Bits.                                    */\
+      /* _x16 hat h√∂chstens 4 Bits.                                    */\
       if (_x16 >= bit(2)) { _x16 = _x16>>2; _bitsize += 2; }		\
-      /* _x16 hat hˆchstens 2 Bits.                                    */\
+      /* _x16 hat h√∂chstens 2 Bits.                                    */\
       if (_x16 >= bit(1)) { /* _x16 = _x16>>1; */ _bitsize += 1; }		\
-      /* _x16 hat hˆchstens 1 Bit. Dieses Bit muﬂ gesetzt sein.        */\
+      /* _x16 hat h√∂chstens 1 Bit. Dieses Bit mu√ü gesetzt sein.        */\
       size_zuweisung _bitsize;						\
     }
 #endif
 
-// Bits einer 32-Bit-Zahl z‰hlen:
+// Bits einer 32-Bit-Zahl z√§hlen:
 // integerlength32(digit,size=);
-// setzt size auf die hˆchste in digit vorkommende Bitnummer.
+// setzt size auf die h√∂chste in digit vorkommende Bitnummer.
 // > digit: ein uint32 >0
 // < size: >0, <=32, mit 2^(size-1) <= digit < 2^size
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit              */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit              */\
       __asm__("bfffo %1{#0:#32},%0" : "=d" (_zero_counter) : "dm" ((uint32)(digit)) ); \
       size_zuweisung (32-_zero_counter);                                               \
     }
@@ -1342,7 +1342,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     }
 #elif defined(__GNUC__) && defined(__i386__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _one_position; /* Position der f¸hrenden 1                  */\
+    { var uintL _one_position; /* Position der f√ºhrenden 1                  */\
       __asm__("bsrl %1,%0" : "=r" (_one_position) : "rm" ((uint32)(digit)) ); \
       size_zuweisung (1+_one_position);                                       \
     }
@@ -1353,13 +1353,13 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // Die weiteren kommen von gcc/longlong.h :
 #elif defined(__GNUC__) && (defined(__a29k__) || defined(___AM29K__)) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit   */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit   */\
       __asm__("clz %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
       size_zuweisung (32-_zero_counter);                                    \
     }
 #elif defined(__GNUC__) && defined(__gmicro__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit      */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit      */\
       __asm__("bsch/1 %1,%0" : "=g" (_zero_counter) : "g" ((uint32)(digit)) ); \
       size_zuweisung (32-_zero_counter);                                       \
     }
@@ -1367,21 +1367,21 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
  #ifdef _AIX
   // old assembler syntax
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit     */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit     */\
       __asm__("cntlz %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
       size_zuweisung (32-_zero_counter);                                      \
     }
  #else
   // new assembler syntax
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _zero_counter; /* z‰hlt die f¸hrenden Nullbits in digit      */\
+    { var uintL _zero_counter; /* z√§hlt die f√ºhrenden Nullbits in digit      */\
       __asm__("cntlzw %0,%1" : "=r" (_zero_counter) : "r" ((uint32)(digit)) ); \
       size_zuweisung (32-_zero_counter);                                       \
     }
  #endif
 #elif defined(__GNUC__) && defined(__m88k__) && !defined(NO_ASM)
   #define integerlength32(digit,size_zuweisung)  \
-    { var uintL _one_position; /* Position der f¸hrenden 1                */\
+    { var uintL _one_position; /* Position der f√ºhrenden 1                */\
       __asm__("ff1 %0,%1" : "=r" (_one_position) : "r" ((uint32)(digit)) ); \
       size_zuweisung (1+_one_position);                                     \
     }
@@ -1397,44 +1397,44 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   #define integerlength32(digit,size_zuweisung)  \
     { var uintC _bitsize = 1;						\
       var uintL _x32 = (uint32)(digit);					\
-      /* _x32 hat hˆchstens 32 Bits.                                   */\
+      /* _x32 hat h√∂chstens 32 Bits.                                   */\
       if (_x32 >= bit(16)) { _x32 = _x32>>16; _bitsize += 16; }		\
-      /* _x32 hat hˆchstens 16 Bits.                                   */\
+      /* _x32 hat h√∂chstens 16 Bits.                                   */\
       if (_x32 >= bit(8)) { _x32 = _x32>>8; _bitsize += 8; }		\
-      /* _x32 hat hˆchstens 8 Bits.                                    */\
+      /* _x32 hat h√∂chstens 8 Bits.                                    */\
       if (_x32 >= bit(4)) { _x32 = _x32>>4; _bitsize += 4; }		\
-      /* _x32 hat hˆchstens 4 Bits.                                    */\
+      /* _x32 hat h√∂chstens 4 Bits.                                    */\
       if (_x32 >= bit(2)) { _x32 = _x32>>2; _bitsize += 2; }		\
-      /* _x32 hat hˆchstens 2 Bits.                                    */\
+      /* _x32 hat h√∂chstens 2 Bits.                                    */\
       if (_x32 >= bit(1)) { /* _x32 = _x32>>1; */ _bitsize += 1; }	\
-      /* _x32 hat hˆchstens 1 Bit. Dieses Bit muﬂ gesetzt sein.        */\
+      /* _x32 hat h√∂chstens 1 Bit. Dieses Bit mu√ü gesetzt sein.        */\
       size_zuweisung _bitsize;						\
     }
   #define GENERIC_INTEGERLENGTH32
 #endif
 
-// Bits einer 64-Bit-Zahl z‰hlen:
+// Bits einer 64-Bit-Zahl z√§hlen:
 // integerlength64(digit,size=);
-// setzt size auf die hˆchste in digit vorkommende Bitnummer.
+// setzt size auf die h√∂chste in digit vorkommende Bitnummer.
 // > digit: ein uint64 >0
 // < size: >0, <=64, mit 2^(size-1) <= digit < 2^size
 #ifdef GENERIC_INTEGERLENGTH32
   #define integerlength64(digit,size_zuweisung)  \
     { var uintC _bitsize = 1;						\
       var uint64 _x64 = (uint64)(digit);				\
-      /* _x64 hat hˆchstens 64 Bits.                                   */\
+      /* _x64 hat h√∂chstens 64 Bits.                                   */\
       if (_x64 >= bit(32)) { _x64 = _x64>>32; _bitsize += 32; }		\
-      /* _x64 hat hˆchstens 32 Bits.                                   */\
+      /* _x64 hat h√∂chstens 32 Bits.                                   */\
       if (_x64 >= bit(16)) { _x64 = _x64>>16; _bitsize += 16; }		\
-      /* _x64 hat hˆchstens 16 Bits.                                   */\
+      /* _x64 hat h√∂chstens 16 Bits.                                   */\
       if (_x64 >= bit(8)) { _x64 = _x64>>8; _bitsize += 8; }		\
-      /* _x64 hat hˆchstens 8 Bits.                                    */\
+      /* _x64 hat h√∂chstens 8 Bits.                                    */\
       if (_x64 >= bit(4)) { _x64 = _x64>>4; _bitsize += 4; }		\
-      /* _x64 hat hˆchstens 4 Bits.                                    */\
+      /* _x64 hat h√∂chstens 4 Bits.                                    */\
       if (_x64 >= bit(2)) { _x64 = _x64>>2; _bitsize += 2; }		\
-      /* _x64 hat hˆchstens 2 Bits.                                    */\
+      /* _x64 hat h√∂chstens 2 Bits.                                    */\
       if (_x64 >= bit(1)) { /* _x64 = _x64>>1; */ _bitsize += 1; }	\
-      /* _x64 hat hˆchstens 1 Bit. Dieses Bit muﬂ gesetzt sein.        */\
+      /* _x64 hat h√∂chstens 1 Bit. Dieses Bit mu√ü gesetzt sein.        */\
       size_zuweisung _bitsize;						\
     }
 #else
@@ -1451,9 +1451,9 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     }
 #endif
 
-// Bits einer uintC-Zahl z‰hlen:
+// Bits einer uintC-Zahl z√§hlen:
 // integerlengthC(digit,size=);
-// setzt size auf die hˆchste in digit vorkommende Bitnummer.
+// setzt size auf die h√∂chste in digit vorkommende Bitnummer.
 // > digit: ein uintC >0
 // < size: >0, <=intCsize, mit 2^(size-1) <= digit < 2^size
   #if (intCsize==32)
@@ -1463,7 +1463,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     #define integerlengthC  integerlength64
   #endif
 
-// Hintere Nullbits eines 32-Bit-Wortes z‰hlen:
+// Hintere Nullbits eines 32-Bit-Wortes z√§hlen:
 // ord2_32(digit,count=);
 // setzt size auf die kleinste in digit vorkommende Bitnummer.
 // > digit: ein uint32 >0
@@ -1496,7 +1496,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       }
   #endif
 
-// Hintere Nullbits eines 64-Bit-Wortes z‰hlen:
+// Hintere Nullbits eines 64-Bit-Wortes z√§hlen:
 // ord2_64(digit,count=);
 // setzt size auf die kleinste in digit vorkommende Bitnummer.
 // > digit: ein uint64 >0
@@ -1509,61 +1509,61 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
     }
 
 
-// Bits eines Wortes z‰hlen.
+// Bits eines Wortes z√§hlen.
 // logcount_NN();
 // > xNN: ein uintNN
 // < xNN: Anzahl der darin gesetzten Bits
-  // Bits von x8 z‰hlen: (Input x8, Output x8)
+  // Bits von x8 z√§hlen: (Input x8, Output x8)
   #define logcount_8()  \
-    ( /* x8 besteht aus 8 1-Bit-Z‰hlern (0,1).        */\
+    ( /* x8 besteht aus 8 1-Bit-Z√§hlern (0,1).        */\
       x8 = (x8 & 0x55U) + ((x8 & 0xAAU) >> 1),		\
-      /* x8 besteht aus 4 2-Bit-Z‰hlern (0,1,2).      */\
+      /* x8 besteht aus 4 2-Bit-Z√§hlern (0,1,2).      */\
       x8 = (x8 & 0x33U) + ((x8 & 0xCCU) >> 2),		\
-      /* x8 besteht aus 2 4-Bit-Z‰hlern (0,1,2,3,4).  */\
+      /* x8 besteht aus 2 4-Bit-Z√§hlern (0,1,2,3,4).  */\
       x8 = (x8 & 0x0FU) + (x8 >> 4)			\
-      /* x8 besteht aus 1 8-Bit-Z‰hler (0,...,8).     */\
+      /* x8 besteht aus 1 8-Bit-Z√§hler (0,...,8).     */\
     )
-  // Bits von x16 z‰hlen: (Input x16, Output x16)
+  // Bits von x16 z√§hlen: (Input x16, Output x16)
   #define logcount_16()  \
-    ( /* x16 besteht aus 16 1-Bit-Z‰hlern (0,1).      */\
+    ( /* x16 besteht aus 16 1-Bit-Z√§hlern (0,1).      */\
       x16 = (x16 & 0x5555U) + ((x16 & 0xAAAAU) >> 1),	\
-      /* x16 besteht aus 8 2-Bit-Z‰hlern (0,1,2).     */\
+      /* x16 besteht aus 8 2-Bit-Z√§hlern (0,1,2).     */\
       x16 = (x16 & 0x3333U) + ((x16 & 0xCCCCU) >> 2),	\
-      /* x16 besteht aus 4 4-Bit-Z‰hlern (0,1,2,3,4). */\
+      /* x16 besteht aus 4 4-Bit-Z√§hlern (0,1,2,3,4). */\
       x16 = (x16 & 0x0F0FU) + ((x16 & 0xF0F0U) >> 4),	\
-      /* x16 besteht aus 2 8-Bit-Z‰hlern (0,...,8).   */\
+      /* x16 besteht aus 2 8-Bit-Z√§hlern (0,...,8).   */\
       x16 = (x16 & 0x00FFU) + (x16 >> 8)		\
-      /* x16 besteht aus 1 16-Bit-Z‰hler (0,...,16).  */\
+      /* x16 besteht aus 1 16-Bit-Z√§hler (0,...,16).  */\
     )
-  // Bits von x32 z‰hlen: (Input x32, Output x32)
+  // Bits von x32 z√§hlen: (Input x32, Output x32)
   #define logcount_32()  \
-    ( /* x32 besteht aus 32 1-Bit-Z‰hlern (0,1).              */\
+    ( /* x32 besteht aus 32 1-Bit-Z√§hlern (0,1).              */\
       x32 = (x32 & 0x55555555UL) + ((x32 & 0xAAAAAAAAUL) >> 1),	\
-      /* x32 besteht aus 16 2-Bit-Z‰hlern (0,1,2).            */\
+      /* x32 besteht aus 16 2-Bit-Z√§hlern (0,1,2).            */\
       x32 = (x32 & 0x33333333UL) + ((x32 & 0xCCCCCCCCUL) >> 2),	\
-      /* x32 besteht aus 8 4-Bit-Z‰hlern (0,1,2,3,4).         */\
+      /* x32 besteht aus 8 4-Bit-Z√§hlern (0,1,2,3,4).         */\
       x32 = high16(x32)+low16(x32),				\
-      /* x32 besteht aus 4 4-Bit-Z‰hlern (0,...,8).           */\
+      /* x32 besteht aus 4 4-Bit-Z√§hlern (0,...,8).           */\
       x32 = (x32 & 0x0F0FU) + ((x32 & 0xF0F0U) >> 4),		\
-      /* x32 besteht aus 2 8-Bit-Z‰hlern (0,...,16).          */\
+      /* x32 besteht aus 2 8-Bit-Z√§hlern (0,...,16).          */\
       x32 = (x32 & 0x00FFU) + (x32 >> 8)			\
-      /* x32 besteht aus 1 16-Bit-Z‰hler (0,...,32).          */\
+      /* x32 besteht aus 1 16-Bit-Z√§hler (0,...,32).          */\
     )
-  // Bits von x64 z‰hlen: (Input x64, Output x64)
+  // Bits von x64 z√§hlen: (Input x64, Output x64)
   #define logcount_64()  \
-    ( /* x64 besteht aus 64 1-Bit-Z‰hlern (0,1).                             */\
+    ( /* x64 besteht aus 64 1-Bit-Z√§hlern (0,1).                             */\
       x64 = (x64 & 0x5555555555555555ULL) + ((x64 & 0xAAAAAAAAAAAAAAAAULL) >> 1),\
-      /* x64 besteht aus 32 2-Bit-Z‰hlern (0,1,2).                           */\
+      /* x64 besteht aus 32 2-Bit-Z√§hlern (0,1,2).                           */\
       x64 = (x64 & 0x3333333333333333ULL) + ((x64 & 0xCCCCCCCCCCCCCCCCULL) >> 2),\
-      /* x64 besteht aus 16 4-Bit-Z‰hlern (0,1,2,3,4).                       */\
+      /* x64 besteht aus 16 4-Bit-Z√§hlern (0,1,2,3,4).                       */\
       x64 = (uint32)(x64 + (x64 >> 32)),				       \
-      /* x64 besteht aus 8 4-Bit-Z‰hlern (0,...,8).                          */\
+      /* x64 besteht aus 8 4-Bit-Z√§hlern (0,...,8).                          */\
       x64 = (x64 & 0x0F0F0F0FUL) + ((x64 & 0xF0F0F0F0UL) >> 4),		       \
-      /* x64 besteht aus 4 8-Bit-Z‰hlern (0,...,16).                         */\
+      /* x64 besteht aus 4 8-Bit-Z√§hlern (0,...,16).                         */\
       x64 = (x64 & 0x00FF00FFU) + ((x64 & 0xFF00FF00U) >> 8),		       \
-      /* x64 besteht aus 2 16-Bit-Z‰hlern (0,...,32).                        */\
+      /* x64 besteht aus 2 16-Bit-Z√§hlern (0,...,32).                        */\
       x64 = (x64 & 0x0000FFFFU) + (x64 >> 16)				       \
-      /* x64 besteht aus 1 16-Bit-Z‰hler (0,...,64).                         */\
+      /* x64 besteht aus 1 16-Bit-Z√§hler (0,...,64).                         */\
     )
 
 }  // namespace cln

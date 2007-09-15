@@ -17,7 +17,7 @@ namespace cln {
 
 void testrandom_UDS (random_state& randomstate, uintD* MSDptr, uintC len)
 {
-  // Idea from Torbjörn Granlund, see his "random2.c" file in gmp 2.0.
+  // Idea from TorbjÃ¶rn Granlund, see his "random2.c" file in gmp 2.0.
   var uintD* ptr = MSDptr mspop len;
   DS_clear_loop(MSDptr,len,ptr);
   var uintC bit_pos = 0;

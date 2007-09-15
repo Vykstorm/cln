@@ -42,7 +42,7 @@ const cl_LF compute_catalanconst_ramanujan (uintC len)
 	              + The(cl_LF)(pi(actuallen))
 	                * ln(cl_I_to_LF(2,actuallen)+sqrt(cl_I_to_LF(3,actuallen))),
 	              -3);
-	return shorten(g,len); // verk¸rzen und fertig
+	return shorten(g,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N := len): O(N^2).
 
@@ -86,7 +86,7 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 	              + The(cl_LF)(pi(actuallen))
 	                * ln(cl_I_to_LF(2,actuallen)+sqrt(cl_I_to_LF(3,actuallen))),
 	              -3);
-	return shorten(g,len); // verk¸rzen und fertig
+	return shorten(g,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).
 
@@ -115,7 +115,7 @@ const cl_LF compute_catalanconst_expintegral1 (uintC len)
 		gsum = gsum + gterm;
 	}
 	var cl_LF result = gsum/fsum;
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(N^2).
 
@@ -147,7 +147,7 @@ const cl_LF compute_catalanconst_expintegral2 (uintC len)
 		args[n].q.~cl_I();
 		args[n].d.~cl_I();
 	}
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
 
@@ -198,7 +198,7 @@ const cl_LF compute_catalanconst_cvz1 (uintC len)
 	}
 	var cl_LF result = gsum/cl_I_to_LF(1+fsum,actuallen);
 #endif
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(N^2).
 
@@ -227,7 +227,7 @@ const cl_LF compute_catalanconst_cvz2 (uintC len)
 		args[n].q.~cl_I();
 		args[n].d.~cl_I();
 	}
-	return shorten(result,len); // verk¸rzen und fertig
+	return shorten(result,len); // verk√ºrzen und fertig
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).
 
@@ -300,20 +300,20 @@ const cl_LF compute_catalanconst (uintC len)
 
 const cl_LF catalanconst (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_catalanconst)->len; // vorhandene L‰nge
+	var uintC oldlen = TheLfloat(cl_LF_catalanconst)->len; // vorhandene L√§nge
 	if (len < oldlen)
 		return shorten(cl_LF_catalanconst,len);
 	if (len == oldlen)
 		return cl_LF_catalanconst;
 
 	// TheLfloat(cl_LF_catalanconst)->len um mindestens einen konstanten Faktor
-	// > 1 wachsen lassen, damit es nicht zu h‰ufig nachberechnet wird:
+	// > 1 wachsen lassen, damit es nicht zu h√§ufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
 	if (newlen < oldlen)
 		newlen = oldlen;
 
-	// gew¸nschte > vorhandene L‰nge -> muﬂ nachberechnen:
+	// gew√ºnschte > vorhandene L√§nge -> mu√ü nachberechnen:
 	cl_LF_catalanconst = compute_catalanconst(newlen);
 	return (len < newlen ? shorten(cl_LF_catalanconst,len) : cl_LF_catalanconst);
 }

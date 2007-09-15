@@ -18,10 +18,10 @@ const cl_FF futruncate (const cl_FF& x)
 // e<=0 -> Ergebnis 1.0 oder -1.0, je nach Vorzeichen von x.
 // 1<=e<=23 -> Greife die letzten (24-e) Bits von x heraus.
 //             Sind sie alle =0 -> Ergebnis x.
-//             Sonst setze sie alle und erhöhe dann die letzte Stelle um 1.
-//             Kein Überlauf der 23 Bit -> fertig.
+//             Sonst setze sie alle und erhÃ¶he dann die letzte Stelle um 1.
+//             Kein Ãœberlauf der 23 Bit -> fertig.
 //             Sonst (Ergebnis eine Zweierpotenz): Mantisse := .1000...000,
-//               e:=e+1. (Test auf Überlauf wegen e<=24 überflüssig)
+//               e:=e+1. (Test auf Ãœberlauf wegen e<=24 Ã¼berflÃ¼ssig)
 // e>=24 -> Ergebnis x.
       var ffloat x_ = cl_ffloat_value(x);
       var uintL uexp = FF_uexp(x_); // e + FF_exp_mid
@@ -35,13 +35,13 @@ const cl_FF futruncate (const cl_FF& x)
         { if (uexp > FF_exp_mid+FF_mant_len) // e > 23 ?
             { return x; }
             else
-            { var uint32 mask = // Bitmaske: Bits 23-e..0 gesetzt, alle anderen gelöscht
+            { var uint32 mask = // Bitmaske: Bits 23-e..0 gesetzt, alle anderen gelÃ¶scht
                 bit(FF_mant_len+1+FF_exp_mid-uexp)-1;
               if ((x_ & mask)==0) // alle diese Bits =0 ?
                 { return x; }
               return allocate_ffloat
                 ((x_ | mask) // alle diese Bits setzen
-                 + 1 // letzte Stelle erhöhen, dabei evtl. Exponenten incrementieren
+                 + 1 // letzte Stelle erhÃ¶hen, dabei evtl. Exponenten incrementieren
                 );
         }   }
 }

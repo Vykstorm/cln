@@ -58,7 +58,7 @@ inline cl_LF::cl_LF (cl_heap_lfloat* ptr) : cl_F ((cl_private_thing) ptr) {}
 // Entpacken eines Long-Float:
 // LF_decode(obj, zero_statement, sign=,exp=,mantMSDptr=,mantlen=,mantLSDptr=);
 // zerlegt ein Long-Float obj.
-// Ist obj=0.0, wird zero_statement ausgeführt.
+// Ist obj=0.0, wird zero_statement ausgefÃ¼hrt.
 // Sonst: cl_signean sign = Vorzeichen (0 = +, -1 = -),
 //        sintE exp = Exponent (vorzeichenbehaftet),
 //        UDS mantMSDptr/mantlen/mantLSDptr = Mantisse
@@ -113,14 +113,14 @@ inline const cl_LF encode_LF1 (uintC len)
 // encode_LFu(sign,uexp,mantMSDptr,mantlen) liefert ein Long-Float
 // > cl_signean sign: Vorzeichen
 // > uintE exp: Exponent + LF_exp_mid
-// > uintD* mantMSDptr: Pointer auf eine NUDS mit gesetztem höchstem Bit
+// > uintD* mantMSDptr: Pointer auf eine NUDS mit gesetztem hÃ¶chstem Bit
 // > uintC mantlen: Anzahl der Digits, >= LF_minlen
 // < cl_LF erg: neues Long-Float mit der UDS mantMSDptr/mantlen/.. als Mantisse
-// Der Exponent wird nicht auf Überlauf/Unterlauf getestet.
+// Der Exponent wird nicht auf Ãœberlauf/Unterlauf getestet.
 inline const cl_LF encode_LFu (cl_signean sign, uintE uexp, const uintD* mantMSDptr, uintC mantlen)
 {
 	var Lfloat erg = allocate_lfloat(mantlen,uexp,sign); /* Exponent */
-	copy_loop_msp(mantMSDptr,arrayMSDptr(TheLfloat(erg)->data,mantlen),mantlen); /* Mantisse übertragen */
+	copy_loop_msp(mantMSDptr,arrayMSDptr(TheLfloat(erg)->data,mantlen),mantlen); /* Mantisse Ã¼bertragen */
 	return erg;
 }
 
@@ -128,10 +128,10 @@ inline const cl_LF encode_LFu (cl_signean sign, uintE uexp, const uintD* mantMSD
 // encode_LF(sign,exp,mantMSDptr,mantlen) liefert ein Long-Float
 // > cl_signean sign: Vorzeichen
 // > sintE exp: Exponent
-// > uintD* mantMSDptr: Pointer auf eine NUDS mit gesetztem höchstem Bit
+// > uintD* mantMSDptr: Pointer auf eine NUDS mit gesetztem hÃ¶chstem Bit
 // > uintC mantlen: Anzahl der Digits, >= LF_minlen
 // < cl_LF erg: neues Long-Float mit der UDS mantMSDptr/mantlen/.. als Mantisse
-// Der Exponent wird nicht auf Überlauf/Unterlauf getestet.
+// Der Exponent wird nicht auf Ãœberlauf/Unterlauf getestet.
 inline const cl_LF encode_LF (cl_signean sign, sintE exp, const uintD* mantMSDptr, uintC mantlen)
 {
 	return encode_LFu(sign,LF_exp_mid+(uintE)exp,mantMSDptr,mantlen);
@@ -141,10 +141,10 @@ inline const cl_LF encode_LF (cl_signean sign, sintE exp, const uintD* mantMSDpt
 // encode_LF_array(sign,exp,mantarr,mantlen) liefert ein Long-Float
 // > cl_signean sign: Vorzeichen
 // > sintE exp: Exponent
-// > uintD mantarr[]: NUDS mit gesetztem höchstem Bit
+// > uintD mantarr[]: NUDS mit gesetztem hÃ¶chstem Bit
 // > uintC mantlen: Anzahl der Digits, >= LF_minlen
 // < cl_LF erg: neues Long-Float mit der UDS mantarr[] als Mantisse
-// Der Exponent wird nicht auf Überlauf/Unterlauf getestet.
+// Der Exponent wird nicht auf Ãœberlauf/Unterlauf getestet.
 #define encode_LF_array(sign,exp,mantarr,mantlen)  \
   encode_LF(sign,exp,arrayMSDptr(mantarr,mantlen),mantlen)
 

@@ -14,7 +14,7 @@
 
 namespace cln {
 
-// Timing für Dezimal-Umwandlung einer Zahl mit N Digits = (N*32) Bits,
+// Timing fÃ¼r Dezimal-Umwandlung einer Zahl mit N Digits = (N*32) Bits,
 // auf einem i486 33 MHz unter Linux:
 //    N      standard  dnq(div)  dnq(mul)  combined
 //     10     0.00031   0.00043   0.00059   0.00031
@@ -69,28 +69,28 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
 // Falls X>0:
 //   Dividiere X durch das Wort b^k,
 //   (Single-Precision-Division, vgl. UDS_DIVIDE mit n=1:
-//     r:=0, j:=m=Länge(X),
+//     r:=0, j:=m=LÃ¤nge(X),
 //     while j>0 do
 //       j:=j-1, r:=r*beta+X[j], X[j]:=floor(r/b^k), r:=r-b^k*q[j].
 //     r=Rest.)
 //   zerlege den Rest (mit k-1 Divisionen durch b) in k Ziffern, wandle diese
 //   Ziffern einzeln in Ascii um und lege sie an die DIGITS an.
-//   Teste auf Speicherüberlauf.
+//   Teste auf SpeicherÃ¼berlauf.
 //   X := Quotient.
 //   Mache aus X wieder eine NUDS (maximal 1 Nulldigit streichen).
 //   Dies solange bis X=0.
-//   Streiche die führenden Nullen.
+//   Streiche die fÃ¼hrenden Nullen.
       // Aufsuchen von k-1 und b^k aus der Tabelle:
       var const power_table_entry* tableptr = &power_table[base-2];
       var uintC k = tableptr->k;
       var uintD b_hoch_k = tableptr->b_to_the_k; // b^k
       var uintB* erg_ptr = erg->LSBptr;
       #define next_digit(d)  { *--erg_ptr = (d<10 ? '0'+d : 'A'-10+d); }
-      // Spezialfälle:
+      // SpezialfÃ¤lle:
       if (zerop(X))
         { next_digit(0); goto fertig; } // 0 -> eine Ziffer '0'
       else if ((base & (base-1)) == 0)
-        { // Schneller Algorithmus für Zweierpotenzen
+        { // Schneller Algorithmus fÃ¼r Zweierpotenzen
           var const uintD* MSDptr;
           var uintC len;
           var const uintD* LSDptr;
@@ -138,7 +138,7 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
 	      if (fixnump(X) && count>cl_value_len-1)
 		  count = cl_value_len-1;
               if ((intDsize>=11) || (count>0))
-                // (Bei intDsize>=11 ist wegen b<=36 zwangsläufig
+                // (Bei intDsize>=11 ist wegen b<=36 zwangslÃ¤ufig
                 // k = ceiling(intDsize*log(2)/log(b))-1 >= 2, also count = k-1 > 0.)
                 do { var uintD d;
                      #if HAVE_DD
@@ -199,7 +199,7 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           erg_ptr = erg->MSBptr;
         }
       #undef next_digit
-      // Streiche führende Nullen:
+      // Streiche fÃ¼hrende Nullen:
       while (*erg_ptr == '0') { erg_ptr++; }
       fertig:
       erg->MSBptr = erg_ptr;

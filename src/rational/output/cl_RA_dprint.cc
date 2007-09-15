@@ -56,7 +56,7 @@ void print_rational (std::ostream& stream, const cl_print_rational_flags& flags,
 		print_integer(stream,base,z);
 	} else {
 		DeclareType(cl_RT,z);
-		// Ratio in Basis base ausgeben; Zähler / Nenner
+		// Ratio in Basis base ausgeben; ZÃ¤hler / Nenner
 		print_integer(stream,base,numerator(z));
 		fprintchar(stream,'/');
 		print_integer(stream,base,denominator(z));

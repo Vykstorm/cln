@@ -13,7 +13,7 @@ namespace cln {
 CL_DEFINE_AS_CONVERSION(cl_RA)
 
 
-// numerator(r) liefert den Z‰hler der rationalen Zahl r.
+// numerator(r) liefert den Z√§hler der rationalen Zahl r.
 extern const cl_I numerator (const cl_RA& r);
 
 // denominator(r) liefert den Nenner (> 0) der rationalen Zahl r.
@@ -25,7 +25,7 @@ extern const cl_RA operator- (const cl_RA& r);
 
 // (+ r s), wo r und s rationale Zahlen sind.
 extern const cl_RA operator+ (const cl_RA& r, const cl_RA& s);
-// Dem C++-Compiler muﬂ man auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man auch das Folgende sagen:
 inline const cl_RA operator+ (const int x, const cl_RA& y)
 	{ return cl_I(x) + y; }
 inline const cl_RA operator+ (const unsigned int x, const cl_RA& y)
@@ -57,7 +57,7 @@ inline const cl_RA operator+ (const cl_RA& x, const unsigned long long y)
 
 // (- r s), wo r und s rationale Zahlen sind.
 extern const cl_RA operator- (const cl_RA& r, const cl_RA& s);
-// Dem C++-Compiler muﬂ man auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man auch das Folgende sagen:
 inline const cl_RA operator- (const int x, const cl_RA& y)
 	{ return cl_I(x) - y; }
 inline const cl_RA operator- (const unsigned int x, const cl_RA& y)
@@ -98,7 +98,7 @@ extern const cl_RA abs (const cl_RA& r);
 
 // equal(r,s) vergleicht zwei rationale Zahlen r und s auf Gleichheit.
 extern bool equal (const cl_RA& r, const cl_RA& s);
-// equal_hashcode(r) liefert einen equal-invarianten Hashcode f¸r r.
+// equal_hashcode(r) liefert einen equal-invarianten Hashcode f√ºr r.
 extern uint32 equal_hashcode (const cl_RA& r);
 
 // compare(r,s) vergleicht zwei rationale Zahlen r und s.
@@ -132,7 +132,7 @@ extern const cl_RA recip (const cl_RA& r);
 
 // Liefert (* r s), wo r und s rationale Zahlen sind.
 extern const cl_RA operator* (const cl_RA& r, const cl_RA& s);
-// Dem C++-Compiler muﬂ man auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man auch das Folgende sagen:
 inline const cl_RA operator* (const int x, const cl_RA& y)
 	{ return cl_I(x) * y; }
 inline const cl_RA operator* (const unsigned int x, const cl_RA& y)
@@ -167,7 +167,7 @@ extern const cl_RA square (const cl_RA& r);
 
 // Liefert (/ r s), wo r und s rationale Zahlen sind.
 extern const cl_RA operator/ (const cl_RA& r, const cl_RA& s);
-// Dem C++-Compiler muﬂ man auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man auch das Folgende sagen:
 inline const cl_RA operator/ (const int x, const cl_RA& y)
 	{ return cl_I(x) / y; }
 inline const cl_RA operator/ (const unsigned int x, const cl_RA& y)

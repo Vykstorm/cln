@@ -20,7 +20,7 @@
 
 namespace cln {
 
-// Hilfsfunktion f¸r atanh und atan: u+iv := artanh(x+iy). Liefert cl_C_R(u,v).
+// Hilfsfunktion f√ºr atanh und atan: u+iv := artanh(x+iy). Liefert cl_C_R(u,v).
 
 const cl_C_R atanh (const cl_R& x, const cl_R& y)
 {
@@ -37,20 +37,20 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 //             =0 -> Error,
 //             >0 (also |x|<1) -> u = 1/2 log((1+x)/(1-x)), v = 0.
 //             <0 (also |x|>1) -> u = 1/2 log(-(1+x)/(1-x)),
-//                                v = (-pi/2 f¸r x>1, pi/2 f¸r x<-1).
+//                                v = (-pi/2 f√ºr x>1, pi/2 f√ºr x<-1).
 // Sonst:
 //   1+x und 1-x errechnen.
 //   x und y in Floats umwandeln.
 //   |4x| und 1+x^2+y^2 errechnen,
 //   |4x| < 1+x^2+y^2 -> u = 1/2 atanh(2x/(1+x^2+y^2)),
 //   |4x| >= 1+x^2+y^2 -> u = 1/4 ln ((1+x^2+y^2)+2x)/((1+x^2+y^2)-2x)
-//                        oder besser (an der Singularit‰t: |x|-1,|y| klein):
+//                        oder besser (an der Singularit√§t: |x|-1,|y| klein):
 //                        u = 1/4 ln ((1+x)^2+y^2)/((1-x)^2+y^2).
 //   v = 1/2 atan(X=(1-x)(1+x)-y^2,Y=2y) * (-1 falls Y=0.0 und X<0.0 und x>=0.0,
 //                                          1 sonst)
 // Ergebnis ist reell nur, wenn z reell.
-// Real- und Imagin‰rteil des Ergebnisses sind Floats, auﬂer wenn z reell oder
-// rein imagin‰r ist.
+// Real- und Imagin√§rteil des Ergebnisses sind Floats, au√üer wenn z reell oder
+// rein imagin√§r ist.
 
 	if (eq(x,0))
 		// x=0 -> u=0, v=atan(X=1,Y=y) (Fall y=0 ist inbegriffen)
@@ -74,7 +74,7 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 				{ throw division_by_0_exception(); }
 			v = 0;
 		} else {
-			// (1+x)/(1-x) < 0 -> Betrag nehmen, Imagin‰rteil berechnen:
+			// (1+x)/(1-x) < 0 -> Betrag nehmen, Imagin√§rteil berechnen:
 			xx = - xx;
 			v = scale_float(pi(),-1); // (scale-float pi -1) = pi/2
 			if (minusp(xx_den))

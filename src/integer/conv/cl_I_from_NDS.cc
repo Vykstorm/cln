@@ -21,7 +21,7 @@ const cl_I NDS_to_I (const uintD* MSDptr, uintC len)
       // Weniger als bn_minlength Digits -> Fixnum.
       // Genau bn_minlength Digits -> Bignum oder Fixnum.
       if (len < bn_minlength)
-        { // 0..bn_minlength-1 Digits, paﬂt in ein Fixnum:
+        { // 0..bn_minlength-1 Digits, pa√üt in ein Fixnum:
           if (bn_minlength>1 ? (len==0) : TRUE)
             // 0 Digits
             { return 0; }
@@ -73,7 +73,7 @@ const cl_I NDS_to_I (const uintD* MSDptr, uintC len)
       if (len == bn_minlength)
         // bn_minlength Digits, also (incl. Vorzeichen) zwischen
         // (bn_minlength-1)*intDsize+1 und bn_minlength*intDsize Bits.
-        // Hˆchstens cl_value_len Bits -> paﬂt in ein Fixnum:
+        // H√∂chstens cl_value_len Bits -> pa√üt in ein Fixnum:
         { if (  (mspref(MSDptr,0) <= (uintD)(bit(cl_value_len-1-(bn_minlength-1)*intDsize)-1)) // Fixnum >=0 ?
               ||(mspref(MSDptr,0) >= (uintD)(-bit(cl_value_len-1-(bn_minlength-1)*intDsize))) // Fixnum <0 ?
              )
@@ -96,7 +96,7 @@ const cl_I NDS_to_I (const uintD* MSDptr, uintC len)
       #endif
       // mindestens bn_minlength Digits, mache ein Bignum
       { var Bignum result = allocate_bignum(len);
-        // neues Bignum mit dem Inhalt der NDS f¸llen:
+        // neues Bignum mit dem Inhalt der NDS f√ºllen:
         copy_loop_msp(MSDptr,arrayMSDptr(result->data,len),len);
         return result;
       }

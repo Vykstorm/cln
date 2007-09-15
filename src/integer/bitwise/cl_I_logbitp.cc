@@ -17,7 +17,7 @@ namespace cln {
 bool logbitp (uintC x, const cl_I& y)
 {
     // Methode:
-    // Falls x>=intDsize*Länge(y), teste Vorzeichen von y.
+    // Falls x>=intDsize*LÃ¤nge(y), teste Vorzeichen von y.
     // Sonst x=intDsize*k+i, Teste Bit i vom Worte Nr. k+1 (von oben herab).
 
 	var const uintD* yMSDptr;

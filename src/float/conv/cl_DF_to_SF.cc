@@ -36,7 +36,7 @@ const cl_SF cl_DF_to_SF (const cl_DF& x)
 	  { mant = mant >> shiftcount;
 	    mant = mant+1;
 	    if (mant >= bit(SF_mant_len+1))
-	      // Überlauf durchs Runden
+	      // Ãœberlauf durchs Runden
 	      { mant = mant>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }
 	return encode_SF(sign,exp,mant);
@@ -59,7 +59,7 @@ const cl_SF cl_DF_to_SF (const cl_DF& x)
 	  { manthi = manthi >> shiftcount;
 	    manthi = manthi+1;
 	    if (manthi >= bit(SF_mant_len+1))
-	      // Überlauf durchs Runden
+	      // Ãœberlauf durchs Runden
 	      { manthi = manthi>>1; exp = exp+1; } // Mantisse rechts schieben
 	  }
 	return encode_SF(sign,exp,manthi);

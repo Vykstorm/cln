@@ -24,8 +24,8 @@ void print_rational (std::ostream& stream, unsigned int base, const cl_RA& z)
 		DeclareType(cl_RT,z);
 		var const cl_I& num = numerator(z);
 		var const cl_I& den = denominator(z);
-		// Der Zähler trägt das Vorzeichen.
-		print_integer(stream,base,num); // Zähler ausgeben
+		// Der ZÃ¤hler trÃ¤gt das Vorzeichen.
+		print_integer(stream,base,num); // ZÃ¤hler ausgeben
 		fprintchar(stream,'/');
 		print_integer(stream,base,den); // Nenner ausgeben
 	}

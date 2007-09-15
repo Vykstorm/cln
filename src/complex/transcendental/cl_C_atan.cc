@@ -18,8 +18,8 @@ namespace cln {
 // Wert und Branch Cuts nach der Formel CLTL2, S. 307/312/313:
 //   arctan(z) = (log(1+iz)-log(1-iz)) / 2i
 // Sei z=x+iy, errechne u+iv = artanh(-y+ix) wie oben, Ergebnis v-iu.
-// Real- und Imagin‰rteil des Ergebnisses sind Floats, auﬂer wenn z reell oder
-// rein imagin‰r ist.
+// Real- und Imagin√§rteil des Ergebnisses sind Floats, au√üer wenn z reell oder
+// rein imagin√§r ist.
 
 inline const cl_C_R _atan (const cl_N& z)
 {

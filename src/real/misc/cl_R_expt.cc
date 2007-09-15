@@ -16,15 +16,15 @@
 namespace cln {
 
 // Methode:
-// Für y>0:
+// FÃ¼r y>0:
 //   a:=x, b:=y.
 //   Solange b gerade, setze a:=a*a, b:=b/2. [a^b bleibt invariant, = x^y.]
 //   c:=a.
 //   Solange b:=floor(b/2) >0 ist,
 //     setze a:=a*a, und falls b ungerade, setze c:=a*c.
 //   Ergebnis c.
-// Für y=0: Ergebnis 1.
-// Für y<0: (/ (expt x (- y))).
+// FÃ¼r y=0: Ergebnis 1.
+// FÃ¼r y<0: (/ (expt x (- y))).
 
 // Assume y>0.
 inline const cl_R expt_pos (const cl_R& x, uintL y)

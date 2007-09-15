@@ -1,10 +1,10 @@
 // Externe Routinen zu ARILEV1.D
 // Prozessor: HPPA, wegen XMPYU nur auf HPPA 1.1 (etwa HP9000/720)
 // Compiler: GNU-C oder HP-C
-// Parameter-Übergabe: in Registern %arg0,%arg1,%arg2, Rückgabewert in %ret0.
+// Parameter-Ãœbergabe: in Registern %arg0,%arg1,%arg2, RÃ¼ckgabewert in %ret0.
 // Einstellungen: intCsize=32, intDsize=32.
 
-// Großenteils abgeschrieben von hppa.s aus der PARI/GP-Distribution.
+// GroÃŸenteils abgeschrieben von hppa.s aus der PARI/GP-Distribution.
 
                 .SHORTDATA
                 .IMPORT $global$,DATA

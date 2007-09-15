@@ -16,7 +16,7 @@ namespace cln {
 
 uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr)
     { // Nun sind unterhalb von destptr n Digits Platz.
-      // oberen Teil der DS aus obj füllen, dabei destptr erniedrigen:
+      // oberen Teil der DS aus obj fÃ¼llen, dabei destptr erniedrigen:
       if (fixnump(obj))
         // Fixnum:
         {
@@ -47,7 +47,7 @@ uintD* I_to_DS_n_aux (const cl_I& obj, uintC n, uintD* destptr)
           n -= len;
           destptr = copy_loop_lsp(BN_LSDptr(obj),destptr,len); // DS kopieren
         }
-      // unteren Teil mit Fülldigits, gebildet aus dem Vorzeichen, füllen:
+      // unteren Teil mit FÃ¼lldigits, gebildet aus dem Vorzeichen, fÃ¼llen:
       if (!(n==0))
         { destptr = fill_loop_lsp(destptr,n,sign_of_sintD(mspref(destptr,0))); }
       // destptr zeigt nun aufs untere Ende der DS.

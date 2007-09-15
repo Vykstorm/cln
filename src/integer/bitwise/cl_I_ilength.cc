@@ -34,12 +34,12 @@ uintC integer_length (const cl_I& x)
             var uintC len;
             BN_to_NDS_nocopy(x, MSDptr=,len=,); // normalisierte DS zu x bilden.
             var uintC bitcount = intDsize*(len-1); // Anzahl Digits mal intDsize
-            // MSDigit nehmen, testen, welches das höchste Bit ist, das vom
+            // MSDigit nehmen, testen, welches das hÃ¶chste Bit ist, das vom
             // Vorzeichenbit abweicht:
             var uintD msd = mspref(MSDptr,0); // MSDigit
             if ((sintD)msd < 0) { msd = ~msd; } // falls negativ, invertieren
-            // Position des höchsten Bits in msd suchen und entsprechend bit_count
-            // erhöhen (um höchstens intDsize-1):
+            // Position des hÃ¶chsten Bits in msd suchen und entsprechend bit_count
+            // erhÃ¶hen (um hÃ¶chstens intDsize-1):
             if (!(msd == 0)) { integerlengthD(msd, bitcount += ); }
             return bitcount; // 0 <= bitcount < intDsize*2^intCsize.
           }

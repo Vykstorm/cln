@@ -26,7 +26,7 @@ namespace cln {
 // format_float_to_string(arg,width,d,k,dmin)
 // ergibt einen String zum Floating-point arg:
 // er hat den Wert von abs(arg)*expt(10,k), dabei mind. d Nachkommastellen
-// und hˆchstens die L‰nge width (width<=0 -> keine Einschr‰nkung).
+// und h√∂chstens die L√§nge width (width<=0 -> keine Einschr√§nkung).
 // Trotzdem wird nicht auf weniger als dmin Stellen gerundet.
 
 const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width, const sintL d, const sintL k, const sintL dmin)
@@ -54,11 +54,11 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 	// mantprec : Anzahl der echten Mantissenbits von significand
 	// (also 2^mantprec <= significand < 2^(mantprec+1))
 	// width : Anzahl Stellen, die die Zahl (inklusive Punkt) nicht
-	//         ¸berschreiten soll, oder 0
+	//         √ºberschreiten soll, oder 0
 	// d : Mindestanzahl Nachkommastellen oder 0
 	// k : Skalierungsfaktor (siehe CLTL S.394)
 	// dmin : Mindestanzahl von Dezimaltellen, die (trotz Angabe von width
-	//        oder d) nicht gerundet werden d¸rfen.
+	//        oder d) nicht gerundet werden d√ºrfen.
 	//        (Nur interessant, falls d <= dmin <= (precision der Zahl).)
 	// wandelt die Zahl significand*2^expon um in einen Dezimalstring um.
 	// Es ist kein Exponent dabei.
@@ -73,7 +73,7 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 	       // einer Erniedrigung von numerator um abrund_einh.
 	var cl_I aufrund_einh = 1; // Aufrundungseinheit:
 	       // Aufrunden um 1 in der letzten aufrundbaren Stelle entspricht
-	       // einer Erhˆhung von numerator um aufrund_einh.
+	       // einer Erh√∂hung von numerator um aufrund_einh.
 	digitstring.reset();
 	if (expon > 0) {
 		numerator = numerator << expon;
@@ -86,18 +86,18 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 	// Zahl = numerator/denominator
 	if (significand == ash(1,mantprec)) {
 		// Ist der Significand=2^mantprec, so ist abrund-einh zu halbieren.
-		// Man kann stattdessen auch alle 3 anderen Grˆssen verdoppeln:
+		// Man kann stattdessen auch alle 3 anderen Gr√∂ssen verdoppeln:
 		aufrund_einh = aufrund_einh << 1;
 		numerator = numerator << 1;
 		denominator = denominator << 1;
 	}
-	// Defaultm‰ﬂig: Auf-/Abrunde-Einheit = eine Einheit in der letzten
-	// BINƒRstelle.
+	// Defaultm√§√üig: Auf-/Abrunde-Einheit = eine Einheit in der letzten
+	// BIN√ÑRstelle.
 	// Zahl = numerator/denominator
 	// Skalierungsfaktor k in die Zahl mit einbeziehen (vgl. CLTL S.394)
 	// k<0 -> Mantisse durch 10^|k| dividieren
 	// k>0 -> Mantisse mit 10^k multiplizieren
-	// Dabei aufrund-einh, abrund-einh im Verh‰ltnis zu numerator beibehalten.
+	// Dabei aufrund-einh, abrund-einh im Verh√§ltnis zu numerator beibehalten.
 	if (k != 0) {
 		if (k < 0) {
 			var cl_I skal_faktor = expt_pos(10,-k);
@@ -111,23 +111,23 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 		}
 	}
 	// Stellen: 0 = 1. Stelle vor dem Punkt, -1 = 1. Stelle nach dem Punkt.
-	var sintL stelle = 0; // Stelle der als n‰chstes auszugebenden Ziffer
+	var sintL stelle = 0; // Stelle der als n√§chstes auszugebenden Ziffer
 	// auf >= 1/10 adjustieren:
-	// (jeweils numerator mit 10 multiplizieren, eine f¸hrende 0 mehr vorsehen)
+	// (jeweils numerator mit 10 multiplizieren, eine f√ºhrende 0 mehr vorsehen)
 	until (10*numerator >= denominator) {
 		stelle = stelle-1;
 		numerator = numerator * 10;
 		aufrund_einh = aufrund_einh * 10;
 		abrund_einh = abrund_einh * 10;
 	}
-	// stelle = Stelle der letzten f¸hrenden 0
+	// stelle = Stelle der letzten f√ºhrenden 0
 	//        = 1 + Stelle der 1. signifikanten Ziffer
 	//        oder =0, falls k>=0
-	// Ausf¸hrung der Rundung:
+	// Ausf√ºhrung der Rundung:
 	var bool letzte_stelle_p = false; // d oder width angegeben?
 	var sintL letzte_stelle = 0; // falls d oder width angegeben waren:
 				     // Stelle der letzten signifikanten Ziffer
-	var bool halbzahlig = false; // zeigt an, ob hinten genau ein 0.500000 wegf‰llt
+	var bool halbzahlig = false; // zeigt an, ob hinten genau ein 0.500000 wegf√§llt
 	do {
 		// Solange das Ergebnis auch nach Aufrundung >= 1 bliebe,
 		// eine Vorkommastelle mehr einplanen:
@@ -149,14 +149,14 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 		elif (width > 0) {
 			// Falls nicht d, nur width angegeben:
 			if (stelle < 0)
-				// Es kommen f¸hrende Nullen nach dem Punkt -> d:=width-1
+				// Es kommen f√ºhrende Nullen nach dem Punkt -> d:=width-1
 				letzte_stelle = 1-width;
 			else
-				// Es kommen keine f¸hrenden Nullen nach dem Punkt ->
+				// Es kommen keine f√ºhrenden Nullen nach dem Punkt ->
 				// Es wird stelle Vorkommaziffern geben, d:=width-1-stelle
 				letzte_stelle = 1+stelle-width;
 			// also letzte_stelle = -(width-1 - max(stelle,0))
-			// wieder dmin ber¸cksichtigen:
+			// wieder dmin ber√ºcksichtigen:
 			if (dmin > 0)
 				if (letzte_stelle > -dmin)
 					letzte_stelle = -dmin;
@@ -171,9 +171,9 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 				dezimal_einh = dezimal_einh*expt_pos(10,ziffernzahl);
 			elif (ziffernzahl < 0)
 				dezimal_einh = ceiling1(dezimal_einh,expt_pos(10,-ziffernzahl));
-			// dezimal-einh = Um wieviel numerator erhˆht bzw. erniedigt werden
-			// m¸ﬂte, damit sich die Dezimaldarstellung um genau 1 an der
-			// Position letzte_stelle ver‰ndert.
+			// dezimal-einh = Um wieviel numerator erh√∂ht bzw. erniedigt werden
+			// m√º√üte, damit sich die Dezimaldarstellung um genau 1 an der
+			// Position letzte_stelle ver√§ndert.
 			if (abrund_einh < dezimal_einh)
 				abrund_einh = dezimal_einh;
 			if (aufrund_einh < dezimal_einh)
@@ -186,9 +186,9 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 	// stelle = Position der ersten signifikanten Stelle + 1
 	var uintL digit_count = 0; // Zahl der bisher in digit-string
 	       // ausgegebenen Ziffern (exklusive den Punkt)
-	var uintL point_pos = 0; // Punkt-Position = Zahl f¸hrender Stellen
+	var uintL point_pos = 0; // Punkt-Position = Zahl f√ºhrender Stellen
 			         // = Zahl der Ziffern vor dem Punkt
-	// F¸hrenden Punkt und nachfolgende Nullen ausgeben:
+	// F√ºhrenden Punkt und nachfolgende Nullen ausgeben:
 	if (stelle < 0) {
 		digitstring.push('.');
 		point_pos = digit_count;

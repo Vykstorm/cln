@@ -20,8 +20,8 @@ namespace cln {
 const cl_F sin (const cl_F& x)
 {
 // Methode:
-// Genauigkeit erhöhen,
-// (q,r) := (round x (float pi/2 x)), so daß |r|<=pi/4.
+// Genauigkeit erhÃ¶hen,
+// (q,r) := (round x (float pi/2 x)), so daÃŸ |r|<=pi/4.
 // y:=(sin(r)/r)^2 errechnen.
 // Falls q gerade:
 //   sin(r) berechnen: r*sqrt(y).
@@ -35,7 +35,7 @@ const cl_F sin (const cl_F& x)
 //     Sonst sqrt(1-r^2*y).
 // Falls q == 2,3 mod 4, Vorzeichenwechsel.
 
-	// Rechengenauigkeit erhöhen und durch pi/2 dividieren:
+	// Rechengenauigkeit erhÃ¶hen und durch pi/2 dividieren:
 	var cl_F z;
 	var cl_I q;
 	if (longfloatp(x)) {

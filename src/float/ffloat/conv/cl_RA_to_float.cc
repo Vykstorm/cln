@@ -52,7 +52,7 @@ float float_approx (const cl_RA& x)
         { zaehler = ash(a,(FF_mant_len+2) - lendiff); // (ash a -n+m+25)
           nenner = b; // b
         }
-      // Division zaehler/nenner durchführen:
+      // Division zaehler/nenner durchfÃ¼hren:
       var cl_I_div_t q_r = cl_divide(zaehler,nenner);
       var cl_I& q = q_r.quotient;
       var cl_I& r = q_r.remainder;

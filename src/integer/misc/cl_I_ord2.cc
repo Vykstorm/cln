@@ -24,8 +24,8 @@ namespace cln {
 //   Sei n = ord2(x). Dann ist lognot(logior(x,-x)) = 2^n-1.
 //   Also  (ord2 x) = (integer-length (lognot (logior x (- x)))) .
 // Methode 2:
-//   Nullbits am Schluﬂ von x abz‰hlen:
-//   (ord2 x) = intDsize * Anzahl der Nulldigits am Schluﬂ
+//   Nullbits am Schlu√ü von x abz√§hlen:
+//   (ord2 x) = intDsize * Anzahl der Nulldigits am Schlu√ü
 //              + Anzahl der Nullbits am Ende des letzten Digits /=0.
 
 uintC ord2 (const cl_I& x) // x /= 0
@@ -43,9 +43,9 @@ uintC ord2 (const cl_I& x) // x /= 0
 	  { var uintC bitcount = 0;
 	    var const uintD* ptr;
 	    BN_to_NDS_nocopy(x, ,,ptr=); // normalisierte DS zu x bilden.
-	    while (lspref(ptr,0) == 0) { lsshrink(ptr); bitcount += intDsize; } // Nulldigits abz‰hlen
+	    while (lspref(ptr,0) == 0) { lsshrink(ptr); bitcount += intDsize; } // Nulldigits abz√§hlen
 	    var uintD lsd = lspref(ptr,0); // letztes Digit /=0
-	    ord2_D(lsd,bitcount +=); // dessen Nullbits abz‰hlen
+	    ord2_D(lsd,bitcount +=); // dessen Nullbits abz√§hlen
 	    return bitcount;
           }
 }

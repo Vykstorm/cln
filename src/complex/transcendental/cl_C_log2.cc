@@ -26,9 +26,9 @@ const cl_N log (const cl_N& a, const cl_N& b)
 //     falls (= a 0): Error
 //     sonst: (phase a) errechnen, ein Float.
 //            b (falls rational) ins selbe Float-Format umwandeln,
-//            Imagin‰rteil := (/ (phase a) (log dieses_b)).
+//            Imagin√§rteil := (/ (phase a) (log dieses_b)).
 //            Falls a rational: (log (abs a) b).
-//            Falls a komplex mit rationalem Real- und Imagin‰rteil,
+//            Falls a komplex mit rationalem Real- und Imagin√§rteil,
 //              Betragsquadrat  (expt (abs a) 2)  exakt ausrechnen als
 //              (+ (expt (realpart a) 2) (expt (imagpart a) 2)).
 //              Setze  Realteil := (/ (log Betragsquadrat b) 2).
@@ -50,7 +50,7 @@ const cl_N log (const cl_N& a, const cl_N& b)
 		}
 		// b ist reell und >0, a aber nicht.
 
-		// Imagin‰rteil (/ (phase a) (log b)) errechnen:
+		// Imagin√§rteil (/ (phase a) (log b)) errechnen:
 		var cl_F im;
 		{
 			var cl_R angle = phase(a);
@@ -73,14 +73,14 @@ const cl_N log (const cl_N& a, const cl_N& b)
 		} else {
 			DeclareType(cl_C,a);
 			if (rationalp(realpart(a)) && rationalp(imagpart(a))) {
-				// a komplex mit rationalem Real- und Imagin‰rteil a1,a2
+				// a komplex mit rationalem Real- und Imagin√§rteil a1,a2
 				var const cl_R& a1 = realpart(a);
 				var const cl_R& a2 = imagpart(a);
 				re = log(square(a1)+square(a2),b) / 2;
 				goto re_ok;
 			}
 		}
-		// Keine Chance f¸r rationalen Realteil.
+		// Keine Chance f√ºr rationalen Realteil.
 		{
 			var cl_F abs_a = The(cl_F)(abs(a));
 			var cl_F log_abs_a = ln(abs_a);

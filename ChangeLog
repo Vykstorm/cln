@@ -1,3 +1,7 @@
+2007-09-16  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* */*: Convert encoding from ISO 8859-1 to UTF-8.
+
 2007-09-13  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Truncated binary splitting for even more memory efficiency:

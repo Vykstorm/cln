@@ -30,10 +30,10 @@ const cl_LF cl_DF_to_LF (const cl_DF& x, uintC len)
 	DF_decode2(x, { return encode_LF0(len); }, sign=,exp=(sintL),manthi=,mantlo=);
 	#endif
 	// Long-Float allozieren,
-	// Mantisse mit intDsize*len-DF_mant_len-1 Nullbits auffüllen:
+	// Mantisse mit intDsize*len-DF_mant_len-1 Nullbits auffÃ¼llen:
 	var Lfloat y = allocate_lfloat(len,exp+LF_exp_mid,sign);
 	var uintD* ptr = arrayMSDptr(TheLfloat(y)->data,len);
-	// erste k := ceiling(DF_mant_len+1,intDsize) Digits mit mant füllen:
+	// erste k := ceiling(DF_mant_len+1,intDsize) Digits mit mant fÃ¼llen:
 	var const int shiftcount = (ceiling(DF_mant_len+1,intDsize)*intDsize-(DF_mant_len+1));
 	#if (cl_word_size==64)
 	mant = mant<<shiftcount;

@@ -11,14 +11,14 @@ namespace cln {
 // Undocumented input functions
 
 // Wandelt eine Zeichenkette mit Integer-Syntax in ein Integer um.
-// Punkte werden ¸berlesen.
+// Punkte werden √ºberlesen.
 // read_integer(base,sign,string,index1,index2)
 // > base: Lesebasis (>=2, <=36)
 // > sign: Vorzeichen (/=0 falls negativ)
-// > string: Simple-String (enth‰lt Ziffern mit Wert <base und evtl. Punkt)
+// > string: Simple-String (enth√§lt Ziffern mit Wert <base und evtl. Punkt)
 // > index1: Index der ersten Ziffer
 // > index2: Index nach der letzten Ziffer
-//   (also index2-index1 Ziffern, incl. evtl. Dezimalpunkt am Schluﬂ)
+//   (also index2-index1 Ziffern, incl. evtl. Dezimalpunkt am Schlu√ü)
 // < ergebnis: Integer
 extern const cl_I read_integer (unsigned int base,
                   cl_signean sign, const char * string, uintL index1, uintL index2);

@@ -89,8 +89,8 @@ uint16 divu_3216_1616_ (uint32 x, uint16 y)
 
 #ifdef NEED_FUNCTION_divu_3232_3232_
 namespace cln {
-// Dies dient nur noch als Hilfsfunktion für floorD().
-// Die Rückgabe des Restes in divu_32_rest ist also hier nicht nötig.
+// Dies dient nur noch als Hilfsfunktion fÃ¼r floorD().
+// Die RÃ¼ckgabe des Restes in divu_32_rest ist also hier nicht nÃ¶tig.
 uint32 divu_3232_3232_(uint32 x, uint32 y)
 {
 	var uint32 q;
@@ -130,12 +130,12 @@ uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
         { xhi = (xhi << s) | (xlo >> (32-s)); xlo = xlo << s; }
       // 64-durch-32-Bit-Division,
       // aufgebaut aus zwei 48-durch-32-Bit-Divisionen.
-      // Methode für eine 48-durch-32-Bit-Division x/y mit 0 <= x < 2^16*y :
+      // Methode fÃ¼r eine 48-durch-32-Bit-Division x/y mit 0 <= x < 2^16*y :
       // (beta = 2^n = 2^16, n = 16)
       // Wir wissen beta^2/2 <= y < beta^2, Quotient  q = floor(x/y) < beta.
       // Schreibe  x = beta*x1 + x0  mit  x1 := floor(x/beta)
       // und       y = beta*y1 + y0  mit  y1 := floor(y/beta)
-      // und bilde den Näherungs-Quotienten floor(x1/y1)
+      // und bilde den NÃ¤herungs-Quotienten floor(x1/y1)
       // oder (noch besser) floor(x1/(y1+1)).
       // Wegen 0 <= x1 < 2^(2n) und 0 < 2^(n-1) <= y1 < 2^n
       // und  x1/(y1+1) <= x/y < x1/(y1+1) + 2
@@ -147,7 +147,7 @@ uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
       // gilt  floor(x1/(y1+1)) <= floor(x/y) <= floor(x1/(y1+1)) + 2  .
       // Man bildet also  q:=floor(x1/(y1+1))  (ein Shift um n Bit oder
       // eine (2n)-durch-n-Bit-Division, mit Ergebnis q <= floor(x/y) < beta)
-      // und x-q*y und muß hiervon noch höchstens 2 mal y abziehen und q
+      // und x-q*y und muÃŸ hiervon noch hÃ¶chstens 2 mal y abziehen und q
       // incrementieren, um den Quotienten  q = floor(x/y)  und den Rest
       // x-floor(x/y)*y  der Division zu bekommen.
       { var uint16 y1_1 = high16(y)+1; // y1+1
@@ -165,7 +165,7 @@ uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
         // Bilde r := (2^16*xhi+high16(xlo)) - y*q1
         //          = 2^16*(xhi-y1*q1) + high16(xlo) - y0*q1
         //          = 2^16*r16 + 2^16*q1 + high16(xlo) - y0*q1 (>=0)
-        // Dies ist < 2^16*y1 + 2^32 <= y + 2^32 <= 3*y, kann überlaufen!
+        // Dies ist < 2^16*y1 + 2^32 <= y + 2^32 <= 3*y, kann Ã¼berlaufen!
         r = highlow32(r16,high16(xlo)); // 2^16*r16 + high16(xlo) < 2^32
         r2 = highlow32_0(q1) - mulu16(low16(y),q1); // 2^16*q1 - y0*q1 < 2^32
         // 0 <= r+r2 < 3*y. Bei der Addition auf Carry testen!
@@ -188,7 +188,7 @@ uint32 divu_6432_3232_(uint32 xhi, uint32 xlo, uint32 y)
         // Bilde r := (2^16*r+low16(xlo)) - y*q0
         //          = 2^16*(r-y1*q0) + low16(xlo) - y0*q0
         //          = 2^16*r16 + 2^16*q0 + low16(xlo) - y0*q0 (>=0)
-        // Dies ist < 2^16*y1 + 2^32 <= y + 2^32 <= 3*y, kann überlaufen!
+        // Dies ist < 2^16*y1 + 2^32 <= y + 2^32 <= 3*y, kann Ã¼berlaufen!
         r = highlow32(r16,low16(xlo)); // 2^16*r16 + low16(xlo) < 2^32
         r2 = highlow32_0(q0) - mulu16(low16(y),q0); // 2^16*q0 - y0*q0 < 2^32
         // 0 <= r+r2 < 3*y. Bei der Addition auf Carry testen!
@@ -220,7 +220,7 @@ uint64 divu_6464_6464_(uint64 x, uint64 y)
 // y habe genau n+k Bits (1 <= k <= n), d.h. 2^(n+k-1) <= y < 2^(n+k).
 // Schreibe  x = 2^k*x1 + x0  mit  x1 := floor(x/2^k)
 // und       y = 2^k*y1 + y0  mit  y1 := floor(y/2^k)
-// und bilde den Näherungs-Quotienten floor(x1/y1)
+// und bilde den NÃ¤herungs-Quotienten floor(x1/y1)
 // oder (noch besser) floor(x1/(y1+1)).
 // Wegen 0 <= x1 < 2^(2n) und 0 < 2^(n-1) <= y1 < 2^n
 // und  x1/(y1+1) <= x/y < x1/(y1+1) + 2
@@ -233,7 +233,7 @@ uint64 divu_6464_6464_(uint64 x, uint64 y)
 // gilt  floor(x1/(y1+1)) <= floor(x/y) <= floor(x1/(y1+1)) + 2  .
 // Man bildet also  q:=floor(x1/(y1+1))  (ein Shift um n Bit oder
 // eine (2n)-durch-n-Bit-Division, mit Ergebnis q <= floor(x/y) < beta)
-// und x-q*y und muss hiervon noch höchstens 2 mal y abziehen und q
+// und x-q*y und muss hiervon noch hÃ¶chstens 2 mal y abziehen und q
 // incrementieren, um den Quotienten  q = floor(x/y)  und den Rest
 // x-floor(x/y)*y  der Division zu bekommen.
 {
@@ -249,7 +249,7 @@ uint64 divu_6464_6464_(uint64 x, uint64 y)
     { var uint64 x1 = x; // x1 := x
       var uint64 y1 = y; // y1 := y
       var uint32 q;
-      do { x1 = floor(x1,2); y1 = floor(y1,2); } // k erhöhen
+      do { x1 = floor(x1,2); y1 = floor(y1,2); } // k erhÃ¶hen
          while (!(y1 <= (uint64)(((uint64)1<<32)-1))); // bis y1 < beta
       { var uint32 y2 = low32(y1)+1; // y1+1 bilden
         if (y2==0)
@@ -258,12 +258,12 @@ uint64 divu_6464_6464_(uint64 x, uint64 y)
           { divu_6432_3232(high32(x1),low32(x1),y2,q=,); } // Division von x1 durch y1+1
       }
       // q = floor(x1/(y1+1))
-      // x-q*y bilden (eine 32-mal-64-Bit-Multiplikation ohne Überlauf):
+      // x-q*y bilden (eine 32-mal-64-Bit-Multiplikation ohne Ãœberlauf):
       x -= highlow64_0(mulu32_64(q,high32(y))); // q * high32(y) * beta
       // gefahrlos, da q*high32(y) <= q*y/beta <= x/beta < beta
       x -= mulu32_64(q,low32(y)); // q * low32(y)
       // gefahrlos, da q*high32(y)*beta + q*low32(y) = q*y <= x
-      // Noch höchstens 2 mal y abziehen:
+      // Noch hÃ¶chstens 2 mal y abziehen:
       if (x >= y)
         { q += 1; x -= y;
           if (x >= y)
@@ -301,12 +301,12 @@ uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
         { xhi = (xhi << s) | (xlo >> (64-s)); xlo = xlo << s; }
       // 128-durch-64-Bit-Division,
       // aufgebaut aus zwei 96-durch-64-Bit-Divisionen.
-      // Methode für eine 96-durch-64-Bit-Division x/y mit 0 <= x < 2^32*y :
+      // Methode fÃ¼r eine 96-durch-64-Bit-Division x/y mit 0 <= x < 2^32*y :
       // (beta = 2^n = 2^32, n = 32)
       // Wir wissen beta^2/2 <= y < beta^2, Quotient  q = floor(x/y) < beta.
       // Schreibe  x = beta*x1 + x0  mit  x1 := floor(x/beta)
       // und       y = beta*y1 + y0  mit  y1 := floor(y/beta)
-      // und bilde den Näherungs-Quotienten floor(x1/y1)
+      // und bilde den NÃ¤herungs-Quotienten floor(x1/y1)
       // oder (noch besser) floor(x1/(y1+1)).
       // Wegen 0 <= x1 < 2^(2n) und 0 < 2^(n-1) <= y1 < 2^n
       // und  x1/(y1+1) <= x/y < x1/(y1+1) + 2
@@ -318,7 +318,7 @@ uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
       // gilt  floor(x1/(y1+1)) <= floor(x/y) <= floor(x1/(y1+1)) + 2  .
       // Man bildet also  q:=floor(x1/(y1+1))  (ein Shift um n Bit oder
       // eine (2n)-durch-n-Bit-Division, mit Ergebnis q <= floor(x/y) < beta)
-      // und x-q*y und muß hiervon noch höchstens 2 mal y abziehen und q
+      // und x-q*y und muÃŸ hiervon noch hÃ¶chstens 2 mal y abziehen und q
       // incrementieren, um den Quotienten  q = floor(x/y)  und den Rest
       // x-floor(x/y)*y  der Division zu bekommen.
       { var uint32 y1_1 = high32(y)+1; // y1+1
@@ -336,7 +336,7 @@ uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
         // Bilde r := (2^32*xhi+high32(xlo)) - y*q1
         //          = 2^32*(xhi-y1*q1) + high32(xlo) - y0*q1
         //          = 2^32*r32 + 2^32*q1 + high32(xlo) - y0*q1 (>=0)
-        // Dies ist < 2^32*y1 + 2^64 <= y + 2^64 <= 3*y, kann überlaufen!
+        // Dies ist < 2^32*y1 + 2^64 <= y + 2^64 <= 3*y, kann Ã¼berlaufen!
         r = highlow64(r32,high32(xlo)); // 2^32*r32 + high32(xlo) < 2^64
         r2 = highlow64_0(q1) - mulu32_w(low32(y),q1); // 2^32*q1 - y0*q1 < 2^64
         // 0 <= r+r2 < 3*y. Bei der Addition auf Carry testen!
@@ -359,7 +359,7 @@ uint64 divu_12864_6464_(uint64 xhi, uint64 xlo, uint64 y)
         // Bilde r := (2^32*r+low32(xlo)) - y*q0
         //          = 2^32*(r-y1*q0) + low32(xlo) - y0*q0
         //          = 2^32*r32 + 2^32*q0 + low32(xlo) - y0*q0 (>=0)
-        // Dies ist < 2^32*y1 + 2^64 <= y + 2^64 <= 3*y, kann überlaufen!
+        // Dies ist < 2^32*y1 + 2^64 <= y + 2^64 <= 3*y, kann Ã¼berlaufen!
         r = highlow64(r32,low32(xlo)); // 2^32*r32 + low32(xlo) < 2^64
         r2 = highlow64_0(q0) - mulu32_w(low32(y),q0); // 2^32*q0 - y0*q0 < 2^64
         // 0 <= r+r2 < 3*y. Bei der Addition auf Carry testen!

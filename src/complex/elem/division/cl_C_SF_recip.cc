@@ -19,10 +19,10 @@ const cl_C_SF cl_C_recip (const cl_SF& a, const cl_SF& b)
 //  a=0.0 -> liefere die Komponenten a=0.0 und -1/b.
 //  b=0.0 -> liefere die Komponenten 1/a und b=0.0.
 //  e:=max(exponent(a),exponent(b)).
-//  a':=a/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren a':=a/2^e
+//  a':=a/2^e bzw. 0.0 bei UnderflowmÃ¶glichkeit (beim Skalieren a':=a/2^e
 //      oder beim Quadrieren a'*a':  2*(e-exponent(a))>exp_mid-exp_low-1
 //      d.h. exponent(b)-exponent(a)>floor((exp_mid-exp_low-1)/2) ).
-//  b':=b/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren b':=b/2^e
+//  b':=b/2^e bzw. 0.0 bei UnderflowmÃ¶glichkeit (beim Skalieren b':=b/2^e
 //      oder beim Quadrieren b'*b':  2*(e-exponent(b))>exp_mid-exp_low-1
 //      d.h. exponent(a)-exponent(b)>floor((exp_mid-exp_low-1)/2) ).
 //  c':=a'*a'+b'*b',

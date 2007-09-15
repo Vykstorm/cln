@@ -22,27 +22,27 @@ const cl_I mkf_extract (const cl_I& x, uintC p, uintC q)
       var uintC len;
       var const uintD* LSDptr;
       I_to_NDS_nocopy(x, MSDptr=,len=,LSDptr=,true, { return 0; } ); // NDS zu x bilden
-      // MSDptr erhˆhen und len erniedrigen, so daﬂ len = ceiling(q/intDsize) wird:
+      // MSDptr erh√∂hen und len erniedrigen, so da√ü len = ceiling(q/intDsize) wird:
       { var uintC qD = ceiling(q,intDsize); // ceiling(q/intDsize)
         // wegen q<=l ist qD = ceiling(q/intDsize) <= ceiling((l+1)/intDsize) = len, also
-        // paﬂt qD ebenso wie len in ein uintC.
-        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erhˆhen
+        // pa√üt qD ebenso wie len in ein uintC.
+        MSDptr = MSDptr mspop (len - qD); // MSDptr um len-qD Digits erh√∂hen
         len = qD; // len um len-qD erniedrigen
       }
-      // Platz (len Digits) f¸r die neue UDS bereitstellen:
+      // Platz (len Digits) f√ºr die neue UDS bereitstellen:
       var uintD* newMSDptr;
       num_stack_alloc_1(len, newMSDptr = ,); // Platz belegen
-      {var uintC pD = p/intDsize; // floor(p/intDsize), paﬂt in ein uintC
+      {var uintC pD = p/intDsize; // floor(p/intDsize), pa√üt in ein uintC
        // Kopiere len-pD Digits aus der DS zu x heraus:
        var uintD* midptr = copy_loop_msp(MSDptr,newMSDptr,len-pD);
-       // Lˆsche p-intDsize*floor(p/intDsize) Bits im Digit unterhalb von midptr:
+       // L√∂sche p-intDsize*floor(p/intDsize) Bits im Digit unterhalb von midptr:
        {var uintC p_D = p%intDsize;
         if (!(p_D==0)) { lspref(midptr,0) &= minus_bit(p_D); }
        }
-       // Lˆsche pD Digits dar¸ber:
+       // L√∂sche pD Digits dar√ºber:
        clear_loop_msp(midptr,pD);
       }
-      // Lˆsche intDsize*ceiling(q/intDsize)-q Bits im ersten Digit:
+      // L√∂sche intDsize*ceiling(q/intDsize)-q Bits im ersten Digit:
       {var uintL q_D = q%intDsize;
 #ifdef HAVE_FAST_LONGLONG
        if (!(q_D==0))
@@ -52,7 +52,7 @@ const cl_I mkf_extract (const cl_I& x, uintC p, uintC q)
          mspref(newMSDptr,0) &= (uintD)((1L<<q_D)-1); // erase intDsize-q_D bits
 #endif
       }
-      // Jetzt enth‰lt die UDS newMSDptr/len/.. die extrahierten Bits.
+      // Jetzt enth√§lt die UDS newMSDptr/len/.. die extrahierten Bits.
       return UDS_to_I(newMSDptr,len);
 }
 

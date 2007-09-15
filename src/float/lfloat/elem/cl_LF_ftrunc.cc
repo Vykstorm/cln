@@ -42,7 +42,7 @@ const cl_LF ftruncate (const cl_LF& x)
             var uintD* ptr =
               copy_loop_msp(mantMSDptr,MSDptr,count); // count ganze Digits kopieren
             msprefnext(ptr) = mspref(mantMSDptr,count) & minus_bitm(intDsize-bitcount); // dann bitcount Bits kopieren
-            clear_loop_msp(ptr,mantlen-count-1); // Rest mit Nullen füllen
+            clear_loop_msp(ptr,mantlen-count-1); // Rest mit Nullen fÃ¼llen
           }
           return encode_LF(sign,exp,MSDptr,mantlen);
         }
@@ -65,7 +65,7 @@ const cl_LF ftruncate (const cl_LF& x)
        var uintD* ptr =
          copy_loop_msp(x_mantMSDptr,arrayMSDptr(TheLfloat(y)->data,len),count); // count ganze Digits kopieren
        msprefnext(ptr) = mspref(x_mantMSDptr,count) & minus_bitm(intDsize-bitcount); // dann bitcount Bits kopieren
-       clear_loop_msp(ptr,len-count-1); // Rest mit Nullen füllen
+       clear_loop_msp(ptr,len-count-1); // Rest mit Nullen fÃ¼llen
       }
       return y;
 #endif

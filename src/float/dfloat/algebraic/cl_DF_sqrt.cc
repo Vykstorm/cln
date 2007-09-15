@@ -25,7 +25,7 @@ const cl_DF sqrt (const cl_DF& x)
 // Ergebnis-Mantisse:
 //   Bilde aus [1,m51,...,m0,(55 Nullbits)] bei geradem e,
 //         aus [0,1,m51,...,m0,(54 Nullbits)] bei ungeradem e
-//   die Ganzzahl-Wurzel, eine 54-Bit-Zahl mit einer führenden 1.
+//   die Ganzzahl-Wurzel, eine 54-Bit-Zahl mit einer fÃ¼hrenden 1.
 //   Runde das letzte Bit weg:
 //     Bit 0 = 0 -> abrunden,
 //     Bit 0 = 1 und Wurzel exakt -> round-to-even,
@@ -38,7 +38,7 @@ const cl_DF sqrt (const cl_DF& x)
       var sintL exp;
       var uint64 mantx;
       DF_decode(x, { return x; }, ,exp=,mantx=);
-      // Um die 128-Bit-Ganzzahl-Wurzel ausnutzen zu können, fügen wir beim
+      // Um die 128-Bit-Ganzzahl-Wurzel ausnutzen zu kÃ¶nnen, fÃ¼gen wir beim
       // Radikanden 74 bzw. 75 statt 54 bzw. 55 Nullbits an.
       if (exp & bit(0))
         // e ungerade
@@ -87,7 +87,7 @@ const cl_DF sqrt (const cl_DF& x)
       var uint32 manthi;
       var uint32 mantlo;
       DF_decode2(x, { return x; }, ,exp=,manthi=,mantlo=);
-      // Um die 128-Bit-Ganzzahl-Wurzel ausnutzen zu können, fügen wir beim
+      // Um die 128-Bit-Ganzzahl-Wurzel ausnutzen zu kÃ¶nnen, fÃ¼gen wir beim
       // Radikanden 74 bzw. 75 statt 54 bzw. 55 Nullbits an.
       if (exp & bit(0))
         // e ungerade

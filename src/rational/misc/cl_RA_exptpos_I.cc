@@ -18,7 +18,7 @@ const cl_RA expt_pos (const cl_RA& x, const cl_I& y)
 {
   // Methode:
   // x Integer -> klar
-  // x Ratio a/b -> x^y = (a^y)/(b^y), gekürzt, mit b^y>=b>1.
+  // x Ratio a/b -> x^y = (a^y)/(b^y), gekÃ¼rzt, mit b^y>=b>1.
 	if (integerp(x)) {
 		DeclareType(cl_I,x);
 		return expt_pos(x,y);

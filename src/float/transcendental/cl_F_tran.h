@@ -45,24 +45,24 @@ struct cl_LF_cosh_sinh_t {
 };
 extern const cl_LF_cosh_sinh_t cl_coshsinh_aux (const cl_I& p, uintE lq, uintC len);
 
-// atanhx(x) liefert zu einem Float x (betragsmäßig <1/2) atanh(x) als Float.
+// atanhx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <1/2) atanh(x) als Float.
 extern const cl_F atanhx (const cl_F& x);
 
-// atanx(x) liefert zu einem Float x (betragsmäßig <=1) atan(x) als Float.
+// atanx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <=1) atan(x) als Float.
 extern const cl_F atanx (const cl_F& x);
 
-// sinx(x) liefert zu einem Float x (betragsmäßig <1) sin(x)^2 als Float.
-// sinxbyx(x) liefert zu einem Float x (betragsmäßig <1) (sin(x)/x)^2 als Float.
+// sinx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <1) sin(x)^2 als Float.
+// sinxbyx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <1) (sin(x)/x)^2 als Float.
 extern const cl_LF sinx_naive (const cl_LF& x); // requires cl_F_extendsqrt
 extern const cl_F sinxbyx_naive (const cl_F& x); // requires cl_F_extendsqrt
-// (cos(x),sin(x)) für ein Long-Float x (betragsmäßig <1).
+// (cos(x),sin(x)) fÃ¼r ein Long-Float x (betragsmÃ¤ÃŸig <1).
 extern const cl_LF_cos_sin_t cl_cossin_ratseries (const cl_LF& x); // requires extend by 1
 
-// sinhx(x) liefert zu einem Float x (betragsmäßig <1) sinh(x)^2 als Float.
-// sinhxbyx(x) liefert zu einem Float x (betragsmäßig <1) (sinh(x)/x)^2 als Float.
+// sinhx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <1) sinh(x)^2 als Float.
+// sinhxbyx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <1) (sinh(x)/x)^2 als Float.
 extern const cl_LF sinhx_naive (const cl_LF& x); // requires cl_F_extendsqrt
 extern const cl_F sinhxbyx_naive (const cl_F& x); // requires cl_F_extendsqrt
-// (cosh(x),sinh(x)) für ein Long-Float x (betragsmäßig <1).
+// (cosh(x),sinh(x)) fÃ¼r ein Long-Float x (betragsmÃ¤ÃŸig <1).
 extern const cl_LF_cosh_sinh_t cl_coshsinh_ratseries (const cl_LF& x); // requires extend by 1
 
 // cl_round_pi(x) dividiert ein Float x mit Rest durch pi.
@@ -123,7 +123,7 @@ extern const cl_DF cl_DF_exp1;
 extern cl_LF cl_LF_exp1; // as long as it has ever been computed
 extern const cl_LF exp1 (uintC len); // computes it even further
 
-// expx(x) liefert zu einem Float x (betragsmäßig <1) exp(x) als Float.
+// expx(x) liefert zu einem Float x (betragsmÃ¤ÃŸig <1) exp(x) als Float.
 extern const cl_F expx_naive (const cl_F& x); // requires cl_F_extendsqrtx
 extern const cl_LF expx_naive (const cl_LF& x); // requires cl_F_extendsqrtx
 extern const cl_LF expx_ratseries (const cl_LF& x); // requires extend by 1
@@ -142,9 +142,9 @@ extern const cl_DF cl_DF_catalanconst;
 extern cl_LF cl_LF_catalanconst; // as long as it has ever been computed
 extern const cl_LF catalanconst (uintC len); // computes it even further
 
-// Zeta-Funktion für s>1 ganzzahlig.
+// Zeta-Funktion fÃ¼r s>1 ganzzahlig.
 extern const cl_LF zeta (int s, uintC len);
-// Zeta-Funktion für s=3.
+// Zeta-Funktion fÃ¼r s=3.
 extern const cl_LF zeta3 (uintC len);
 
 }  // namespace cln

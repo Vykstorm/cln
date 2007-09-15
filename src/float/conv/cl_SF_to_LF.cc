@@ -28,10 +28,10 @@ const cl_LF cl_SF_to_LF (const cl_SF& x, uintC len)
 	#endif
 	SF_decode(x, { return encode_LF0(len); }, sign=,exp=(sintL),mant=);
 	// Long-Float allozieren,
-	// Mantisse mit intDsize*len-SF_mant_len-1 Nullbits auffüllen:
+	// Mantisse mit intDsize*len-SF_mant_len-1 Nullbits auffÃ¼llen:
 	var Lfloat y = allocate_lfloat(len,exp+LF_exp_mid,sign);
 	var uintD* ptr = arrayMSDptr(TheLfloat(y)->data,len);
-	// erste k := ceiling(SF_mant_len+1,intDsize) Digits mit mant füllen:
+	// erste k := ceiling(SF_mant_len+1,intDsize) Digits mit mant fÃ¼llen:
 	mant = mant << (ceiling(SF_mant_len+1,intDsize)*intDsize-(SF_mant_len+1));
 	#if (intDsize==64)
 	set_max64_Dptr(SF_mant_len+1,ptr,mant);

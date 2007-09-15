@@ -20,7 +20,7 @@ extern const cl_LF operator- (const cl_LF& x);
 // Ergebnis: 0 falls x=y, +1 falls x>y, -1 falls x<y.
 extern cl_signean compare (const cl_LF& x, const cl_LF& y);
 
-// equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
+// equal_hashcode(x) liefert einen equal-invarianten Hashcode fÃ¼r x.
 extern uint32 equal_hashcode (const cl_LF& x);
 
 inline bool operator== (const cl_LF& x, const cl_LF& y)
@@ -74,7 +74,7 @@ inline const cl_R operator* (const cl_RA& x, const cl_LF& y)
 	extern const cl_R cl_LF_RA_mul (const cl_LF&, const cl_RA&);
 	return cl_LF_RA_mul(y,x);
 }
-// Dem C++-Compiler muß man auch das Folgende sagen (wg. `int * cl_LF' u.ä.):
+// Dem C++-Compiler muÃŸ man auch das Folgende sagen (wg. `int * cl_LF' u.Ã¤.):
 inline const cl_R operator* (const int x, const cl_LF& y)
 	{ return cl_I(x) * y; }
 inline const cl_R operator* (const unsigned int x, const cl_LF& y)
@@ -130,7 +130,7 @@ inline const cl_R operator/ (const cl_RA& x, const cl_LF& y)
 	extern const cl_R cl_RA_LF_div (const cl_RA& x, const cl_LF& y);
 	return cl_RA_LF_div(x,y);
 }
-// Dem C++-Compiler muß man nun auch das Folgende sagen:
+// Dem C++-Compiler muÃŸ man nun auch das Folgende sagen:
 inline const cl_LF operator/ (const cl_LF& x, const int y)
 	{ return x / cl_I(y); }
 inline const cl_LF operator/ (const cl_LF& x, const unsigned int y)

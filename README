@@ -21,7 +21,7 @@ Features:
     - Automatic, non-interruptive garbage collection.
 - Speed efficiency:
     - Assembly language kernel for some CPUs,
-    - Karatsuba and Schönhage-Strassen multiplication.
+    - Karatsuba and SchÃ¶nhage-Strassen multiplication.
 - Interoperability:
     - Garbage collection with no burden on
       the main application,

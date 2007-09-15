@@ -8,7 +8,7 @@
 ; gibt die Floating-Point-Zahl arg in Festkommadarstellung auf stream aus.
 (defun format-float-for-f (w d k overflowchar padchar plus-sign-flag arg stream)
   (let ((width (if w (if (or plus-sign-flag (minusp arg)) (1- w) w) nil)))
-    ; width = zur Verfügung stehende Zeichen ohne Vorzeichen
+    ; width = zur VerfÃ¼gung stehende Zeichen ohne Vorzeichen
     (multiple-value-bind (digits digitslength leadingpoint trailingpoint)
         (format-float-to-string arg width d k nil)
       (when (eql d 0) (setq trailingpoint nil)) ; d=0 -> keine Zusatz-Null hinten
@@ -21,7 +21,7 @@
           (if (> width 0) (setq width (1- width)) (setq trailingpoint nil))
         )
       )
-      ; Es bleiben noch width Zeichen übrig.
+      ; Es bleiben noch width Zeichen Ã¼brig.
       (if (and overflowchar w (minusp width))
         (format-padding w overflowchar stream) ; Zu wenig Platz -> overflow
         (progn
@@ -50,11 +50,11 @@
 ;   (Der Defaultwert in FORMAT-EXPONENTIAL-FLOAT ist k=1.)
 ; Vor der Mantisse das Vorzeichen (ein + nur falls arg>=0 und plus-sign-flag).
 ; Dann der Exponent, eingeleitet durch exponentchar, dann Vorzeichen des
-; Exponenten (stets + oder -), dann e Stellen für den Exponenten.
-; Dann wird das Ganze mit padchars auf w Zeichen Breite aufgefüllt.
-; Sollte das (auch nach evtl. Unterdrückung einer führenden Null) mehr als
+; Exponenten (stets + oder -), dann e Stellen fÃ¼r den Exponenten.
+; Dann wird das Ganze mit padchars auf w Zeichen Breite aufgefÃ¼llt.
+; Sollte das (auch nach evtl. UnterdrÃ¼ckung einer fÃ¼hrenden Null) mehr als
 ; w Zeichen ergeben, so werden statt dessen w overflowchars ausgegeben, oder
-; (falls overflowchar = nil) die Zahl mit so vielen Stellen wie nötig
+; (falls overflowchar = nil) die Zahl mit so vielen Stellen wie nÃ¶tig
 ; ausgegeben.
 (defun format-float-for-e (w d e k
        overflowchar padchar exponentchar plus-sign-flag arg stream)
@@ -62,15 +62,15 @@
     (let* ((exponent (if (zerop arg) 0 (- oldexponent k))) ; auszugebender Exponent
            (expdigits (write-to-string (abs exponent) :base 10. :radix nil :readably nil))
            (expdigitsneed (if e (max (length expdigits) e) (length expdigits)))
-           ; expdigitsneed = Anzahl der Stellen, die für die Ziffern des
-           ; Exponenten nötig sind.
+           ; expdigitsneed = Anzahl der Stellen, die fÃ¼r die Ziffern des
+           ; Exponenten nÃ¶tig sind.
            (mantd (if d (if (> k 0) (1+ (- d k)) d) nil))
            ; mantd = Anzahl der Mantissenstellen hinter dem Punkt
-           (dmin (if (minusp k) (- 1 k) nil)) ; nachher: fordere, daß
+           (dmin (if (minusp k) (- 1 k) nil)) ; nachher: fordere, daÃŸ
            ; nicht in die ersten (+ 1 (abs k)) Stellen hineingerundet wird.
            (mantwidth (if w (- w 2 expdigitsneed) nil))
-           ; mantwidth = Anzahl der für die Mantisse (inkl. Vorzeichen, Punkt)
-           ; zur Verfügung stehenden Zeichen (oder nil)
+           ; mantwidth = Anzahl der fÃ¼r die Mantisse (inkl. Vorzeichen, Punkt)
+           ; zur VerfÃ¼gung stehenden Zeichen (oder nil)
           )
       (declare (simple-string expdigits) (fixnum exponent expdigitsneed))
       (if (and overflowchar w e (> expdigitsneed e))
@@ -80,8 +80,8 @@
           (if w
             (if (or plus-sign-flag (minusp arg)) (setq mantwidth (1- mantwidth)))
           )
-          ; mantwidth = Anzahl der für die Mantisse (ohne Vorzeichen,
-          ; inklusive Punkt) zur Verfügung stehenden Zeichen (oder nil)
+          ; mantwidth = Anzahl der fÃ¼r die Mantisse (ohne Vorzeichen,
+          ; inklusive Punkt) zur VerfÃ¼gung stehenden Zeichen (oder nil)
           (multiple-value-bind (mantdigits mantdigitslength
                                 leadingpoint trailingpoint)
               (format-float-to-string mantissa mantwidth mantd k dmin)
@@ -98,7 +98,7 @@
                   (setq leadingpoint nil)
               ) )
             )
-            ; Es bleiben noch mantwidth Zeichen übrig.
+            ; Es bleiben noch mantwidth Zeichen Ã¼brig.
             (if (and overflowchar w (minusp mantwidth))
               (format-padding w overflowchar stream) ; Zu wenig Platz -> overflow
               (progn

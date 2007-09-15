@@ -22,7 +22,7 @@
 
 namespace cln {
 
-// Hilfsfunktion für asinh und asin: u+iv := arsinh(x+iy). Liefert cl_C_R(u,v).
+// Hilfsfunktion fÃ¼r asinh und asin: u+iv := arsinh(x+iy). Liefert cl_C_R(u,v).
 
 const cl_C_R asinh (const cl_R& x, const cl_R& y)
 {
@@ -60,19 +60,19 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 //     arsinh(z) = -arsinh(-z).
 //     (Denn arsinh(z)+arsinh(-z) == log((z+sqrt(1+z^2))(-z+sqrt(1+z^2)))
 //           = log((1+z^2)-z^2) = log(1) = 0 mod 2 pi i, und links ist
-//      der Imaginärteil betragsmäßig <=pi.)
+//      der ImaginÃ¤rteil betragsmÃ¤ÃŸig <=pi.)
 //     Also arsinh(z) = -arsinh(-z) = - 2 artanh(-z/(1+sqrt(1+z^2)))
 //          = (wegen -artanh(-w) = artanh(w)) = 2 artanh(z/(1+sqrt(1+z^2))).
-// Real- und Imaginärteil des Ergebnisses sind Floats, außer wenn z reell oder
-// rein imaginär ist.
+// Real- und ImaginÃ¤rteil des Ergebnisses sind Floats, auÃŸer wenn z reell oder
+// rein imaginÃ¤r ist.
 
-// Um für zwei Zahlen u,v mit u^2-v^2=1 und u,v beide in Bild(sqrt)
-// (d.h. Realteil>0.0 oder Realteil=0.0 und Imaginärteil>=0.0)
+// Um fÃ¼r zwei Zahlen u,v mit u^2-v^2=1 und u,v beide in Bild(sqrt)
+// (d.h. Realteil>0.0 oder Realteil=0.0 und ImaginÃ¤rteil>=0.0)
 // log(u+v) zu berechnen:
 //               log(u+v) = 2 artanh(v/(u+1))                            (!)
 // (Beweis: 2 artanh(v/(u+1)) = log(1+(v/(u+1))) - log(1-(v/(u+1)))
 //  = log((1+u+v)/(u+1)) - log((1+u-v)/(u+1)) == log((1+u+v)/(1+u-v))
-//  = log(u+v) mod 2 pi i, und beider Imaginärteil ist > -pi und <= pi.)
+//  = log(u+v) mod 2 pi i, und beider ImaginÃ¤rteil ist > -pi und <= pi.)
 
 	if (eq(x,0)) {
 		// x=0
@@ -155,15 +155,15 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 	}
 	var cl_N z = complex_C(x,y); // z=x+iy
 	var cl_N w = z/(1+sqrt(1+square(z))); // z/(1+sqrt(1+z^2))
-	// Da z=x+iy weder reell noch rein imaginär ist, ist auch
-	// w := z/(1+sqrt(1+z^2)) weder reell noch rein imaginär.
-	// (Beweis: Sollte sqrt(1+z^2) rationalen Real- und Imaginärteil haben,
-	// so auch z, also auch w, und die Formel z = 2w/(1-w^2) zeigt, daß dann
-	// z reell oder rein imaginär sein müßte. Also hat sqrt(1+z^2) ein
-	// Float als Real- oder Imaginärteil, das Betragsquadrat des Nenners
-	// ist also ein Float, und da Real- und Imaginärteil von z /=0 sind,
-	// sind Real- und Imaginärteil von w Floats.)
-	// Daher hat dann atanh(...) Floats als Realteil u und Imaginärteil v.
+	// Da z=x+iy weder reell noch rein imaginÃ¤r ist, ist auch
+	// w := z/(1+sqrt(1+z^2)) weder reell noch rein imaginÃ¤r.
+	// (Beweis: Sollte sqrt(1+z^2) rationalen Real- und ImaginÃ¤rteil haben,
+	// so auch z, also auch w, und die Formel z = 2w/(1-w^2) zeigt, daÃŸ dann
+	// z reell oder rein imaginÃ¤r sein mÃ¼ÃŸte. Also hat sqrt(1+z^2) ein
+	// Float als Real- oder ImaginÃ¤rteil, das Betragsquadrat des Nenners
+	// ist also ein Float, und da Real- und ImaginÃ¤rteil von z /=0 sind,
+	// sind Real- und ImaginÃ¤rteil von w Floats.)
+	// Daher hat dann atanh(...) Floats als Realteil u und ImaginÃ¤rteil v.
  {	DeclareType(cl_C,w);
 	cl_C_R u_v = atanh(realpart(w),imagpart(w));
 	var cl_R& u = u_v.realpart;

@@ -14,9 +14,9 @@ namespace cln {
 uintD div2adic (uintD a, uintD b)
 {
 // Methode:
-// Konstruiere c Bit für Bit.
+// Konstruiere c Bit fÃ¼r Bit.
 // c := 0, d := a.
-// Für j=0,...,intDsize:
+// FÃ¼r j=0,...,intDsize:
 //   [Hier b*c == a mod 2^j und d = (a-b*c)/2^j.] j=intDsize -> fertig.
 //   Falls d ungerade, setze c:=c+2^j und d:=(d-b)/2, sonst d:=d/2.
 // Ergebnis c.

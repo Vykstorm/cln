@@ -14,8 +14,8 @@
 
 namespace cln {
 
-// Dasselbe wie partial_gcd(z1,z2,erg), nur daß z1 und z2 Doppelworte sind.
-// Bevor im Ergebnis erg ein Überlauf eintritt, wird abgebrochen.
+// Dasselbe wie partial_gcd(z1,z2,erg), nur daÃŸ z1 und z2 Doppelworte sind.
+// Bevor im Ergebnis erg ein Ãœberlauf eintritt, wird abgebrochen.
 
 #if HAVE_DD
 
@@ -25,10 +25,10 @@ static inline uintDD muluDD_unchecked(uintD q, uintDD a)
 }
 
 // Division: liefert min(floor(x / y), 2^intDsize-1).
-// Vorausgesetzt wird, daß  x >= 2 * y > 0.
+// Vorausgesetzt wird, daÃŸ  x >= 2 * y > 0.
 static uintD floorDD (uintDD x, uintDD y)
 {
-	// vgl. Algorithmus für divu_3232_3232().
+	// vgl. Algorithmus fÃ¼r divu_3232_3232().
 	var uintD q;
 	if (y < ((uintDD)1 << intDsize)) {
 		if (highD(x) >= y)
@@ -178,17 +178,17 @@ void partial_gcd (uintDD z1, uintDD z2, partial_gcd_result* erg)
 	if (z1 - (uintDD)y1 <= z2 + (uintDD)(y2-1)) goto done;
     }
     done:
-	// Keine Subtraktion (ohne Überlauf) mehr möglich.
+	// Keine Subtraktion (ohne Ãœberlauf) mehr mÃ¶glich.
 	erg->x1 = x1; erg->y1 = y1; erg->x2 = x2; erg->y2 = y2; // Ergebnis
 }
 
 #else
 
 // Division: liefert min(floor(xhi|xlo / yhi|ylo), 2^intDsize-1).
-// Vorausgesetzt wird, daß  xhi|xlo >= 2 * yhi|ylo > 0.
+// Vorausgesetzt wird, daÃŸ  xhi|xlo >= 2 * yhi|ylo > 0.
 static uintD floorDD (uintD xhi, uintD xlo, uintD yhi, uintD ylo)
 {
-	// vgl. Algorithmus für divu_3232_3232().
+	// vgl. Algorithmus fÃ¼r divu_3232_3232().
 	var uintD q;
 	if (yhi == 0) {
 		if (xhi >= ylo)
@@ -448,7 +448,7 @@ void partial_gcd (uintD z1hi, uintD z1lo, uintD z2hi, uintD z2lo, partial_gcd_re
 	}
     }
     done:
-	// Keine Subtraktion (ohne Überlauf) mehr möglich.
+	// Keine Subtraktion (ohne Ãœberlauf) mehr mÃ¶glich.
 	erg->x1 = x1; erg->y1 = y1; erg->x2 = x2; erg->y2 = y2; // Ergebnis
 }
 

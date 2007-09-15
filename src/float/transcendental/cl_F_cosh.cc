@@ -19,7 +19,7 @@ namespace cln {
 const cl_F cosh (const cl_F& x)
 {
 // Methode:
-// Genauigkeit erhöhen,
+// Genauigkeit erhÃ¶hen,
 // e := Exponent aus (decode-float x), d := (float-digits x)
 // falls x=0.0 oder e<=(1-d)/2 liefere 1.0
 //   (denn bei e<=(1-d)/2 ist 1 <= cosh(x) = 1+x^2/2+... < 1+2^(-d),
@@ -37,7 +37,7 @@ const cl_F cosh (const cl_F& x)
 		var uintC d = float_digits(x);
 		if (e <= (1-(sintC)d)>>1) // e <= (1-d)/2 <==> e <= -ceiling((d-1)/2) ?
 			return cl_float(1,x); // ja -> 1.0 als Ergebnis
-		// Rechengenauigkeit erhöhen
+		// Rechengenauigkeit erhÃ¶hen
 		if (longfloatp(x)) {
 			DeclareType(cl_LF,x);
 			#if 0

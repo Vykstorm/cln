@@ -22,13 +22,13 @@ namespace cln {
 // Falls y rational:
 //   Falls y Integer:
 //     Falls y=0: Ergebnis 1,
-//       [Nach CLTL folgendermaﬂen:
+//       [Nach CLTL folgenderma√üen:
 //         x reell:
 //           x rational -> Fixnum 1
 //           x Float -> (float 1 x)
 //         x komplex:
 //           x komplex rational -> Fixnum 1
-//           sonst: #C(1.0 0.0) im Float-Format des Real- bzw. Imagin‰rteils von x
+//           sonst: #C(1.0 0.0) im Float-Format des Real- bzw. Imagin√§rteils von x
 //       ]
 //     Falls x rational oder komplex rational oder |y| klein:
 //       x^|y| durch wiederholtes Quadrieren und Multiplizieren und evtl.
@@ -58,7 +58,7 @@ namespace cln {
 //     liefere 1.0 falls x und y reell, #C(1.0 0.0) sonst.
 //   Sonst: (exp (* (log x) y))
 // Das Ergebnis liegt in Q(i), falls x in Q(i) liegt und 4y ein Integer ist.??
-// Genauigkeit erhˆhen, log2(|y|) Bits mehr??
+// Genauigkeit erh√∂hen, log2(|y|) Bits mehr??
 // Bei x oder y rational und der andere Long-Float: bitte kein Single-Float!??
 
 // Liefert x^0.
@@ -130,7 +130,7 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 				if (rationalp(realpart(x)) && rationalp(imagpart(x)))
 					return expt(x,y); // exakt ausrechnen
 			}
-			// x nicht exakt und |y| groﬂ
+			// x nicht exakt und |y| gro√ü
 		} else {
 			DeclareType(cl_RT,y);
 			// y Ratio
@@ -187,7 +187,7 @@ const cl_N expt (const cl_N& x, const cl_N& y)
 			throw division_by_0_exception();
 		else {
 			var cl_R f = contagion(contagion(x),contagion(y));
-			// ein Float, da sonst x = Fixnum 0 gewesen w‰re
+			// ein Float, da sonst x = Fixnum 0 gewesen w√§re
 		    {	DeclareType(cl_F,f);
 			var cl_F f0 = cl_float(0,f);
 			return complex_C(f0,f0); // #C(0.0 0.0)

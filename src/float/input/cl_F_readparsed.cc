@@ -33,11 +33,11 @@ const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, 
 		var uintL exp_len = index2-index4; // Anzahl Stellen des Exponenten
 		if (exp_len > 0) {
 			var const char * ptr = &string[index4]; // zeigt auf den Exponentmarker
-			ptr++; exp_len--; // Exponentmarker überlesen
+			ptr++; exp_len--; // Exponentmarker Ã¼berlesen
 			var cl_signean exp_sign = 0; // Exponenten-Vorzeichen
 			switch (*ptr) {
 				case '-': exp_sign = ~exp_sign; // Vorzeichen := negativ
-				case '+': ptr++; exp_len--; // Exponenten-Vorzeichen überlesen
+				case '+': ptr++; exp_len--; // Exponenten-Vorzeichen Ã¼berlesen
 				default: ;
 			}
 			exponent = digits_to_I(ptr,exp_len,(uintD)base); // Exponent in Integer umwandeln
@@ -58,8 +58,8 @@ const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, 
 		DeclareType(cl_I,base_power);
 		ratvalue = mantisse * base_power;
 	} else {
-		// falls mantisse/=0, in exponent=1/10^i den Zähler durch mantisse
-		// ersetzen (liefert ungekürzten Bruch, Vorsicht!)
+		// falls mantisse/=0, in exponent=1/10^i den ZÃ¤hler durch mantisse
+		// ersetzen (liefert ungekÃ¼rzten Bruch, Vorsicht!)
 		DeclareType(cl_RT,base_power);
 		if (zerop(mantisse))
 			ratvalue = 0;
@@ -69,7 +69,7 @@ const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, 
 			ratvalue = base_power;
 		}
 	}
-	// ratvalue = Mantisse * Zehnerpotenz, als ungekürzte rationale Zahl!
+	// ratvalue = Mantisse * Zehnerpotenz, als ungekÃ¼rzte rationale Zahl!
 	floatformatcase(prec
 	,	// in Short-Float umwandeln
 		{

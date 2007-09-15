@@ -20,8 +20,8 @@ namespace cln {
 const cos_sin_t cos_sin (const cl_F& x)
 {
 // Methode:
-// Genauigkeit erhöhen,
-// (q,r) := (round x (float pi/2 x)), so daß |r|<=pi/4.
+// Genauigkeit erhÃ¶hen,
+// (q,r) := (round x (float pi/2 x)), so daÃŸ |r|<=pi/4.
 // y:=(sin(r)/r)^2 errechnen.
 // cos(r) berechnen:
 //   e := Exponent aus (decode-float r), d := (float-digits r)
@@ -37,7 +37,7 @@ const cos_sin_t cos_sin (const cl_F& x)
 // Falls q = 2 mod 4: (-cos(r), -sin(r))
 // Falls q = 3 mod 4: (sin(r), -cos(r))
 
-	// Rechengenauigkeit erhöhen und durch pi/2 dividieren:
+	// Rechengenauigkeit erhÃ¶hen und durch pi/2 dividieren:
 	var cl_F cos_r;
 	var cl_F sin_r;
 	var cl_I q;

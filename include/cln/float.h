@@ -51,7 +51,7 @@ extern const cl_DF cl_F_to_DF (const cl_F& x);
 
 // cl_F_to_LF(x,len) wandelt ein Float x in ein Long-Float mit len Digits um
 // und rundet dabei.
-// > uintC len: gew¸nschte Anzahl Digits, >=LF_minlen
+// > uintC len: gew√ºnschte Anzahl Digits, >=LF_minlen
 extern const cl_LF cl_F_to_LF (const cl_F& x, uintC len);
 
 
@@ -63,34 +63,34 @@ extern float_format_t default_float_format;
 extern float_format_t float_format (uintE n);
 
 // cl_float(x,y) wandelt ein Float x in das Float-Format des Floats y um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x,y: Floats
 // < ergebnis: (float x y)
 extern const cl_F cl_float (const cl_F& x, const cl_F& y);
 
 // cl_float(x,f) wandelt ein Float x in das Float-Format f um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: ein Float
 // > f: eine Float-Format-Spezifikation
 // < ergebnis: (float x f)
 extern const cl_F cl_float (const cl_F& x, float_format_t f);
 
 // cl_float(x) wandelt eine reelle Zahl x in ein Float um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: eine reelle Zahl
 // < ergebnis: (float x)
-// Abh‰ngig von default_float_format.
+// Abh√§ngig von default_float_format.
 inline const cl_F cl_float (const cl_F& x) { return x; }
 
 // cl_float(x,y) wandelt ein Integer x in das Float-Format des Floats y um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: ein Integer
 // > y: ein Float
 // < ergebnis: (float x y)
 extern const cl_F cl_float (const cl_I& x, const cl_F& y);
 
 // cl_float(x,y) wandelt ein Integer x in das Float-Format f um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: ein Integer
 // > f: eine Float-Format-Spezifikation
 // < ergebnis: (float x f)
@@ -99,18 +99,18 @@ extern const cl_F cl_float (const cl_I& x, float_format_t f);
 // cl_float(x) wandelt ein Integer x in ein Float um und rundet dabei.
 // > x: ein Integer
 // < ergebnis: (float x)
-// Abh‰ngig von default_float_format.
+// Abh√§ngig von default_float_format.
 extern const cl_F cl_float (const cl_I& x);
 
 // cl_float(x,y) wandelt eine rationale Zahl x in das Float-Format des
-// Floats y um und rundet dabei nˆtigenfalls.
+// Floats y um und rundet dabei n√∂tigenfalls.
 // > x: eine rationale Zahl
 // > y: ein Float
 // < ergebnis: (float x y)
 extern const cl_F cl_float (const cl_RA& x, const cl_F& y);
 
 // cl_float(x,y) wandelt eine rationale Zahl x in das Float-Format f um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: eine rationale Zahl
 // > f: eine Float-Format-Spezifikation
 // < ergebnis: (float x f)
@@ -119,7 +119,7 @@ extern const cl_F cl_float (const cl_RA& x, float_format_t f);
 // cl_float(x) wandelt eine rationale Zahl x in ein Float um und rundet dabei.
 // > x: eine rationale Zahl
 // < ergebnis: (float x)
-// Abh‰ngig von default_float_format.
+// Abh√§ngig von default_float_format.
 extern const cl_F cl_float (const cl_RA& x);
 
 // The C++ compilers are not clever enough to guess this:
@@ -164,7 +164,7 @@ inline const cl_F operator+ (const cl_F& x, const cl_RA& y)
 	{ return x + cl_float(y,x); }
 inline const cl_F operator+ (const cl_F& x, const cl_I& y)
 	{ return x + cl_float(y,x); }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_F operator+ (const int x, const cl_F& y)
 	{ return cl_I(x) + y; }
 inline const cl_F operator+ (const unsigned int x, const cl_F& y)
@@ -213,7 +213,7 @@ inline const cl_F operator- (const cl_F& x, const cl_RA& y)
 	{ return x - cl_float(y,x); }
 inline const cl_F operator- (const cl_F& x, const cl_I& y)
 	{ return x - cl_float(y,x); }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_F operator- (const int x, const cl_F& y)
 	{ return cl_I(x) - y; }
 inline const cl_F operator- (const unsigned int x, const cl_F& y)
@@ -274,7 +274,7 @@ inline const cl_R operator* (const cl_RA& x, const cl_F& y)
 	extern const cl_R cl_F_RA_mul (const cl_F&, const cl_RA&);
 	return cl_F_RA_mul(y,x);
 }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R operator* (const int x, const cl_F& y)
 	{ return cl_I(x) * y; }
 inline const cl_R operator* (const unsigned int x, const cl_F& y)
@@ -385,7 +385,7 @@ inline const cl_F minus1 (const cl_F& x) // { return x + cl_I(-1); }
 // Ergebnis: 0 falls x=y, +1 falls x>y, -1 falls x<y.
 extern cl_signean compare (const cl_F& x, const cl_F& y);
 
-// equal_hashcode(x) liefert einen equal-invarianten Hashcode f¸r x.
+// equal_hashcode(x) liefert einen equal-invarianten Hashcode f√ºr x.
 extern uint32 equal_hashcode (const cl_F& x);
 
 inline bool operator== (const cl_F& x, const cl_F& y)
@@ -705,9 +705,9 @@ extern const cl_F zeta (int s, float_format_t f);
 extern const cl_F zeta (int s);
 
 
-// random_F(randomstate,n) liefert zu einem Float n>0 ein zuf‰lliges
+// random_F(randomstate,n) liefert zu einem Float n>0 ein zuf√§lliges
 // Float x mit 0 <= x < n.
-// > randomstate: ein Random-State, wird ver‰ndert
+// > randomstate: ein Random-State, wird ver√§ndert
 extern const cl_F random_F (random_state& randomstate, const cl_F& n);
 
 inline const cl_F random_F (const cl_F& n)

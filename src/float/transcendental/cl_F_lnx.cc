@@ -53,16 +53,16 @@ const cl_LF lnx_naive (const cl_LF& x)
 	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_LF,x);
-	var uintL k = 0; // Rekursionsz‰hler k:=0
+	var uintL k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
 	// angewandt werden.
-	// W‰hle f¸r ln(1+y), naive1: limit_slope = 1.0,
-	//       f¸r ln(1+y), naive2: limit_slope = 11/16 = 0.7,
-	//       f¸r atanh(z), naive1: limit_slope = 0.6,
-	//       f¸r atanh(z), naive1: limit_slope = 0.5.
+	// W√§hle f√ºr ln(1+y), naive1: limit_slope = 1.0,
+	//       f√ºr ln(1+y), naive2: limit_slope = 11/16 = 0.7,
+	//       f√ºr atanh(z), naive1: limit_slope = 0.6,
+	//       f√ºr atanh(z), naive1: limit_slope = 0.5.
 	var sintL e_limit = -1-floor(isqrtC(d),2); // -1-floor(sqrt(d))
 	while (e > e_limit) {
-		// e > -1-floor(sqrt(d)) -> muﬂ |y| verkleinern.
+		// e > -1-floor(sqrt(d)) -> mu√ü |y| verkleinern.
 		x = sqrt(x); // x := (sqrt x)
 		y = x-cl_float(1,x); // y := (- x 1) und
 		e = float_exponent(y); // e neu berechnen
@@ -151,11 +151,11 @@ const cl_F lnx_naive (const cl_F& x)
 	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_F,x);
-	var uintL k = 0; // Rekursionsz‰hler k:=0
+	var uintL k = 0; // Rekursionsz√§hler k:=0
 	// Bei e <= -1-floor(sqrt(d)) kann die Potenzreihe angewandt werden.
 	var sintL e_limit = -1-isqrtC(d); // -1-floor(sqrt(d))
 	while (e > e_limit) {
-		// e > -1-floor(sqrt(d)) -> muﬂ |y| verkleinern.
+		// e > -1-floor(sqrt(d)) -> mu√ü |y| verkleinern.
 		x = sqrt(x); // x := (sqrt x)
 		y = x-cl_float(1,x); // y := (- x 1) und
 		e = float_exponent(y); // e neu berechnen

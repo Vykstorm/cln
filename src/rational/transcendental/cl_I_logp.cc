@@ -29,23 +29,23 @@ bool logp (const cl_I& a, const cl_I& b, cl_RA* l)
 // Wegen a>=2^c, b>=2^d sind c,d < (integer-length a,b) < intDsize*2^intCsize.
 // In Matrizenschreibweise:
 //   Wenn eine Folge von Divisionsschritten D und Vertauschungsschritten V
-//   ausgeführt werden muß, z.B. (a,b) V D D = (1,*), so ist
+//   ausgefÃ¼hrt werden muÃŸ, z.B. (a,b) V D D = (1,*), so ist
 //     ( c )           ( 0 )             ( 1 1 )           ( 0 1 )
 //     ( d )  =  V D D ( 1 )  wobei  D = ( 0 1 )  und  V = ( 1 0 ).
-//   Man baut diese Matrizen nun von links nach rechts auf, zum Schluß von
+//   Man baut diese Matrizen nun von links nach rechts auf, zum SchluÃŸ von
 //              ( 0 )
 //   rechts mit ( 1 ) multiplizieren.
 // Entrekursiviert:
-//   Wir werden (a,b) und damit auch c/d = log(a/b) verändern.
-//   Invariante: Statt (c,d) wollen wir (uc*c+ud*d,vc*c+vd*d) zurückliefern.
+//   Wir werden (a,b) und damit auch c/d = log(a/b) verÃ¤ndern.
+//   Invariante: Statt (c,d) wollen wir (uc*c+ud*d,vc*c+vd*d) zurÃ¼ckliefern.
 //                                           ( uc ud )
 //   D.h. die bisherige Matrix von links ist ( vc vd ).
 //   uc:=1, ud:=0, vc:=0, vd:=1.
 //   Solange a>1,
 //     a>=b -> Dividiere a durch b. Rest da -> geht nicht.
-//             Sonst a:=a/b, und (für später c:=c+d) ud:=uc+ud, vd:=vc+vd.
+//             Sonst a:=a/b, und (fÃ¼r spÃ¤ter c:=c+d) ud:=uc+ud, vd:=vc+vd.
 //     1<a<b -> vertausche a und b, uc und ud, vc und vd.
-//   Liefere (ud,vd), der Bruch ud/vd ist gekürzt.
+//   Liefere (ud,vd), der Bruch ud/vd ist gekÃ¼rzt.
  {	Mutable(cl_I,a);
 	Mutable(cl_I,b);
 	var uintL uc = 1;

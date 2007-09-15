@@ -37,7 +37,7 @@ inline uint32 get_seed (void)
 {
 	var struct timeval tv;
 	gettimeofday(&tv,0);
-	return highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zuf‰llige Bits
+	return highlow32(tv.tv_sec,tv.tv_usec); // 16+16 zuf√§llige Bits
 }
 }  // namespace cln
 
@@ -88,7 +88,7 @@ random_state::random_state ()
 	var uint32 seed_lo;
 #if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(__CYGWIN__) && defined(__GNUC__)) || defined(__BEOS__)
 	seed_lo = get_seed();
-	seed_hi = (rand() // zuf‰llige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
+	seed_hi = (rand() // zuf√§llige 31 Bit (bei UNIX_BSD) bzw. 16 Bit (bei UNIX_SYSV)
                           << 8) ^ (uintL)(getpid()); // ca. 8 Bit von der Process ID
 #elif defined(__OpenBSD__)
 	seed_lo = arc4random();
@@ -97,13 +97,13 @@ random_state::random_state ()
 	seed_lo = get_seed();
 	seed_hi = (rand() << 8) ^ (uintL)(GetCurrentProcessId());
 #elif defined(__atarist)
-	seed_lo = highlow32(GEMDOS_GetDate(),GEMDOS_GetTime()); // 16+16 zuf‰llige Bits
-	seed_hi = XBIOS_Random(); // 24 Bit zuf‰llig vom XBIOS, vorne 8 Nullbits
+	seed_lo = highlow32(GEMDOS_GetDate(),GEMDOS_GetTime()); // 16+16 zuf√§llige Bits
+	seed_hi = XBIOS_Random(); // 24 Bit zuf√§llig vom XBIOS, vorne 8 Nullbits
 #elif defined(amiga) || defined(AMIGA)
 	seed_lo = get_real_time(); // Uhrzeit
 	seed_hi = FindTask(NULL); // Pointer auf eigene Task
 #elif defined(__MSDOS__) || defined(__EMX__) || defined(__riscos)
-	// Keine Zufallszahlen, keine PID, nichts Zuf‰lliges da.
+	// Keine Zufallszahlen, keine PID, nichts Zuf√§lliges da.
 	seed_lo = get_real_time(); // Uhrzeit, 100 Hz
 	seed_hi = time(NULL);
 #else

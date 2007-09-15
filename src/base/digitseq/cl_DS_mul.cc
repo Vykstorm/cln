@@ -21,7 +21,7 @@ namespace cln {
 // multipliziert die UDS  sourceptr1[-len1..-1]  (len1>0)
 //           mit der UDS  sourceptr2[-len1..-1]  (len2>0)
 // und legt das Ergebnis in der UDS  destptr[-len..-1]  (len=len1+len2) ab.
-// Unterhalb von destptr werden len Digits Platz benötigt.
+// Unterhalb von destptr werden len Digits Platz benÃ¶tigt.
   void cl_UDS_mul (const uintD* sourceptr1, uintC len1,
                    const uintD* sourceptr2, uintC len2,
                    uintD* destptr);
@@ -38,12 +38,12 @@ namespace cln {
     mulu_loop_lsp(lsprefnext(sourceptr1),sourceptr2,destptr,len2);
     lsshrink(destptr);
     var uintD* destptr2 = destptr lspop len2;
-    // äußere Schleife läuft über source1 :
+    // Ã¤uÃŸere Schleife lÃ¤uft Ã¼ber source1 :
     dotimespC(len1,len1-1,
-      { // innere Schleife läuft über source2 :
+      { // innere Schleife lÃ¤uft Ã¼ber source2 :
         var uintD carry =
           muluadd_loop_lsp(lsprefnext(sourceptr1),sourceptr2,destptr,len2);
-        lsprefnext(destptr2) = carry; // UDS um das Carry-Digit verlängern
+        lsprefnext(destptr2) = carry; // UDS um das Carry-Digit verlÃ¤ngern
         lsshrink(destptr);
       });
   }
@@ -170,7 +170,7 @@ namespace cln {
 
 // FFT-Multiplikation nach Nussbaumer: O(n log n log log n)
 #include "cl_DS_mul_nuss.h"
-  // nuss_threshold = Länge, ab der die Nussbaumer-Multiplikation bevorzugt
+  // nuss_threshold = LÃ¤nge, ab der die Nussbaumer-Multiplikation bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter Linux mit einem 80486:
   //    N     kara   nuss  nuss-asm  (time in sec.)
@@ -184,7 +184,7 @@ namespace cln {
 
 // FFT-Multiplikation in Z/pZ: O(n log n log log n)
 #include "cl_DS_mul_fftp.h"
-  // fftp_threshold = Länge, ab der die FFT-Multiplikation mod p bevorzugt
+  // fftp_threshold = LÃ¤nge, ab der die FFT-Multiplikation mod p bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter Linux mit einem 80486:
   //    N     kara   fftp  (time in sec.)
@@ -197,9 +197,9 @@ namespace cln {
   int cl_fftp_threshold = 1000000;
 
 // FFT-Multiplikation in Z/pZ: O(n log n log log n)
-// für drei verschiedene Primzahlen p1,p2,p3 < 2^32.
+// fÃ¼r drei verschiedene Primzahlen p1,p2,p3 < 2^32.
 #include "cl_DS_mul_fftp3.h"
-  // fftp3_threshold = Länge, ab der die FFT-Multiplikation mod p_i bevorzugt
+  // fftp3_threshold = LÃ¤nge, ab der die FFT-Multiplikation mod p_i bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter Linux mit einem 80486:
   //    N     kara   fftp3  fftp  (time in sec.)
@@ -213,10 +213,10 @@ namespace cln {
   int cl_fftp3_threshold = 1000000;
 
 // FFT-Multiplikation in Z/pZ: O(n log n log log n)
-// für drei verschiedene Primzahlen p1,p2,p3 < 2^32,
+// fÃ¼r drei verschiedene Primzahlen p1,p2,p3 < 2^32,
 // mit Montgomery-Multiplikation.
 #include "cl_DS_mul_fftp3m.h"
-  // fftp3_threshold = Länge, ab der die FFT-Multiplikation mod p_i bevorzugt
+  // fftp3_threshold = LÃ¤nge, ab der die FFT-Multiplikation mod p_i bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter
   // Linux mit einem 80486, 33 MHz, mit Benutzung der GMP-Low-Level-Funktionen:
@@ -299,7 +299,7 @@ namespace cln {
   // //   1250  3100    1.35   1.07                    0.28   0.21
   // // Es gibt also noch Werte von (len1,len2) mit 1250 <= len1 <= len2, bei
   // // denen "kara" schneller ist als "fftm", aber nicht viele und dort auch
-  // // nur um 5%. Darum wählen wir ab hier die FFT-Multiplikation.
+  // // nur um 5%. Darum wÃ¤hlen wir ab hier die FFT-Multiplikation.
   // // 140000: 4.15s  12.53  23.7
   // // 14000:  4.16s
   // // 11000:  4.16s
@@ -375,7 +375,7 @@ namespace cln {
     
 #if 0 // Doesn't seem to be worth the effort
 
-// FFT-Multiplikation über den komplexen Zahlen.
+// FFT-Multiplikation Ã¼ber den komplexen Zahlen.
 #include "cl_DS_mul_fftc.h"
   // Multiplikation zweier N-Wort-Zahlen unter
   //  Linux mit einem i486 33 MHz
@@ -401,7 +401,7 @@ namespace cln {
   //  10000      0.88     4.95
   //  25000      2.3     (15MB)
 
-// FFT-Multiplikation über den komplexen Zahlen, Symmetrie ausnutzend.
+// FFT-Multiplikation Ã¼ber den komplexen Zahlen, Symmetrie ausnutzend.
 #include "cl_DS_mul_fftcs.h"
   // Multiplikation zweier N-Wort-Zahlen unter
   //  Linux mit einem i486 33 MHz
@@ -442,9 +442,9 @@ namespace cln {
 
 #endif
 
-#if 0 // Keine gute Fehlerabschätzung
+#if 0 // Keine gute FehlerabschÃ¤tzung
 
-// FFT-Multiplikation über den komplexen Zahlen, mit reellen Zahlen rechnend.
+// FFT-Multiplikation Ã¼ber den komplexen Zahlen, mit reellen Zahlen rechnend.
 #include "cl_DS_mul_fftr.h"
   // Multiplikation zweier N-Wort-Zahlen unter
   //  Linux mit einem i486 33 MHz
@@ -482,7 +482,7 @@ namespace cln {
           if (len1 < cl_karatsuba_threshold)
             // Multiplikation nach Schulmethode
             mulu_2loop(sourceptr1,len1,sourceptr2,len2,destptr);
-          else // len1 groß
+          else // len1 groÃŸ
           if (!cl_fftm_suitable(len1,len2))
             // Karatsuba-Multiplikation
             // (ausgelagert, um die eigentliche Multiplikationsfunktion nicht

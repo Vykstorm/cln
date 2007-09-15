@@ -28,7 +28,7 @@ cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val_)
             { throw floating_point_overflow_exception(); } // Infinity, Overflow
         }
       else
-        { // Der Exponent muß um FF_exp_mid-126 erhöht werden.
+        { // Der Exponent muÃŸ um FF_exp_mid-126 erhÃ¶ht werden.
           if ((FF_exp_mid>126) && (exp > FF_exp_high-FF_exp_mid+126))
             { throw floating_point_overflow_exception(); } // Overflow
           val += (FF_exp_mid - 126) << FF_mant_len;

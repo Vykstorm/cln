@@ -30,7 +30,7 @@ cl_heap_dfloat* cl_double_to_DF_pointer (const dfloatjanus& val_)
             { throw floating_point_overflow_exception(); } // Infinity, Overflow
         }
       else
-        { // Der Exponent muß um DF_exp_mid-1022 erhöht werden.
+        { // Der Exponent muÃŸ um DF_exp_mid-1022 erhÃ¶ht werden.
           if ((DF_exp_mid>1022) && (exp > DF_exp_high-DF_exp_mid+1022))
             { throw floating_point_overflow_exception(); } // Overflow
           val += (sint64)(DF_exp_mid - 1022) << DF_mant_len;
@@ -52,7 +52,7 @@ cl_heap_dfloat* cl_double_to_DF_pointer (const dfloatjanus& val_)
             { throw floating_point_overflow_exception(); } // Infinity, Overflow
         }
       else
-        { // Der Exponent muß um DF_exp_mid-1022 erhöht werden.
+        { // Der Exponent muÃŸ um DF_exp_mid-1022 erhÃ¶ht werden.
           if ((DF_exp_mid>1022) && (exp > DF_exp_high-DF_exp_mid+1022))
             { throw floating_point_overflow_exception(); } // Overflow
           val.semhi += (sint32)(DF_exp_mid - 1022) << (DF_mant_len-32);

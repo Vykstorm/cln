@@ -23,7 +23,7 @@ const cl_FF cl_I_to_FF (const cl_I& x)
 // Merke Vorzeichen von x.
 // x:=(abs x)
 // Exponent:=(integer-length x)
-//   Greife die 25 höchstwertigen Bits heraus (angeführt von einer 1).
+//   Greife die 25 hÃ¶chstwertigen Bits heraus (angefÃ¼hrt von einer 1).
 //   Runde das letzte Bit weg:
 //     Bit 0 = 0 -> abrunden,
 //     Bit 0 = 1 und Rest =0 -> round-to-even,
@@ -40,7 +40,7 @@ const cl_FF cl_I_to_FF (const cl_I& x)
       var uintC len;
       I_to_NDS_nocopy(abs_x, MSDptr=,len=,,false,);
       // MSDptr/len/LSDptr ist die NDS zu x, len>0.
-      // Führende Digits holen: Brauche FF_mant_len+1 Bits, dazu intDsize
+      // FÃ¼hrende Digits holen: Brauche FF_mant_len+1 Bits, dazu intDsize
       // Bits (die NDS kann mit bis zu intDsize Nullbits anfangen).
       // Dann werden diese Bits um (exp mod intDsize) nach rechts geschoben.
       var uintD msd = msprefnext(MSDptr); // erstes Digit
@@ -60,15 +60,15 @@ const cl_FF cl_I_to_FF (const cl_I& x)
       --len; ok:
       #if (intDsize==64)
       // Die NDS besteht aus msd, msdd, und len weiteren Digits.
-      // Das höchste in 2^intDsize*msd+msdd gesetzte Bit ist Bit Nummer
+      // Das hÃ¶chste in 2^intDsize*msd+msdd gesetzte Bit ist Bit Nummer
       // intDsize-1 + (exp mod intDsize).
       var uintL shiftcount = exp % intDsize;
-      var uint64 mant = // führende 64 Bits
+      var uint64 mant = // fÃ¼hrende 64 Bits
         (shiftcount==0
          ? msdd
          : ((msd << (64-shiftcount)) | (msdd >> shiftcount))
         );
-      // Das höchste in mant gesetzte Bit ist Bit Nummer 63.
+      // Das hÃ¶chste in mant gesetzte Bit ist Bit Nummer 63.
       if ( ((mant & bit(62-FF_mant_len)) ==0) // Bit 39 =0 -> abrunden
            || ( ((mant & (bit(62-FF_mant_len)-1)) ==0) // Bit 39 =1 und Bits 38..0 =0
                 && ((msdd & (bit(shiftcount)-1)) ==0) // und weitere Bits aus msdd =0
@@ -87,15 +87,15 @@ const cl_FF cl_I_to_FF (const cl_I& x)
         }
       #else
       // Die NDS besteht aus msd, msdd, und len weiteren Digits.
-      // Das höchste in 2^32*msd+msdd gesetzte Bit ist Bit Nummer
+      // Das hÃ¶chste in 2^32*msd+msdd gesetzte Bit ist Bit Nummer
       // 31 + (exp mod intDsize).
       var uintL shiftcount = exp % intDsize;
-      var uint32 mant = // führende 32 Bits
+      var uint32 mant = // fÃ¼hrende 32 Bits
         (shiftcount==0
          ? msdd
          : (((uint32)msd << (32-shiftcount)) | (msdd >> shiftcount))
         );
-      // Das höchste in mant gesetzte Bit ist Bit Nummer 31.
+      // Das hÃ¶chste in mant gesetzte Bit ist Bit Nummer 31.
       if ( ((mant & bit(30-FF_mant_len)) ==0) // Bit 7 =0 -> abrunden
            || ( ((mant & (bit(30-FF_mant_len)-1)) ==0) // Bit 7 =1 und Bits 6..0 =0
                 && ((msdd & (bit(shiftcount)-1)) ==0) // und weitere Bits aus msdd =0

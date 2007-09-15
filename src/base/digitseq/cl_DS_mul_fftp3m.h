@@ -389,7 +389,7 @@ static inline void subp3m (const fftp3m_word& a, const fftp3m_word& b, fftp3m_wo
 static void mulp3m (const fftp3m_word& a, const fftp3m_word& b, fftp3m_word& res)
 {
 	check_fftp3m_word(a); check_fftp3m_word(b);
-	// Multiplication ‡ la Montgomery:
+	// Multiplication √† la Montgomery:
 	#define mul_mod_p(aw,bw,result_zuweisung,p,m,n,j,js,table)  \
 	{	/* table[i] == i*2^(m-1) mod p for 0 <= i < 2^(m-n+1) */\
 		var uint32 hi;						\
@@ -700,8 +700,8 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 // Es ist 2 <= len1 <= len2.
 {
 	// Methode:
-	// source1 ist ein St¸ck der L‰nge N1, source2 ein oder mehrere St¸cke
-	// der L‰nge N2, mit N1+N2 <= N, wobei N Zweierpotenz ist.
+	// source1 ist ein St√ºck der L√§nge N1, source2 ein oder mehrere St√ºcke
+	// der L√§nge N2, mit N1+N2 <= N, wobei N Zweierpotenz ist.
 	// sum(i=0..N-1, x_i b^i) * sum(i=0..N-1, y_i b^i) wird errechnet,
 	// indem man die beiden Polynome
 	// sum(i=0..N-1, x_i T^i), sum(i=0..N-1, y_i T^i)
@@ -709,12 +709,12 @@ static void mulu_fft_modp3m (const uintD* sourceptr1, uintC len1,
 	var uint32 n;
 	integerlengthC(len1-1, n=); // 2^(n-1) < len1 <= 2^n
 	var uintC len = (uintC)1 << n; // kleinste Zweierpotenz >= len1
-	// W‰hlt man N = len, so hat man ceiling(len2/(len-len1+1)) * FFT(len).
-	// W‰hlt man N = 2*len, so hat man ceiling(len2/(2*len-len1+1)) * FFT(2*len).
-	// Wir w‰hlen das billigere von beiden:
+	// W√§hlt man N = len, so hat man ceiling(len2/(len-len1+1)) * FFT(len).
+	// W√§hlt man N = 2*len, so hat man ceiling(len2/(2*len-len1+1)) * FFT(2*len).
+	// Wir w√§hlen das billigere von beiden:
 	// Bei ceiling(len2/(len-len1+1)) <= 2 * ceiling(len2/(2*len-len1+1))
 	// nimmt man N = len, bei ....... > ........ dagegen N = 2*len.
-	// (Wahl von N = 4*len oder mehr bringt nur in Extremf‰llen etwas.)
+	// (Wahl von N = 4*len oder mehr bringt nur in Extremf√§llen etwas.)
 	if (len2 > 2 * (len-len1+1) * (len2 <= (2*len-len1+1) ? 1 : ceiling(len2,(2*len-len1+1)))) {
 		n = n+1;
 		len = len << 1;

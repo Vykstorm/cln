@@ -39,29 +39,29 @@ extern const cl_FF cl_R_to_FF (const cl_R& x);
 extern const cl_DF cl_R_to_DF (const cl_R& x);
 
 // R_to_LF(x,len) wandelt eine reelle Zahl x in ein Long-Float mit len Digits um.
-// > uintC len: gew¸nschte Anzahl Digits, >=LF_minlen
+// > uintC len: gew√ºnschte Anzahl Digits, >=LF_minlen
 // < ergebnis: (coerce x `(long-float ,len))
 extern const cl_LF cl_R_to_LF (const cl_R& x, uintC len);
 
 // cl_float(x,y) wandelt eine reelle Zahl x in das Float-Format des
-// Floats y um und rundet dabei nˆtigenfalls.
+// Floats y um und rundet dabei n√∂tigenfalls.
 // > x: eine reelle Zahl
 // > y: ein Float
 // < ergebnis: (float x y)
 extern const cl_F cl_float (const cl_R& x, const cl_F& y);
 
 // cl_float(x,f) wandelt eine reelle Zahl x in das Float-Format f um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: eine reelle Zahl
 // > f: eine Float-Format-Spezifikation
 // < ergebnis: (float x f)
 extern const cl_F cl_float (const cl_R& x, float_format_t f);
 
 // cl_float(x) wandelt eine reelle Zahl x in ein Float um
-// und rundet dabei nˆtigenfalls.
+// und rundet dabei n√∂tigenfalls.
 // > x: eine reelle Zahl
 // < ergebnis: (float x)
-// Abh‰ngig von default_float_format.
+// Abh√§ngig von default_float_format.
 extern const cl_F cl_float (const cl_R& x);
 
 
@@ -75,7 +75,7 @@ inline const cl_F operator+ (const cl_R& x, const cl_F& y)
 	{ return The(cl_F)(x + The(cl_R)(y)); }
 inline const cl_F operator+ (const cl_F& x, const cl_R& y)
 	{ return The(cl_F)(The(cl_R)(x) + y); }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R operator+ (const int x, const cl_R& y)
 	{ return cl_I(x) + y; }
 inline const cl_R operator+ (const unsigned int x, const cl_R& y)
@@ -120,7 +120,7 @@ inline const cl_F operator- (const cl_R& x, const cl_F& y)
 	{ return The(cl_F)(x - The(cl_R)(y)); }
 inline const cl_F operator- (const cl_F& x, const cl_R& y)
 	{ return The(cl_F)(The(cl_R)(x) - y); }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R operator- (const int x, const cl_R& y)
 	{ return cl_I(x) - y; }
 inline const cl_R operator- (const unsigned int x, const cl_R& y)
@@ -160,7 +160,7 @@ inline const cl_F operator- (const cl_R& x, const double y)
 
 // Liefert (* x y), wo x und y reelle Zahlen sind.
 extern const cl_R operator* (const cl_R& x, const cl_R& y);
-// Dem C++-Compiler muﬂ man auch das Folgende sagen (wg. `int * cl_F' u.‰.):
+// Dem C++-Compiler mu√ü man auch das Folgende sagen (wg. `int * cl_F' u.√§.):
 inline const cl_R operator* (const int x, const cl_R& y)
 	{ return cl_I(x) * y; }
 inline const cl_R operator* (const unsigned int x, const cl_R& y)
@@ -206,7 +206,7 @@ extern const cl_R operator/ (const cl_R& x, const cl_R& y);
 // Spezialfall: x Float -> Ergebnis Float
 inline const cl_F operator/ (const cl_F& x, const cl_R& y)
 	{ return The(cl_F)(The(cl_R)(x) / y); }
-// Dem C++-Compiler muﬂ man auch das Folgende sagen (wg. `int / cl_F' u.‰.):
+// Dem C++-Compiler mu√ü man auch das Folgende sagen (wg. `int / cl_F' u.√§.):
 inline const cl_R operator/ (const int x, const cl_R& y)
 	{ return cl_I(x) / y; }
 inline const cl_R operator/ (const unsigned int x, const cl_R& y)
@@ -362,7 +362,7 @@ inline const cl_RA rational (const cl_RA& x) { return x; }
 
 // equal(x,y) vergleicht zwei reelle Zahlen x und y auf Gleichheit.
 extern bool equal (const cl_R& x, const cl_R& y);
-// equal_hashcode(x) liefert einen equal-invarianten Hashcode f¸r x.
+// equal_hashcode(x) liefert einen equal-invarianten Hashcode f√ºr x.
 extern uint32 equal_hashcode (const cl_R& x);
 
 // compare(x,y) vergleicht zwei reelle Zahlen x und y.
@@ -420,7 +420,7 @@ extern const cl_R atan (const cl_R& x, const cl_R& y);
 // Spezialfall: y Float -> Ergebnis Float
 inline const cl_F atan (const cl_R& x, const cl_F& y)
 	{ return The(cl_F)(atan(x,The(cl_R)(y))); }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R atan (const cl_R& x, const int y)
 	{ return atan(x,cl_I(y)); }
 inline const cl_R atan (const cl_R& x, const unsigned int y)
@@ -435,7 +435,7 @@ inline const cl_R atan (const cl_R& x, const unsigned long y)
 extern const cl_R atan (const cl_R& x);
 // Spezialfall: x Float -> Ergebnis Float
 inline const cl_F atan (const cl_F& x) { return The(cl_F)(atan(The(cl_R)(x))); }
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R atan (const int x) { return atan(cl_I(x)); }
 inline const cl_R atan (const unsigned int x) { return atan(cl_I(x)); }
 inline const cl_R atan (const long x) { return atan(cl_I(x)); }
@@ -443,7 +443,7 @@ inline const cl_R atan (const unsigned long x) { return atan(cl_I(x)); }
 
 // sin(x) liefert den Sinus (sin x) einer reellen Zahl x.
 extern const cl_R sin (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R sin (const int x) { return sin(cl_I(x)); }
 inline const cl_R sin (const unsigned int x) { return sin(cl_I(x)); }
 inline const cl_R sin (const long x) { return sin(cl_I(x)); }
@@ -451,7 +451,7 @@ inline const cl_R sin (const unsigned long x) { return sin(cl_I(x)); }
 
 // cos(x) liefert den Cosinus (cos x) einer reellen Zahl x.
 extern const cl_R cos (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R cos (const int x) { return cos(cl_I(x)); }
 inline const cl_R cos (const unsigned int x) { return cos(cl_I(x)); }
 inline const cl_R cos (const long x) { return cos(cl_I(x)); }
@@ -462,7 +462,7 @@ extern const cos_sin_t cos_sin (const cl_R& x);
 
 // tan(x) liefert den Tangens (tan x) einer reellen Zahl x.
 extern const cl_R tan (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R tan (const int x) { return tan(cl_I(x)); }
 inline const cl_R tan (const unsigned int x) { return tan(cl_I(x)); }
 inline const cl_R tan (const long x) { return tan(cl_I(x)); }
@@ -470,7 +470,7 @@ inline const cl_R tan (const unsigned long x) { return tan(cl_I(x)); }
 
 // ln(x) liefert zu einer reellen Zahl x>0 die Zahl ln(x).
 extern const cl_R ln (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R ln (const int x) { return ln(cl_I(x)); }
 inline const cl_R ln (const unsigned int x) { return ln(cl_I(x)); }
 inline const cl_R ln (const long x) { return ln(cl_I(x)); }
@@ -483,7 +483,7 @@ extern const cl_R log (const cl_R& a, const cl_R& b);
 
 // exp(x) liefert zu einer reellen Zahl x die Zahl exp(x).
 extern const cl_R exp (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R exp (const int x) { return exp(cl_I(x)); }
 inline const cl_R exp (const unsigned int x) { return exp(cl_I(x)); }
 inline const cl_R exp (const long x) { return exp(cl_I(x)); }
@@ -491,7 +491,7 @@ inline const cl_R exp (const unsigned long x) { return exp(cl_I(x)); }
 
 // sinh(x) liefert zu einer reellen Zahl x die Zahl sinh(x).
 extern const cl_R sinh (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R sinh (const int x) { return sinh(cl_I(x)); }
 inline const cl_R sinh (const unsigned int x) { return sinh(cl_I(x)); }
 inline const cl_R sinh (const long x) { return sinh(cl_I(x)); }
@@ -499,7 +499,7 @@ inline const cl_R sinh (const unsigned long x) { return sinh(cl_I(x)); }
 
 // cosh(x) liefert zu einer reellen Zahl x die Zahl cosh(x).
 extern const cl_R cosh (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R cosh (const int x) { return cosh(cl_I(x)); }
 inline const cl_R cosh (const unsigned int x) { return cosh(cl_I(x)); }
 inline const cl_R cosh (const long x) { return cosh(cl_I(x)); }
@@ -510,7 +510,7 @@ extern const cosh_sinh_t cosh_sinh (const cl_R& x);
 
 // tanh(x) liefert zu einer reellen Zahl x die Zahl tanh(x).
 extern const cl_R tanh (const cl_R& x);
-// Dem C++-Compiler muﬂ man nun auch das Folgende sagen:
+// Dem C++-Compiler mu√ü man nun auch das Folgende sagen:
 inline const cl_R tanh (const int x) { return tanh(cl_I(x)); }
 inline const cl_R tanh (const unsigned int x) { return tanh(cl_I(x)); }
 inline const cl_R tanh (const long x) { return tanh(cl_I(x)); }

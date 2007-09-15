@@ -17,7 +17,7 @@ namespace cln {
 const cl_N sqrt (const cl_N& x)
 {
 // Methode:
-// x reell -> Für x>=0 klar, für x<0: sqrt(-x)*i.
+// x reell -> FÃ¼r x>=0 klar, fÃ¼r x<0: sqrt(-x)*i.
 // x=a+bi ->
 //   Bestimme r=abs(x)=sqrt(a*a+b*b).
 //   Falls a>=0: Setze c:=sqrt((r+a)/2), d:=(b/(2*c) falls c>0, c falls c=0).

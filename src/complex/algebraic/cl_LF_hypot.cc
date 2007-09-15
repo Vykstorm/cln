@@ -23,14 +23,14 @@ ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
 const cl_LF cl_hypot (const cl_LF& a, const cl_LF& b)
 {
-//  Zuerst a und b auf gleiche Länge bringen: den längeren runden.
+//  Zuerst a und b auf gleiche LÃ¤nge bringen: den lÃ¤ngeren runden.
 //  a=0.0 -> liefere abs(b).
 //  b=0.0 -> liefere abs(a).
 //  e:=max(exponent(a),exponent(b)).
-//  a':=a/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren a':=a/2^e
+//  a':=a/2^e bzw. 0.0 bei UnderflowmÃ¶glichkeit (beim Skalieren a':=a/2^e
 //      oder beim Quadrieren a'*a':  2*(e-exponent(a))>exp_mid-exp_low-1
 //      d.h. exponent(b)-exponent(a)>floor((exp_mid-exp_low-1)/2) ).
-//  b':=b/2^e bzw. 0.0 bei Underflowmöglichkeit (beim Skalieren b':=b/2^e
+//  b':=b/2^e bzw. 0.0 bei UnderflowmÃ¶glichkeit (beim Skalieren b':=b/2^e
 //      oder beim Quadrieren b'*b':  2*(e-exponent(b))>exp_mid-exp_low-1
 //      d.h. exponent(a)-exponent(b)>floor((exp_mid-exp_low-1)/2) ).
 //  c':=a'*a'+b'*b', c':=sqrt(c'), liefere 2^e*c'.

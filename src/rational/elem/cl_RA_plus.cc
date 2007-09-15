@@ -36,8 +36,8 @@ const cl_RA operator+ (const cl_RA& r, const cl_RA& s)
 //     )
 //   Sonst b' := b/g, d' := d/g. e := a*d'+b'*c, f:= b'*d = b*d'.
 //   Es ist g = ggT(g*b',g*d') = g*ggT(b',d'), also ggT(b',d')=1.
-//   Es ist r+s = (a*d+b*c)/(b*d) = (nach Kürzen mit g) e/f.
-//   Außerdem:
+//   Es ist r+s = (a*d+b*c)/(b*d) = (nach KÃ¼rzen mit g) e/f.
+//   AuÃŸerdem:
 //     ggT(a,b') teilt ggT(a,b)=1, also ggT(a,b')=1. Mit ggT(d',b')=1 folgt
 //     1 = ggT(a*d',b') = ggT(a*d'+b'*c,b') = ggT(e,b').
 //     ggT(c,d') teilt ggT(c,d)=1, also ggT(c,d')=1. Mit ggT(b',d')=1 folgt

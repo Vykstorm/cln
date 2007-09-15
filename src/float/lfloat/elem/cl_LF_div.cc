@@ -30,17 +30,17 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
 //   nach Rundung mant1/mant2 >=1/2, <=2*mant1<2.
 //   Bei mant1/mant2 >=1 brauche 16n-1 Nachkommabits,
 //   bei mant1/mant2 <1 brauche 16n Nachkommabits.
-//   Fürs Runden: brauche ein Rundungsbit (Rest gibt an, ob exakt).
+//   FÃ¼rs Runden: brauche ein Rundungsbit (Rest gibt an, ob exakt).
 //   Brauche daher insgesamt 16n+1 Nachkommabits von mant1/mant2.
 //   Dividiere daher (als Unsigned Integers)
 //     2^16(n+1)*(2^16n*m0) durch (2^16n*m1).
 //   Falls der Quotient >=2^16(n+1) ist, schiebe ihn um 1 Bit nach rechts,
-//     erhöhe den Exponenten um 1 und runde das letzte Digit weg.
+//     erhÃ¶he den Exponenten um 1 und runde das letzte Digit weg.
 //   Falls der Quotient <2^16(n+1) ist, runde das letzte Digit weg. Bei rounding
-//     overflow schiebe um 1 Bit nach rechts und erhöhe den Exponenten um 1.
+//     overflow schiebe um 1 Bit nach rechts und erhÃ¶he den Exponenten um 1.
       var uintC len1 = TheLfloat(x1)->len;
       var uintC len2 = TheLfloat(x2)->len;
-      var uintC len = (len1 < len2 ? len1 : len2); // min. Länge n von x1 und x2
+      var uintC len = (len1 < len2 ? len1 : len2); // min. LÃ¤nge n von x1 und x2
       var uintE uexp2 = TheLfloat(x2)->expo;
       if (uexp2==0) { throw division_by_0_exception(); } // x2=0.0 -> Error
       var uintE uexp1 = TheLfloat(x1)->expo;
@@ -74,7 +74,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
 #ifndef CL_LF_PEDANTIC
       if (n_len > len) { n_len = len+1; }
 #endif
-      // Zähler bilden:
+      // ZÃ¤hler bilden:
       CL_ALLOCA_STACK;
       var uintD* z_MSDptr;
       var uintC z_len;
@@ -124,7 +124,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
          { var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
            copy_loop_msp(q.MSDptr,y_mantMSDptr,len);
            // Runden:
-           if ( ((sintD)lspref(q.LSDptr,0) >= 0) // nächstes Bit =0 -> abrunden
+           if ( ((sintD)lspref(q.LSDptr,0) >= 0) // nÃ¤chstes Bit =0 -> abrunden
                 || ( ((lspref(q.LSDptr,0) & ((uintD)bit(intDsize-1)-1)) ==0) // =1 und weitere Bits >0 oder Rest >0 -> aufrunden
                      && (r.len==0)
                      // round-to-even
@@ -135,7 +135,7 @@ const cl_LF operator/ (const cl_LF& x1, const cl_LF& x2)
              else
              // aufrunden
              { if ( inc_loop_lsp(y_mantMSDptr mspop len,len) )
-                 // Übertrag durchs Aufrunden
+                 // Ãœbertrag durchs Aufrunden
                  { mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
                    // Exponenten incrementieren:
                    if (++(TheLfloat(y)->expo) == LF_exp_high+1) { throw floating_point_overflow_exception(); }

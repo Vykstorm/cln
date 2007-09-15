@@ -8,11 +8,11 @@
 
 // Aus cln/types.h importiere:
 // intDsize        Anzahl Bits in einem Digit
-// uintD, sintD    Integer-Typen für ein Digit
+// uintD, sintD    Integer-Typen fÃ¼r ein Digit
 // log2_intDsize   log2(intDsize)
-// HAVE_DD         Flag, das anzeigt, ob ein Integertyp für Doppel-Digits da ist
+// HAVE_DD         Flag, das anzeigt, ob ein Integertyp fÃ¼r Doppel-Digits da ist
 // intDDsize       Anzahl Bits in einem Doppel-Digit
-// uintDD,sintDD   Integer-Typen für ein Doppel-Digit
+// uintDD,sintDD   Integer-Typen fÃ¼r ein Doppel-Digit
 
 #ifdef HAVE_FAST_LONGLONG
   #if !((64%intDsize)==0)
@@ -96,7 +96,7 @@ inline sint32 sign_of_sintD (sintD wert)
 
 // Zwei Digits multiplizieren, mit einem Digit als Ergebnis.
 // (uintD)lo = muluD_unchecked(uintD arg1, uintD arg2)
-// Es wird vorausgesetzt, daß arg1*arg2 < 2^intDsize.
+// Es wird vorausgesetzt, daÃŸ arg1*arg2 < 2^intDsize.
   #if (intDsize==8) || (intDsize==16) || (intDsize==64)
     #define muluD_unchecked(arg1,arg2)  ((uintD)((uintD)(arg1)*(uintD)(arg2)))
   #endif
@@ -109,7 +109,7 @@ inline sint32 sign_of_sintD (sintD wert)
 // bzw.
 // divuD(uintD xhi, uintD xlo, uintD y, uintD q =, uintD r =);
 // dividiert x/y und liefert q = floor(x/y) und r = (x mod y). x = q*y+r.
-// Es wird vorausgesetzt, daß 0 <= x < 2^intDsize*y.
+// Es wird vorausgesetzt, daÃŸ 0 <= x < 2^intDsize*y.
 #if HAVE_DD
   #if (intDsize==8)
     #define divuD  divu_1616_1616
@@ -137,7 +137,7 @@ inline sint32 sign_of_sintD (sintD wert)
 // Durch ein Digit dividieren:
 // floorD(uintD x, uintD y)
 // dividiert x/y und liefert q = floor(x/y).
-// Es wird vorausgesetzt, daß y > 0.
+// Es wird vorausgesetzt, daÃŸ y > 0.
   #if (intDsize==8) || (intDsize==16) || (intDsize==64)
     #define floorD(arg1,arg2)  (floor((uintD)(arg1),(uintD)(arg2)))
   #endif
@@ -169,9 +169,9 @@ inline sint32 sign_of_sintD (sintD wert)
   #define isqrtD  isqrt_128_64
 #endif
 
-// Bits eines Digit zählen:
+// Bits eines Digit zÃ¤hlen:
 // integerlengthD(digit,size=);
-// setzt size auf die höchste in digit vorkommende Bitnummer.
+// setzt size auf die hÃ¶chste in digit vorkommende Bitnummer.
 // > digit: ein uintD >0
 // < size: >0, <=intDsize, mit 2^(size-1) <= digit < 2^size
 #if (intDsize==8)
@@ -187,7 +187,7 @@ inline sint32 sign_of_sintD (sintD wert)
   #define integerlengthD  integerlength64
 #endif
 
-// Hintere Nullbits eines Digits zählen:
+// Hintere Nullbits eines Digits zÃ¤hlen:
 // ord2_D(digit,count=);
 // setzt size auf die kleinste in digit vorkommende Bitnummer.
 // > digit: ein uintD >0
@@ -204,7 +204,7 @@ inline sint32 sign_of_sintD (sintD wert)
       }
   #endif
 
-// Bits eines Wortes zählen.
+// Bits eines Wortes zÃ¤hlen.
 // logcountD(x)
 // > x: ein uintD
 // < ergebnis: Anzahl der darin gesetzten Bits

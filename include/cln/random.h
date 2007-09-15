@@ -16,13 +16,13 @@ public:
 };
 
 // random32(randomstate) liefert eine neue Zufallszahl.
-// > randomstate: ein Random-State, wird verändert
+// > randomstate: ein Random-State, wird verÃ¤ndert
 // < ergebnis: eine 32-Bit-Zufallszahl
 extern uint32 random32 (random_state& randomstate);
 
 #if defined(HAVE_FAST_LONGLONG)
 // random64(randomstate) liefert eine neue Zufallszahl.
-// > randomstate: ein Random-State, wird verändert
+// > randomstate: ein Random-State, wird verÃ¤ndert
 // < ergebnis: eine 64-Bit-Zufallszahl
 inline uint64 random64 (random_state& randomstate)
 {

@@ -29,7 +29,7 @@ uint32 random32 (random_state& randomstate)
 	mulu64(seed,a, , newseed =);
 	// c addieren:
 	newseed += 1;
-	// seed neu füllen:
+	// seed neu fÃ¼llen:
 	randomstate.seed.hi = high32(newseed);
 	randomstate.seed.lo = low32(newseed);
 	// mittlere 32 Bits als Ergebnis:
@@ -48,8 +48,8 @@ uint32 random32 (random_state& randomstate)
 	mulu32(seed_lo,a_hi, , newseed_hi +=);
 	mulu32(seed_hi,a_lo, , newseed_hi +=);
 	// c addieren:
-	newseed_lo += 1; if (newseed_lo==0) { newseed_hi += 1; } // um 1 erhöhen
-	// seed neu füllen:
+	newseed_lo += 1; if (newseed_lo==0) { newseed_hi += 1; } // um 1 erhÃ¶hen
+	// seed neu fÃ¼llen:
 	randomstate.seed.hi = newseed_hi;
 	randomstate.seed.lo = newseed_lo;
 	// mittlere 32 Bits als Ergebnis:

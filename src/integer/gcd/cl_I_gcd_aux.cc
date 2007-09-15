@@ -56,7 +56,7 @@ void partial_gcd (uintD z1, uintD z2, partial_gcd_result* erg)
         }
         if (z1-y1 <= z2+y2-1) break;
       }
-    // Keine Subtraktion mehr möglich.
+    // Keine Subtraktion mehr mÃ¶glich.
     erg->x1 = x1; erg->y1 = y1; erg->x2 = x2; erg->y2 = y2; // Ergebnis
   }
 

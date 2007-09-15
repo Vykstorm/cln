@@ -48,7 +48,7 @@ const cl_LF compute_zeta_exp (int s, uintC len)
 		args[n].q.~cl_I();
 		args[n].d.~cl_I();
 	}
-	result = shorten(result,len); // verkürzen und fertig
+	result = shorten(result,len); // verkÃ¼rzen und fertig
 	// Zum Schluss mit 2^(s-1)/(2^(s-1)-1) multiplizieren:
 	return scale_float(result,s-1) / (ash(1,s-1)-1);
 }
@@ -80,7 +80,7 @@ const cl_LF compute_zeta_cvz1 (int s, uintC len)
 		gsum = gsum + gterm;
 	}
 	var cl_LF result = gsum/cl_I_to_LF(1+fsum,actuallen);
-	result = shorten(result,len); // verkürzen und fertig
+	result = shorten(result,len); // verkÃ¼rzen und fertig
 	// Zum Schluss mit 2^(s-1)/(2^(s-1)-1) multiplizieren:
 	return scale_float(result,s-1) / (ash(1,s-1)-1);
 }
@@ -121,7 +121,7 @@ const cl_LF compute_zeta_cvz2 (int s, uintC len)
 	// Here we need U/(1+S) = V/D(Q+T).
 	var cl_LF result =
 	  cl_I_to_LF(sums.V,actuallen) / The(cl_LF)(sums.D * cl_I_to_LF(sums.Q+sums.T,actuallen));
-	result = shorten(result,len); // verkürzen und fertig
+	result = shorten(result,len); // verkÃ¼rzen und fertig
 	// Zum Schluss mit 2^(s-1)/(2^(s-1)-1) multiplizieren:
 	return scale_float(result,s-1) / (ash(1,s-1)-1);
 }

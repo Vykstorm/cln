@@ -18,8 +18,8 @@ const cl_FF scale_float (const cl_FF& x, sintC delta)
 {
   // Methode:
   // x=0.0 -> x als Ergebnis
-  // delta muß betragsmäßig <= FF_exp_high-FF_exp_low sein.
-  // Neues FF mit um delta vergrößertem Exponenten bilden.
+  // delta muÃŸ betragsmÃ¤ÃŸig <= FF_exp_high-FF_exp_low sein.
+  // Neues FF mit um delta vergrÃ¶ÃŸertem Exponenten bilden.
       // x entpacken:
       var cl_signean sign;
       var sintL exp;

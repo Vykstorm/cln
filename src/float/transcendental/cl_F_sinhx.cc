@@ -42,7 +42,7 @@ const cl_F sinhxbyx_naive (const cl_F& x)
 //   berechne rekursiv z:=(sinh(y)/y)^2 und liefere z*(1+y^2*z).
 // [Die Grenze sqrt(d) ergibt sich so:
 //  Man braucht bei der Potenzreihe mit x=2^-k etwa j Glieder, mit
-//  k*j*ln 2 + j*(ln j - 1) = d, und der Aufwand betr‰gt etwa 2.8*(j/2)
+//  k*j*ln 2 + j*(ln j - 1) = d, und der Aufwand betr√§gt etwa 2.8*(j/2)
 //  Multiplikationen von d-Bit-Zahlen. Bei Halbierungen bis x=2^-k ist der
 //  Gesamtaufwand etwa 2*(k+e)+1.4*j(k). Dieses minimieren nach k: Soll sein
 //  -1.4 = d/dk j(k) = (d/dj k(j))^-1 = - j^2/(d+j)*ln 2, also j^2=2(d+j),
@@ -57,10 +57,10 @@ const cl_F sinhxbyx_naive (const cl_F& x)
 		return cl_float(1,x); // ja -> 1.0 als Ergebnis
  {	Mutable(cl_F,x);
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
-	// angewandt werden. W‰hle limit_slope = 13/32 = 0.4.
+	// angewandt werden. W√§hle limit_slope = 13/32 = 0.4.
 	var sintL e_limit = -1-floor(isqrtC(d)*13,32); // -1-floor(sqrt(d))
 	if (e > e_limit) {
-		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-limit_slope*floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		x = scale_float(x,e_limit-e);
 		// Neuer Exponent = e_limit.
 	}
@@ -105,7 +105,7 @@ const cl_LF sinhx_naive (const cl_LF& x)
 //   berechne rekursiv z:=sinh(y)^2 und liefere 4*z*(1+z) = (1+2*z)^2-1.
 // [Die Grenze sqrt(d) ergibt sich so:
 //  Man braucht bei der Potenzreihe mit x=2^-k etwa j Glieder, mit
-//  k*j*ln 2 + j*(ln j - 1) = d, und der Aufwand betr‰gt etwa 2.8*(j/2)
+//  k*j*ln 2 + j*(ln j - 1) = d, und der Aufwand betr√§gt etwa 2.8*(j/2)
 //  Multiplikationen von d-Bit-Zahlen. Bei Halbierungen bis x=2^-k ist der
 //  Gesamtaufwand etwa 2*(k+e)+1.4*j(k). Dieses minimieren nach k: Soll sein
 //  -1.4 = d/dk j(k) = (d/dj k(j))^-1 = - j^2/(d+j)*ln 2, also j^2=2(d+j),
@@ -122,11 +122,11 @@ const cl_LF sinhx_naive (const cl_LF& x)
  {	Mutable(cl_LF,x);
 	var sintE ee = e;
 	// Bei e <= -1-limit_slope*floor(sqrt(d)) kann die Potenzreihe
-	// angewandt werden. Ein guter Wert f¸r naive1 ist limit_slope = 0.6,
-	// f¸r naive3 aber limit_slope = 0.5.
+	// angewandt werden. Ein guter Wert f√ºr naive1 ist limit_slope = 0.6,
+	// f√ºr naive3 aber limit_slope = 0.5.
 	var sintL e_limit = -1-floor(isqrtC(d),2); // -1-floor(sqrt(d))
 	if (e > e_limit) {
-		// e > -1-limit_slope*floor(sqrt(d)) -> muﬂ |x| verkleinern.
+		// e > -1-limit_slope*floor(sqrt(d)) -> mu√ü |x| verkleinern.
 		x = scale_float(x,e_limit-e);
 		ee = e_limit; // Neuer Exponent = e_limit.
 	}

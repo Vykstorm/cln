@@ -16,12 +16,12 @@
 
 namespace cln {
 
-#define GCD_ALGO 3  // 1: bin‰r, 2: Schulmethode, 3: Lehmer
+#define GCD_ALGO 3  // 1: bin√§r, 2: Schulmethode, 3: Lehmer
 
 
 #if (GCD_ALGO == 1)
 
-// bin‰re Methode:
+// bin√§re Methode:
 // (gcd a b) :==
 // b=0 --> (abs a)
 // a=0 --> (abs b)
@@ -147,7 +147,7 @@ namespace cln {
       if (eq(b,1)) { return 1; } // b=1 -> 1
       if (eq(b,0)) { return abs(a); } // b=0 -> (abs a)
       if (eq(a,0)) { return abs(b); } // a=0 -> (abs b)
-      // Betr‰ge nehmen:
+      // Betr√§ge nehmen:
      {var cl_I abs_a = abs(a);
       var cl_I abs_b = abs(b);
       var cl_I& a = abs_a;
@@ -188,16 +188,16 @@ namespace cln {
 // Falls (- (integer-length a) (integer-length b)) >= intDsize/2,
 //   lohnt sich eine Division: (a,b) := (b , a mod b). Falls b=0: return a.
 // Falls dagegen 0 <= (- (integer-length a) (integer-length b)) < intDsize/2,
-//   seien a' die f¸hrenden intDsize Bits von a
+//   seien a' die f√ºhrenden intDsize Bits von a
 //   (2^(intDsize-1) <= a' < 2^intDsize) und b' die entsprechenden Bits von b
 //   (2^(intDsize/2) <= b' <= a' < 2^intDsize).
-//   Rechne den Euklid-Algorithmus mit Beifaktoren f¸r ALLE Zahlen (a,b) aus,
-//   die mit a' bzw. b' anfangen; das liefert x1,y1,x2,y2, so daﬂ
+//   Rechne den Euklid-Algorithmus mit Beifaktoren f√ºr ALLE Zahlen (a,b) aus,
+//   die mit a' bzw. b' anfangen; das liefert x1,y1,x2,y2, so da√ü
 //   ggT(a,b) = ggT(x1*a-y1*b,-x2*a+y2*b) und x1*a-y1*b>=0,-x2*a+y2*b>=0.
 //   Genauer: Mit offensichtlicher Skalierung betrachten wir
 //            a als beliebiges Element des Intervalls [a',a'+1) und
 //            b als beliebiges Element des Intervalls [b',b'+1) und
-//            f¸hren den Euklid-Algorithmus schrittweise durch:
+//            f√ºhren den Euklid-Algorithmus schrittweise durch:
 //            (x1,y1,z1) := (1,0,a'), (x2,y2,z2) := (0,1,b'),
 //            Schleife:
 //            {Hier x1*a'-y1*b'=z1, x1*a-y1*b in [z1-y1,z1+x1), z1-y1>=0, z1>0,
@@ -207,7 +207,7 @@ namespace cln {
 //              (x1,y1,z1) := (x1+x2,y1+y2,z1-z2), goto Schleife.
 //            Falls z2-x2>=z1+x1:
 //              (x2,y2,z2) := (x2+x1,y2+y1,z2-z1), goto Schleife.
-//            Sonst muﬂ man abbrechen.
+//            Sonst mu√ü man abbrechen.
 //            {Zu den Schleifeninvarianten:
 //             1. Die Gleichungen x1*a'-y1*b'=z1, -x2*a'+y2*b'=z2,
 //                x1*y2-x2*y1=1, x1*z2+x2*z1=b', y1*z2+y2*z1=a' mit Induktion.
@@ -221,22 +221,22 @@ namespace cln {
 //             7. Die Ungleichung max(z1,z2) <= a' mit Induktion.
 //             8. Die Ungleichung x1+x2 <= x1*z2+x2*z1 = b',
 //                die Ungleichung y1+y2 <= y1*z2+y2*z1 = a'.
-//             Damit bleiben alle Grˆﬂen im Intervall [0,beta), kein ‹berlauf.
+//             Damit bleiben alle Gr√∂√üen im Intervall [0,beta), kein √úberlauf.
 //             9. Die Ungleichungen z1+x1<=beta, z2+y2<=beta mit Induktion.
 //             10. x1*a-y1*b in (z1-y1,z1+x1) (bzw. [z1,z1+x1) bei y1=0),
 //                -x2*a+y2*b in (z2-x2,z2+y2) (bzw. [z2,z2+y2) bei x2=0),
 //                da a in a'+[0,1) und b in b'+[0,1).
 //                Jedenfalls 0 < x1*a-y1*b < z1+x1 <= x2*z1+x1*z2 = b' falls x2>0,
 //                und        0 < -x2*a+y2*b < z2+y2 <= y1*z2+y2*z1 = a' falls y1>0.}
-//            Man kann nat¸rlich auch mehrere Subtraktionsschritte auf einmal
-//            durchf¸hren:
+//            Man kann nat√ºrlich auch mehrere Subtraktionsschritte auf einmal
+//            durchf√ºhren:
 //            Falls q := floor((z1-y1)/(z2+y2)) > 0 :
 //              (x1,y1,z1) := (x1+q*x2,y1+q*y2,z1-q*z2), goto Schleife.
 //            Falls q := floor((z2-x2)/(z1+x1)) > 0 :
 //              (x2,y2,z2) := (x2+q*x1,y2+q*y1,z2-q*z1), goto Schleife.
-//            {Am Schluﬂ gilt -(x1+x2) < z1-z2 < y1+y2 und daher
+//            {Am Schlu√ü gilt -(x1+x2) < z1-z2 < y1+y2 und daher
 //             z2-x2 <= b'/(x1+x2) < z1+x1, z1-y1 <= a'/(y1+y2) < z2+y2,
-//             und - unter Ber¸cksichtigung von x1*y2-x2*y1=1 -
+//             und - unter Ber√ºcksichtigung von x1*y2-x2*y1=1 -
 //             z1-y1 <= b'/(x1+x2) < z2+y2, z2-x2 <= a'/(y1+y2) < z1+x1,
 //             also  max(z1-y1,z2-x2) <= min(b'/(x1+x2),a'/(y1+y2))
 //                          <= max(b'/(x1+x2),a'/(y1+y2)) < min(z1+x1,z2+y2).}
@@ -320,8 +320,8 @@ namespace cln {
       I_abs_to_NUDS(b); // (abs b) als NUDS erzeugen
       // Jetzt ist a = a_MSDptr/a_len/a_LSDptr, b = b_MSDptr/b_len/b_LSDptr,
       // beides NUDS, und a_len>0, b_len>0.
-      // Platz f¸r zwei Rechenregister besorgen, mit je max(a_len,b_len)+1 Digits:
-      {var uintD* divroomptr; // Platz f¸r Divisionsergebnis
+      // Platz f√ºr zwei Rechenregister besorgen, mit je max(a_len,b_len)+1 Digits:
+      {var uintD* divroomptr; // Platz f√ºr Divisionsergebnis
        var uintD* c_LSDptr;
        var uintD* d_LSDptr;
        {var uintC c_len = (a_len>=b_len ? a_len : b_len) + 1;
@@ -344,7 +344,7 @@ namespace cln {
            swap(uintD*, a_LSDptr,b_LSDptr);
            a_greater_b:
            // Hier a>b>0, beides NUDS.
-           if (b_len==1) // Beschleunigung eines h‰ufigen Falles
+           if (b_len==1) // Beschleunigung eines h√§ufigen Falles
              { var uintD b0 = mspref(b_MSDptr,0);
                if (b0==1)
                   // a>b=1 -> Ergebnis 1.
@@ -361,21 +361,21 @@ namespace cln {
                return UD_to_I(gcdD(a0,b0));
              }
            // Entscheidung, ob Division oder Linearkombination:
-           { var uintD a_msd; // f¸hrende intDsize Bits von a
+           { var uintD a_msd; // f√ºhrende intDsize Bits von a
              var uintD b_msd; // entsprechende Bits von b
              #if DOUBLE_SPEED
-             var uintD a_nsd; // n‰chste intDsize Bits von a
+             var uintD a_nsd; // n√§chste intDsize Bits von a
              var uintD b_nsd; // entsprechende Bits von b
              #endif
-             { var uintC len_diff = a_len-b_len; // L‰ngendifferenz
-               if (len_diff > 1) goto divide; // >=2 -> Bitl‰ngendifferenz>intDsize -> dividieren
+             { var uintC len_diff = a_len-b_len; // L√§ngendifferenz
+               if (len_diff > 1) goto divide; // >=2 -> Bitl√§ngendifferenz>intDsize -> dividieren
                #define bitlendiff_limit  (intDsize/2) // sollte >0,<intDsize sein
               {var uintC a_msd_size;
-               a_msd = mspref(a_MSDptr,0); // f¸hrendes Digit von a
-               integerlengthD(a_msd,a_msd_size=); // dessen Bit-L‰nge (>0,<=intDsize) berechnen
+               a_msd = mspref(a_MSDptr,0); // f√ºhrendes Digit von a
+               integerlengthD(a_msd,a_msd_size=); // dessen Bit-L√§nge (>0,<=intDsize) berechnen
                b_msd = mspref(b_MSDptr,0);
                #if HAVE_DD
-               {var uintDD b_msdd = // 2 f¸hrende Digits von b
+               {var uintDD b_msdd = // 2 f√ºhrende Digits von b
                   (len_diff==0
                    ? highlowDD(b_msd, mspref(b_MSDptr,1))
                    : (uintDD)b_msd
@@ -387,7 +387,7 @@ namespace cln {
                 b_nsd = lowD(highlowDD(lowD(b_msdd), (b_len<=2-len_diff ? 0 : mspref(b_MSDptr,2-len_diff))) >> a_msd_size);
                 #endif
                }
-               {var uintDD a_msdd = // 2 f¸hrende Digits von a
+               {var uintDD a_msdd = // 2 f√ºhrende Digits von a
                   highlowDD(a_msd, mspref(a_MSDptr,1));
                 a_msd = lowD(a_msdd >> a_msd_size);
                 #if DOUBLE_SPEED
@@ -402,9 +402,9 @@ namespace cln {
                        && (b_msd < (uintD)bit(a_msd_size-bitlendiff_limit))
                       )
                      goto divide;
-                   // Entscheidung f¸r Linearkombination ist gefallen.
-                   // a_msd und b_msd so erweitern, daﬂ a_msd die f¸hrenden
-                   // intDsize Bits von a enth‰lt:
+                   // Entscheidung f√ºr Linearkombination ist gefallen.
+                   // a_msd und b_msd so erweitern, da√ü a_msd die f√ºhrenden
+                   // intDsize Bits von a enth√§lt:
                   {var uintC shiftcount = intDsize-a_msd_size; // Shiftcount nach links (>=0, <intDsize)
                    if (shiftcount>0)
                      { a_msd = a_msd << shiftcount;
@@ -432,9 +432,9 @@ namespace cln {
                        || (b_msd < (uintD)bit(a_msd_size+intDsize-bitlendiff_limit))
                       )
                      goto divide;
-                   // Entscheidung f¸r Linearkombination ist gefallen.
-                   // a_msd und b_msd so erweitern, daﬂ a_msd die f¸hrenden
-                   // intDsize Bits von a enth‰lt:
+                   // Entscheidung f√ºr Linearkombination ist gefallen.
+                   // a_msd und b_msd so erweitern, da√ü a_msd die f√ºhrenden
+                   // intDsize Bits von a enth√§lt:
                    // 0 < a_msd_size < b_msd_size + bitlendiff_limit - intDsize <= bitlendiff_limit < intDsize.
                    a_msd = (a_msd << (intDsize-a_msd_size)) | (mspref(a_MSDptr,1) >> a_msd_size);
                    #if DOUBLE_SPEED
@@ -449,7 +449,7 @@ namespace cln {
                #undef bitlendiff_limit
              }}
              // Nun ist a_msd = a' > b' = b_msd.
-             { // Euklid-Algorithmus auf den f¸hrenden Digits durchf¸hren:
+             { // Euklid-Algorithmus auf den f√ºhrenden Digits durchf√ºhren:
                var partial_gcd_result likobi;
                #if DOUBLE_SPEED
                if (a_len >= cl_gcd_double_threshold)
@@ -467,14 +467,14 @@ namespace cln {
                if (likobi.x2==0)
                  { // Ersetze (a,b) := (a-y1*b,b).
                    if (likobi.y1==1) goto subtract; // einfacherer Fall
-                   // Dazu evtl. a um 1 Digit erweitern, so daﬂ a_len=b_len+1:
+                   // Dazu evtl. a um 1 Digit erweitern, so da√ü a_len=b_len+1:
                    if (a_len == b_len) { lsprefnext(a_MSDptr) = 0; a_len++; }
                    // und y1*b von a subtrahieren:
                    mspref(a_MSDptr,0) -= mulusub_loop_lsp(likobi.y1,b_LSDptr,a_LSDptr,b_len);
                  }
                  else
                  { // Ersetze (a,b) := (x1*a-y1*b,-x2*a+y2*b).
-                   // Dazu evtl. b um 1 Digit erweitern, so daﬂ a_len=b_len:
+                   // Dazu evtl. b um 1 Digit erweitern, so da√ü a_len=b_len:
                    if (!(a_len==b_len)) { lsprefnext(b_MSDptr) = 0; b_len++; }
                    // c := x1*a-y1*b bilden:
                    mulu_loop_lsp(likobi.x1,a_LSDptr,c_LSDptr,a_len);
@@ -484,7 +484,7 @@ namespace cln {
                    mulu_loop_lsp(likobi.y2,b_LSDptr,d_LSDptr,a_len);
                    /* lspref(d_LSDptr,a_len) -= */
                      mulusub_loop_lsp(likobi.x2,a_LSDptr,d_LSDptr,a_len);
-                   // Wir wissen, daﬂ 0 < c < b und 0 < d < a. Daher m¸ﬂten
+                   // Wir wissen, da√ü 0 < c < b und 0 < d < a. Daher m√º√üten
                    // lspref(c_LSDptr,a_len) und lspref(d_LSDptr,a_len) =0 sein.
                    // a := c und b := d kopieren:
                    copy_loop_lsp(c_LSDptr,a_LSDptr,a_len);
@@ -495,7 +495,7 @@ namespace cln {
              if (false)
                { subtract: // Ersetze (a,b) := (a-b,b).
                  if (!( subfrom_loop_lsp(b_LSDptr,a_LSDptr,b_len) ==0))
-                   // ‹bertrag nach b_len Stellen, muﬂ also a_len=b_len+1 sein.
+                   // √úbertrag nach b_len Stellen, mu√ü also a_len=b_len+1 sein.
                    { mspref(a_MSDptr,0) -= 1; }
                }
              // a normalisieren:
@@ -509,7 +509,7 @@ namespace cln {
                cl_UDS_divide(a_MSDptr,a_len,a_LSDptr,b_MSDptr,b_len,b_LSDptr, divroomptr, &q,&r);
                a_MSDptr = b_MSDptr; a_len = b_len; a_LSDptr = b_LSDptr; // a := b
                b_len = r.len; if (b_len==0) break; // b=0 -> fertig
-               b_LSDptr = old_a_LSDptr; // b ¸bernimmt den vorherigen Platz von a
+               b_LSDptr = old_a_LSDptr; // b √ºbernimmt den vorherigen Platz von a
                b_MSDptr = copy_loop_lsp(r.LSDptr,b_LSDptr,b_len); // b := r kopieren
                goto a_greater_b; // Nun ist a>b>0
              }}

@@ -26,9 +26,9 @@ namespace cln {
 //   (Integer-Decode-Float x) liefert m,e,s=1.
 //   Falls e>=0 : Liefere x=m*2^e als Ergebnis.
 //   Suche rationale Zahl zwischen a=(m-1/2)*2^e und b=(m+1/2)*2^e mit
-//   möglichst kleinem Zähler und Nenner. (a,b einschließlich, aber da a,b
-//   den Nenner 2^(|e|+1) haben, während x selbst den Nenner <=2^|e| hat,
-//   können weder a noch b als Ergebnis herauskommen.)
+//   mÃ¶glichst kleinem ZÃ¤hler und Nenner. (a,b einschlieÃŸlich, aber da a,b
+//   den Nenner 2^(|e|+1) haben, wÃ¤hrend x selbst den Nenner <=2^|e| hat,
+//   kÃ¶nnen weder a noch b als Ergebnis herauskommen.)
 //   Suche also bei gegebenem a,b (0<a<b) Bruch y mit a <= y <= b.
 //   Rekursiv:
 //     c:=(ceiling a)
@@ -37,13 +37,13 @@ namespace cln {
 //              k:=c-1 ; k=floor(a), k < a < b <= k+1
 //              return y = k + 1/(Bruch zwischen 1/(b-k) und 1/(a-k))
 //                                ; wobei 1 <= 1/(b-k) < 1/(a-k)
-// Man sieht, daß hierbei eine Kettenbruchentwicklung auftritt.
+// Man sieht, daÃŸ hierbei eine Kettenbruchentwicklung auftritt.
 // Methode (iterativ):
 // Falls x rational: x.
 // (Integer-Decode-Float x) liefert m,e,s.
 // e>=0 -> m*2^e*s als Ergebnis (darin ist x=0.0 inbegriffen).
 // Bilde a:=(2*m-1)*2^(e-1) und b:=(2*m+1)*2^(e-1), rationale Zahlen >0,
-//   (unkürzbar, da Nenner Zweierpotenz und Zähler ungerade).
+//   (unkÃ¼rzbar, da Nenner Zweierpotenz und ZÃ¤hler ungerade).
 // Starte Kettenbruchentwicklung (d.h. p[-1]:=0, p[0]:=1, q[-1]:=1, q[0]:=0, i:=0.)
 // Schleife:
 //   c:=(ceiling a)
@@ -52,7 +52,7 @@ namespace cln {
 // (Dabei bedeutet "Ziffer a" die Iteration
 //   i:=i+1, p[i]:=a*p[i-1]+p[i-2], q[i]:=a*q[i-1]+q[i-2].)
 // Ende, liefere s * (p[i]/q[i]), das ist wegen der Invarianten
-//   p[i]*q[i-1]-p[i-1]*q[i]=(-1)^i  ein bereits gekürzter Bruch.
+//   p[i]*q[i-1]-p[i-1]*q[i]=(-1)^i  ein bereits gekÃ¼rzter Bruch.
 
 inline const cl_RA rationalize (const cl_RA& x)
 {

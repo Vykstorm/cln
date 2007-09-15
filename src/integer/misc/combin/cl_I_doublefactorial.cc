@@ -137,9 +137,9 @@ const cl_I doublefactorial (uintL n) // assume n >= 0 small
             var uintL A = n;
             var uintL B = n; // obere Intervallgrenze floor(n/2^(k-1))
             loop
-              { // 'A' enth‰lt floor(n/2^(k-1)).
+              { // 'A' enth√§lt floor(n/2^(k-1)).
                 A = A >> 1; // untere Grenze floor(n/2^k)
-                // 'A' enth‰lt floor(n/2^k).
+                // 'A' enth√§lt floor(n/2^k).
                 // Bilde Teilprodukt prod(A < i <= B & oddp(i), i)
                 //       = prod(floor((A-1)/2) < i <= floor((B-1)/2), 2*i+1)
                 // wobei B = floor(n/2^(k-1)), A = floor(n/2^k) = floor(B/2).
@@ -159,9 +159,9 @@ const cl_I doublefactorial (uintL n) // assume n >= 0 small
             var uintL A = m;
             var uintL B = m; // obere Intervallgrenze floor(m/2^(k-1))
             loop
-              { // 'A' enth‰lt floor(m/2^(k-1)).
+              { // 'A' enth√§lt floor(m/2^(k-1)).
                 A = A >> 1; // untere Grenze floor(m/2^k)
-                // 'A' enth‰lt floor(m/2^k).
+                // 'A' enth√§lt floor(m/2^k).
                 // Bilde Teilprodukt prod(A < i <= B & oddp(i), i)
                 //       = prod(floor((A-1)/2) < i <= floor((B-1)/2), 2*i+1)
                 // wobei B = floor(m/2^(k-1)), A = floor(m/2^k) = floor(B/2).

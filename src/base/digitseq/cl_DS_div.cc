@@ -115,7 +115,7 @@ namespace cln {
 // q = q_MSDptr/q_len/q_LSDptr, r = r_MSDptr/r_len/r_LSDptr beides
 // Normalized Unsigned Digit sequences.
 // Vorsicht: q_LSDptr <= r_MSDptr,
-//           Vorzeichenerweiterung von r kann q zerstˆren!
+//           Vorzeichenerweiterung von r kann q zerst√∂ren!
 //           Vorzeichenerweiterung von q ist erlaubt.
 // a und b werden nicht modifiziert.
 //
@@ -132,19 +132,19 @@ namespace cln {
 //   Normalisiere [q[m-1],...,q[0]], liefert q.
 // Falls m>=n>1, Multiple-Precision-Division:
 //   Es gilt a/b < beta^(m-n+1).
-//   s:=intDsize-1-(Nummer des hˆchsten Bits in b[n-1]), 0<=s<intDsize.
+//   s:=intDsize-1-(Nummer des h√∂chsten Bits in b[n-1]), 0<=s<intDsize.
 //   Schiebe a und b um s Bits nach links und kopiere sie dabei. r:=a.
 //   r=[r[m],...,r[0]], b=[b[n-1],...,b[0]] mit b[n-1]>=beta/2.
-//   F¸r j=m-n,...,0: {Hier 0 <= r < b*beta^(j+1).}
+//   F√ºr j=m-n,...,0: {Hier 0 <= r < b*beta^(j+1).}
 //     Berechne q* :
 //       q* := floor((r[j+n]*beta+r[j+n-1])/b[n-1]).
-//       Bei ‹berlauf (q* >= beta) setze q* := beta-1.
+//       Bei √úberlauf (q* >= beta) setze q* := beta-1.
 //       Berechne c2 := ((r[j+n]*beta+r[j+n-1]) - q* * b[n-1])*beta + r[j+n-2]
 //       und c3 := b[n-2] * q*.
 //       {Es ist 0 <= c2 < 2*beta^2, sogar 0 <= c2 < beta^2 falls kein
-//        ‹berlauf aufgetreten war. Ferner 0 <= c3 < beta^2.
-//        Bei ‹berlauf und r[j+n]*beta+r[j+n-1] - q* * b[n-1] >= beta,
-//        das heiﬂt c2 >= beta^2, kann man die n‰chste Abfrage ¸berspringen.}
+//        √úberlauf aufgetreten war. Ferner 0 <= c3 < beta^2.
+//        Bei √úberlauf und r[j+n]*beta+r[j+n-1] - q* * b[n-1] >= beta,
+//        das hei√üt c2 >= beta^2, kann man die n√§chste Abfrage √ºberspringen.}
 //       Solange c3 > c2, {hier 0 <= c2 < c3 < beta^2} setze
 //         q* := q* - 1, c2 := c2 + b[n-1]*beta, c3 := c3 - b[n-2].
 //       Falls q* > 0:
@@ -156,8 +156,8 @@ namespace cln {
 //                         u:=u div beta (+ 1, falls bei der Subtraktion Carry)
 //                 r[n+j]:=r[n+j]-u.
 //           {Da stets u = (q* * [b[i-1],...,b[0]] div beta^i) + 1
-//                       < q* + 1 <= beta, l‰uft der ‹bertrag u nicht ¸ber.}
-//         Tritt dabei ein negativer ‹bertrag auf, so setze q* := q* - 1
+//                       < q* + 1 <= beta, l√§uft der √úbertrag u nicht √ºber.}
+//         Tritt dabei ein negativer √úbertrag auf, so setze q* := q* - 1
 //           und [r[n+j],...,r[j]] := [r[n+j],...,r[j]] + [0,b[n-1],...,b[0]].
 //     Setze q[j] := q*.
 //   Normalisiere [q[m-n],..,q[0]] und erhalte den Quotienten q,
@@ -168,9 +168,9 @@ namespace cln {
                       const uintD* b_MSDptr, uintC b_len, const uintD* b_LSDptr,
                       uintD* roomptr, // ab roomptr kommen a_len+1 freie Digits
                       DS* q_, DS* r_)
-    { // a normalisieren (a_MSDptr erhˆhen, a_len erniedrigen):
+    { // a normalisieren (a_MSDptr erh√∂hen, a_len erniedrigen):
       while ((a_len>0) && (mspref(a_MSDptr,0)==0)) { msshrink(a_MSDptr); a_len--; }
-      // b normalisieren (b_MSDptr erhˆhen, b_len erniedrigen):
+      // b normalisieren (b_MSDptr erh√∂hen, b_len erniedrigen):
       loop
         { if (b_len==0) { throw division_by_0_exception(); }
           if (mspref(b_MSDptr,0)==0) { msshrink(b_MSDptr); b_len--; }
@@ -244,7 +244,7 @@ namespace cln {
           var uintD* r_LSDptr = roomptr mspop (a_len+1);
           // Speicheraufbau:  r_MSDptr/          a_len+1           /r_LSDptr
           //                     |                  r                  |
-          // sp‰ter:          q_MSDptr/a_len-b_len+1/r_MSDptr/b_len/r_LSDptr
+          // sp√§ter:          q_MSDptr/a_len-b_len+1/r_MSDptr/b_len/r_LSDptr
           //                     |           q          |       r      |
           if (s==0)
             { copy_loop_lsp(a_LSDptr,r_LSDptr,a_len); mspref(r_MSDptr,0) = 0; }
@@ -281,7 +281,7 @@ namespace cln {
               var uintD* p_MSDptr;
               var uintD* p_LSDptr;
               UDS_UDS_mul_UDS(j+2,d_LSDptr, b_len,b_LSDptr, p_MSDptr=,,p_LSDptr=);
-              // d ist um hˆchstens 2 zu groﬂ, muﬂ also evtl. zweimal um 1
+              // d ist um h√∂chstens 2 zu gro√ü, mu√ü also evtl. zweimal um 1
               // decrementieren, bis das Produkt <= a wird.
               if ((mspref(p_MSDptr,0) > 0) || (compare_loop_msp(p_MSDptr mspop 1,r_MSDptr,a_len+1) > 0))
                 { dec_loop_lsp(d_LSDptr,j+2);
@@ -298,7 +298,7 @@ namespace cln {
               subfrom_loop_lsp(p_LSDptr,r_LSDptr,a_len+1);
               if (test_loop_msp(r_MSDptr,j)) throw runtime_exception();
               r_MSDptr = r_LSDptr lspop b_len; // = r_MSDptr mspop (j+1);
-              // d ist um hˆchstens 2 zu klein, muﬂ also evtl. zweimal um 1
+              // d ist um h√∂chstens 2 zu klein, mu√ü also evtl. zweimal um 1
               // incrementieren, bis der Rest < b wird.
               if ((lspref(r_MSDptr,0) > 0) || (compare_loop_msp(r_MSDptr,b_MSDptr,b_len) >= 0))
                 { inc_loop_lsp(d_LSDptr,j+2);
@@ -324,13 +324,13 @@ namespace cln {
               var uintDD b_msdd = highlowDD(b_msd,b_2msd); // b[n-1]*beta+b[n-2]
               #endif
               // Divisions-Schleife: (wird m-n+1 mal durchlaufen)
-              // j = Herabz‰hler, b_MSDptr/b_len/b_LSDptr = [b[n-1],...,b[0]], b_len=n,
+              // j = Herabz√§hler, b_MSDptr/b_len/b_LSDptr = [b[n-1],...,b[0]], b_len=n,
               // r_MSDptr = Pointer auf r[n+j] = Pointer auf q[j],
               // r_ptr = Pointer oberhalb von r[j].
               do { var uintD q_stern;
                    var uintD c1;
                    if (mspref(r_MSDptr,0) < b_msd) // r[j+n] < b[n-1] ?
-                     { // Dividiere r[j+n]*beta+r[j+n-1] durch b[n-1], ohne ‹berlauf:
+                     { // Dividiere r[j+n]*beta+r[j+n-1] durch b[n-1], ohne √úberlauf:
                        #if HAVE_DD
                          divuD(highlowDD(mspref(r_MSDptr,0),mspref(r_MSDptr,1)),b_msd, q_stern=,c1=);
                        #else
@@ -338,7 +338,7 @@ namespace cln {
                        #endif
                      }
                      else
-                     { // ‹berlauf, also r[j+n]*beta+r[j+n-1] >= beta*b[n-1]
+                     { // √úberlauf, also r[j+n]*beta+r[j+n-1] >= beta*b[n-1]
                        q_stern = bitm(intDsize)-1; // q* = beta-1
                        // Teste ob r[j+n]*beta+r[j+n-1] - (beta-1)*b[n-1] >= beta
                        // <==> r[j+n]*beta+r[j+n-1] + b[n-1] >= beta*b[n-1]+beta
@@ -356,11 +356,11 @@ namespace cln {
                    #if HAVE_DD
                      { var uintDD c2 = highlowDD(c1,mspref(r_MSDptr,2)); // c1*beta+r[j+n-2]
                        var uintDD c3 = muluD(b_2msd,q_stern); // b[n-2] * q*
-                       // Solange c2 < c3, c2 erhˆhen, c3 erniedrigen:
+                       // Solange c2 < c3, c2 erh√∂hen, c3 erniedrigen:
                        // Rechne dabei mit c3-c2:
                        // solange >0, um b[n-1]*beta+b[n-2] erniedrigen.
                        // Dies kann wegen b[n-1]*beta+b[n-2] >= beta^2/2
-                       // hˆchstens zwei mal auftreten.
+                       // h√∂chstens zwei mal auftreten.
                        if (c3 > c2)
                          { q_stern = q_stern-1; // q* := q* - 1
                            if (c3-c2 > b_msdd)
@@ -386,9 +386,9 @@ namespace cln {
                      { // Subtraktionsschleife: r := r - b * q* * beta^j
                        var uintD carry = mulusub_loop_lsp(q_stern,b_LSDptr,r_ptr,b_len);
                        // Noch r_ptr[-b_len-1] -= carry, d.h. r_MSDptr[0] -= carry
-                       // durchf¸hren und danach r_MSDptr[0] vergessen:
+                       // durchf√ºhren und danach r_MSDptr[0] vergessen:
                        if (carry > mspref(r_MSDptr,0))
-                         // Subtraktion ergab ‹bertrag
+                         // Subtraktion ergab √úbertrag
                          { q_stern = q_stern-1; // q* := q* - 1
                            addto_loop_lsp(b_LSDptr,r_ptr,b_len); // Additionsschleife
                            // r[n+j] samt Carry kann vergessen werden...

@@ -251,7 +251,7 @@ int main (int argc, char * argv[])
 
 
 // Timings of the above algorithms, on an i486 33 MHz, running Linux.
-// m = 390112. (For Jörg Arndt's formula (4.15).)
+// m = 390112. (For JÃ¶rg Arndt's formula (4.15).)
 //    N      1a     1b     1c     1d      2a     2b     2c     2d      3
 //    10     0.0027 0.0018 0.0019 0.0019  0.0032 0.0022 0.0019 0.0019  0.0042
 //    25     0.0085 0.0061 0.0058 0.0061  0.0095 0.0069 0.0056 0.0061  0.028
@@ -265,10 +265,10 @@ int main (int argc, char * argv[])
 // 10000
 // asymp.    N^2    N^2    N^2    FAST    N^2    N^2    N^2    FAST    FAST
 //
-// m = 319. (For Jörg Arndt's formula (4.7).)
+// m = 319. (For JÃ¶rg Arndt's formula (4.7).)
 //    N      1a     1b     1c     1d      2a     2b     2c     2d      3
 //  1000     6.06   4.40   9.17   3.82    5.29   3.90   7.50   3.53   50.3
 //
-// m = 18. (For Jörg Arndt's formula (4.4).)
+// m = 18. (For JÃ¶rg Arndt's formula (4.4).)
 //    N      1a     1b     1c     1d      2a     2b     2c     2d      3
 //  1000    11.8    9.0   22.3    6.0    10.2    7.7   17.1    5.7    54.3

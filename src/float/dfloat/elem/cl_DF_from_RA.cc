@@ -21,7 +21,7 @@ const cl_DF cl_RA_to_DF (const cl_RA& x)
 // Methode:
 // x ganz -> klar.
 // x = +/- a/b mit Integers a,b>0:
-//   Seien n,m so gewählt, daß
+//   Seien n,m so gewÃ¤hlt, daÃŸ
 //     2^(n-1) <= a < 2^n, 2^(m-1) <= b < 2^m.
 //   Dann ist 2^(n-m-1) < a/b < 2^(n-m+1).
 //   Berechne n=(integer-length a) und m=(integer-length b) und
@@ -62,7 +62,7 @@ const cl_DF cl_RA_to_DF (const cl_RA& x)
         { zaehler = ash(a,(DF_mant_len+2) - lendiff); // (ash a -n+m+54)
           nenner = b; // b
         }
-      // Division zaehler/nenner durchführen:
+      // Division zaehler/nenner durchfÃ¼hren:
       var cl_I_div_t q_r = cl_divide(zaehler,nenner);
       var cl_I& q = q_r.quotient;
       var cl_I& r = q_r.remainder;

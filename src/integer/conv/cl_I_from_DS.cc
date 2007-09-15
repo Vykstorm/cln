@@ -22,18 +22,18 @@ MAYBE_INLINE2
 const cl_I DS_to_I (const uintD* MSDptr, uintC len)
 {
       // erst normalisieren.
-      // Dabei evtl. MSDptr erhöhen und len erniedrigen:
+      // Dabei evtl. MSDptr erhÃ¶hen und len erniedrigen:
       if (!(len==0)) // leere DS ist normalisiert
         { var uintC count = len-1;
           if ((sintD)mspref(MSDptr,0) >= 0)
             // Zahl >= 0
-            { // versuche maximal len-1 führende Nullen-Digits zu streichen:
+            { // versuche maximal len-1 fÃ¼hrende Nullen-Digits zu streichen:
               while (!(count==0) && (mspref(MSDptr,0)==0) && ((sintD)mspref(MSDptr,1)>=0))
                 { msshrink(MSDptr); len--; count--; } // Nulldigit streichen
             }
             else
             // Zahl < 0
-            // versuche maximal len-1 führende Einsen-Digits zu streichen:
+            // versuche maximal len-1 fÃ¼hrende Einsen-Digits zu streichen:
             { while (!(count==0) && ((sintD)mspref(MSDptr,0)==-1) && ((sintD)mspref(MSDptr,1)<0))
                 { msshrink(MSDptr); len--; count--; } // Einsen-digit streichen
         }   }

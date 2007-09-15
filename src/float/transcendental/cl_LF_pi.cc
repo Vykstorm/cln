@@ -20,7 +20,7 @@ namespace cln {
 ALL_cl_LF_OPERATIONS_SAME_PRECISION()
 
 // For the next algorithms, I warmly recommend
-// [Jörg Arndt: hfloat documentation, august 1996,
+// [JÃ¶rg Arndt: hfloat documentation, august 1996,
 //  http://www.tu-chemnitz.de/~arndt/ hfdoc.dvi
 //  But beware of the typos in his formulas! ]
 
@@ -31,7 +31,7 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 	//  functions. J. ACM 23(1976), 242-251.]
 	// [Jonathan M. Borwein, Peter B. Borwein: Pi and the AGM.
 	//  Wiley 1987. Algorithm 2.2, p. 48.]
-	// [Jörg Arndt, formula (4.51)-(4.52).]
+	// [JÃ¶rg Arndt, formula (4.51)-(4.52).]
 	//    pi = AGM(1,1/sqrt(2))^2 * 2/(1 - sum(k=0..infty, 2^k c_k^2)).
 	// where the AGM iteration reads
 	//    a_0 := 1, b_0 := 1/sqrt(2).
@@ -63,7 +63,7 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 	// )
 	var uintC actuallen = len + 1; // 1 Schutz-Digit
 	var uintE uexp_limit = LF_exp_mid - intDsize*len;
-	// Ein Long-Float ist genau dann betragsmäßig <2^-n, wenn
+	// Ein Long-Float ist genau dann betragsmÃ¤ÃŸig <2^-n, wenn
 	// sein Exponent < LF_exp_mid-n = uexp_limit ist.
 	var cl_LF a = cl_I_to_LF(1,actuallen);
 	var cl_LF b = sqrt(scale_float(a,-1));
@@ -79,14 +79,14 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 		k++;
 	}
 	var cl_LF pires = square(a)/t; // a^2/t
-	return shorten(pires,len); // verkürzen und fertig
+	return shorten(pires,len); // verkÃ¼rzen und fertig
 }
 // Bit complexity (N := len): O(log(N)*M(N)).
 
 const cl_LF compute_pi_brent_salamin_quartic (uintC len)
 {
 	// See [Borwein, Borwein, section 1.4, exercise 3, p. 17].
-	// See also [Jörg Arndt], formulas (4.52) and (3.30)[wrong!].
+	// See also [JÃ¶rg Arndt], formulas (4.52) and (3.30)[wrong!].
 	// As above, we are using the formula
 	//    pi = AGM(1,1/sqrt(2))^2 * 2/(1 - sum(k=0..infty, 2^k c_k^2)).
 	// where the AGM iteration reads
@@ -135,7 +135,7 @@ const cl_LF compute_pi_brent_salamin_quartic (uintC len)
 		k += 2;
 	}
 	var cl_LF pires = square(a)/t;
-	return shorten(pires,len); // verkürzen und fertig
+	return shorten(pires,len); // verkÃ¼rzen und fertig
 }
 // Bit complexity (N := len): O(log(N)*M(N)).
 
@@ -146,7 +146,7 @@ const cl_LF compute_pi_ramanujan_163 (uintC len)
 	// mit J = -53360^3 = - (2^4 5 23 29)^3
 	//     A = 163096908 = 2^2 3 13 1045493
 	//     B = 6541681608 = 2^3 3^3 7 11 19 127 163
-	// See [Jörg Arndt], formulas (4.27)-(4.30).
+	// See [JÃ¶rg Arndt], formulas (4.27)-(4.30).
 	// This is also the formula used in Pari.
 	// The absolute value of the n-th summand is approximately
 	//   |J|^-n * n^(-1/2) * B/(2*pi^(3/2)),
@@ -177,7 +177,7 @@ const cl_LF compute_pi_ramanujan_163 (uintC len)
 	var cl_LF fsum = scale_float(cl_I_to_LF(sum,actuallen),-scale);
 	static const cl_I J3 = "262537412640768000"; // -1728*J
 	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
-	return shorten(pires,len); // verkürzen und fertig
+	return shorten(pires,len); // verkÃ¼rzen und fertig
 }
 // Bit complexity (N := len): O(N^2).
 
@@ -233,7 +233,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
 	static const cl_I J3 = "262537412640768000"; // -1728*J
 	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
-	return shorten(pires,len); // verkürzen und fertig
+	return shorten(pires,len); // verkÃ¼rzen und fertig
 }
 // Bit complexity (N := len): O(log(N)^2*M(N)).
 
@@ -260,20 +260,20 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 
 const cl_LF pi (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_pi)->len; // vorhandene Länge
+	var uintC oldlen = TheLfloat(cl_LF_pi)->len; // vorhandene LÃ¤nge
 	if (len < oldlen)
 		return shorten(cl_LF_pi,len);
 	if (len == oldlen)
 		return cl_LF_pi;
 
 	// TheLfloat(cl_LF_pi)->len um mindestens einen konstanten Faktor
-	// > 1 wachsen lassen, damit es nicht zu häufig nachberechnet wird:
+	// > 1 wachsen lassen, damit es nicht zu hÃ¤ufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
 	if (newlen < oldlen)
 		newlen = oldlen;
 
-	// gewünschte > vorhandene Länge -> muß nachberechnen:
+	// gewÃ¼nschte > vorhandene LÃ¤nge -> muÃŸ nachberechnen:
 	cl_LF_pi = compute_pi_ramanujan_163_fast(newlen);
 	return (len < newlen ? shorten(cl_LF_pi,len) : cl_LF_pi);
 }

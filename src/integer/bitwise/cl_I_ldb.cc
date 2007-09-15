@@ -25,7 +25,7 @@ const cl_I ldb (const cl_I& n, const cl_byte& b)
       // Falls p <= l :
       //   q:=min(p+s,l).
       //   Extrahiere die Bits p,...,q-1 von n.
-      //   Falls p+s>l und n<0, füge p+s-l Einsenbits an (addiere 2^s-2^(l-p)).
+      //   Falls p+s>l und n<0, fÃ¼ge p+s-l Einsenbits an (addiere 2^s-2^(l-p)).
       var uintC s = b.size;
       var uintC p = b.position;
       var uintC l = integer_length(n); // l = (integer-length n)

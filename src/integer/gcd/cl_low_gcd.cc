@@ -16,7 +16,7 @@ namespace cln {
 // > a,b: zwei Integers
 // < ergebnis: (gcd a b), ein Integer >=0
   uintV gcd (uintV a, uintV b)
-// binäre Methode:
+// binÃ¤re Methode:
 // (gcd a b) :==
 //   (prog ((j 0))
 //     1 {a,b >0}
@@ -38,7 +38,7 @@ namespace cln {
 //     5 {a=b>0}
 //       (return (ash a j))
 //   )
-// Statt j zu erhöhen und immer Bit 0 von a und b abfragen,
+// Statt j zu erhÃ¶hen und immer Bit 0 von a und b abfragen,
 // fragen wir stattdessen immer Bit j von a und b ab; Bits j-1..0 sind =0.
 {
       #ifdef DUMMER_GGT // so macht's ein Mathematiker:

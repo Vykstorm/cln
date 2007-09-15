@@ -20,7 +20,7 @@ namespace cln {
 
 const cl_R random_R (random_state& r, const cl_R& n)
 {
-	// n muß eine reelle Zahl sein, >0 und Float oder Integer
+	// n muÃŸ eine reelle Zahl sein, >0 und Float oder Integer
 	if (plusp(n)) {
 		if (floatp(n)) {
 			DeclareType(cl_F,n);

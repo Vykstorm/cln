@@ -18,8 +18,8 @@ bool logtest (const cl_I& x, const cl_I& y)
 {
     // Methode:
     //  Fixnums separat behandeln.
-    //  Sei oBdA x die kürzere der beiden Zahlen (in Digits).
-    //  x echt kürzer und x<0 -> [eines der most signif. intDsize+1 Bits von y ist 1] Ja.
+    //  Sei oBdA x die kÃ¼rzere der beiden Zahlen (in Digits).
+    //  x echt kÃ¼rzer und x<0 -> [eines der most signif. intDsize+1 Bits von y ist 1] Ja.
     //  Beide gleich lang oder x>=0 ->
     //   Kann mich auf die untersten length(x) Digits beschraenken.
     //   Mit AND durchlaufen, abbrechen (mit "Ja") falls /=0. Am Ende: Nein.
@@ -32,7 +32,7 @@ bool logtest (const cl_I& x, const cl_I& y)
               return true;
           }
           else
-          // x Fixnum, y Bignum, also ist x echt kürzer
+          // x Fixnum, y Bignum, also ist x echt kÃ¼rzer
           { if (FN_V_minusp(x,FN_to_V(x))) return true; // x<0 -> ja.
             // x>=0. Kombiniere x mit den pFN_maxlength letzten Digits von y.
            {var const uintD* yLSDptr;
@@ -76,17 +76,17 @@ bool logtest (const cl_I& x, const cl_I& y)
             if (!(xlen==ylen))
               // beide verschieden lang
               { if (xlen<ylen)
-                  { // x ist die echt kürzere DS.
-                    if ((sintD)mspref(xMSDptr,0)<0) // der echt kürzere ist negativ?
+                  { // x ist die echt kÃ¼rzere DS.
+                    if ((sintD)mspref(xMSDptr,0)<0) // der echt kÃ¼rzere ist negativ?
                       return true;
-                    // Der echt kürzere ist positiv.
+                    // Der echt kÃ¼rzere ist positiv.
                     yMSDptr = yMSDptr mspop (ylen-xlen);
                   }
                   else
-                  { // y ist die echt kürzere DS.
-                    if ((sintD)mspref(yMSDptr,0)<0) // der echt kürzere ist negativ?
+                  { // y ist die echt kÃ¼rzere DS.
+                    if ((sintD)mspref(yMSDptr,0)<0) // der echt kÃ¼rzere ist negativ?
                       return true;
-                    // Der echt kürzere ist positiv.
+                    // Der echt kÃ¼rzere ist positiv.
                     xMSDptr = xMSDptr mspop (xlen-ylen);
                     xlen = ylen;
               }   }

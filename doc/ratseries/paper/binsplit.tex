@@ -3,8 +3,8 @@
 %%% Version 12, 1999-09-07, Bruno
 %%% -----------------------------
 %%%
-%%% * Habe neue Referenzen zu den Karatsuba-Arbeiten hinzugefügt, entnommen
-%%%   dem großartigen Paper CECM-98-118 (98_118-Borwein-Bradley-Crandall.dvi).
+%%% * Habe neue Referenzen zu den Karatsuba-Arbeiten hinzugefÃ¼gt, entnommen
+%%%   dem groÃŸartigen Paper CECM-98-118 (98_118-Borwein-Bradley-Crandall.dvi).
 %%% * Habe in acm.bst, Funktion format.title, das change.case rausgenommen,
 %%%   das die Namen von Euler, Riemann u.a. in Kleinbuchstaben konvertiert
 %%%   hatte.
@@ -12,13 +12,13 @@
 %%% Version 11, 1998-12-20, Bruno
 %%% -----------------------------
 %%%
-%%% * Habe Referenzen zu den Karatsuba-Arbeiten hinzugefügt.
+%%% * Habe Referenzen zu den Karatsuba-Arbeiten hinzugefÃ¼gt.
 %%%
 %%% Version 10, 1998-03-10, Thomas & Bruno
 %%% --------------------------------------
 %%%
-%%% * Korrigiere die Formel für a(n) bei zeta(3).
-%%% * Schönheitsfehler im Literaturverzeichnis.
+%%% * Korrigiere die Formel fÃ¼r a(n) bei zeta(3).
+%%% * SchÃ¶nheitsfehler im Literaturverzeichnis.
 %%%
 %%% Version 9, 1998-03-06, Thomas & Bruno
 %%% -------------------------------------
@@ -28,7 +28,7 @@
 %%% Version 8, 1998-01-16b, Thomas
 %%% ------------------------------
 %%%
-%%% * Drei Literaturverweise für LiDIA statt nur einem.
+%%% * Drei Literaturverweise fÃ¼r LiDIA statt nur einem.
 %%%
 %%% Version 7, 1998-01-16a, Bruno
 %%% -----------------------------
@@ -60,8 +60,8 @@
 %%% Version 4, 1997-01-09, Thomas
 %%% -----------------------------
 %%%
-%%% * Habe die Komplexitätsaussage für sinh, cosh ergänzt.
-%%% * Habe die Versionen der getesteten CAS ergänzt.
+%%% * Habe die KomplexitÃ¤tsaussage fÃ¼r sinh, cosh ergÃ¤nzt.
+%%% * Habe die Versionen der getesteten CAS ergÃ¤nzt.
 %%%
 %%% Version 3, 1997-01-07, Bruno
 %%% ----------------------------
@@ -90,66 +90,66 @@
 %%% Version 2, 1997-01-06, Thomas
 %%% -----------------------------
 %%%
-%%% * geänderte Abschnitte sind auskommentiert mit %%%. Alle
-%%%   Änderungen sind als Vorschlag zu verstehen. Der Grund
-%%%   wird im folgenden angegeben. Falls Du mit einer Änderung
-%%%   einverstanden bist, kannst Du alle %%%-Zeilen löschen.
+%%% * geÃ¤nderte Abschnitte sind auskommentiert mit %%%. Alle
+%%%   Ã„nderungen sind als Vorschlag zu verstehen. Der Grund
+%%%   wird im folgenden angegeben. Falls Du mit einer Ã„nderung
+%%%   einverstanden bist, kannst Du alle %%%-Zeilen lÃ¶schen.
 %%%   
 %%% * Lyx defines wurden entfernt. Grund: das ISSAC-acmconf.sty
-%%%   erlaubt keine fremde macros. Übersetzung mit LaTeX geht.
-%%% * habe Keyboardumlaute (ä,ü,ö,ß) in LaTeX umgeschrieben.
+%%%   erlaubt keine fremde macros. Ãœbersetzung mit LaTeX geht.
+%%% * habe Keyboardumlaute (Ã¤,Ã¼,Ã¶,ÃŸ) in LaTeX umgeschrieben.
 %%%   Grund: damit die Submission in einem file geht.
 %%% * Habe fontenc und psfig usepackage Befehle entfernt. 
 %%%   Grund: fonts bestimmt acmconf.sty und keine Bilder vorhanden.
 %%% * Habe bibliography mit BibTeX (binsplit.bib) und acm.bst
 %%%   erstellt. Grund: wird von ISSAC '97 verlangt.
 %%% * Habe langen Formeln in einer eqnarray Umgebung gesteckt.
-%%%   Grund: acmconf.sty läuft im twocolumn-Modus. Lange Formeln
+%%%   Grund: acmconf.sty lÃ¤uft im twocolumn-Modus. Lange Formeln
 %%%   haben die Ausgabe durcheinander gebracht.
 %%% * Habe Reihenfolge bei der Beschreibung der elementare
-%%%   Funktionen geändert, sodaß zuerst die rationale und dann
+%%%   Funktionen geÃ¤ndert, sodaÃŸ zuerst die rationale und dann
 %%%   die reelle version beschrieben wird. Grund: Einheitlichkeit.
 %%% * Habe sinh mit binary-splitting gegen sinh mit exp-Berechnung
-%%%   getestet. Sie sind ungefähr gleich gut auf meinen Pentium,
+%%%   getestet. Sie sind ungefÃ¤hr gleich gut auf meinen Pentium,
 %%%   mir machen "Wackler" beim cosh. cosh ist ab und zu, sowohl
-%%%   bei kleiner als auch bei große Präzision langsamer. Habe
-%%%   dies und dem Abschnitt sinh, cosh ausgefüllt. Grund: es hat
+%%%   bei kleiner als auch bei groÃŸe PrÃ¤zision langsamer. Habe
+%%%   dies und dem Abschnitt sinh, cosh ausgefÃ¼llt. Grund: es hat
 %%%   gefehlt.
 %%% * Habe artanh Abschnitt entfernt. Grund: ich habe in der
-%%%   Einleitung der elementaren Funktionen darauf verwiesen, daß
+%%%   Einleitung der elementaren Funktionen darauf verwiesen, daÃŸ
 %%%   man die Berechnung anderer Funktionen (wie artanh) auf die
-%%%   hier erwähnte zurückführen oder auf analoger Weise
+%%%   hier erwÃ¤hnte zurÃ¼ckfÃ¼hren oder auf analoger Weise
 %%%   implementieren kann. Ich denke man braucht nicht alles explizit 
 %%%   anzugeben.
 %%% 
-%%% * Habe Dein Dankeschön an mich entfernt.
-%%% * Habe Abschnitt über Konvergenzbeschleunigung entfernt.
+%%% * Habe Dein DankeschÃ¶n an mich entfernt.
+%%% * Habe Abschnitt Ã¼ber Konvergenzbeschleunigung entfernt.
 %%%   Grund: das geht in Dein MathComp paper.
 %%% 
-%%% * Habe neue Formel für pi eingefügt. Grund: einfacher,
+%%% * Habe neue Formel fÃ¼r pi eingefÃ¼gt. Grund: einfacher,
 %%%   effizienter und stimmt mit der angegebenen Referenz
-%%%   überein.
+%%%   Ã¼berein.
 %%% * Habe die Berechnung der Apery Konstante angepasst.
 %%%   Grund: die hier angegebenen Formel wurde mit einer
 %%%   umgeformten Reihe berechnet. Wenn man dieses nicht
 %%%   kennt, wirkt es verwirrend. Keine Effizienz-steigerung.
-%%% * Habe die Beschreibung für die erste version der Euler
+%%% * Habe die Beschreibung fÃ¼r die erste version der Euler
 %%%   Konstante entfernt. Grund: wird von der zweiten version
 %%%   in jeder Hinsicht (Beweis, Effizienz) gedeckt. 
-%%% * Habe Abschnitte über Checkpointing und Parallelisierung
-%%%   eingefügt. Ein Beispiel über die Wirksamkeit habe ich
-%%%   bei der Apery Konstante angegeben. Grund: damit können wir
+%%% * Habe Abschnitte Ã¼ber Checkpointing und Parallelisierung
+%%%   eingefÃ¼gt. Ein Beispiel Ã¼ber die Wirksamkeit habe ich
+%%%   bei der Apery Konstante angegeben. Grund: damit kÃ¶nnen wir
 %%%   das Paper auch bei PASCO '97 einreichen. 
 %%%   
-%%% * Habe Beispiel-C++-Implementierung für abpq Reihen eingefügt.
+%%% * Habe Beispiel-C++-Implementierung fÃ¼r abpq Reihen eingefÃ¼gt.
 %%%   Grund: zeigen wie einfach es ist wenn man die Formeln hat ;-)
-%%% * Habe Beispiel-Implementierung für abpqcd Reihen eingefügt.
+%%% * Habe Beispiel-Implementierung fÃ¼r abpqcd Reihen eingefÃ¼gt.
 %%%   Grund: dito
-%%% * Habe Computational results und Conclusions Abschnitt eingefügt.
+%%% * Habe Computational results und Conclusions Abschnitt eingefÃ¼gt.
 %%% * Habe die Namen der Konstanten (C, G, ...) and die entsprechenden
-%%%   Abschnitten eingefügt. Grund: diese Namen werden bei den
+%%%   Abschnitten eingefÃ¼gt. Grund: diese Namen werden bei den
 %%%   Tabellen im Abschnitt Computational results benutzt.
-%%% * Habe Verweis an LiDIA eingefügt. Grund: wird bei Computational
+%%% * Habe Verweis an LiDIA eingefÃ¼gt. Grund: wird bei Computational
 %%%   results erw\"ahnt.
 %%%
 %%% Version 1, 1996-11-30, Bruno

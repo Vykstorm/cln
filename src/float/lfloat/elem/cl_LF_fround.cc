@@ -56,7 +56,7 @@ const cl_LF fround (const cl_LF& x)
            {var uintD* ptr =
               copy_loop_msp(mantMSDptr,MSDptr,count); // count ganze Digits kopieren
             msprefnext(ptr) = mspref(mantptr,0) & mask; // dann bitcount Bits kopieren
-            clear_loop_msp(ptr,mantlen-count-1); // Rest mit Nullen füllen
+            clear_loop_msp(ptr,mantlen-count-1); // Rest mit Nullen fÃ¼llen
             return encode_LF(sign,exp,MSDptr,mantlen);
           }}
           auf: // aufrunden
@@ -67,9 +67,9 @@ const cl_LF fround (const cl_LF& x)
               copy_loop_msp(mantMSDptr,MSDptr,count); // count ganze Digits kopieren
             if ((mspref(ptr,0) = ((mspref(mantptr,0) & mask) - mask)) == 0) // dann bitcount Bits kopieren und incrementieren
               { if (!( inc_loop_lsp(ptr,count) ==0)) // evtl. weiterincrementieren
-                  { mspref(MSDptr,0) = bit(intDsize-1); exp = exp+1; } // evtl. Exponenten erhöhen
+                  { mspref(MSDptr,0) = bit(intDsize-1); exp = exp+1; } // evtl. Exponenten erhÃ¶hen
               }
-            clear_loop_msp(ptr mspop 1,mantlen-count-1); // Rest mit Nullen füllen
+            clear_loop_msp(ptr mspop 1,mantlen-count-1); // Rest mit Nullen fÃ¼llen
             return encode_LF(sign,exp,MSDptr,mantlen);
           }}
         }
@@ -113,7 +113,7 @@ const cl_LF fround (const cl_LF& x)
           var uintD* ptr =
             copy_loop_msp(x_mantMSDptr,arrayMSDptr(TheLfloat(y)->data,len),count); // count ganze Digits kopieren
           msprefnext(ptr) = mspref(x_mantMSDptr,count) & mask; // dann bitcount Bits kopieren
-          clear_loop_msp(ptr,len-count-1); // Rest mit Nullen füllen
+          clear_loop_msp(ptr,len-count-1); // Rest mit Nullen fÃ¼llen
          }
          return y;
         }
@@ -126,9 +126,9 @@ const cl_LF fround (const cl_LF& x)
             copy_loop_msp(x_mantMSDptr,y_mantMSDptr,count); // count ganze Digits kopieren
           if ((mspref(ptr,0) = ((mspref(x_mantMSDptr,count) & mask) - mask)) == 0) // dann bitcount Bits kopieren und incrementieren
             { if (!( inc_loop_lsp(ptr,count) ==0)) // evtl. weiterincrementieren
-                { mspref(y_mantMSDptr,0) = bit(intDsize-1); (TheLfloat(y)->expo)++; } // evtl. Exponenten erhöhen
+                { mspref(y_mantMSDptr,0) = bit(intDsize-1); (TheLfloat(y)->expo)++; } // evtl. Exponenten erhÃ¶hen
             }
-          clear_loop_msp(ptr mspop 1,len-count-1); // Rest mit Nullen füllen
+          clear_loop_msp(ptr mspop 1,len-count-1); // Rest mit Nullen fÃ¼llen
          }
          return y;
         }

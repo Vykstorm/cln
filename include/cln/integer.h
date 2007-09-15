@@ -119,7 +119,7 @@ inline const cl_I logorc1 (const cl_I& x, const cl_I& y)
 // Ergebnis Integer.
 extern const cl_I lognot (const cl_I& x);
 
-// Konstanten für BOOLE:
+// Konstanten fÃ¼r BOOLE:
 typedef enum {
 	boole_clr,
 	boole_set,
@@ -143,21 +143,21 @@ typedef enum {
 // Ergebnis Integer.
 extern const cl_I boole (cl_boole op, const cl_I& x, const cl_I& y);
 
-// Prüft, ob (LOGTEST x y), wo x und y Integers sind.
+// PrÃ¼ft, ob (LOGTEST x y), wo x und y Integers sind.
 // (LOGTEST x y) = (NOT (ZEROP (LOGAND x y))).
 // < ergebnis: /=0, falls ja; =0, falls nein.
 extern bool logtest (const cl_I& x, const cl_I& y);
 
-// Prüft, ob (LOGBITP x y), wo x und y Integers sind.
+// PrÃ¼ft, ob (LOGBITP x y), wo x und y Integers sind.
 // Ergebnis: /=0, wenn ja; =0, wenn nein.
 extern bool logbitp (uintC x, const cl_I& y);
 extern bool logbitp (const cl_I& x, const cl_I& y);
 
-// Prüft, ob (ODDP x), wo x ein Integer ist.
+// PrÃ¼ft, ob (ODDP x), wo x ein Integer ist.
 // Ergebnis: /=0, falls ja; =0, falls nein.
 extern bool oddp (const cl_I& x);
 
-// Prüft, ob (EVENP x), wo x ein Integer ist.
+// PrÃ¼ft, ob (EVENP x), wo x ein Integer ist.
 // Ergebnis: /=0, falls ja; =0, falls nein.
 inline bool evenp (const cl_I& x)
 	{ return !oddp(x); }
@@ -211,7 +211,7 @@ extern const cl_I minus1 (const cl_I& x);
 
 // (+ x y), wo x und y Integers sind. Ergebnis Integer.
 extern const cl_I operator+ (const cl_I& x, const cl_I& y);
-// Dem C++-Compiler muß man auch das Folgende sagen:
+// Dem C++-Compiler muÃŸ man auch das Folgende sagen:
 inline const cl_I operator+ (const int x, const cl_I& y)
 	{ return cl_I(x) + y; }
 inline const cl_I operator+ (const unsigned int x, const cl_I& y)
@@ -246,7 +246,7 @@ extern const cl_I operator- (const cl_I& x);
 
 // (- x y), wo x und y Integers sind. Ergebnis Integer.
 extern const cl_I operator- (const cl_I& x, const cl_I& y);
-// Dem C++-Compiler muß man auch das Folgende sagen:
+// Dem C++-Compiler muÃŸ man auch das Folgende sagen:
 inline const cl_I operator- (const int x, const cl_I& y)
 	{ return cl_I(x) - y; }
 inline const cl_I operator- (const unsigned int x, const cl_I& y)
@@ -294,7 +294,7 @@ inline const cl_I operator>> (const cl_I& x, const cl_I& y) // assume y >= 0
 
 // equal(x,y) vergleicht zwei Integers x und y auf Gleichheit.
 extern bool equal (const cl_I& x, const cl_I& y);
-// equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
+// equal_hashcode(x) liefert einen equal-invarianten Hashcode fÃ¼r x.
 extern uint32 equal_hashcode (const cl_I& x);
 
 // compare(x,y) vergleicht zwei Integers x und y.
@@ -336,7 +336,7 @@ struct cl_byte {
 // (LDB byte n), wo n ein Integer ist.
 extern const cl_I ldb (const cl_I& n, const cl_byte& b);
 
-// ldb_test(n,byte) führt (LDB-TEST byte n) aus, wobei n ein Integer ist.
+// ldb_test(n,byte) fÃ¼hrt (LDB-TEST byte n) aus, wobei n ein Integer ist.
 // Ergebnis: false wenn nein (also alle fraglichen Bits =0), true wenn ja.
 extern bool ldb_test (const cl_I& n, const cl_byte& b);
 
@@ -354,7 +354,7 @@ extern const cl_I dpb (const cl_I& newbyte, const cl_I& n, const cl_byte& b);
 
 // (* x y), wo x und y Integers sind. Ergebnis Integer.
 extern const cl_I operator* (const cl_I& x, const cl_I& y);
-// Dem C++-Compiler muß man auch das Folgende sagen:
+// Dem C++-Compiler muÃŸ man auch das Folgende sagen:
 inline const cl_I operator* (const int x, const cl_I& y)
 	{ return cl_I(x) * y; }
 inline const cl_I operator* (const unsigned int x, const cl_I& y)
@@ -391,7 +391,7 @@ extern const cl_I square (const cl_I& x);
 extern const cl_I expt_pos (const cl_I& x, uintL y);
 extern const cl_I expt_pos (const cl_I& x, const cl_I& y);
 
-// Fakultät (! n), wo n Fixnum >=0 ist. Ergebnis Integer.
+// FakultÃ¤t (! n), wo n Fixnum >=0 ist. Ergebnis Integer.
 extern const cl_I factorial (uintL n);
 //CL_REQUIRE(cl_I_factorial)
 
@@ -415,14 +415,14 @@ struct cl_I_div_t {
 };
 
 // Dividiert zwei Integers x,y >=0 und liefert den Quotienten x/y >=0.
-// Bei y=0 Error. Die Division muß aufgehen, sonst Error.
+// Bei y=0 Error. Die Division muÃŸ aufgehen, sonst Error.
 // exquopos(x,y)
 // > x,y: Integers >=0
 // < ergebnis: Quotient x/y, ein Integer >=0
   extern const cl_I exquopos (const cl_I& x, const cl_I& y);
 
 // Dividiert zwei Integers x,y und liefert den Quotienten x/y.
-// Bei y=0 Error. Die Division muß aufgehen, sonst Error.
+// Bei y=0 Error. Die Division muÃŸ aufgehen, sonst Error.
 // exquo(x,y)
 // > x,y: Integers
 // < ergebnis: Quotient x/y, ein Integer
@@ -487,7 +487,7 @@ public:
 // > a,b: zwei Integers
 // < u, v, g: Integers mit u*a+v*b = g >= 0
   extern const cl_I xgcd (const cl_I& a, const cl_I& b, cl_I* u, cl_I* v);
-// Im Fall A/=0, B/=0 genügt das Ergebnis (g,u,v) den Ungleichungen:
+// Im Fall A/=0, B/=0 genÃ¼gt das Ergebnis (g,u,v) den Ungleichungen:
 //   Falls |A| = |B| : g = |A|, u = (signum A), v = 0.
 //   Falls |B| | |A|, |B| < |A| : g = |B|, u = 0, v = (signum B).
 //   Falls |A| | |B|, |A| < |B| : g = |A|, u = (signum A), v = 0.
@@ -507,12 +507,12 @@ public:
 //                --------------------------------------------
 //                       g = z[n], |u|=x[n], |v|=y[n]
 // n>=2, z[0] > ... > z[n-1] > z[n] = g, g | z[n-1], also z[n-1] >= 2*g.
-// Da aber mit  (-1)^i*x[i]*|A| - (-1)^i*y[i]*|B| = z[i]  für i=0..n+1
-// und            x[i]*y[i+1] - x[i+1]*y[i] = (-1)^i  für i=0..n,
-//                x[i]*z[i+1] - x[i+1]*z[i] = (-1)^i*|B|  für i=0..n,
-//                y[i]*z[i+1] - y[i+1]*z[i] = -(-1)^i*|A|  für i=0..n
+// Da aber mit  (-1)^i*x[i]*|A| - (-1)^i*y[i]*|B| = z[i]  fÃ¼r i=0..n+1
+// und            x[i]*y[i+1] - x[i+1]*y[i] = (-1)^i  fÃ¼r i=0..n,
+//                x[i]*z[i+1] - x[i+1]*z[i] = (-1)^i*|B|  fÃ¼r i=0..n,
+//                y[i]*z[i+1] - y[i+1]*z[i] = -(-1)^i*|A|  fÃ¼r i=0..n
 // auch |A| = y[i+1]*z[i] + y[i]*z[i+1], |B| = x[i+1]*z[i] + x[i]*z[i+1]
-// für i=0..n (Cramersche Regel), folgt
+// fÃ¼r i=0..n (Cramersche Regel), folgt
 // |A| = y[n]*z[n-1] + y[n-1]*z[n] >= y[n]*2*g + 0 = |v|*2*g,
 // |B| = x[n]*z[n-1] + x[n-1]*z[n] >= x[n]*2*g + 0 = |u|*2*g.)
 
@@ -585,7 +585,7 @@ extern const cl_I cl_recip2adic (uintL n, const cl_I& x);
 extern const cl_I cl_div2adic (uintL n, const cl_I& x, const cl_I& y);
 
 
-// numerator(r) liefert den Zähler des Integer r.
+// numerator(r) liefert den ZÃ¤hler des Integer r.
 inline const cl_I numerator (const cl_I& r)
 	{ return r; }
 // denominator(r) liefert den Nenner (> 0) des Integer r.
@@ -600,16 +600,16 @@ extern float float_approx (const cl_I& x);
 extern double double_approx (const cl_I& x);
 
 
-// random_I(randomstate,n) liefert zu einem Integer n>0 ein zufälliges
+// random_I(randomstate,n) liefert zu einem Integer n>0 ein zufÃ¤lliges
 // Integer x mit 0 <= x < n.
-// > randomstate: ein Random-State, wird verändert
+// > randomstate: ein Random-State, wird verÃ¤ndert
 extern const cl_I random_I (random_state& randomstate, const cl_I& n);
 
 inline const cl_I random_I (const cl_I& n)
 	{ return random_I(default_random_state,n); }
 
-// testrandom_I(randomstate) liefert ein zufälliges Integer zum Testen.
-// > randomstate: ein Random-State, wird verändert
+// testrandom_I(randomstate) liefert ein zufÃ¤lliges Integer zum Testen.
+// > randomstate: ein Random-State, wird verÃ¤ndert
 extern const cl_I testrandom_I (random_state& randomstate);
 
 inline const cl_I testrandom_I ()

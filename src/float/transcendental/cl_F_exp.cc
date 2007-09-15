@@ -44,11 +44,11 @@ const cl_F exp (const cl_F& x)
 {
 // Methode:
 // d := (float-digits x),
-// Genauigkeit um sqrt(d)+max(integer-length(e)) Bits erhöhen,
+// Genauigkeit um sqrt(d)+max(integer-length(e)) Bits erhÃ¶hen,
 // (q,r) := (floor x ln(2))
 // Ergebnis ist exp(q*ln(2)+r) = (scale-float exp(r) q).
 
-	// Rechengenauigkeit erhöhen und durch ln(2) dividieren:
+	// Rechengenauigkeit erhÃ¶hen und durch ln(2) dividieren:
 	if (longfloatp(x) && (TheLfloat(x)->len >= 84)) {
 		DeclareType(cl_LF,x);
 		var cl_LF_div_t q_r = cl_floor_ln2(extend(x,TheLfloat(x)->len+1));

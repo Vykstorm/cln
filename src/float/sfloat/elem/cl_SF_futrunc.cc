@@ -18,10 +18,10 @@ const cl_SF futruncate (const cl_SF& x)
 // e<=0 -> Ergebnis 1.0 oder -1.0, je nach Vorzeichen von x.
 // 1<=e<=16 -> Greife die letzten (17-e) Bits von x heraus.
 //             Sind sie alle =0 -> Ergebnis x.
-//             Sonst setze sie alle und erhöhe dann die letzte Stelle um 1.
-//             Kein Überlauf der 16 Bit -> fertig.
+//             Sonst setze sie alle und erhÃ¶he dann die letzte Stelle um 1.
+//             Kein Ãœberlauf der 16 Bit -> fertig.
 //             Sonst (Ergebnis eine Zweierpotenz): Mantisse := .1000...000,
-//               e:=e+1. (Test auf Überlauf wegen e<=17 überflüssig)
+//               e:=e+1. (Test auf Ãœberlauf wegen e<=17 Ã¼berflÃ¼ssig)
 // e>=17 -> Ergebnis x.
       var uintL uexp = SF_uexp(x); // e + SF_exp_mid
       if (uexp==0) // 0.0 ?
@@ -39,13 +39,13 @@ const cl_SF futruncate (const cl_SF& x)
         { if (uexp > SF_exp_mid+SF_mant_len) // e > 16 ?
             { return x; }
             else
-            { var cl_uint mask = // Bitmaske: Bits 16-e..0 gesetzt, alle anderen gelöscht
+            { var cl_uint mask = // Bitmaske: Bits 16-e..0 gesetzt, alle anderen gelÃ¶scht
                 bit(SF_mant_len+SF_mant_shift + 1+SF_exp_mid-uexp) - bit(SF_mant_shift);
               if ((x.word & mask)==0) // alle diese Bits =0 ?
                 { return x; }
               return cl_SF_from_word(
                 (x.word | mask) // alle diese Bits setzen
-                + bit(SF_mant_shift) // letzte Stelle erhöhen, dabei evtl. Exponenten incrementieren
+                + bit(SF_mant_shift) // letzte Stelle erhÃ¶hen, dabei evtl. Exponenten incrementieren
                 );
         }   }
 }

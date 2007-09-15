@@ -40,13 +40,13 @@ const cl_N acosh (const cl_N& z)
 // Sonst nach (!) mit u = sqrt((z+1)/2) und v = sqrt((z-1)/2) :
 // arcosh(z) = 4 artanh(v/(u+1)) = 4 artanh(sqrt((z-1)/2)/(1+sqrt((z+1)/2)))
 
-// Um für zwei Zahlen u,v mit u^2-v^2=1 und u,v beide in Bild(sqrt)
-// (d.h. Realteil>0.0 oder Realteil=0.0 und Imaginärteil>=0.0)
+// Um fÃ¼r zwei Zahlen u,v mit u^2-v^2=1 und u,v beide in Bild(sqrt)
+// (d.h. Realteil>0.0 oder Realteil=0.0 und ImaginÃ¤rteil>=0.0)
 // log(u+v) zu berechnen:
 //               log(u+v) = 2 artanh(v/(u+1))                            (!)
 // (Beweis: 2 artanh(v/(u+1)) = log(1+(v/(u+1))) - log(1-(v/(u+1)))
 //  = log((1+u+v)/(u+1)) - log((1+u-v)/(u+1)) == log((1+u+v)/(1+u-v))
-//  = log(u+v) mod 2 pi i, und beider Imaginärteil ist > -pi und <= pi.)
+//  = log(u+v) mod 2 pi i, und beider ImaginÃ¤rteil ist > -pi und <= pi.)
 
 	cl_C_R u_v;
 	if (realp(z)) {
@@ -81,7 +81,7 @@ const cl_N acosh (const cl_N& z)
 			var cl_F xf = cl_float(x);
 			var cl_F& x = xf;
 			// x Float <= -1
-			// log(sqrt(x^2-1)-x), ein Float >=0, Imaginärteil pi
+			// log(sqrt(x^2-1)-x), ein Float >=0, ImaginÃ¤rteil pi
 			return complex_C(ln(sqrt(square(x)-1)-x),pi());
 		}
 	}

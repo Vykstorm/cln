@@ -20,14 +20,14 @@ char * print_integer_to_string (unsigned int base, const cl_I& z)
 	var bool minus_p = false;
 	var cl_I abs_z;
 	if (minusp(z)) {
-		// z<0 -> später Vorzeichen ausgeben:
+		// z<0 -> spÃ¤ter Vorzeichen ausgeben:
 		minus_p = true;
 		abs_z = -z;
 	} else
 		abs_z = z;
 	CL_ALLOCA_STACK;
 	var uintC need = 1+cl_digits_need(abs_z,base);
-	var uintB* ziffern = cl_alloc_array(uintB,need); // Platz für die Ziffern
+	var uintB* ziffern = cl_alloc_array(uintB,need); // Platz fÃ¼r die Ziffern
 	var cl_digits erg; erg.LSBptr = &ziffern[need];
 	I_to_digits(abs_z,(uintD)base,&erg); // Umwandlung in Ziffern
 	// Vorzeichen ankleben:

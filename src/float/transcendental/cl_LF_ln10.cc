@@ -48,20 +48,20 @@ static inline const cl_LF compute_ln10_p2357 (uintC len)
 
 const cl_LF cl_ln10 (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_ln10)->len; // vorhandene L‰nge
+	var uintC oldlen = TheLfloat(cl_LF_ln10)->len; // vorhandene L√§nge
 	if (len < oldlen)
 		return shorten(cl_LF_ln10,len);
 	if (len == oldlen)
 		return cl_LF_ln10;
 
 	// TheLfloat(cl_LF_ln10)->len um mindestens einen konstanten Faktor
-	// > 1 wachsen lassen, damit es nicht zu h‰ufig nachberechnet wird:
+	// > 1 wachsen lassen, damit es nicht zu h√§ufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
 	if (newlen < oldlen)
 		newlen = oldlen;
 
-	// gew¸nschte > vorhandene L‰nge -> muﬂ nachberechnen:
+	// gew√ºnschte > vorhandene L√§nge -> mu√ü nachberechnen:
 	cl_LF_ln10 = compute_ln10(newlen);
 	return (len < newlen ? shorten(cl_LF_ln10,len) : cl_LF_ln10);
 }

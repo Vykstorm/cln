@@ -22,7 +22,7 @@ bool logbitp (const cl_I& x, const cl_I& y)
 {
     // Methode:
     // Falls x<0, Error.
-    // Falls x>=0: Falls x>=intDsize*Länge(y), teste Vorzeichen von y.
+    // Falls x>=0: Falls x>=intDsize*LÃ¤nge(y), teste Vorzeichen von y.
     //             Sonst x=intDsize*k+i, Teste Bit i vom Worte Nr. k+1 (von oben herab).
       if (!minusp(x)) // x>=0 ?
         { if (fixnump(x))

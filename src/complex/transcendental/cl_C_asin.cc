@@ -18,8 +18,8 @@ namespace cln {
 // Wert und Branch Cuts nach der Formel CLTL2, S. 311:
 //   arcsin(z) = log(iz+sqrt(1-z^2))/i
 // Sei z=x+iy, errechne u+iv = arsinh(-y+ix) wie oben, Ergebnis v-iu.
-// Real- und Imagin‰rteil des Ergebnisses sind Floats, auﬂer wenn z reell oder
-// rein imagin‰r ist.
+// Real- und Imagin√§rteil des Ergebnisses sind Floats, au√üer wenn z reell oder
+// rein imagin√§r ist.
 
 inline const cl_C_R _asin (const cl_N& z)
 {

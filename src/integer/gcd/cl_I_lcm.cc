@@ -22,7 +22,7 @@ const cl_I lcm (const cl_I& a, const cl_I& b)
 // Falls g=1, Ergebnis a*b, sonst Ergebnis (a/g)*b.
       if (eq(a,0)) { return 0; }
       if (eq(b,0)) { return 0; }
-      // Betr‰ge nehmen:
+      // Betr√§ge nehmen:
      {var cl_I abs_a = abs(a);
       var cl_I abs_b = abs(b);
       var cl_I& a = abs_a;

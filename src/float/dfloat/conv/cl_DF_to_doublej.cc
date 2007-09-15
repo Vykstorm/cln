@@ -14,7 +14,7 @@ namespace cln {
 void cl_DF_to_double (const cl_DF& obj, dfloatjanus* val_)
 {
 	var dfloat val = TheDfloat(obj)->dfloat_value;
-	// Der Exponent muß um DF_exp_mid-1022 erniedrigt werden.
+	// Der Exponent muÃŸ um DF_exp_mid-1022 erniedrigt werden.
 	if (DF_exp_mid>1022)
 	  #if (cl_word_size==64)
 	  { var uintL exp = (val >> DF_mant_len) & (bit(DF_exp_len)-1); // e

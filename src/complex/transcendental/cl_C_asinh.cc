@@ -48,19 +48,19 @@ namespace cln {
 //     arsinh(z) = -arsinh(-z).
 //     (Denn arsinh(z)+arsinh(-z) == log((z+sqrt(1+z^2))(-z+sqrt(1+z^2)))
 //           = log((1+z^2)-z^2) = log(1) = 0 mod 2 pi i, und links ist
-//      der Imagin‰rteil betragsm‰ﬂig <=pi.)
+//      der Imagin√§rteil betragsm√§√üig <=pi.)
 //     Also arsinh(z) = -arsinh(-z) = - 2 artanh(-z/(1+sqrt(1+z^2)))
 //          = (wegen -artanh(-w) = artanh(w)) = 2 artanh(z/(1+sqrt(1+z^2))).
-// Real- und Imagin‰rteil des Ergebnisses sind Floats, auﬂer wenn z reell oder
-// rein imagin‰r ist.
+// Real- und Imagin√§rteil des Ergebnisses sind Floats, au√üer wenn z reell oder
+// rein imagin√§r ist.
 
-// Um f¸r zwei Zahlen u,v mit u^2-v^2=1 und u,v beide in Bild(sqrt)
-// (d.h. Realteil>0.0 oder Realteil=0.0 und Imagin‰rteil>=0.0)
+// Um f√ºr zwei Zahlen u,v mit u^2-v^2=1 und u,v beide in Bild(sqrt)
+// (d.h. Realteil>0.0 oder Realteil=0.0 und Imagin√§rteil>=0.0)
 // log(u+v) zu berechnen:
 //               log(u+v) = 2 artanh(v/(u+1))                            (!)
 // (Beweis: 2 artanh(v/(u+1)) = log(1+(v/(u+1))) - log(1-(v/(u+1)))
 //  = log((1+u+v)/(u+1)) - log((1+u-v)/(u+1)) == log((1+u+v)/(1+u-v))
-//  = log(u+v) mod 2 pi i, und beider Imagin‰rteil ist > -pi und <= pi.)
+//  = log(u+v) mod 2 pi i, und beider Imagin√§rteil ist > -pi und <= pi.)
 
 inline const cl_C_R _asinh (const cl_N& z)
 {

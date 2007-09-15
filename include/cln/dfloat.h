@@ -20,7 +20,7 @@ extern const cl_DF operator- (const cl_DF& x);
 // Ergebnis: 0 falls x=y, +1 falls x>y, -1 falls x<y.
 extern cl_signean compare (const cl_DF& x, const cl_DF& y);
 
-// equal_hashcode(x) liefert einen equal-invarianten Hashcode für x.
+// equal_hashcode(x) liefert einen equal-invarianten Hashcode fÃ¼r x.
 extern uint32 equal_hashcode (const cl_DF& x);
 
 inline bool operator== (const cl_DF& x, const cl_DF& y)

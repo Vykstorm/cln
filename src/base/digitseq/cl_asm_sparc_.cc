@@ -1,7 +1,7 @@
 // Externe Routinen zu ARILEV1.D
 // Prozessor: SPARC
 // Compiler: GNU-C oder SUN-C
-// Parameter-Übergabe: in Registern %o0-%o5.
+// Parameter-Ãœbergabe: in Registern %o0-%o5.
 // Einstellungen: intCsize=32, intDsize=32.
 
 #if defined(sparc_v8) || defined(__sparc_v8) || defined(__sparc_v8__)
@@ -31,11 +31,11 @@
   #define DECLARE_FUNCTION(name)
 #endif
 
-  // Indikatoren für Anweisungen (Instruktionen) in Delay-Slots
-  // (diese werden VOR der vorigen Instruktion ausgeführt):
-  #define _             // Instruktion, die stets ausgeführt wird
-  #define __            // Instruktion, die nur im Sprung-Fall ausgeführt wird
-  // Abkürzungen für Anweisungen:
+  // Indikatoren fÃ¼r Anweisungen (Instruktionen) in Delay-Slots
+  // (diese werden VOR der vorigen Instruktion ausgefÃ¼hrt):
+  #define _             // Instruktion, die stets ausgefÃ¼hrt wird
+  #define __            // Instruktion, die nur im Sprung-Fall ausgefÃ¼hrt wird
+  // AbkÃ¼rzungen fÃ¼r Anweisungen:
   #define ret   jmp %i7+8    // return from subroutine
   #define retl  jmp %o7+8    // return from leaf subroutine (no save/restore)
 
@@ -74,7 +74,7 @@
 #endif
 
 #define LOOP_TYPE  1    // 1: Standard-Schleifen
-                        // 2: Schleifen ohne Pointer, nur mit Zähler
+                        // 2: Schleifen ohne Pointer, nur mit ZÃ¤hler
                         // 3: entrollte Schleifen
 #define SLOW_LOOPS  0
 #define STANDARD_LOOPS  (LOOP_TYPE==1)
@@ -92,7 +92,7 @@ C(mulu16_:) // Input in %o0,%o1, Output in %o0
        _ nop
 #else
         mov     %o1,%y
-        nop                     // Wartetakt, nötig z.B. für SUN SPARCstation IPC
+        nop                     // Wartetakt, nÃ¶tig z.B. fÃ¼r SUN SPARCstation IPC
         andcc   %g0,%g0,%o2
         mulscc  %o2,%o0,%o2
         mulscc  %o2,%o0,%o2
@@ -129,7 +129,7 @@ C(mulu32_:) // Input in %o0,%o1, Output in %o0,%g1
        _ rd      %y,%g1
 #else
         mov     %o1,%y
-        sra     %o0,31,%o3      // Wartetakt, nötig z.B. für SUN SPARCstation IPC
+        sra     %o0,31,%o3      // Wartetakt, nÃ¶tig z.B. fÃ¼r SUN SPARCstation IPC
         andcc   %g0,%g0,%o2
         mulscc  %o2,%o0,%o2
         mulscc  %o2,%o0,%o2
@@ -184,7 +184,7 @@ C(mulu32_unchecked:) // Input in %o0,%o1, Output in %o0
        __ mov     %o1,%y
         // arg1 < arg2, also kann man arg1 < 2^16 annehmen.
         mov     %o0,%y
-        nop                     // Wartetakt, nötig z.B. für SUN SPARCstation IPC
+        nop                     // Wartetakt, nÃ¶tig z.B. fÃ¼r SUN SPARCstation IPC
         andcc   %g0,%g0,%o2
         mulscc  %o2,%o1,%o2
         mulscc  %o2,%o1,%o2
@@ -210,7 +210,7 @@ C(mulu32_unchecked:) // Input in %o0,%o1, Output in %o0
         retl
        _ or      %o2,%o0,%o0
 1:      // arg1 >= arg2, also kann man arg2 < 2^16 annehmen.
-        nop                     // Wartetakt, nötig z.B. für SUN SPARCstation IPC
+        nop                     // Wartetakt, nÃ¶tig z.B. fÃ¼r SUN SPARCstation IPC
         andcc   %g0,%g0,%o2
         mulscc  %o2,%o0,%o2
         mulscc  %o2,%o0,%o2
@@ -238,7 +238,7 @@ C(mulu32_unchecked:) // Input in %o0,%o1, Output in %o0
 #endif
 
 // extern struct { uint32 q; uint32 r; } divu_6432_3232_ (uint32 xhi, uint32 xlo, uint32 y);
-// x = 2^32*xhi+xlo = q*y+r schreiben. Sei bekannt, daß 0 <= x < 2^32*y .
+// x = 2^32*xhi+xlo = q*y+r schreiben. Sei bekannt, daÃŸ 0 <= x < 2^32*y .
         DECLARE_FUNCTION(divu_6432_3232_)
 C(divu_6432_3232_:) // Input in %o0,%o1,%o2, Output in %o0,%g1
 #if defined(sparcv8)
@@ -255,9 +255,9 @@ C(divu_6432_3232_:) // Input in %o0,%o1,%o2, Output in %o0,%g1
         // %o0 = xhi, %o1 = xlo, %o2 = y
 // Divisions-Einzelschritte:
 // %o0|%o1  wird jeweils um 1 Bit nach links geschoben,
-// dafür wird rechts in %o1 ein Ergebnisbit (negiert!) reingeschoben.
+// dafÃ¼r wird rechts in %o1 ein Ergebnisbit (negiert!) reingeschoben.
 // Je nachdem wird mit %o3|%o1 statt %o0|%o1 weitergemacht (spart 1 'mov').
-// Deswegen muß man den Code doppelt vorsehen: einmal mit %o0, einmal mit %o3.
+// Deswegen muÃŸ man den Code doppelt vorsehen: einmal mit %o0, einmal mit %o3.
 #define SA0(label) /* Vergleichsschritt mit %o0  */\
         subcc   %o0,%o2,%o3; \
         bcc     label;       \
@@ -283,7 +283,7 @@ C(divu_6432_3232_:) // Input in %o0,%o1,%o2, Output in %o0,%g1
         add     %o2,1,%o2       // %o2 = ceiling(y/2) = y'
         // Man spart im Vergleich zu Lsmalldiv
         // zu Beginn eine Verdoppelung von %o0|%o1 : addcc %o1,%o1,%o1; SB0()
-        // dafür am Schluß mehr zu tun...
+        // dafÃ¼r am SchluÃŸ mehr zu tun...
         SA0(Lb01)               // Bit 31 des Quotienten bestimmen
 La01:   SB0(); SA0(Lb02)        // Bit 30 des Quotienten bestimmen
 La02:   SB0(); SA0(Lb03)        // Bit 29 des Quotienten bestimmen
@@ -325,20 +325,20 @@ La32:   SB0()                   // %o0 = x mod (2*y')
         // Also Quotient = %o1, Rest = %o0+%o1.
         // Noch maximal 2 mal: Quotient += 1, Rest -= y.
         addcc   %o1,%o0,%o0     // Rest mod y bestimmen
-        bcc     1f              // Additions-Überlauf -> Quotient erhöhen
+        bcc     1f              // Additions-Ãœberlauf -> Quotient erhÃ¶hen
        _ subcc   %o0,%o2,%o3
-        subcc   %o3,%o2,%o0     // muß der Quotient nochmals erhöht werden?
+        subcc   %o3,%o2,%o0     // muÃŸ der Quotient nochmals erhÃ¶ht werden?
         bcs     2f
        _ mov     %o3,%g1
-        // Quotient 2 mal erhöhen, Rest %o0
+        // Quotient 2 mal erhÃ¶hen, Rest %o0
         mov     %o0,%g1
         retl
        _ add     %o1,2,%o0
-1:      // kein Additions-Überlauf.
-        // Wegen y>=2^31 muß der Quotient noch höchstens 1 mal erhöht werden:
+1:      // kein Additions-Ãœberlauf.
+        // Wegen y>=2^31 muÃŸ der Quotient noch hÃ¶chstens 1 mal erhÃ¶ht werden:
         bcs     3f              // %o0 < %o2 -> Rest %o0 und Quotient %o1 OK
        _ mov     %o3,%g1
-2:      // Quotient %o1 erhöhen, Rest = %o0-%o2 = %o3
+2:      // Quotient %o1 erhÃ¶hen, Rest = %o0-%o2 = %o3
         retl
        _ add     %o1,1,%o0
 3:      // Quotient %o1 und Rest %o0 OK
@@ -386,20 +386,20 @@ Lb32:   SB1()                   // %o3 = x mod (2*y')
         // Also Quotient = %o1, Rest = %o3+%o1.
         // Noch maximal 2 mal: Quotient += 1, Rest -= y.
         addcc   %o1,%o3,%o3     // Rest mod y bestimmen
-        bcc     1f              // Additions-Überlauf -> Quotient erhöhen
+        bcc     1f              // Additions-Ãœberlauf -> Quotient erhÃ¶hen
        _ subcc   %o3,%o2,%o0
-        subcc   %o0,%o2,%o3     // muß der Quotient nochmals erhöht werden?
+        subcc   %o0,%o2,%o3     // muÃŸ der Quotient nochmals erhÃ¶ht werden?
         bcs     2f
        _ mov     %o0,%g1
-        // Quotient 2 mal erhöhen, Rest %o3
+        // Quotient 2 mal erhÃ¶hen, Rest %o3
         mov     %o3,%g1
         retl
        _ add     %o1,2,%o0
-1:      // kein Additions-Überlauf.
-        // Wegen y>=2^31 muß der Quotient noch höchstens 1 mal erhöht werden:
+1:      // kein Additions-Ãœberlauf.
+        // Wegen y>=2^31 muÃŸ der Quotient noch hÃ¶chstens 1 mal erhÃ¶ht werden:
         bcs     3f              // %o3 < %o2 -> Rest %o3 und Quotient %o1 OK
        _ mov     %o0,%g1
-2:      // Quotient %o1 erhöhen, Rest = %o3-%o2 = %o0
+2:      // Quotient %o1 erhÃ¶hen, Rest = %o3-%o2 = %o0
         retl
        _ add     %o1,1,%o0
 3:      // Quotient %o1 und Rest %o3 OK
@@ -483,7 +483,7 @@ Levendiv: // Division durch gerades y.
         // Es ist schon %o2 = y/2.
         // Man spart im Vergleich zu Lsmalldiv
         // zu Beginn eine Verdoppelung von %o0|%o1 : addcc %o1,%o1,%o1; SB0()
-        // dafür am Schluß Bit 0 von x zum Rest dazuschieben.
+        // dafÃ¼r am SchluÃŸ Bit 0 von x zum Rest dazuschieben.
         SA0(Lf01)               // Bit 31 des Quotienten bestimmen
 Le01:   SB0(); SA0(Lf02)        // Bit 30 des Quotienten bestimmen
 Le02:   SB0(); SA0(Lf03)        // Bit 29 des Quotienten bestimmen
@@ -559,7 +559,7 @@ Lf32:   SB1()
 #endif
 
 // extern struct { uint16 q; uint16 r; } divu_3216_1616_ (uint32 x, uint16 y);
-// x = q*y+r schreiben. Sei bekannt, daß 0 <= x < 2^16*y .
+// x = q*y+r schreiben. Sei bekannt, daÃŸ 0 <= x < 2^16*y .
         DECLARE_FUNCTION(divu_3216_1616_)
 C(divu_3216_1616_:) // Input in %o0,%o1, Output in %o0 (Rest und Quotient).
 #if defined(sparcv8)
@@ -577,19 +577,19 @@ C(divu_3216_1616_:) // Input in %o0,%o1, Output in %o0 (Rest und Quotient).
         // %o0 = x, %o1 = y
 // Divisions-Einzelschritte:
 // %o0  wird jeweils um 1 Bit nach links geschoben,
-// dafür wird rechts in %o1 ein Ergebnisbit (negiert!) reingeschoben.
+// dafÃ¼r wird rechts in %o1 ein Ergebnisbit (negiert!) reingeschoben.
 // Dann wird auf >= 2^15*y verglichen (nicht auf >= 2^16*y, weil man dann das
-// links herausgeschobene Bit mit vergleichen müßte!)
+// links herausgeschobene Bit mit vergleichen mÃ¼ÃŸte!)
         sll %o1,16,%o1
         srl %o1,1,%o1           // 2^15*y
         sub %g0,%o1,%o2         // zum Addieren statt Subtrahieren: -2^15*y
         // SC0(label) subtrahiert y, schiebt Carry-Bit rechts in %o0 rein
         // (1 falls Subtraktion aufging, 0 sonst).
-        // Ging die Subtraktion nicht auf, so müßte man noch 2*y addieren.
-        // Das faßt man mit der nächsten Operation zusammen, indem man - statt
+        // Ging die Subtraktion nicht auf, so mÃ¼ÃŸte man noch 2*y addieren.
+        // Das faÃŸt man mit der nÃ¤chsten Operation zusammen, indem man - statt
         // y zu subtrahieren - y addiert:
         // SC1(label) addiert y, schiebt Carry-Bit rechts in %o0 rein
-        // (1 falls Subtraktion aufgegangen wäre, man also wieder im
+        // (1 falls Subtraktion aufgegangen wÃ¤re, man also wieder im
         // "positiven Bereich" landet, 0 sonst).
 #define SC0(label) \
         addcc   %o0,%o2,%o0; \
@@ -672,8 +672,8 @@ C(copy_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &sourceptr[count]
         sub %o1,%o2,%o1         // %o1 = &destptr[count-1]
-1:        ld [%o0+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o0+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -703,8 +703,8 @@ C(copy_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
         sll %o2,2,%o2           // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &sourceptr[-count-1]
         sub %o1,%o2,%o1         // %o1 = &destptr[-count]
-1:        ld [%o0+%o2],%o3      // nächstes Digit holen
-          subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
+1:        ld [%o0+%o2],%o3      // nÃ¤chstes Digit holen
+          subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -731,7 +731,7 @@ C(fill_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
        _ sub %o0,4,%o0
         sll %o1,2,%o1           // %o1 = -4*count
         sub %o0,%o1,%o0         // %o0 = &destptr[count-1]
-1:        addcc %o1,4,%o1       // Zähler "erniedrigen", Pointer erhöhen
+1:        addcc %o1,4,%o1       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           bne 1b
          _ st %o2,[%o0+%o1]     // Digit ablegen
 2:      retl
@@ -757,7 +757,7 @@ C(fill_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
         be 2f
        _ sll %o1,2,%o1          // %o1 = 4*count
         sub %o0,%o1,%o0         // %o0 = &destptr[-count]
-1:        subcc %o1,4,%o1       // Zähler erniedrigen, Pointer erniedrigen
+1:        subcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bne 1b
          _ st %o2,[%o0+%o1]     // Digit ablegen
 2:      retl
@@ -784,7 +784,7 @@ C(clear_loop_up:) // Input in %o0,%o1, Output in %o0
        _ sub %o0,4,%o0
         sll %o1,2,%o1           // %o1 = -4*count
         sub %o0,%o1,%o0         // %o0 = &destptr[count-1]
-1:        addcc %o1,4,%o1       // Zähler "erniedrigen", Pointer erhöhen
+1:        addcc %o1,4,%o1       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           bne 1b
          _ st %g0,[%o0+%o1]     // Digit 0 ablegen
 2:      retl
@@ -810,7 +810,7 @@ C(clear_loop_down:) // Input in %o0,%o1, Output in %o0
         be 2f
        _ sll %o1,2,%o1          // %o1 = 4*count
         sub %o0,%o1,%o0         // %o0 = &destptr[-count]
-1:        subcc %o1,4,%o1       // Zähler erniedrigen, Pointer erniedrigen
+1:        subcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bne 1b
          _ st %g0,[%o0+%o1]     // Digit 0 ablegen
 2:      retl
@@ -841,12 +841,12 @@ C(test_loop_up:) // Input in %o0,%o1, Output in %o0
         be 2f
        _ sll %o1,2,%o1          // %o1 = -4*count
         sub %o0,%o1,%o0         // %o0 = &ptr[count]
-          ld [%o0+%o1],%o2      // nächstes Digit holen
+          ld [%o0+%o1],%o2      // nÃ¤chstes Digit holen
 1:        andcc %o2,%o2,%g0     // testen
           bne 3f
-         _ addcc %o1,4,%o1      // Zähler "erniedrigen", Pointer erhöhen
+         _ addcc %o1,4,%o1      // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           bne,a 1b
-         __ ld [%o0+%o1],%o2    // nächstes Digit holen
+         __ ld [%o0+%o1],%o2    // nÃ¤chstes Digit holen
 2:      retl
        _ mov 0,%o0
 3:      retl
@@ -878,12 +878,12 @@ C(test_loop_down:) // Input in %o0,%o1, Output in %o0
         subcc %o1,4,%o1
         bcs 4f
        _ nop
-          ld [%o0+%o1],%o2      // nächstes Digit holen
-1:        subcc %o1,4,%o1       // Zähler erniedrigen, Pointer erniedrigen
+          ld [%o0+%o1],%o2      // nÃ¤chstes Digit holen
+1:        subcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bcs 3f
          _ andcc %o2,%o2,%g0    // testen
           be,a 1b
-         __ ld [%o0+%o1],%o2    // nächstes Digit holen
+         __ ld [%o0+%o1],%o2    // nÃ¤chstes Digit holen
 2:      retl
        _ mov 1,%o0
 3:      bne 2b
@@ -919,7 +919,7 @@ C(or_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          or %o3,%o4,%o3        // verknüpfen
+          or %o3,%o4,%o3        // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ add %o0,4,%o0        // xptr++, yptr++
@@ -933,10 +933,10 @@ C(or_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          or %o4,%o3,%o3        // beide verknüpfen
+          or %o4,%o3,%o3        // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -970,7 +970,7 @@ C(xor_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          xor %o3,%o4,%o3       // verknüpfen
+          xor %o3,%o4,%o3       // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ add %o0,4,%o0        // xptr++, yptr++
@@ -984,10 +984,10 @@ C(xor_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          xor %o4,%o3,%o3       // beide verknüpfen
+          xor %o4,%o3,%o3       // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -1021,7 +1021,7 @@ C(and_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          and %o3,%o4,%o3       // verknüpfen
+          and %o3,%o4,%o3       // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ add %o0,4,%o0        // xptr++, yptr++
@@ -1035,10 +1035,10 @@ C(and_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          and %o4,%o3,%o3       // beide verknüpfen
+          and %o4,%o3,%o3       // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -1070,7 +1070,7 @@ C(eqv_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          xnor %o3,%o4,%o3      // verknüpfen
+          xnor %o3,%o4,%o3      // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ add %o0,4,%o0        // xptr++, yptr++
@@ -1084,10 +1084,10 @@ C(eqv_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          xnor %o4,%o3,%o3      // beide verknüpfen
+          xnor %o4,%o3,%o3      // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -1120,7 +1120,7 @@ C(nand_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          and %o3,%o4,%o3       // verknüpfen
+          and %o3,%o4,%o3       // verknÃ¼pfen
           xor %o3,-1,%o3
           st %o3,[%o0]          // =: *xptr
           bne 1b
@@ -1135,10 +1135,10 @@ C(nand_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          and %o4,%o3,%o3       // beide verknüpfen
+          and %o4,%o3,%o3       // beide verknÃ¼pfen
           xor %o3,-1,%o3
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
@@ -1172,7 +1172,7 @@ C(nor_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          or %o3,%o4,%o3        // verknüpfen
+          or %o3,%o4,%o3        // verknÃ¼pfen
           xor %o3,-1,%o3
           st %o3,[%o0]          // =: *xptr
           bne 1b
@@ -1187,10 +1187,10 @@ C(nor_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          or %o4,%o3,%o3        // beide verknüpfen
+          or %o4,%o3,%o3        // beide verknÃ¼pfen
           xor %o3,-1,%o3
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
@@ -1223,7 +1223,7 @@ C(andc2_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          andn %o3,%o4,%o3      // verknüpfen
+          andn %o3,%o4,%o3      // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ add %o0,4,%o0        // xptr++, yptr++
@@ -1237,10 +1237,10 @@ C(andc2_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          andn %o4,%o3,%o3      // beide verknüpfen
+          andn %o4,%o3,%o3      // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -1272,7 +1272,7 @@ C(orc2_loop_up:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          orn %o3,%o4,%o3       // verknüpfen
+          orn %o3,%o4,%o3       // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ add %o0,4,%o0        // xptr++, yptr++
@@ -1286,10 +1286,10 @@ C(orc2_loop_up:) // Input in %o0,%o1,%o2
         sll %o2,2,%o2           // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count-1]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-1:        ld [%o1+%o2],%o3      // nächstes Digit holen
-          addcc %o2,4,%o2       // Zähler "erniedrigen", Pointer erhöhen
+1:        ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
+          addcc %o2,4,%o2       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          orn %o4,%o3,%o3       // beide verknüpfen
+          orn %o4,%o3,%o3       // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -1318,8 +1318,8 @@ C(not_loop_up:) // Input in %o0,%o1
        _ sub %o0,4,%o0
         sll %o1,2,%o1           // %o1 = -4*count
         sub %o0,%o1,%o0         // %o0 = &destptr[count-1]
-1:        addcc %o1,4,%o1       // Zähler "erniedrigen", Pointer erhöhen
-          ld [%o0+%o1],%o2      // nächstes Digit holen
+1:        addcc %o1,4,%o1       // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
+          ld [%o0+%o1],%o2      // nÃ¤chstes Digit holen
           xor %o2,-1,%o2
           bne 1b
          _ st %o2,[%o0+%o1]     // Digit ablegen
@@ -1353,13 +1353,13 @@ C(and_test_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
        _ sll %o2,2,%o2          // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-          ld [%o0+%o2],%o3      // nächstes Digit holen
+          ld [%o0+%o2],%o3      // nÃ¤chstes Digit holen
 1:        ld [%o1+%o2],%o4      // noch ein Digit holen
-          andcc %o3,%o4,%g0     // beide verknüpfen
+          andcc %o3,%o4,%g0     // beide verknÃ¼pfen
           bne 3f
-         _ addcc %o2,4,%o2      // Zähler "erniedrigen", Pointer erhöhen
+         _ addcc %o2,4,%o2      // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           bne,a 1b
-         __ ld [%o0+%o2],%o3    // nächstes Digit holen
+         __ ld [%o0+%o2],%o3    // nÃ¤chstes Digit holen
 2:      retl
        _ mov 0,%o0
 3:      retl
@@ -1399,13 +1399,13 @@ C(compare_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
        _ sll %o2,2,%o2          // %o2 = -4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[count]
         sub %o1,%o2,%o1         // %o1 = &yptr[count]
-          ld [%o0+%o2],%o3      // nächstes Digit holen
+          ld [%o0+%o2],%o3      // nÃ¤chstes Digit holen
 1:        ld [%o1+%o2],%o4      // noch ein Digit holen
           subcc %o3,%o4,%g0     // vergleichen
           bne 3f
-         _ addcc %o2,4,%o2      // Zähler "erniedrigen", Pointer erhöhen
+         _ addcc %o2,4,%o2      // ZÃ¤hler "erniedrigen", Pointer erhÃ¶hen
           bne,a 1b
-         __ ld [%o0+%o2],%o3    // nächstes Digit holen
+         __ ld [%o0+%o2],%o3    // nÃ¤chstes Digit holen
 2:      retl
        _ mov 0,%o0
 3:      subcc %o3,%o4,%g0       // nochmals vergleichen
@@ -1421,7 +1421,7 @@ C(compare_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
 
 // extern uintD add_loop_down (uintD* sourceptr1, uintD* sourceptr2, uintD* destptr, uintC count);
         DECLARE_FUNCTION(add_loop_down)
-C(add_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
+C(add_loop_down:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1, Output in %o0
 #if STANDARD_LOOPS
         andcc %o3,%o3,%g0
         be 2f
@@ -1479,7 +1479,7 @@ C(add_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 #endif
         sub %o5,%o4,%o5
         jmp %o5                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%g1,%g0     // carry
           ld [%o0+28],%o4       // source1-digit
           ld [%o1+28],%o5       // source2-digit
@@ -1585,7 +1585,7 @@ C(addto_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
 #endif
         sub %o4,%o3,%o4
         jmp %o4                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%o5,%g0     // carry
           ld [%o0+28],%o3       // source-digit
           ld [%o1+28],%o4       // dest-digit
@@ -1661,7 +1661,7 @@ C(inc_loop_down:) // Input in %o0,%o1, Output in %o0
 1:        addcc %o2,1,%o2       // incrementieren
           bne 3f
          _ st %o2,[%o0+%o1]     // ablegen
-          subcc %o1,4,%o1       // Zähler erniedrigen, Pointer erniedrigen
+          subcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bne,a 1b
          __ ld [%o0+%o1],%o2
 2:      retl
@@ -1672,7 +1672,7 @@ C(inc_loop_down:) // Input in %o0,%o1, Output in %o0
 
 // extern uintD sub_loop_down (uintD* sourceptr1, uintD* sourceptr2, uintD* destptr, uintC count);
         DECLARE_FUNCTION(sub_loop_down)
-C(sub_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
+C(sub_loop_down:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1, Output in %o0
 #if STANDARD_LOOPS
         andcc %o3,%o3,%g0
         be 2f
@@ -1730,7 +1730,7 @@ C(sub_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 #endif
         sub %o5,%o4,%o5
         jmp %o5                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%g1,%g0     // carry
           ld [%o0+28],%o4       // source1-digit
           ld [%o1+28],%o5       // source2-digit
@@ -1780,7 +1780,7 @@ C(sub_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 
 // extern uintD subx_loop_down (uintD* sourceptr1, uintD* sourceptr2, uintD* destptr, uintC count, uintD carry);
         DECLARE_FUNCTION(subx_loop_down)
-C(subx_loop_down:) // Input in %o0,%o1,%o2,%o3,%o4, verändert %g1, Output in %o0
+C(subx_loop_down:) // Input in %o0,%o1,%o2,%o3,%o4, verÃ¤ndert %g1, Output in %o0
 #if STANDARD_LOOPS
         andcc %o3,%o3,%g0
         be 2f
@@ -1944,7 +1944,7 @@ C(subfrom_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
 #endif
         sub %o4,%o3,%o4
         jmp %o4                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%o5,%g0     // carry
           ld [%o0+28],%o3       // source-digit
           ld [%o1+28],%o4       // dest-digit
@@ -2020,7 +2020,7 @@ C(dec_loop_down:) // Input in %o0,%o1, Output in %o0
 1:        subcc %o2,1,%o2       // decrementieren
           bcc 3f
          _ st %o2,[%o0+%o1]     // ablegen
-          subcc %o1,4,%o1       // Zähler erniedrigen, Pointer erniedrigen
+          subcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bne,a 1b
          __ ld [%o0+%o1],%o2
 2:      retl
@@ -2069,7 +2069,7 @@ C(neg_loop_down:) // Input in %o0,%o1, Output in %o0
           ld [%o0+%o1],%o2      // digit holen
 1:        subcc %g0,%o2,%o2     // negieren, testen
           bne 3f
-         _ subcc %o1,4,%o1      // Zähler erniedrigen, Pointer erniedrigen
+         _ subcc %o1,4,%o1      // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bne,a 1b
          __ ld [%o0+%o1],%o2
 2:      retl
@@ -2111,7 +2111,7 @@ C(shift1left_loop_down:) // Input in %o0,%o1, Output in %o0
 
 // extern uintD shiftleft_loop_down (uintD* ptr, uintC count, uintC i, uintD carry);
         DECLARE_FUNCTION(shiftleft_loop_down)
-C(shiftleft_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
+C(shiftleft_loop_down:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1, Output in %o0
         andcc %o1,%o1,%g0
         be 2f
        _ sub %g0,%o2,%g1        // 32-i (mod 32)
@@ -2121,7 +2121,7 @@ C(shiftleft_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o
           sll %o4,%o2,%o5       // dessen niedere (32-i) Bits
           or %o3,%o5,%o5        // mit dem alten Carry kombinieren
           st %o5,[%o0]          // Digit ablegen
-          srl %o4,%g1,%o3       // dessen höchste i Bits liefern den neuen Carry
+          srl %o4,%g1,%o3       // dessen hÃ¶chste i Bits liefern den neuen Carry
           bne 1b
          _ sub %o0,4,%o0
 2:      retl
@@ -2129,7 +2129,7 @@ C(shiftleft_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o
 
 // extern uintD shiftleftcopy_loop_down (uintD* sourceptr, uintD* destptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftleftcopy_loop_down)
-C(shiftleftcopy_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1,%g2, Output in %o0
+C(shiftleftcopy_loop_down:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1,%g2, Output in %o0
         andcc %o2,%o2,%g0
         be 2f
        _ mov 0,%o4              // Carry := 0
@@ -2141,7 +2141,7 @@ C(shiftleftcopy_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1,%g2, Outp
           or %o4,%g2,%g2        // mit dem alten Carry kombinieren
           sub %o1,4,%o1
           st %g2,[%o1]          // Digit ablegen
-          srl %o5,%g1,%o4       // dessen höchste i Bits liefern den neuen Carry
+          srl %o5,%g1,%o4       // dessen hÃ¶chste i Bits liefern den neuen Carry
           bne 1b
          _ sub %o0,4,%o0
 2:      retl
@@ -2166,7 +2166,7 @@ C(shift1right_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
 
 // extern uintD shiftright_loop_up (uintD* ptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftright_loop_up)
-C(shiftright_loop_up:) // Input in %o0,%o1,%o2, verändert %g1, Output in %o0
+C(shiftright_loop_up:) // Input in %o0,%o1,%o2, verÃ¤ndert %g1, Output in %o0
         sub %g0,%o2,%g1         // 32-i (mod 32)
         andcc %o1,%o1,%g0
         be 2f
@@ -2184,7 +2184,7 @@ C(shiftright_loop_up:) // Input in %o0,%o1,%o2, verändert %g1, Output in %o0
 
 // extern uintD shiftrightsigned_loop_up (uintD* ptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftrightsigned_loop_up)
-C(shiftrightsigned_loop_up:) // Input in %o0,%o1,%o2, verändert %g1, Output in %o0
+C(shiftrightsigned_loop_up:) // Input in %o0,%o1,%o2, verÃ¤ndert %g1, Output in %o0
         ld [%o0],%o4            // erstes Digit
         sub %g0,%o2,%g1         // 32-i (mod 32)
         sra %o4,%o2,%o5         // shiften
@@ -2206,7 +2206,7 @@ C(shiftrightsigned_loop_up:) // Input in %o0,%o1,%o2, verändert %g1, Output in %
 
 // extern uintD shiftrightcopy_loop_up (uintD* sourceptr, uintD* destptr, uintC count, uintC i, uintD carry);
         DECLARE_FUNCTION(shiftrightcopy_loop_up)
-C(shiftrightcopy_loop_up:) // Input in %o0,%o1,%o2,%o3,%o4, verändert %g1,%g2, Output in %o0
+C(shiftrightcopy_loop_up:) // Input in %o0,%o1,%o2,%o3,%o4, verÃ¤ndert %g1,%g2, Output in %o0
         sub %g0,%o3,%g1         // 32-i (mod 32)
         andcc %o2,%o2,%g0
         be 2f
@@ -2229,7 +2229,7 @@ C(mulusmall_loop_down:) // Input in %o0,%o1,%o2,%o3, Output in %o0
         andcc %o2,%o2,%g0
         be 3f
        _ sub %o1,4,%o1
-1:        // nächstes Digit [%o1] mit der 6-Bit-Zahl %o0 multiplizieren
+1:        // nÃ¤chstes Digit [%o1] mit der 6-Bit-Zahl %o0 multiplizieren
           // und kleinen Carry %o3 dazu:
           mov %o0,%y
           ld [%o1],%o4          // Wartetakt!
@@ -2265,7 +2265,7 @@ C(mulu_loop_down:) // Input in %i0,%i1,%i2,%i3
         save %sp,-96,%sp
         mov 0,%l0               // Carry
 1:        sub %i1,4,%i1
-          ld [%i1],%o1          // nächstes Digit
+          ld [%i1],%o1          // nÃ¤chstes Digit
           call _mulu32_         // mit digit multiplizieren
          _ mov %i0,%o0
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
@@ -2279,9 +2279,9 @@ C(mulu_loop_down:) // Input in %i0,%i1,%i2,%i3
        _ restore
 #else
         DECLARE_FUNCTION(mulu_loop_down)
-C(mulu_loop_down:) // Input in %o0,%o1,%o2,%o3, verändert %g1
+C(mulu_loop_down:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1
         mov 0,%o4               // Carry
-1:        ld [%o1-4],%g1        // nächstes Digit
+1:        ld [%o1-4],%g1        // nÃ¤chstes Digit
           // mit digit multiplizieren: %o0 * %g1 -> %o5|%g1
 #ifdef sparcv8
           sub     %o1,4,%o1
@@ -2346,11 +2346,11 @@ C(muluadd_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
         save %sp,-96,%sp
         mov 0,%l0               // Carry
 1:        sub %i1,4,%i1
-          ld [%i1],%o1          // nächstes source-Digit
+          ld [%i1],%o1          // nÃ¤chstes source-Digit
           call _mulu32_         // mit digit multiplizieren
          _ mov %i0,%o0
           sub %i2,4,%i2
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%g1,%l0      // High-Digit gibt neuen Carry
           addcc %o1,%o0,%o0     // addieren
@@ -2367,7 +2367,7 @@ C(muluadd_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 #ifndef sparcv8
         sra %i0,31,%l1          // 0 falls %i0>=0, -1 falls %i0<0
 #endif
-1:        ld [%i1-4],%o1        // nächstes source-Digit
+1:        ld [%i1-4],%o1        // nÃ¤chstes source-Digit
           sub %i1,4,%i1
           // mit digit multiplizieren: %i0 * %o1 -> %o2|%o0
 #ifdef sparcv8
@@ -2414,7 +2414,7 @@ C(muluadd_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
           rd      %y,%o0
 #endif
           sub %i2,4,%i2
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%o2,%l0      // High-Digit gibt neuen Carry
           addcc %o1,%o0,%o0     // addieren
@@ -2434,11 +2434,11 @@ C(mulusub_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
         save %sp,-96,%sp
         mov 0,%l0               // Carry
 1:        sub %i1,4,%i1
-          ld [%i1],%o1          // nächstes source-Digit
+          ld [%i1],%o1          // nÃ¤chstes source-Digit
           call _mulu32_         // mit digit multiplizieren
          _ mov %i0,%o0
           sub %i2,4,%i2
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%g1,%l0      // High-Digit gibt neuen Carry
           subcc %o1,%o0,%o1     // davon das Low-Digit subtrahieren
@@ -2455,7 +2455,7 @@ C(mulusub_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 #ifndef sparcv8
         sra %i0,31,%l1          // 0 falls %i0>=0, -1 falls %i0<0
 #endif
-1:        ld [%i1-4],%o1        // nächstes source-Digit
+1:        ld [%i1-4],%o1        // nÃ¤chstes source-Digit
           sub %i1,4,%i1
           // mit digit multiplizieren: %i0 * %o1 -> %o2|%o0
 #ifdef sparcv8
@@ -2502,7 +2502,7 @@ C(mulusub_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
           rd      %y,%o0
 #endif
           sub %i2,4,%i2
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%o2,%l0      // High-Digit gibt neuen Carry
           subcc %o1,%o0,%o1     // davon das Low-Digit subtrahieren
@@ -2523,7 +2523,7 @@ C(divu_loop_up:) // Input in %i0,%i1,%i2, Output in %i0
         be 2f
        _ mov 0,%g1                 // Rest
 1:        mov %g1,%o0              // Rest als High-Digit
-          ld [%i1],%o1             // nächstes Digit als Low-Digit
+          ld [%i1],%o1             // nÃ¤chstes Digit als Low-Digit
           call C(divu_6432_3232_)  // zusammen durch digit dividieren
          _ mov %i0,%o2
           st %o0,[%i1]             // Quotient ablegen, Rest in %g1
@@ -2542,7 +2542,7 @@ C(divucopy_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
         be 2f
        _ mov 0,%g1                 // Rest
 1:        mov %g1,%o0              // Rest als High-Digit
-          ld [%i1],%o1             // nächstes Digit als Low-Digit
+          ld [%i1],%o1             // nÃ¤chstes Digit als Low-Digit
           call C(divu_6432_3232_)  // zusammen durch digit dividieren
          _ mov %i0,%o2
           st %o0,[%i2]             // Quotient ablegen, Rest in %g1
@@ -2584,7 +2584,7 @@ C(or_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          or %o3,%o4,%o3        // verknüpfen
+          or %o3,%o4,%o3        // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ sub %o0,4,%o0        // xptr++, yptr++
@@ -2597,10 +2597,10 @@ C(or_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          or %o4,%o3,%o3        // beide verknüpfen
+          or %o4,%o3,%o3        // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -2633,7 +2633,7 @@ C(xor_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          xor %o3,%o4,%o3       // verknüpfen
+          xor %o3,%o4,%o3       // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ sub %o0,4,%o0        // xptr++, yptr++
@@ -2646,10 +2646,10 @@ C(xor_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          xor %o4,%o3,%o3       // beide verknüpfen
+          xor %o4,%o3,%o3       // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -2682,7 +2682,7 @@ C(and_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          and %o3,%o4,%o3       // verknüpfen
+          and %o3,%o4,%o3       // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ sub %o0,4,%o0        // xptr++, yptr++
@@ -2695,10 +2695,10 @@ C(and_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          and %o4,%o3,%o3       // beide verknüpfen
+          and %o4,%o3,%o3       // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -2731,7 +2731,7 @@ C(eqv_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          xnor %o3,%o4,%o3      // verknüpfen
+          xnor %o3,%o4,%o3      // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ sub %o0,4,%o0        // xptr++, yptr++
@@ -2744,10 +2744,10 @@ C(eqv_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          xnor %o4,%o3,%o3      // beide verknüpfen
+          xnor %o4,%o3,%o3      // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -2781,7 +2781,7 @@ C(nand_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          and %o3,%o4,%o3       // verknüpfen
+          and %o3,%o4,%o3       // verknÃ¼pfen
           xor %o3,-1,%o3
           st %o3,[%o0]          // =: *xptr
           bne 1b
@@ -2795,10 +2795,10 @@ C(nand_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          and %o4,%o3,%o3       // beide verknüpfen
+          and %o4,%o3,%o3       // beide verknÃ¼pfen
           xor %o3,-1,%o3
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
@@ -2833,7 +2833,7 @@ C(nor_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          or %o3,%o4,%o3        // verknüpfen
+          or %o3,%o4,%o3        // verknÃ¼pfen
           xor %o3,-1,%o3
           st %o3,[%o0]          // =: *xptr
           bne 1b
@@ -2847,10 +2847,10 @@ C(nor_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          or %o4,%o3,%o3        // beide verknüpfen
+          or %o4,%o3,%o3        // beide verknÃ¼pfen
           xor %o3,-1,%o3
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
@@ -2884,7 +2884,7 @@ C(andc2_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          andn %o3,%o4,%o3      // verknüpfen
+          andn %o3,%o4,%o3      // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ sub %o0,4,%o0        // xptr++, yptr++
@@ -2897,10 +2897,10 @@ C(andc2_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          andn %o4,%o3,%o3      // beide verknüpfen
+          andn %o4,%o3,%o3      // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -2933,7 +2933,7 @@ C(orc2_loop_down:) // Input in %o0,%o1,%o2
 1:        ld [%o0],%o3          // *xptr
           ld [%o0+%o1],%o4      // *yptr
           subcc %o2,1,%o2
-          orn %o3,%o4,%o3       // verknüpfen
+          orn %o3,%o4,%o3       // verknÃ¼pfen
           st %o3,[%o0]          // =: *xptr
           bne 1b
          _ sub %o0,4,%o0        // xptr++, yptr++
@@ -2946,10 +2946,10 @@ C(orc2_loop_down:) // Input in %o0,%o1,%o2
        _ sll %o2,2,%o2          // %o2 = 4*count
         sub %o0,%o2,%o0         // %o0 = &xptr[-count]
         sub %o1,%o2,%o1         // %o1 = &yptr[-count]
-1:        subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o1+%o2],%o3      // nächstes Digit holen
+1:        subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o1+%o2],%o3      // nÃ¤chstes Digit holen
           ld [%o0+%o2],%o4      // noch ein Digit holen
-          orn %o4,%o3,%o3       // beide verknüpfen
+          orn %o4,%o3,%o3       // beide verknÃ¼pfen
           bne 1b
          _ st %o3,[%o1+%o2]     // Digit ablegen
 2:      retl
@@ -2977,8 +2977,8 @@ C(not_loop_down:) // Input in %o0,%o1
         be 2f
        _ sll %o1,2,%o1          // %o1 = 4*count
         sub %o0,%o1,%o0         // %o0 = &destptr[-count]
-1:        subcc %o1,4,%o1       // Zähler erniedrigen, Pointer erniedrigen
-          ld [%o0+%o1],%o2      // nächstes Digit holen
+1:        subcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erniedrigen
+          ld [%o0+%o1],%o2      // nÃ¤chstes Digit holen
           xor %o2,-1,%o2
           bne 1b
          _ st %o2,[%o0+%o1]     // Digit ablegen
@@ -3015,13 +3015,13 @@ C(and_test_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
         subcc %o2,4,%o2
         bcs 2f
        _ nop
-          ld [%o0+%o2],%o3      // nächstes Digit holen
+          ld [%o0+%o2],%o3      // nÃ¤chstes Digit holen
 1:        ld [%o1+%o2],%o4      // noch ein Digit holen
-          andcc %o3,%o4,%g0     // beide verknüpfen
+          andcc %o3,%o4,%g0     // beide verknÃ¼pfen
           bne 3f
-         _ subcc %o2,4,%o2      // Zähler erniedrigen, Pointer erniedrigen
+         _ subcc %o2,4,%o2      // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bcc,a 1b
-         __ ld [%o0+%o2],%o3    // nächstes Digit holen
+         __ ld [%o0+%o2],%o3    // nÃ¤chstes Digit holen
 2:      retl
        _ mov 0,%o0
 3:      retl
@@ -3059,13 +3059,13 @@ C(compare_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
         subcc %o2,4,%o2
         bcs 5f
        _ nop
-          ld [%o0+%o2],%o3      // nächstes Digit holen
+          ld [%o0+%o2],%o3      // nÃ¤chstes Digit holen
 1:        ld [%o1+%o2],%o4      // noch ein Digit holen
-          subcc %o2,4,%o2       // Zähler erniedrigen, Pointer erniedrigen
+          subcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erniedrigen
           bcs 4f
          _ subcc %o3,%o4,%g0    // vergleichen
           be,a 1b
-         __ ld [%o0+%o2],%o3    // nächstes Digit holen
+         __ ld [%o0+%o2],%o3    // nÃ¤chstes Digit holen
 2:      blu 3f
        _ nop
         retl
@@ -3080,7 +3080,7 @@ C(compare_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
 
 // extern uintD add_loop_up (uintD* sourceptr1, uintD* sourceptr2, uintD* destptr, uintC count);
         DECLARE_FUNCTION(add_loop_up)
-C(add_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
+C(add_loop_up:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1, Output in %o0
 #if STANDARD_LOOPS
         andcc %o3,%o3,%g0
         be 2f
@@ -3113,7 +3113,7 @@ C(add_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
           subcc %g0,%g1,%g0     // carry
           addxcc %o4,%o5,%o4    // addieren
           addx %g0,%g0,%g1      // neuer Carry
-          addcc %o3,4,%o3       // Zähler erniedrigen, Pointer erhöhen
+          addcc %o3,4,%o3       // ZÃ¤hler erniedrigen, Pointer erhÃ¶hen
           bne 1b
          _ st %o4,[%o2+%o3]     // Digit ablegen
 2:      retl
@@ -3136,7 +3136,7 @@ C(add_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 #endif
         sub %o5,%o4,%o5
         jmp %o5                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%g1,%g0     // carry
           ld [%o0-32],%o4       // source1-digit
           ld [%o1-32],%o5       // source2-digit
@@ -3217,7 +3217,7 @@ C(addto_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
           addxcc %o4,%o3,%o4    // addieren
           addx %g0,%g0,%o5      // neuer Carry
           st %o4,[%o1+%o2]      // Digit ablegen
-          addcc %o2,4,%o2       // Zähler erniedrigen, Pointer erhöhen
+          addcc %o2,4,%o2       // ZÃ¤hler erniedrigen, Pointer erhÃ¶hen
           bne,a 1b
          __ ld [%o0+%o2],%o3    // source-digit
 2:      retl
@@ -3239,7 +3239,7 @@ C(addto_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
 #endif
         sub %o4,%o3,%o4
         jmp %o4                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%o5,%g0     // carry
           ld [%o0-32],%o3       // source-digit
           ld [%o1-32],%o4       // dest-digit
@@ -3315,7 +3315,7 @@ C(inc_loop_up:) // Input in %o0,%o1, Output in %o0
 1:        addcc %o2,1,%o2       // incrementieren
           bne 3f
          _ st %o2,[%o0+%o1]     // ablegen
-          addcc %o1,4,%o1       // Zähler erniedrigen, Pointer erhöhen
+          addcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erhÃ¶hen
           bne,a 1b
          __ ld [%o0+%o1],%o2
 2:      retl
@@ -3326,7 +3326,7 @@ C(inc_loop_up:) // Input in %o0,%o1, Output in %o0
 
 // extern uintD sub_loop_up (uintD* sourceptr1, uintD* sourceptr2, uintD* destptr, uintC count);
         DECLARE_FUNCTION(sub_loop_up)
-C(sub_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
+C(sub_loop_up:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1, Output in %o0
 #if STANDARD_LOOPS
         andcc %o3,%o3,%g0
         be 2f
@@ -3382,7 +3382,7 @@ C(sub_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 #endif
         sub %o5,%o4,%o5
         jmp %o5                 // Sprung nach (label 1)+4*(1+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%g1,%g0     // carry
           ld [%o0-32],%o4       // source1-digit
           ld [%o1-32],%o5       // source2-digit
@@ -3432,7 +3432,7 @@ C(sub_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 
 // extern uintD subx_loop_up (uintD* sourceptr1, uintD* sourceptr2, uintD* destptr, uintC count, uintD carry);
         DECLARE_FUNCTION(subx_loop_up)
-C(subx_loop_up:) // Input in %o0,%o1,%o2,%o3,%o4, verändert %g1, Output in %o0
+C(subx_loop_up:) // Input in %o0,%o1,%o2,%o3,%o4, verÃ¤ndert %g1, Output in %o0
 #if STANDARD_LOOPS
         andcc %o3,%o3,%g0
         be 2f
@@ -3591,7 +3591,7 @@ C(subfrom_loop_up:) // Input in %o0,%o1,%o2, Output in %o0
 #endif
         sub %o4,%o3,%o4
         jmp %o4                 // Sprung nach _subfrom_loop_up+4*(11+4*8-4*(count mod 8))
-       _ subcc %g0,%g0,%g0      // carry löschen
+       _ subcc %g0,%g0,%g0      // carry lÃ¶schen
 1:        subcc %g0,%o5,%g0     // carry
           ld [%o0-32],%o3       // source-digit
           ld [%o1-32],%o4       // dest-digit
@@ -3667,7 +3667,7 @@ C(dec_loop_up:) // Input in %o0,%o1, Output in %o0
 1:        subcc %o2,1,%o2       // decrementieren
           bcc 3f
          _ st %o2,[%o0+%o1]     // ablegen
-          addcc %o1,4,%o1       // Zähler erniedrigen, Pointer erhöhen
+          addcc %o1,4,%o1       // ZÃ¤hler erniedrigen, Pointer erhÃ¶hen
           bne,a 1b
          __ ld [%o0+%o1],%o2
 2:      retl
@@ -3714,7 +3714,7 @@ C(neg_loop_up:) // Input in %o0,%o1, Output in %o0
           ld [%o0+%o1],%o2      // digit holen
 1:        subcc %g0,%o2,%o2     // negieren, testen
           bne 3f
-         _ addcc %o1,4,%o1      // Zähler erniedrigen, Pointer erhöhen
+         _ addcc %o1,4,%o1      // ZÃ¤hler erniedrigen, Pointer erhÃ¶hen
           bne,a 1b
          __ ld [%o0+%o1],%o2
 2:      retl
@@ -3755,7 +3755,7 @@ C(shift1left_loop_up:) // Input in %o0,%o1, Output in %o0
 
 // extern uintD shiftleft_loop_up (uintD* ptr, uintC count, uintC i, uintD carry);
         DECLARE_FUNCTION(shiftleft_loop_up)
-C(shiftleft_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
+C(shiftleft_loop_up:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1, Output in %o0
         andcc %o1,%o1,%g0
         be 2f
        _ sub %g0,%o2,%g1        // 32-i (mod 32)
@@ -3764,7 +3764,7 @@ C(shiftleft_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
           sll %o4,%o2,%o5       // dessen niedere (32-i) Bits
           or %o3,%o5,%o5        // mit dem alten Carry kombinieren
           st %o5,[%o0]          // Digit ablegen
-          srl %o4,%g1,%o3       // dessen höchste i Bits liefern den neuen Carry
+          srl %o4,%g1,%o3       // dessen hÃ¶chste i Bits liefern den neuen Carry
           bne 1b
          _ add %o0,4,%o0
 2:      retl
@@ -3774,7 +3774,7 @@ C(shiftleft_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1, Output in %o0
 
 // extern uintD shiftleftcopy_loop_up (uintD* sourceptr, uintD* destptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftleftcopy_loop_up)
-C(shiftleftcopy_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1,%g2, Output in %o0
+C(shiftleftcopy_loop_up:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1,%g2, Output in %o0
         andcc %o2,%o2,%g0
         be 2f
        _ mov 0,%o4              // Carry := 0
@@ -3785,7 +3785,7 @@ C(shiftleftcopy_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1,%g2, Output
           or %o4,%g2,%g2        // mit dem alten Carry kombinieren
           st %g2,[%o1]          // Digit ablegen
           add %o1,4,%o1
-          srl %o5,%g1,%o4       // dessen höchste i Bits liefern den neuen Carry
+          srl %o5,%g1,%o4       // dessen hÃ¶chste i Bits liefern den neuen Carry
           bne 1b
          _ add %o0,4,%o0
 2:      retl
@@ -3813,7 +3813,7 @@ C(shift1right_loop_down:) // Input in %o0,%o1,%o2, Output in %o0
 
 // extern uintD shiftright_loop_down (uintD* ptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftright_loop_down)
-C(shiftright_loop_down:) // Input in %o0,%o1,%o2, verändert %g1, Output in %o0
+C(shiftright_loop_down:) // Input in %o0,%o1,%o2, verÃ¤ndert %g1, Output in %o0
         sub %g0,%o2,%g1         // 32-i (mod 32)
         andcc %o1,%o1,%g0
         be 2f
@@ -3832,7 +3832,7 @@ C(shiftright_loop_down:) // Input in %o0,%o1,%o2, verändert %g1, Output in %o0
 
 // extern uintD shiftrightsigned_loop_down (uintD* ptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftrightsigned_loop_down)
-C(shiftrightsigned_loop_down:) // Input in %o0,%o1,%o2, verändert %g1, Output in %o0
+C(shiftrightsigned_loop_down:) // Input in %o0,%o1,%o2, verÃ¤ndert %g1, Output in %o0
         ld [%o0-4],%o4          // erstes Digit
         sub %g0,%o2,%g1         // 32-i (mod 32)
         sra %o4,%o2,%o5         // shiften
@@ -3854,7 +3854,7 @@ C(shiftrightsigned_loop_down:) // Input in %o0,%o1,%o2, verändert %g1, Output in
 
 // extern uintD shiftrightcopy_loop_down (uintD* sourceptr, uintD* destptr, uintC count, uintC i, uintD carry);
         DECLARE_FUNCTION(shiftrightcopy_loop_down)
-C(shiftrightcopy_loop_down:) // Input in %o0,%o1,%o2,%o3,%o4, verändert %g1,%g2, Output in %o0
+C(shiftrightcopy_loop_down:) // Input in %o0,%o1,%o2,%o3,%o4, verÃ¤ndert %g1,%g2, Output in %o0
         sub %g0,%o3,%g1         // 32-i (mod 32)
         andcc %o2,%o2,%g0
         be 2f
@@ -3878,7 +3878,7 @@ C(mulusmall_loop_up:) // Input in %o0,%o1,%o2,%o3, Output in %o0
         andcc %o2,%o2,%g0
         be 3f
        _ nop
-1:        // nächstes Digit [%o1] mit der 6-Bit-Zahl %o0 multiplizieren
+1:        // nÃ¤chstes Digit [%o1] mit der 6-Bit-Zahl %o0 multiplizieren
           // und kleinen Carry %o3 dazu:
           mov %o0,%y
           ld [%o1],%o4          // Wartetakt!
@@ -3913,7 +3913,7 @@ C(mulusmall_loop_up:) // Input in %o0,%o1,%o2,%o3, Output in %o0
 C(mulu_loop_up:) // Input in %i0,%i1,%i2,%i3
         save %sp,-96,%sp
         mov 0,%l0               // Carry
-1:        ld [%i1],%o1          // nächstes Digit
+1:        ld [%i1],%o1          // nÃ¤chstes Digit
           add %i1,4,%i1
           call _mulu32_         // mit digit multiplizieren
          _ mov %i0,%o0
@@ -3928,9 +3928,9 @@ C(mulu_loop_up:) // Input in %i0,%i1,%i2,%i3
        _ restore
 #else
         DECLARE_FUNCTION(mulu_loop_up)
-C(mulu_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1
+C(mulu_loop_up:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1
         mov 0,%o4               // Carry
-1:        ld [%o1],%g1          // nächstes Digit
+1:        ld [%o1],%g1          // nÃ¤chstes Digit
           // mit digit multiplizieren: %o0 * %g1 -> %o5|%g1
 #ifdef sparcv8
           add     %o1,4,%o1
@@ -3994,11 +3994,11 @@ C(muluadd_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 #if !MULU32_INLINE
         save %sp,-96,%sp
         mov 0,%l0               // Carry
-1:        ld [%i1],%o1          // nächstes source-Digit
+1:        ld [%i1],%o1          // nÃ¤chstes source-Digit
           add %i1,4,%i1
           call _mulu32_         // mit digit multiplizieren
          _ mov %i0,%o0
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%g1,%l0      // High-Digit gibt neuen Carry
           addcc %o1,%o0,%o0     // addieren
@@ -4016,7 +4016,7 @@ C(muluadd_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 #ifndef sparcv8
         sra %i0,31,%l1          // 0 falls %i0>=0, -1 falls %i0<0
 #endif
-1:        ld [%i1],%o1          // nächstes source-Digit
+1:        ld [%i1],%o1          // nÃ¤chstes source-Digit
           add %i1,4,%i1
           // mit digit multiplizieren: %i0 * %o1 -> %o2|%o0
 #ifdef sparcv8
@@ -4062,7 +4062,7 @@ C(muluadd_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
           add     %o2,%o3,%o2   // %o3 = (0 falls %i0>=0, %o1 falls %i0<0)
           rd      %y,%o0
 #endif
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%o2,%l0      // High-Digit gibt neuen Carry
           addcc %o1,%o0,%o0     // addieren
@@ -4082,11 +4082,11 @@ C(mulusub_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 #if !MULU32_INLINE
         save %sp,-96,%sp
         mov 0,%l0               // Carry
-1:        ld [%i1],%o1          // nächstes source-Digit
+1:        ld [%i1],%o1          // nÃ¤chstes source-Digit
           add %i1,4,%i1
           call _mulu32_         // mit digit multiplizieren
          _ mov %i0,%o0
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%g1,%l0      // High-Digit gibt neuen Carry
           subcc %o1,%o0,%o1     // davon das Low-Digit subtrahieren
@@ -4104,7 +4104,7 @@ C(mulusub_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 #ifndef sparcv8
         sra %i0,31,%l1          // 0 falls %i0>=0, -1 falls %i0<0
 #endif
-1:        ld [%i1],%o1          // nächstes source-Digit
+1:        ld [%i1],%o1          // nÃ¤chstes source-Digit
           add %i1,4,%i1
           // mit digit multiplizieren: %i0 * %o1 -> %o2|%o0
 #ifdef sparcv8
@@ -4150,7 +4150,7 @@ C(mulusub_loop_up:) // Input in %i0,%i1,%i2,%i3, Output in %i0
           add     %o2,%o3,%o2   // %o3 = (0 falls %i0>=0, %o1 falls %i0<0)
           rd      %y,%o0
 #endif
-          ld [%i2],%o1          // nächstes dest-digit
+          ld [%i2],%o1          // nÃ¤chstes dest-digit
           addcc %l0,%o0,%o0     // und bisherigen Carry addieren
           addx %g0,%o2,%l0      // High-Digit gibt neuen Carry
           subcc %o1,%o0,%o1     // davon das Low-Digit subtrahieren
@@ -4172,7 +4172,7 @@ C(divu_loop_down:) // Input in %i0,%i1,%i2, Output in %i0
         be 2f
        _ mov 0,%g1                 // Rest
 1:        mov %g1,%o0              // Rest als High-Digit
-          ld [%i1-4],%o1           // nächstes Digit als Low-Digit
+          ld [%i1-4],%o1           // nÃ¤chstes Digit als Low-Digit
           call C(divu_6432_3232_)  // zusammen durch digit dividieren
          _ mov %i0,%o2
           st %o0,[%i1-4]           // Quotient ablegen, Rest in %g1
@@ -4191,7 +4191,7 @@ C(divucopy_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
         be 2f
        _ mov 0,%g1                 // Rest
 1:        mov %g1,%o0              // Rest als High-Digit
-          ld [%i1-4],%o1           // nächstes Digit als Low-Digit
+          ld [%i1-4],%o1           // nÃ¤chstes Digit als Low-Digit
           call C(divu_6432_3232_)  // zusammen durch digit dividieren
          _ mov %i0,%o2
           sub %i2,4,%i2
@@ -4207,7 +4207,7 @@ C(divucopy_loop_down:) // Input in %i0,%i1,%i2,%i3, Output in %i0
 
 // extern void shiftxor_loop_up (uintD* xptr, const uintD* yptr, uintC count, uintC i);
         DECLARE_FUNCTION(shiftxor_loop_up)
-C(shiftxor_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1,%g2
+C(shiftxor_loop_up:) // Input in %o0,%o1,%o2,%o3, verÃ¤ndert %g1,%g2
         andcc %o2,%o2,%g0
         be 2f
        _ sub %g0,%o3,%g1        // 32-i (mod 32)
@@ -4219,10 +4219,10 @@ C(shiftxor_loop_up:) // Input in %o0,%o1,%o2,%o3, verändert %g1,%g2
           xor %o4,%g2,%o4       // mit dem modifizierten *xptr kombinieren
           st %o4,[%o0]          // und ablegen
           add %o0,4,%o0
-          srl %o5,%g1,%g2       // höchste i Bits von *yptr
-          ld [%o0],%o4          // schon mal mit dem nächsten *xptr
+          srl %o5,%g1,%g2       // hÃ¶chste i Bits von *yptr
+          ld [%o0],%o4          // schon mal mit dem nÃ¤chsten *xptr
           bne 1b
-         _ xor %o4,%g2,%o4      // verknüpfen
+         _ xor %o4,%g2,%o4      // verknÃ¼pfen
         st %o4,[%o0]            // und ablegen
 2:      retl
        _ nop

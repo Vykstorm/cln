@@ -23,9 +23,9 @@ const cl_DF operator- (const cl_DF& x1, const cl_DF& x2)
 #ifdef FAST_DOUBLE
       double_to_DF(DF_to_double(x1) - DF_to_double(x2), return ,
                    TRUE, TRUE, // Overflow und subnormale Zahl abfangen
-                   FALSE, // kein Underflow mit Ergebnis +/- 0.0 möglich
+                   FALSE, // kein Underflow mit Ergebnis +/- 0.0 mÃ¶glich
                           // (nach Definition der subnormalen Zahlen)
-                   FALSE, FALSE // keine Singularität, kein NaN als Ergebnis möglich
+                   FALSE, FALSE // keine SingularitÃ¤t, kein NaN als Ergebnis mÃ¶glich
                   );
 #else
 #if (cl_word_size==64)

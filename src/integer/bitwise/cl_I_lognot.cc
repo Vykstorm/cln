@@ -17,7 +17,7 @@ namespace cln {
 
 const cl_I lognot (const cl_I& x)
     { if (fixnump(x)) // Fixnum -> ganz einfach:
-        { // bitweise als Fixnum zurück
+        { // bitweise als Fixnum zurÃ¼ck
           return cl_I_from_word(x.word ^ cl_combine(0,~(cl_uint)0));
         }
         else

@@ -20,7 +20,7 @@ bool equal (const cl_N& x, const cl_N& y)
 // Falls beide reell, klar.
 // Falls x reell, y komplex: (= x (realpart y)) und (zerop (imagpart y)).
 // Falls x komplex, y reell: analog
-// Falls beide komplex: Realteile und Imagin‰rteile jeweils gleich?
+// Falls beide komplex: Realteile und Imagin√§rteile jeweils gleich?
 	if (realp(x)) {
 		DeclareType(cl_R,x);
 		if (realp(y)) {

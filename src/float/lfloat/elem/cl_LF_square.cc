@@ -51,7 +51,7 @@ const cl_LF square (const cl_LF& x)
       num_stack_alloc(2*len,MSDptr=,LSDptr=);
       cl_UDS_mul_square(x_LSDptr,len,LSDptr);
       {var uintD* midptr = MSDptr mspop len; // Pointer in die Mitte der 2*len Digits
-       if ((sintD)mspref(MSDptr,0) >= 0) // f¸hrendes Bit abtesten
+       if ((sintD)mspref(MSDptr,0) >= 0) // f√ºhrendes Bit abtesten
          { // erste n+1 Digits um 1 Bit nach links schieben:
            shift1left_loop_lsp(midptr mspop 1,len+1);
            // Exponenten decrementieren:
@@ -62,11 +62,11 @@ const cl_LF square (const cl_LF& x)
                  { return encode_LF0(len); } // Ergebnis 0.0
              }
          }
-       // erste H‰lfte des Mantissenprodukts ¸bertragen:
+       // erste H√§lfte des Mantissenprodukts √ºbertragen:
        {var uintD* y_mantMSDptr = arrayMSDptr(TheLfloat(y)->data,len);
         var uintD* y_mantLSDptr = copy_loop_msp(MSDptr,y_mantMSDptr,len);
         // Runden:
-        if ( ((sintD)mspref(midptr,0) >= 0) // n‰chstes Bit =0 -> abrunden
+        if ( ((sintD)mspref(midptr,0) >= 0) // n√§chstes Bit =0 -> abrunden
              || ( ((mspref(midptr,0) & ((uintD)bit(intDsize-1)-1)) ==0) // Bit =1, weitere Bits >0 -> aufrunden
                   && !test_loop_msp(midptr mspop 1,len-1)
                   // round-to-even
@@ -77,10 +77,10 @@ const cl_LF square (const cl_LF& x)
           else
           // aufrunden
           { if ( inc_loop_lsp(y_mantLSDptr,len) )
-              { // ‹bertrag durchs Aufrunden (kann nur auftreten,
+              { // √úbertrag durchs Aufrunden (kann nur auftreten,
                 // wenn vorhin um 1 Bit nach links geschoben wurde)
                 mspref(y_mantMSDptr,0) = bit(intDsize-1); // Mantisse := 10...0
-                (TheLfloat(y)->expo)++; // Exponent wieder zur¸ck-erhˆhen
+                (TheLfloat(y)->expo)++; // Exponent wieder zur√ºck-erh√∂hen
           }   }
         // LF_exp_low <= exp <= LF_exp_high sicherstellen:
         if (TheLfloat(y)->expo == LF_exp_high+1) { throw floating_point_overflow_exception(); }
