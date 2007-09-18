@@ -136,7 +136,8 @@
     #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp " ASM_UNDERSCORE_PREFIX #addr)
   #endif
   #if defined(__m68k__)
-    #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp %0@" : : "a" ((void*)(addr)))
+    //#define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp %0@" : : "a" ((void*)(addr)))
+    #define CL_JUMP_TO(addr)  ASM_VOLATILE("jmp (" ASM_UNDERSCORE_PREFIX #addr ",%pc)")
   #endif
   #if defined(__mips__) || defined(__mipsel__)
     //#define CL_JUMP_TO(addr)  ASM_VOLATILE("%*j %0" : : "d" ((void*)(addr)))

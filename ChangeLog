@@ -1,3 +1,8 @@
+2007-09-18  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/modules.h (CL_JUMP_TO): Use a pc relative jump on m68k.
+	See <http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=388000>.
+
 2007-09-16  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* */*: Convert encoding from ISO 8859-1 to UTF-8.
