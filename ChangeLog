@@ -1,3 +1,9 @@
+2007-09-19  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* doc/cln.tex: Put entire document in @dircategory Mathematics.
+	* doc/Makefile.in: texi2html -split_chapter suddenly uses subdirectory.
+	* Makefile.in: Don't install non-existing cln-config* and cln.m4.
+
 2007-09-18  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/modules.h (CL_JUMP_TO): Use a pc relative jump on m68k.

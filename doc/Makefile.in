@@ -19,6 +19,7 @@ DESTDIR =
 
 # Programs used by "make":
 RM = rm -f
+RM_R = rm -rf
 MKDIR = mkdir -p
 @SET_MAKE@
 
@@ -71,12 +72,12 @@ ${srcdir}/${PACKAGE}.ps : ${srcdir}/${PACKAGE}.dvi
 	${DVIPS} -o $@ $<
 
 
-html : ${PACKAGE}.html ${PACKAGE}_toc.html
+html : ${PACKAGE}.html ${PACKAGE}/${PACKAGE}_toc.html
 
 ${PACKAGE}.html : ${srcdir}/${PACKAGE}.texi
 	cd ${srcdir} && ${TEXI2HTML} -expandinfo -number -monolithic ${PACKAGE}.texi
 
-${PACKAGE}_toc.html : ${srcdir}/${PACKAGE}.texi
+${PACKAGE}/${PACKAGE}_toc.html : ${srcdir}/${PACKAGE}.texi
 	cd ${srcdir} && ${TEXI2HTML} -expandinfo -number -split_chapter ${PACKAGE}.texi
 
 
@@ -87,7 +88,7 @@ install : all installdirs force
 	  echo " install-info --info-dir=${DESTDIR}${infodir} ${DESTDIR}${infodir}/${PACKAGE}.info";\
 	  install-info --info-dir=${DESTDIR}${infodir} ${DESTDIR}${infodir}/${PACKAGE}.info || :;\
 	else : ; fi
-	${INSTALL_DATA} ${srcdir}/${PACKAGE}_*.html ${DESTDIR}${htmldir}
+	${INSTALL_DATA} ${srcdir}/${PACKAGE}/${PACKAGE}*.html ${DESTDIR}${htmldir}
 	${INSTALL_DATA} ${srcdir}/${PACKAGE}.dvi ${DESTDIR}${dvidir}/${PACKAGE}.dvi
 
 installdirs : force
@@ -118,6 +119,7 @@ distclean : clean
 
 maintainer-clean : distclean
 	${RM} *.info *.dvi *.ps *.html
+	${RM_R} cln/
 	if [ -f ${PACKAGE}.tex ] ; then ${RM} ${PACKAGE}.texi ; fi
 
 force :
