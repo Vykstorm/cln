@@ -1,3 +1,7 @@
+2007-10-01  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* autoconf/config.guess, autoconf/config.sub: updated from automake-1.9.
+
 2007-09-19  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* doc/cln.tex: Put entire document in @dircategory Mathematics.
