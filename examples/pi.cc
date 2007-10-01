@@ -6,6 +6,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
+#include <sstream>
 
 using namespace std;
 using namespace cln;
@@ -33,7 +34,7 @@ main (int argc, char * argv[])
 			cout << "pi (cln) " << CL_VERSION_MAJOR << "." << CL_VERSION_MINOR << endl;
 			cout << "Written by Bruno Haible." << endl;
 			cout << endl;
-			cout << "Copyright (C) 1998-2001 Bruno Haible." << endl;
+			cout << "Copyright (C) 1998-2007 Bruno Haible, 2000-2007 Richard B. Kreckel." << endl;
 			cout << "This is free software; see the source for copying conditions.  There is NO" << endl;
 			cout << "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." << endl;
 			cout << endl;
@@ -52,14 +53,25 @@ main (int argc, char * argv[])
 			return 1;
 		}
 	}
-	
-	cl_F p = pi(float_format(digits));
-	// make CLN believe this number has default_float_format to suppress
-	// exponent marker which would be quite boring for 3.1416...
-	cl_print_flags cpf;
-	cpf.default_float_format = float_format(p);
-	print_real(cout, cpf, p);
+
+	if (digits) {
+		cl_F p = pi(float_format(digits));
+		// make CLN believe this number has default_float_format to suppress
+		// exponent marker which would be quite boring for 3.1416...
+		cl_print_flags cpf;
+		cpf.default_float_format = float_format(p);
+		// We cannot print directly because people get dazed and confused
+		// when they see gratuitous digits (Debian Bug #286266.) And we
+		// must not "fix" the output routine because print-read consistency
+		// is at stake. As a workaround, print into a buffer so we can chop
+		// off characters from its end.
+		stringstream buf;
+		print_real(buf, cpf, p);
+		istreambuf_iterator<char> i = buf.rdbuf();
+		while (--digits+2>0)
+			cout << *(i++);
+	}
 	cout << endl;
-	
+
 	return 0;
 }

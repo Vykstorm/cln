@@ -1,3 +1,8 @@
+2007-10-02  Richard B. Kreckel  <kreckel@ginac.de>
+
+	On popular demand (Debian bug #286266, Ubuntu bug #128851):
+	* examples/pi.cc: Output no more than requested number of digits.
+
 2007-10-01  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* autoconf/config.guess, autoconf/config.sub: updated from automake-1.9.
