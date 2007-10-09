@@ -439,7 +439,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       __asm__ __volatile__ (       \
         "wr %%g0,%%g0,%%y\n\t"     \
         "udiv %2,%3,%0\n\t"        \
-        "umul %0,%3,%1"            \
+        "umul %0,%3,%1\n\t"        \
         "sub %2,%1,%1"             \
         : "=&r" (__q), "=&r" (__r) \
         : "r" (__x), "r" (__y));   \
@@ -528,7 +528,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       __asm__ __volatile__ (       \
         "wr %%g0,%%g0,%%y\n\t"     \
         "udiv %2,%3,%0\n\t"        \
-        "umul %0,%3,%1"            \
+        "umul %0,%3,%1\n\t"        \
         "sub %2,%1,%1"             \
         : "=&r" (__q), "=&r" (__r) \
         : "r" (__x), "r" (__y));   \
@@ -578,7 +578,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       __asm__ __volatile__ (       \
         "wr %%g0,%%g0,%%y\n\t"     \
         "udiv %2,%3,%0\n\t"        \
-        "umul %0,%3,%1"            \
+        "umul %0,%3,%1\n\t"        \
         "sub %2,%1,%1"             \
         : "=&r" (__q), "=&r" (__r) \
         : "r" (__x), "r" (__y));   \
@@ -690,7 +690,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       __asm__ __volatile__ (       \
         "wr %2,%%g0,%%y\n\t"       \
         "udiv %3,%4,%0\n\t"        \
-        "umul %0,%4,%1"            \
+        "umul %0,%4,%1\n\t"        \
         "sub %3,%1,%1"             \
         : "=&r" (__q), "=&r" (__r) \
         : "r" (__xhi), "r" (__xlo), "r" (__y)); \
@@ -791,7 +791,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       __asm__ __volatile__ (          \
         "wr %2,%%g0,%%y\n\t"          \
         "udiv %3,%4,%0\n\t"           \
-        "umul %0,%4,%1"               \
+        "umul %0,%4,%1\n\t"           \
         "sub %3,%1,%1"                \
         : "=&r" (__q), "=&r" (__r)    \
         : "r" (__xhi), "r" (__xlo), "r" (__y)); \

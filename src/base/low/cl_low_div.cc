@@ -259,9 +259,9 @@ uint64 divu_6464_6464_(uint64 x, uint64 y)
       }
       // q = floor(x1/(y1+1))
       // x-q*y bilden (eine 32-mal-64-Bit-Multiplikation ohne Überlauf):
-      x -= highlow64_0(mulu32_64(q,high32(y))); // q * high32(y) * beta
+      x -= highlow64_0(mulu32_w(q,high32(y))); // q * high32(y) * beta
       // gefahrlos, da q*high32(y) <= q*y/beta <= x/beta < beta
-      x -= mulu32_64(q,low32(y)); // q * low32(y)
+      x -= mulu32_w(q,low32(y)); // q * low32(y)
       // gefahrlos, da q*high32(y)*beta + q*low32(y) = q*y <= x
       // Noch höchstens 2 mal y abziehen:
       if (x >= y)

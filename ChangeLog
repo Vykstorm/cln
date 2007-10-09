@@ -1,3 +1,9 @@
+2007-10-10  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/base/cl_low.h: Add missing linefeeds in SPARC 64 inline assembler.
+	* src/base/low/cl_low_div.cc (divu_6464_6464_): Fix a copy-paste typo.
+	Reported by Sven Verdoolaege <skimo@kotnet.org>.
+
 2007-10-02  Richard B. Kreckel  <kreckel@ginac.de>
 
 	On popular demand (Debian bug #286266, Ubuntu bug #128851):
