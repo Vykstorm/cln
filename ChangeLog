@@ -1,3 +1,11 @@
+2007-10-12  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Fix compilation on CYGWIN:
+	* src/float/transcendental/cl_LF_zeta_int.cc: Avoid leading underscores
+	in variable names.
+	* src/float/transcendental/cl_LF_eulerconst.cc: Likewise.
+	Reported by Chris Bouchard <cbouchrd@uiuc.edu>.
+
 2007-10-10  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/cl_low.h: Add missing linefeeds in SPARC 64 inline assembler.

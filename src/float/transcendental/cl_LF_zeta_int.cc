@@ -112,9 +112,9 @@ const cl_LF compute_zeta_cvz2 (int s, uintC len)
 			thiss.n = n+1;
 			return result;
 		}
-		rational_series_stream (int _s, uintC _N)
+		rational_series_stream (int s_, uintC N_)
 			: cl_pqd_series_stream (rational_series_stream::computenext),
-			  n (0), s (_s), N (_N) {}
+			  n (0), s (s_), N (N_) {}
 	} series(s,N);
 	var cl_pqd_series_result<cl_I> sums;
 	eval_pqd_series_aux(N,series,sums,actuallen);

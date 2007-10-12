@@ -462,9 +462,9 @@ const cl_LF compute_eulerconst_besselintegral4 (uintC len)
 			thiss.n = n+1;
 			return result;
 		}
-		rational_series_stream (uintC _n, const cl_I& _x)
+		rational_series_stream (uintC n_, const cl_I& x_)
 			: cl_pqd_series_stream (rational_series_stream::computenext),
-			  n (_n), x (_x) {}
+			  n (n_), x (x_) {}
 	} series(0,x);
 	var cl_pqd_series_result<cl_R> sums;
 	eval_pqd_series_aux(N,series,sums,actuallen);
