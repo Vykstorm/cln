@@ -1,3 +1,8 @@
+2007-11-03  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/base/digitseq/cl_asm_i386_.cc (compare_loop_up, 
+	compare_loop_down): Fix empty ranges.
+
 2007-10-12  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Fix compilation on CYGWIN:
