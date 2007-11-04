@@ -536,7 +536,7 @@ C(compare_loop_up:)
             movl    4(%esp),%esi    // %esi = xptr
             movl    8(%esp),%edi    // %edi = yptr
             movl    12(%esp),%ecx   // %ecx = count
-            cmp     %ecx,%ecx       // initialize flags for the case %ecx is 0
+            cmpl    %ecx,%ecx       // initialize flags for the case %ecx is 0
             dir0start
             repz                    // Falls %ecx > 0:
               cmpsl                 // %ecx mal aufwärts (%edi) und (%esi) vergleichen
@@ -1378,7 +1378,7 @@ C(compare_loop_down:)
             movl    12(%esp),%ecx   // %ecx = count
             leal    -4(%esi),%esi
             leal    -4(%edi),%edi
-            cmp     %ecx,%ecx       // initialize flags for the case %ecx is 0
+            cmpl    %ecx,%ecx       // initialize flags for the case %ecx is 0
             dir1start
             repz                    // Falls %ecx > 0:
               cmpsl                 // %ecx mal aufwärts (%edi) und (%esi) vergleichen
