@@ -1,3 +1,11 @@
+2007-11-28  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/object.h: Don't redefine cl_word_alignment on sparc64.
+	* src/base/digitseq/cl_asm_sparc64_.cc: Declare use of global
+	register %g2 as scratch register within this file.
+	Reported by Paul Irofti <bulibuta@gmail.com> and Sven Verdoolaege
+	<skimo@kotnet.org>.
+
 2007-11-03  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/digitseq/cl_asm_i386_.cc (compare_loop_up, 

@@ -42,6 +42,8 @@
 
         .seg "text"
 
+        .register %g2,#scratch
+
         .global C(mulu16_),C(mulu32_),C(mulu32_unchecked),C(mulu64_)
         .global C(divu_6432_3232_),C(divu_3216_1616_)
         .global C(copy_loop_up),C(copy_loop_down),C(fill_loop_up),C(fill_loop_down)
