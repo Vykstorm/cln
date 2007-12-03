@@ -10,7 +10,7 @@
 namespace cln {
 
 struct cl_heap_lfloat : cl_heap {
-	unsigned int len;	// length of mantissa (in digits)
+	uintC len;		// length of mantissa (in digits)
 	int sign;		// sign (0 or -1)
 	uintE expo;		// exponent
 	uintD data[1];		// mantissa

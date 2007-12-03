@@ -1,3 +1,7 @@
+2007-12-03  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/float/lfloat/cl_LF.h (cl_heap_lfloat): Change len type to uintC.
+
 2007-11-28  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/object.h: Don't redefine cl_word_alignment on sparc64.
