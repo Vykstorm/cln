@@ -88,7 +88,7 @@
 
 // Integer type used for lfloat exponents.
 // Constraint: sizeof(uintE) >= sizeof(uintC)
-#if (defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__powerpc64__) || defined(__x86_64__) || defined(__i386__)))
+#if (defined(HAVE_LONGLONG) && (defined(__alpha__) || defined(__ia64__) || defined(__powerpc64__) || defined(__x86_64__) || defined(__i386__) || defined(__mips__) || defined(__rs6000__)))
     #define intEsize 64
     typedef sint64  sintE;
     typedef uint64  uintE;

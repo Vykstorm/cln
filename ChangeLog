@@ -1,3 +1,7 @@
+2007-12-04  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/types.h ([su]intE): 64-bit exponents for MIPS and RS6000.
+
 2007-12-03  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/float/lfloat/cl_LF.h (cl_heap_lfloat): Change len type to uintC.
