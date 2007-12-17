@@ -95,7 +95,7 @@ static const _cl_UP gf2_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 	return x;
 }
 
-#if !(defined(__sparc__) || defined(__sparc64__))
+#if !defined(__sparc__) || defined(__sparc64__)
 // Multiplication of polynomials over GF(2) can unfortunately not profit
 // from hardware multiply instructions. Use a table instead.
 // This is a 2^8 x 2^4 table. Maybe a 2^6 x 2^6 table would be better?

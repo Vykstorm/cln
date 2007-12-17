@@ -1,3 +1,7 @@
+2007-12-17  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/polynomial/elem/cl_UP_GF2.h (gf2_mul_table): define for sparc64.
+
 2007-12-04  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/types.h ([su]intE): 64-bit exponents for MIPS and RS6000.
