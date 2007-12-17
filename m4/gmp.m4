@@ -36,8 +36,8 @@ cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no")
 dnl What is sizeof(mp_limb_t)?  (It has to match sizeof(uintD) later.)
 AC_DEFUN([CL_GMP_SET_UINTD],
 [AC_CACHE_CHECK([how large gmp demands uintD to be], cl_cv_gmp_set_uintd, [
-    AC_TRY_RUN([#include <stdio.h>
-#include <gmp.h>
+    AC_TRY_RUN([#include <gmp.h>
+#include <stdio.h>
 int main() {
     FILE *f=fopen("conftestval", "w");
     if (!f) return(255);

@@ -1,5 +1,10 @@
 2007-12-17  Richard B. Kreckel  <kreckel@ginac.de>
 
+	Silly workaround for silly bug in gmp.h:
+	* m4/gmp.m4 (CL_GMP_SET_UINTD): Swap #include <gmp.h> and <stdio.h>.
+
+2007-12-17  Richard B. Kreckel  <kreckel@ginac.de>
+
 	* src/polynomial/elem/cl_UP_GF2.h (gf2_mul_table): define for sparc64.
 
 2007-12-04  Richard B. Kreckel  <kreckel@ginac.de>
