@@ -1,5 +1,12 @@
 2007-12-18  Richard B. Kreckel  <kreckel@ginac.de>
 
+	* autoconf/ltmain.sh: Update to libtool-1.5.24.
+	* autoconf/config.guess: Likewise.
+	* autoconf/config.sub: Likewise.
+	* m4/libtool.m4: Likewise.
+
+2007-12-18  Richard B. Kreckel  <kreckel@ginac.de>
+
 	* src/float/transcendental/cl_F_lnx.cc: Make actuallen of type uintC.
 	* src/float/transcendental/cl_F_expx.cc: Likewise.
 	* src/float/transcendental/cl_F_sinhx.cc: Likewise.
