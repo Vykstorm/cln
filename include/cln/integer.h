@@ -172,13 +172,13 @@ public:
 	explicit ash_exception (const cl_I& badamount);
 };
 
-// (LOGCOUNT x), wo x ein Integer ist. Ergebnis uintL.
+// (LOGCOUNT x), wo x ein Integer ist. Ergebnis uintC.
 extern uintC logcount (const cl_I& x);
 
-// (INTEGER-LENGTH x), wo x ein Integer ist. Ergebnis uintL.
+// (INTEGER-LENGTH x), wo x ein Integer ist. Ergebnis uintC.
 extern uintC integer_length (const cl_I& x);
 
-// (ORD2 x) = max{n>=0: 2^n | x }, wo x ein Integer /=0 ist. Ergebnis uintL.
+// (ORD2 x) = max{n>=0: 2^n | x }, wo x ein Integer /=0 ist. Ergebnis uintC.
 extern uintC ord2 (const cl_I& x);
 
 // power2p(x) stellt fest, ob ein Integer x>0 eine Zweierpotenz ist.
