@@ -1,3 +1,10 @@
+2007-12-18  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* src/float/transcendental/cl_F_lnx.cc: Make actuallen of type uintC.
+	* src/float/transcendental/cl_F_expx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinhx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinx.cc: Likewise.
+
 2007-12-17  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Silly workaround for silly bug in gmp.h:

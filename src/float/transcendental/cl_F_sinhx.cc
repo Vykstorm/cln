@@ -114,7 +114,7 @@ const cl_LF sinhx_naive (const cl_LF& x)
 
 	if (zerop(x))
 		return x;
-	var uintL actuallen = TheLfloat(x)->len;
+	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
 	var sintE e = float_exponent(x);
 	if (e <= (1-(sintC)d)>>1) // e <= (1-d)/2 <==> e <= -ceiling((d-1)/2) ?

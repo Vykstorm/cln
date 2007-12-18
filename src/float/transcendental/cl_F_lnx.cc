@@ -47,7 +47,7 @@ const cl_LF lnx_naive (const cl_LF& x)
 	var cl_LF y = x-cl_float(1,x);
 	if (zerop(y)) // y=0.0 -> y als Ergebnis
 		return y;
-	var uintL actuallen = TheLfloat(x)->len;
+	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
 	var sintE e = float_exponent(y);
 	if (e <= -(sintC)d) // e <= -d ?

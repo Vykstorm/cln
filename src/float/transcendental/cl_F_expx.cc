@@ -46,7 +46,7 @@ const cl_LF expx_naive (const cl_LF& x)
 // wie oben, mit adaptiver Genauigkeit während der Potenzreihen-Summation.
 	if (zerop(x))
 		return cl_float(1,x);
-	var uintL actuallen = TheLfloat(x)->len;
+	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
 	var sintE e = float_exponent(x);
 	if (e < -(sintC)d) // e < -d ?
