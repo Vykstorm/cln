@@ -201,6 +201,22 @@ else
   host_cpu=i386
 fi
   ;;
+dnl PowerPC64 is another case where 'uname -m' and userland may disagree.
+  powerpc64 )
+    AC_CACHE_CHECK([for 64-bit userland on PowerPC64], cl_cv_host_powerpc64, [
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+[[#if !defined __powerpc64__
+# error __powerpc64__ not defined
+#endif
+]])
+], [cl_cv_host_powerpc64=yes], [cl_cv_host_powerpc64=no])
+])
+if test $cl_cv_host_powerpc64 = yes; then
+  host_cpu=powerpc64
+else
+  host_cpu=rs6000
+fi
+  ;;
 esac
 dnl was AC_DEFINE_UNQUOTED(__${host_cpu}__) but KAI C++ 3.2d doesn't like this
 cat >> confdefs.h <<EOF
