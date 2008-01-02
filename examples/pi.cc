@@ -34,7 +34,7 @@ main (int argc, char * argv[])
 			cout << "pi (cln) " << CL_VERSION_MAJOR << "." << CL_VERSION_MINOR << endl;
 			cout << "Written by Bruno Haible." << endl;
 			cout << endl;
-			cout << "Copyright (C) 1998-2007 Bruno Haible, 2000-2007 Richard B. Kreckel." << endl;
+			cout << "Copyright (C) 1998-2008 Bruno Haible, 2000-2008 Richard B. Kreckel." << endl;
 			cout << "This is free software; see the source for copying conditions.  There is NO" << endl;
 			cout << "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." << endl;
 			cout << endl;
