@@ -1,3 +1,16 @@
+2008-01-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+            Richard B. Kreckel  <kreckel@ginac.de>
+
+	Cater to the fact that g++ 4.3 will use a different naming for
+	the global constructor suffix in shared and static objects.
+	* m4/c++-constructors.m4 (CL_GLOBAL_CONSTRUCTORS): Add test for
+	the global constructor suffix, define CL_GLOBAL_CONSTRUCTOR_SUFFIX_PIC
+	and CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC appropriately.
+	* include/cln/config.h.in: Provide templates to be filled in by
+	configure.
+	* include/cln/modules.h (CL_PROVIDE, CL_REQUIRE): Use
+	CL_GLOBAL_CONSTRUCTOR_SUFFIX_PIC, CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC.
+
 2007-12-19  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* m4/general.m4 (CL_CANONICAL_HOST_CPU): Force host_cpu=rs6000 for

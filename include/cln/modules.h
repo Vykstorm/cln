@@ -3,6 +3,9 @@
 #ifndef _CL_MODULES_H
 #define _CL_MODULES_H
 
+// global constructor/destructor naming.
+#include "cln/config.h"
+
 // The order of initialization of different compilation units is not
 // specified in C++. AIX 4 has a linker which apparently does order
 // the modules according to dependencies, so that low-level modules
@@ -55,6 +58,12 @@
 //    number theory stuff, etc.
 
 // OK, stop reading here, because it's getting obscene.
+
+#if defined(PIC)
+  #define CL_GLOBAL_CONSTRUCTOR_SUFFIX CL_GLOBAL_CONSTRUCTOR_SUFFIX_PIC
+#else
+  #define CL_GLOBAL_CONSTRUCTOR_SUFFIX CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC
+#endif
 
 #if defined(__GNUC__) && defined(__OPTIMIZE__) && !(defined(__hppa__) && (__GNUC__ == 2) && (__GNUC_MINOR__ < 8)) && !defined(NO_PROVIDE_REQUIRE)
   #ifdef ASM_UNDERSCORE
@@ -224,14 +233,22 @@
     // gcc-3.0 -fuse-cxa-atexit doesn't have a single per-module destructor
     // function anymore. Instead, for each object's static constructor it
     // executes, it pushes the corresponding object's destructor onto a list.
-    // Thus we need to hack the constructors only.
+    // Thus we need to hack the constructors only. gcc-4.3 uses different names
+    // for global ctors in shared and static objects, so we cannot directly
+    // call the ctors from CL_REQUIRE(M): the compiling function does not know
+    // yet how it's going to be linked. Hence, we must hide the ctor call beind
+    // an additional indirection.
     #define CL_PROVIDE(module)  \
       extern "C" void cl_module__##module##__firstglobalfun () {}	\
-      extern "C" void cl_module__##module##__ctorend (void);		\
-      CL_GLOBALIZE_JUMP_LABEL(cl_module__##module##__ctorend)		\
+      extern "C" void cl_module__##module##__ctorend ();		\
+      extern "C" void cl_module__##module##__docallctors ()		\
+        __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
+                     CL_GLOBAL_CONSTRUCTOR_SUFFIX(module));		\
+      extern "C" void cl_module__##module##__globalctors ()		\
+      { cl_module__##module##__docallctors(); }				\
       CL_GLOBALIZE_CTORDTOR_LABEL(					\
                  ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
-                 "cl_module__" #module "__firstglobalfun")		\
+                 CL_GLOBAL_CONSTRUCTOR_SUFFIX(module))			\
       static int cl_module__##module##__counter;			\
       struct cl_module__##module##__controller {			\
         inline cl_module__##module##__controller ()			\
@@ -247,9 +264,8 @@
       };								\
       static cl_module__##module##__destroyer cl_module__##module##__dtordummy;
     #define CL_REQUIRE(module)  \
-      extern "C" void cl_module__##module##__ctor (void)		\
-        __asm__ (ASM_UNDERSCORE_PREFIX CL_GLOBAL_CONSTRUCTOR_PREFIX	\
-                 "cl_module__" #module "__firstglobalfun");		\
+      extern "C" void cl_module__##module##__ctor ()			\
+        __asm__ (ASM_UNDERSCORE_PREFIX "cl_module__" #module "__globalctors"); \
       struct _CL_REQUIRE_CLASSNAME(module,__LINE__) {			\
         inline _CL_REQUIRE_CLASSNAME(module,__LINE__) ()		\
           { cl_module__##module##__ctor (); }				\

@@ -141,6 +141,13 @@
 /* Define if a module's global constructor function and global destructor
    function need to be exported in order to be accessible from other modules. */
 #undef CL_NEED_GLOBALIZE_CTORDTOR
+/* Define as the suffix of the name of a module's global constructor function */
+#ifndef CL_GLOBAL_CONSTRUCTOR_SUFFIX_PIC
+#undef CL_GLOBAL_CONSTRUCTOR_SUFFIX_PIC
+#endif
+#ifndef CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC
+#undef CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC
+#endif
 
 /* CL_CHAR_UNSIGNED */
 #ifndef __CHAR_UNSIGNED__

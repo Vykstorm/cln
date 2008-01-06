@@ -95,6 +95,46 @@ rm -f conftest*
 if test "$cl_cv_cplusplus_ctorexport" = yes; then
   AC_DEFINE(CL_NEED_GLOBALIZE_CTORDTOR)
 fi
+dnl Test what suffix to give the global ctors inside shared object files.
+if test "$enable_shared" = yes; then
+AC_CACHE_CHECK([for the global constructor function suffix in shared objects],
+cl_cv_cplusplus_ctorsuffix_pic, [
+cat > conftest.cc << EOF
+extern "C" void func () {}
+static struct S {
+  inline S () {}
+} S;
+EOF
+AC_TRY_COMMAND(${CXX-g++} $CXXFLAGS ${lt_prog_compiler_pic_CXX-"-fPIC"} -S conftest.cc) >/dev/null 2>&1
+if grep "${cl_cv_cplusplus_ctorprefix}conftest\.cc" conftest.s >/dev/null; then
+  cl_cv_cplusplus_ctorsuffix_pic='#module ".cc"'
+else
+  cl_cv_cplusplus_ctorsuffix_pic='"cl_module__" #module "__firstglobalfun"'
+fi
+rm -f conftest*
+])
+AC_DEFINE_UNQUOTED([CL_GLOBAL_CONSTRUCTOR_SUFFIX_PIC(module)], [$cl_cv_cplusplus_ctorsuffix_pic])
+fi
+dnl Test what suffix to give the global ctors inside static object files.
+if test "$enable_static" = yes; then
+AC_CACHE_CHECK([for the global constructor function suffix in static objects],
+cl_cv_cplusplus_ctorsuffix_nopic, [
+cat > conftest.cc << EOF
+extern "C" void func () {}
+static struct S {
+  inline S () {}
+} S;
+EOF
+AC_TRY_COMMAND(${CXX-g++} $CXXFLAGS -S conftest.cc) >/dev/null 2>&1
+if grep "${cl_cv_cplusplus_ctorprefix}conftest\.cc" conftest.s >/dev/null; then
+  cl_cv_cplusplus_ctorsuffix_nopic='#module ".cc"'
+else
+  cl_cv_cplusplus_ctorsuffix_nopic='"cl_module__" #module "__firstglobalfun"'
+fi
+rm -f conftest*
+])
+AC_DEFINE_UNQUOTED([CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC(module)], [$cl_cv_cplusplus_ctorsuffix_nopic])
+fi
 fi
 fi
 ])
