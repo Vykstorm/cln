@@ -63,16 +63,16 @@ by the author.
 @titlepage
 @title CLN, a Class Library for Numbers
 
-@author by Bruno Haible
+@author @uref{http://www.ginac.de/CLN}
 @page
 @vskip 0pt plus 1filll
 Copyright @copyright{} Bruno Haible 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008.
 @sp 0
-Copyright @copyright{} Richard Kreckel 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008.
+Copyright @copyright{} Richard B. Kreckel 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008.
 
 @sp 2
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
-Richard Kreckel, @code{<kreckel@@ginac.de>}.
+Richard B. Kreckel, @code{<kreckel@@ginac.de>}.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -86,7 +86,7 @@ notice identical to this one.
 Permission is granted to copy and distribute translations of this manual
 into another language, under the above conditions for modified versions,
 except that this permission notice may be stated in a translation approved
-by the author.
+by the authors.
 
 @end titlepage
 @page
@@ -211,11 +211,16 @@ Sch{@"o}nhage-Strassen
 @cindex Sch{@"o}nhage-Strassen multiplication
 @end iftex
 @ifinfo
-Schnhage-Strassen
-@cindex Schnhage-Strassen multiplication
+Schoenhage-Strassen
+@cindex Schoenhage-Strassen multiplication
 @end ifinfo
 multiplication, which is an asymptotically optimal multiplication
 algorithm, for multiplication, division and radix conversion.
+@item 
+@cindex binary splitting
+It uses binary splitting for fast evaluation of series of rational
+numbers as they occur in the evaluation of elementary functions and some
+constants.
 @end itemize
 
 @noindent
@@ -290,9 +295,9 @@ If on your system, @samp{make} is not GNU @code{make}, you have to use
 
 The @code{configure} command checks out some features of your system and
 C++ compiler and builds the @code{Makefile}s. The @code{make} command
-builds the library. This step may take about an hour on an average workstation.
-The @code{make check} runs some test to check that no important subroutine
-has been miscompiled.
+builds the library. This step may take about half an hour on an average
+workstation.  The @code{make check} runs some test to check that no
+important subroutine has been miscompiled.
 
 The @code{configure} command accepts options. To get a summary of them, try
 
@@ -317,16 +322,23 @@ Specifies the C++ compiler.
 
 @item CXXFLAGS
 Flags to be given to the C++ compiler when compiling programs (not when linking).
+
+@item CPPFLAGS
+Flags to be given to the C/C++ preprocessor.
 @end table
 
 Examples:
 
 @example
 $ CC="gcc" CFLAGS="-O" CXX="g++" CXXFLAGS="-O" ./configure
-$ CC="gcc -V 3.0.4" CFLAGS="-O2 -finline-limit=1000" \
-  CXX="g++ -V 3.0.4" CXXFLAGS="-O2 -finline-limit=1000" \
-  ./configure
-$ CC="gcc-4.1" CFLAGS="-O2" CXX="g++-4.1" CXXFLAGS="-O2" ./configure
+@end example
+@example
+$ CC="gcc -V 3.2.3" CFLAGS="-O2 -finline-limit=1000" \
+  CXX="g++ -V 3.2.3" CXXFLAGS="-O2 -finline-limit=1000" \
+  CPPFLAGS="-DNO_ASM" ./configure
+@end example
+@example
+$ CC="gcc-4.2" CFLAGS="-O2" CXX="g++-4.2" CXXFLAGS="-O2" ./configure
 @end example
 
 Note that for these environment variables to take effect, you have to set
@@ -337,11 +349,18 @@ calling @code{configure}. In a @code{csh} shell, you have to use the
 @samp{setenv} command for setting each of the environment variables.
 
 Currently CLN works only with the GNU @code{g++} compiler, and only in
-optimizing mode. So you should specify at least @code{-O} in the CXXFLAGS,
-or no CXXFLAGS at all. (If CXXFLAGS is not set, CLN will use @code{-O}.)
+optimizing mode. So you should specify at least @code{-O} in the
+CXXFLAGS, or no CXXFLAGS at all. If CXXFLAGS is not set, CLN will be
+compiled with @code{-O}.
 
-If you use @code{g++} 3.x, I recommend adding @samp{-finline-limit=1000}
-to the CXXFLAGS. This is essential for good code.
+The assembler language kernel can be turned off by specifying
+@code{-DNO_ASM} in the CPPFLAGS. If @code{make check} reports any
+problems, you may try to clean up (see @ref{Cleaning up}) and configure
+and compile again, this time with @code{-DNO_ASM}.
+
+If you use @code{g++} 3.2.x or earlier, I recommend adding
+@samp{-finline-limit=1000} to the CXXFLAGS. This is essential for good
+code.
 
 If you use @code{g++} from gcc-3.0.4 or older on Sparc, add either
 @samp{-O}, @samp{-O1} or @samp{-O2 -fno-schedule-insns} to the
@@ -352,41 +371,41 @@ won't work at all.
 Also, please do not compile CLN with @code{g++} using the @code{-O3}
 optimization level.  This leads to inferior code quality.
 
-If you use @code{g++} from gcc-3.1, it will need 235 MB of virtual memory.
-You might need some swap space if your machine doesn't have 512 MB of RAM.
+Some newer versions of @code{g++} require quite an amount of memory.
+You might need some swap space if your machine doesn't have 512 MB of
+RAM.
 
 By default, both a shared and a static library are built.  You can build
-CLN as a static (or shared) library only, by calling @code{configure} with
-the option @samp{--disable-shared} (or @samp{--disable-static}).  While
-shared libraries are usually more convenient to use, they may not work
-on all architectures.  Try disabling them if you run into linker
-problems.  Also, they are generally somewhat slower than static
+CLN as a static (or shared) library only, by calling @code{configure}
+with the option @samp{--disable-shared} (or @samp{--disable-static}).
+While shared libraries are usually more convenient to use, they may not
+work on all architectures.  Try disabling them if you run into linker
+problems.  Also, they are generally slightly slower than static
 libraries so runtime-critical applications should be linked statically.
-
-If you use @code{g++} from gcc-3.1 with option @samp{-g}, you will need
-some disk space: 335 MB for building as both a shared and a static library,
-or 130 MB when building as a shared library only.
 
 
 @subsection Using the GNU MP Library
 @cindex GMP
 
 Starting with version 1.1, CLN may be configured to make use of a
-preinstalled @code{gmp} library.  Please make sure that you have at
-least @code{gmp} version 3.0 installed since earlier versions are
-unsupported and likely not to work.  Enabling this feature by calling
-@code{configure} with the option @samp{--with-gmp} is known to be quite
-a boost for CLN's performance.
+preinstalled @code{gmp} library for some low-level routines.  Please
+make sure that you have at least @code{gmp} version 3.0 installed
+since earlier versions are unsupported and likely not to work.  This
+feature is known to be quite a boost for CLN's performance.
 
-If you have installed the @code{gmp} library and its header file in
-some place where your compiler cannot find it by default, you must help
-@code{configure} by setting @code{CPPFLAGS} and @code{LDFLAGS}.  Here is
-an example:
+By default, CLN will autodetect @code{gmp} and use it. But if you have
+installed the @code{gmp} library and its header file in some place where
+your compiler cannot find it by default, you must help @code{configure}
+by setting @code{CPPFLAGS} and @code{LDFLAGS}.  Here is an example:
 
 @example
-$ CC="gcc" CFLAGS="-O2" CXX="g++" CXXFLAGS="-O2" \
-  CPPFLAGS="-I/opt/gmp/include" LDFLAGS="-L/opt/gmp/lib" ./configure --with-gmp
+$ CFLAGS="-O2" CXXFLAGS="-O2" CPPFLAGS="-I/opt/gmp/include" \
+  LDFLAGS="-L/opt/gmp/lib" ./configure --with-gmp
 @end example
+
+If you do not want CLN to make use of a preinstalled @code{gmp}
+library, then you can explicitly specify so by calling
+@code{configure} with the option @samp{--without-gmp}.
 
 
 @section Installing the library
@@ -3290,8 +3309,8 @@ Sch{@"o}nhage-Strassen
 @cindex Sch{@"o}nhage-Strassen multiplication
 @end iftex
 @ifinfo
-Schnhage-Strassen
-@cindex Schnhage-Strassen multiplication
+Schoenhage-Strassen
+@cindex Schoenhage-Strassen multiplication
 @end ifinfo
 multiplication, which is an asymptotically optimal multiplication 
 algorithm.
@@ -3649,13 +3668,26 @@ $7 = @{<cl_gcpointer> = @{ = @{pointer = 0x8055b60, heappointer = 0x8055b60,
 Unfortunately, this feature does not seem to work under all circumstances.
 @end itemize
 
+@section Reporting Problems
+@cindex bugreports
+@cindex mailing list
+
+If you encounter any problem, please don't hesitate to send a detailed
+bugreport to the @code{cln-list@@ginac.de} mailing list. Please think
+about your bug: consider including a short description of your operating
+system and compilation environment with corresponding version numbers. A
+description of your configuration options may also be helpful. Also, a
+short test program together with the output you get and the output you
+expect will help us to reproduce it quickly. Finally, do not forget to
+report the version number of CLN.
+
 
 @chapter Customizing
 @cindex customizing
 
 @section Error handling
-@cindex Exception
-@cindex Error handling
+@cindex exception
+@cindex error handling
 
 @cindex @code{runtime_exception}
 CLN signals abnormal situations by throwning exceptions. All exceptions

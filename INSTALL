@@ -11,20 +11,24 @@ $ make install
 You need GNU make. On HP-UX, you also need GNU sed.
 
 Known to work with:
-  - Linux/x86, gcc-3.x, gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/x86_64, gcc-3.[3-4], gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/ia64, gcc-3.[2-4], gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/arm, gcc-3.[0-3], gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/mips, gcc-3.3, gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/sparc, gcc-3.[1-3], gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/alpha, gcc-3.[0-3], gcc-4.0.x, gcc-4.1.[0-1]
-  - Linux/powerpc, gcc-3.[0-3], gcc-4.0.x, gcc-4.1.[0-1]
-  - Solaris 2.4 (sparc), gcc-3.[1-3]
+  - Linux/x86, gcc-3.x, gcc-4.[0-2].x
+  - Linux/x86_64, gcc-3.[3-4], gcc-4.[0-2].x, gcc-4.3.0
+  - Linux/ia64, gcc-3.[2-4], gcc-4.[0-2].x
+  - Linux/arm, gcc-3.[0-3] (*), gcc-4.[0-2].x (*)
+  - Linux/mips, gcc-3.3, gcc-4.[0-2].x
+  - Linux/sparc, gcc-3.[1-3], gcc-4.[0-2].x
+  - Linux/alpha, gcc-3.[0-3], gcc-4.[0-2].x
+  - Linux/powerpc, gcc-3.[0-3], gcc-4.[0-2].x
+  - Linux/hppa, gcc-4.2.x (*)
+  - Solaris 2.4 (sparc), gcc-3.[1-3], gcc-4.[0-2].x (*)
   - OSF/1 V4.0 (alpha), gcc-3.1
   - Irix 6.5, gcc-3.0
-  - BeOS, gcc-2.95.x
 
-The "make" step takes about 30 minutes, on a P-III / 1 GHz / 512 MB.
+(*) On these platforms, problems with the assembler routines have been
+reported. It may be best to add "-DNO_ASM" to CPPFLAGS before
+configuring.
+
+Using gcc-4.2, the "make" step takes about 15 minutes, on an x86_64 / 2 GHz.
 
 If you use g++ from gcc-3.0.4 or older on Sparc, add either "-O", "-O1" or
 "-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2", g++ miscompiles
