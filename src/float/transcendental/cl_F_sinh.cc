@@ -33,7 +33,7 @@ const cl_F sinh (const cl_F& x)
 			if (TheLfloat(x)->len >= infty) {
 				var cl_LF xx = extend(x,TheLfloat(x)->len+1);
 				var cl_LF_cosh_sinh_t hyp = cl_coshsinh_ratseries(xx);
-				return cln/float.hyp.sinh,x);
+				return cl_float(hyp.sinh,x);
 			} else
 			#endif
 			if ((TheLfloat(x)->len >= 500)

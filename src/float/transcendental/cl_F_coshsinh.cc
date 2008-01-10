@@ -47,8 +47,8 @@ const cosh_sinh_t cosh_sinh (const cl_F& x)
 				var cl_LF xx = extend(x,TheLfloat(x)->len+1);
 				var cl_LF_cosh_sinh_t hyp = cl_coshsinh_ratseries(xx);
 				return cosh_sinh_t(
-					cln/float.hyp.cosh,x),
-					cln/float.hyp.sinh,x)
+					cl_float(hyp.cosh,x),
+					cl_float(hyp.sinh,x)
 				       );
 			} else
 			#endif
