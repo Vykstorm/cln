@@ -385,7 +385,8 @@ static void eval_pqb_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, cl_pqb_series_stream& args, uintC len, uintC trunclen)
+template<>
+const cl_LF eval_rational_series<false> (uintC N, cl_pqb_series_stream& args, uintC len, uintC trunclen)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);
