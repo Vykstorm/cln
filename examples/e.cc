@@ -43,7 +43,7 @@ using namespace std;
 using namespace cln;
 
 void
-sum_exp1 (uintL a, uintL b, cl_I & first, cl_I & second)
+sum_exp1 (uintC a, uintC b, cl_I & first, cl_I & second)
 {
   switch (b - a)
     {
@@ -60,7 +60,7 @@ sum_exp1 (uintL a, uintL b, cl_I & first, cl_I & second)
     default:
       {
         cl_I lp, lq, rp, rq, tmp;
-        uintL mid = (a + b) >> 1;
+        uintC mid = (a + b) >> 1;
         sum_exp1 (a, mid, lp, lq);
         sum_exp1 (mid, b, rp, rq);
         tmp = lp * rq;
@@ -76,14 +76,14 @@ namespace cln {
 }
 
 void
-const_exp1 (cl_LF & result, uintL dec)
+const_exp1 (cl_LF & result, uintC dec)
 {
-  uintL c = (uintL) (dec * ::log (10));
-  uintL n = dec;
+  uintC c = (uintC) (dec * ::log (10));
+  uintC n = dec;
   uintC actuallen = (uintC)(3.321928094 * dec / intDsize);
-  n = (uintL) ((n + c) / ::log ((double)n));
-  n = (uintL) ((n + c) / ::log ((double)n));
-  n = (uintL) ((n + c) / ::log ((double)n));
+  n = (uintC) ((n + c) / ::log ((double)n));
+  n = (uintC) ((n + c) / ::log ((double)n));
+  n = (uintC) ((n + c) / ::log ((double)n));
 
   n += 2;
   actuallen += 2;
@@ -100,10 +100,10 @@ const_exp1 (cl_LF & result, uintL dec)
 int
 main (int argc, char *argv[])
 {
-  int digits = 100;
+  long digits = 100;
   while (argc >= 3) {
         if (!strcmp(argv[1],"-n")) {
-            digits = atoi(argv[2]);
+            digits = atol(argv[2]);
             argc -= 2; argv += 2;
             continue;
         }

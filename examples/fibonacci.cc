@@ -88,7 +88,7 @@ const cl_I fibonacci_compact (int n)
 	cl_I u = 0;
 	cl_I v = 1;
 	cl_I m = n/2; // floor(n/2)
-	for (uintL bit=integer_length(m); bit>0; --bit) {
+	for (uintC bit=integer_length(m); bit>0; --bit) {
 		// Since a squaring is cheaper than a multiplication, better use
 		// three squarings instead of one multiplication and two squarings.
 		cl_I u2 = square(u);
