@@ -1,5 +1,9 @@
 2008-01-11  Richard B. Kreckel  <kreckel@ginac.de>
 
+	* include/cln/float.h (cos_sin_t, cosh_sinh_t): Add default ctor.
+
+2008-01-11  Richard B. Kreckel  <kreckel@ginac.de>
+
 	Make some functions more memory efficient:
 	* src/float/transcendental/cl_LF_tran.h (eval_rational_series): The
 	evaluation of streamed rational series may profit from shift-counting Q,

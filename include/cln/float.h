@@ -616,6 +616,7 @@ struct cos_sin_t {
 	cl_R cos;
 	cl_R sin;
 // Constructor:
+	cos_sin_t () {}
 	cos_sin_t (const cl_R& u, const cl_R& v) : cos (u), sin (v) {}
 };
 
@@ -659,6 +660,7 @@ struct cosh_sinh_t {
 	cl_R cosh;
 	cl_R sinh;
 // Constructor:
+	cosh_sinh_t () {}
 	cosh_sinh_t (const cl_R& u, const cl_R& v) : cosh (u), sinh (v) {}
 };
 
