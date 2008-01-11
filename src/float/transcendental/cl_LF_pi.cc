@@ -61,7 +61,7 @@ const cl_LF compute_pi_brent_salamin (uintC len)
 	//   )
 	//   (/ (expt a 2) t)
 	// )
-	var uintC actuallen = len + 1; // 1 Schutz-Digit
+	var uintC actuallen = len + 1; // 1 guard digit
 	var uintE uexp_limit = LF_exp_mid - intDsize*len;
 	// Ein Long-Float ist genau dann betragsmäßig <2^-n, wenn
 	// sein Exponent < LF_exp_mid-n = uexp_limit ist.
@@ -111,7 +111,7 @@ const cl_LF compute_pi_brent_salamin_quartic (uintC len)
 	//   = 2^(k+1) * [wa_k^4 - ((wa_k^2+wb_k^2)/2)^2].
 	// Hence,
 	//   pi = AGM(1,1/sqrt(2))^2 * 1/(1/2 - sum(k even, 2^k*[....])).
-	var uintC actuallen = len + 1; // 1 Schutz-Digit
+	var uintC actuallen = len + 1; // 1 guard digit
 	var uintE uexp_limit = LF_exp_mid - intDsize*len;
 	var cl_LF one = cl_I_to_LF(1,actuallen);
 	var cl_LF a = one;
@@ -154,7 +154,7 @@ const cl_LF compute_pi_ramanujan_163 (uintC len)
 	// in precision.
 	// The sum is best evaluated using fixed-point arithmetic,
 	// so that the precision is reduced for the later summands.
-	var uintC actuallen = len + 4; // 4 Schutz-Digits
+	var uintC actuallen = len + 4; // 4 guard digits
 	var sintC scale = intDsize*actuallen;
 	static const cl_I A = "163096908";
 	static const cl_I B = "6541681608";
@@ -216,7 +216,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 			: cl_pqa_series_stream (rational_series_stream::computenext),
 			  n (0) {}
 	} series;
-	var uintC actuallen = len + 4; // 4 Schutz-Digits
+	var uintC actuallen = len + 4; // 4 guard digits
 	static const cl_I A = "163096908";
 	static const cl_I B = "6541681608";
 	static const cl_I J1 = "10939058860032000"; // 72*abs(J)
@@ -230,7 +230,7 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 	var uintC N = (n_slope*actuallen)/32 + 1;
 	// N > intDsize*log(2)/log(|J|) * actuallen, hence
 	// |J|^-N < 2^(-intDsize*actuallen).
-	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
+	var cl_LF fsum = eval_rational_series<false>(N,series,actuallen,actuallen);
 	static const cl_I J3 = "262537412640768000"; // -1728*J
 	var cl_LF pires = sqrt(cl_I_to_LF(J3,actuallen)) / fsum;
 	return shorten(pires,len); // verkürzen und fertig

@@ -52,8 +52,8 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len)
 	//   a(n) = 1, b(n) = 1,
 	//   p(0) = p, p(n) = -p^2 for n>0,
 	//   q(0) = 2^lq, q(n) = (2*n)*(2*n+1)*(2^lq)^2 for n>0.
-	var uintC actuallen = len+1; // 1 Schutz-Digit
-	// How many terms to we need for M bits of precision? N/2 terms suffice,
+	var uintC actuallen = len+1; // 1 guard digit
+	// How many terms do we need for M bits of precision? N/2 terms suffice,
 	// provided that
 	//   1/(2^(N*lp)*N!) < 2^-M
 	// <==   N*(log(N)-1)+N*lp*log(2) > M*log(2)
@@ -73,7 +73,6 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len)
 	CL_ALLOCA_STACK;
 	var cl_I* pv = (cl_I*) cl_alloca(N*sizeof(cl_I));
 	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
 	var uintC n;
 	var cl_I p2 = -square(p);
 	var cl_LF sinsum;
@@ -85,8 +84,8 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len)
 			init1(cl_I, qv[n]) (((cl_I)n*(cl_I)(2*n+1)) << (2*lq+1));
 		}
 		var cl_pq_series series;
-		series.pv = pv; series.qv = qv; series.qsv = qsv;
-		sinsum = eval_rational_series(N,series,actuallen);
+		series.pv = pv; series.qv = qv;
+		sinsum = eval_rational_series<true>(N,series,actuallen);
 		for (n = 0; n < N; n++) {
 			pv[n].~cl_I();
 			qv[n].~cl_I();
@@ -102,8 +101,8 @@ const cl_LF_cos_sin_t cl_cossin_aux (const cl_I& p, uintE lq, uintC len)
 			init1(cl_I, qv[n]) (((cl_I)n*(cl_I)(2*n-1)) << (2*lq+1));
 		}
 		var cl_pq_series series;
-		series.pv = pv; series.qv = qv; series.qsv = qsv;
-		cossum = eval_rational_series(N,series,actuallen);
+		series.pv = pv; series.qv = qv;
+		cossum = eval_rational_series<true>(N,series,actuallen);
 		for (n = 0; n < N; n++) {
 			pv[n].~cl_I();
 			qv[n].~cl_I();

@@ -1,4 +1,4 @@
-// eval_rational_series().
+// eval_rational_series<bool>().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -82,7 +82,8 @@ static void eval_qab_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, const cl_qab_series& args, uintC len)
+template<>
+const cl_LF eval_rational_series<false> (uintC N, const cl_qab_series& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

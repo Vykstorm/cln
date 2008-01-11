@@ -13,7 +13,6 @@
 #include "cl_LF_tran.h"
 #include "cl_LF.h"
 #include "cln/integer.h"
-#include "cl_alloca.h"
 
 #undef floor
 #include <cmath>
@@ -26,8 +25,8 @@ const cl_LF compute_exp1 (uintC len)
 	// Evaluate a sum(0 <= n < N, a(n)/b(n) * (p(0)...p(n))/(q(0)...q(n)))
 	// with appropriate N, and
 	//   a(n) = 1, b(n) = 1, p(n) = 1, q(n) = n for n>0.
-	var uintC actuallen = len+1; // 1 Schutz-Digit
-	// How many terms to we need for M bits of precision? N terms suffice,
+	var uintC actuallen = len+1; // 1 guard digit
+	// How many terms do we need for M bits of precision? N terms suffice,
 	// provided that
 	//   1/N! < 2^-M
 	// <==   N*(log(N)-1) > M*log(2)
@@ -42,20 +41,22 @@ const cl_LF compute_exp1 (uintC len)
 	var uintC N1 = (uintC)(0.693147*intDsize*actuallen/(::log((double)N0)-1.0));
 	var uintC N2 = (uintC)(0.693148*intDsize*actuallen/(::log((double)N1)-1.0))+1;
 	var uintC N = N2+2;
-	CL_ALLOCA_STACK;
-	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
-	var uintC n;
-	for (n = 0; n < N; n++) {
-		init1(cl_I, qv[n]) (n==0 ? 1 : n);
-	}
-	var cl_q_series series;
-	series.qv = qv;
-	series.qsv = (len >= 1000 && len <= 10000 ? qsv : 0); // tiny speedup
-	var cl_LF fsum = eval_rational_series(N,series,actuallen);
-	for (n = 0; n < N; n++) {
-		qv[n].~cl_I();
-	}
+	struct rational_series_stream : cl_q_series_stream {
+		var uintC n;
+		static cl_q_series_term computenext (cl_q_series_stream& thisss)
+		{
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var uintC n = thiss.n;
+			var cl_q_series_term result;
+			result.q = (n==0 ? 1 : n);
+			thiss.n = n+1;
+			return result;
+		}
+		rational_series_stream()
+			: cl_q_series_stream (rational_series_stream::computenext),
+			  n(0) {}
+	} series;
+	var cl_LF fsum = eval_rational_series<false>(N,series,actuallen);
 	return shorten(fsum,len); // verkürzen und fertig
 }
 // Bit complexity (N = len): O(log(N)*M(N)).

@@ -1,3 +1,33 @@
+2008-01-11  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Make some functions more memory efficient:
+	* src/float/transcendental/cl_LF_tran.h (eval_rational_series): The
+	evaluation of streamed rational series may profit from shift-counting Q,
+	too. Introduce a template parameter to determine whether shift-counting
+	is to be used or not.
+	* src/float/transcendental/cl_LF_ratseries_pqb.cc: Introduce template
+	parameter.
+	* src/float/transcendental/cl_LF_ratseries_pqa.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratseries_pqab.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratseries_qa.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratseries_qab.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratseries_q.cc: Likewise, added
+	overload for streamed expansion.
+	* src/float/transcendental/cl_LF_ratseries_qb.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratseries_pq.cc: Introduce template
+	parameter, added overload for streamed expansion using shift-counts.
+	* src/float/transcendental/cl_LF_zeta3.cc: Adapt to above changes.
+	* src/float/transcendental/cl_LF_pi.cc: Likewise.
+	* src/float/transcendental/cl_LF_eulerconst.cc: Likewise.
+	* src/float/transcendental/cl_LF_catalanconst.cc: Likewise.
+	* src/float/transcendental/cl_LF_cossin_aux.cc: Likewise.
+	* src/float/transcendental/cl_LF_coshsinh_aux.cc: Likewise.
+	* src/float/transcendental/cl_LF_atanh_recip.cc: Use streamed series.
+	* src/float/transcendental/cl_LF_atan_recip.cc: Likewise.
+	* src/float/transcendental/cl_LF_exp1.cc: Likewise.
+	* src/float/transcendental/cl_LF_exp_aux.cc: Likewise.
+	* src/float/transcendental/cl_LF_ratseries.cc: Removed.
+
 2008-01-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
             Richard B. Kreckel  <kreckel@ginac.de>
 

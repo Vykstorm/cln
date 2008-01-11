@@ -13,7 +13,6 @@
 #include "cln/lfloat.h"
 #include "cl_LF.h"
 #include "cl_LF_tran.h"
-#include "cl_alloca.h"
 
 #undef floor
 #include <cmath>
@@ -28,24 +27,26 @@ namespace cln {
 const cl_LF cl_atanh_recip (cl_I m, uintC len)
 {
 	var uintC actuallen = len + 1;
-	var cl_I m2 = m*m;
 	var uintC N = (uintC)(0.69314718*intDsize/2*actuallen/::log(double_approx(m))) + 1;
-	CL_ALLOCA_STACK;
-	var cl_I* bv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var cl_I* qv = (cl_I*) cl_alloca(N*sizeof(cl_I));
-	var uintC n;
-	for (n = 0; n < N; n++) {
-		new (&bv[n]) cl_I ((cl_I)(2*n+1));
-		new (&qv[n]) cl_I (n==0 ? m : m2);
-	}
-	var cl_qb_series series;
-	series.bv = bv;
-	series.qv = qv; series.qsv = NULL;
-	var cl_LF result = eval_rational_series(N,series,actuallen);
-	for (n = 0; n < N; n++) {
-		bv[n].~cl_I();
-		qv[n].~cl_I();
-	}
+	struct rational_series_stream : cl_qb_series_stream {
+		var uintC n;
+		var cl_I m;
+		var cl_I m2;
+		static cl_qb_series_term computenext (cl_qb_series_stream& thisss)
+		{
+			var rational_series_stream& thiss = (rational_series_stream&)thisss;
+			var uintC n = thiss.n;
+			var cl_qb_series_term result;
+			result.b = 2*n+1;
+			result.q = (n==0 ? thiss.m : thiss.m2);
+			thiss.n = n+1;
+			return result;
+		}
+		rational_series_stream(const cl_I& m_)
+			: cl_qb_series_stream (rational_series_stream::computenext),
+			  n(0), m(m_), m2(square(m_)) {}
+	} series(m);
+	var cl_LF result = eval_rational_series<false>(N,series,actuallen);
 	return shorten(result,len);
 }
 // Bit complexity (N = len): O(log(N)^2*M(N)).

@@ -24,7 +24,7 @@ const cl_LF compute_zeta_exp (int s, uintC len)
 	// zeta(s) = 1/(1-2^(1-s)) sum(n=0..infty, (-1)^n/(n+1)^s),
 	// with convergence acceleration through exp(x), and evaluated
 	// using the binary-splitting algorithm.
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(2.718281828*x);
 	CL_ALLOCA_STACK;
@@ -59,7 +59,7 @@ const cl_LF compute_zeta_cvz1 (int s, uintC len)
 	// Method:
 	// zeta(s) = 1/(1-2^(1-s)) sum(n=0..infty, (-1)^n/(n+1)^s),
 	// with Cohen-Villegas-Zagier convergence acceleration.
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 	var cl_I fterm = 2*(cl_I)N*(cl_I)N;
 	var cl_I fsum = fterm;

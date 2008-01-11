@@ -1,4 +1,4 @@
-// eval_rational_series().
+// eval_rational_series<bool>().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -14,6 +14,7 @@
 #include "cln/real.h"
 #include "cln/exception.h"
 #include "cl_LF.h"
+#include "cl_alloca.h"
 
 namespace cln {
 
@@ -86,8 +87,18 @@ static void eval_pq_series_aux (uintC N1, uintC N2,
 	}
 }
 
+template<>
+const cl_LF eval_rational_series<false> (uintC N, const cl_pq_series& args, uintC len)
+{
+	if (N==0)
+		return cl_I_to_LF(0,len);
+	var cl_I Q, T;
+	eval_pq_series_aux(0,N,args,NULL,&Q,&T);
+	return cl_I_to_LF(T,len) / cl_I_to_LF(Q,len);
+}
+
 static void eval_pqs_series_aux (uintC N1, uintC N2,
-                                 const cl_pq_series& args,
+                                 const cl_pq_series& args, const uintC* qsv,
                                  cl_I* P, cl_I* Q, uintC* QS, cl_I* T)
 {
 	switch (N2 - N1) {
@@ -96,15 +107,15 @@ static void eval_pqs_series_aux (uintC N1, uintC N2,
 	case 1:
 		if (P) { *P = args.pv[N1]; }
 		*Q = args.qv[N1];
-		*QS = args.qsv[N1];
+		*QS = qsv[N1];
 		*T = args.pv[N1];
 		break;
 	case 2: {
 		var cl_I p01 = args.pv[N1] * args.pv[N1+1];
 		if (P) { *P = p01; }
 		*Q = args.qv[N1] * args.qv[N1+1];
-		*QS = args.qsv[N1] + args.qsv[N1+1];
-		*T = ((args.qv[N1+1] * args.pv[N1]) << args.qsv[N1+1])
+		*QS = qsv[N1] + qsv[N1+1];
+		*T = ((args.qv[N1+1] * args.pv[N1]) << qsv[N1+1])
 		   + p01;
 		break;
 		}
@@ -114,9 +125,9 @@ static void eval_pqs_series_aux (uintC N1, uintC N2,
 		if (P) { *P = p012; }
 		var cl_I q12 = args.qv[N1+1] * args.qv[N1+2];
 		*Q = args.qv[N1] * q12;
-		*QS = args.qsv[N1] + args.qsv[N1+1] + args.qsv[N1+2];
-		*T = ((q12 * args.pv[N1]) << (args.qsv[N1+1] + args.qsv[N1+2]))
-		   + ((args.qv[N1+2] * p01) << args.qsv[N1+2])
+		*QS = qsv[N1] + qsv[N1+1] + qsv[N1+2];
+		*T = ((q12 * args.pv[N1]) << (qsv[N1+1] + qsv[N1+2]))
+		   + ((args.qv[N1+2] * p01) << qsv[N1+2])
 		   + p012;
 		break;
 		}
@@ -128,10 +139,10 @@ static void eval_pqs_series_aux (uintC N1, uintC N2,
 		var cl_I q23 = args.qv[N1+2] * args.qv[N1+3];
 		var cl_I q123 = args.qv[N1+1] * q23;
 		*Q = args.qv[N1] * q123;
-		*QS = args.qsv[N1] + args.qsv[N1+1] + args.qsv[N1+2] + args.qsv[N1+3];
-		*T = ((((((q123 * args.pv[N1]) << args.qsv[N1+1])
-		         + q23 * p01) << args.qsv[N1+2])
-		       + args.qv[N1+3] * p012) << args.qsv[N1+3])
+		*QS = qsv[N1] + qsv[N1+1] + qsv[N1+2] + qsv[N1+3];
+		*T = ((((((q123 * args.pv[N1]) << qsv[N1+1])
+		         + q23 * p01) << qsv[N1+2])
+		       + args.qv[N1+3] * p012) << qsv[N1+3])
 		   + p0123;
 		break;
 		}
@@ -140,11 +151,11 @@ static void eval_pqs_series_aux (uintC N1, uintC N2,
 		// Compute left part.
 		var cl_I LP, LQ, LT;
 		var uintC LQS;
-		eval_pqs_series_aux(N1,Nm,args,&LP,&LQ,&LQS,&LT);
+		eval_pqs_series_aux(N1,Nm,args,qsv,&LP,&LQ,&LQS,&LT);
 		// Compute right part.
 		var cl_I RP, RQ, RT;
 		var uintC RQS;
-		eval_pqs_series_aux(Nm,N2,args,(P?&RP:(cl_I*)0),&RQ,&RQS,&RT);
+		eval_pqs_series_aux(Nm,N2,args,qsv,(P?&RP:(cl_I*)0),&RQ,&RQS,&RT);
 		// Put together partial results.
 		if (P) { *P = LP*RP; }
 		*Q = LQ*RQ;
@@ -156,36 +167,25 @@ static void eval_pqs_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, const cl_pq_series& args, uintC len)
+template<>
+const cl_LF eval_rational_series<true> (uintC N, const cl_pq_series& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);
 	var cl_I Q, T;
-	if (!args.qsv) {
-		eval_pq_series_aux(0,N,args,NULL,&Q,&T);
-		return cl_I_to_LF(T,len) / cl_I_to_LF(Q,len);
-	} else {
-		// Precomputation of the shift counts:
-		// Split qv[n] into qv[n]*2^qsv[n].
-		{
-			var cl_I* qp = args.qv;
-			var uintC* qsp = args.qsv;
-			for (var uintC n = 0; n < N; n++, qp++, qsp++) {
-				// Pull out maximal power of 2 out of *qp = args.qv[n].
-				var uintC qs = 0;
-				if (!zerop(*qp)) {
-					qs = ord2(*qp);
-					if (qs > 0)
-						*qp = *qp >> qs;
-				}
-				*qsp = qs;
-			}
-		}
-		// Main computation.
-		var uintC QS;
-		eval_pqs_series_aux(0,N,args,NULL,&Q,&QS,&T);
-		return cl_I_to_LF(T,len) / scale_float(cl_I_to_LF(Q,len),QS);
+	// Precomputation of the shift counts:
+	// Split qv[n] into qv[n]*2^qsv[n].
+	CL_ALLOCA_STACK;
+	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
+	var cl_I* qp = args.qv;
+	var uintC* qsp = qsv;
+	for (var uintC n = 0; n < N; n++, qp++, qsp++) {
+		*qsp = pullout_shiftcount(*qp);
 	}
+	// Main computation.
+	var uintC QS;
+	eval_pqs_series_aux(0,N,args,qsv,NULL,&Q,&QS,&T);
+	return cl_I_to_LF(T,len) / scale_float(cl_I_to_LF(Q,len),QS);
 }
 
 static void eval_pq_series_aux (uintC N1, uintC N2,
@@ -262,13 +262,116 @@ static void eval_pq_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, cl_pq_series_stream& args, uintC len)
+template<>
+const cl_LF eval_rational_series<false> (uintC N, cl_pq_series_stream& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);
 	var cl_I Q, T;
 	eval_pq_series_aux(0,N,args,NULL,&Q,&T);
 	return cl_I_to_LF(T,len) / cl_I_to_LF(Q,len);
+}
+
+static void eval_pqs_series_aux (uintC N1, uintC N2,
+                                 cl_pq_series_stream& args,
+                                 cl_I* P, cl_I* Q, uintC* QS, cl_I* T)
+{
+	switch (N2 - N1) {
+	case 0:
+		throw runtime_exception(); break;
+	case 1: {
+		var cl_pq_series_term v0 = args.next(); // [N1]
+		var uintC qs0 = pullout_shiftcount(v0.q);
+		if (P) { *P = v0.p; }
+		*Q = v0.q;
+		*QS = qs0;
+		*T = v0.p;
+		break;
+		}
+	case 2: {
+		var cl_pq_series_term v0 = args.next(); // [N1]
+		var cl_pq_series_term v1 = args.next(); // [N1+1]
+		var uintC qs0 = pullout_shiftcount(v0.q);
+		var uintC qs1 = pullout_shiftcount(v1.q);
+		var cl_I p01 = v0.p * v1.p;
+		if (P) { *P = p01; }
+		*Q = v0.q * v1.q;
+		*QS = qs0 + qs1;
+		*T = ((v1.q * v0.p) << qs1)
+		   + p01;
+		break;
+		}
+	case 3: {
+		var cl_pq_series_term v0 = args.next(); // [N1]
+		var cl_pq_series_term v1 = args.next(); // [N1+1]
+		var cl_pq_series_term v2 = args.next(); // [N1+2]
+		var uintC qs0 = pullout_shiftcount(v0.q);
+		var uintC qs1 = pullout_shiftcount(v1.q);
+		var uintC qs2 = pullout_shiftcount(v2.q);
+		var cl_I p01 = v0.p * v1.p;
+		var cl_I p012 = p01 * v2.p;
+		if (P) { *P = p012; }
+		var cl_I q12 = v1.q * v2.q;
+		*Q = v0.q * q12;
+		*QS = qs0 + qs1 + qs2;
+		*T = ((q12 * v0.p) << (qs1 + qs2))
+		   + ((v2.q * p01) << qs2)
+		   + p012;
+		break;
+		}
+	case 4: {
+		var cl_pq_series_term v0 = args.next(); // [N1]
+		var cl_pq_series_term v1 = args.next(); // [N1+1]
+		var cl_pq_series_term v2 = args.next(); // [N1+2]
+		var cl_pq_series_term v3 = args.next(); // [N1+3]
+		var uintC qs0 = pullout_shiftcount(v0.q);
+		var uintC qs1 = pullout_shiftcount(v1.q);
+		var uintC qs2 = pullout_shiftcount(v2.q);
+		var uintC qs3 = pullout_shiftcount(v3.q);
+		var cl_I p01 = v0.p * v1.p;
+		var cl_I p012 = p01 * v2.p;
+		var cl_I p0123 = p012 * v3.p;
+		if (P) { *P = p0123; }
+		var cl_I q23 = v2.q * v3.q;
+		var cl_I q123 = v1.q * q23;
+		*Q = v0.q * q123;
+		*QS = qs0 + qs1 + qs2 + qs3;
+		*T = ((((((q123 * v0.p) << qs1)
+		         + q23 * p01) << qs2)
+		       + v3.q * p012) << qs3)
+		   + p0123;
+		break;
+		}
+	default: {
+		var uintC Nm = (N1+N2)/2; // midpoint
+		// Compute left part.
+		var cl_I LP, LQ, LT;
+		var uintC LQS;
+		eval_pqs_series_aux(N1,Nm,args,&LP,&LQ,&LQS,&LT);
+		// Compute right part.
+		var cl_I RP, RQ, RT;
+		var uintC RQS;
+		eval_pqs_series_aux(Nm,N2,args,(P?&RP:(cl_I*)0),&RQ,&RQS,&RT);
+		// Put together partial results.
+		if (P) { *P = LP*RP; }
+		*Q = LQ*RQ;
+		*QS = LQS+RQS;
+		// S = LS + LP/LQ * RS, so T = RQ*LT + LP*RT.
+		*T = ((RQ*LT) << RQS) + LP*RT;
+		break;
+		}
+	}
+}
+
+template<>
+const cl_LF eval_rational_series<true> (uintC N, cl_pq_series_stream& args, uintC len)
+{
+	if (N==0)
+		return cl_I_to_LF(0,len);
+	var cl_I Q, T;
+	var uintC QS;
+	eval_pqs_series_aux(0,N,args,NULL,&Q,&QS,&T);
+	return cl_I_to_LF(T,len) / scale_float(cl_I_to_LF(Q,len),QS);
 }
 
 static void eval_pq_series_aux (uintC N1, uintC N2,
@@ -351,7 +454,8 @@ static void eval_pq_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, cl_pq_series_stream& args, uintC len, uintC trunclen)
+template<>
+const cl_LF eval_rational_series<false> (uintC N, cl_pq_series_stream& args, uintC len, uintC trunclen)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

@@ -1,4 +1,4 @@
-// eval_rational_series().
+// eval_rational_series<bool>().
 
 // General includes.
 #include "cl_sysdep.h"
@@ -14,6 +14,7 @@
 #include "cln/real.h"
 #include "cln/exception.h"
 #include "cl_LF.h"
+#include "cl_alloca.h"
 
 namespace cln {
 
@@ -94,8 +95,18 @@ static void eval_pqab_series_aux (uintC N1, uintC N2,
 	}
 }
 
+template<>
+const cl_LF eval_rational_series<false> (uintC N, const cl_pqab_series& args, uintC len)
+{
+	if (N==0)
+		return cl_I_to_LF(0,len);
+	var cl_I Q, B, T;
+	eval_pqab_series_aux(0,N,args,NULL,&Q,&B,&T);
+	return cl_I_to_LF(T,len) / cl_I_to_LF(B*Q,len);
+}
+
 static void eval_pqsab_series_aux (uintC N1, uintC N2,
-                                   const cl_pqab_series& args,
+                                   const cl_pqab_series& args, const uintC* qsv,
                                    cl_I* P, cl_I* Q, uintC* QS, cl_I* B, cl_I* T)
 {
 	switch (N2 - N1) {
@@ -104,7 +115,7 @@ static void eval_pqsab_series_aux (uintC N1, uintC N2,
 	case 1:
 		if (P) { *P = args.pv[N1]; }
 		*Q = args.qv[N1];
-		*QS = args.qsv[N1];
+		*QS = qsv[N1];
 		*B = args.bv[N1];
 		*T = args.av[N1] * args.pv[N1];
 		break;
@@ -112,9 +123,9 @@ static void eval_pqsab_series_aux (uintC N1, uintC N2,
 		var cl_I p01 = args.pv[N1] * args.pv[N1+1];
 		if (P) { *P = p01; }
 		*Q = args.qv[N1] * args.qv[N1+1];
-		*QS = args.qsv[N1] + args.qsv[N1+1];
+		*QS = qsv[N1] + qsv[N1+1];
 		*B = args.bv[N1] * args.bv[N1+1];
-		*T = ((args.bv[N1+1] * args.qv[N1+1] * args.av[N1] * args.pv[N1]) << args.qsv[N1+1])
+		*T = ((args.bv[N1+1] * args.qv[N1+1] * args.av[N1] * args.pv[N1]) << qsv[N1+1])
 		   + args.bv[N1] * args.av[N1+1] * p01;
 		break;
 		}
@@ -124,11 +135,11 @@ static void eval_pqsab_series_aux (uintC N1, uintC N2,
 		if (P) { *P = p012; }
 		var cl_I q12 = args.qv[N1+1] * args.qv[N1+2];
 		*Q = args.qv[N1] * q12;
-		*QS = args.qsv[N1] + args.qsv[N1+1] + args.qsv[N1+2];
+		*QS = qsv[N1] + qsv[N1+1] + qsv[N1+2];
 		var cl_I b12 = args.bv[N1+1] * args.bv[N1+2];
 		*B = args.bv[N1] * b12;
-		*T = ((b12 * q12 * args.av[N1] * args.pv[N1]) << (args.qsv[N1+1] + args.qsv[N1+2]))
-		   + args.bv[N1] * (((args.bv[N1+2] * args.qv[N1+2] * args.av[N1+1] * p01) << args.qsv[N1+2])
+		*T = ((b12 * q12 * args.av[N1] * args.pv[N1]) << (qsv[N1+1] + qsv[N1+2]))
+		   + args.bv[N1] * (((args.bv[N1+2] * args.qv[N1+2] * args.av[N1+1] * p01) << qsv[N1+2])
 		                    + args.bv[N1+1] * args.av[N1+2] * p012);
 		break;
 		}
@@ -140,13 +151,13 @@ static void eval_pqsab_series_aux (uintC N1, uintC N2,
 		var cl_I q23 = args.qv[N1+2] * args.qv[N1+3];
 		var cl_I q123 = args.qv[N1+1] * q23;
 		*Q = args.qv[N1] * q123;
-		*QS = args.qsv[N1] + args.qsv[N1+1] + args.qsv[N1+2] + args.qsv[N1+3];
+		*QS = qsv[N1] + qsv[N1+1] + qsv[N1+2] + qsv[N1+3];
 		var cl_I b01 = args.bv[N1] * args.bv[N1+1];
 		var cl_I b23 = args.bv[N1+2] * args.bv[N1+3];
 		*B = b01 * b23;
-		*T = ((b23 * (((args.bv[N1+1] * q123 * args.av[N1] * args.pv[N1]) << args.qsv[N1+1])
-		              + args.bv[N1] * q23 * args.av[N1+1] * p01)) << (args.qsv[N1+2] + args.qsv[N1+3]))
-		   + b01 * (((args.bv[N1+3] * args.qv[N1+3] * args.av[N1+2] * p012) << args.qsv[N1+3])
+		*T = ((b23 * (((args.bv[N1+1] * q123 * args.av[N1] * args.pv[N1]) << qsv[N1+1])
+		              + args.bv[N1] * q23 * args.av[N1+1] * p01)) << (qsv[N1+2] + qsv[N1+3]))
+		   + b01 * (((args.bv[N1+3] * args.qv[N1+3] * args.av[N1+2] * p012) << qsv[N1+3])
 		            + args.bv[N1+2] * args.av[N1+3] * p0123);
 		break;
 		}
@@ -155,11 +166,11 @@ static void eval_pqsab_series_aux (uintC N1, uintC N2,
 		// Compute left part.
 		var cl_I LP, LQ, LB, LT;
 		var uintC LQS;
-		eval_pqsab_series_aux(N1,Nm,args,&LP,&LQ,&LQS,&LB,&LT);
+		eval_pqsab_series_aux(N1,Nm,args,qsv,&LP,&LQ,&LQS,&LB,&LT);
 		// Compute right part.
 		var cl_I RP, RQ, RB, RT;
 		var uintC RQS;
-		eval_pqsab_series_aux(Nm,N2,args,(P?&RP:(cl_I*)0),&RQ,&RQS,&RB,&RT);
+		eval_pqsab_series_aux(Nm,N2,args,qsv,(P?&RP:(cl_I*)0),&RQ,&RQS,&RB,&RT);
 		// Put together partial results.
 		if (P) { *P = LP*RP; }
 		*Q = LQ*RQ;
@@ -172,36 +183,25 @@ static void eval_pqsab_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, const cl_pqab_series& args, uintC len)
+template<>
+const cl_LF eval_rational_series<true> (uintC N, const cl_pqab_series& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);
 	var cl_I Q, B, T;
-	if (!args.qsv) {
-		eval_pqab_series_aux(0,N,args,NULL,&Q,&B,&T);
-		return cl_I_to_LF(T,len) / cl_I_to_LF(B*Q,len);
-	} else {
-		// Precomputation of the shift counts:
-		// Split qv[n] into qv[n]*2^qsv[n].
-		{
-			var cl_I* qp = args.qv;
-			var uintC* qsp = args.qsv;
-			for (var uintC n = 0; n < N; n++, qp++, qsp++) {
-				// Pull out maximal power of 2 out of *qp = args.qv[n].
-				var uintC qs = 0;
-				if (!zerop(*qp)) {
-					qs = ord2(*qp);
-					if (qs > 0)
-						*qp = *qp >> qs;
-				}
-				*qsp = qs;
-			}
-		}
-		// Main computation.
-		var uintC QS;
-		eval_pqsab_series_aux(0,N,args,NULL,&Q,&QS,&B,&T);
-		return cl_I_to_LF(T,len) / scale_float(cl_I_to_LF(B*Q,len),QS);
+	// Precomputation of the shift counts:
+	// Split qv[n] into qv[n]*2^qsv[n].
+	CL_ALLOCA_STACK;
+	var uintC* qsv = (uintC*) cl_alloca(N*sizeof(uintC));
+	var cl_I* qp = args.qv;
+	var uintC* qsp = qsv;
+	for (var uintC n = 0; n < N; n++, qp++, qsp++) {
+		*qsp = pullout_shiftcount(*qp);
 	}
+	// Main computation.
+	var uintC QS;
+	eval_pqsab_series_aux(0,N,args,qsv,NULL,&Q,&QS,&B,&T);
+	return cl_I_to_LF(T,len) / scale_float(cl_I_to_LF(B*Q,len),QS);
 }
 
 static void eval_pqab_series_aux (uintC N1, uintC N2,
@@ -286,7 +286,8 @@ static void eval_pqab_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, cl_pqab_series_stream& args, uintC len)
+template<>
+const cl_LF eval_rational_series<false> (uintC N, cl_pqab_series_stream& args, uintC len)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);
@@ -384,7 +385,8 @@ static void eval_pqab_series_aux (uintC N1, uintC N2,
 	}
 }
 
-const cl_LF eval_rational_series (uintC N, cl_pqab_series_stream& args, uintC len, uintC trunclen)
+template<>
+const cl_LF eval_rational_series<false> (uintC N, cl_pqab_series_stream& args, uintC len, uintC trunclen)
 {
 	if (N==0)
 		return cl_I_to_LF(0,len);

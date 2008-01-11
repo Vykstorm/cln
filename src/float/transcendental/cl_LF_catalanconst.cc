@@ -26,7 +26,7 @@ const cl_LF compute_catalanconst_ramanujan (uintC len)
 	// Every summand gives 0.6 new decimal digits in precision.
 	// The sum is best evaluated using fixed-point arithmetic,
 	// so that the precision is reduced for the later summands.
-	var uintC actuallen = len + 2; // 2 Schutz-Digits
+	var uintC actuallen = len + 2; // 2 guard digits
 	var sintC scale = intDsize*actuallen;
 	var cl_I sum = 0;
 	var cl_I n = 0;
@@ -80,7 +80,7 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 	//   p(n) = n for n>0, q(n) = 2*(2*n+1) for n>0.
 	var uintC N = (intDsize/2)*actuallen;
 	// 4^-N <= 2^(-intDsize*actuallen).
-	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
+	var cl_LF fsum = eval_rational_series<false>(N,series,actuallen,actuallen);
 	var cl_LF g =
 	  scale_float(The(cl_LF)(3*fsum)
 	              + The(cl_LF)(pi(actuallen))
@@ -93,7 +93,7 @@ const cl_LF compute_catalanconst_ramanujan_fast (uintC len)
 const cl_LF compute_catalanconst_expintegral1 (uintC len)
 {
 	// We compute f(x) classically and g(x) using the partial sums of f(x).
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(2.718281828*x);
 	var cl_LF fterm = cl_I_to_LF(1,actuallen);
@@ -123,7 +123,7 @@ const cl_LF compute_catalanconst_expintegral1 (uintC len)
 // the sums.
 const cl_LF compute_catalanconst_expintegral2 (uintC len)
 {
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(2.718281828*x);
 	CL_ALLOCA_STACK;
@@ -154,7 +154,7 @@ const cl_LF compute_catalanconst_expintegral2 (uintC len)
 // Using Cohen-Villegas-Zagier acceleration, but without binary splitting.
 const cl_LF compute_catalanconst_cvz1 (uintC len)
 {
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 #if 0
 	var cl_LF fterm = cl_I_to_LF(2*(cl_I)N*(cl_I)N,actuallen);
@@ -205,7 +205,7 @@ const cl_LF compute_catalanconst_cvz1 (uintC len)
 // Using Cohen-Villegas-Zagier acceleration, with binary splitting.
 const cl_LF compute_catalanconst_cvz2 (uintC len)
 {
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
 	CL_ALLOCA_STACK;
 	var cl_pqd_series_term* args = (cl_pqd_series_term*) cl_alloca(N*sizeof(cl_pqd_series_term));
@@ -266,7 +266,7 @@ const cl_LF compute_catalanconst_lupas (uintC len)
 	} series;
 	var uintC actuallen = len + 2; // 2 guard digits
 	var uintC N = (intDsize/2)*actuallen;
-	var cl_LF fsum = eval_rational_series(N,series,actuallen,actuallen);
+	var cl_LF fsum = eval_rational_series<false>(N,series,actuallen,actuallen);
 	var cl_LF g = fsum*cl_I_to_LF(19,actuallen)/cl_I_to_LF(18,actuallen);
 	return shorten(g,len);
 }

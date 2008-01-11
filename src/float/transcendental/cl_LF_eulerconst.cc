@@ -71,7 +71,7 @@ const cl_LF compute_eulerconst_expintegral (uintC len)
 	// If we computed this with floating-point numbers, we would have
 	// to more than double the floating-point precision because of the large
 	// extinction which takes place. But luckily we compute with integers.
-	var uintC actuallen = len+1; // 1 Schutz-Digit
+	var uintC actuallen = len+1; // 1 guard digit
 	var uintC z = (uintC)(0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(3.591121477*z);
 	CL_ALLOCA_STACK;
@@ -86,8 +86,8 @@ const cl_LF compute_eulerconst_expintegral (uintC len)
 	}
 	var cl_pqb_series series;
 	series.bv = bv;
-	series.pv = pv; series.qv = qv; series.qsv = NULL;
-	var cl_LF fsum = eval_rational_series(N,series,actuallen);
+	series.pv = pv; series.qv = qv;
+	var cl_LF fsum = eval_rational_series<false>(N,series,actuallen);
 	for (n = 0; n < N; n++) {
 		bv[n].~cl_I();
 		pv[n].~cl_I();
@@ -146,7 +146,7 @@ const cl_LF compute_eulerconst_expintegral1 (uintC len)
 	// Finally we compute the sums of the series f(x) and g(x) with N terms
 	// each.
 	// We compute f(x) classically and g(x) using the partial sums of f(x).
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(2.718281828*x);
 	var cl_LF one = cl_I_to_LF(1,actuallen);
@@ -186,7 +186,7 @@ const cl_LF compute_eulerconst_expintegral1 (uintC len)
 // the sums.
 const cl_LF compute_eulerconst_expintegral2 (uintC len)
 {
-	var uintC actuallen = len+2; // 2 Schutz-Digits
+	var uintC actuallen = len+2; // 2 guard digits
 	var uintC x = (uintC)(0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(2.718281828*x);
 	CL_ALLOCA_STACK;
@@ -276,7 +276,7 @@ const cl_LF compute_eulerconst_expintegral2 (uintC len)
 const cl_LF compute_eulerconst_besselintegral1 (uintC len)
 {
 	// We compute f(x) classically and g(x) using the partial sums of f(x).
-	var uintC actuallen = len+1; // 1 Schutz-Digit
+	var uintC actuallen = len+1; // 1 guard digit
 	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
@@ -326,7 +326,7 @@ const cl_LF compute_eulerconst_besselintegral2 (uintC len)
 	// WARNING: The memory used by this algorithm grown quadratically in N.
 	// (Because HD_n grows like exp(n), hence HN_n grows like exp(n) as
 	// well, and we store all HN_n values in an array!)
-	var uintC actuallen = len+1; // 1 Schutz-Digit
+	var uintC actuallen = len+1; // 1 guard digit
 	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
@@ -343,8 +343,8 @@ const cl_LF compute_eulerconst_besselintegral2 (uintC len)
 		init1(cl_I, qv[n]) ((cl_I)n*(cl_I)n);
 	}
 	var cl_pq_series fseries;
-	fseries.pv = pv; fseries.qv = qv; fseries.qsv = NULL;
-	var cl_LF fsum = eval_rational_series(N,fseries,actuallen);
+	fseries.pv = pv; fseries.qv = qv;
+	var cl_LF fsum = eval_rational_series<false>(N,fseries,actuallen);
 	for (n = 0; n < N; n++) {
 		pv[n].~cl_I();
 		qv[n].~cl_I();
@@ -365,8 +365,8 @@ const cl_LF compute_eulerconst_besselintegral2 (uintC len)
 	}
 	var cl_pqa_series gseries;
 	gseries.av = av;
-	gseries.pv = pv; gseries.qv = qv; gseries.qsv = NULL;
-	var cl_LF gsum = eval_rational_series(N,gseries,actuallen);
+	gseries.pv = pv; gseries.qv = qv;
+	var cl_LF gsum = eval_rational_series<false>(N,gseries,actuallen);
 	for (n = 0; n < N; n++) {
 		av[n].~cl_I();
 		pv[n].~cl_I();
@@ -408,7 +408,7 @@ struct cl_rational_series_for_g : cl_pqa_series_stream {
 };
 const cl_LF compute_eulerconst_besselintegral3 (uintC len)
 {
-	var uintC actuallen = len+1; // 1 Schutz-Digit
+	var uintC actuallen = len+1; // 1 guard digit
 	var uintC sx = (uintC)(0.25*0.693148*intDsize*actuallen)+1;
 	var uintC N = (uintC)(3.591121477*sx);
 	var cl_I x = square((cl_I)sx);
@@ -424,15 +424,15 @@ const cl_LF compute_eulerconst_besselintegral3 (uintC len)
 		init1(cl_I, qv[n]) ((cl_I)n*(cl_I)n);
 	}
 	var cl_pq_series fseries;
-	fseries.pv = pv; fseries.qv = qv; fseries.qsv = NULL;
-	var cl_LF fsum = eval_rational_series(N,fseries,actuallen);
+	fseries.pv = pv; fseries.qv = qv;
+	var cl_LF fsum = eval_rational_series<false>(N,fseries,actuallen);
 	for (n = 0; n < N; n++) {
 		pv[n].~cl_I();
 		qv[n].~cl_I();
 	}
 	// Evaluate g(x).
 	var cl_rational_series_for_g gseries = cl_rational_series_for_g(x);
-	var cl_LF gsum = eval_rational_series(N,gseries,actuallen);
+	var cl_LF gsum = eval_rational_series<false>(N,gseries,actuallen);
 	var cl_LF result = gsum/fsum - ln(cl_I_to_LF(sx,actuallen));
 	return shorten(result,len); // verkürzen und fertig
 }
