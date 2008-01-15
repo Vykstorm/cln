@@ -93,18 +93,146 @@ by the authors.
 
 
 @c Table of contents
-@contents
+@c @contents
 
 
-@node Top, Introduction, (dir), (dir)
+@node Top
+@top CLN
 
 @c @menu
 @c * Introduction::                Introduction
 @c @end menu
 
+@menu
+* Introduction::                
+* Installation::                
+* Ordinary number types::       
+* Functions on numbers::        
+* Input/Output::                
+* Rings::                       
+* Modular integers::            
+* Symbolic data types::         
+* Univariate polynomials::      
+* Internals::                   
+* Using the library::           
+* Customizing::                 
+* Index::
 
-@node Introduction, Top, Top, Top
-@comment node-name, next, previous, up
+ --- The Detailed Node Listing ---
+
+Installation
+
+* Prerequisites::               
+* Building the library::        
+* Installing the library::      
+* Cleaning up::                 
+
+Prerequisites
+
+* C++ compiler::                
+* Make utility::                
+* Sed utility::                 
+
+Building the library
+
+* Using the GNU MP Library::    
+
+Ordinary number types
+
+* Exact numbers::               
+* Floating-point numbers::      
+* Complex numbers::             
+* Conversions::                 
+
+Functions on numbers
+
+* Constructing numbers::        
+* Elementary functions::        
+* Elementary rational functions::  
+* Elementary complex functions::  
+* Comparisons::                 
+* Rounding functions::          
+* Roots::                       
+* Transcendental functions::    
+* Functions on integers::       
+* Functions on floating-point numbers::  
+* Conversion functions::        
+* Random number generators::    
+* Obfuscating operators::       
+
+Constructing numbers
+
+* Constructing integers::       
+* Constructing rational numbers::  
+* Constructing floating-point numbers::  
+* Constructing complex numbers::  
+
+Transcendental functions
+
+* Exponential and logarithmic functions::  
+* Trigonometric functions::     
+* Hyperbolic functions::        
+* Euler gamma::                 
+* Riemann zeta::                
+
+Functions on integers
+
+* Logical functions::           
+* Number theoretic functions::  
+* Combinatorial functions::     
+
+Conversion functions
+
+* Conversion to floating-point numbers::  
+* Conversion to rational numbers::  
+
+Input/Output
+
+* Internal and printed representation::  
+* Input functions::             
+* Output functions::            
+
+Modular integers
+
+* Modular integer rings::       
+* Functions on modular integers::  
+
+Symbolic data types
+
+* Strings::                     
+* Symbols::                     
+
+Univariate polynomials
+
+* Univariate polynomial rings::  
+* Functions on univariate polynomials::  
+* Special polynomials::         
+
+Internals
+
+* Why C++ ?::                   
+* Memory efficiency::           
+* Speed efficiency::            
+* Garbage collection::          
+
+Using the library
+
+* Compiler options::            
+* Include files::               
+* An Example::                  
+* Debugging support::           
+* Reporting Problems::          
+
+Customizing
+
+* Error handling::              
+* Floating-point underflow::    
+* Customizing I/O::             
+* Customizing the memory allocator::  
+
+@end menu
+
+@node Introduction
 @chapter Introduction
 
 @noindent
@@ -239,13 +367,29 @@ order to avoid name clashes.
 @end itemize
 
 
+@node Installation
 @chapter Installation
 
 This section describes how to install the CLN package on your system.
 
 
+@menu
+* Prerequisites::               
+* Building the library::        
+* Installing the library::      
+* Cleaning up::                 
+@end menu
+
+@node Prerequisites, Building the library, Installation, Installation
 @section Prerequisites
 
+@menu
+* C++ compiler::                
+* Make utility::                
+* Sed utility::                 
+@end menu
+
+@node C++ compiler
 @subsection C++ compiler
 
 To build CLN, you need a C++ compiler.
@@ -264,6 +408,7 @@ global variables, a feature which I could implement for GNU g++
 only. Also, it is not known whether this semi-automatic ordering works
 on all platforms when a non-GNU assembler is being used.
 
+@node Make utility
 @subsection Make utility
 @cindex @code{make}
 
@@ -271,6 +416,7 @@ To build CLN, you also need to have GNU @code{make} installed.
 
 Only GNU @code{make} 3.77 is unusable for CLN; other versions work fine.
 
+@node Sed utility
 @subsection Sed utility
 @cindex @code{sed}
 
@@ -280,6 +426,7 @@ on @code{sed}, and the vendor's @code{sed} utility on these systems is too
 limited.
 
 
+@node Building the library
 @section Building the library
 
 As with any autoconfiguring GNU software, installation is as easy as this:
@@ -384,6 +531,11 @@ problems.  Also, they are generally slightly slower than static
 libraries so runtime-critical applications should be linked statically.
 
 
+@menu
+* Using the GNU MP Library::    
+@end menu
+
+@node Using the GNU MP Library
 @subsection Using the GNU MP Library
 @cindex GMP
 
@@ -408,6 +560,7 @@ library, then you can explicitly specify so by calling
 @code{configure} with the option @samp{--without-gmp}.
 
 
+@node Installing the library
 @section Installing the library
 @cindex installation
 
@@ -428,6 +581,7 @@ specify @code{--prefix=@dots{}} at configure time, just re-run
 the @code{--prefix=@dots{}} option.
 
 
+@node Cleaning up
 @section Cleaning up
 
 You can remove system-dependent files generated by @code{make} through
@@ -444,6 +598,7 @@ $ make distclean
 @end example
 
 
+@node Ordinary number types
 @chapter Ordinary number types
 
 CLN implements the following class hierarchy:
@@ -507,6 +662,14 @@ The class @code{cl_F} implements floating-point approximations to real numbers.
 It is an abstract class.
 
 
+@menu
+* Exact numbers::               
+* Floating-point numbers::      
+* Complex numbers::             
+* Conversions::                 
+@end menu
+
+@node Exact numbers
 @section Exact numbers
 @cindex exact number
 
@@ -538,6 +701,7 @@ allocation. Otherwise the distinction between these immediate integers
 is completely transparent.
 
 
+@node Floating-point numbers
 @section Floating-point numbers
 @cindex floating-point number
 
@@ -621,6 +785,7 @@ but such declarations are missing for the types @code{cl_SF}, @code{cl_FF},
 the floating point contagion rule happened to change in the future.)
 
 
+@node Complex numbers
 @section Complex numbers
 @cindex complex number
 
@@ -633,6 +798,7 @@ Complex numbers can arise from real numbers alone, for example
 through application of @code{sqrt} or transcendental functions.
 
 
+@node Conversions
 @section Conversions
 @cindex conversion
 
@@ -745,6 +911,7 @@ Example:
 @end example
 
 
+@node Functions on numbers
 @chapter Functions on numbers
 
 Each of the number classes declares its mathematical operations in the
@@ -752,17 +919,43 @@ corresponding include file. For example, if your code operates with
 objects of type @code{cl_I}, it should @code{#include <cln/integer.h>}.
 
 
+@menu
+* Constructing numbers::        
+* Elementary functions::        
+* Elementary rational functions::  
+* Elementary complex functions::  
+* Comparisons::                 
+* Rounding functions::          
+* Roots::                       
+* Transcendental functions::    
+* Functions on integers::       
+* Functions on floating-point numbers::  
+* Conversion functions::        
+* Random number generators::    
+* Obfuscating operators::       
+@end menu
+
+@node Constructing numbers
 @section Constructing numbers
 
 Here is how to create number objects ``from nothing''.
 
 
+@menu
+* Constructing integers::       
+* Constructing rational numbers::  
+* Constructing floating-point numbers::  
+* Constructing complex numbers::  
+@end menu
+
+@node Constructing integers
 @subsection Constructing integers
 
 @code{cl_I} objects are most easily constructed from C integers and from
 strings. See @ref{Conversions}.
 
 
+@node Constructing rational numbers
 @subsection Constructing rational numbers
 
 @code{cl_RA} objects can be constructed from strings. The syntax
@@ -771,6 +964,7 @@ Another standard way to produce a rational number is through application
 of @samp{operator /} or @samp{recip} on integers.
 
 
+@node Constructing floating-point numbers
 @subsection Constructing floating-point numbers
 
 @code{cl_F} objects with low precision are most easily constructed from
@@ -796,6 +990,7 @@ and then apply the exponential function:
 @end example
 
 
+@node Constructing complex numbers
 @subsection Constructing complex numbers
 
 Non-real @code{cl_N} objects are normally constructed through the function
@@ -805,6 +1000,7 @@ Non-real @code{cl_N} objects are normally constructed through the function
 See @ref{Elementary complex functions}.
 
 
+@node Elementary functions
 @section Elementary functions
 
 Each of the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
@@ -913,6 +1109,7 @@ This is defined as @code{x / abs(x)} if @code{x} is non-zero, and
 @end table
 
 
+@node Elementary rational functions
 @section Elementary rational functions
 
 Each of the classes @code{cl_RA}, @code{cl_I} defines the following operations:
@@ -931,6 +1128,7 @@ The numerator and denominator of a rational number are normalized in such
 a way that they have no factor in common and the denominator is positive.
 
 
+@node Elementary complex functions
 @section Elementary complex functions
 
 The class @code{cl_N} defines the following operation:
@@ -968,6 +1166,7 @@ We have the relations
 @end itemize
 
 
+@node Comparisons
 @section Comparisons
 @cindex comparison
 
@@ -1038,6 +1237,7 @@ For example, @code{(cl_F)(cl_R)"1/3" == (cl_R)"1/3"} returns false because
 there is no floating point number whose value is exactly @code{1/3}.
 
 
+@node Rounding functions
 @section Rounding functions
 @cindex rounding
 
@@ -1257,6 +1457,7 @@ The classes @code{cl_R}, @code{cl_I} define the following operations:
 @end table
 
 
+@node Roots
 @section Roots
 
 Each of the classes @code{cl_R},
@@ -1319,6 +1520,7 @@ The result is an exact number only if @code{z} is an exact number.
 @end table
 
 
+@node Transcendental functions
 @section Transcendental functions
 @cindex transcendental functions
 
@@ -1328,6 +1530,15 @@ inexact numbers even if the argument is exact.
 For example, @code{cos(0) = 1} returns the rational number @code{1}.
 
 
+@menu
+* Exponential and logarithmic functions::  
+* Trigonometric functions::     
+* Hyperbolic functions::        
+* Euler gamma::                 
+* Riemann zeta::                
+@end menu
+
+@node Exponential and logarithmic functions
 @subsection Exponential and logarithmic functions
 
 @table @code
@@ -1388,6 +1599,7 @@ Returns e as a float of format @code{default_float_format}.
 @end table
 
 
+@node Trigonometric functions
 @subsection Trigonometric functions
 
 @table @code
@@ -1504,6 +1716,7 @@ Returns pi as a float of format @code{default_float_format}.
 @end table
 
 
+@node Hyperbolic functions
 @subsection Hyperbolic functions
 
 @table @code
@@ -1645,6 +1858,7 @@ Proof: Write z = x+iy. Examine
 @end table
 
 
+@node Euler gamma
 @subsection Euler gamma
 @cindex Euler's constant
 
@@ -1678,6 +1892,7 @@ Returns Catalan's constant as a float of format @code{default_float_format}.
 @end table
 
 
+@node Riemann zeta
 @subsection Riemann zeta
 @cindex Riemann's zeta
 
@@ -1698,8 +1913,16 @@ Returns Riemann's zeta function at @code{s} as a float of format
 @end table
 
 
+@node Functions on integers
 @section Functions on integers
 
+@menu
+* Logical functions::           
+* Number theoretic functions::  
+* Combinatorial functions::     
+@end menu
+
+@node Logical functions
 @subsection Logical functions
 
 Integers, when viewed as in two's complement notation, can be thought as
@@ -1920,6 +2143,7 @@ If @code{x} = 2^(n-1), it returns n. Else it returns 0.
 @end table
 
 
+@node Number theoretic functions
 @subsection Number theoretic functions
 
 @table @code
@@ -1977,6 +2201,7 @@ Returns the smallest probable prime >=@code{x}.
 @end table
 
 
+@node Combinatorial functions
 @subsection Combinatorial functions
 
 @table @code
@@ -2005,6 +2230,7 @@ for 0 <= k <= n, 0 else.
 @end table
 
 
+@node Functions on floating-point numbers
 @section Functions on floating-point numbers
 
 Recall that a floating-point number consists of a sign @code{s}, an
@@ -2111,9 +2337,16 @@ zero, it is treated as positive. Same for @code{y}.
 @end table
 
 
+@node Conversion functions
 @section Conversion functions
 @cindex conversion
 
+@menu
+* Conversion to floating-point numbers::  
+* Conversion to rational numbers::  
+@end menu
+
+@node Conversion to floating-point numbers
 @subsection Conversion to floating-point numbers
 
 The type @code{float_format_t} describes a floating-point format.
@@ -2183,6 +2416,7 @@ Returns the smallest floating point number e > 0 such that @code{1-e != 1}.
 @end table
 
 
+@node Conversion to rational numbers
 @subsection Conversion to rational numbers
 
 Each of the classes @code{cl_R}, @code{cl_RA}, @code{cl_F}
@@ -2219,6 +2453,7 @@ If @code{x} is any float, one has
 @end itemize
 
 
+@node Random number generators
 @section Random number generators
 
 
@@ -2267,6 +2502,7 @@ if @code{n} is a float.
 @end table
 
 
+@node Obfuscating operators
 @section Obfuscating operators
 @cindex modifying operators
 
@@ -2339,9 +2575,17 @@ In CLN @samp{x += y;} is exactly the same as  @samp{x = x+y;}, not more
 efficient.
 
 
+@node Input/Output
 @chapter Input/Output
 @cindex Input/Output
 
+@menu
+* Internal and printed representation::  
+* Input functions::             
+* Output functions::            
+@end menu
+
+@node Internal and printed representation
 @section Internal and printed representation
 @cindex representation
 
@@ -2416,6 +2660,7 @@ In Common Lisp notation: @code{#C(@var{realpart} @var{imagpart})}.
 @end table
 
 
+@node Input functions
 @section Input functions
 
 Including @code{<cln/io.h>} defines a number of simple input functions
@@ -2512,6 +2757,7 @@ precision corresponding to their number of significant digits.
 @end table
 
 
+@node Output functions
 @section Output functions
 
 Including @code{<cln/io.h>} defines a number of simple output functions
@@ -2603,6 +2849,7 @@ The global variable @code{default_print_flags} contains the default values,
 used by the function @code{fprint}.
 
 
+@node Rings
 @chapter Rings
 
 CLN has a class of abstract rings.
@@ -2679,9 +2926,16 @@ Tests whether the given number is an element of the number ring R.
 @end table
 
 
+@node Modular integers
 @chapter Modular integers
 @cindex modular integer
 
+@menu
+* Modular integer rings::       
+* Functions on modular integers::  
+@end menu
+
+@node Modular integer rings
 @section Modular integer rings
 @cindex ring
 
@@ -2741,6 +2995,7 @@ to @code{find_modint_ring} with the same argument necessarily return the
 same ring because it is memoized in the cache table.
 @end table
 
+@node Functions on modular integers
 @section Functions on modular integers
 
 Given a modular integer ring @code{R}, the following members can be used.
@@ -2855,11 +3110,18 @@ on the global printer settings in the variable @code{default_print_flags}.
 @end table
 
 
+@node Symbolic data types
 @chapter Symbolic data types
 @cindex symbolic type
 
 CLN implements two symbolic (non-numeric) data types: strings and symbols.
 
+@menu
+* Strings::                     
+* Symbols::                     
+@end menu
+
+@node Strings
 @section Strings
 @cindex string
 @cindex @code{cl_string}
@@ -2908,6 +3170,7 @@ Compares two strings for equality. One of the arguments may also be a
 plain @code{const char *}.
 @end table
 
+@node Symbols
 @section Symbols
 @cindex symbol
 @cindex @code{cl_symbol}
@@ -2939,10 +3202,18 @@ Compares two symbols for equality. This is very fast.
 @end table
 
 
+@node Univariate polynomials
 @chapter Univariate polynomials
 @cindex polynomial
 @cindex univariate polynomial
 
+@menu
+* Univariate polynomial rings::  
+* Functions on univariate polynomials::  
+* Special polynomials::         
+@end menu
+
+@node Univariate polynomial rings
 @section Univariate polynomial rings
 
 CLN implements univariate polynomials (polynomials in one variable) over an
@@ -3051,6 +3322,7 @@ These functions are equivalent to the general @code{find_univpoly_ring},
 only the return type is more specific, according to the base ring's type.
 @end table
 
+@node Functions on univariate polynomials
 @section Functions on univariate polynomials
 
 Given a univariate polynomial ring @code{R}, the following members can be used.
@@ -3182,6 +3454,7 @@ depend on the global printer settings in the variable
 @code{default_print_flags}.
 @end table
 
+@node Special polynomials
 @section Special polynomials
 
 The following functions return special polynomials.
@@ -3213,8 +3486,17 @@ of these polynomials from their definition can be found in the
 @code{doc/polynomial/} directory.
 
 
+@node Internals
 @chapter Internals
 
+@menu
+* Why C++ ?::                   
+* Memory efficiency::           
+* Speed efficiency::            
+* Garbage collection::          
+@end menu
+
+@node Why C++ ?
 @section Why C++ ?
 @cindex advocacy
 
@@ -3252,6 +3534,7 @@ debugged. No need to rewrite it in a low-level language after having prototyped
 in a high-level language.
 
 
+@node Memory efficiency
 @section Memory efficiency
 
 In order to save memory allocations, CLN implements:
@@ -3275,6 +3558,7 @@ on the heap.
 @end itemize
 
 
+@node Speed efficiency
 @section Speed efficiency
 
 Speed efficiency is obtained by the combination of the following tricks
@@ -3320,6 +3604,7 @@ of division and radix conversion.
 @end itemize
 
 
+@node Garbage collection
 @section Garbage collection
 @cindex garbage collection
 
@@ -3337,6 +3622,7 @@ resized. The effect of this strategy is that recently used rings remain
 cached, whereas undue memory consumption through cached rings is avoided.
 
 
+@node Using the library
 @chapter Using the library
 
 For the following discussion, we will assume that you have installed
@@ -3346,6 +3632,15 @@ For example, for me it's @code{CLN_DIR="$HOME/cln"} and
 environment variables, or directly substitute the appropriate values.
 
 
+@menu
+* Compiler options::            
+* Include files::               
+* An Example::                  
+* Debugging support::           
+* Reporting Problems::          
+@end menu
+
+@node Compiler options
 @section Compiler options
 @cindex compiler options
 
@@ -3398,6 +3693,7 @@ PKG_CHECK_MODULES([CLN], [cln >= @var{MIN-VERSION}], [],
 @end example
 
 
+@node Include files
 @section Include files
 @cindex include files
 @cindex header files
@@ -3528,6 +3824,7 @@ Includes all of the above.
 @end table
 
 
+@node An Example
 @section An Example
 
 A function which computes the nth Fibonacci number can be written as follows.
@@ -3598,6 +3895,7 @@ gets passed to the caller.
 The file @code{fibonacci.cc} in the subdirectory @code{examples}
 contains this implementation together with an even faster algorithm.
 
+@node Debugging support
 @section Debugging support
 @cindex debugging
 
@@ -3668,6 +3966,7 @@ $7 = @{<cl_gcpointer> = @{ = @{pointer = 0x8055b60, heappointer = 0x8055b60,
 Unfortunately, this feature does not seem to work under all circumstances.
 @end itemize
 
+@node Reporting Problems
 @section Reporting Problems
 @cindex bugreports
 @cindex mailing list
@@ -3682,9 +3981,18 @@ expect will help us to reproduce it quickly. Finally, do not forget to
 report the version number of CLN.
 
 
+@node Customizing
 @chapter Customizing
 @cindex customizing
 
+@menu
+* Error handling::              
+* Floating-point underflow::    
+* Customizing I/O::             
+* Customizing the memory allocator::  
+@end menu
+
+@node Error handling
 @section Error handling
 @cindex exception
 @cindex error handling
@@ -3719,6 +4027,7 @@ declared in the public header files and they are all subclasses of the
 above exceptions, so catching those you are always on the safe side.
 
 
+@node Floating-point underflow
 @section Floating-point underflow
 @cindex underflow
 
@@ -3737,6 +4046,7 @@ zero will be generated instead.  The default value of
 @code{cl_inhibit_floating_point_underflow} is @code{false}.
 
 
+@node Customizing I/O
 @section Customizing I/O
 
 The output of the function @code{fprint} may be customized by changing the
@@ -3744,6 +4054,7 @@ value of the global variable @code{default_print_flags}.
 @cindex @code{default_print_flags}
 
 
+@node Customizing the memory allocator
 @section Customizing the memory allocator
 
 Every memory allocation of CLN is done through the function pointer
@@ -3774,6 +4085,7 @@ global variables.
 
 @c Indices
 
+@node Index,  , Customizing, Top
 @unnumbered Index
 
 @printindex my
