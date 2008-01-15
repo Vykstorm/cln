@@ -1,3 +1,13 @@
+2008-01-15  Bruno Haible  <bruno@clisp.org>
+
+	* doc/cln.texi: Renamed from doc/cln.tex. Add @node lines and @menu
+	lists.
+	* doc/addnodes.el: Remove file.
+	* doc/Makefile.in (${PACKAGE}.texi): Remove rule.
+	(EMACS): Remove variable.
+	(maintainer-clean): Don't remove ${PACKAGE}.texi.
+	Reported by Alexei Sheplyakov <varg@theor.jinr.ru>.
+
 2008-01-11  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/float.h (cos_sin_t, cosh_sinh_t): Add default ctor.

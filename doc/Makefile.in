@@ -29,7 +29,6 @@ TEXI2DVI = texi2dvi
 DVIPS = dvips -D600
 MAKEINFO = LANGUAGE= makeinfo
 TEXI2HTML = texi2html
-EMACS = emacs
 
 # Programs used by "make install":
 INSTALL = @INSTALL@
@@ -51,13 +50,6 @@ info : ${srcdir}/${PACKAGE}.info
 
 ${srcdir}/${PACKAGE}.info : ${srcdir}/${PACKAGE}.texi
 	cd ${srcdir} && ${MAKEINFO} --no-split ${PACKAGE}.texi
-
-${srcdir}/${PACKAGE}.texi : ${srcdir}/${PACKAGE}.tex
-	cp $< $@
-	${EMACS} -batch $@ -load addnodes.el -f save-buffer
-	mv $@ $@~
-	sed -e 's,@detailmenu,,g' -e 's,@end detailmenu,,g' < $@~ > $@
-	${RM} $@~
 
 
 dvi : ${srcdir}/${PACKAGE}.dvi
@@ -120,7 +112,6 @@ distclean : clean
 maintainer-clean : distclean
 	${RM} *.info *.dvi *.ps *.html
 	${RM_R} cln/
-	if [ -f ${PACKAGE}.tex ] ; then ${RM} ${PACKAGE}.texi ; fi
 
 force :
 
