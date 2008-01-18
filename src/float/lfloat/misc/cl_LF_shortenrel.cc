@@ -11,11 +11,9 @@
 
 #include "cln/exception.h"
 
-#undef MAYBE_INLINE2
-#define MAYBE_INLINE2 inline
+#include "cl_inline2.h"
 #include "cl_LF_precision.cc"
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_exponent.cc"
 
 namespace cln {
@@ -28,12 +26,12 @@ const cl_LF cl_LF_shortenrelative (const cl_LF& x, const cl_LF& y)
 	// dx := float_digits(x), dy := float_digits(y).
 	// 1 ulp(x) = 2^(ex-dx), 1 ulp(y) = 2^(ey-dy).
 	// Falls ex-dx < ey-dy, x von Precision dx auf dy-ey+ex verkürzen.
-	var sintE ey = float_exponent(y);
-	var sintC dy = float_precision(y);
+	var sintE ey = float_exponent_inline(y);
+	var sintC dy = float_precision_inline(y);
 	if (dy==0) // zerop(y) ?
 		throw runtime_exception();
-	var sintE ex = float_exponent(x);
-	var sintC dx = float_precision(x);
+	var sintE ex = float_exponent_inline(x);
+	var sintC dx = float_precision_inline(x);
 	if (dx==0) // zerop(x) ?
 		return x;
 	var sintE d = ex - ey;

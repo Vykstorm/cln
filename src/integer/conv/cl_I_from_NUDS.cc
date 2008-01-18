@@ -12,20 +12,18 @@
 #include "cln/number.h"
 #include "cl_DS.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_I_from_NDS.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-const cl_I NUDS_to_I (uintD* MSDptr, uintC len)
+CL_INLINE2 const cl_I CL_INLINE2_DECL(NUDS_to_I) (uintD* MSDptr, uintC len)
 {
 	if ((!(len==0)) && ((sintD)mspref(MSDptr,0) < 0))
 		// Falls die Länge >0 und das Most significant Bit = 1 sind,
 		// die Digit Sequence um ein Nulldigit erweitern:
 		{ lsprefnext(MSDptr) = 0; len++; }
-	return NDS_to_I(MSDptr,len);
+	return NDS_to_I_inline(MSDptr,len);
 }
 
 }  // namespace cln

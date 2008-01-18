@@ -15,8 +15,7 @@
 #include "cl_low.h"
 #include "cl_ieee.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_FF_zerop.cc"
 
 namespace cln {
@@ -46,9 +45,9 @@ const cl_FF operator/ (const cl_FF& x1, const cl_FF& x2)
   #if defined(FAST_FLOAT) && !defined(__i386__)
       float_to_FF(FF_to_float(x1) / FF_to_float(x2), return ,
                   TRUE, TRUE, // Overflow und subnormale Zahl abfangen
-                  !zerop(x1), // ein Ergebnis +/- 0.0
+                  !zerop_inline(x1), // ein Ergebnis +/- 0.0
                               // ist genau dann in Wirklichkeit ein Underflow
-                  zerop(x2), // Division durch Null abfangen
+                  zerop_inline(x2), // Division durch Null abfangen
                   FALSE // kein NaN als Ergebnis möglich
                  );
   #else

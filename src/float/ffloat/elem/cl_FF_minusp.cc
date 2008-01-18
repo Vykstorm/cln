@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool minusp (const cl_FF& x)
+CL_INLINE bool CL_INLINE_DECL(minusp) (const cl_FF& x)
 {
 	return (sint32)cl_ffloat_value(x) < 0;
 }

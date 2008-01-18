@@ -21,8 +21,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_idecoded_float integer_decode_float (const cl_FF& x)
+CL_INLINE const cl_idecoded_float CL_INLINE_DECL(integer_decode_float) (const cl_FF& x)
 {
 	var cl_idecoded_float sem = integer_decode_float(cl_FF_to_DF(x));
 	return cl_idecoded_float(sem.mantissa >> (DF_mant_len-FF_mant_len),
@@ -37,8 +36,7 @@ const cl_idecoded_float integer_decode_float (const cl_FF& x)
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_idecoded_float integer_decode_float (const cl_FF& x)
+CL_INLINE const cl_idecoded_float CL_INLINE_DECL(integer_decode_float) (const cl_FF& x)
 {
 	// x entpacken:
 	var cl_signean sign;

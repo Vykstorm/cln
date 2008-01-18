@@ -16,8 +16,7 @@
 #include "cl_LF.h"
 #include "cln/integer.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_zerop.cc"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
@@ -47,11 +46,11 @@ namespace cln {
 
 static const cl_LF atanx_naive (const cl_LF& x)
 {
-	if (zerop(x))
+	if (zerop_inline(x))
 		return x;
 	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintE e = float_exponent(x);
+	var sintE e = float_exponent_inline(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	var uintL k = 0; // Rekursionszähler k:=0
@@ -71,13 +70,13 @@ static const cl_LF atanx_naive (const cl_LF& x)
 		  // nächstes x nach der Formel x := x+sqrt(x^2 + 1) berechnen:
 		  xx = sqrt(square(xx) + cl_float(1,xx)) + xx;
 		  k = k+1;
-		} until (float_exponent(xx) > e_limit);
+		} until (float_exponent_inline(xx) > e_limit);
 		// Schleifenende mit Exponent(x) > 1+limit_slope*floor(sqrt(d)),
 		// also x >= 2^(1+limit_slope*floor(sqrt(d))),
 		// also 1/x <= 2^(-1-limit_slope*floor(sqrt(d))).
 		// Nun kann die Potenzreihe auf 1/x angewandt werden.
 		xx = recip(xx);
-		if (minusp(x))
+		if (minusp_inline(x))
 			xx = - xx; // Vorzeichen wieder rein
 	}
 	// Potenzreihe anwenden:
@@ -184,13 +183,13 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 	//   Set z := z + z' and x+i*y := (x+i*y)*exp(-i*z').
 	var uintC len = TheLfloat(t)->len;
 	var uintC d = intDsize*len;
-	if (zerop(t) || (float_exponent(t) <= (sintC)(-d)>>1))
+	if (zerop_inline(t) || (float_exponent_inline(t) <= (sintC)(-d)>>1))
 		return t;
 	var cl_LF x = recip(sqrt(cl_I_to_LF(1,len) + square(t)));
 	var cl_LF y = t*x;
 	var cl_LF z = cl_I_to_LF(0,len);
 	loop {
-		if (zerop(y) || (float_exponent(y) <= (sintC)(-d)>>1))
+		if (zerop_inline(y) || (float_exponent_inline(y) <= (sintC)(-d)>>1))
 			break;
 		var cl_idecoded_float y_ = integer_decode_float(y);
 		// y = (-1)^sign * 2^exponent * mantissa
@@ -245,7 +244,7 @@ static const cl_LF atanx_ratseries (const cl_LF& t)
 // 1000   167     112      65
 // ==> ratseries faster for N >= 325.
 
-const cl_F atanx (const cl_F& x)
+const cl_F CL_FLATTEN atanx (const cl_F& x)
 {
 	if (longfloatp(x)) {
 		DeclareType(cl_LF,x);

@@ -15,8 +15,7 @@
 #include "cln/lfloat.h"
 #include "cl_LF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
 
@@ -34,7 +33,7 @@ inline const cl_F_div_t cl_floor_ln2 (const cl_F& x)
 inline const cl_LF_div_t cl_floor_ln2 (const cl_LF& x)
 {
 	// Bei 0<=x<1/2 kann man sofort q:=0 setzen.
-	if (!minusp(x) && (float_exponent(x) < 0))
+	if (!minusp_inline(x) && (float_exponent_inline(x) < 0))
 		return cl_LF_div_t(0,x);
 	else
 		return floor2(x,The(cl_LF)(cl_ln2(x)));

@@ -9,13 +9,12 @@
 
 // Implementation.
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_SF_minusp.cc"
 
 namespace cln {
 
-cl_signean compare (const cl_SF& x, const cl_SF& y)
+cl_signean CL_FLATTEN compare (const cl_SF& x, const cl_SF& y)
 {
 // Methode:
 // x und y haben verschiedenes Vorzeichen ->
@@ -24,9 +23,9 @@ cl_signean compare (const cl_SF& x, const cl_SF& y)
 // x und y haben gleiches Vorzeichen ->
 //    x >=0 -> vergleiche x und y (die rechten 24 Bits)
 //    x <0 -> vergleiche y und x (die rechten 24 Bits)
-      if (!minusp(y))
+      if (!minusp_inline(y))
         // y>=0
-        { if (!minusp(x))
+        { if (!minusp_inline(x))
             // y>=0, x>=0
             { if (x.word < y.word) return signean_minus; // x<y
               if (x.word > y.word) return signean_plus; // x>y
@@ -37,7 +36,7 @@ cl_signean compare (const cl_SF& x, const cl_SF& y)
             { return signean_minus; } // x<y
         }
         else
-        { if (!minusp(x))
+        { if (!minusp_inline(x))
             // y<0, x>=0
             { return signean_plus; } // x>y
             else

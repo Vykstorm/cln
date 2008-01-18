@@ -12,13 +12,12 @@
 #include "cl_C.h"
 #include "cln/real.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_C_abs_aux.cc"
 
 namespace cln {
 
-const cl_N signum (const cl_N& x)
+const cl_N CL_FLATTEN signum (const cl_N& x)
 {
 // Methode:
 // x reell -> klar.
@@ -31,7 +30,7 @@ const cl_N signum (const cl_N& x)
 		if (zerop(x))
 			return x;
 		else
-			return x / abs(x);
+			return x / abs_inline(x);
 	}
 }
 

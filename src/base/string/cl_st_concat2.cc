@@ -8,10 +8,7 @@
 
 
 // Implementation.
-
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
-#include "cl_st_make0.cc"
+#include "cl_st_make0.h"
 
 namespace cln {
 

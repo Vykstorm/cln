@@ -11,8 +11,7 @@
 
 #include "cl_F.h"
 
-#undef MAYBE_INLINE2
-#define MAYBE_INLINE2 inline
+#include "cl_inline2.h"
 #include "cl_SF_plusp.cc"
 #include "cl_FF_plusp.cc"
 #include "cl_DF_plusp.cc"
@@ -20,13 +19,13 @@
 
 namespace cln {
 
-bool plusp (const cl_F& x)
+bool CL_FLATTEN plusp (const cl_F& x)
 {
 	floatcase(x
-	,	return plusp(x);
-	,	return plusp(x);
-	,	return plusp(x);
-	,	return plusp(x);
+	,	return plusp_inline(x);
+	,	return plusp_inline(x);
+	,	return plusp_inline(x);
+	,	return plusp_inline(x);
 	);
 }
 

@@ -12,8 +12,8 @@
 #include "cln/dfloat.h"
 #include "cl_DF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* For inline version of minusp */
+#include "cl_inline.h"
 #include "cl_DF_minusp.cc"
 
 namespace cln {
@@ -37,7 +37,7 @@ const cl_DF cl_hypot (const cl_DF& a, const cl_DF& b)
 		var uintL uexp = DF_uexp(TheDfloat(a)->dfloat_value_semhi);
 		if (uexp == 0)
 			// a=0.0 -> liefere (abs b) :
-			return (minusp(b) ? -b : b);
+			return (minusp_inline(b) ? -b : b);
 		a_exp = (sintL)(uexp - DF_exp_mid);
 	}
 	{
@@ -45,7 +45,7 @@ const cl_DF cl_hypot (const cl_DF& a, const cl_DF& b)
 		var uintL uexp = DF_uexp(TheDfloat(b)->dfloat_value_semhi);
 		if (uexp == 0)
 			// b=0.0 -> liefere (abs a) :
-			return (minusp(a) ? -a : a);
+			return (minusp_inline(a) ? -a : a);
 		b_exp = (sintL)(uexp - DF_exp_mid);
 	}
 	// Nun a_exp = float_exponent(a), b_exp = float_exponent(b).

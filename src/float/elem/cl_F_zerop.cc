@@ -11,8 +11,7 @@
 
 #include "cl_F.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_SF_zerop.cc"
 #include "cl_FF_zerop.cc"
 #include "cl_DF_zerop.cc"
@@ -20,13 +19,13 @@
 
 namespace cln {
 
-bool zerop (const cl_F& x)
+bool CL_FLATTEN zerop (const cl_F& x)
 {
 	floatcase(x
-	,	return zerop(x);
-	,	return zerop(x);
-	,	return zerop(x);
-	,	return zerop(x);
+	,	return zerop_inline(x);
+	,	return zerop_inline(x);
+	,	return zerop_inline(x);
+	,	return zerop_inline(x);
 	);
 }
 

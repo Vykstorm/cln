@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool minusp (const cl_LF& x)
+CL_INLINE bool CL_INLINE_DECL(minusp) (const cl_LF& x)
 {
 	return -TheLfloat(x)->sign;
 }

@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool minusp (const cl_DF& x)
+CL_INLINE bool CL_INLINE_DECL(minusp) (const cl_DF& x)
 {
 #if (cl_word_size==64)
 	return (sint64)TheDfloat(x)->dfloat_value_semhi < 0;

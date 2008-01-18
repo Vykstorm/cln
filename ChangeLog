@@ -1,3 +1,131 @@
+2007-01-18  Alexei Sheplyakov  <varg@theor.jinr.ru>
+
+	Fix linking problems on some platforms caused by inline/non-inline
+	versions of same functions (obsoletes MAYBE_INLINE):
+	* src/base/cl_maybe_inline.h: New file.
+	* src/base/cl_inline2.h: New file.
+	* src/base/cl_inline.h: New file.
+	* src/base/cl_macros.h: Pull in cl_maybe_inline.h.
+	* src/base/string/cl_st_concat1.cc: Use new CL_INLINE macros and the
+	new *_inline functions.
+	* src/base/string/cl_st_concat2.cc: Likewise.
+	* src/base/string/cl_st_concat3.cc: Likewise.
+	* src/complex/algebraic/cl_C_abs.cc: Likewise.
+	* src/complex/algebraic/cl_C_abs_aux.cc: Likewise.
+	* src/complex/algebraic/cl_C_signum.cc: Likewise.
+	* src/complex/algebraic/cl_DF_hypot.cc: Likewise.
+	* src/complex/algebraic/cl_FF_hypot.cc: Likewise.
+	* src/complex/algebraic/cl_LF_hypot.cc: Likewise.
+	* src/complex/algebraic/cl_SF_hypot.cc: Likewise.
+	* src/complex/transcendental/cl_C_acosh.cc: Likewise.
+	* src/complex/transcendental/cl_C_asinh_aux.cc: Likewise.
+	* src/complex/transcendental/cl_C_atanh_aux.cc: Likewise.
+	* src/float/dfloat/division/cl_DF_fceil.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_div.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_ffloor.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_minusp.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_mul.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_plusp.cc: Likewise.
+	* src/float/dfloat/elem/cl_DF_zerop.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_abs.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_digits.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_eqhashcode.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_exponent.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_idecode.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_precision.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_sign.cc: Likewise.
+	* src/float/dfloat/misc/cl_DF_signum.cc: Likewise.
+	* src/float/elem/cl_F_minusp.cc: Likewise.
+	* src/float/elem/cl_F_plusp.cc: Likewise.
+	* src/float/elem/cl_F_zerop.cc: Likewise.
+	* src/float/ffloat/division/cl_FF_fceil.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_div.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_ffloor.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_minusp.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_mul.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_plusp.cc: Likewise.
+	* src/float/ffloat/elem/cl_FF_zerop.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_abs.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_digits.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_eqhashcode.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_exponent.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_idecode.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_precision.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_sign.cc: Likewise.
+	* src/float/ffloat/misc/cl_FF_signum.cc: Likewise.
+	* src/float/lfloat/division/cl_LF_fceil.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_compare.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_ffloor.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_minusp.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_plusp.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_to_I.cc: Likewise.
+	* src/float/lfloat/elem/cl_LF_zerop.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_abs.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_digits.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_eqhashcode.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_exponent.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_idecode.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_precision.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_shortenrel.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_shortenwith.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_sign.cc: Likewise.
+	* src/float/lfloat/misc/cl_LF_signum.cc: Likewise.
+	* src/float/misc/cl_F_abs.cc: Likewise.
+	* src/float/misc/cl_F_digits.cc: Likewise.
+	* src/float/misc/cl_F_eqhashcode.cc: Likewise.
+	* src/float/misc/cl_F_exponent.cc: Likewise.
+	* src/float/misc/cl_F_idecode.cc: Likewise.
+	* src/float/misc/cl_F_precision.cc: Likewise.
+	* src/float/misc/cl_F_sign.cc: Likewise.
+	* src/float/misc/cl_F_signum.cc: Likewise.
+	* src/float/sfloat/division/cl_SF_fceil.cc: Likewise.
+	* src/float/sfloat/division/cl_SF_ffloor.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_compare.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_minus.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_minusp.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_plusp.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_uminus.cc: Likewise.
+	* src/float/sfloat/elem/cl_SF_zerop.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_abs.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_digits.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_eqhashcode.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_exponent.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_idecode.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_precision.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_sign.cc: Likewise.
+	* src/float/sfloat/misc/cl_SF_signum.cc: Likewise.
+	* src/float/transcendental/cl_F_atanhx.cc: Likewise.
+	* src/float/transcendental/cl_F_atanx.cc: Likewise.
+	* src/float/transcendental/cl_F_exp.cc: Likewise.
+	* src/float/transcendental/cl_F_expx.cc: Likewise.
+	* src/float/transcendental/cl_F_lnx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinhx.cc: Likewise.
+	* src/float/transcendental/cl_F_sinx.cc: Likewise.
+	* src/float/transcendental/cl_F_tan.cc: Likewise.
+	* src/float/transcendental/cl_F_tanh.cc: Likewise.
+	* src/integer/conv/cl_I_from_DS.cc: Likewise.
+	* src/integer/conv/cl_I_from_NDS.cc: Likewise.
+	* src/integer/conv/cl_I_from_NUDS.cc: Likewise.
+	* src/integer/conv/cl_I_from_UDS.cc: Likewise.
+	* src/integer/misc/cl_I_eqhashcode.cc: Likewise.
+	* src/integer/misc/cl_I_signum.cc: Likewise.
+	* src/integer/ring/cl_I_ring.cc: Likewise.
+	* src/rational/elem/cl_RA_minusp.cc: Likewise.
+	* src/rational/misc/cl_RA_eqhashcode.cc: Likewise.
+	* src/rational/misc/cl_RA_signum.cc: Likewise.
+	* src/rational/ring/cl_RA_ring.cc: Likewise.
+	* src/real/algebraic/cl_RA_sqrt.cc: Likewise.
+	* src/real/algebraic/cl_R_sqrt.cc: Likewise.
+	* src/real/conv/cl_F_from_R_def.cc: Likewise.
+	* src/real/elem/cl_R_minusp.cc: Likewise.
+	* src/real/elem/cl_R_zerop.cc: Likewise.
+	* src/real/misc/cl_R_eqhashcode.cc: Likewise.
+	* src/real/misc/cl_R_signum.cc: Likewise.
+	* src/real/transcendental/cl_R_tan.cc: Likewise.
+	* src/real/transcendental/cl_R_tanh.cc: Likewise.
+	* src/base/string/cl_st_make0.cc: Remove obsolete MAYBE_INLINE.
+	* src/rational/misc/Makeflags: Help compiler include cl_I_eqhashcode.cc.
+
 2008-01-15  Bruno Haible  <bruno@clisp.org>
 
 	* doc/cln.texi: Renamed from doc/cln.tex. Add @node lines and @menu

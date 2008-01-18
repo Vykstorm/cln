@@ -11,18 +11,16 @@
 
 #include "cl_DF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_DF_minusp.cc"
 #include "cl_DF_zerop.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-const cl_DF signum (const cl_DF& x)
+CL_INLINE2 const cl_DF CL_INLINE2_DECL(signum) (const cl_DF& x)
 {
-	if (minusp(x)) { return cl_DF_minus1; } // x<0 -> -1.0
-	elif (zerop(x)) { return cl_DF_0; } // x=0 -> 0.0
+	if (minusp_inline(x)) { return cl_DF_minus1; } // x<0 -> -1.0
+	elif (zerop_inline(x)) { return cl_DF_0; } // x=0 -> 0.0
 	else { return cl_DF_1; } // x>0 -> +1.0
 }
 

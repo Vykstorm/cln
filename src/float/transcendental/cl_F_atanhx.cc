@@ -15,8 +15,7 @@
 #include "cln/float.h"
 #include "cl_low.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_zerop.cc"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
@@ -49,11 +48,11 @@ namespace cln {
 
 const cl_LF atanhx (const cl_LF& x)
 {
-	if (zerop(x))
+	if (zerop_inline(x))
 		return x;
 	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintE e = float_exponent(x);
+	var sintE e = float_exponent_inline(x);
 	if (e <= (sintC)(-d)>>1) // e <= -d/2 <==> e <= -ceiling(d/2)
 		return x; // ja -> x als Ergebnis
 	if (actuallen >= 34) {
@@ -77,13 +76,13 @@ const cl_LF atanhx (const cl_LF& x)
 		  // nächstes x nach der Formel x := x+sqrt(x^2 - 1) berechnen:
 		  xx = sqrt(square(xx) + cl_float(-1,xx)) + xx;
 		  k = k+1;
-		} until (float_exponent(xx) > e_limit);
+		} until (float_exponent_inline(xx) > e_limit);
 		// Schleifenende mit Exponent(x) > 1+limit_slope*floor(sqrt(d)),
 		// also x >= 2^(1+limit_slope*floor(sqrt(d))),
 		// also 1/x <= 2^(-1-limit_slope*floor(sqrt(d))).
 		// Nun kann die Potenzreihe auf 1/x angewandt werden.
 		xx = recip(xx);
-		if (minusp(x))
+		if (minusp_inline(x))
 			xx = - xx; // Vorzeichen wieder rein
 	}
 	// Potenzreihe anwenden:

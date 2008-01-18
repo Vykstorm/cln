@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool zerop (const cl_FF& x)
+CL_INLINE bool CL_INLINE_DECL(zerop) (const cl_FF& x)
 {
 	return cl_ffloat_value(x) == 0;
 }

@@ -11,8 +11,7 @@
 
 #include "cl_SF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_SF_zerop.cc"
 
 namespace cln {
@@ -21,7 +20,7 @@ const cl_SF operator- (const cl_SF& x)
 {
 // Methode:
 // Falls x=0.0, fertig. Sonst Vorzeichenbit umdrehen.
-	if (zerop(x))
+	if (zerop_inline(x))
 		return SF_0;
 	return cl_SF_from_word(x.word ^ ((cl_uint)1 << SF_sign_shift));
 }

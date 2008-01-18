@@ -14,8 +14,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_idecoded_float integer_decode_float (const cl_DF& x)
+CL_INLINE const cl_idecoded_float CL_INLINE_DECL(integer_decode_float) (const cl_DF& x)
 {
 	// x entpacken:
 	var cl_signean sign;

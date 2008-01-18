@@ -11,16 +11,14 @@
 
 #include "cl_LF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_zerop.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-uintC float_precision (const cl_LF& x)
+CL_INLINE2 uintC CL_INLINE2_DECL(float_precision) (const cl_LF& x)
 {
-	if (zerop(x)) return 0;
+	if (zerop_inline(x)) return 0;
 	return intDsize*(uintC)(TheLfloat(x)->len);
 }
 

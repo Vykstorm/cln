@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_F cl_float (const cl_R& x)
+CL_INLINE const cl_F CL_INLINE_DECL(cl_float) (const cl_R& x)
 {
 	if (rationalp(x)) {
 		DeclareType(cl_RA,x);

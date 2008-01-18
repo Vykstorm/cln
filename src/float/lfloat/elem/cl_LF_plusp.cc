@@ -12,19 +12,17 @@
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_zerop.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-bool plusp (const cl_LF& x)
+CL_INLINE2 bool CL_INLINE2_DECL(plusp) (const cl_LF& x)
 {
-	if (minusp(x))
+	if (minusp_inline(x))
 		return false; // x<0 -> nein
-	elif (zerop(x))
+	elif (zerop_inline(x))
 		return false; // x=0 -> nein
 	else
 		return true; // sonst ist x>0.

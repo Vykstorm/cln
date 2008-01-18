@@ -9,13 +9,12 @@
 
 // Implementation.
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_DF_minusp.cc"
 
 namespace cln {
 
-const cl_DF abs (const cl_DF& x)
+const cl_DF CL_FLATTEN abs (const cl_DF& x)
 {
 // x<0 -> (- x), x>=0 -> x
 	if (minusp(x)) return -x; else return x;

@@ -16,8 +16,7 @@
 #include "cl_LF.h"
 #include "cln/integer.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_zerop.cc"
 #include "cl_LF_minusp.cc"
 #include "cl_LF_exponent.cc"
@@ -45,11 +44,11 @@ namespace cln {
 const cl_LF lnx_naive (const cl_LF& x)
 {
 	var cl_LF y = x-cl_float(1,x);
-	if (zerop(y)) // y=0.0 -> y als Ergebnis
+	if (zerop_inline(y)) // y=0.0 -> y als Ergebnis
 		return y;
 	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintE e = float_exponent(y);
+	var sintE e = float_exponent_inline(y);
 	if (e <= -(sintC)d) // e <= -d ?
 		return y; // ja -> y als Ergebnis
  {	Mutable(cl_LF,x);
@@ -65,7 +64,7 @@ const cl_LF lnx_naive (const cl_LF& x)
 		// e > -1-floor(sqrt(d)) -> muß |y| verkleinern.
 		x = sqrt(x); // x := (sqrt x)
 		y = x-cl_float(1,x); // y := (- x 1) und
-		e = float_exponent(y); // e neu berechnen
+		e = float_exponent_inline(y); // e neu berechnen
 		k = k+1; // k:=k+1
 	}
 	if (0) {

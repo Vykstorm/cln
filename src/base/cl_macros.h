@@ -265,9 +265,6 @@ public:									\
 // it's a shame!)
 #define init1(type,lvalue)  (void) new (&(lvalue)) type
 
-// MAYBE_INLINE normally expands to nothing.
-// Useful for including the implementation of some file inline into another.
-  #define MAYBE_INLINE
-  #define MAYBE_INLINE2
+#include "cl_maybe_inline.h"
 
 #endif /* _CL_MACROS_H */

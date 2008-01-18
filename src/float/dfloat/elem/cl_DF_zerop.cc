@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool zerop (const cl_DF& x)
+CL_INLINE bool CL_INLINE_DECL(zerop) (const cl_DF& x)
 {
 #if 0
 	return DF_uexp(TheDfloat(x)->dfloat_value_semhi) == 0;

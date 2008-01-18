@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool minusp (const cl_SF& x)
+CL_INLINE bool CL_INLINE_DECL(minusp) (const cl_SF& x)
 {
 	return (x.word & bit(SF_sign_shift)) != 0;
 }

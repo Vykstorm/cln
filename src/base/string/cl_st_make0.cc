@@ -14,7 +14,6 @@
 
 namespace cln {
 
-MAYBE_INLINE
 cl_heap_string* cl_make_heap_string (unsigned long len)
 {
 	var cl_heap_string* str = (cl_heap_string*) malloc_hook(offsetofa(cl_heap_string,data)+sizeof(char)*(len+1));

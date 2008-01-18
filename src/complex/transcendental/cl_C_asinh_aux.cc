@@ -16,8 +16,8 @@
 #include "cl_RA.h"
 #include "cln/float.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* Use the inline version of cl_float */
+#include "cl_inline.h"
 #include "cl_F_from_R_def.cc"
 
 namespace cln {
@@ -89,7 +89,7 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 					return cl_C_R(0,scale_float(pi(),-1));
 				if (eq(y,-1)) // x=0, y=-1 -> v = -pi/2
 					return cl_C_R(0,-scale_float(pi(),-1));
-				yf = cl_float(y); // y in Float umwandeln
+				yf = cl_float_inline(y); // y in Float umwandeln
 			} else {
 				DeclareType(cl_RT,y);
 				// y Ratio
@@ -99,7 +99,7 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 					if (eq(numerator(y),-1)) // x=0, y=-1/2 -> v = -pi/6
 						return cl_C_R(0,-(pi()/6));
 				}
-				yf = cl_float(y); // y in Float umwandeln
+				yf = cl_float_inline(y); // y in Float umwandeln
 			}
 		} else {
 			DeclareType(cl_F,y);
@@ -135,7 +135,7 @@ const cl_C_R asinh (const cl_R& x, const cl_R& y)
 	}
 	if (eq(y,0)) {
 		// y=0
-		var cl_F xf = cl_float(x); // x in Float umwandeln
+		var cl_F xf = cl_float_inline(x); // x in Float umwandeln
 		var cl_F& x = xf;
 		// x Float
 		if (zerop(x))

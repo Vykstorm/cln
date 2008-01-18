@@ -13,8 +13,8 @@
 #include "cl_LF.h"
 #include "cl_LF_impl.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* For inline version of minusp */
+#include "cl_inline.h"
 #include "cl_LF_minusp.cc"
 
 namespace cln {
@@ -53,7 +53,7 @@ const cl_LF cl_hypot (const cl_LF& a, const cl_LF& b)
 		var uintE uexp = TheLfloat(a)->expo;
 		if (uexp == 0)
 			// a=0.0 -> liefere (abs b) :
-			return (minusp(b) ? -b : b);
+			return (minusp_inline(b) ? -b : b);
 		a_exp = (sintE)(uexp - LF_exp_mid);
 	}
 	{
@@ -61,7 +61,7 @@ const cl_LF cl_hypot (const cl_LF& a, const cl_LF& b)
 		var uintE uexp = TheLfloat(b)->expo;
 		if (uexp == 0)
 			// b=0.0 -> liefere (abs a) :
-			return (minusp(a) ? -a : a);
+			return (minusp_inline(a) ? -a : a);
 		b_exp = (sintE)(uexp - LF_exp_mid);
 	}
 	// Nun a_exp = float_exponent(a), b_exp = float_exponent(b).

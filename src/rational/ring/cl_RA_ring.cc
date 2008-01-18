@@ -13,7 +13,9 @@ CL_PROVIDE(cl_RA_ring)
 
 #include "cln/rational.h"
 #include "cln/rational_io.h"
+#define zerop zerop_inline
 #include "cl_RA.h"
+#undef zerop
 
 namespace cln {
 
@@ -34,10 +36,10 @@ static const _cl_ring_element RA_zero (cl_heap_ring* R)
 	return _cl_ring_element(R, (cl_RA)0);
 }
 
-static bool RA_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool CL_FLATTEN RA_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
-	return zerop(The(cl_RA)(x));
+	return zerop_inline(The(cl_RA)(x));
 }
 
 static const _cl_ring_element RA_plus (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)

@@ -1,4 +1,4 @@
 # This file contains additional flags for the main Makefile.
 
 include $(srcdir)/rational/Makeflags
-SUBDIR_INCLUDES += 
+SUBDIR_INCLUDES += -I$(srcdir)/integer/misc

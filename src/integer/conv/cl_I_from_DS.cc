@@ -12,14 +12,12 @@
 #include "cln/number.h"
 #include "cl_DS.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_I_from_NDS.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-const cl_I DS_to_I (const uintD* MSDptr, uintC len)
+CL_INLINE2 const cl_I CL_INLINE2_DECL(DS_to_I) (const uintD* MSDptr, uintC len)
 {
       // erst normalisieren.
       // Dabei evtl. MSDptr erhöhen und len erniedrigen:
@@ -39,7 +37,7 @@ const cl_I DS_to_I (const uintD* MSDptr, uintC len)
         }   }
       // Eventuell ist jetzt noch bei der DS 0 ausnahmsweise len=1,
       // aber NDS_to_I wird auch damit fertig.
-      return NDS_to_I(MSDptr,len);
+      return NDS_to_I_inline(MSDptr,len);
 }
 
 }  // namespace cln

@@ -15,8 +15,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_idecoded_float integer_decode_float (const cl_LF& x)
+CL_INLINE const cl_idecoded_float CL_INLINE_DECL(integer_decode_float) (const cl_LF& x)
 {
 	// x entpacken:
 	var uintE uexp = TheLfloat(x)->expo;

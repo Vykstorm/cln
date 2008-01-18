@@ -15,8 +15,7 @@
 #include "cln/dfloat.h"
 #include "cln/lfloat.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_SF_minusp.cc"
 #include "cl_FF_minusp.cc"
 #include "cl_DF_minusp.cc"
@@ -24,14 +23,14 @@
 
 namespace cln {
 
-const cl_F abs (const cl_F& x)
+const cl_F CL_FLATTEN abs (const cl_F& x)
 {
 // x<0 -> (- x), x>=0 -> x
 	floatcase(x
-	,	if (minusp(x)) return -x; else return x;
-	,	if (minusp(x)) return -x; else return x;
-	,	if (minusp(x)) return -x; else return x;
-	,	if (minusp(x)) return -x; else return x;
+	,	if (minusp_inline(x)) return -x; else return x;
+	,	if (minusp_inline(x)) return -x; else return x;
+	,	if (minusp_inline(x)) return -x; else return x;
+	,	if (minusp_inline(x)) return -x; else return x;
 	);
 }
 

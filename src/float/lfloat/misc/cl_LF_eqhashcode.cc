@@ -15,8 +15,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-uint32 equal_hashcode (const cl_LF& x)
+CL_INLINE uint32 CL_INLINE_DECL(equal_hashcode) (const cl_LF& x)
 {
 	var cl_signean sign;
 	var sintL exp;

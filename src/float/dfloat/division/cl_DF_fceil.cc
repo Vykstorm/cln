@@ -11,15 +11,15 @@
 
 #include "cl_DF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* For inline version of minusp */
+#include "cl_inline.h"
 #include "cl_DF_minusp.cc"
 
 namespace cln {
 
-const cl_DF fceiling (const cl_DF& x)
+const cl_DF CL_FLATTEN fceiling (const cl_DF& x)
 {
-	if (minusp(x))
+	if (minusp_inline(x))
 		return ftruncate(x);
 	else
 		return futruncate(x);

@@ -16,8 +16,7 @@
 #include "cl_LF.h"
 #include "cln/integer.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_zerop.cc"
 #include "cl_LF_exponent.cc"
 
@@ -112,11 +111,11 @@ const cl_LF sinhx_naive (const cl_LF& x)
 //  grob j=sqrt(2d) und damit k=sqrt(d).]
 // Aufwand: asymptotisch d^2.5 .
 
-	if (zerop(x))
+	if (zerop_inline(x))
 		return x;
 	var uintC actuallen = TheLfloat(x)->len;
 	var uintC d = float_digits(x);
-	var sintE e = float_exponent(x);
+	var sintE e = float_exponent_inline(x);
 	if (e <= (1-(sintC)d)>>1) // e <= (1-d)/2 <==> e <= -ceiling((d-1)/2) ?
 		return square(x); // ja -> x^2 als Ergebnis
  {	Mutable(cl_LF,x);

@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-sintE float_exponent (const cl_FF& x)
+CL_INLINE sintE CL_INLINE_DECL(float_exponent) (const cl_FF& x)
 {
 	var uintL uexp = FF_uexp(cl_ffloat_value(x));
 	if (uexp==0) { return 0; }

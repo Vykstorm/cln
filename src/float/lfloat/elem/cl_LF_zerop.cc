@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool zerop (const cl_LF& x)
+CL_INLINE bool CL_INLINE_DECL(zerop) (const cl_LF& x)
 {
 	return TheLfloat(x)->expo == 0;
 }

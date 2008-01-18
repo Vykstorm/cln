@@ -11,8 +11,8 @@
 
 #include "cl_F.h"
 
-#undef MAYBE_INLINE2
-#define MAYBE_INLINE2 inline
+/* Use inline versions of signum(cl_{SF,FF,DF,LF}) functions */
+#include "cl_inline2.h"
 #include "cl_SF_signum.cc"
 #include "cl_FF_signum.cc"
 #include "cl_DF_signum.cc"
@@ -20,13 +20,13 @@
 
 namespace cln {
 
-const cl_F signum (const cl_F& x)
+const cl_F CL_FLATTEN signum (const cl_F& x)
 {
 	floatcase(x
-	,	return signum(x);
-	,	return signum(x);
-	,	return signum(x);
-	,	return signum(x);
+	,	return signum_inline(x);
+	,	return signum_inline(x);
+	,	return signum_inline(x);
+	,	return signum_inline(x);
 	);
 }
 

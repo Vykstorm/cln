@@ -14,8 +14,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_R sqrt (const cl_RA& x)
+CL_INLINE const cl_R CL_INLINE_DECL(sqrt) (const cl_RA& x)
 {
 	var cl_RA w;
 	if (sqrtp(x,&w)) // auf Quadrat testen

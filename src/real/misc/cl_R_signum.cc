@@ -11,12 +11,12 @@
 
 #include "cl_R.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* use inline versions of zerop */
+#include "cl_inline.h"
 #include "cl_I_signum.cc"
 #include "cl_RA_signum.cc"
-#undef MAYBE_INLINE2
-#define MAYBE_INLINE2 inline
+/* use inline versions of signum */
+#include "cl_inline2.h"
 #include "cl_SF_signum.cc"
 #include "cl_FF_signum.cc"
 #include "cl_DF_signum.cc"
@@ -24,7 +24,7 @@
 
 namespace cln {
 
-const cl_R signum (const cl_R& x)
-GEN_R_OP1_7(x, signum, return)
+const cl_R CL_FLATTEN signum (const cl_R& x)
+GEN_R_OP1_7(x, signum_inline, return)
 
 }  // namespace cln

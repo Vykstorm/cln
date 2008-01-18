@@ -14,8 +14,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_I NDS_to_I (const uintD* MSDptr, uintC len)
+CL_INLINE const cl_I CL_INLINE_DECL(NDS_to_I) (const uintD* MSDptr, uintC len)
 {
       // Mehr als bn_minlength Digits -> Bignum.
       // Weniger als bn_minlength Digits -> Fixnum.

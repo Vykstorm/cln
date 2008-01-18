@@ -15,8 +15,7 @@
 
 namespace cln {
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_RA_sqrt.cc"
 
 const cl_R sqrt (const cl_R& x)

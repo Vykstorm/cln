@@ -12,8 +12,7 @@
 #include "cl_C.h"
 #include "cln/real.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_C_abs_aux.cc"
 
 namespace cln {
@@ -28,7 +27,7 @@ const cl_R abs (const cl_N& x)
 		return abs(x);
 	} else {
 		DeclareType(cl_C,x);
-		return abs(x);
+		return abs_inline(x);
 	}
 }
 

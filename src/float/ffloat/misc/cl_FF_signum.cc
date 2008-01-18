@@ -11,18 +11,16 @@
 
 #include "cl_FF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_FF_minusp.cc"
 #include "cl_FF_zerop.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-const cl_FF signum (const cl_FF& x)
+CL_INLINE2 const cl_FF CL_INLINE2_DECL(signum) (const cl_FF& x)
 {
-	if (minusp(x)) { return cl_FF_minus1; } // x<0 -> -1.0
-	elif (zerop(x)) { return cl_FF_0; } // x=0 -> 0.0
+	if (minusp_inline(x)) { return cl_FF_minus1; } // x<0 -> -1.0
+	elif (zerop_inline(x)) { return cl_FF_0; } // x=0 -> 0.0
 	else { return cl_FF_1; } // x>0 -> +1.0
 }
 

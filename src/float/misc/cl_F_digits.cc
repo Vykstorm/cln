@@ -11,8 +11,7 @@
 
 #include "cl_F.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_SF_digits.cc"
 #include "cl_FF_digits.cc"
 #include "cl_DF_digits.cc"
@@ -23,10 +22,10 @@ namespace cln {
 uintC float_digits (const cl_F& x)
 {
 	floatcase(x
-	,	return float_digits(x);
-	,	return float_digits(x);
-	,	return float_digits(x);
-	,	return float_digits(x);
+	,	return float_digits_inline(x);
+	,	return float_digits_inline(x);
+	,	return float_digits_inline(x);
+	,	return float_digits_inline(x);
 	);
 }
 

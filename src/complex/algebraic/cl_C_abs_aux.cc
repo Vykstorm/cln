@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_R abs (const cl_C& x)
+CL_INLINE const cl_R CL_INLINE_DECL(abs) (const cl_C& x)
 {
 	var const cl_R& a = realpart(x);
 	var const cl_R& b = imagpart(x);

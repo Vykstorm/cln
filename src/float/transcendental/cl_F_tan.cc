@@ -11,8 +11,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_F tan (const cl_F& x)
+CL_INLINE const cl_F CL_INLINE_DECL(tan) (const cl_F& x)
 {
 // Methode:
 // (/ (sin x) (cos x))

@@ -9,15 +9,15 @@
 
 // Implementation.
 
-#define minusp inline_minusp
+#define minusp minusp_inline
 #include "cl_RA.h"
 #undef minusp
 
 namespace cln {
 
-bool minusp (const cl_RA& x)
+bool CL_FLATTEN minusp (const cl_RA& x)
 {
-	return inline_minusp(x);
+	return minusp_inline(x);
 }
 
 }  // namespace cln

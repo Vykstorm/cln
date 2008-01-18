@@ -12,8 +12,7 @@
 #include "cl_LF.h"
 #include "cl_DS.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_LF_minusp.cc"
 
 namespace cln {
@@ -27,9 +26,9 @@ cl_signean compare (const cl_LF& x, const cl_LF& y)
 // x und y haben gleiches Vorzeichen ->
 //    x >=0 -> vergleiche x und y (die rechten 24 Bits)
 //    x <0 -> vergleiche y und x (die rechten 24 Bits)
-      if (!minusp(y))
+      if (!minusp_inline(y))
         // y>=0
-        { if (!minusp(x))
+        { if (!minusp_inline(x))
             // y>=0, x>=0
             { // Vergleiche Exponenten und Mantissen:
               { var uintE x_uexp = TheLfloat(x)->expo;
@@ -66,7 +65,7 @@ cl_signean compare (const cl_LF& x, const cl_LF& y)
             { return signean_minus; } // x<y
         }
         else
-        { if (!minusp(x))
+        { if (!minusp_inline(x))
             // y<0, x>=0
             { return signean_plus; } // x>y
             else

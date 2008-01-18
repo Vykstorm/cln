@@ -13,8 +13,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-bool zerop (const cl_SF& x)
+CL_INLINE bool CL_INLINE_DECL(zerop) (const cl_SF& x)
 {
 	return x.word == make_SF_word(0,0,0);
 }

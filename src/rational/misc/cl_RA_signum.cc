@@ -12,10 +12,10 @@
 #include "cl_RA.h"
 #include "cl_I.h"
 
+
 namespace cln {
 
-MAYBE_INLINE
-const cl_RA signum (const cl_RA& x)
+CL_INLINE const cl_RA CL_INLINE_DECL(signum) (const cl_RA& x)
 {
 	if (minusp(x)) { return -1; } // x<0 -> -1
 	elif (zerop(x)) { return 0; } // x=0 -> 0

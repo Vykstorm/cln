@@ -13,7 +13,9 @@ CL_PROVIDE(cl_I_ring)
 
 #include "cln/integer.h"
 #include "cln/integer_io.h"
+#define zerop zerop_inline
 #include "cl_I.h"
+#undef zerop
 
 namespace cln {
 
@@ -34,10 +36,10 @@ static const _cl_ring_element I_zero (cl_heap_ring* R)
 	return _cl_ring_element(R, (cl_I)0);
 }
 
-static bool I_zerop (cl_heap_ring* R, const _cl_ring_element& x)
+static bool CL_FLATTEN I_zerop (cl_heap_ring* R, const _cl_ring_element& x)
 {
 	unused R;
-	return zerop(The(cl_I)(x));
+	return zerop_inline(The(cl_I)(x));
 }
 
 static const _cl_ring_element I_plus (cl_heap_ring* R, const _cl_ring_element& x, const _cl_ring_element& y)

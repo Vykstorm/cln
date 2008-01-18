@@ -11,18 +11,17 @@
 
 #include "cl_SF.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* Use inline versions of minusp and zerop */
+#include "cl_inline.h"
 #include "cl_SF_minusp.cc"
 #include "cl_SF_zerop.cc"
 
 namespace cln {
 
-MAYBE_INLINE2
-const cl_SF signum (const cl_SF& x)
+CL_INLINE2 const cl_SF CL_INLINE2_DECL(signum) (const cl_SF& x)
 {
-	if (minusp(x)) { return SF_minus1; } // x<0 -> -1.0
-	elif (zerop(x)) { return SF_0; } // x=0 -> 0.0
+	if (minusp_inline(x)) { return SF_minus1; } // x<0 -> -1.0
+	elif (zerop_inline(x)) { return SF_0; } // x=0 -> 0.0
 	else { return SF_1; } // x>0 -> +1.0
 }
 

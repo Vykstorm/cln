@@ -16,8 +16,8 @@
 #include "cl_RA.h"
 #include "cln/float.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* Use inline version of cl_float -- cl_float_inline */
+#include "cl_inline.h"
 #include "cl_F_from_R_def.cc"
 
 namespace cln {
@@ -78,7 +78,7 @@ const cl_N acosh (const cl_N& z)
 		}
 		if (x < cl_I(-1)) {
 			// x < -1
-			var cl_F xf = cl_float(x);
+			var cl_F xf = cl_float_inline(x);
 			var cl_F& x = xf;
 			// x Float <= -1
 			// log(sqrt(x^2-1)-x), ein Float >=0, Imaginärteil pi

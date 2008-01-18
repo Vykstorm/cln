@@ -12,8 +12,7 @@
 #include "cl_N.h"
 #include "cl_F.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_SF_eqhashcode.cc"
 #include "cl_FF_eqhashcode.cc"
 #include "cl_DF_eqhashcode.cc"
@@ -21,13 +20,13 @@
 
 namespace cln {
 
-uint32 equal_hashcode (const cl_F& x)
+uint32 CL_FLATTEN equal_hashcode (const cl_F& x)
 {
 	floatcase(x
-	,	return equal_hashcode(x);
-	,	return equal_hashcode(x);
-	,	return equal_hashcode(x);
-	,	return equal_hashcode(x);
+	,	return equal_hashcode_inline(x);
+	,	return equal_hashcode_inline(x);
+	,	return equal_hashcode_inline(x);
+	,	return equal_hashcode_inline(x);
 	);
 }
 

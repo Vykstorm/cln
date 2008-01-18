@@ -11,8 +11,7 @@
 
 namespace cln {
 
-MAYBE_INLINE
-const cl_F tanh (const cl_F& x)
+CL_INLINE const cl_F CL_INLINE_DECL(tanh) (const cl_F& x)
 {
 // Methode:
 // (/ (sinh x) (cosh x))

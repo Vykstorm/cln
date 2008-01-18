@@ -11,8 +11,7 @@
 
 #include "cl_F.h"
 
-#undef MAYBE_INLINE2
-#define MAYBE_INLINE2 inline
+#include "cl_inline2.h"
 #include "cl_SF_precision.cc"
 #include "cl_FF_precision.cc"
 #include "cl_DF_precision.cc"
@@ -20,7 +19,7 @@
 
 namespace cln {
 
-uintC float_precision (const cl_F& x)
+uintC CL_FLATTEN float_precision (const cl_F& x)
 {
 	floatcase(x
 	,	return float_precision(x);

@@ -14,7 +14,7 @@
 
 namespace cln {
 
-inline uint32 equal_hashcode (const cl_FN& x)
+static inline uint32 equal_hashcode (const cl_FN& x)
 {
 	var cl_signean sign;
 	var uintV x_ = FN_to_V(x); // x als intVsize-Bit-Zahl
@@ -39,7 +39,7 @@ inline uint32 equal_hashcode (const cl_FN& x)
 	return equal_hashcode_low(msd,exp,sign);
 }
 
-inline uint32 equal_hashcode (const cl_BN& x)
+static inline uint32 equal_hashcode (const cl_BN& x)
 {
 	var const uintD* MSDptr;
 	var uintC len;
@@ -128,8 +128,7 @@ inline uint32 equal_hashcode (const cl_BN& x)
 #endif
 }
 
-MAYBE_INLINE
-uint32 equal_hashcode (const cl_I& x)
+CL_INLINE uint32 CL_INLINE_DECL(equal_hashcode) (const cl_I& x)
 {
 	if (fixnump(x)) {
 		DeclareType(cl_FN,x);

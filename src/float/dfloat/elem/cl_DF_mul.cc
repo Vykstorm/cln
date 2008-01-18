@@ -15,8 +15,7 @@
 #include "cl_DS.h"
 #include "cl_ieee.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+#include "cl_inline.h"
 #include "cl_DF_zerop.cc"
 
 namespace cln {
@@ -43,7 +42,7 @@ const cl_DF operator* (const cl_DF& x1, const cl_DF& x2)
 #ifdef FAST_DOUBLE
       double_to_DF(DF_to_double(x1) * DF_to_double(x2), return ,
                    TRUE, TRUE, // Overflow und subnormale Zahl abfangen
-                   !(zerop(x1) || zerop(x2)), // ein Ergebnis +/- 0.0
+                   !(zerop_inline(x1) || zerop_inline(x2)), // ein Ergebnis +/- 0.0
                                // ist genau dann in Wirklichkeit ein Underflow
                    FALSE, FALSE // keine Singularität, kein NaN als Ergebnis möglich
                   );

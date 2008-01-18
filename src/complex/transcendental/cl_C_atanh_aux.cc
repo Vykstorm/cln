@@ -14,15 +14,15 @@
 #include "cl_F_tran.h"
 #include "cl_R.h"
 
-#undef MAYBE_INLINE
-#define MAYBE_INLINE inline
+/* Use the inline version of cl_float */
+#include "cl_inline.h"
 #include "cl_F_from_R_def.cc"
 
 namespace cln {
 
 // Hilfsfunktion für atanh und atan: u+iv := artanh(x+iy). Liefert cl_C_R(u,v).
 
-const cl_C_R atanh (const cl_R& x, const cl_R& y)
+const cl_C_R CL_FLATTEN atanh (const cl_R& x, const cl_R& y)
 {
 // Methode:
 // Wert und Branch Cuts nach der Formel CLTL2, S. 315:
@@ -56,7 +56,7 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 		// x=0 -> u=0, v=atan(X=1,Y=y) (Fall y=0 ist inbegriffen)
 		return cl_C_R(0, atan(1,y));
 	if (eq(y,0)) {
-		var cl_F xf = cl_float(x); // (float x)
+		var cl_F xf = cl_float_inline(x); // (float x)
 		var cl_F& x = xf;
 		// x Float
 		if (zerop(x))
@@ -92,7 +92,7 @@ const cl_C_R atanh (const cl_R& x, const cl_R& y)
 	var cl_F yf;
 	if (rationalp(x)) {
 		DeclareType(cl_RA,x);
-		yf = cl_float(y);
+		yf = cl_float_inline(y);
 		xf = cl_float(x,yf);
 	} else {
 		DeclareType(cl_F,x);
