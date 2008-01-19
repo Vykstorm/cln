@@ -91,17 +91,16 @@ by the authors.
 @end titlepage
 @page
 
-
+@iftex
 @c Table of contents
-@c @contents
+@contents
+@end iftex
 
-
+@ifinfo
 @node Top
 @top CLN
+@end ifinfo
 
-@c @menu
-@c * Introduction::                Introduction
-@c @end menu
 
 @menu
 * Introduction::                
