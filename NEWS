@@ -1,4 +1,4 @@
-2008-01-dd, version 1.2.0
+2008-01-19, version 1.2.0
 =========================
 
 Algorithmic changes
@@ -37,6 +37,8 @@ Other changes
 * Changed encoding of all files to UTF-8.
 
 * Fix compilation issues with GCC-4.3.
+
+* Fix linking issues on platforms that don't feature weak symbols (like win32).
 
 
 2006-08-08, version 1.1.13
