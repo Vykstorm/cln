@@ -5,6 +5,7 @@
 	* src/base/cl_maybe_inline.h: New file.
 	* src/base/cl_inline2.h: New file.
 	* src/base/cl_inline.h: New file.
+	* src/base/string/cl_st_make0.h: New file.
 	* src/base/cl_macros.h: Pull in cl_maybe_inline.h.
 	* src/base/string/cl_st_concat1.cc: Use new CL_INLINE macros and the
 	new *_inline functions.
