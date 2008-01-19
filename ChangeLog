@@ -2,6 +2,12 @@
 
 	* Version 1.2.0 released.
 
+2007-01-19  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* doc/Makefile.in: texi2html -split_chapter doesn't generate
+	cln_toc.html any more.
+	* doc/cln.texi: Add table of contents in TeX output.
+
 2007-01-18  Alexei Sheplyakov  <varg@theor.jinr.ru>
 
 	Fix linking problems on some platforms caused by inline/non-inline
