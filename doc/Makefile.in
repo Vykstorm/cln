@@ -64,12 +64,12 @@ ${srcdir}/${PACKAGE}.ps : ${srcdir}/${PACKAGE}.dvi
 	${DVIPS} -o $@ $<
 
 
-html : ${PACKAGE}.html ${PACKAGE}/${PACKAGE}_toc.html
+html : ${PACKAGE}.html ${PACKAGE}/${PACKAGE}.html
 
 ${PACKAGE}.html : ${srcdir}/${PACKAGE}.texi
 	cd ${srcdir} && ${TEXI2HTML} -expandinfo -number -monolithic ${PACKAGE}.texi
 
-${PACKAGE}/${PACKAGE}_toc.html : ${srcdir}/${PACKAGE}.texi
+${PACKAGE}/${PACKAGE}.html : ${srcdir}/${PACKAGE}.texi
 	cd ${srcdir} && ${TEXI2HTML} -expandinfo -number -split_chapter ${PACKAGE}.texi
 
 
