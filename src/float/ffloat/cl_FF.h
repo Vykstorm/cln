@@ -237,10 +237,8 @@ extern const cl_FF cl_RA_to_FF (const cl_RA& x);
 //   e=255, m=0: vorzeichenbehaftete Infinity
 //   e=255, m/=0: NaN
 
-// cl_float_to_FF(val) wandelt ein IEEE-Single-Float val in ein Single-Float um.
-extern cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val);
-inline const cl_FF cl_float_to_FF (const ffloatjanus& val)
-	{ return cl_float_to_FF_pointer(val); }
+// cl_float_to_FF_pointer(val) wandelt ein IEEE-Single-Float val in ein Single-Float um.
+extern cl_private_thing cl_float_to_FF_pointer (const float val);
 
 // cl_FF_to_float(obj,&val);
 // wandelt ein Single-Float obj in ein IEEE-Single-Float val um.

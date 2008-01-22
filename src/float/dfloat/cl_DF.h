@@ -309,10 +309,8 @@ extern const cl_DF cl_RA_to_DF (const cl_RA& x);
 //   e=2047, m=0: vorzeichenbehaftete Infinity
 //   e=2047, m/=0: NaN
 
-// cl_double_to_DF(val) wandelt ein IEEE-Double-Float val in ein Double-Float um.
-extern cl_heap_dfloat* cl_double_to_DF_pointer (const dfloatjanus& val);
-inline const cl_DF cl_double_to_DF (const dfloatjanus& val)
-	{ return cl_double_to_DF_pointer(val); }
+// cl_double_to_DF_pointer(val) wandelt ein IEEE-Double-Float val in ein Double-Float um.
+extern cl_heap_dfloat* cl_double_to_DF_pointer (const double val);
 
 // cl_DF_to_double(obj,&val);
 // wandelt ein Double-Float obj in ein IEEE-Double-Float val um.

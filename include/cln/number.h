@@ -146,34 +146,32 @@ namespace cln {
 // Constructors and assignment operators from C numeric types.
 
 // from `float':
-union ffloatjanus;
-extern cl_private_thing cl_float_to_FF_pointer (const union ffloatjanus& val);
+extern cl_private_thing cl_float_to_FF_pointer (const float val);
 
 #define CL_DEFINE_FLOAT_CONSTRUCTOR(_class_)				\
 inline _class_ :: _class_ (const float x)				\
 {									\
-	pointer = cl_float_to_FF_pointer(*(const union ffloatjanus *)&x); \
+	pointer = cl_float_to_FF_pointer(x);				\
 }									\
 inline _class_& _class_::operator= (const float x)			\
 {									\
 	cl_dec_refcount(*this);						\
-	pointer = cl_float_to_FF_pointer(*(const union ffloatjanus *)&x); \
+	pointer = cl_float_to_FF_pointer(x);				\
 	return *this;							\
 }
 
 // from `double':
-union dfloatjanus;
-extern struct cl_heap_dfloat * cl_double_to_DF_pointer (const union dfloatjanus& val);
+extern struct cl_heap_dfloat * cl_double_to_DF_pointer (const double val);
 
 #define CL_DEFINE_DOUBLE_CONSTRUCTOR(_class_)				\
 inline _class_::_class_ (const double x)				\
 {									\
-	pointer = cl_double_to_DF_pointer(*(const union dfloatjanus *)&x); \
+	pointer = cl_double_to_DF_pointer(x);				\
 }									\
 inline _class_& _class_::operator= (const double x)			\
 {									\
 	cl_dec_refcount(*this);						\
-	pointer = cl_double_to_DF_pointer(*(const union dfloatjanus *)&x); \
+	pointer = cl_double_to_DF_pointer(x);				\
 	return *this;							\
 }
 

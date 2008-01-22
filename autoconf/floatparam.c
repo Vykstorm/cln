@@ -92,8 +92,9 @@ check(ldouble,"long_double","long double",equal_ldouble,main_ldouble)
 static void flipped_double (void)
 {
   typedef struct { unsigned lo, hi; } dfloat;
-  double x = 2;
-  dfloat test = *(dfloat*)&x;
+  union { dfloat eksplicit; double machine_double; } x;
+  x.machine_double = 2;
+  dfloat test = x.eksplicit;
   if (test.lo==0 && test.hi!=0) {
     printf("#define double_wordorder_bigendian_p 0\n");
   } else if (test.lo!=0 && test.hi==0) {

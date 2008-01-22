@@ -1,4 +1,7 @@
-// cl_float_to_FF().
+// cl_float_to_FF_pointer().
+
+// Ensure that union ffloatjanus has a 'float' alternative.
+#define FAST_FLOAT
 
 // General includes.
 #include "cl_sysdep.h"
@@ -10,8 +13,10 @@ namespace cln {
 
 // Implementation.
 
-cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val_)
+cl_private_thing cl_float_to_FF_pointer (const float x)
 {
+      var union ffloatjanus val_;
+      val_.machine_float = x;
       var ffloat val = val_.eksplicit;
       var uintL exp = (val >> FF_mant_len) & (bit(FF_exp_len)-1); // e
       if (exp == 0) // e=0 ?
