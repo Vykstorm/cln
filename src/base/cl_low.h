@@ -165,7 +165,7 @@ inline uint32 mulu16 (uint16 arg1, uint16 arg2)
       var union { double f; uint32 i[2]; uint16 s[4]; } __fi;	\
       __fi.f = (double)(sint32)(_x)*(double)(sint32)(_y)	\
                + (double)(4503599627370496.0L); /* + 2^52, zum Normalisieren */\
-      hi_zuweisung __fi.s[1]; /* mittlere 16 Bit herausholen, (benutzt CL_CPU_BIG_ENDIAN_P !) */\
+      unused (hi_zuweisung __fi.s[1]); /* mittlere 16 Bit herausholen, (benutzt CL_CPU_BIG_ENDIAN_P !) */\
       lo_zuweisung __fi.i[1]; /* untere 32 Bit herausholen (benutzt CL_CPU_BIG_ENDIAN_P !)    */\
     }
 #else
@@ -205,13 +205,13 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   extern "C" uint32 mulu32_high;                        // -> High-Teil
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
-    ({ var uint32 _x = (x); \
-       var uint32 _y = (y); \
-       var uint32 _hi;      \
-       var uint32 _lo;      \
+    ({ var uint32 _x = (x);       \
+       var uint32 _y = (y);       \
+       var uint32 _hi;            \
+       var uint32 _lo;            \
        __asm__("mulul %3,%0:%1" : "=d" (_hi), "=d"(_lo) : "1" (_x), "dm" (_y) ); \
-       hi_zuweisung _hi;    \
-       lo_zuweisung _lo;    \
+       unused (hi_zuweisung _hi); \
+       lo_zuweisung _lo;          \
      })
 #elif defined(__GNUC__) && defined(__m68k__)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
@@ -231,7 +231,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
         _hi += high16(_mid); _mid = highlow32_0(low16(_mid));		\
         _lo += _mid; if (_lo < _mid) { _hi += 1; } /* 64-Bit-Addition */\
        }								\
-       hi_zuweisung _hi;						\
+       unused (hi_zuweisung _hi);					\
        lo_zuweisung _lo;						\
      })
 #elif defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
@@ -241,20 +241,20 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 	       : "=r" (_prod)					\
 	       : "r" ((uint32)(x)), "r" ((uint32)(y))		\
 	      );						\
-       hi_zuweisung (uint32)(_prod>>32);			\
+       unused (hi_zuweisung (uint32)(_prod>>32));		\
        lo_zuweisung (uint32)(_prod);				\
      })
 #elif defined(__GNUC__) && defined(__sparc__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ lo_zuweisung mulu32_(x,y); /* extern in Assembler */	\
       {var register uint32 _hi __asm__("%g1");			\
-       hi_zuweisung _hi;					\
+       unused (hi_zuweisung _hi);				\
      }})
 #elif defined(__GNUC__) && defined(__arm__) && 0 // see comment cl_asm_arm.cc
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ lo_zuweisung mulu32_(x,y); /* extern in Assembler */	\
       {var register uint32 _hi __asm__("%r1"/*"%a2"*/);		\
-       hi_zuweisung _hi;					\
+       unused (hi_zuweisung _hi);				\
      }})
 #elif defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__)) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
@@ -264,7 +264,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
                : "=d" /* %edx */ (_hi), "=a" /* %eax */ (_lo)    \
                : "g" ((uint32)(x)), "1" /* %eax */ ((uint32)(y)) \
               );                                                 \
-       hi_zuweisung _hi; lo_zuweisung _lo;                       \
+       unused (hi_zuweisung _hi); lo_zuweisung _lo;              \
      })
 #elif defined(__GNUC__) && defined(__mips__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
@@ -274,27 +274,27 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
                : "=r" (_hi), "=r" (_lo)               \
                : "r" ((uint32)(x)), "r" ((uint32)(y)) \
               );                                      \
-       hi_zuweisung _hi; lo_zuweisung _lo;            \
+       unused (hi_zuweisung _hi); lo_zuweisung _lo;   \
      })
 #elif defined(__GNUC__) && defined(HAVE_LONGLONG) && !defined(__arm__)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ var register uint64 _prod = (uint64)(uint32)(x) * (uint64)(uint32)(y); \
-       hi_zuweisung (uint32)(_prod>>32);                                      \
+       unused (hi_zuweisung (uint32)(_prod>>32));                             \
        lo_zuweisung (uint32)(_prod);                                          \
      })
 #elif defined(WATCOM) && defined(__i386__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
-    { var register uint32 _hi;                  \
-      var register uint32 _lo;                  \
-      _lo = mulu32_(x,y), _hi = mulu32_high_(); \
-      hi_zuweisung _hi; lo_zuweisung _lo;       \
+    { var register uint32 _hi;                     \
+      var register uint32 _lo;                     \
+      _lo = mulu32_(x,y), _hi = mulu32_high_();    \
+      unused (hi_zuweisung _hi); lo_zuweisung _lo; \
     }
   extern "C" uint32 mulu32_high_ (void);
   #pragma aux mulu32_ = 0xF7 0xE2 /* mull %edx */ parm [eax] [edx] value [eax] modify [eax edx];
   #pragma aux mulu32_high_ = /* */ value [edx] modify [];
 #else
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
-    { lo_zuweisung mulu32_(x,y); hi_zuweisung mulu32_high; }
+    { lo_zuweisung mulu32_(x,y); unused (hi_zuweisung mulu32_high); }
   #if (defined(__m68k__) || defined(__sparc__) || defined(__sparc64__) || defined(__arm__) || (defined(__i386__) && !defined(WATCOM) && !defined(MICROSOFT)) || defined(__x86_64__) || defined(__mips__) || defined(__hppa__)) && !defined(NO_ASM)
     // mulu32_ extern in Assembler
     #if defined(__sparc__) || defined(__sparc64__)

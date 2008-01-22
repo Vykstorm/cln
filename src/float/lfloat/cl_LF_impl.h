@@ -68,7 +68,7 @@ inline cl_LF::cl_LF (cl_heap_lfloat* ptr) : cl_F ((cl_private_thing) ptr) {}
     { var Lfloat _x = TheLfloat(obj);					\
       var uintE uexp = _x->expo;					\
       if (uexp==0)							\
-        { mantlen_zuweisung _x->len; zero_statement } /* e=0 -> Zahl 0.0 */\
+        { unused (mantlen_zuweisung _x->len); zero_statement } /* e=0 -> Zahl 0.0 */\
         else								\
         { exp_zuweisung (sintE)(uexp - LF_exp_mid);	/* Exponent */	\
           sign_zuweisung _x->sign;			/* Vorzeichen */\
