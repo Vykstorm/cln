@@ -1,3 +1,30 @@
+2007-01-20  Bruno Haible  <bruno@clisp.org>
+
+	Avoid some gcc warnings.
+	* autoconf/floatparam.c (flipped_double): Use a union instead of a
+	type-punning cast.
+	* include/cln/number.h (union ffloatjanus, union dfloatjanus): Remove
+	declarations.
+	(cl_float_to_FF_pointer, cl_double_to_DF_pointer): Change argument
+	type.
+	(CL_DEFINE_FLOAT_CONSTRUCTOR, CL_DEFINE_DOUBLE_CONSTRUCTOR): Update.
+	* src/float/ffloat/cl_FF.h (cl_float_to_FF_pointer): Change argument
+	type.
+	(cl_float_to_FF): Remove function.
+	* src/float/ffloat/conv/cl_FF_from_float.cc (FAST_FLOAT): Define.
+	(cl_float_to_FF_pointer): Change argument type.
+	* src/float/dfloat/cl_DF.h (cl_double_to_DF_pointer): Change argument
+	type.
+	(cl_double_to_DF): Remove function.
+	* src/float/dfloat/conv/cl_DF_from_double.cc (FAST_DOUBLE): Define.
+	(cl_double_to_DF_pointer): Change argument type.
+	* src/float/lfloat/cl_LF_impl.h (LF_decode): Mark the mantlen_zuweisung
+	assignment as possibly unused.
+	* src/base/cl_low.h (mulu32): Mark the hi_zuweisung assignment as
+	possibly unused.
+	* src/float/transcendental/cl_LF_zeta_int.cc (compute_zeta_cvz2):
+	Remove unused local variable.
+
 2007-01-19  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.2.0 released.
