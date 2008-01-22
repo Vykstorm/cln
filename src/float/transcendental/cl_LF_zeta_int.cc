@@ -94,7 +94,6 @@ const cl_LF compute_zeta_cvz2 (int s, uintC len)
 	// evaluated using the binary splitting algorithm with truncation.
 	var uintC actuallen = len+2; // 2 guard digits
 	var uintC N = (uintC)(0.39321985*intDsize*actuallen)+1;
-	var uintC n;
 	struct rational_series_stream : cl_pqd_series_stream {
 		uintC n;
 		int s;
