@@ -1,4 +1,4 @@
-dnl Copyright (C) 1993-2006 Free Software Foundation, Inc.
+dnl Copyright (C) 1993-2008 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -184,9 +184,11 @@ else
   host_cpu=sparc
 fi
     ;;
+dnl MacOS X 10.5 machines on x86_64 platforms have 'uname -m' = "i386" even
+dnl if 64-bit programs are fully supported.
 dnl AMD64 running Linux have 'uname -m' = "x86_64" even if userland is purely
 dnl 32-bit.
-  x86_64 )
+  i386 | x86_64 )
     AC_CACHE_CHECK([for 64-bit userland on x86-64], cl_cv_host_x86_64, [
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
 [[#if !defined __x86_64__
