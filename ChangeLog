@@ -1,3 +1,9 @@
+2007-02-04  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Fix cl_F output of more than 2^32 decimal digits:
+	* src/base/string/cl_sstring.cc (cl_sstring): make len uintC.
+	* src/base/string/cl_sstring.h: Likewise.
+
 2007-01-23  Bruno Haible  <bruno@clisp.org>
 
 	Allow 64-bit builds on MacOS X 10.5.

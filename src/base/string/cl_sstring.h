@@ -7,7 +7,7 @@ namespace cln {
 
 // Liefert einen String.
 // Mit malloc_hook() alloziert, mit free_hook() freizugeben.
-extern char * cl_sstring (const char * ptr, uintL len);
+extern char * cl_sstring (const char * ptr, uintC len);
 
 }  // namespace cln
 

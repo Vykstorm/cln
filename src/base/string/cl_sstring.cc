@@ -13,13 +13,13 @@
 
 namespace cln {
 
-char * cl_sstring (const char * ptr, uintL len)
+char * cl_sstring (const char * ptr, uintC len)
 {
 	var char * string = (char *) malloc_hook(len+1);
 	{
 		var const char* ptr1 = ptr;
 		var char* ptr2 = string;
-		var uintL count;
+		var uintC count;
 		for (count = len; count > 0; count--)
 			*ptr2++ = *ptr1++;
 		*ptr2++ = '\0';
