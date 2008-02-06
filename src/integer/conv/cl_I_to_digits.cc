@@ -191,7 +191,7 @@ void I_to_digits (const cl_I& X, uintD base, cl_digits* erg)
           #endif
           var const cl_I& X1 = q;
           var const cl_I& X0 = r;
-          var uintL B_baselen = (uintL)(k)<<i;
+          var uintC B_baselen = (uintC)(k)<<i;
           I_to_digits_noshrink(X0,base,B_baselen,erg);
           erg->LSBptr -= B_baselen;
           I_to_digits(X1,base,erg);

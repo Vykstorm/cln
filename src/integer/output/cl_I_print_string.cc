@@ -32,7 +32,7 @@ char * print_integer_to_string (unsigned int base, const cl_I& z)
 	I_to_digits(abs_z,(uintD)base,&erg); // Umwandlung in Ziffern
 	// Vorzeichen ankleben:
 	var char* ergptr = (char*)erg.MSBptr;
-	var uintL erglen = erg.len;
+	var uintC erglen = erg.len;
 	if (minus_p) {
 		*--ergptr = '-';
 		erglen++;

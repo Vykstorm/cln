@@ -1,3 +1,9 @@
+2007-02-06  Richard B. Kreckel  <kreckel@ginac.de>
+
+	Fix crash in output of huge numbers:
+	* src/integer/conv/cl_I_to_digits.cc: Make erglen uintC.
+	* src/integer/output/cl_I_print_string.cc: Make B_baselen uintC.
+
 2007-02-04  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Fix cl_F output of more than 2^32 decimal digits:

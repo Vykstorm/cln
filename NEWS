@@ -1,3 +1,12 @@
+2008-mm-dd, version 1.2.1
+=========================
+
+Implementation changes
+----------------------
+
+* Fixed some bugs in the output of numbers larger than 2^32 decimal digits.
+
+
 2008-01-19, version 1.2.0
 =========================
 
