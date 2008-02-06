@@ -315,7 +315,6 @@ extern float float_approx (const cl_RA& x);
 extern double double_approx (const cl_RA& x);
 
 
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_RA& operator+= (cl_RA& x, const cl_RA& y) { return x = x + y; }
 inline cl_RA& operator+= (cl_RA& x, const int y) { return x = x + y; }
@@ -341,7 +340,6 @@ inline cl_RA& operator-- /* prefix */ (cl_RA& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_RA& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_RA& operator*= (cl_RA& x, const cl_RA& y) { return x = x * y; }
 inline cl_RA& operator/= (cl_RA& x, const cl_RA& y) { return x = x / y; }
-#endif
 
 
 // Runtime typing support.

@@ -525,7 +525,6 @@ inline const cl_R random_R (const cl_R& n)
 	{ return random_R(default_random_state,n); }
 
 
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_R& operator+= (cl_R& x, const cl_R& y) { return x = x + y; }
 inline cl_F& operator+= (cl_F& x, const cl_R& y) { return x = x + y; }
@@ -607,7 +606,6 @@ inline cl_F& operator/= (cl_F& x, const unsigned long y) { return x = x / y; }
 #ifdef HAVE_LONGLONG
 inline cl_F& operator/= (cl_F& x, const long long y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const unsigned long long y) { return x = x / y; }
-#endif
 #endif
 
 

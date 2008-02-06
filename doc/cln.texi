@@ -157,7 +157,7 @@ Functions on numbers
 * Functions on floating-point numbers::  
 * Conversion functions::        
 * Random number generators::    
-* Obfuscating operators::       
+* Modifying operators::       
 
 Constructing numbers
 
@@ -931,7 +931,7 @@ objects of type @code{cl_I}, it should @code{#include <cln/integer.h>}.
 * Functions on floating-point numbers::  
 * Conversion functions::        
 * Random number generators::    
-* Obfuscating operators::       
+* Modifying operators::       
 @end menu
 
 @node Constructing numbers
@@ -2501,22 +2501,13 @@ if @code{n} is a float.
 @end table
 
 
-@node Obfuscating operators
-@section Obfuscating operators
+@node Modifying operators
+@section Modifying operators
 @cindex modifying operators
 
 The modifying C/C++ operators @code{+=}, @code{-=}, @code{*=}, @code{/=},
 @code{&=}, @code{|=}, @code{^=}, @code{<<=}, @code{>>=}
-are not available by default because their
-use tends to make programs unreadable. It is trivial to get away without
-them. However, if you feel that you absolutely need these operators
-to get happy, then add
-@example
-#define WANT_OBFUSCATING_OPERATORS
-@end example
-@cindex @code{WANT_OBFUSCATING_OPERATORS}
-to the beginning of your source files, before the inclusion of any CLN
-include files. This flag will enable the following operators:
+are all available.
 
 For the classes @code{cl_N}, @code{cl_R}, @code{cl_RA},
 @code{cl_F}, @code{cl_SF}, @code{cl_FF}, @code{cl_DF}, @code{cl_LF}:
@@ -2569,7 +2560,7 @@ The prefix operator @code{--x}.
 The postfix operator @code{x--}.
 @end table
 
-Note that by using these obfuscating operators, you wouldn't gain efficiency:
+Note that by using these modifying operators, you don't gain efficiency:
 In CLN @samp{x += y;} is exactly the same as  @samp{x = x+y;}, not more
 efficient.
 

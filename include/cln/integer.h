@@ -193,12 +193,10 @@ inline const cl_I operator& (const cl_I& x, const cl_I& y)
 	{ return logand(x,y); }
 inline const cl_I operator~ (const cl_I& x)
 	{ return lognot(x); }
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_I& operator|= (cl_I& x, const cl_I& y) { return x = x | y; }
 inline cl_I& operator^= (cl_I& x, const cl_I& y) { return x = x ^ y; }
 inline cl_I& operator&= (cl_I& x, const cl_I& y) { return x = x & y; }
-#endif
 
 
 // Addition/Subtraktion von Integers
@@ -616,7 +614,6 @@ inline const cl_I testrandom_I ()
 	{ return testrandom_I(default_random_state); }
 
 
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_I& operator+= (cl_I& x, const cl_I& y) { return x = x + y; }
 inline cl_I& operator+= (cl_I& x, const int y) { return x = x + y; }
@@ -650,7 +647,6 @@ inline const cl_I operator/ (const cl_I& x, const cl_I& y) { return truncate1(x,
 inline const cl_I operator% (const cl_I& x, const cl_I& y) { return rem(x,y); }
 inline cl_I& operator/= (cl_I& x, const cl_I& y) { return x = x / y; }
 inline cl_I& operator%= (cl_I& x, const cl_I& y) { return x = x % y; }
-#endif
 #endif
 
 

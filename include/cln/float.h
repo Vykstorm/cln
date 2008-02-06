@@ -716,7 +716,6 @@ inline const cl_F random_F (const cl_F& n)
 	{ return random_F(default_random_state,n); }
 
 
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_F& operator+= (cl_F& x, const cl_F& y) { return x = x + y; }
 inline cl_F& operator+= (cl_F& x, const float y) { return x = x + y; }
@@ -734,7 +733,6 @@ inline cl_F& operator*= (cl_F& x, const double y) { return x = x * y; }
 inline cl_F& operator/= (cl_F& x, const cl_F& y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const float y) { return x = x / y; }
 inline cl_F& operator/= (cl_F& x, const double y) { return x = x / y; }
-#endif
 
 // Thrown when a floating-point exception occurs.
 class floating_point_exception : public runtime_exception {

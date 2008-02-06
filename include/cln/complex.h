@@ -138,7 +138,6 @@ extern const cl_N acos (const cl_N& z);
 extern const cl_N acosh (const cl_N& z);
 
 
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_N& operator+= (cl_N& x, const cl_N& y) { return x = x + y; }
 inline cl_N& operator++ /* prefix */ (cl_N& x) { return x = plus1(x); }
@@ -148,7 +147,6 @@ inline cl_N& operator-- /* prefix */ (cl_N& x) { return x = minus1(x); }
 inline void operator-- /* postfix */ (cl_N& x, int dummy) { (void)dummy; x = minus1(x); }
 inline cl_N& operator*= (cl_N& x, const cl_N& y) { return x = x * y; }
 inline cl_N& operator/= (cl_N& x, const cl_N& y) { return x = x / y; }
-#endif
 
 
 // Runtime typing support.

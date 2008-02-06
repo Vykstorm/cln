@@ -293,7 +293,6 @@ extern float float_approx (const cl_FF& x);
 extern double double_approx (const cl_FF& x);
 
 
-#ifdef WANT_OBFUSCATING_OPERATORS
 // This could be optimized to use in-place operations.
 inline cl_FF& operator+= (cl_FF& x, const cl_FF& y) { return x = x + y; }
 inline cl_FF& operator+= (cl_FF& x, const float y) { return x = x + y; }
@@ -307,7 +306,6 @@ inline cl_FF& operator*= (cl_FF& x, const cl_FF& y) { return x = x * y; }
 inline cl_FF& operator*= (cl_FF& x, const float y) { return x = x * y; }
 inline cl_FF& operator/= (cl_FF& x, const cl_FF& y) { return x = x / y; }
 inline cl_FF& operator/= (cl_FF& x, const float y) { return x = x / y; }
-#endif
 
 
 CL_REQUIRE(cl_ieee)
