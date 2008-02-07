@@ -1,3 +1,16 @@
+2007-02-07  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/integer.h: Enable modifying operators by default.
+	* include/cln/rational.h: Likewise.
+	* include/cln/sfloat.h: Likewise.
+	* include/cln/ffloat.h: Likewise.
+	* include/cln/dfloat.h: Likewise.
+	* include/cln/lfloat.h: Likewise.
+	* include/cln/float.h: Likewise.
+	* include/cln/real.h: Likewise.
+	* include/cln/complex.h: Likewise.
+	* doc/cln.texi: Document that.
+
 2007-02-06  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Fix crash in output of huge numbers:

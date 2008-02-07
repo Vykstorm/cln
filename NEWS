@@ -6,6 +6,11 @@ Implementation changes
 
 * Fixed some bugs in the output of numbers larger than 2^32 decimal digits.
 
+Other changes
+-------------
+
+* Modifying C/C++ operators like +=, ++, etc. are now enabled by default.
+
 
 2008-01-19, version 1.2.0
 =========================
