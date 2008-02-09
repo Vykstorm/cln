@@ -3,6 +3,8 @@
 #ifndef _CL_MAYBE_INLINE_H
 #define _CL_MAYBE_INLINE_H
 
+#include "cln/config.h"
+
 /*
  * Selectively inline a function in *some* translation units.
  *
@@ -100,7 +102,7 @@
  *    a function.
  * 2. It's ignored if the optimization is switched off.
  */
-#ifdef __GNUC__
+#if defined(__GNUC__) && defined(CL_ATTRIBUTE_FLATTEN)
 #define CL_FLATTEN __attribute__((flatten))
 #else
 #define CL_FLATTEN

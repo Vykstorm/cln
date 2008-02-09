@@ -148,6 +148,10 @@
 #ifndef CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC
 #undef CL_GLOBAL_CONSTRUCTOR_SUFFIX_NOPIC
 #endif
+/* Define if the compiler knows about __attribute__((flatten)). */
+#ifndef CL_HAVE_ATTRIBUTE_FLATTEN
+#undef CL_HAVE_ATTRIBUTE_FLATTEN
+#endif
 
 /* CL_CHAR_UNSIGNED */
 #ifndef __CHAR_UNSIGNED__

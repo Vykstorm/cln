@@ -1,3 +1,12 @@
+2007-02-09  Alexei Sheplyakov  <varg@theor.jinr.ru>
+            Richard B. Kreckel  <kreckel@ginac.de>
+
+	Avoid compiler warning about ignored 'flatten' attribute directive:
+	* m4/cc.m4 (CL_ATTRIBUTE_FLATTEN): New macro...
+	* configure.ac: ...used here...
+	* include/cln/config.h.in: ...defining CL_HAVE_ATTRIBUTE_FLATTEN,...
+	* src/base/cl_maybe_inline.h: ...used to prevent a warning here.
+
 2007-02-07  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/integer.h: Enable modifying operators by default.

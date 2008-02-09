@@ -147,6 +147,8 @@ CL_RUSAGE
                       dnl DEFS HAVE_SYS_RESOURCE_H, HAVE_GETRUSAGE, HAVE_SYS_TIMES_H
 CL_PERROR
                       dnl DEFS HAVE_PERROR_DECL
+CL_ATTRIBUTE_FLATTEN
+                      dnl DEFS CL_HAVE_ATTRIBUTE_FLATTEN
 dnl
 dnl           checks for compiler characteristics
 dnl

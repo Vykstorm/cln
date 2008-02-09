@@ -67,3 +67,24 @@ EOF
   fi
   AC_SUBST(ASMFLAGS)
 ])
+
+
+dnl Checks whether the compiler supports __attribute__((flatten)).
+AC_DEFUN([CL_ATTRIBUTE_FLATTEN],[
+AC_REQUIRE([AC_PROG_CXX])
+AC_CACHE_CHECK([whether the compiler supports __attribute__((flatten))], cl_cv_have_attr_flatten, [dnl
+  cat > conftest.cc <<EOF
+void f() __attribute__((flatten));
+EOF
+AC_TRY_COMMAND(${CXX-g++} $CXXFLAGS -c conftest.cc >/dev/null 2>conftest.out)
+if grep -i "warning" conftest.out > /dev/null; then
+  cl_cv_have_attr_flatten=no
+else
+  cl_cv_have_attr_flatten=yes
+fi
+rm -f conftest*
+])
+if test $cl_cv_have_attr_flatten = yes; then
+  AC_DEFINE(CL_HAVE_ATTRIBUTE_FLATTEN)
+fi
+])
