@@ -102,7 +102,7 @@
  *    a function.
  * 2. It's ignored if the optimization is switched off.
  */
-#if defined(__GNUC__) && defined(CL_ATTRIBUTE_FLATTEN)
+#if defined(__GNUC__) && defined(CL_HAVE_ATTRIBUTE_FLATTEN)
 #define CL_FLATTEN __attribute__((flatten))
 #else
 #define CL_FLATTEN
