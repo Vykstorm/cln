@@ -76,11 +76,15 @@ AC_CACHE_CHECK([whether the compiler supports __attribute__((flatten))], cl_cv_h
   cat > conftest.cc <<EOF
 void f() __attribute__((flatten));
 EOF
-AC_TRY_COMMAND(${CXX-g++} $CXXFLAGS -c conftest.cc >/dev/null 2>conftest.out)
-if grep -i "warning" conftest.out > /dev/null; then
-  cl_cv_have_attr_flatten=no
+if AC_TRY_COMMAND(${CXX-g++} $CXXFLAGS -c conftest.cc >/dev/null 2>conftest.stderr)
+then
+  if grep -i "warning" conftest.stderr > /dev/null; then
+    cl_cv_have_attr_flatten=no
+  else
+    cl_cv_have_attr_flatten=yes
+  fi
 else
-  cl_cv_have_attr_flatten=yes
+  cl_cv_have_attr_flatten=no
 fi
 rm -f conftest*
 ])

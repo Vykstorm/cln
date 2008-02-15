@@ -1,3 +1,8 @@
+2007-02-15  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* m4/cc.m4 (CL_HAVE_ATTRIBUTE_FLATTEN): More robust definition allows...
+	* src/base/cl_maybe_inline.h (CL_FLATTEN): ...simplification here.
+
 2007-02-10  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* autoconf/ltmain.sh: Update to libtool-1.5.26.
