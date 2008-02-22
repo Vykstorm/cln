@@ -1,3 +1,15 @@
+2007-02-22  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* include/cln/integer_io.h (read_integer): Make index args uintC.
+	* src/integer/input/cl_I_readparsed.cc: Likewise.
+	* include/cln/rational_io.h (read_rational): Likewise.
+	* src/rational/input/cl_RA_readparsed.cc: Likewise
+	* include/cln/float_io.h (read_float): Likewise.
+	* src/float/input/cl_F_readparsed.cc: Likewise.
+	* src/vector/output/cl_GV_number_aprint.cc: Vector lengths are uintC.
+	* src/vector/output/cl_SV_aprint.cc: Likewise.
+	* src/vector/output/cl_SV_number_aprint.cc: Likewise.
+
 2007-02-15  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* m4/cc.m4 (CL_HAVE_ATTRIBUTE_FLATTEN): More robust definition allows...

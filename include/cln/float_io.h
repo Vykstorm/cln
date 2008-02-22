@@ -26,7 +26,7 @@ namespace cln {
 //    Exponenten-Ziffer)
 // < ergebnis: Float
 extern const cl_F read_float (unsigned int base, float_format_t prec,
-                  cl_signean sign, const char * string, uintL index1, uintL index4, uintL index2, uintL index3);
+                  cl_signean sign, const char * string, uintC index1, uintC index4, uintC index2, uintC index3);
 
 // The following does strictly the same as the general read_complex.
 // It is here only so that you don't need the complex and rational number

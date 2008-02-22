@@ -26,11 +26,11 @@
 
 namespace cln {
 
-const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, const char * string, uintL index1, uintL index4, uintL index2, uintL index3)
+const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, const char * string, uintC index1, uintC index4, uintC index2, uintC index3)
 {
 	var cl_I exponent;
 	{
-		var uintL exp_len = index2-index4; // Anzahl Stellen des Exponenten
+		var uintC exp_len = index2-index4; // Anzahl Stellen des Exponenten
 		if (exp_len > 0) {
 			var const char * ptr = &string[index4]; // zeigt auf den Exponentmarker
 			ptr++; exp_len--; // Exponentmarker überlesen

@@ -21,7 +21,7 @@ namespace cln {
 //   (also index3-index1 Zähler-Ziffern, index2-index3-1 Nenner-Ziffern)
 // < ergebnis: rationale Zahl
 extern const cl_RA read_rational (unsigned int base,
-                   cl_signean sign, const char * string, uintL index1, uintL index3, uintL index2);
+                   cl_signean sign, const char * string, uintC index1, uintC index3, uintC index2);
 
 // The following does strictly the same as the general read_complex.
 // It is here only so that you don't need the complex and float number

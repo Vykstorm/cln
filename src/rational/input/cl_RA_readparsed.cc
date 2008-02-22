@@ -15,9 +15,9 @@
 
 namespace cln {
 
-const cl_RA read_rational (unsigned int base, cl_signean sign, const char * string, uintL index1, uintL index3, uintL index2)
+const cl_RA read_rational (unsigned int base, cl_signean sign, const char * string, uintC index1, uintC index3, uintC index2)
 {
-	var uintL index3_1 = index3+1; // Index der ersten Nennerziffer
+	var uintC index3_1 = index3+1; // Index der ersten Nennerziffer
 	var cl_I den = // Nenner
 	  digits_to_I(&string[index3_1],index2-index3_1,(uintD)base);
 	if (zerop(den)) // Division durch 0 abfangen

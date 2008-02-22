@@ -21,7 +21,7 @@ namespace cln {
 //   (also index2-index1 Ziffern, incl. evtl. Dezimalpunkt am Schluß)
 // < ergebnis: Integer
 extern const cl_I read_integer (unsigned int base,
-                  cl_signean sign, const char * string, uintL index1, uintL index2);
+                  cl_signean sign, const char * string, uintC index1, uintC index2);
 
 // The following does strictly the same as the general read_complex.
 // It is here only so that you don't need the rational, complex and float number
