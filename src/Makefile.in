@@ -103,8 +103,24 @@ SUBDIRS := $(patsubst ${srcdir}/%/.,%,$(wildcard ${srcdir}/${SUBDIR}/*/.))
 #   ii_files/ is created during "make" by SGI C++.
 SUBDIRS := $(filter-out old ./old private ./private CVS %/CVS RCS %/RCS SCCS %/SCCS ii_files ./ii_files,${SUBDIRS})
 
-SUBDIRS_TARGET := $(patsubst %,%.target,${SUBDIRS})
+
+# Rule 'all' must be the first in the file.
+all : _all_
+
+
+# Recurse into subdirectories
+
 SUBDIRS_DIRDEP := $(patsubst %,%.dirdep,${SUBDIRS})
+
+${SUBDIRS_DIRDEP} : %.dirdep :
+
+
+# Target 'all' creates all necessary files for $(SUBDIR) and its subdirectories.
+
+SUBDIRS_TARGET_ALL := $(patsubst %,%.target_all,${SUBDIRS})
+
+${SUBDIRS_TARGET_ALL} : %.target_all : %.dirdep
+	${MAKE} SUBDIR=$* all
 
 ifeq (${SUBDIR},.)
 ALLFILES_CC := $(notdir $(wildcard ${srcdir}/*.cc) $(foreach subdir,${SUBDIRS}, $(wildcard ${srcdir}/${subdir}/*.cc) $(wildcard ${srcdir}/${subdir}/*/*.cc) $(wildcard ${srcdir}/${subdir}/*/*/*.cc)))
@@ -115,14 +131,34 @@ ALLFILES_LO := $(patsubst %.cc,%.lo,${ALLFILES_CC})
 ALLASMFILES_LO := $(patsubst %.cc,%.lo,${ALLASMFILES_CC})
 ALLOBJECTS_LO = ${ALLFILES_LO} ${ALLASMFILES_LO}
 
-all : ${OBJECTS_LO} ${SUBDIRS_TARGET} libcln.la
+_all_ : allo-local ${SUBDIRS_TARGET_ALL} libcln.la
 else
-all : ${OBJECTS_LO} ${SUBDIRS_TARGET}
+_all_ : allo-local ${SUBDIRS_TARGET_ALL}
 endif
 
-alls : ${FILES_S} ${ASMFILES_S}
 
-allo : ${FILES_LO} ${ASMFILES_LO}
+# Target 'alls' creates all .s files for $(SUBDIR) and its subdirectories.
+
+SUBDIRS_TARGET_ALLS := $(patsubst %,%.target_alls,${SUBDIRS})
+
+${SUBDIRS_TARGET_ALLS} : %.target_alls : %.dirdep
+	${MAKE} SUBDIR=$* alls
+
+alls : alls-local ${SUBDIRS_TARGET_ALLS}
+
+alls-local : ${FILES_S} ${ASMFILES_S}
+
+
+# Target 'allo' creates all .lo files for $(SUBDIR) and its subdirectories.
+SUBDIRS_TARGET_ALLO := $(patsubst %,%.target_allo,${SUBDIRS})
+
+${SUBDIRS_TARGET_ALLO} : %.target_allo : %.dirdep
+	${MAKE} SUBDIR=$* allo
+
+allo : allo-local ${SUBDIRS_TARGET_ALLO}
+
+allo-local : ${FILES_LO} ${ASMFILES_LO}
+
 
 ASMFLAGS := @ASMFLAGS@
 ifeq (@AS_UNDERSCORE@,true)
@@ -191,13 +227,6 @@ ${ASMFILES_LO} : %.lo : %.s
 endif
 
 endif
-
-
-# Recurse into subdirectories
-${SUBDIRS_TARGET} : %.target : %.dirdep
-	${MAKE} SUBDIR=$*
-
-${SUBDIRS_DIRDEP} : %.dirdep :
 
 
 ifeq (${SUBDIR},.)

@@ -1,3 +1,12 @@
+2007-02-23  Bruno Haible  <bruno@clisp.org>
+
+	Change "make alls" and "make allo" to recurse into subdirectories.
+	* src/Makefile.in (alls-local): Renamed from alls.
+	(allo-local): Renamed from allo.
+	(SUBDIRS_TARGET_ALL): Renamed from SUBDIRS_TARGET.
+	(alls, allo): New rules.
+	(SUBDIRS_TARGET_ALLS, SUBDIRS_TARGET_ALLO): New variables.
+
 2007-02-22  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/integer_io.h (read_integer): Make index args uintC.
