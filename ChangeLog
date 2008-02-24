@@ -1,5 +1,11 @@
 2007-02-23  Bruno Haible  <bruno@clisp.org>
 
+	Support for gcc-4.3 snapshots.
+	* autoconf/floatparam.c (check): Change argument types to
+	'volatile type*'. This defeats optimizations of gcc 4.3.0 snapshots.
+
+2007-02-23  Bruno Haible  <bruno@clisp.org>
+
 	Change "make alls" and "make allo" to recurse into subdirectories.
 	* src/Makefile.in (alls-local): Renamed from alls.
 	(allo-local): Renamed from allo.
