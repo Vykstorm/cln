@@ -154,32 +154,12 @@ dnl           checks for compiler characteristics
 dnl
 AC_C_CHAR_UNSIGNED
                       dnl DEFS __CHAR_UNSIGNED__ if char is unsigned
-test -d 'include/cln' || mkdir -p 'include/cln'
 CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,[CL_INTPARAM_CROSS],include/cln/intparam.h,cl_cv_file_intparam_h)
                       dnl builds include/cln/intparam.h
 CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,[CL_FLOATPARAM_CROSS],include/cln/floatparam.h,cl_cv_file_floatparam_h)
                       dnl builds include/cln/floatparam.h
-dnl
-dnl           interfacing to GNU gmp (must be at least version 3)
-dnl
-AC_ARG_WITH(gmp, AS_HELP_STRING([--with-gmp], 
-  [use external fast low-level functions from GNU MP (default: yes).]),
-  with_gmp="$withval",
-  with_gmp="yes")
-if test "$with_gmp" = yes; then
-  CL_GMP_H_VERSION
-  if test "$cl_cv_new_gmp_h" = no; then with_gmp="no"; fi
-  if test "$with_gmp" = yes; then
-    CL_GMP_CHECK
-    if test "$cl_cv_new_libgmp" = no; then with_gmp="no"; fi
-  fi
-fi
-if test "$with_gmp" = yes; then
-  CL_GMP_SET_UINTD
-  AC_DEFINE(CL_USE_GMP)
-else
-  AC_MSG_WARN([disabling external GNU MP library])
-fi
+CL_LIBGMP
+                      dnl DEFS CL_USE_GMP, GMP_DEMANDS_UINTD_*
 dnl
 dnl           That's it.
 dnl

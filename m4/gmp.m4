@@ -1,5 +1,5 @@
 dnl -*- Autoconf -*-
-dnl Copyright (C) 1993-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 1993-2008 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -28,7 +28,7 @@ AC_DEFUN([CL_GMP_CHECK],
     AC_TRY_LINK([#include <gmp.h>],[mpn_divexact_by3(0,0,0)],
 cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no")
     LIBS=$SAVELIBS])
-    if test x"$cl_cv_new_libgmp" = xyes; then
+    if test "$cl_cv_new_libgmp" = yes; then
       LIBS="$LIBS -lgmp"
     fi
 ])
@@ -63,4 +63,63 @@ int main() {
     AC_MSG_ERROR([cross-compiling - cannot determine]))
 ])
 AC_DEFINE_UNQUOTED($cl_gmp_demands)
+])
+
+dnl Whether or not to use GMP. Sets CL_USE_GMP.
+dnl Also sets CPPFLAGS, LDFLAGS if --with-gmp=DIR was specified.
+AC_DEFUN([CL_LIBGMP],
+[AC_ARG_WITH(gmp, AS_HELP_STRING([--with-gmp@<:@=DIR@:>@],
+  [use external low-level functions from GNU MP (installed in prefix DIR) @<:@default=yes@:>@.]),[
+    with_gmp="$withval"
+  ],
+  with_gmp="yes")
+case $with_gmp in
+  yes)
+    dnl --with-gmp
+    CL_GMP_H_VERSION
+    if test "$cl_cv_new_gmp_h" = yes; then
+      CL_GMP_CHECK
+      if test "$cl_cv_new_libgmp" = yes; then
+        CL_GMP_SET_UINTD
+        AC_DEFINE(CL_USE_GMP)
+      else
+        AC_MSG_WARN([The GNU MP library is too old to be used.])
+      fi
+    else
+      AC_MSG_WARN([The header file <gmp.h> is too old to be used.])
+    fi
+  ;;
+  no)
+    dnl --without-gmp
+  ;;
+  *)
+    dnl --with-gmp=DIR
+    case $withval in
+      [[\\/$]]* | ?:[[\\/]]* )
+      ;;
+      *) AC_MSG_ERROR([expected an absolute directory name for --with-gmp: $withval])
+      ;;
+    esac
+    saved_CPPFLAGS="$CPPFLAGS"
+    CPPFLAGS="$CPPFLAGS -I${withval}/include"
+    saved_LDFLAGS="$LDFLAGS"
+    LDFLAGS="$LDFLAGS -L${withval}/lib"
+    CL_GMP_H_VERSION
+    if test "$cl_cv_new_gmp_h" = yes; then
+      CL_GMP_CHECK
+      if test "$cl_cv_new_libgmp" = yes; then
+        CL_GMP_SET_UINTD
+        AC_DEFINE(CL_USE_GMP)
+      else
+        AC_MSG_WARN([The GNU MP library is too old to be used.])
+        CPPFLAGS="$saved_CPPFLAGS"
+        LDFLAGS="$saved_LDFLAGS"
+      fi
+    else
+      AC_MSG_WARN([The header file <gmp.h> is too old to be used.])
+      CPPFLAGS="$saved_CPPFLAGS"
+      LDFLAGS="$saved_LDFLAGS"
+    fi
+  ;;
+esac
 ])

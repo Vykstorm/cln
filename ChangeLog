@@ -1,10 +1,17 @@
-2007-02-23  Bruno Haible  <bruno@clisp.org>
+2008-03-15  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* m4/gmp.m4 (CL_LIBGMP): New macro brings support for --with-gmp=DIR...
+	* configure.ac: ...used here.
+	* doc/cln.texi: Document that new feature.
+	Suggested by Paul Zimmermann <paul.zimmermann@loria.fr>.
+
+2008-02-23  Bruno Haible  <bruno@clisp.org>
 
 	Support for gcc-4.3 snapshots.
 	* autoconf/floatparam.c (check): Change argument types to
 	'volatile type*'. This defeats optimizations of gcc 4.3.0 snapshots.
 
-2007-02-23  Bruno Haible  <bruno@clisp.org>
+2008-02-23  Bruno Haible  <bruno@clisp.org>
 
 	Change "make alls" and "make allo" to recurse into subdirectories.
 	* src/Makefile.in (alls-local): Renamed from alls.
@@ -13,7 +20,7 @@
 	(alls, allo): New rules.
 	(SUBDIRS_TARGET_ALLS, SUBDIRS_TARGET_ALLO): New variables.
 
-2007-02-22  Richard B. Kreckel  <kreckel@ginac.de>
+2008-02-22  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/integer_io.h (read_integer): Make index args uintC.
 	* src/integer/input/cl_I_readparsed.cc: Likewise.
@@ -25,19 +32,19 @@
 	* src/vector/output/cl_SV_aprint.cc: Likewise.
 	* src/vector/output/cl_SV_number_aprint.cc: Likewise.
 
-2007-02-15  Richard B. Kreckel  <kreckel@ginac.de>
+2008-02-15  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* m4/cc.m4 (CL_HAVE_ATTRIBUTE_FLATTEN): More robust definition allows...
 	* src/base/cl_maybe_inline.h (CL_FLATTEN): ...simplification here.
 
-2007-02-10  Richard B. Kreckel  <kreckel@ginac.de>
+2008-02-10  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* autoconf/ltmain.sh: Update to libtool-1.5.26.
 	* autoconf/config.guess: Likewise.
 	* autoconf/config.sub: Likewise.
 	* m4/libtool.m4: Likewise.
 
-2007-02-09  Alexei Sheplyakov  <varg@theor.jinr.ru>
+2008-02-09  Alexei Sheplyakov  <varg@theor.jinr.ru>
             Richard B. Kreckel  <kreckel@ginac.de>
 
 	Avoid compiler warning about ignored 'flatten' attribute directive:
@@ -46,7 +53,7 @@
 	* include/cln/config.h.in: ...defining CL_HAVE_ATTRIBUTE_FLATTEN,...
 	* src/base/cl_maybe_inline.h: ...used to prevent a warning here.
 
-2007-02-07  Richard B. Kreckel  <kreckel@ginac.de>
+2008-02-07  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* include/cln/integer.h: Enable modifying operators by default.
 	* include/cln/rational.h: Likewise.
@@ -59,26 +66,26 @@
 	* include/cln/complex.h: Likewise.
 	* doc/cln.texi: Document that.
 
-2007-02-06  Richard B. Kreckel  <kreckel@ginac.de>
+2008-02-06  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Fix crash in output of huge numbers:
 	* src/integer/conv/cl_I_to_digits.cc: Make erglen uintC.
 	* src/integer/output/cl_I_print_string.cc: Make B_baselen uintC.
 
-2007-02-04  Richard B. Kreckel  <kreckel@ginac.de>
+2008-02-04  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Fix cl_F output of more than 2^32 decimal digits:
 	* src/base/string/cl_sstring.cc (cl_sstring): make len uintC.
 	* src/base/string/cl_sstring.h: Likewise.
 
-2007-01-23  Bruno Haible  <bruno@clisp.org>
+2008-01-23  Bruno Haible  <bruno@clisp.org>
 
 	Allow 64-bit builds on MacOS X 10.5.
 	* m4/general.m4 (CL_CANONICAL_HOST_CPU): Test for x86_64 CPU if
 	"uname -m" returns "i386".
 	Reported by Ron Garret <ron@flownet.com>.
 
-2007-01-20  Bruno Haible  <bruno@clisp.org>
+2008-01-20  Bruno Haible  <bruno@clisp.org>
 
 	Avoid some gcc warnings.
 	* autoconf/floatparam.c (flipped_double): Use a union instead of a
@@ -105,17 +112,17 @@
 	* src/float/transcendental/cl_LF_zeta_int.cc (compute_zeta_cvz2):
 	Remove unused local variable.
 
-2007-01-19  Richard B. Kreckel  <kreckel@ginac.de>
+2008-01-19  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.2.0 released.
 
-2007-01-19  Richard B. Kreckel  <kreckel@ginac.de>
+2008-01-19  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* doc/Makefile.in: texi2html -split_chapter doesn't generate
 	cln_toc.html any more.
 	* doc/cln.texi: Add table of contents in TeX output.
 
-2007-01-18  Alexei Sheplyakov  <varg@theor.jinr.ru>
+2008-01-18  Alexei Sheplyakov  <varg@theor.jinr.ru>
 
 	Fix linking problems on some platforms caused by inline/non-inline
 	versions of same functions (obsoletes MAYBE_INLINE):

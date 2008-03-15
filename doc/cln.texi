@@ -471,6 +471,9 @@ Flags to be given to the C++ compiler when compiling programs (not when linking)
 
 @item CPPFLAGS
 Flags to be given to the C/C++ preprocessor.
+
+@item LDFLAGS
+Flags to be given to the linker.
 @end table
 
 Examples:
@@ -538,25 +541,31 @@ libraries so runtime-critical applications should be linked statically.
 @subsection Using the GNU MP Library
 @cindex GMP
 
-Starting with version 1.1, CLN may be configured to make use of a
-preinstalled @code{gmp} library for some low-level routines.  Please
-make sure that you have at least @code{gmp} version 3.0 installed
-since earlier versions are unsupported and likely not to work.  This
-feature is known to be quite a boost for CLN's performance.
+CLN may be configured to make use of a preinstalled @code{gmp} library
+for some low-level routines.  Please make sure that you have at least
+@code{gmp} version 3.0 installed since earlier versions are unsupported
+and likely not to work.  Using @code{gmp} is known to be quite a boost
+for CLN's performance.
 
-By default, CLN will autodetect @code{gmp} and use it. But if you have
-installed the @code{gmp} library and its header file in some place where
-your compiler cannot find it by default, you must help @code{configure}
-by setting @code{CPPFLAGS} and @code{LDFLAGS}.  Here is an example:
+By default, CLN will autodetect @code{gmp} and use it. If you do not
+want CLN to make use of a preinstalled @code{gmp} library, then you can
+explicitly specify so by calling @code{configure} with the option
+@samp{--without-gmp}.
+
+If you have installed the @code{gmp} library and its header files in
+some place where the compiler cannot find it by default, you must help
+@code{configure} and specify the prefix that was used when @code{gmp}
+was configured. Here is an example:
 
 @example
-$ CFLAGS="-O2" CXXFLAGS="-O2" CPPFLAGS="-I/opt/gmp/include" \
-  LDFLAGS="-L/opt/gmp/lib" ./configure --with-gmp
+$ ./configure --with-gmp=/opt/gmp-4.2.2
 @end example
 
-If you do not want CLN to make use of a preinstalled @code{gmp}
-library, then you can explicitly specify so by calling
-@code{configure} with the option @samp{--without-gmp}.
+This assumes that the @code{gmp} header files have been installed in
+@file{/opt/gmp-4.2.2/include/} and the library in
+@file{/opt/gmp-4.2.2/lib/}. More uncommon GMP installations can be
+handled by setting CPPFLAGS and LDFLAGS appropriately prior to running
+@code{configure}.
 
 
 @node Installing the library
