@@ -14,10 +14,13 @@ PACKEXT = .tar.bz2
 
 EXCLUDE=--exclude CVS\* --exclude \*.o --exclude *.lo --exclude .cvsignore \
         --exclude \*~ --exclude .\#\* --exclude .libs                      \
+        --exclude autogen.sh                                               \
         --exclude ${AUTOCONF_CACHE}
 
-all: configures documentation
+all: build-prerequisites documentation
 
+
+build-prerequisites: configures
 
 CONFIGURES = configure
 CONFIGURES_IN = configure.ac

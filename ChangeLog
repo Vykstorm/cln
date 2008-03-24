@@ -1,5 +1,12 @@
 2008-03-23  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh: New file.
+	* Makefile.devel (build-prerequisites): New target.
+	(all): Depend on it.
+	(EXCLUDE): Also exclude autogen.sh.
+
+2008-03-23  Bruno Haible  <bruno@clisp.org>
+
 	Make "make -jN" work again, broken on 2008-02-23.
 	* src/Makefile.in (ALLOBJECTS_LO): Fix dependency.
 
