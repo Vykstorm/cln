@@ -231,7 +231,7 @@ endif
 
 ifeq (${SUBDIR},.)
 
-${ALLOBJECTS_LO} : ${SUBDIRS_TARGET}
+${ALLOBJECTS_LO} : ${SUBDIRS_TARGET_ALL}
 
 libcln.la : ${LIBTOOL} ${ALLOBJECTS_LO}
 	echo ${ALLOBJECTS_LO} | tr ' ' '\n' > libcln.objectlist

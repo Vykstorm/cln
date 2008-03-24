@@ -1,3 +1,8 @@
+2008-03-23  Bruno Haible  <bruno@clisp.org>
+
+	Make "make -jN" work again, broken on 2008-02-23.
+	* src/Makefile.in (ALLOBJECTS_LO): Fix dependency.
+
 2008-03-15  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* m4/gmp.m4 (CL_LIBGMP): New macro brings support for --with-gmp=DIR...
