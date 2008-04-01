@@ -1,8 +1,5 @@
 // cl_double_to_DF_pointer().
 
-// Ensure that union dfloatjanus has a 'double' alternative.
-#define FAST_DOUBLE
-
 // General includes.
 #include "cl_sysdep.h"
 
@@ -16,9 +13,9 @@ namespace cln {
 
 cl_heap_dfloat* cl_double_to_DF_pointer (const double x)
 {
-      var union dfloatjanus val_;
-      val_.machine_double = x;
-      var dfloat val = val_.eksplicit;
+      var union { dfloat eksplicit; double machine_double; } u;
+      u.machine_double = x;
+      var dfloat val = u.eksplicit;
       #if (cl_word_size==64)
       var uintL exp = (val >> DF_mant_len) & (bit(DF_exp_len)-1); // e
       if (exp == 0) // e=0 ?

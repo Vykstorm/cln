@@ -1,3 +1,11 @@
+2008-03-31  Bruno Haible  <bruno@clisp.org>
+
+	Fix hack from 2008-01-20 that broke on ARM.
+	* src/float/ffloat/conv/cl_FF_from_float.cc (FAST_FLOAT): Remove.
+	(cl_float_to_FF_pointer): Use anonymous union for conversion.
+	* src/float/dfloat/conv/cl_DF_from_double.cc (FAST_DOUBLE): Remove.
+	(cl_double_to_DF_pointer): Use anonymous union for conversion.
+
 2008-03-24  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.2.1 released.

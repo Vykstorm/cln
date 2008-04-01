@@ -1,8 +1,5 @@
 // cl_float_to_FF_pointer().
 
-// Ensure that union ffloatjanus has a 'float' alternative.
-#define FAST_FLOAT
-
 // General includes.
 #include "cl_sysdep.h"
 
@@ -15,9 +12,9 @@ namespace cln {
 
 cl_private_thing cl_float_to_FF_pointer (const float x)
 {
-      var union ffloatjanus val_;
-      val_.machine_float = x;
-      var ffloat val = val_.eksplicit;
+      var union { ffloat eksplicit; float machine_float; } u;
+      u.machine_float = x;
+      var ffloat val = u.eksplicit;
       var uintL exp = (val >> FF_mant_len) & (bit(FF_exp_len)-1); // e
       if (exp == 0) // e=0 ?
         // vorzeichenbehaftete 0.0 oder subnormale Zahl
