@@ -10,6 +10,12 @@ namespace cln {
 
 // Implementation.
 
+cl_private_thing cl_float_to_FF_pointer (const ffloatjanus& val_)
+{
+      // XXX: This signature is for binary compatibility with CLN-1.2.0 only.
+      return cl_float_to_FF_pointer(*(float *)(&val_));
+}
+
 cl_private_thing cl_float_to_FF_pointer (const float x)
 {
       var union { ffloat eksplicit; float machine_float; } u;

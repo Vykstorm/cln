@@ -1,3 +1,12 @@
+ABI Issues:
+
+Remove extra signatures in cl_FF_from_float.cc and cl_DF_from_double.cc.
+
+
+Algorithms:
+
+Niels Moeller's subquadratic GCD
+
 - polynomial division and gcd
 - polynomial documentation
 7. add combinatorial, linear algebra, factorization, polynomial functions
