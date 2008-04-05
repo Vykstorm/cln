@@ -1,3 +1,13 @@
+2008-04-05, version 1.2.2
+=========================
+
+Implementation changes
+----------------------
+
+* Re-establish CLN-1.2.0 ABI and fix ARM build, both inadvertently broken in
+  the previous release.
+
+
 2008-03-24, version 1.2.1
 =========================
 

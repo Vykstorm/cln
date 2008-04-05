@@ -1,3 +1,7 @@
+2008-04-05  Richard B. Kreckel  <kreckel@ginac.de>
+
+	* Version 1.2.2 released.
+
 2008-04-04  Richard B. Kreckel  <kreckel@ginac.de>
 
 	Re-establish ABI, broken 2008-01-20:
