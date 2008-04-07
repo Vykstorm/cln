@@ -1,3 +1,11 @@
+2008-04-07  Alexei Sheplyakov  <varg@theor.jinr.ru>
+
+	Re-esatblish 1.2.0 ABI, broken 2008-02-22:
+	* src/float/input/cl_F_readparsed.cc: Add obsolete signature with index
+	args uintL.
+	* src/integer/input/cl_I_readparsed.cc: Likewise.
+	* src/rational/input/cl_RA_readparsed.cc: Likewise.
+
 2008-04-05  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* Version 1.2.2 released.

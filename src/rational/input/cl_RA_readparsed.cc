@@ -15,6 +15,14 @@
 
 namespace cln {
 
+#if intCsize > intLsize
+const cl_RA read_rational (unsigned int base, cl_signean sign, const char * string, uintL index1, uintL index3, uintL index2)
+{
+	// XXX: This signature is for binary compatibility with CLN-1.2.0 only.
+	return read_rational(base, sign, string, uintC(index1), uintC(index3), uintC(index2));
+}
+#endif
+
 const cl_RA read_rational (unsigned int base, cl_signean sign, const char * string, uintC index1, uintC index3, uintC index2)
 {
 	var uintC index3_1 = index3+1; // Index der ersten Nennerziffer

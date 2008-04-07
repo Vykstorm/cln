@@ -13,6 +13,14 @@
 
 namespace cln {
 
+#if intCsize > intLsize
+const cl_I read_integer (unsigned int base, cl_signean sign, const char* string, uintL index1, uintL index2)
+{
+	// XXX: This signature is for binary compatibility with CLN-1.2.0 only.
+	return read_integer(base, sign, string, uintC(index1), uintC(index2));
+}
+#endif
+
 const cl_I read_integer (unsigned int base, cl_signean sign, const char * string, uintC index1, uintC index2)
 {
 	var cl_I x = digits_to_I(&string[index1],index2-index1,(uintD)base);

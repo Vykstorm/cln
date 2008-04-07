@@ -26,6 +26,14 @@
 
 namespace cln {
 
+#if intCsize > intLsize
+const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, const char * string, uintL index1, uintL index4, uintL index2, uintL index3)
+{
+	// XXX: This signature is for binary compatibility with CLN-1.2.0 only.
+	return read_float(base, prec, sign, string, uintC(index1), uintC(index4), uintC(index2), uintC(index3));
+}
+#endif
+
 const cl_F read_float (unsigned int base, float_format_t prec, cl_signean sign, const char * string, uintC index1, uintC index4, uintC index2, uintC index3)
 {
 	var cl_I exponent;
