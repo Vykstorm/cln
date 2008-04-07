@@ -154,6 +154,13 @@ dnl           checks for compiler characteristics
 dnl
 AC_C_CHAR_UNSIGNED
                       dnl DEFS __CHAR_UNSIGNED__ if char is unsigned
+
+dnl Create a subdirectory in the ${top_builddir} to hold auto-generated
+dnl headers. This subdirectory does not exist when ${top_builddir} != ${top_srcdir}
+dnl (a.k.a. "VPATH build").
+if test ! -d include/cln; then
+	AS_MKDIR_P([include/cln])
+fi
 CL_MACHINE([integer types and behaviour],${srcdir}/autoconf/intparam.c,[CL_INTPARAM_CROSS],include/cln/intparam.h,cl_cv_file_intparam_h)
                       dnl builds include/cln/intparam.h
 CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,[CL_FLOATPARAM_CROSS],include/cln/floatparam.h,cl_cv_file_floatparam_h)

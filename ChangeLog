@@ -1,5 +1,9 @@
 2008-04-07  Alexei Sheplyakov  <varg@theor.jinr.ru>
 
+	* configure.ac: create subdirectory to hold auto-generated headers.
+
+2008-04-07  Alexei Sheplyakov  <varg@theor.jinr.ru>
+
 	Re-esatblish 1.2.0 ABI, broken 2008-02-22:
 	* src/float/input/cl_F_readparsed.cc: Add obsolete signature with index
 	args uintL.
