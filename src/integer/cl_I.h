@@ -504,11 +504,11 @@ inline sintD FN_MSD (cl_uint word)
 #endif
 
 // wird nur bei FN_maxlength >= 2 gebraucht, d.h. intDsize < cl_value_len
-#define FN_MSD1_mask  (~((cl_uint)(bitc(intDsize-1)-1) << cl_value_shift))
+#define FN_MSD1_mask  ((~(cl_uint)(bitc(intDsize-1)-1)) << cl_value_shift)
 // wird nur bei FN_maxlength >= 3 gebraucht, d.h. 2*intDsize < cl_value_len
-#define FN_MSD2_mask  (~((cl_uint)(bitc(2*intDsize-1)-1) << cl_value_shift))
+#define FN_MSD2_mask  ((~(cl_uint)(bitc(2*intDsize-1)-1)) << cl_value_shift)
 // wird nur bei FN_maxlength >= 4 gebraucht, d.h. 3*intDsize < cl_value_len
-#define FN_MSD3_mask  (~((cl_uint)(bitc(3*intDsize-1)-1) << cl_value_shift))
+#define FN_MSD3_mask  ((~(cl_uint)(bitc(3*intDsize-1)-1)) << cl_value_shift)
 
 // Store a Fixnum at destLSDptr, <= FN_maxlength digits below destLSDptr needed.
 #define FN_to_NDS(destLSDptr, word, MSDptr_zuweisung,len_zuweisung,LSDptr_zuweisung, check_for_0,zero_statement)  \
