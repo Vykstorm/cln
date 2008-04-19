@@ -1,8 +1,9 @@
 2008-04-18  Bruno Haible  <bruno@clisp.org>
 
 	* src/integer/cl_I.h (FN_MSD1_mask, FN_MSD2_mask, FN_MSD3_mask):
-	Define without tag bits. Fixes a bug in FN_to_NDS with negative fixnums
-	on platforms where FN_maxlength > 1.
+	Define without tag bits. Fixes a bug in FN_to_NDS on platforms where
+	FN_maxlength > 1.
+	Reported by Richard Kreckel.
 
 2008-04-07  Alexei Sheplyakov  <varg@theor.jinr.ru>
 
