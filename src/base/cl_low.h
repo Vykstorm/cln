@@ -144,7 +144,7 @@ inline uint32 mulu16 (uint16 arg1, uint16 arg2)
 	       );
 	return highlow32(_hi,_lo);
 }
-#elif defined(__sparc__) || defined(__sparc64__)
+#elif (defined(__sparc__) || defined(__sparc64__)) && !defined(NO_ASM)
   extern "C" uint32 mulu16_ (uint16 arg1, uint16 arg2);
   #define mulu16  mulu16_  // extern in Assembler
 #else
@@ -384,14 +384,10 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 #else
   #define mulu64(x,y,hi_zuweisung,lo_zuweisung)  \
     { lo_zuweisung mulu64_(x,y); hi_zuweisung mulu64_high; }
-  #if defined(__sparc64__)
+  #if defined(__sparc64__) && !defined(NO_ASM)
     // mulu64_ extern in Assembler
-    #if defined(__sparc64__)
-      extern "C" uint64 _get_g2 (void);
-      #define mulu64_high  (_get_g2()) // Rückgabe im Register %g2
-    #else
-      #define NEED_VAR_mulu64_high
-    #endif
+    extern "C" uint64 _get_g2 (void);
+    #define mulu64_high  (_get_g2()) // Rückgabe im Register %g2
   #else
     #define NEED_FUNCTION_mulu64_
   #endif
@@ -585,6 +581,7 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
       q_zuweisung (uint32)__q;     \
       r_zuweisung (uint32)__r;     \
      })
+  #define divu_3232_3232_(x,y) divu_6432_3232_(0,x,y)
 #elif defined(__sparc__) || defined(__sparc64__) || defined(__i386__) || defined(__x86_64__)
   #define divu_3232_3232(x,y,q_zuweisung,r_zuweisung)  \
     divu_6432_3232(0,x,y,q_zuweisung,r_zuweisung)
