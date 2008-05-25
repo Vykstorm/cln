@@ -1,11 +1,10 @@
-#line 1 "intparam.d"
-/* Bestimmung einiger Maschinen-Parameter und -Abh�gigkeiten */
+/* Bestimmung einiger Maschinen-Parameter und -Abhängigkeiten */
 /* und Ausgabe in ein Include-File */
 /* Bruno Haible 10.9.1991, 12.10.1992, 6.12.1992, 24.10.1993 */
 
 /* Auf einigen Systemen werden in <sys/types.h> die Typen uchar, ushort, uint, */
 /* ulong definiert. Normalerweise reicht _POSIX_SOURCE aus, dies zu verhindern, */
-/* bei AIX 3.2.5 (rs6000-ibm-aix3.2.5) jedoch nicht. Wir mssen Gewalt anwenden. */
+/* bei AIX 3.2.5 (rs6000-ibm-aix3.2.5) jedoch nicht. Wir müssen Gewalt anwenden. */
 #define _POSIX_SOURCE
 #define uchar  os_uchar
 #define ushort os_ushort
@@ -16,11 +15,6 @@
 #undef uint
 #undef ushort
 #undef uchar
-
-#if !(defined(__STDC__) || defined(__cplusplus))
-/* Only for use in function parameter lists and as function return type. */
-#define void
-#endif
 
 #define loop  while(1)
 
@@ -43,7 +37,7 @@ typedef unsigned long long  ulonglong;
 #endif
 typedef int (function)();
 
-static int random_table[256] = /* 2048 zuf�lige Bits, hier von pi */
+static int random_table[256] = /* 2048 zufällige Bits, hier von pi */
   { 0xC9,0x0F,0xDA,0xA2,0x21,0x68,0xC2,0x34,0xC4,0xC6,0x62,0x8B,
     0x80,0xDC,0x1C,0xD1,0x29,0x02,0x4E,0x08,0x8A,0x67,0xCC,0x74,
     0x02,0x0B,0xBE,0xA6,0x3B,0x13,0x9B,0x22,0x51,0x4A,0x08,0x79,
@@ -75,24 +69,14 @@ int next_random_bit(void)
     return (random_table[random_position/8] >> (random_position % 8)) & 1;
   }
 
-#if defined(__STDC__) || defined(__cplusplus)
 void printf_underscored (const char* string)
-#else
-void printf_underscored(string)
-  char* string;
-#endif
   { char c;
     while (!((c = *string++) == '\0')) { printf("%c",(c==' ' ? '_' : c)); }
   }
 
 /* string_length(string) is the same as strlen(string). */
 /* Better avoid to depend on <string.h>. */
-#if defined(__STDC__) || defined(__cplusplus)
 int string_length (char* string)
-#else
-int string_length(string)
-  char* string;
-#endif
   { int count = 0;
     while (!(*string++ == '\0')) { count++; }
     return count;
@@ -137,15 +121,15 @@ void main1(void) {
   }
 #define print_integer_bitsize(type,typestr,where)  \
   { if (where >= 0)                                                  \
-      { printf("/* Integers of t%spe %s have %ld bits. */\n","y",typestr,(long)where); \
+      { printf("/* Integers of type %s have %ld bits. */\n",typestr,(long)where); \
         if (!(typestr[0] == 'u'))                                    \
           { printf("#define "); printf_underscored(typestr); printf("_bitsize %ld\n",(long)where); } \
         printf("\n");                                                \
       }                                                              \
       else                                                           \
-      { printf("#error \"Integers of t%spe %s have no binary representation!!\"\n","y",typestr); } \
+      { printf("#error \"Integers of type %s have no binary representation!!\"\n",typestr); } \
     if (!(where == char_bitsize * sizeof(type)))                     \
-      { printf("#error \"Formula BITSIZE(T) = SIZEOF(T) * BITSPERBYTE does not hold for t%spe %s!!\"\n","y",typestr); } \
+      { printf("#error \"Formula BITSIZE(T) = SIZEOF(T) * BITSPERBYTE does not hold for type %s!!\"\n",typestr); } \
   }
   get_signed_integer_bitsize(schar,uchar,char_bitsize);
   get_signed_integer_bitsize(short,ushort,short_bitsize);
@@ -271,9 +255,9 @@ void main4(void) {
                     { right_works = FALSE; }                                                    \
         }   }   }                                                                               \
       if (!left_works)                                                                          \
-        { printf("#error \"Left shift of integers of t%spe %s does not work!!\"\n","y",typestr); } \
+        { printf("#error \"Left shift of integers of type %s does not work!!\"\n",typestr); }   \
       if (!right_works)                                                                         \
-        { printf("#error \"Right shift of integers of t%spe %s does not work!!\"\n","y",typestr); } \
+        { printf("#error \"Right shift of integers of type %s does not work!!\"\n",typestr); }  \
     }
 #define test_integer_sshift(type,typestr,type_bitsize)  \
   if (type_bitsize >= 0)                                                                       \
@@ -303,9 +287,9 @@ void main4(void) {
                     { right_works = FALSE; }                                                   \
         }   }   }                                                                              \
       if (!left_works)                                                                         \
-        { printf("#error \"Left shift of integers of t%spe %s does not work!!\"\n","y",typestr); } \
+        { printf("#error \"Left shift of integers of type %s does not work!!\"\n",typestr); }  \
       if (!right_works)                                                                        \
-        { printf("#error \"Right shift of integers of t%spe %s does not work!!\"\n","y",typestr); } \
+        { printf("#error \"Right shift of integers of type %s does not work!!\"\n",typestr); } \
     }
   test_integer_ushift(uchar,"unsigned char",uchar_bitsize);
   test_integer_ushift(ushort,"unsigned short",ushort_bitsize);
@@ -363,7 +347,7 @@ void main5(void) {
       if (!sign_extends && !zero_extends)                                                                  \
         printf("#error \"Casts from %s to %s works in an unknown manner!!\"\n",typestr1,typestr2);         \
     }
-  /* erst Casts zwischen Integers vermutlich gleicher Gr�e: */
+  /* erst Casts zwischen Integers vermutlich gleicher Größe: */
   test_integer_casts(schar,uchar,"char","unsigned char",char_bitsize,uchar_bitsize,0);
   test_integer_casts(short,ushort,"short","unsigned short",short_bitsize,ushort_bitsize,0);
   test_integer_casts(int,uint,"int","unsigned int",int_bitsize,uint_bitsize,0);
@@ -376,7 +360,7 @@ void main5(void) {
   test_integer_casts(longlong,ulonglong,"long long","unsigned long long",longlong_bitsize,ulonglong_bitsize,0);
   test_integer_casts(ulonglong,longlong,"unsigned long long","long long",ulonglong_bitsize,longlong_bitsize,0);
 #endif
-  /* dann Casts zwischen Integers unterschiedlicher Gr�e, aber gleichen Vorzeichens: */
+  /* dann Casts zwischen Integers unterschiedlicher Größe, aber gleichen Vorzeichens: */
   test_integer_casts(uchar,ushort,"unsigned char","unsigned short",uchar_bitsize,ushort_bitsize,1);
   test_integer_casts(uchar,uint,"unsigned char","unsigned int",uchar_bitsize,uint_bitsize,1);
   test_integer_casts(uchar,ulong,"unsigned char","unsigned long",uchar_bitsize,ulong_bitsize,1);
@@ -401,7 +385,7 @@ void main5(void) {
   test_integer_casts(int,longlong,"int","long long",int_bitsize,longlong_bitsize,2);
   test_integer_casts(long,longlong,"long","long long",long_bitsize,longlong_bitsize,2);
 #endif
-  /* dann Casts zwischen Integers unterschiedlicher Gr�e und unterschiedlichen Vorzeichens: */
+  /* dann Casts zwischen Integers unterschiedlicher Größe und unterschiedlichen Vorzeichens: */
   test_integer_casts(uchar,short,"unsigned char","short",uchar_bitsize,short_bitsize,1);
   test_integer_casts(uchar,int,"unsigned char","int",uchar_bitsize,int_bitsize,1);
   test_integer_casts(uchar,long,"unsigned char","long",uchar_bitsize,long_bitsize,1);
@@ -437,7 +421,7 @@ void main6(void) {
   check_sizeof_pointer(long*,"long *");
   check_sizeof_pointer(function*,"function *");
   pointer_bitsize = char_bitsize * sizeof(char*);
-  printf("/* Pointers of t%spe %s have %ld bits. */\n","y","char *",(long)pointer_bitsize);
+  printf("/* Pointers of type %s have %ld bits. */\n","char *",(long)pointer_bitsize);
   printf("#define pointer_bitsize %ld\n",(long)pointer_bitsize);
   printf("\n");
 }
@@ -494,7 +478,7 @@ void main8(void) {
         printf("#define alignment_"); printf_underscored(typestr); printf(" %ld\n",alignment);            \
       }                                                                                                   \
     if (!((alignment & (alignment-1)) == 0))                                                              \
-      printf("#error \"The alignment %ld of t%spe %s is not a power of two!!\"\n",alignment,"y",typestr); \
+      printf("#error \"The alignment %ld of type %s is not a power of two!!\"\n",alignment,typestr);      \
     printf("\n");                                                                                         \
   }
   get_alignment(char,"char"); get_alignment(uchar,"unsigned char");
@@ -530,7 +514,7 @@ void main9(void) {
           }   }                                                                                  \
         if (big_endian && little_endian)                                                         \
           { if (!(sizeof(type) == 1))                                                            \
-              printf("#error \"Endianness of t%spe %s in memory doesn't matter.\"\n","y",typestr); } \
+              printf("#error \"Endianness of type %s in memory doesn't matter.\"\n",typestr); }  \
         if (big_endian && !little_endian)                                                        \
           { printf("/* Type %s is stored BIG-ENDIAN in memory (i.e. like mc68000 or sparc). */\n",typestr); \
             printf("#define "); printf_underscored(&typestr[9]); printf("_big_endian\n");        \
@@ -543,7 +527,7 @@ void main9(void) {
           { printf("#error \"Type %s is stored in memory in an obscure manner!!\"\n",typestr); } \
       }                                                                                          \
       else                                                                                       \
-      { printf("#error \"Endianness makes no sense for t%spe %s !!\"\n","y",typestr); }          \
+      { printf("#error \"Endianness makes no sense for type %s !!\"\n",typestr); }               \
   }
   get_endian(uchar,"unsigned char",uchar_bitsize);
   get_endian(ushort,"unsigned short",ushort_bitsize);
@@ -594,6 +578,6 @@ int main()
   main8();
   main9();
   main10();
-  if (ferror(stdout)) return 1;
+  if (ferror(stdout) || fclose(stdout)) return 1;
   return 0;
 }

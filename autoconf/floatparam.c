@@ -5,11 +5,6 @@
 
 #include <stdio.h>
 
-#if !(defined(__STDC__) || defined(__cplusplus))
-/* Only for use in function parameter lists and as function return type. */
-#define void
-#endif
-
 typedef int boolean;
 #define TRUE  1
 #define FALSE 0
@@ -119,6 +114,6 @@ int main()
 #endif
   flipped_double();
 
-  if (ferror(stdout)) return 1;
+  if (ferror(stdout) || fclose(stdout)) return 1;
   return 0;
 }

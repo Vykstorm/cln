@@ -1,3 +1,11 @@
+2008-05-25  Bruno Haible  <bruno@clisp.org>
+
+	* autoconf/floatparam.c: Remove support for K&R C compilers.
+	(main): Check the error status of fclose(stdout).
+	* autoconf/intparam.c: Remove support for K&R C compilers.
+	Fix non-ASCII characters in comments, broken on 2006-12-19.
+	(main): Check the error status of fclose(stdout).
+
 2008-04-21  Richard B. Kreckel  <kreckel@ginac.de>
 
 	* src/base/cl_low.h: Fix sparc64 build with -DNO_ASM.
