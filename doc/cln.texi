@@ -23,10 +23,14 @@
 @synindex pg my
 @synindex tp my
 
+@ifnottex
+@node Top
+@top CLN
+@end ifnottex
 
 @c For `info' only.
-@ifinfo
-This file documents @sc{cln}, a Class Library for Numbers.
+@ifnottex
+This manual documents @sc{cln}, a Class Library for Numbers.
 
 Published by Bruno Haible, @code{<haible@@clisp.cons.org>} and
 Richard B. Kreckel, @code{<kreckel@@ginac.de>}.
@@ -54,7 +58,7 @@ Permission is granted to copy and distribute translations of this manual
 into another language, under the above conditions for modified versions,
 except that this permission notice may be stated in a translation approved
 by the author.
-@end ifinfo
+@end ifnottex
 
 
 @c For TeX only.
@@ -95,11 +99,6 @@ by the authors.
 @c Table of contents
 @contents
 @end iftex
-
-@ifinfo
-@node Top
-@top CLN
-@end ifinfo
 
 
 @menu
