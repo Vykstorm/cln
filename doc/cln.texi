@@ -2229,7 +2229,7 @@ doublefactorial @code{n}!! = @code{1*3*@dots{}*n} or
 @code{n} and @code{k} must be small integers >= 0. This function returns the
 binomial coefficient
 @tex
-${n \choose k} = {n! \over n! (n-k)!}$
+${n \choose k} = {n! \over k! (n-k)!}$
 @end tex
 @ifinfo
 (@code{n} choose @code{k}) = @code{n}! / @code{k}! @code{(n-k)}!
