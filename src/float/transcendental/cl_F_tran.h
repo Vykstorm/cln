@@ -9,12 +9,11 @@
 namespace cln {
 
 // pi.
-extern const cl_SF cl_SF_pi;
-extern const cl_FF cl_FF_pi;
-extern const cl_DF cl_DF_pi;
-extern cl_LF cl_LF_pi; // as long as it has ever been computed
+extern const cl_SF& cl_SF_pi();
+extern const cl_FF& cl_FF_pi();
+extern const cl_DF& cl_DF_pi();
+extern cl_LF& cl_LF_pi(); // as long as it has ever been computed
 extern const cl_LF pi (uintC len); // computes it even further
-//CL_REQUIRE(cl_F_pi_var)
 
 // cl_exp_aux(p,lq,len) liefert die Zahl exp(p/2^lq) mit len Digits.
 // 0 < |p| < 2^lq.

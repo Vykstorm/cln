@@ -17,9 +17,9 @@ namespace cln {
 const cl_F pi (float_format_t f)
 {
 	floatformatcase((uintC)f
-	,	return cl_SF_pi;
-	,	return cl_FF_pi;
-	,	return cl_DF_pi;
+	,	return cl_SF_pi();
+	,	return cl_FF_pi();
+	,	return cl_DF_pi();
 	,	return pi(len);
 	);
 }

@@ -602,8 +602,6 @@ extern const cl_F pi (float_format_t f);
 // pi() liefert die Zahl pi im Default-Float-Format.
 extern const cl_F pi (void);
 
-//CL_REQUIRE(cl_F_pi_var)
-
 
 // sin(x) liefert den Sinus (sin x) eines Float x.
 extern const cl_F sin (const cl_F& x);

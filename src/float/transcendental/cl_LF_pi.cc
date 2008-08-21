@@ -260,13 +260,13 @@ const cl_LF compute_pi_ramanujan_163_fast (uintC len)
 
 const cl_LF pi (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_pi)->len; // vorhandene Länge
+	var uintC oldlen = TheLfloat(cl_LF_pi())->len; // vorhandene Länge
 	if (len < oldlen)
-		return shorten(cl_LF_pi,len);
+		return shorten(cl_LF_pi(),len);
 	if (len == oldlen)
-		return cl_LF_pi;
+		return cl_LF_pi();
 
-	// TheLfloat(cl_LF_pi)->len um mindestens einen konstanten Faktor
+	// TheLfloat(cl_LF_pi())->len um mindestens einen konstanten Faktor
 	// > 1 wachsen lassen, damit es nicht zu häufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
@@ -274,8 +274,8 @@ const cl_LF pi (uintC len)
 		newlen = oldlen;
 
 	// gewünschte > vorhandene Länge -> muß nachberechnen:
-	cl_LF_pi = compute_pi_ramanujan_163_fast(newlen);
-	return (len < newlen ? shorten(cl_LF_pi,len) : cl_LF_pi);
+	cl_LF_pi() = compute_pi_ramanujan_163_fast(newlen);
+	return (len < newlen ? shorten(cl_LF_pi(),len) : cl_LF_pi());
 }
 
 }  // namespace cln
