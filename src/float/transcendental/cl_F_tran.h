@@ -84,12 +84,11 @@ extern const cl_LF lnx_ratseries (const cl_LF& x); // requires extend by 1
 extern const cl_LF cl_atanh_recip (cl_I m, uintC len);
 
 // ln(2).
-extern const cl_SF cl_SF_ln2;
-extern const cl_FF cl_FF_ln2;
-extern const cl_DF cl_DF_ln2;
-extern cl_LF cl_LF_ln2; // as long as it has ever been computed
+extern const cl_SF& cl_SF_ln2();
+extern const cl_FF& cl_FF_ln2();
+extern const cl_DF& cl_DF_ln2();
+extern cl_LF& cl_LF_ln2(); // as long as it has ever been computed
 extern const cl_LF cl_ln2 (uintC len); // computes it even further
-//CL_REQUIRE(cl_F_ln2_var)
 
 // cl_ln2(y) liefert die Zahl ln(2) im selben Float-Format wie y.
 // > y: ein Float

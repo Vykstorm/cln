@@ -76,13 +76,13 @@ static inline const cl_LF compute_ln2_p2357 (uintC len)
 
 const cl_LF cl_ln2 (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_ln2)->len; // vorhandene Länge
+	var uintC oldlen = TheLfloat(cl_LF_ln2())->len; // vorhandene Länge
 	if (len < oldlen)
-		return shorten(cl_LF_ln2,len);
+		return shorten(cl_LF_ln2(),len);
 	if (len == oldlen)
-		return cl_LF_ln2;
+		return cl_LF_ln2();
 
-	// TheLfloat(cl_LF_ln2)->len um mindestens einen konstanten Faktor
+	// TheLfloat(cl_LF_ln2())->len um mindestens einen konstanten Faktor
 	// > 1 wachsen lassen, damit es nicht zu häufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
@@ -90,8 +90,8 @@ const cl_LF cl_ln2 (uintC len)
 		newlen = oldlen;
 
 	// gewünschte > vorhandene Länge -> muß nachberechnen:
-	cl_LF_ln2 = compute_ln2(newlen);
-	return (len < newlen ? shorten(cl_LF_ln2,len) : cl_LF_ln2);
+	cl_LF_ln2() = compute_ln2(newlen);
+	return (len < newlen ? shorten(cl_LF_ln2(),len) : cl_LF_ln2());
 }
 
 }  // namespace cln

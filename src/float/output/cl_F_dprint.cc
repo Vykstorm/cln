@@ -28,7 +28,6 @@
 //   einen String mit seiner Dezimaldarstellung.
 // (substring string start [end]) wie subseq, jedoch für Strings schneller.
 
-CL_REQUIRE(cl_F_ln2_var)
 CL_REQUIRE(cl_F_ln10_var)
 #include <cstring>
 #include "cln/output.h"

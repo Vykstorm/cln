@@ -17,9 +17,9 @@ namespace cln {
 const cl_F cl_ln2 (const cl_F& y)
 {
 	floattypecase(y
-	,	return cl_SF_ln2;
-	,	return cl_FF_ln2;
-	,	return cl_DF_ln2;
+	,	return cl_SF_ln2();
+	,	return cl_FF_ln2();
+	,	return cl_DF_ln2();
 	,	return cl_ln2(TheLfloat(y)->len);
 	);
 }
