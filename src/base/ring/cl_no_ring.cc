@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_no_ring)
-
 // Specification.
 #include "cln/ring.h"
 
@@ -152,14 +150,32 @@ static void cl_no_ring_dprint (cl_heap* pointer)
 	fprint(cl_debugout, "(cl_ring) cl_no_ring");
 }
 
-cl_class cl_class_no_ring = {
-	cl_no_ring_destructor,
-	0,
-	cl_no_ring_dprint
-};
+cl_class cl_class_no_ring;
 
-const cl_ring cl_no_ring = cl_ring (new cl_heap_no_ring());
+static cl_heap_no_ring* cl_heap_no_ring_instance;
+// const cl_ring cl_no_ring = cl_ring (new cl_heap_no_ring());
+const cl_ring cl_no_ring = cl_no_ring;
+
+
+int cl_no_ring_init_helper::count = 0;
+
+cl_no_ring_init_helper::cl_no_ring_init_helper()
+{
+	if (count++ == 0) {
+		cl_class_no_ring.destruct = cl_no_ring_destructor;
+		cl_class_no_ring.flags = 0;
+		cl_class_no_ring.dprint = cl_no_ring_dprint;
+
+		cl_heap_no_ring_instance = new cl_heap_no_ring();
+		new((void*)&cl_no_ring) cl_ring(cl_heap_no_ring_instance);
+	}
+}
+
+cl_no_ring_init_helper::~cl_no_ring_init_helper()
+{
+	if (--count == 0)
+		delete cl_heap_no_ring_instance;
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_no_ring)

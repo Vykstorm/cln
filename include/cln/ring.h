@@ -381,7 +381,15 @@ public:
 
 extern const cl_ring cl_no_ring;
 extern cl_class cl_class_no_ring;
-CL_REQUIRE(cl_no_ring)
+
+class cl_no_ring_init_helper
+{
+	static int count;
+public:
+	cl_no_ring_init_helper();
+	~cl_no_ring_init_helper();
+};
+static cl_no_ring_init_helper cl_no_ring_init_helper_instance;
 
 inline cl_ring::cl_ring ()
 	: cl_rcpointer (as_cl_private_thing(cl_no_ring)) {}
