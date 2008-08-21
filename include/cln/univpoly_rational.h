@@ -223,8 +223,6 @@ inline const cl_UP_RA deriv (const cl_UP_RA& x)
 
 #endif
 
-CL_REQUIRE(cl_RA_ring)
-
 
 // Returns the n-th Legendre polynomial (n >= 0).
 extern const cl_UP_RA legendre (sintL n);
