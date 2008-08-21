@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_UP)
-
 // Specification.
 #define CL_GV_NO_RANGECHECKS
 #define CL_SV_NO_RANGECHECKS
@@ -43,10 +41,24 @@ static void cl_univpoly_ring_destructor (cl_heap* pointer)
 	(*(cl_heap_univpoly_ring*)pointer).~cl_heap_univpoly_ring();
 }
 
-cl_class cl_class_univpoly_ring = {
-	cl_univpoly_ring_destructor,
-	cl_class_flags_univpoly_ring
-};
+cl_class cl_class_univpoly_ring;
+
+int cl_UP_init_helper::count = 0;
+
+cl_UP_init_helper::cl_UP_init_helper() 
+{
+	if (count++ == 0) {
+		cl_class_univpoly_ring.destruct = cl_univpoly_ring_destructor;
+		cl_class_univpoly_ring.flags = cl_class_flags_univpoly_ring;
+	}
+}
+
+cl_UP_init_helper::~cl_UP_init_helper() 
+{
+	if (--count == 0) {
+		// nothing to clean up
+	}
+}
 
 cl_heap_univpoly_ring::cl_heap_univpoly_ring (const cl_ring& r, cl_univpoly_setops* setopv, cl_univpoly_addops* addopv, cl_univpoly_mulops* mulopv, cl_univpoly_modulops* modulopv, cl_univpoly_polyops* polyopv)
 	: setops (setopv), addops (addopv), mulops (mulopv), modulops (modulopv), polyops (polyopv),
@@ -74,4 +86,3 @@ cl_heap_univpoly_ring* cl_make_univpoly_ring (const cl_ring& r)
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_UP)
