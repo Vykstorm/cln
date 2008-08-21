@@ -120,8 +120,6 @@ CL_LONGLONG
                       dnl DEFS HAVE_LONGLONG
 CL_LONGDOUBLE
                       dnl DEFS HAVE_LONGDOUBLE
-CL_GLOBAL_CONSTRUCTORS
-                      dnl DEFS CL_GLOBAL_CONSTRUCTOR_PREFIX, CL_GLOBAL_DESTRUCTOR_PREFIX
 dnl
 dnl           checks for header files
 dnl

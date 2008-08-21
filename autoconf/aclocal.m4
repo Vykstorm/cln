@@ -6,7 +6,6 @@ m4_include([gmp.m4])
 dnl Borrowed from GNU clisp.
 m4_include([alloca.m4])
 m4_include([as-underscore.m4])
-m4_include([c++-constructors.m4])
 m4_include([general.m4])
 m4_include([gettimeofday.m4])
 m4_include([param.m4]) dnl called intparam.m4 in clisp
