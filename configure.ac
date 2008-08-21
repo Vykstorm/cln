@@ -91,8 +91,8 @@ dnl * if any functions/classes have been added, increment CL_AGE,
 dnl * if backwards compatibility has been broken, set CL_AGE to 0.
 dnl $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) results in
 dnl libcln.so.$(CL_CURRENT)-$(CL_AGE)
-CL_CURRENT=5
-CL_REVISION=2
+CL_CURRENT=6
+CL_REVISION=0
 CL_AGE=0
 dnl make substitutions
 AC_SUBST(CL_CURRENT)
