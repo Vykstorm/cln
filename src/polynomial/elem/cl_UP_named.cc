@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_UP_named)
-
 // Specification.
 #include "cln/univpoly.h"
 
@@ -48,27 +46,50 @@ static bool maygc_htentry (const cl_htentry_from_rcpointer2_to_rcpointer& entry)
 	return false;
 }
 
-static const cl_wht_from_rcpointer2_to_rcpointer univpoly_ring_table = cl_wht_from_rcpointer2_to_rcpointer(maygc_htentry);
-
-static inline cl_univpoly_ring* get_univpoly_ring (const cl_ring& r, const cl_symbol& v)
+class named_univpoly_ring_cache
 {
-	return (cl_univpoly_ring*) univpoly_ring_table.get(r,v);
+	static cl_wht_from_rcpointer2_to_rcpointer* univpoly_ring_table;
+	static int count;
+public:
+	named_univpoly_ring_cache();
+	~named_univpoly_ring_cache();
+
+	inline cl_univpoly_ring* get_univpoly_ring(const cl_ring& r, const cl_symbol& v)
+	{
+		return (cl_univpoly_ring*) univpoly_ring_table->get(r,v);
+	}
+	inline void store_univpoly_ring(const cl_univpoly_ring& R)
+	{
+		univpoly_ring_table->put(R->basering(),
+			                 ((cl_varname_property*)(R->get_property(cl_univpoly_varname_key)))->varname,
+					 R);
+	}
+};
+
+cl_wht_from_rcpointer2_to_rcpointer* named_univpoly_ring_cache::univpoly_ring_table = 0;
+int named_univpoly_ring_cache::count = 0;
+
+named_univpoly_ring_cache::named_univpoly_ring_cache()
+{
+	if (count++ == 0)
+		univpoly_ring_table = new cl_wht_from_rcpointer2_to_rcpointer(maygc_htentry);
 }
 
-static inline void store_univpoly_ring (const cl_univpoly_ring& R)
-{
-	univpoly_ring_table.put(R->basering(), ((cl_varname_property*)(R->get_property(cl_univpoly_varname_key)))->varname,
-	                        R);
-}
 
+named_univpoly_ring_cache::~named_univpoly_ring_cache()
+{
+	if (--count == 0)
+		delete univpoly_ring_table;
+}
 
 const cl_univpoly_ring find_univpoly_ring (const cl_ring& r, const cl_symbol& varname)
 {
-	var cl_univpoly_ring* ring_in_table = get_univpoly_ring(r,varname);
+	static named_univpoly_ring_cache cache;
+	var cl_univpoly_ring* ring_in_table = cache.get_univpoly_ring(r,varname);
 	if (!ring_in_table) {
 		var cl_univpoly_ring R = cl_make_univpoly_ring(r,varname);
-		store_univpoly_ring(R);
-		ring_in_table = get_univpoly_ring(r,varname);
+		cache.store_univpoly_ring(R);
+		ring_in_table = cache.get_univpoly_ring(r,varname);
 		if (!ring_in_table)
 			throw runtime_exception();
 	}
@@ -77,4 +98,3 @@ const cl_univpoly_ring find_univpoly_ring (const cl_ring& r, const cl_symbol& va
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_UP_named)
