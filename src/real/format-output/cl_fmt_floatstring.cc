@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_fmt_floatstring)
-
 // Specification.
 #include "cl_format.h"
 
@@ -255,4 +253,3 @@ const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_fmt_floatstring)
