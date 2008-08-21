@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_I_doublefactorial)
-
 // Specification.
 #include "cln/integer.h"
 
@@ -28,7 +26,9 @@ namespace cln {
   //     ord2(n!) = n - logcount(n) to account both for 2^m and for powers of
   //     two in factorial(m).
 
-static cl_I const doublefakul_table [] = {
+const cl_I doublefactorial (uintL n) // assume n >= 0 small
+{
+	static cl_I const doublefakul_table [] = {
         1,
         1UL,
         1UL*2,
@@ -124,10 +124,8 @@ static cl_I const doublefakul_table [] = {
         #endif
         #endif
         #endif
-};
+	};
 
-const cl_I doublefactorial (uintL n) // assume n >= 0 small
-{
       if (n < sizeof(doublefakul_table)/sizeof(cl_I))
         { return doublefakul_table[n]; }
         else {
@@ -180,6 +178,4 @@ const cl_I doublefactorial (uintL n) // assume n >= 0 small
 // Bit complexity (N := n): O(log(N)^2*M(N)).
 
 }  // namespace cln
-
-CL_PROVIDE_END(cl_I_doublefactorial)
 
