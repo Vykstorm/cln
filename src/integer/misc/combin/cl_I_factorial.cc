@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_I_factorial)
-
 // Specification.
 #include "cln/integer.h"
 
@@ -30,7 +28,9 @@ namespace cln {
   //   vermeidet, daß oft große Zahlen mit ganz kleinen Zahlen multipliziert
   //   werden.
 
-static uintV const fakul_table [] = {
+const cl_I factorial (uintL n) // assume n >= 0 small
+{
+	static uintV const fakul_table [] = {
         1,
         1UL,
         1UL*2,
@@ -91,10 +91,8 @@ static uintV const fakul_table [] = {
         #endif
         #endif
         #endif
-};
+	};
 
-const cl_I factorial (uintL n) // assume n >= 0 small
-{
       if (n < sizeof(fakul_table)/sizeof(cl_I))
         { return UV_to_I(fakul_table[n]); }
         else
@@ -124,4 +122,3 @@ const cl_I factorial (uintL n) // assume n >= 0 small
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_I_factorial)

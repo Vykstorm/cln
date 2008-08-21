@@ -391,7 +391,6 @@ extern const cl_I expt_pos (const cl_I& x, const cl_I& y);
 
 // Fakultät (! n), wo n Fixnum >=0 ist. Ergebnis Integer.
 extern const cl_I factorial (uintL n);
-//CL_REQUIRE(cl_I_factorial)
 
 // Double factorial (!! n), with n Fixnum >=0.  Returns integer.
 extern const cl_I doublefactorial (uintL n);
