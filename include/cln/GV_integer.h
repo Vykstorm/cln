@@ -54,7 +54,14 @@ inline cl_GV_I::cl_GV_I (uintC len, sintC m)
 extern const cl_GV_I cl_null_GV_I;
 inline cl_GV_I::cl_GV_I ()
 	: cl_GV<cl_I,cl_GV_RA> ((cl_heap_GV_I*) cl_null_GV_I) {}
-CL_REQUIRE(cl_GV_I)
+class cl_GV_I_init_helper
+{
+	static int count;
+public:
+	cl_GV_I_init_helper();
+	~cl_GV_I_init_helper();
+};
+static cl_GV_I_init_helper cl_GV_I_init_helper_instance;
 
 // Copy a vector.
 extern const cl_GV_I copy (const cl_GV_I&);

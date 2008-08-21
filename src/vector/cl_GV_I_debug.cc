@@ -20,7 +20,7 @@ static void dprint (cl_heap* pointer)
 	fprint(cl_debugout, obj);
 }
 AT_INITIALIZATION(dprint_GV_I)
-{ cl_register_type_printer(cl_class_gvector_integer,dprint); }
+{ extern cl_class& cl_class_gvector_integer(); cl_class_gvector_integer().dprint = dprint; }
 
 // This dummy links in this module when <cln/GV_integer.h> requires it.
 int cl_GV_I_debug_module;

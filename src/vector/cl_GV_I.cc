@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_GV_I)
-
 // Specification.
 #include "cln/GV_integer.h"
 
@@ -36,11 +34,16 @@ static void cl_gvector_integer_destructor (cl_heap* pointer)
 #endif
 }
 
-cl_class cl_class_gvector_integer = {
-	cl_gvector_integer_destructor,
-	0
-};
-
+// XXX: Ugh, this needs to be non-const (and non-static) for overriding
+// the printing function (see cl_GV_I_debug.cc)
+cl_class& cl_class_gvector_integer()
+{
+	static cl_class instance = {
+		cl_gvector_integer_destructor,
+		0
+	};
+	return instance;
+}
 
 static inline cl_heap_GV_I * outcast (cl_GV_inner<cl_I>* vec)
 {
@@ -126,7 +129,7 @@ cl_heap_GV_I* cl_make_heap_GV_I (uintC len)
 {
 	var cl_heap_GV_I_general* hv = (cl_heap_GV_I_general*) malloc_hook(offsetofa(cl_heap_GV_I_general,data)+sizeof(cl_I)*len);
 	hv->refcount = 1;
-	hv->type = &cl_class_gvector_integer;
+	hv->type = &cl_class_gvector_integer();
 	new (&hv->v) cl_GV_inner<cl_I> (len,&general_vectorops.ops);
 	for (var uintC i = 0; i < len; i++)
 		init1(cl_I, hv->data[i]) ();
@@ -472,7 +475,7 @@ cl_heap_GV_I* cl_make_heap_GV_I (uintC len, sintC m)
 	  (((sintC)len-1)>>(log2_intDsize-log2_bits))+1;
 	var cl_heap_GV_I_bits32* hv = (cl_heap_GV_I_bits32*) malloc_hook(offsetofa(cl_heap_GV_I_bits32,data)+sizeof(uintD)*words);
 	hv->refcount = 1;
-	hv->type = &cl_class_gvector_integer;
+	hv->type = &cl_class_gvector_integer();
 	new (&hv->v) cl_GV_inner<cl_I> (len,&bits_vectorops[log2_bits]->ops);
 	var uintD* ptr = (uintD*)(hv->data);
 	for (var uintC i = 0; i < words; i++)
@@ -488,8 +491,22 @@ sintC cl_heap_GV_I::maxbits () const
 
 
 // An empty vector.
-const cl_GV_I cl_null_GV_I = cl_GV_I((uintC)0);
+const cl_GV_I cl_null_GV_I = cl_null_GV_I;
+
+int cl_GV_I_init_helper::count = 0;
+
+cl_GV_I_init_helper::cl_GV_I_init_helper()
+{
+	if (count++ == 0)
+		new ((void *)&cl_null_GV_I) cl_GV_I((uintC)0);
+}
+
+cl_GV_I_init_helper::~cl_GV_I_init_helper()
+{
+	if (--count == 0) {
+		// Nothing to clean up
+	}
+};
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_GV_I)
