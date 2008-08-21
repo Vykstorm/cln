@@ -10,11 +10,9 @@
 // Implementation.
 
 #include "cl_FF.h"
-#include "cl_ieee.h"
 
 namespace cln {
 
-NEED_IEEE_FLOATS()
 
 const cl_FF operator- (const cl_FF& x1, const cl_FF& x2)
 {

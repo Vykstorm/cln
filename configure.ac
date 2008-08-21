@@ -13,7 +13,7 @@ dnl
 dnl
 AC_INIT(src/integer/gcd/cl_I_gcd.cc)
 AC_CONFIG_AUX_DIR(autoconf)
-AC_CONFIG_HEADER(include/cln/config.h include/cln/version.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/float/cl_float_config.h src/timing/cl_t_config.h)
+AC_CONFIG_HEADER(include/cln/config.h include/cln/version.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/timing/cl_t_config.h)
 AC_PROG_MAKE_SET
 dnl This piece of sed script replaces every line containing '@subdir@'
 dnl by several consecutive lines, each referencing one subdir.
@@ -135,8 +135,6 @@ dnl           checks for functions and declarations
 dnl
 CL_ALLOCA
                       dnl set variable ALLOCA, DEFS NO_ALLOCA
-CL_FPU_CONTROL
-                      dnl DEFS HAVE_FPU_CONTROL_T, HAVE_SETFPUCW
 CL_GETTIMEOFDAY
                       dnl DEFS HAVE_GETTIMEOFDAY, GETTIMEOFDAY_DOTS, GETTIMEOFDAY_TZP_T
 ac_cv_func_ftime=no

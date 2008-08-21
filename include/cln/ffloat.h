@@ -308,7 +308,6 @@ inline cl_FF& operator/= (cl_FF& x, const cl_FF& y) { return x = x / y; }
 inline cl_FF& operator/= (cl_FF& x, const float y) { return x = x / y; }
 
 
-CL_REQUIRE(cl_ieee)
 /* */
 
 

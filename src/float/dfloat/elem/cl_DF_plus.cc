@@ -11,12 +11,10 @@
 
 #include "cl_DF.h"
 #include "cl_F.h"
-#include "cl_ieee.h"
 #include "cl_xmacros.h"
 
 namespace cln {
 
-NEED_IEEE_FLOATS()
 
 const cl_DF operator+ (const cl_DF& x1, const cl_DF& x2)
 {

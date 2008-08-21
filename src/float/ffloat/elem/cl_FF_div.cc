@@ -13,14 +13,12 @@
 #include "cl_N.h"
 #include "cl_F.h"
 #include "cl_low.h"
-#include "cl_ieee.h"
 
 #include "cl_inline.h"
 #include "cl_FF_zerop.cc"
 
 namespace cln {
 
-NEED_IEEE_FLOATS()
 
 const cl_FF operator/ (const cl_FF& x1, const cl_FF& x2)
 {

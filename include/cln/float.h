@@ -760,7 +760,6 @@ public:
 };
 
 
-CL_REQUIRE(cl_ieee)
 
 
 // If this is true, floating point underflow returns zero instead of throwing an exception.

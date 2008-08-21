@@ -309,7 +309,6 @@ inline cl_DF& operator/= (cl_DF& x, const double y) { return x = x / y; }
 
 
 /* */
-CL_REQUIRE(cl_ieee)
 
 
 // Runtime typing support.
