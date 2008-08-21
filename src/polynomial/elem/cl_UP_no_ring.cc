@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_UP_no_ring)
-
 // Specification.
 #include "cln/univpoly.h"
 
@@ -174,13 +172,28 @@ static void cl_no_univpoly_ring_destructor (cl_heap* pointer)
 	(*(cl_heap_no_univpoly_ring*)pointer).~cl_heap_no_univpoly_ring();
 }
 
-cl_class cl_class_no_univpoly_ring = {
-	cl_no_univpoly_ring_destructor,
-	0
-};
+cl_class cl_class_no_univpoly_ring;
+static cl_heap_no_univpoly_ring* cl_heap_no_univpoly_ring_instance;
+const cl_univpoly_ring cl_no_univpoly_ring = cl_no_univpoly_ring;
 
-const cl_univpoly_ring cl_no_univpoly_ring = cl_univpoly_ring (new cl_heap_no_univpoly_ring());
+int cl_UP_no_ring_init_helper::count = 0;
+
+cl_UP_no_ring_init_helper::cl_UP_no_ring_init_helper()
+{
+	if (count++ == 0) {
+		cl_class_no_univpoly_ring.destruct = cl_no_univpoly_ring_destructor;
+		cl_class_no_univpoly_ring.flags = 0;
+		cl_heap_no_univpoly_ring_instance = new cl_heap_no_univpoly_ring();
+		new ((void *)&cl_no_univpoly_ring) cl_univpoly_ring(cl_heap_no_univpoly_ring_instance);
+	}
+}
+
+cl_UP_no_ring_init_helper::~cl_UP_no_ring_init_helper()
+{
+	if (--count == 0) {
+		delete cl_heap_no_univpoly_ring_instance;
+	}
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_UP_no_ring)

@@ -449,7 +449,15 @@ extern const cl_UP deriv (const cl_UP& x);
 
 extern const cl_univpoly_ring cl_no_univpoly_ring;
 extern cl_class cl_class_no_univpoly_ring;
-CL_REQUIRE(cl_UP_no_ring)
+
+class cl_UP_no_ring_init_helper
+{
+	static int count;
+public:
+	cl_UP_no_ring_init_helper();
+	~cl_UP_no_ring_init_helper();
+};
+static cl_UP_no_ring_init_helper cl_UP_no_ring_init_helper_instance;
 
 inline cl_univpoly_ring::cl_univpoly_ring ()
 	: cl_ring (as_cl_private_thing(cl_no_univpoly_ring)) {}
