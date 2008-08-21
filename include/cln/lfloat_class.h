@@ -53,7 +53,14 @@ inline cl_LF::operator struct cl_heap_lfloat * () const
 extern const cl_LF cl_LF_0;
 inline cl_LF::cl_LF ()
 	: cl_F ((cl_private_thing) (struct cl_heap_lfloat *) cl_LF_0) {}
-CL_REQUIRE(cl_LF_globals)
+class cl_LF_globals_init_helper
+{
+	static int count;
+public:
+	cl_LF_globals_init_helper();
+	~cl_LF_globals_init_helper();
+};
+static cl_LF_globals_init_helper cl_LF_globals_init_helper_instance;
 #if 0 // see cl_LF_impl.h
 inline cl_LF::cl_LF (struct cl_heap_lfloat * ptr)
 	: cl_F ((cl_private_thing) ptr) {}
