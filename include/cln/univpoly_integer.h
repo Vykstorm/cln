@@ -218,8 +218,6 @@ inline const cl_UP_I deriv (const cl_UP_I& x)
 
 #endif
 
-CL_REQUIRE(cl_I_ring)
-
 
 // Returns the n-th Tchebychev polynomial (n >= 0).
 extern const cl_UP_I tschebychev (sintL n);

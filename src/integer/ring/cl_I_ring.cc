@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_I_ring)
-
 // Specification.
 #include "cln/integer_ring.h"
 
@@ -143,19 +141,35 @@ static void cl_integer_ring_dprint (cl_heap* pointer)
 	fprint(cl_debugout, "(cl_integer_ring) cl_I_ring");
 }
 
-cl_class cl_class_integer_ring = {
-	cl_integer_ring_destructor,
-	cl_class_flags_number_ring,
-	cl_integer_ring_dprint
-};
+cl_class cl_class_integer_ring;
+static cl_heap_integer_ring* cl_heap_integer_ring_instance;
 
 // Constructor.
 template <>
 inline cl_integer_ring::cl_specialized_number_ring ()
-	: cl_number_ring (new cl_heap_integer_ring()) {}
+	: cl_number_ring(cl_heap_integer_ring_instance) {}
 
-const cl_integer_ring cl_I_ring;
+const cl_integer_ring cl_I_ring = cl_I_ring;
+
+int cl_I_ring_init_helper::count = 0;
+
+cl_I_ring_init_helper::cl_I_ring_init_helper()
+{
+	if (count++ == 0) {
+		cl_class_integer_ring.destruct = cl_integer_ring_destructor;
+		cl_class_integer_ring.flags = cl_class_flags_number_ring;
+		cl_class_integer_ring.dprint = cl_integer_ring_dprint;
+		cl_heap_integer_ring_instance = new cl_heap_integer_ring();
+		new ((void *)&cl_I_ring) cl_integer_ring();
+	}
+}
+
+cl_I_ring_init_helper::~cl_I_ring_init_helper()
+{
+	if (--count == 0) {
+		delete cl_heap_integer_ring_instance;
+	}
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_I_ring)

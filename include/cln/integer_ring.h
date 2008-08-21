@@ -11,7 +11,15 @@ namespace cln {
 typedef cl_specialized_number_ring<cl_I> cl_integer_ring;
 extern const cl_integer_ring cl_I_ring;		// math. Z
 extern cl_class cl_class_integer_ring;
-//CL_REQUIRE(cl_I_ring)
+
+class cl_I_ring_init_helper
+{
+	static int count;
+public:
+	cl_I_ring_init_helper();
+	~cl_I_ring_init_helper();
+};
+static cl_I_ring_init_helper cl_I_ring_init_helper_instance;
 
 }  // namespace cln
 
