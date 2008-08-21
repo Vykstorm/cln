@@ -62,7 +62,14 @@ inline cl_FF::operator struct cl_heap_ffloat * () const
 extern const cl_FF cl_FF_0;
 inline cl_FF::cl_FF ()
 	: cl_F ((cl_private_thing) (struct cl_heap_ffloat *) cl_FF_0) {}
-CL_REQUIRE(cl_FF_globals)
+class cl_FF_globals_init_helper
+{
+	static int count;
+public:
+	cl_FF_globals_init_helper();
+	~cl_FF_globals_init_helper();
+};
+static cl_FF_globals_init_helper cl_FF_globals_init_helper_instance;
 #if 0 // see cl_FF.h
 inline cl_FF::cl_FF (struct cl_heap_ffloat * ptr)
 	: cl_F ((cl_private_thing) ptr) {}
