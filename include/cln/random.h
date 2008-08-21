@@ -33,7 +33,15 @@ inline uint64 random64 (random_state& randomstate)
 
 // Ein globaler Zufallszahlengenerator.
 extern random_state default_random_state;
-CL_REQUIRE(cl_random_def)
+class cl_random_def_init_helper
+{
+	static int count;
+public:
+	cl_random_def_init_helper();
+	~cl_random_def_init_helper();
+};
+static cl_random_def_init_helper cl_random_def_init_helper_instance;
+
 // Das ist der Default-Generator.
 inline uint32 random32 (void)
 	{ return random32(default_random_state); }

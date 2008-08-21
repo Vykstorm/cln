@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_random_def)
-
 // Specification.
 #include "cln/random.h"
 
@@ -15,6 +13,20 @@ namespace cln {
 	
 random_state default_random_state;
 
+int cl_random_def_init_helper::count = 0;
+cl_random_def_init_helper::cl_random_def_init_helper()
+{
+	if (count++ == 0) {
+		default_random_state = random_state();
+	}
+}
+
+cl_random_def_init_helper::~cl_random_def_init_helper()
+{
+	if (--count == 0) {
+		// Nothing to clean up?
+	}
+}
+
 }  // namespace cln
 
-CL_PROVIDE_END(cl_random_def)
