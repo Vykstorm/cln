@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_GV_number)
-
 // Specification.
 #include "cln/GV_number.h"
 
@@ -25,11 +23,16 @@ static void cl_gvector_number_destructor (cl_heap* pointer)
 #endif
 }
 
-cl_class cl_class_gvector_number = {
-	cl_gvector_number_destructor,
-	0
-};
-
+// XXX: this ought to be const, but it would be impossible to register
+// the printing function (in cl_GV_number_debug.cc)
+cl_class& cl_class_gvector_number()
+{
+	static cl_class instance = {
+		cl_gvector_number_destructor,
+		0
+	};
+	return instance;
+}
 
 static inline cl_heap_GV_number * outcast (cl_GV_inner<cl_number>* vec)
 {
@@ -90,18 +93,19 @@ static void general_copy_elements (const cl_GV_inner<cl_number>* srcvec, uintC s
 	}
 }
 
-static cl_GV_vectorops<cl_number> general_vectorops = {
-	general_element,
-	general_set_element,
-	general_do_delete,
-	general_copy_elements
-};
 
 cl_heap_GV_number* cl_make_heap_GV_number (uintC len)
 {
+	static cl_GV_vectorops<cl_number> general_vectorops = {
+		general_element,
+		general_set_element,
+		general_do_delete,
+		general_copy_elements
+	};
+
 	var cl_heap_GV_number_general* hv = (cl_heap_GV_number_general*) malloc_hook(offsetofa(cl_heap_GV_number_general,data)+sizeof(cl_number)*len);
 	hv->refcount = 1;
-	hv->type = &cl_class_gvector_number;
+	hv->type = &cl_class_gvector_number();
 	new (&hv->v) cl_GV_inner<cl_number> (len,&general_vectorops);
 	for (var uintC i = 0; i < len; i++)
 		init1(cl_number, hv->data[i]) ();
@@ -109,8 +113,22 @@ cl_heap_GV_number* cl_make_heap_GV_number (uintC len)
 }
 
 // An empty vector.
-const cl_GV_number cl_null_GV_number = cl_GV_number((uintC)0);
+const cl_GV_number cl_null_GV_number = cl_null_GV_number;
+
+int cl_GV_number_init_helper::count = 0;
+
+cl_GV_number_init_helper::cl_GV_number_init_helper()
+{
+	if (count++ == 0)
+		new ((void *)&cl_null_GV_number) cl_GV_number((uintC)0);
+}
+
+cl_GV_number_init_helper::~cl_GV_number_init_helper()
+{
+	if (--count == 0) {
+		// Nothing to clean up
+	}
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_GV_number)

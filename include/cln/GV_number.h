@@ -32,7 +32,14 @@ inline cl_GV_number::cl_GV_number (uintC len)
 extern const cl_GV_number cl_null_GV_number;
 inline cl_GV_number::cl_GV_number ()
 	: cl_GV<cl_number,cl_GV_any> ((cl_heap_GV_number*) cl_null_GV_number) {}
-CL_REQUIRE(cl_GV_number)
+class cl_GV_number_init_helper
+{
+	static int count;
+public:
+	cl_GV_number_init_helper();
+	~cl_GV_number_init_helper();
+};
+static cl_GV_number_init_helper cl_GV_number_init_helper_instance;
 
 // Copy a vector.
 extern const cl_GV_number copy (const cl_GV_number&);
