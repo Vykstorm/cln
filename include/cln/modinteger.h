@@ -46,7 +46,16 @@ extern const cl_modint_ring cl_modint0_ring;
 // Default constructor. This avoids dealing with NULL pointers.
 inline cl_modint_ring::cl_modint_ring ()
 	: cl_ring (as_cl_private_thing(cl_modint0_ring)) {}
-CL_REQUIRE(cl_MI)
+
+class cl_MI_init_helper
+{
+	static int count;
+public:
+	cl_MI_init_helper();
+	~cl_MI_init_helper();
+};
+static cl_MI_init_helper cl_MI_init_helper_instance;
+
 // Copy constructor and assignment operator.
 CL_DEFINE_COPY_CONSTRUCTOR2(cl_modint_ring,cl_ring)
 CL_DEFINE_ASSIGNMENT_OPERATOR(cl_modint_ring,cl_modint_ring)
@@ -358,8 +367,7 @@ public:
 
 // Lookup or create a modular integer ring  Z/mZ
 extern const cl_modint_ring find_modint_ring (const cl_I& m);
-CL_REQUIRE(cl_MI)
-
+static cl_MI_init_helper cl_MI_init_helper_instance2;
 
 // Operations on modular integers.
 

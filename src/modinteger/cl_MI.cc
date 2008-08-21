@@ -3,11 +3,8 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_MI)
-
 // Specification.
 #include "cln/modinteger.h"
-
 
 // Implementation.
 
@@ -32,10 +29,7 @@ static void cl_modint_ring_destructor (cl_heap* pointer)
 	(*(cl_heap_modint_ring*)pointer).~cl_heap_modint_ring();
 }
 
-cl_class cl_class_modint_ring = {
-	cl_modint_ring_destructor,
-	cl_class_flags_modint_ring
-};
+cl_class cl_class_modint_ring;
 
 cl_heap_modint_ring::cl_heap_modint_ring (cl_I m, cl_modint_setops* setopv, cl_modint_addops* addopv, cl_modint_mulops* mulopv)
 	: setops (setopv), addops (addopv), mulops (mulopv), modulus (m)
@@ -149,37 +143,72 @@ static bool maygc_htentry (const cl_htentry_from_integer_to_rcpointer& entry)
 	return false;
 }
 
-static const cl_wht_from_integer_to_rcpointer modint_ring_table = cl_wht_from_integer_to_rcpointer(maygc_htentry);
-
-static inline cl_modint_ring* get_modint_ring (const cl_I& m)
+class modint_ring_cache
 {
-	return (cl_modint_ring*) modint_ring_table.get(m);
+	static cl_wht_from_integer_to_rcpointer* modint_ring_table;
+	static int count;
+public:
+	inline cl_modint_ring* get_modint_ring(const cl_I& m)
+	{
+		return (cl_modint_ring*) modint_ring_table->get(m);
+	}
+	inline void store_modint_ring(const cl_modint_ring& R)
+	{
+		modint_ring_table->put(R->modulus,R);
+	}
+	modint_ring_cache();
+	~modint_ring_cache();
+};
+
+cl_wht_from_integer_to_rcpointer* modint_ring_cache::modint_ring_table = 0;
+int modint_ring_cache::count = 0;
+modint_ring_cache::modint_ring_cache()
+{
+	if (count++ == 0)
+		modint_ring_table = new cl_wht_from_integer_to_rcpointer(maygc_htentry);
 }
 
-static inline void store_modint_ring (const cl_modint_ring& R)
+modint_ring_cache::~modint_ring_cache()
 {
-	modint_ring_table.put(R->modulus,R);
+	if (--count == 0)
+		delete modint_ring_table;
 }
-
 
 const cl_modint_ring find_modint_ring (const cl_I& m)
 {
  {	Mutable(cl_I,m);
 	m = abs(m);
-	var cl_modint_ring* ring_in_table = get_modint_ring(m);
+	static modint_ring_cache cache;
+	var cl_modint_ring* ring_in_table = cache.get_modint_ring(m);
 	if (!ring_in_table) {
 		var cl_modint_ring R = make_modint_ring(m);
-		store_modint_ring(R);
-		ring_in_table = get_modint_ring(m);
+		cache.store_modint_ring(R);
+		ring_in_table = cache.get_modint_ring(m);
 		if (!ring_in_table)
 			throw runtime_exception();
 	}
 	return *ring_in_table;
 }}
 
+const cl_modint_ring cl_modint0_ring = cl_modint0_ring;
 
-const cl_modint_ring cl_modint0_ring = find_modint_ring(0);
+int cl_MI_init_helper::count = 0;
+
+cl_MI_init_helper::cl_MI_init_helper()
+{
+	if (count++ == 0) {
+		cl_class_modint_ring.destruct = cl_modint_ring_destructor;
+		cl_class_modint_ring.flags = cl_class_flags_modint_ring;
+		new ((void *)&cl_modint0_ring) cl_modint_ring(find_modint_ring(0));
+	}
+}
+
+cl_MI_init_helper::~cl_MI_init_helper()
+{
+	if (--count == 0) {
+		// Nothing to clean up?
+	}
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_MI)
