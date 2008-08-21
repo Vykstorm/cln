@@ -18,9 +18,9 @@ namespace cln {
 const cl_F eulerconst (const cl_F& y)
 {
 	floattypecase(y
-	,	return cl_SF_eulerconst;
-	,	return cl_FF_eulerconst;
-	,	return cl_DF_eulerconst;
+	,	return cl_SF_eulerconst();
+	,	return cl_FF_eulerconst();
+	,	return cl_DF_eulerconst();
 	,	return eulerconst(TheLfloat(y)->len);
 	);
 }

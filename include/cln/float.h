@@ -679,9 +679,6 @@ extern const cl_F eulerconst (float_format_t f);
 // eulerconst() liefert die Eulersche Konstante im Default-Float-Format.
 extern const cl_F eulerconst (void);
 
-//CL_REQUIRE(cl_F_eulerconst_var)
-
-
 // catalanconst(y) liefert die Catalansche Konstante
 // im selben Float-Format wie y.
 // > y: ein Float

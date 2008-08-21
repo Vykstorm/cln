@@ -126,10 +126,10 @@ extern const cl_LF expx_naive (const cl_LF& x); // requires cl_F_extendsqrtx
 extern const cl_LF expx_ratseries (const cl_LF& x); // requires extend by 1
 
 // Eulersche Konstante.
-extern const cl_SF cl_SF_eulerconst;
-extern const cl_FF cl_FF_eulerconst;
-extern const cl_DF cl_DF_eulerconst;
-extern cl_LF cl_LF_eulerconst; // as long as it has ever been computed
+extern const cl_SF& cl_SF_eulerconst();
+extern const cl_FF& cl_FF_eulerconst();
+extern const cl_DF& cl_DF_eulerconst();
+extern cl_LF& cl_LF_eulerconst(); // as long as it has ever been computed
 extern const cl_LF eulerconst (uintC len); // computes it even further
 
 // Catalansche Konstante.

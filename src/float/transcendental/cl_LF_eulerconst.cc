@@ -507,13 +507,13 @@ const cl_LF compute_eulerconst (uintC len)
 
 const cl_LF eulerconst (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_eulerconst)->len; // vorhandene Länge
+	var uintC oldlen = TheLfloat(cl_LF_eulerconst())->len; // vorhandene Länge
 	if (len < oldlen)
-		return shorten(cl_LF_eulerconst,len);
+		return shorten(cl_LF_eulerconst(),len);
 	if (len == oldlen)
-		return cl_LF_eulerconst;
+		return cl_LF_eulerconst();
 
-	// TheLfloat(cl_LF_eulerconst)->len um mindestens einen konstanten Faktor
+	// TheLfloat(cl_LF_eulerconst())->len um mindestens einen konstanten Faktor
 	// > 1 wachsen lassen, damit es nicht zu häufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
@@ -521,8 +521,8 @@ const cl_LF eulerconst (uintC len)
 		newlen = oldlen;
 
 	// gewünschte > vorhandene Länge -> muß nachberechnen:
-	cl_LF_eulerconst = compute_eulerconst(newlen);
-	return (len < newlen ? shorten(cl_LF_eulerconst,len) : cl_LF_eulerconst);
+	cl_LF_eulerconst() = compute_eulerconst(newlen);
+	return (len < newlen ? shorten(cl_LF_eulerconst(),len) : cl_LF_eulerconst());
 }
 
 }  // namespace cln
