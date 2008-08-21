@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_symbol)
-
 // Specification.
 #include "cln/symbol.h"
 
@@ -40,10 +38,6 @@ static void cl_hashtable_from_string_to_symbol_destructor (cl_heap* pointer)
 #endif
 }
 
-cl_class cl_class_hashtable_from_string_to_symbol = {
-	cl_hashtable_from_string_to_symbol_destructor,
-	0
-};
 
 struct cl_ht_from_string_to_symbol : public cl_gcpointer {
 	// Constructors.
@@ -64,6 +58,10 @@ struct cl_ht_from_string_to_symbol : public cl_gcpointer {
 
 cl_ht_from_string_to_symbol::cl_ht_from_string_to_symbol ()
 {
+	static const cl_class cl_class_hashtable_from_string_to_symbol = {
+		cl_hashtable_from_string_to_symbol_destructor,
+		0
+	};
 	var cl_heap_hashtable_from_string_to_symbol* ht = new cl_heap_hashtable_from_string_to_symbol ();
 	ht->refcount = 1;
 	ht->type = &cl_class_hashtable_from_string_to_symbol;
@@ -81,11 +79,44 @@ void cl_ht_from_string_to_symbol::put (const cl_string& s) const
 }
 
 // The global symbol table.
-static cl_ht_from_string_to_symbol symbol_table;
+class global_symbol_table
+{
+	static int count;
+	static cl_ht_from_string_to_symbol* symbol_table;
+public:
+	inline cl_symbol* get(const cl_string& s)
+	{
+		return symbol_table->get(s);
+	}
+
+	inline void put(const cl_string& s)
+	{
+		symbol_table->put(s);
+	}
+
+	global_symbol_table();
+	~global_symbol_table();
+};
+
+int global_symbol_table::count = 0;
+cl_ht_from_string_to_symbol* global_symbol_table::symbol_table;
+
+global_symbol_table::global_symbol_table()
+{
+	if (count++ == 0)
+		symbol_table = new cl_ht_from_string_to_symbol();
+}
+
+global_symbol_table::~global_symbol_table()
+{
+	if (--count == 0)
+		delete symbol_table;
+}
 
 // Create or lookup a symbol from its name.
 cl_symbol::cl_symbol (const cl_string& s)
 {
+	static global_symbol_table symbol_table;
 	var cl_symbol * sym_in_table;
 	sym_in_table = symbol_table.get(s);
 	if (!sym_in_table) {
@@ -101,4 +132,3 @@ cl_symbol::cl_symbol (const cl_string& s)
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_symbol)

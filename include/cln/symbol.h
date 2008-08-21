@@ -47,8 +47,6 @@ inline bool equal (const cl_symbol& s1, const cl_symbol& s2)
 // Hash code.
 extern unsigned long hashcode (const cl_symbol& s);
 
-CL_REQUIRE(cl_symbol)
-
 }  // namespace cln
 
 #endif /* _CL_SYMBOL_H */
