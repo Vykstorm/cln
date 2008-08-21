@@ -21,7 +21,7 @@ static void dprint (cl_heap* pointer)
 	cl_dprint_unknown(pointer);
 }
 AT_INITIALIZATION(dprint_SV_ringelt)
-{ cl_register_type_printer(cl_class_svector_ringelt,dprint); }
+{ extern cl_class& cl_class_svector_ringelt(); cl_class_svector_ringelt().dprint = dprint; }
 
 // This dummy links in this module when <cln/SV_ringelt.h> requires it.
 int cl_SV_ringelt_debug_module;

@@ -44,7 +44,15 @@ inline cl_SV_ringelt::operator cl_heap_SV_ringelt* () const
 extern const cl_SV_ringelt cl_null_SV_ringelt;
 inline cl_SV_ringelt::cl_SV_ringelt ()
 	: cl_SV<_cl_ring_element,cl_SV_any> ((cl_heap_SV_ringelt*) cl_null_SV_ringelt) {}
-CL_REQUIRE(cl_SV_ringelt)
+
+class cl_SV_ringelt_init_helper
+{
+	static int count;
+public:
+	cl_SV_ringelt_init_helper();
+	~cl_SV_ringelt_init_helper();
+};
+static cl_SV_ringelt_init_helper cl_SV_ringelt_init_helper_instance;
 
 // Copy a simple vector.
 inline const cl_SV_ringelt copy (const cl_SV_ringelt& vector)
