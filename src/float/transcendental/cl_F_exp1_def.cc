@@ -17,9 +17,9 @@ namespace cln {
 const cl_F exp1 (void)
 {
 	floatformatcase(default_float_format
-	,	return cl_SF_exp1;
-	,	return cl_FF_exp1;
-	,	return cl_DF_exp1;
+	,	return cl_SF_exp1();
+	,	return cl_FF_exp1();
+	,	return cl_DF_exp1();
 	,	return exp1(len);
 	);
 }

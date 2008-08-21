@@ -636,8 +636,6 @@ extern const cl_F exp1 (float_format_t f);
 // exp1() liefert die Zahl e = exp(1) im Default-Float-Format.
 extern const cl_F exp1 (void);
 
-//CL_REQUIRE(cl_F_exp1_var)
-
 
 // ln(x) liefert zu einem Float x>0 die Zahl ln(x).
 extern const cl_F ln (const cl_F& x);

@@ -114,10 +114,10 @@ extern const cl_F cl_ln10 (const cl_F& y);
 extern const cl_F cl_ln10 (float_format_t f);
 
 // e = exp(1).
-extern const cl_SF cl_SF_exp1;
-extern const cl_FF cl_FF_exp1;
-extern const cl_DF cl_DF_exp1;
-extern cl_LF cl_LF_exp1; // as long as it has ever been computed
+extern const cl_SF& cl_SF_exp1();
+extern const cl_FF& cl_FF_exp1();
+extern const cl_DF& cl_DF_exp1();
+extern cl_LF& cl_LF_exp1(); // as long as it has ever been computed
 extern const cl_LF exp1 (uintC len); // computes it even further
 
 // expx(x) liefert zu einem Float x (betragsmäßig <1) exp(x) als Float.

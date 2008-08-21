@@ -78,13 +78,13 @@ const cl_LF compute_exp1 (uintC len)
 
 const cl_LF exp1 (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_exp1)->len; // vorhandene Länge
+	var uintC oldlen = TheLfloat(cl_LF_exp1())->len; // vorhandene Länge
 	if (len < oldlen)
-		return shorten(cl_LF_exp1,len);
+		return shorten(cl_LF_exp1(),len);
 	if (len == oldlen)
-		return cl_LF_exp1;
+		return cl_LF_exp1();
 
-	// TheLfloat(cl_LF_exp1)->len um mindestens einen konstanten Faktor
+	// TheLfloat(cl_LF_exp1())->len um mindestens einen konstanten Faktor
 	// > 1 wachsen lassen, damit es nicht zu häufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
@@ -92,8 +92,8 @@ const cl_LF exp1 (uintC len)
 		newlen = oldlen;
 
 	// gewünschte > vorhandene Länge -> muß nachberechnen:
-	cl_LF_exp1 = compute_exp1(newlen); // (exp 1)
-	return (len < newlen ? shorten(cl_LF_exp1,len) : cl_LF_exp1);
+	cl_LF_exp1() = compute_exp1(newlen); // (exp 1)
+	return (len < newlen ? shorten(cl_LF_exp1(),len) : cl_LF_exp1());
 }
 
 }  // namespace cln

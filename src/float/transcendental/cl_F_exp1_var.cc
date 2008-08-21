@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_F_exp1_var)
-
 // Specification.
 #include "cl_F_tran.h"
 
@@ -18,20 +16,36 @@ CL_PROVIDE(cl_F_exp1_var)
 
 namespace cln {
 
-// Mantisse von exp(1) :
-  static const uintD exp1_mantisse [64/intDsize] =
-    #include "cl_F_exp1_var.h"
-
-cl_LF cl_LF_exp1 = encode_LF_array(0,2,exp1_mantisse,64/intDsize);
+cl_LF& cl_LF_exp1()
+{
+	// Mantisse von exp(1) :
+	static const uintD exp1_mantisse [64/intDsize] =
+		#include "cl_F_exp1_var.h"
+	static cl_LF val = encode_LF_array(0,2,exp1_mantisse,64/intDsize);
+	return val;
+}
 
 // Problem: If someone changes free_hook, the destructor of this
 // will call the new hook, passing it some pointer obtained by the old
 // malloc_hook. ??
 
-const cl_SF cl_SF_exp1 = cl_LF_to_SF(cl_LF_exp1);
-const cl_FF cl_FF_exp1 = cl_LF_to_FF(cl_LF_exp1);
-const cl_DF cl_DF_exp1 = cl_LF_to_DF(cl_LF_exp1);
+const cl_SF& cl_SF_exp1()
+{
+	static const cl_SF val = cl_LF_to_SF(cl_LF_exp1());
+	return val;
+}
+
+const cl_FF& cl_FF_exp1()
+{
+	static const cl_FF val = cl_LF_to_FF(cl_LF_exp1());
+	return val;
+}
+
+const cl_DF& cl_DF_exp1()
+{
+	static const cl_DF val = cl_LF_to_DF(cl_LF_exp1());
+	return val;
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_F_exp1_var)
