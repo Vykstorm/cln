@@ -99,12 +99,11 @@ extern const cl_F cl_ln2 (const cl_F& y);
 extern const cl_F cl_ln2 (float_format_t f);
 
 // ln(10).
-extern const cl_SF cl_SF_ln10;
-extern const cl_FF cl_FF_ln10;
-extern const cl_DF cl_DF_ln10;
-extern cl_LF cl_LF_ln10; // as long as it has ever been computed
+extern const cl_SF& cl_SF_ln10();
+extern const cl_FF& cl_FF_ln10();
+extern const cl_DF& cl_DF_ln10();
+extern cl_LF& cl_LF_ln10(); // as long as it has ever been computed
 extern const cl_LF cl_ln10 (uintC len); // computes it even further
-//CL_REQUIRE(cl_F_ln10_var)
 
 // cl_ln10(y) liefert die Zahl ln(10) im selben Float-Format wie y.
 // > y: ein Float
