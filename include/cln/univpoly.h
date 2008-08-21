@@ -348,7 +348,6 @@ public:
 
 // Lookup or create the "standard" univariate polynomial ring over a ring r.
 extern const cl_univpoly_ring find_univpoly_ring (const cl_ring& r);
-//CL_REQUIRE(cl_UP_unnamed)
 
 // Lookup or create a univariate polynomial ring with a named variable over r.
 extern const cl_univpoly_ring find_univpoly_ring (const cl_ring& r, const cl_symbol& varname);

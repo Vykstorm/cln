@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_UP_unnamed)
-
 // Specification.
 #include "cln/univpoly.h"
 
@@ -34,26 +32,46 @@ static bool maygc_htentry (const cl_htentry_from_rcpointer_to_rcpointer& entry)
 	return false;
 }
 
-static const cl_wht_from_rcpointer_to_rcpointer univpoly_ring_table = cl_wht_from_rcpointer_to_rcpointer(maygc_htentry);
-
-static inline cl_univpoly_ring* get_univpoly_ring (const cl_ring& r)
+class univpoly_ring_cache
 {
-	return (cl_univpoly_ring*) univpoly_ring_table.get(r);
+	static cl_wht_from_rcpointer_to_rcpointer* univpoly_ring_table;
+	static int count;
+public:
+	inline cl_univpoly_ring* get_univpoly_ring(const cl_ring& r)
+	{
+		return (cl_univpoly_ring*) univpoly_ring_table->get(r);
+	}
+	inline void store_univpoly_ring(const cl_univpoly_ring& R)
+	{
+		univpoly_ring_table->put(R->basering(), R);
+	}
+	univpoly_ring_cache();
+	~univpoly_ring_cache();
+};
+
+cl_wht_from_rcpointer_to_rcpointer* univpoly_ring_cache::univpoly_ring_table = 0;
+int univpoly_ring_cache::count = 0;
+
+univpoly_ring_cache::univpoly_ring_cache()
+{
+	if (count++ == 0)
+		univpoly_ring_table = new cl_wht_from_rcpointer_to_rcpointer(maygc_htentry);
 }
 
-static inline void store_univpoly_ring (const cl_univpoly_ring& R)
+univpoly_ring_cache::~univpoly_ring_cache()
 {
-	univpoly_ring_table.put(R->basering(),R);
+	if (--count == 0)
+		delete univpoly_ring_table;
 }
-
 
 const cl_univpoly_ring find_univpoly_ring (const cl_ring& r)
 {
-	var cl_univpoly_ring* ring_in_table = get_univpoly_ring(r);
+	static univpoly_ring_cache cache;
+	var cl_univpoly_ring* ring_in_table = cache.get_univpoly_ring(r);
 	if (!ring_in_table) {
 		var cl_univpoly_ring R = cl_make_univpoly_ring(r);
-		store_univpoly_ring(R);
-		ring_in_table = get_univpoly_ring(r);
+		cache.store_univpoly_ring(R);
+		ring_in_table = cache.get_univpoly_ring(r);
 		if (!ring_in_table)
 			throw runtime_exception();
 	}
@@ -62,4 +80,3 @@ const cl_univpoly_ring find_univpoly_ring (const cl_ring& r)
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_UP_unnamed)
