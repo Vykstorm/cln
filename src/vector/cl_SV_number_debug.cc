@@ -29,7 +29,7 @@ static void dprint (cl_heap* pointer)
 	print_vector(cl_debugout,default_print_flags,&print_for_debug,obj);
 }
 AT_INITIALIZATION(dprint_SV_number)
-{ cl_register_type_printer(cl_class_svector_number,dprint); }
+{ extern cl_class& cl_class_svector_number(); cl_class_svector_number().dprint = dprint; }
 
 // This dummy links in this module when <cln/SV_number.h> requires it.
 int cl_SV_number_debug_module;

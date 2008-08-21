@@ -43,7 +43,14 @@ inline cl_SV_number::operator cl_heap_SV_number* () const
 extern const cl_SV_number cl_null_SV_number;
 inline cl_SV_number::cl_SV_number ()
 	: cl_SV<cl_number,cl_SV_any> ((cl_heap_SV_number*) cl_null_SV_number) {}
-CL_REQUIRE(cl_SV_number)
+class cl_SV_number_init_helper
+{
+	static int count;
+public:
+	cl_SV_number_init_helper();
+	~cl_SV_number_init_helper();
+};
+static cl_SV_number_init_helper cl_SV_number_init_helper_instance;
 
 // Copy a simple vector.
 inline const cl_SV_number copy (const cl_SV_number& vector)
