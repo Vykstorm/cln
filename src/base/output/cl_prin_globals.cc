@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_prin_globals)
-
 // Specification.
 #include "cln/output.h"
 
@@ -14,6 +12,23 @@ CL_PROVIDE(cl_prin_globals)
 namespace cln {
 
 cl_print_flags default_print_flags;
+
+int cl_prin_globals_init_helper::count = 0;
+
+cl_prin_globals_init_helper::cl_prin_globals_init_helper()
+{
+	if (count++ == 0)
+		new ((void *)&default_print_flags) cl_print_flags();
+}
+
+cl_prin_globals_init_helper::~cl_prin_globals_init_helper()
+{
+	if (--count == 0) {
+		// Nothing to clean up.
+	}
+}
+
+
 #if 0 // The default constructors already do this.
 AT_INITIALIZATION(default_print_flags)
 {
@@ -29,4 +44,3 @@ AT_INITIALIZATION(default_print_flags)
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_prin_globals)

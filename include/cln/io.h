@@ -88,8 +88,15 @@ class cl_print_number_flags;
 class cl_print_real_flags;
 class cl_print_rational_flags;
 class cl_print_float_flags;
-CL_REQUIRE(cl_prin_globals)
 
+class cl_prin_globals_init_helper
+{
+	static int count;
+public:
+	cl_prin_globals_init_helper();
+	~cl_prin_globals_init_helper();
+};
+static cl_prin_globals_init_helper cl_prin_globals_init_helper_instance;
 
 // Define the customary << and >> operators.
 
