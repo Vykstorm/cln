@@ -124,10 +124,9 @@ inline cl_string::operator cl_heap_string* () const
 }
 inline cl_string::cl_string ()
 {
-	extern const cl_string cl_null_string;
-	pointer = (cl_heap_string*) cl_null_string;
+	static const cl_string cl_null_st(NULL, 0);
+	pointer = (cl_heap_string*) cl_null_st;
 }
-CL_REQUIRE(cl_st_null)
 
 // Hash code.
 extern unsigned long hashcode (const cl_string& str);

@@ -3,13 +3,12 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_st_null)
-
 // Specification.
 #include "cln/string.h"
 
 namespace cln {
 
+#warning "Please remove me"
 extern const cl_string cl_null_string;
 
 }  // namespace cln
@@ -22,4 +21,3 @@ const cl_string cl_null_string = cl_string(NULL,0);
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_st_null)
