@@ -570,7 +570,6 @@ extern const cl_F least_negative_float (float_format_t f);
 
 // Returns the smallest floating point number e > 0 such that 1+e != 1.
 extern const cl_F float_epsilon (float_format_t f);
-//CL_REQUIRE(cl_F_epspos)
 
 // Returns the smallest floating point number e > 0 such that 1-e != 1.
 extern const cl_F float_negative_epsilon (float_format_t f);
