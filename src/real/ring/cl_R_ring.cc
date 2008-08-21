@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_R_ring)
-
 // Specification.
 #include "cln/real_ring.h"
 
@@ -145,19 +143,36 @@ static void cl_real_ring_dprint (cl_heap* pointer)
 	fprint(cl_debugout, "(cl_real_ring) cl_R_ring");
 }
 
-cl_class cl_class_real_ring = {
-	cl_real_ring_destructor,
-	cl_class_flags_number_ring,
-	cl_real_ring_dprint
-};
+static cl_heap_real_ring* cl_heap_real_ring_instance;
+cl_class cl_class_real_ring;
 
 // Constructor.
 template <>
 inline cl_real_ring::cl_specialized_number_ring ()
-	: cl_number_ring (new cl_heap_real_ring()) {}
+	: cl_number_ring (cl_heap_real_ring_instance) {}
 
-const cl_real_ring cl_R_ring;
+const cl_real_ring cl_R_ring = cl_R_ring;
+
+int cl_R_ring_init_helper::count = 0;
+
+cl_R_ring_init_helper::cl_R_ring_init_helper()
+{
+	if (count++ == 0) {
+		cl_class_real_ring.destruct = cl_real_ring_destructor;
+		cl_class_real_ring.flags = cl_class_flags_number_ring;
+		cl_class_real_ring.dprint = cl_real_ring_dprint;
+		cl_heap_real_ring_instance = new cl_heap_real_ring();
+		new((void *)&cl_R_ring) cl_real_ring();
+	}
+}
+
+cl_R_ring_init_helper::~cl_R_ring_init_helper()
+{
+	if (--count == 0) {
+		delete cl_heap_real_ring_instance;
+	}
+}
+
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_R_ring)
