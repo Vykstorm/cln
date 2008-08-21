@@ -52,7 +52,15 @@ inline cl_DF::operator struct cl_heap_dfloat * () const
 extern const cl_DF cl_DF_0;
 inline cl_DF::cl_DF ()
 	: cl_F ((cl_private_thing) (struct cl_heap_dfloat *) cl_DF_0) {}
-CL_REQUIRE(cl_DF_globals)
+class cl_DF_globals_init_helper
+{
+	static int count;
+public:
+	cl_DF_globals_init_helper();
+	~cl_DF_globals_init_helper();
+};
+static cl_DF_globals_init_helper cl_DF_globals_init_helper_instance;
+
 #if 0 // see cl_DF.h
 inline cl_DF::cl_DF (struct cl_heap_dfloat * ptr)
 	: cl_F ((cl_private_thing) ptr) {}

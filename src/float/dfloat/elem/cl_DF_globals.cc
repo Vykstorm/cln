@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_DF_globals)
-
 // Specification.
 #include "cl_DF.h"
 
@@ -13,24 +11,32 @@ CL_PROVIDE(cl_DF_globals)
 
 namespace cln {
 
-#if (cl_word_size==64)
+const cl_DF cl_DF_0 = cl_DF_0;
+const cl_DF cl_DF_1 = cl_DF_1;
+const cl_DF cl_DF_minus1 = cl_DF_minus1;
 
-const cl_DF cl_DF_0 = allocate_dfloat(0); // 0.0d0
+int cl_DF_globals_init_helper::count = 0;
 
-const cl_DF cl_DF_1 = encode_DF(0,1,bit(DF_mant_len)); // 1.0d0
-
-const cl_DF cl_DF_minus1 = encode_DF(-1,1,bit(DF_mant_len)); // -1.0d0
-
+cl_DF_globals_init_helper::cl_DF_globals_init_helper()
+{
+	if (count++ == 0) {
+#if (cl_word_size == 64)
+		new ((void *)&cl_DF_0) cl_DF(allocate_dfloat(0)); // 0.0d0
+		new ((void *)&cl_DF_1) cl_DF(encode_DF(0, 1, bit(DF_mant_len))); // 1.0d0
+		new ((void *)&cl_DF_minus1) cl_DF(encode_DF(-1,1,bit(DF_mant_len))); // -1.0d0
 #else
-
-const cl_DF cl_DF_0 = allocate_dfloat(0,0); // 0.0d0
-
-const cl_DF cl_DF_1 = encode_DF(0,1,bit(DF_mant_len-32),0); // 1.0d0
-
-const cl_DF cl_DF_minus1 = encode_DF(-1,1,bit(DF_mant_len-32),0); // -1.0d0
-
+		new ((void *)&cl_DF_0) cl_DF(allocate_dfloat(0, 0)); // 0.0d0
+		new ((void *)&cl_DF_1) cl_DF(encode_DF(0, 1, bit(DF_mant_len - 32), 0)); // 1.0d0
+		new ((void *)&cl_DF_minus1) cl_DF(encode_DF(-1, 1, bit(DF_mant_len - 32), 0)); // -1.0d0
 #endif
+	}
+}
+cl_DF_globals_init_helper::~cl_DF_globals_init_helper()
+{
+	if (--count == 0) {
+		// Nothing to clean up
+	}
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_DF_globals)
