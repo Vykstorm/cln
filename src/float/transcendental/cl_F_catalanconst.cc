@@ -18,9 +18,9 @@ namespace cln {
 const cl_F catalanconst (const cl_F& y)
 {
 	floattypecase(y
-	,	return cl_SF_catalanconst;
-	,	return cl_FF_catalanconst;
-	,	return cl_DF_catalanconst;
+	,	return cl_SF_catalanconst();
+	,	return cl_FF_catalanconst();
+	,	return cl_DF_catalanconst();
 	,	return catalanconst(TheLfloat(y)->len);
 	);
 }

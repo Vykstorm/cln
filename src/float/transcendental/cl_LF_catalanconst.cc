@@ -300,13 +300,13 @@ const cl_LF compute_catalanconst (uintC len)
 
 const cl_LF catalanconst (uintC len)
 {
-	var uintC oldlen = TheLfloat(cl_LF_catalanconst)->len; // vorhandene Länge
+	var uintC oldlen = TheLfloat(cl_LF_catalanconst())->len; // vorhandene Länge
 	if (len < oldlen)
-		return shorten(cl_LF_catalanconst,len);
+		return shorten(cl_LF_catalanconst(),len);
 	if (len == oldlen)
-		return cl_LF_catalanconst;
+		return cl_LF_catalanconst();
 
-	// TheLfloat(cl_LF_catalanconst)->len um mindestens einen konstanten Faktor
+	// TheLfloat(cl_LF_catalanconst())->len um mindestens einen konstanten Faktor
 	// > 1 wachsen lassen, damit es nicht zu häufig nachberechnet wird:
 	var uintC newlen = len;
 	oldlen += floor(oldlen,2); // oldlen * 3/2
@@ -314,8 +314,8 @@ const cl_LF catalanconst (uintC len)
 		newlen = oldlen;
 
 	// gewünschte > vorhandene Länge -> muß nachberechnen:
-	cl_LF_catalanconst = compute_catalanconst(newlen);
-	return (len < newlen ? shorten(cl_LF_catalanconst,len) : cl_LF_catalanconst);
+	cl_LF_catalanconst() = compute_catalanconst(newlen);
+	return (len < newlen ? shorten(cl_LF_catalanconst(),len) : cl_LF_catalanconst());
 }
 
 }  // namespace cln

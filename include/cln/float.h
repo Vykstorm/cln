@@ -691,9 +691,6 @@ extern const cl_F catalanconst (float_format_t f);
 // catalanconst() liefert die Catalansche Konstante im Default-Float-Format.
 extern const cl_F catalanconst (void);
 
-//CL_REQUIRE(cl_F_catalanconst_var)
-
-
 // zeta(s) returns the Riemann zeta function at s>1.
 extern const cl_F zeta (int s, const cl_F& y);
 extern const cl_F zeta (int s, float_format_t f);

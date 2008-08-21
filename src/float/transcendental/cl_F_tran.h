@@ -133,10 +133,10 @@ extern cl_LF& cl_LF_eulerconst(); // as long as it has ever been computed
 extern const cl_LF eulerconst (uintC len); // computes it even further
 
 // Catalansche Konstante.
-extern const cl_SF cl_SF_catalanconst;
-extern const cl_FF cl_FF_catalanconst;
-extern const cl_DF cl_DF_catalanconst;
-extern cl_LF cl_LF_catalanconst; // as long as it has ever been computed
+extern const cl_SF& cl_SF_catalanconst();
+extern const cl_FF& cl_FF_catalanconst();
+extern const cl_DF& cl_DF_catalanconst();
+extern cl_LF& cl_LF_catalanconst(); // as long as it has ever been computed
 extern const cl_LF catalanconst (uintC len); // computes it even further
 
 // Zeta-Funktion für s>1 ganzzahlig.
