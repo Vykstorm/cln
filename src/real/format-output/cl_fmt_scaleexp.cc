@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_fmt_scaleexp)
-
 // Specification.
 #include "cl_format.h"
 
@@ -38,24 +36,24 @@ struct float_format_params {
 		: zero(a), one(b), ten(c), tenth(d), lg2(e) {}
 };
 
-static const cl_RA tenth = (cl_RA)"1/10";
-static const cl_SF SF_zero = cl_RA_to_SF(0);
-static const cl_SF SF_one = cl_RA_to_SF(1);
-static const cl_SF SF_ten = cl_RA_to_SF(10);
-static const cl_SF SF_tenth = cl_RA_to_SF(tenth);
-static const cl_FF FF_zero = cl_RA_to_FF(0);
-static const cl_FF FF_one = cl_RA_to_FF(1);
-static const cl_FF FF_ten = cl_RA_to_FF(10);
-static const cl_FF FF_tenth = cl_RA_to_FF(tenth);
-static const cl_DF DF_zero = cl_RA_to_DF(0);
-static const cl_DF DF_one = cl_RA_to_DF(1);
-static const cl_DF DF_ten = cl_RA_to_DF(10);
-static const cl_DF DF_tenth = cl_RA_to_DF(tenth);
-static const cl_SF SF_lg2 = (cl_SF)"0.30103";
-static const cl_DF DF_lg2 = (cl_DF)"0.30102999566";
-
 static const float_format_params get_float_params (const cl_F& arg)
 {
+	static const cl_RA tenth = (cl_RA)"1/10";
+	static const cl_SF SF_zero = cl_RA_to_SF(0);
+	static const cl_SF SF_one = cl_RA_to_SF(1);
+	static const cl_SF SF_ten = cl_RA_to_SF(10);
+	static const cl_SF SF_tenth = cl_RA_to_SF(tenth);
+	static const cl_FF FF_zero = cl_RA_to_FF(0);
+	static const cl_FF FF_one = cl_RA_to_FF(1);
+	static const cl_FF FF_ten = cl_RA_to_FF(10);
+	static const cl_FF FF_tenth = cl_RA_to_FF(tenth);
+	static const cl_DF DF_zero = cl_RA_to_DF(0);
+	static const cl_DF DF_one = cl_RA_to_DF(1);
+	static const cl_DF DF_ten = cl_RA_to_DF(10);
+	static const cl_DF DF_tenth = cl_RA_to_DF(tenth);
+	static const cl_SF SF_lg2 = (cl_SF)"0.30103";
+	static const cl_DF DF_lg2 = (cl_DF)"0.30102999566";
+
 	floattypecase(arg
 	,	return float_format_params(SF_zero,SF_one,SF_ten,SF_tenth,SF_lg2);
 	,	return float_format_params(FF_zero,FF_one,FF_ten,FF_tenth,SF_lg2);
@@ -115,4 +113,3 @@ const decoded_float format_scale_exponent (const cl_F& arg)
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_fmt_scaleexp)

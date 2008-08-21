@@ -52,7 +52,6 @@ extern void format_integer (std::ostream& stream, const cl_I& arg, unsigned int 
 // arg = mantissa * 10^n * sign (also 10^(n-1) <= abs(arg) < 10^n ).
 // (Bei arg=0.0: 0.0 und n=0.)
 extern const decoded_float format_scale_exponent (const cl_F& arg);
-CL_REQUIRE(cl_fmt_scaleexp)
 
 // format_float_to_string(arg,width,d,k,dmin)
 // ergibt einen String zum Floating-point arg:
@@ -70,7 +69,6 @@ struct digits_with_dot {
 		: string(s), length(l), dot_comes_first(df), dot_comes_last(dl), dot_position(dp) {}
 };
 extern const digits_with_dot format_float_to_string (const cl_F& arg, const sintL width, const sintL d, const sintL k, const sintL dmin);
-CL_REQUIRE(cl_fmt_floatstring)
 
 }  // namespace cln
 
