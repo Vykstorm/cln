@@ -3,8 +3,6 @@
 // General includes.
 #include "cl_sysdep.h"
 
-CL_PROVIDE(cl_C_ring)
-
 // Specification.
 #include "cln/complex_ring.h"
 
@@ -144,19 +142,34 @@ static void cl_complex_ring_dprint (cl_heap* pointer)
 	fprint(cl_debugout, "(cl_complex_ring) cl_C_ring");
 }
 
-cl_class cl_class_complex_ring = {
-	cl_complex_ring_destructor,
-	cl_class_flags_number_ring,
-	cl_complex_ring_dprint
-};
+cl_class cl_class_complex_ring;
+static cl_heap_complex_ring* cl_heap_complex_ring_instance;
+const cl_complex_ring cl_C_ring = cl_C_ring;
 
 // Constructor.
 template <>
 inline cl_complex_ring::cl_specialized_number_ring ()
-	: cl_number_ring (new cl_heap_complex_ring()) {}
+	: cl_number_ring(cl_heap_complex_ring_instance) { }
 
-const cl_complex_ring cl_C_ring;
+int cl_C_ring_init_helper::count = 0;
+
+cl_C_ring_init_helper::cl_C_ring_init_helper()
+{
+	if (count++ == 0) {
+		cl_class_complex_ring.destruct = cl_complex_ring_destructor;
+		cl_class_complex_ring.flags = cl_class_flags_number_ring;
+		cl_class_complex_ring.dprint = cl_complex_ring_dprint;
+		cl_heap_complex_ring_instance = new cl_heap_complex_ring();
+		new ((void *)&cl_C_ring) cl_complex_ring();
+	}
+}
+
+cl_C_ring_init_helper::~cl_C_ring_init_helper()
+{
+	if (--count == 0) {
+		delete cl_heap_complex_ring_instance;
+	}
+}
 
 }  // namespace cln
 
-CL_PROVIDE_END(cl_C_ring)

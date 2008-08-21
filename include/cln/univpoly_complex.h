@@ -223,8 +223,6 @@ inline const cl_UP_N deriv (const cl_UP_N& x)
 
 #endif
 
-CL_REQUIRE(cl_C_ring)
-
 }  // namespace cln
 
 #endif /* _CL_UNIVPOLY_COMPLEX_H */
