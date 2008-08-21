@@ -556,7 +556,6 @@ extern const cl_F signum (const cl_F& x);
 
 // Returns the largest (most positive) floating point number in float format f.
 extern const cl_F most_positive_float (float_format_t f);
-//CL_REQUIRE(cl_F_mostpos)
 
 // Returns the smallest (most negative) floating point number in float format f.
 extern const cl_F most_negative_float (float_format_t f);
