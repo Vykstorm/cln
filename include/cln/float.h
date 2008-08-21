@@ -563,7 +563,6 @@ extern const cl_F most_negative_float (float_format_t f);
 // Returns the least positive floating point number (i.e. > 0 but closest to 0)
 // in float format f.
 extern const cl_F least_positive_float (float_format_t f);
-//CL_REQUIRE(cl_F_leastpos)
 
 // Returns the least negative floating point number (i.e. < 0 but closest to 0)
 // in float format f.
