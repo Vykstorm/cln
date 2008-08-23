@@ -7,7 +7,9 @@
 #include <cstring>
 #include <cln/timing.h>
 #include "float/lfloat/cl_LF.h"
+#include <iostream>
 using namespace cln;
+using namespace std;
 
 int main (int argc, char * argv[])
 {

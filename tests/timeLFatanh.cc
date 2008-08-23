@@ -11,6 +11,8 @@
 #include <cstring>
 #include <cln/timing.h>
 using namespace cln;
+#include <iostream>
+using namespace std;
 
 int main (int argc, char * argv[])
 {

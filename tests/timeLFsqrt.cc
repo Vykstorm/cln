@@ -9,7 +9,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
+#include <iostream>
 using namespace cln;
+using namespace std;
 
 int main (int argc, char * argv[])
 {

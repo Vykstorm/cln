@@ -11,6 +11,9 @@
 //#include <cln/modinteger.h>
 //#include <cln/numtheory.h>
 #include <cln/timing.h>
+using namespace cln;
+#include <iostream>
+using namespace std;
 
 #define DUMP(expr)  \
 	fprint(cout, #expr" = "); fprint(cout, expr); fprint(cout, "\n");
