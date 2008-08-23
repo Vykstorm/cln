@@ -41,11 +41,11 @@ d
 dnl
 dnl           checks for programs
 dnl
-CL_PROG_CC
+AC_PROG_CC
                       dnl sets variable CC
 AC_PROG_CPP
                       dnl sets variable CPP
-CL_PROG_CXX
+AC_PROG_CXX
                       dnl sets variable CXX
 AC_PROG_CXXCPP
                       dnl sets variable CXXCPP
