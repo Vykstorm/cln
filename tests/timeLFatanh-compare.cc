@@ -2,7 +2,7 @@
 #include <cln/io.h>
 #include <cln/float.h>
 #include <cln/lfloat.h>
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 #include <cln/complex.h>
 #include <cln/real.h>
 #include <cln/random.h>

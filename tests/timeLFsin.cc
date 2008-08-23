@@ -3,7 +3,7 @@
 #include <cln/float.h>
 #include <cln/float_io.h>
 #include <cln/lfloat.h>
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 #include <cln/real.h>
 #include <cln/random.h>
 #include <cstdlib>

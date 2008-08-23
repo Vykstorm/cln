@@ -16,7 +16,7 @@ CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
-INCLUDES = -I../include -I${top_srcdir}/include -I${srcdir} -I${top_srcdir}/src -I${top_srcdir}/src/base -I${top_srcdir}/src/float -I${top_srcdir}/src/float/lfloat -I${top_srcdir}/src/integer -I${top_srcdir}/src/base/random -I${top_srcdir}/src/base/digitseq -I${top_srcdir}/src/base/digit -I../src/base -I${top_srcdir}/src/base
+INCLUDES = -I../include -I${top_srcdir}/include -I${srcdir} -I${top_srcdir}/src -I$(top_builddir)/src
 override CPPFLAGS += ${INCLUDES}
 LIBTOOL = @LIBTOOL@
 LIBTOOL_LINK = ${LIBTOOL} --mode=link

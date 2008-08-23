@@ -2,7 +2,7 @@
 #include <cln/io.h>
 #include <cln/integer.h>
 #include <cln/random.h>
-#include "cl_I.h"
+#include "integer/cl_I.h"
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>

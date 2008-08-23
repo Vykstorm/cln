@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 using namespace cln;
 
 int main (int argc, char * argv[])

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "cl_macros.h"
+#include "base/cl_macros.h"
 
 extern int test_MI_canonhom (int iterations);
 extern int test_MI_plus (int iterations);

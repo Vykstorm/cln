@@ -1,10 +1,10 @@
 #include <cln/number.h>
 #include <cln/io.h>
 #include <cln/integer.h>
-#include "cl_DS.h"
-#include "cl_2DS.h"
+#include "base/digitseq/cl_DS.h"
+#include "base/digitseq/cl_2DS.h"
 #include <cln/random.h>
-#include "cl_random_impl.h"
+#include "base/random/cl_random_impl.h"
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
