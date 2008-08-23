@@ -26,6 +26,6 @@ AC_TRY_COMPILE([
   ], , cl_cv_c_longdouble=yes, cl_cv_c_longdouble=no)])
 ])
 if test $cl_cv_c_longdouble = yes; then
-  AC_DEFINE(HAVE_LONGDOUBLE)
+  AC_DEFINE(HAVE_LONGDOUBLE, ,[Define if compiler supports long double type])
 fi
 ])

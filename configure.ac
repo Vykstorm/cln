@@ -1,44 +1,35 @@
-dnl  AUTOCONF configuration for CLN
-dnl
-dnl  configure.ac ---<autoconf>--->> configure
-dnl
-dnl  configure    ---<sh>--->> config.status
-dnl                      --->> include/cln/config.h
-dnl        cln-config.in --->> cln-config
-dnl          Makefile.in --->> Makefile
-dnl      src/Makefile.in --->> src/Makefile
-dnl
-dnl  Makefile   ---<make>--->> libcln.a
-dnl
-dnl
-AC_INIT(src/integer/gcd/cl_I_gcd.cc)
-AC_CONFIG_AUX_DIR(autoconf)
-AC_CONFIG_HEADER(include/cln/config.h include/cln/version.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/timing/cl_t_config.h)
-AC_PROG_MAKE_SET
-dnl This piece of sed script replaces every line containing '@subdir@'
-dnl by several consecutive lines, each referencing one subdir.
-extrasub="$extrasub"'
-/@subdir@/{
-h
-g
-s/@subdir@/src/
-p
-g
-s/@subdir@/tests/
-p
-g
-s/@subdir@/benchmarks/
-p
-g
-s/@subdir@/examples/
-p
-g
-s/@subdir@/doc/
-p
-d
-}
-'
-dnl
+dnl run autoreconf -iv to produce the configure script.
+
+m4_define([cl_version_major], [1])
+m4_define([cl_version_minor], [2])
+m4_define([cl_version_patchlevel], [2])
+m4_define([cl_version], [cl_version_major.cl_version_minor.cl_version_patchlevel])
+
+dnl Libtool's library version information for CLN.
+dnl (Not to be confused with CLN's release version.)
+dnl Making new releases:
+dnl * increment CL_REVISION,
+dnl * if any functions/classes have been added, removed or changed, increment
+dnl   CL_CURRENT and set CL_REVISION to 0,
+dnl * if any functions/classes have been added, increment CL_AGE,
+dnl * if backwards compatibility has been broken, set CL_AGE to 0.
+dnl $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) results in
+dnl libcln.so.$(CL_CURRENT)-$(CL_AGE)
+m4_define([cl_current], [6])
+m4_define([cl_revision], [0])
+m4_define([cl_age], [0])
+m4_define([cl_lt_version], [cl_current:cl_revision:cl_age])
+
+AC_INIT([cln], cln_version)
+AC_PREREQ(2.59)
+AC_CONFIG_SRCDIR(src/integer/gcd/cl_I_gcd.cc)
+AC_CONFIG_AUX_DIR([autoconf])
+AC_CONFIG_HEADERS(include/cln/config.h include/cln/host_cpu.h include/cln/version.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/timing/cl_t_config.h)
+AM_INIT_AUTOMAKE([foreign 1.8 dist-bzip2])
+AH_TOP([#ifdef _CL_CONFIG_H])
+AH_TOP([#include "cln/host_cpu.h"])
+AH_BOTTOM([#endif /* _CL_CONFIG_H */])
+
 dnl           checks for programs
 dnl
 AC_PROG_CC
@@ -53,8 +44,6 @@ CL_AS_UNDERSCORE
                       dnl sets variable AS_UNDERSCORE, DEFS ASM_UNDERSCORE
 CL_AS_NOEXECSTACK
                       dnl sets variable ASMFLAGS
-AC_PROG_RANLIB
-                      dnl sets variable RANLIB
 AC_PROG_INSTALL
                       dnl sets variables INSTALL, INSTALL_DATA, INSTALL_PROGRAM
 dnl
@@ -64,11 +53,6 @@ CL_CANONICAL_HOST(autoconf)
                       dnl sets variables host, host_cpu, host_vendor, host_os
 CL_CANONICAL_HOST_CPU
                       dnl DEFS __${host_cpu}__
-dnl
-dnl           check for build configuration
-dnl
-PACKAGE=cln
-                      dnl libtool wants PACKAGE
 case $host_os in
     *mingw*)
      AC_DISABLE_SHARED
@@ -81,40 +65,25 @@ esac
 AC_PROG_LIBTOOL
                       dnl sets variable LIBTOOL
 
-dnl Libtool's library version information for CLN.
-dnl (Not to be confused with CLN's release version.)
-dnl Making new releases:
-dnl * increment CL_REVISION,
-dnl * if any functions/classes have been added, removed or changed, increment
-dnl   CL_CURRENT and set CL_REVISION to 0,
-dnl * if any functions/classes have been added, increment CL_AGE,
-dnl * if backwards compatibility has been broken, set CL_AGE to 0.
-dnl $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) results in
-dnl libcln.so.$(CL_CURRENT)-$(CL_AGE)
-CL_CURRENT=6
-CL_REVISION=0
-CL_AGE=0
-dnl make substitutions
-AC_SUBST(CL_CURRENT)
-AC_SUBST(CL_REVISION)
-AC_SUBST(CL_AGE)
+LT_VERSION_INFO=cl_lt_version
+AC_SUBST(LT_VERSION_INFO)
+
 dnl release version
-CL_VERSION_MAJOR=1
-CL_VERSION_MINOR=2
-CL_VERSION_PATCHLEVEL=2
+CL_VERSION_MAJOR=cl_version_major
+CL_VERSION_MINOR=cl_version_minor
+CL_VERSION_PATCHLEVEL=cl_version_patchlevel
 dnl release version for cln/config.h, so it can be tested by the preprocessor
-AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR)
-AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR)
-AC_DEFINE_UNQUOTED(CL_VERSION_PATCHLEVEL, $CL_VERSION_PATCHLEVEL)
+AC_DEFINE_UNQUOTED(CL_VERSION_MAJOR, $CL_VERSION_MAJOR, [Major version number of CLN])
+AC_DEFINE_UNQUOTED(CL_VERSION_MINOR, $CL_VERSION_MINOR, [Minor version number of CLN])
+AC_DEFINE_UNQUOTED(CL_VERSION_PATCHLEVEL, $CL_VERSION_PATCHLEVEL, [Patchlevel version number of CLN])
 dnl concatenated release version
-CL_VERSION=$CL_VERSION_MAJOR.$CL_VERSION_MINOR.$CL_VERSION_PATCHLEVEL
-AC_DEFINE_UNQUOTED(CL_VERSION, $CL_VERSION)
+CL_VERSION=cl_version
+AC_DEFINE_UNQUOTED(CL_VERSION, $CL_VERSION, [CLN release number])
 AC_SUBST(CL_VERSION)
 
-dnl
 dnl           checks for compiler characteristics
 dnl
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 dnl
 CL_LONGLONG
                       dnl DEFS HAVE_LONGLONG
@@ -166,14 +135,4 @@ CL_LIBGMP
 dnl
 dnl           That's it.
 dnl
-for f in 'tests/.gdbinit'; do
-  if test '!' -f "$f"; then
-    echo "creating $f"
-changequote(,)dnl
-    g=`echo "$f" | sed -e 's,/[^/]*$,,'`
-changequote([,])dnl
-    test "$g" = "$f" || test -d "$g" || mkdir "$g"
-    cp "$srcdir/$f" "$f"
-  fi
-done
-AC_OUTPUT([Makefile src/Makefile tests/Makefile benchmarks/Makefile examples/Makefile doc/Makefile cln.spec cln.pc])
+AC_OUTPUT([Makefile src/Makefile tests/Makefile examples/Makefile doc/Makefile cln.spec cln.pc])

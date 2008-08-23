@@ -81,7 +81,7 @@ case $with_gmp in
       CL_GMP_CHECK
       if test "$cl_cv_new_libgmp" = yes; then
         CL_GMP_SET_UINTD
-        AC_DEFINE(CL_USE_GMP)
+        AC_DEFINE(CL_USE_GMP, 1, [Define if GNU MP library is available])
       else
         AC_MSG_WARN([The GNU MP library is too old to be used.])
       fi
