@@ -1,7 +1,7 @@
 // random_R().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_R.h"
-#include "cl_RA.h"
+#include "real/cl_R.h"
+#include "rational/cl_RA.h"
 #include "cln/io.h"
 #include "cln/real_io.h"
 #include "cln/exception.h"

@@ -1,7 +1,7 @@
 // print_rational().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational_io.h"
@@ -12,7 +12,7 @@
 #include "cln/output.h"
 #include "cln/integer_io.h"
 #include "cln/rational.h"
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 
 namespace cln {
 

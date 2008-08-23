@@ -1,7 +1,7 @@
 // binary operator -
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/lfloat.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

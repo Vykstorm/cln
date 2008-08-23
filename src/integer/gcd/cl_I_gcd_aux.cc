@@ -1,16 +1,16 @@
 // partial_gcd().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.
 
 #include "cln/integer.h"
-#include "cl_D.h"
+#include "base/digit/cl_D.h"
 
 namespace cln {
 

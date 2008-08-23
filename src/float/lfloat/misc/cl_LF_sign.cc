@@ -1,7 +1,7 @@
 // float_sign().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/lfloat.h"
@@ -9,11 +9,11 @@
 
 // Implementation.
 
-#include "cl_LF.h"
-#include "cl_LF_impl.h"
+#include "float/lfloat/cl_LF.h"
+#include "float/lfloat/cl_LF_impl.h"
 
-#include "cl_inline.h"
-#include "cl_LF_minusp.cc"
+#include "base/cl_inline.h"
+#include "float/lfloat/elem/cl_LF_minusp.cc"
 
 namespace cln {
 

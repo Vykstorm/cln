@@ -1,20 +1,20 @@
 // cl_LF_shortenrelative().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 
 // Implementation.
 
 #include "cln/exception.h"
 
-#include "cl_inline2.h"
-#include "cl_LF_precision.cc"
-#include "cl_inline.h"
-#include "cl_LF_exponent.cc"
+#include "base/cl_inline2.h"
+#include "float/lfloat/misc/cl_LF_precision.cc"
+#include "base/cl_inline.h"
+#include "float/lfloat/misc/cl_LF_exponent.cc"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // cl_R_As().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_N.h"
+#include "base/cl_N.h"
 
 namespace cln {
 

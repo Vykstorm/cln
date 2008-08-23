@@ -1,16 +1,16 @@
 // cl_C_recip().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_C.h"
+#include "complex/cl_C.h"
 
 
 // Implementation.
 
 #include "cln/ffloat.h"
-#include "cl_FF.h"
+#include "float/ffloat/cl_FF.h"
 
 namespace cln {
 

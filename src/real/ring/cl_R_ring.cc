@@ -1,7 +1,7 @@
 // Ring of real numbers.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real_ring.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/real.h"
-#include "cl_R.h"
+#include "real/cl_R.h"
 #include "cln/io.h"
 #include "cln/real_io.h"
 

@@ -1,14 +1,14 @@
 // print_vector().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/SV_complex.h"
 #include "cln/SV_real.h"
 #include "cln/SV_rational.h"
 #include "cln/SV_integer.h"
-#include "cl_SV_io.h"
+#include "vector/cl_SV_io.h"
 
 
 // Implementation.

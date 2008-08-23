@@ -1,10 +1,10 @@
 // UQ_to_I() helper.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.
@@ -13,7 +13,7 @@
 
 #ifdef intQsize
 
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

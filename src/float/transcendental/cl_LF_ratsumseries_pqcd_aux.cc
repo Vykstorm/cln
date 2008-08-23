@@ -1,10 +1,10 @@
 // eval_pqcd_series_aux().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_LF_tran.h"
+#include "float/transcendental/cl_LF_tran.h"
 
 
 // Implementation.

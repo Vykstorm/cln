@@ -3,7 +3,7 @@
 // It does not pull in all the rational number code.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer_io.h"
@@ -15,7 +15,7 @@
 #include <sstream>
 #include "cln/input.h"
 #include "cln/integer.h"
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

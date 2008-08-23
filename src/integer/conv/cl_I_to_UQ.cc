@@ -1,10 +1,10 @@
 // cl_I_to_UQ().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.
@@ -12,7 +12,7 @@
 #ifdef intQsize
 
 #include "cln/number.h"
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 #include "cln/io.h"
 #include "cln/integer_io.h"
 #include "cln/exception.h"

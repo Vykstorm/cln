@@ -1,14 +1,14 @@
 // cl_string concatenation.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/string.h"
 
 
 // Implementation.
-#include "cl_st_make0.h"
+#include "base/string/cl_st_make0.h"
 
 namespace cln {
 

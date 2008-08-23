@@ -1,16 +1,16 @@
 // LF_LF_minus_LF().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 
 // Implementation.
 
-#include "cl_LF_impl.h"
-#include "cl_DS.h"
+#include "float/lfloat/cl_LF_impl.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // plusp().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"
@@ -9,13 +9,13 @@
 
 // Implementation.
 
-#include "cl_F.h"
+#include "float/cl_F.h"
 
-#include "cl_inline2.h"
-#include "cl_SF_plusp.cc"
-#include "cl_FF_plusp.cc"
-#include "cl_DF_plusp.cc"
-#include "cl_LF_plusp.cc"
+#include "base/cl_inline2.h"
+#include "float/sfloat/elem/cl_SF_plusp.cc"
+#include "float/ffloat/elem/cl_FF_plusp.cc"
+#include "float/dfloat/elem/cl_DF_plusp.cc"
+#include "float/lfloat/elem/cl_LF_plusp.cc"
 
 namespace cln {
 

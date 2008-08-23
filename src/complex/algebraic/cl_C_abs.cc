@@ -1,7 +1,7 @@
 // abs().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex.h"
@@ -9,11 +9,11 @@
 
 // Implementation.
 
-#include "cl_C.h"
+#include "complex/cl_C.h"
 #include "cln/real.h"
 
-#include "cl_inline.h"
-#include "cl_C_abs_aux.cc"
+#include "base/cl_inline.h"
+#include "complex/algebraic/cl_C_abs_aux.cc"
 
 namespace cln {
 

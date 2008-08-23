@@ -1,10 +1,10 @@
 // cl_double_to_DF_pointer().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_DF.h"
+#include "float/dfloat/cl_DF.h"
 
 
 // Implementation.

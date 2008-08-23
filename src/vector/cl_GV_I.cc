@@ -1,7 +1,7 @@
 // cl_make_heap_GV_I().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/GV_integer.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_DS.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
 #include "cln/exception.h"
-#include "cl_offsetof.h"
+#include "base/cl_offsetof.h"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // rationalize().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,12 +9,12 @@
 
 // Implementation.
 
-#include "cl_R.h"
+#include "real/cl_R.h"
 #include "cln/float.h"
 #include "cln/rational.h"
 #include "cln/integer.h"
-#include "cl_RA.h"
-#include "cl_I.h"
+#include "rational/cl_RA.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

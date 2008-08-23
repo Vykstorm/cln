@@ -9,7 +9,7 @@
 #include "cln/ffloat_class.h"
 #include "cln/dfloat_class.h"
 #include "cln/lfloat_class.h"
-#include "cl_macros.h"
+#include "base/cl_macros.h"
 #include "cln/malloc.h"
 
 namespace cln {

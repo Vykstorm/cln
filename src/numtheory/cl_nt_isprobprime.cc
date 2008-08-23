@@ -1,7 +1,7 @@
 // isprobprime().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/numtheory.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_IF.h"
+#include "numtheory/cl_IF.h"
 #include "cln/integer_io.h"
 #include "cln/exception.h"
 #include <sstream>

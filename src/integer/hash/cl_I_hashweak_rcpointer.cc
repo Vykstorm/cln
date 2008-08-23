@@ -1,16 +1,16 @@
 // class cl_wht_from_integer_to_rcpointer.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I_hashweak_rcpointer.h"
+#include "integer/hash/cl_I_hashweak_rcpointer.h"
 
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_hash1weak.h"
+#include "integer/cl_I.h"
+#include "base/hash/cl_hash1weak.h"
 
 namespace cln {
 

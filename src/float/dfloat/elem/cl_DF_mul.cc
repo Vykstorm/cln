@@ -1,7 +1,7 @@
 // binary operator *
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/dfloat.h"
@@ -9,13 +9,13 @@
 
 // Implementation.
 
-#include "cl_DF.h"
-#include "cl_F.h"
-#include "cl_low.h"
-#include "cl_DS.h"
+#include "float/dfloat/cl_DF.h"
+#include "float/cl_F.h"
+#include "base/cl_low.h"
+#include "base/digitseq/cl_DS.h"
 
-#include "cl_inline.h"
-#include "cl_DF_zerop.cc"
+#include "base/cl_inline.h"
+#include "float/dfloat/elem/cl_DF_zerop.cc"
 
 namespace cln {
 

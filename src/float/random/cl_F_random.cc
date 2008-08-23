@@ -1,7 +1,7 @@
 // random_F().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_random_impl.h"
-#include "cl_DS.h"
-#include "cl_I.h"
+#include "base/random/cl_random_impl.h"
+#include "base/digitseq/cl_DS.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

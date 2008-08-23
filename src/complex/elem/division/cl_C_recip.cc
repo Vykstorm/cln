@@ -1,7 +1,7 @@
 // recip().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex.h"
@@ -9,16 +9,16 @@
 
 // Implementation.
 
-#include "cl_C.h"
+#include "complex/cl_C.h"
 #include "cln/real.h"
-#include "cl_R.h"
+#include "real/cl_R.h"
 #include "cln/rational.h"
-#include "cl_RA.h"
-#include "cl_F.h"
-#include "cl_SF.h"
-#include "cl_FF.h"
-#include "cl_DF.h"
-#include "cl_LF.h"
+#include "rational/cl_RA.h"
+#include "float/cl_F.h"
+#include "float/sfloat/cl_SF.h"
+#include "float/ffloat/cl_FF.h"
+#include "float/dfloat/cl_DF.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

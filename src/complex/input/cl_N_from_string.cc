@@ -1,7 +1,7 @@
 // cl_N (const char *) constructor.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex_class.h"

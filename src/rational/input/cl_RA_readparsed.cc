@@ -1,7 +1,7 @@
 // read_rational().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational_io.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_RA.h"
-#include "cl_I.h"
-#include "cl_N.h"
+#include "rational/cl_RA.h"
+#include "integer/cl_I.h"
+#include "base/cl_N.h"
 
 namespace cln {
 

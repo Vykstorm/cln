@@ -1,7 +1,7 @@
 // as_exception().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/exception.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/io.h"
-#include "cl_N.h"
+#include "base/cl_N.h"
 #include <sstream>
 
 namespace cln {

@@ -1,7 +1,7 @@
 // cached_power().
 
 // Specification.
-#include "cl_I_cached_power.h"
+#include "integer/conv/cl_I_cached_power.h"
 
 
 // Implementation.

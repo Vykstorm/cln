@@ -1,7 +1,7 @@
 // plusp().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"
@@ -11,7 +11,7 @@
 
 #define minusp inline_minusp
 #define zerop inline_zerop
-#include "cl_I.h"
+#include "integer/cl_I.h"
 #undef zerop
 #undef minusp
 

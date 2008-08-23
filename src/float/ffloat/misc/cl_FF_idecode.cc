@@ -1,7 +1,7 @@
 // integer_decode_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/ffloat.h"
@@ -9,14 +9,14 @@
 
 // Implementation.
 
-#include "cl_FF.h"
-#include "cl_I.h"
+#include "float/ffloat/cl_FF.h"
+#include "integer/cl_I.h"
 
 #if defined(__mips__) && !defined(__GNUC__)
 
 // Workaround SGI Irix 6.2 C++ 7.0 bug.
 
-#include "cl_F.h"
+#include "float/cl_F.h"
 #include "dfloat/cl_DF.h"
 
 namespace cln {

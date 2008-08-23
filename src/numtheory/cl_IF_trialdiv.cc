@@ -1,15 +1,15 @@
 // cl_trialdivision().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_IF.h"
+#include "numtheory/cl_IF.h"
 
 
 // Implementation.
 
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 #if !(intDsize >= 16)
 #error "intDsize too small for trialdivision!"

@@ -4,7 +4,7 @@
 // function code.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational_io.h"
@@ -17,7 +17,7 @@
 #include "cln/input.h"
 #include "cln/integer.h"
 #include "cln/integer_io.h"
-#include "cl_I.h"
+#include "integer/cl_I.h"
 #include "cln/exception.h"
 
 namespace cln {

@@ -1,7 +1,7 @@
 // Global variables in CLN
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"

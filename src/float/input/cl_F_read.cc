@@ -3,7 +3,7 @@
 // It does not pull in all the generic real number code.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float_io.h"
@@ -14,8 +14,8 @@
 #include <cstring>
 #include "cln/input.h"
 #include "cln/integer.h"
-#include "cl_I.h"
-#include "cl_F.h"
+#include "integer/cl_I.h"
+#include "float/cl_F.h"
 
 #undef floor
 #include <cmath>

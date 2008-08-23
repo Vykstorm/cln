@@ -6,7 +6,7 @@
 #include "cln/integer.h"
 #include "cln/integer_ring.h"
 #include "cln/lfloat.h"
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

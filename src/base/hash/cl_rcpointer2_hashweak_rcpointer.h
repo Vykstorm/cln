@@ -5,7 +5,7 @@
 
 #include "cln/object.h"
 
-#include "cl_hash2weak.h"
+#include "base/hash/cl_hash2weak.h"
 
 namespace cln {
 

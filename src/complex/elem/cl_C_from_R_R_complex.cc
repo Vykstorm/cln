@@ -1,10 +1,10 @@
 // complex_C().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_C.h"
+#include "complex/cl_C.h"
 
 
 // Implementation.

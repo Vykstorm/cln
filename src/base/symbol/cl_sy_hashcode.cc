@@ -1,7 +1,7 @@
 // cln/symbol.hashcode().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/symbol.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_offsetof.h"
+#include "base/cl_offsetof.h"
 
 namespace cln {
 

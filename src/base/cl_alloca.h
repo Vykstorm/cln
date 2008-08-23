@@ -3,7 +3,7 @@
 #ifndef _CL_ALLOCA_H
 #define _CL_ALLOCA_H
 
-#include "cl_macros.h"
+#include "base/cl_macros.h"
 #include <cstdlib>
 
 namespace cln {

@@ -1,7 +1,7 @@
 // Ring of complex numbers.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex_ring.h"
@@ -11,7 +11,7 @@
 
 #include "cln/complex.h"
 #include "cln/complex_io.h"
-#include "cl_C.h"
+#include "complex/cl_C.h"
 
 namespace cln {
 

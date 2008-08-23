@@ -1,17 +1,17 @@
 // format_integer().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_format.h"
+#include "real/format-output/cl_format.h"
 
 
 // Implementation.
 
 #include "cln/integer_io.h"
 #include <cstring>
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

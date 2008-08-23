@@ -1,7 +1,7 @@
 // scale_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"
@@ -13,7 +13,7 @@
 #include "cln/ffloat.h"
 #include "cln/dfloat.h"
 #include "cln/lfloat.h"
-#include "cl_F.h"
+#include "float/cl_F.h"
 
 namespace cln {
 

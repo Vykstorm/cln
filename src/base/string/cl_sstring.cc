@@ -1,10 +1,10 @@
 // cl_sstring().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_sstring.h"
+#include "base/string/cl_sstring.h"
 
 
 // Implementation.

@@ -1,16 +1,16 @@
 // NDS_to_I().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.
 
 #include "cln/number.h"
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

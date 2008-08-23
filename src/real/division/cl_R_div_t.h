@@ -4,7 +4,7 @@
 #define _CL_R_DIV_T_H
 
 #include "cln/real.h"
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #include "cln/float.h"
 
 namespace cln {

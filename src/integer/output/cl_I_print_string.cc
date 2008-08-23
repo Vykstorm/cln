@@ -1,7 +1,7 @@
 // print_integer_to_string().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer_io.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_DS.h"
-#include "cl_sstring.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
+#include "base/string/cl_sstring.h"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // Word level random number generator.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/random.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_low.h"
+#include "base/cl_low.h"
 
 namespace cln {
 

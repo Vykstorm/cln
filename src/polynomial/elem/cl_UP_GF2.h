@@ -3,7 +3,7 @@
 #include "cln/GV_modinteger.h"
 #include "cln/modinteger.h"
 #include "cln/GV_integer.h"
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 #include "cln/exception.h"
 
 namespace cln {

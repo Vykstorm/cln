@@ -1,7 +1,7 @@
 // ftruncate2().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_R.h"
-#include "cl_R_div_t.h"
+#include "real/cl_R.h"
+#include "real/division/cl_R_div_t.h"
 
 namespace cln {
 

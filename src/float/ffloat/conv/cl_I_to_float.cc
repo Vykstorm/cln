@@ -1,7 +1,7 @@
 // float_approx().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_FF.h"
-#include "cl_I.h"
-#include "cl_DS.h"
-#include "cl_F.h"
+#include "float/ffloat/cl_FF.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
+#include "float/cl_F.h"
 
 namespace cln {
 

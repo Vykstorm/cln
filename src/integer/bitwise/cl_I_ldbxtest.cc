@@ -1,17 +1,17 @@
 // ldb_extract_test().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I_byte.h"
+#include "integer/bitwise/cl_I_byte.h"
 
 
 // Implementation.
 
 #include "cln/integer.h"
-#include "cl_I.h"
-#include "cl_DS.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

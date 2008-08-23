@@ -4,8 +4,8 @@
 #define _CL_I_LOG_H
 
 #include "cln/number.h"
-#include "cl_I.h"
-#include "cl_DS.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

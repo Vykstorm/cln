@@ -3,7 +3,7 @@
 #ifndef _CL_DS_ENDIAN_H
 #define _CL_DS_ENDIAN_H
 
-#include "cl_gmpconfig.h"
+#include "base/cl_gmpconfig.h"
 
 // Set this to 1 for big-endian digit ordering in memory,
 // set this to 0 for little-endian digit ordering in memory.

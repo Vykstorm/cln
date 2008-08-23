@@ -1,7 +1,7 @@
 // sinh().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_F_tran.h"
-#include "cl_F.h"
+#include "float/transcendental/cl_F_tran.h"
+#include "float/cl_F.h"
 #include "cln/lfloat.h"
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

@@ -27,7 +27,7 @@ CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
 CXXCPP = @CXXCPP@
-INCLUDES = -I../include -I${top_srcdir}/include
+INCLUDES = -I$(top_srcdir)/src -I$(top_builddir)/src -I../include -I${top_srcdir}/include
 override CPPFLAGS += ${INCLUDES}
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
@@ -72,9 +72,6 @@ SUBDIR = .
 aux_srcdir = @srcdir@
 VPATH = ${aux_srcdir}/${SUBDIR}
 
-# Add subdirectory specific flags.
-include ${srcdir}/${SUBDIR}/Makeflags
-override CPPFLAGS += ${SUBDIR_INCLUDES}
 
 # Need to know the system name.
 SYSTEM := $(shell uname -s)

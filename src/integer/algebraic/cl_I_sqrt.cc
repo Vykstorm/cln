@@ -1,7 +1,7 @@
 // isqrt().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"
@@ -13,8 +13,8 @@
 #include "cln/io.h"
 #include "cln/integer_io.h"
 #include "cln/exception.h"
-#include "cl_I.h"
-#include "cl_DS.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
 #include <sstream>
 
 namespace cln {

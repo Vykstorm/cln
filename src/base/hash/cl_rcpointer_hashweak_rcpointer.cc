@@ -1,15 +1,15 @@
 // class cl_wht_from_rcpointer_to_rcpointer.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_rcpointer_hashweak_rcpointer.h"
+#include "base/hash/cl_rcpointer_hashweak_rcpointer.h"
 
 
 // Implementation.
 
-#include "cl_hash1weak.h"
+#include "base/hash/cl_hash1weak.h"
 
 namespace cln {
 

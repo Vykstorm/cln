@@ -1,3 +1,0 @@
-# This file contains additional flags for the main Makefile.
-
-SUBDIR_INCLUDES = -I$(srcdir)/rational -I$(srcdir)/integer -I$(srcdir)/base/digitseq -I$(srcdir)/base/digit -Ibase -I$(srcdir)/base

@@ -1,7 +1,7 @@
 // print_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float_io.h"
@@ -30,15 +30,15 @@
 
 #include <cstring>
 #include "cln/output.h"
-#include "cl_sstring.h"
+#include "base/string/cl_sstring.h"
 #include "cln/float.h"
-#include "cl_F.h"
-#include "cl_LF.h"
-#include "cl_F_tran.h"
+#include "float/cl_F.h"
+#include "float/lfloat/cl_LF.h"
+#include "float/transcendental/cl_F_tran.h"
 #include "cln/rational.h"
 #include "cln/integer.h"
 #include "cln/integer_io.h"
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

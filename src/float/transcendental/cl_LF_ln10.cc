@@ -1,16 +1,16 @@
 // cl_ln10().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_F_tran.h"
+#include "float/transcendental/cl_F_tran.h"
 
 
 // Implementation.
 
 #include "cln/lfloat.h"
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

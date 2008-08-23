@@ -1,16 +1,16 @@
 // class cl_ht_from_integer_to_rcobject.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I_hash_rcobject.h"
+#include "integer/hash/cl_I_hash_rcobject.h"
 
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_hash1.h"
+#include "integer/cl_I.h"
+#include "base/hash/cl_hash1.h"
 
 namespace cln {
 

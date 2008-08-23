@@ -1,7 +1,7 @@
 // float_precision().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/dfloat.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_DF.h"
+#include "float/dfloat/cl_DF.h"
 
-#include "cl_inline.h"
-#include "cl_DF_zerop.cc"
+#include "base/cl_inline.h"
+#include "float/dfloat/elem/cl_DF_zerop.cc"
 
 namespace cln {
 

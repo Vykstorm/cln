@@ -3,7 +3,7 @@
 // It does not pull in all the complex function code.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real_io.h"
@@ -18,8 +18,8 @@
 #include "cln/integer_io.h"
 #include "cln/float_io.h"
 #include "cln/integer.h"
-#include "cl_I.h"
-#include "cl_F.h"
+#include "integer/cl_I.h"
+#include "float/cl_F.h"
 #include "cln/exception.h"
 
 #undef floor

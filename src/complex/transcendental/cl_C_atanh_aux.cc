@@ -1,22 +1,22 @@
 // atanh().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_C.h"
+#include "complex/cl_C.h"
 
 
 // Implementation.
 
-#include "cl_N.h"
+#include "base/cl_N.h"
 #include "cln/real.h"
-#include "cl_F_tran.h"
-#include "cl_R.h"
+#include "float/transcendental/cl_F_tran.h"
+#include "real/cl_R.h"
 
 /* Use the inline version of cl_float */
-#include "cl_inline.h"
-#include "cl_F_from_R_def.cc"
+#include "base/cl_inline.h"
+#include "real/conv/cl_F_from_R_def.cc"
 
 namespace cln {
 

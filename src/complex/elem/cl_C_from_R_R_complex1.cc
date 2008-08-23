@@ -1,15 +1,15 @@
 // complex().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_C.h"
+#include "complex/cl_C.h"
 
 
 // Implementation.
 
-#include "cl_R.h"
+#include "real/cl_R.h"
 
 namespace cln {
 

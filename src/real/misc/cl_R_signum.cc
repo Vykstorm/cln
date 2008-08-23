@@ -1,7 +1,7 @@
 // signum().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,18 +9,18 @@
 
 // Implementation.
 
-#include "cl_R.h"
+#include "real/cl_R.h"
 
 /* use inline versions of zerop */
-#include "cl_inline.h"
-#include "cl_I_signum.cc"
-#include "cl_RA_signum.cc"
+#include "base/cl_inline.h"
+#include "integer/misc/cl_I_signum.cc"
+#include "rational/misc/cl_RA_signum.cc"
 /* use inline versions of signum */
-#include "cl_inline2.h"
-#include "cl_SF_signum.cc"
-#include "cl_FF_signum.cc"
-#include "cl_DF_signum.cc"
-#include "cl_LF_signum.cc"
+#include "base/cl_inline2.h"
+#include "float/sfloat/misc/cl_SF_signum.cc"
+#include "float/ffloat/misc/cl_FF_signum.cc"
+#include "float/dfloat/misc/cl_DF_signum.cc"
+#include "float/lfloat/misc/cl_LF_signum.cc"
 
 namespace cln {
 

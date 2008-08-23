@@ -1,7 +1,7 @@
 // acos().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex.h"
@@ -9,11 +9,11 @@
 
 // Implementation.
 
-#include "cl_C.h"
+#include "complex/cl_C.h"
 #include "cln/real.h"
-#include "cl_R.h"
+#include "real/cl_R.h"
 #include "cln/rational.h"
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #include "cln/float.h"
 
 namespace cln {

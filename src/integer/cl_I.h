@@ -5,11 +5,11 @@
 
 #include "cln/number.h"
 #include "cln/integer.h"
-#include "cl_macros.h"
+#include "base/cl_macros.h"
 #include "cln/malloc.h"
 #include "cln/exception.h"
-#include "cl_offsetof.h"
-#include "cl_DS.h"
+#include "base/cl_offsetof.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

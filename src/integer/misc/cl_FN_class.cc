@@ -1,7 +1,7 @@
 // cl_class_fixnum.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"

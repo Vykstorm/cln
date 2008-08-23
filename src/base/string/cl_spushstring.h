@@ -5,7 +5,7 @@
 
 #include "cln/object.h"
 #include "cln/malloc.h"
-#include "cl_sstring.h"
+#include "base/string/cl_sstring.h"
 #include "cln/exception.h"
 
 namespace cln {

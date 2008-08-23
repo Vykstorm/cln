@@ -1,7 +1,7 @@
 // logp().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_RA.h"
-#include "cl_xmacros.h"
+#include "integer/cl_I.h"
+#include "rational/cl_RA.h"
+#include "base/cl_xmacros.h"
 
 namespace cln {
 

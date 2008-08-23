@@ -1,7 +1,7 @@
 // print_real().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real_io.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/real.h"
-#include "cl_R.h"
+#include "real/cl_R.h"
 #include "cln/rational_io.h"
 #include "cln/float_io.h"
 

@@ -1,24 +1,24 @@
 // expx().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_F_tran.h"
+#include "float/transcendental/cl_F_tran.h"
 
 
 // Implementation.
 
 #include "cln/float.h"
-#include "cl_low.h"
-#include "cl_F.h"
+#include "base/cl_low.h"
+#include "float/cl_F.h"
 #include "cln/lfloat.h"
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 #include "cln/integer.h"
 
-#include "cl_inline.h"
-#include "cl_LF_zerop.cc"
-#include "cl_LF_exponent.cc"
+#include "base/cl_inline.h"
+#include "float/lfloat/elem/cl_LF_zerop.cc"
+#include "float/lfloat/misc/cl_LF_exponent.cc"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // truncate2().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/dfloat.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_DF.h"
+#include "float/dfloat/cl_DF.h"
 
 namespace cln {
 

@@ -1,16 +1,16 @@
 // cl_DF_to_I().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_DF.h"
+#include "float/dfloat/cl_DF.h"
 
 
 // Implementation.
 
 #include "cln/integer.h"
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

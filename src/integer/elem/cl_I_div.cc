@@ -1,10 +1,10 @@
 // cl_divide().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.

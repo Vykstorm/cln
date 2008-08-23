@@ -1,7 +1,7 @@
 // cl_make_heap_string().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/string.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/malloc.h"
-#include "cl_offsetof.h"
+#include "base/cl_offsetof.h"
 
 namespace cln {
 

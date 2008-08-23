@@ -1,16 +1,16 @@
 // I_to_DS_n_aux().
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I_log.h"
+#include "integer/bitwise/cl_I_log.h"
 
 
 // Implementation.
 
 #include "cln/number.h"
-#include "cl_I.h"
-#include "cl_DS.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

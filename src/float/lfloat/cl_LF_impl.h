@@ -4,10 +4,10 @@
 #define _CL_LF_IMPL_H
 
 #include "cln/number.h"
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 #include "cln/malloc.h"
-#include "cl_offsetof.h"
-#include "cl_DS.h"
+#include "base/cl_offsetof.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

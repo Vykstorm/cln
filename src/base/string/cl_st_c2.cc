@@ -1,7 +1,7 @@
 // constructor cl_string (const char * s).
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/string.h"

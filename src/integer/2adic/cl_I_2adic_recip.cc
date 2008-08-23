@@ -1,7 +1,7 @@
 // cl_recip2adic().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_DS.h"
-#include "cl_2DS.h"
-#include "cl_I_log.h"
+#include "base/digitseq/cl_DS.h"
+#include "base/digitseq/cl_2DS.h"
+#include "integer/bitwise/cl_I_log.h"
 
 namespace cln {
 

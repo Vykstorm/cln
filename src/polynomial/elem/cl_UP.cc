@@ -1,13 +1,13 @@
 // Univariate Polynomial operations.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #define CL_GV_NO_RANGECHECKS
 #define CL_SV_NO_RANGECHECKS
 #include "cln/univpoly.h"
-#include "cl_UP.h"
+#include "polynomial/cl_UP.h"
 
 
 // Implementation.

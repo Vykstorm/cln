@@ -1,3 +1,0 @@
-# This file contains additional flags for the main Makefile.
-
-SUBDIR_INCLUDES = -I$(srcdir)/float/sfloat -I$(srcdir)/float -I$(srcdir)/base

@@ -1,7 +1,7 @@
 // cl_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_R.h"
+#include "real/cl_R.h"
 
 #if 0
 
@@ -30,8 +30,8 @@ const cl_F cl_float (const cl_R& x, const cl_F& y)
 
 #else // less type dispatch overhead
 
-#include "cl_F.h"
-#include "cl_LF.h"
+#include "float/cl_F.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

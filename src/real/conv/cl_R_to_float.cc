@@ -1,7 +1,7 @@
 // cl_R_to_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_R.h"
-#include "cl_F.h"
+#include "real/cl_R.h"
+#include "float/cl_F.h"
 #include "cln/integer.h"
 #include "cln/rational.h"
 #include "cln/float.h"
@@ -38,8 +38,8 @@ float float_approx (const cl_R& x)
 
 #else // fully inlined, faster
 
-#include "cl_RA.h"
-#include "cl_I.h"
+#include "rational/cl_RA.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

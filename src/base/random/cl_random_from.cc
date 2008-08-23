@@ -6,7 +6,7 @@
 #endif
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/random.h"
@@ -14,8 +14,8 @@
 
 // Implementation.
 
-#include "cl_base_config.h"
-#include "cl_low.h"
+#include "base/cl_base_config.h"
+#include "base/cl_low.h"
 #include <cstdlib>  // declares rand()
 
 #if defined(unix) || defined(__unix) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(_AIX) || defined(sinix) || (defined(__MACH__) && defined(__APPLE__)) || (defined(__CYGWIN__) && defined(__GNUC__)) || defined(__BEOS__)

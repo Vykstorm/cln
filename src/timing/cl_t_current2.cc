@@ -1,7 +1,7 @@
 // cl_current_time_consumption().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/timing.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_t_config.h"
+#include "timing/cl_t_config.h"
 
 #if defined(HAVE_GETRUSAGE)
   #include <sys/types.h>

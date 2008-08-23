@@ -1,10 +1,10 @@
 // expt_pos().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_2D.h"
+#include "base/digit/cl_2D.h"
 
 
 // Implementation.

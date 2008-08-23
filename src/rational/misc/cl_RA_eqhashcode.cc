@@ -1,7 +1,7 @@
 // cl_RA equal_hashcode().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_N.h"
-#include "cl_RA.h"
-#include "cl_inline.h"
-#include "cl_I_eqhashcode.cc"
+#include "base/cl_N.h"
+#include "rational/cl_RA.h"
+#include "base/cl_inline.h"
+#include "integer/misc/cl_I_eqhashcode.cc"
 
 namespace cln {
 

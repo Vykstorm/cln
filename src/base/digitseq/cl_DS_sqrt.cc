@@ -1,15 +1,15 @@
 // cl_UDS_sqrt().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 
 
 // Implementation.
 
-#include "cl_low.h"
+#include "base/cl_low.h"
 #include "cln/exception.h"
 
 namespace cln {

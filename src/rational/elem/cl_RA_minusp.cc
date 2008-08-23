@@ -1,7 +1,7 @@
 // minusp().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #define minusp minusp_inline
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #undef minusp
 
 namespace cln {

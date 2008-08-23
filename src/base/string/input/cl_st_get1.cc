@@ -1,7 +1,7 @@
 // cl_fget().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/string.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/io.h"
-#include "cl_spushstring.h"
+#include "base/string/cl_spushstring.h"
 
 namespace cln {
 

@@ -1,4 +1,0 @@
-# This file contains additional flags for the main Makefile.
-
-include $(srcdir)/base/Makeflags
-SUBDIR_INCLUDES += -I$(srcdir)/base/string

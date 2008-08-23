@@ -1,16 +1,16 @@
 // cl_alloc_alloca_header(), cl_free_alloca_header().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_alloca.h"
+#include "base/cl_alloca.h"
 
 
 // Implementation.
 
 #include "cln/malloc.h"
-#include "cl_offsetof.h"
+#include "base/cl_offsetof.h"
 
 namespace cln {
 

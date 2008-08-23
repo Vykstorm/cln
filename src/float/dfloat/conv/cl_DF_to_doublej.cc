@@ -1,10 +1,10 @@
 // cl_DF_to_double().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_DF.h"
+#include "float/dfloat/cl_DF.h"
 
 
 // Implementation.

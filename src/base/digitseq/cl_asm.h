@@ -1,7 +1,7 @@
 // Includes the CPU specific cl_asm_*.h file.
 
 #include "cln/config.h"
-#include "cl_DS_endian.h"
+#include "base/digitseq/cl_DS_endian.h"
 
 #ifndef NO_ASM
 

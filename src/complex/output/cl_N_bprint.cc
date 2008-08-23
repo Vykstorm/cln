@@ -1,7 +1,7 @@
 // print_complex().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex_io.h"
@@ -11,7 +11,7 @@
 
 #include "cln/output.h"
 #include "cln/complex.h"
-#include "cl_C.h"
+#include "complex/cl_C.h"
 #include "cln/real_io.h"
 
 namespace cln {

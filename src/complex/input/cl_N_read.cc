@@ -1,7 +1,7 @@
 // read_complex().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex_io.h"
@@ -17,9 +17,9 @@
 #include "cln/rational_io.h"
 #include "cln/integer_io.h"
 #include "cln/integer.h"
-#include "cl_I.h"
-#include "cl_F.h"
-#include "cl_C.h"
+#include "integer/cl_I.h"
+#include "float/cl_F.h"
+#include "complex/cl_C.h"
 #include "cln/exception.h"
 
 #undef floor

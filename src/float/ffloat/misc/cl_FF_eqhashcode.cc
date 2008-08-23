@@ -1,7 +1,7 @@
 // cl_FF equal_hashcode().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/ffloat.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_N.h"
-#include "cl_FF.h"
+#include "base/cl_N.h"
+#include "float/ffloat/cl_FF.h"
 
 namespace cln {
 

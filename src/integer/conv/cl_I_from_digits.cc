@@ -1,16 +1,16 @@
 // digits_to_I().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.
 
-#include "cl_DS.h"
-#include "cl_I_cached_power.h"
+#include "base/digitseq/cl_DS.h"
+#include "integer/conv/cl_I_cached_power.h"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // operator>> on cl_MI.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/modinteger.h"
@@ -11,7 +11,7 @@
 
 #include "cln/integer.h"
 #include "cln/exception.h"
-#include "cl_MI.h"
+#include "modinteger/cl_MI.h"
 
 namespace cln {
 

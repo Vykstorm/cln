@@ -1,7 +1,7 @@
 // zerop().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -10,17 +10,17 @@
 // Implementation.
 
 #define zerop zerop_inline
-#include "cl_R.h"
-#include "cl_RA.h"
-#include "cl_I.h"
+#include "real/cl_R.h"
+#include "rational/cl_RA.h"
+#include "integer/cl_I.h"
 #undef zerop
-#include "cl_F.h"
+#include "float/cl_F.h"
 
-#include "cl_inline.h"
-#include "cl_SF_zerop.cc"
-#include "cl_FF_zerop.cc"
-#include "cl_DF_zerop.cc"
-#include "cl_LF_zerop.cc"
+#include "base/cl_inline.h"
+#include "float/sfloat/elem/cl_SF_zerop.cc"
+#include "float/ffloat/elem/cl_FF_zerop.cc"
+#include "float/dfloat/elem/cl_DF_zerop.cc"
+#include "float/lfloat/elem/cl_LF_zerop.cc"
 
 namespace cln {
 

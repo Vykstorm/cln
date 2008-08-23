@@ -1,7 +1,7 @@
 // cl_SF_to_double().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/sfloat.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_SF.h"
-#include "cl_DF.h"
+#include "float/sfloat/cl_SF.h"
+#include "float/dfloat/cl_DF.h"
 
 namespace cln {
 

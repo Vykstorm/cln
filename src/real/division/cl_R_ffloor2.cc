@@ -1,7 +1,7 @@
 // ffloor2().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,14 +9,14 @@
 
 // Implementation.
 
-#include "cl_R.h"
-#include "cl_R_div_t.h"
+#include "real/cl_R.h"
+#include "real/division/cl_R_div_t.h"
 
 #if 0 // 2 type dispatches
 
 #include "cln/rational.h"
 #include "cln/float.h"
-#include "cl_R_div_t.h"
+#include "real/division/cl_R_div_t.h"
 
 namespace cln {
 
@@ -38,13 +38,13 @@ const cl_R_fdiv_t ffloor2 (const cl_R& x)
 
 #else // 1 type dispatch
 
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #include "cln/integer.h"
 #include "cln/sfloat.h"
 #include "cln/ffloat.h"
 #include "cln/dfloat.h"
 #include "cln/lfloat.h"
-#include "cl_LF.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

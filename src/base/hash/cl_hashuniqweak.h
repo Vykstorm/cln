@@ -3,7 +3,7 @@
 #ifndef _CL_HASHUNIQWEAK_H
 #define _CL_HASHUNIQWEAK_H
 
-#include "cl_hashuniq.h"
+#include "base/hash/cl_hashuniq.h"
 
 namespace cln {
 

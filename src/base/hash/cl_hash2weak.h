@@ -3,7 +3,7 @@
 #ifndef _CL_HASH2WEAK_H
 #define _CL_HASH2WEAK_H
 
-#include "cl_hash2.h"
+#include "base/hash/cl_hash2.h"
 
 namespace cln {
 

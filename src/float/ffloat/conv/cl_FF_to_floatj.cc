@@ -1,10 +1,10 @@
 // cl_FF_to_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_FF.h"
+#include "float/ffloat/cl_FF.h"
 
 namespace cln {
 

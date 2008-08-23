@@ -1,7 +1,7 @@
 // compare().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/sfloat.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_inline.h"
-#include "cl_SF_minusp.cc"
+#include "base/cl_inline.h"
+#include "float/sfloat/elem/cl_SF_minusp.cc"
 
 namespace cln {
 

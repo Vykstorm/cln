@@ -1,10 +1,10 @@
 // eval_rational_series<bool>().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_LF_tran.h"
+#include "float/transcendental/cl_LF_tran.h"
 
 
 // Implementation.
@@ -13,8 +13,8 @@
 #include "cln/integer.h"
 #include "cln/real.h"
 #include "cln/exception.h"
-#include "cl_LF.h"
-#include "cl_alloca.h"
+#include "float/lfloat/cl_LF.h"
+#include "base/cl_alloca.h"
 
 namespace cln {
 

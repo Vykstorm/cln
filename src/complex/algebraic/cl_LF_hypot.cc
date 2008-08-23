@@ -1,21 +1,21 @@
 // cl_hypot().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_C.h"
+#include "complex/cl_C.h"
 
 
 // Implementation.
 
 #include "cln/lfloat.h"
-#include "cl_LF.h"
-#include "cl_LF_impl.h"
+#include "float/lfloat/cl_LF.h"
+#include "float/lfloat/cl_LF_impl.h"
 
 /* For inline version of minusp */
-#include "cl_inline.h"
-#include "cl_LF_minusp.cc"
+#include "base/cl_inline.h"
+#include "float/lfloat/elem/cl_LF_minusp.cc"
 
 namespace cln {
 

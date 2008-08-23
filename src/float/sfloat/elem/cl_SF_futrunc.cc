@@ -1,10 +1,10 @@
 // futruncate().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_SF.h"
+#include "float/sfloat/cl_SF.h"
 
 
 // Implementation.

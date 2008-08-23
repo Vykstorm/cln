@@ -1,7 +1,7 @@
 // signum().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"
@@ -9,14 +9,14 @@
 
 // Implementation.
 
-#include "cl_F.h"
+#include "float/cl_F.h"
 
 /* Use inline versions of signum(cl_{SF,FF,DF,LF}) functions */
-#include "cl_inline2.h"
-#include "cl_SF_signum.cc"
-#include "cl_FF_signum.cc"
-#include "cl_DF_signum.cc"
-#include "cl_LF_signum.cc"
+#include "base/cl_inline2.h"
+#include "float/sfloat/misc/cl_SF_signum.cc"
+#include "float/ffloat/misc/cl_FF_signum.cc"
+#include "float/dfloat/misc/cl_DF_signum.cc"
+#include "float/lfloat/misc/cl_LF_signum.cc"
 
 namespace cln {
 

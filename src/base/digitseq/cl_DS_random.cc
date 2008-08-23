@@ -1,17 +1,17 @@
 // Digit sequence level random number generator.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_random_impl.h"
+#include "base/random/cl_random_impl.h"
 
 
 // Implementation.
 
 #include "cln/random.h"
-#include "cl_DS.h"
-#include "cl_low.h"
+#include "base/digitseq/cl_DS.h"
+#include "base/cl_low.h"
 
 namespace cln {
 

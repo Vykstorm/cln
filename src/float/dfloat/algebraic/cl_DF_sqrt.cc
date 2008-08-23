@@ -1,7 +1,7 @@
 // sqrt().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/dfloat.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_DF.h"
-#include "cl_F.h"
-#include "cl_low.h"
-#include "cl_DS.h"
+#include "float/dfloat/cl_DF.h"
+#include "float/cl_F.h"
+#include "base/cl_low.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

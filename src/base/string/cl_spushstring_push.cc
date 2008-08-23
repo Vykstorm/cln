@@ -1,10 +1,10 @@
 // class cl_spushstring.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_spushstring.h"
+#include "base/string/cl_spushstring.h"
 
 
 // Implementation.

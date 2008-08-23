@@ -1,15 +1,15 @@
 // cl_I_prod_ungerade().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I_combin.h"
+#include "integer/misc/combin/cl_I_combin.h"
 
 
 // Implementation.
 
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

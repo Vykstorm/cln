@@ -1,7 +1,7 @@
 // cl_I equal_hashcode().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_N.h"
-#include "cl_I.h"
+#include "base/cl_N.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

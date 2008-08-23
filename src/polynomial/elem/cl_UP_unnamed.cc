@@ -1,7 +1,7 @@
 // find_univpoly_ring().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/univpoly.h"
@@ -9,13 +9,13 @@
 
 // Implementation.
 
-#include "cl_UP.h"
+#include "polynomial/cl_UP.h"
 
 // The table of univariate polynomial rings without named variable.
 // A weak hash table cl_ring -> cl_univpoly_ring.
 // (It could also be a weak hashuniq table cl_ring -> cl_univpoly_ring.)
 
-#include "cl_rcpointer_hashweak_rcpointer.h"
+#include "base/hash/cl_rcpointer_hashweak_rcpointer.h"
 
 namespace cln {
 

@@ -1,4 +1,0 @@
-# This file contains additional flags for the main Makefile.
-
-include $(srcdir)/float/ffloat/Makeflags
-SUBDIR_INCLUDES += 

@@ -1,10 +1,10 @@
 // format_float_to_string().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_format.h"
+#include "real/format-output/cl_format.h"
 
 
 // Implementation.
@@ -16,8 +16,8 @@
 #include "cln/malloc.h"
 #include "cln/float.h"
 #include "cln/integer.h"
-#include "cl_I.h"
-#include "cl_spushstring.h"
+#include "integer/cl_I.h"
+#include "base/string/cl_spushstring.h"
 
 namespace cln {
 

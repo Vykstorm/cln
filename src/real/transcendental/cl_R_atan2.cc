@@ -1,7 +1,7 @@
 // atan().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -10,9 +10,9 @@
 // Implementation.
 
 #include "cln/float.h"
-#include "cl_F_tran.h"
-#include "cl_N.h"
-#include "cl_R.h"
+#include "float/transcendental/cl_F_tran.h"
+#include "base/cl_N.h"
+#include "real/cl_R.h"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // phase().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/complex.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_C.h"
+#include "complex/cl_C.h"
 #include "cln/real.h"
 
 namespace cln {

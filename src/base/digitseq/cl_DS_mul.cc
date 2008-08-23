@@ -1,15 +1,15 @@
 // cl_UDS_mul().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 
 
 // Implementation.
 
-#include "cl_low.h"
+#include "base/cl_low.h"
 #include "cln/malloc.h"
 #include "cln/exception.h"
 
@@ -124,7 +124,7 @@ namespace cln {
 // Karatsuba-multiplication: O(n^(log 3 / log 2))
   static void mulu_karatsuba_square (const uintD* sourceptr, uintC len,
                                      uintD* destptr);
-#include "cl_DS_mul_kara.h"
+#include "base/digitseq/cl_DS_mul_kara.h"
   // karatsuba_threshold = length, from which on Karatsuba-multiplication is a
   // gain and will be preferred.  The break-even point is determined from
   // timings.  The test is (progn (time (! 5000)) nil), which does many small
@@ -169,7 +169,7 @@ namespace cln {
 #if 0 // Doesn't seem to be worth the effort
 
 // FFT-Multiplikation nach Nussbaumer: O(n log n log log n)
-#include "cl_DS_mul_nuss.h"
+#include "base/digitseq/cl_DS_mul_nuss.h"
   // nuss_threshold = Länge, ab der die Nussbaumer-Multiplikation bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter Linux mit einem 80486:
@@ -183,7 +183,7 @@ namespace cln {
   int cl_nuss_threshold = 1000000;
 
 // FFT-Multiplikation in Z/pZ: O(n log n log log n)
-#include "cl_DS_mul_fftp.h"
+#include "base/digitseq/cl_DS_mul_fftp.h"
   // fftp_threshold = Länge, ab der die FFT-Multiplikation mod p bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter Linux mit einem 80486:
@@ -198,7 +198,7 @@ namespace cln {
 
 // FFT-Multiplikation in Z/pZ: O(n log n log log n)
 // für drei verschiedene Primzahlen p1,p2,p3 < 2^32.
-#include "cl_DS_mul_fftp3.h"
+#include "base/digitseq/cl_DS_mul_fftp3.h"
   // fftp3_threshold = Länge, ab der die FFT-Multiplikation mod p_i bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter Linux mit einem 80486:
@@ -215,7 +215,7 @@ namespace cln {
 // FFT-Multiplikation in Z/pZ: O(n log n log log n)
 // für drei verschiedene Primzahlen p1,p2,p3 < 2^32,
 // mit Montgomery-Multiplikation.
-#include "cl_DS_mul_fftp3m.h"
+#include "base/digitseq/cl_DS_mul_fftp3m.h"
   // fftp3_threshold = Länge, ab der die FFT-Multiplikation mod p_i bevorzugt
   // wird. Der Break-Even-Point bestimmt sich aus Zeitmessungen.
   // Multiplikation zweier N-Wort-Zahlen unter
@@ -244,7 +244,7 @@ namespace cln {
 #endif
 
 // FFT-Multiplikation in Z/pZ: O(n^1.29)
-#include "cl_DS_mul_fftm.h"
+#include "base/digitseq/cl_DS_mul_fftm.h"
   // fftm_threshold = length, from which on FFT multiplication mod m is a gain
   // and will be preferred.  The break-even point is determined from timings.
   // The times to multiply two N-limb numbers are:
@@ -376,7 +376,7 @@ namespace cln {
 #if 0 // Doesn't seem to be worth the effort
 
 // FFT-Multiplikation über den komplexen Zahlen.
-#include "cl_DS_mul_fftc.h"
+#include "base/digitseq/cl_DS_mul_fftc.h"
   // Multiplikation zweier N-Wort-Zahlen unter
   //  Linux mit einem i486 33 MHz
   //    N     kara/fftm  fftc   fftclong
@@ -402,7 +402,7 @@ namespace cln {
   //  25000      2.3     (15MB)
 
 // FFT-Multiplikation über den komplexen Zahlen, Symmetrie ausnutzend.
-#include "cl_DS_mul_fftcs.h"
+#include "base/digitseq/cl_DS_mul_fftcs.h"
   // Multiplikation zweier N-Wort-Zahlen unter
   //  Linux mit einem i486 33 MHz
   //    N     kara/fftm  fftcs  fftcslong
@@ -445,7 +445,7 @@ namespace cln {
 #if 0 // Keine gute Fehlerabschätzung
 
 // FFT-Multiplikation über den komplexen Zahlen, mit reellen Zahlen rechnend.
-#include "cl_DS_mul_fftr.h"
+#include "base/digitseq/cl_DS_mul_fftr.h"
   // Multiplikation zweier N-Wort-Zahlen unter
   //  Linux mit einem i486 33 MHz
   //    N     kara/fftm  fftr   fftrlong

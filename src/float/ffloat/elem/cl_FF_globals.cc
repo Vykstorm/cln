@@ -1,11 +1,11 @@
 // Global variables for cl_FF.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/ffloat_class.h"
-#include "cl_FF.h"
+#include "float/ffloat/cl_FF.h"
 
 
 // Implementation.

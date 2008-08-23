@@ -1,7 +1,7 @@
 // gcd().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer.h"
@@ -9,10 +9,10 @@
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_DS.h"
-#include "cl_D.h"
-#include "cl_xmacros.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
+#include "base/digit/cl_D.h"
+#include "base/cl_xmacros.h"
 
 namespace cln {
 

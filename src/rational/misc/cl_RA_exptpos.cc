@@ -1,7 +1,7 @@
 // expt_pos().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational.h"
@@ -9,7 +9,7 @@
 
 // Implementation.
 
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #include "cln/integer.h"
 
 namespace cln {

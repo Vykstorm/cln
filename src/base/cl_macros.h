@@ -265,6 +265,6 @@ public:									\
 // it's a shame!)
 #define init1(type,lvalue)  (void) new (&(lvalue)) type
 
-#include "cl_maybe_inline.h"
+#include "base/cl_maybe_inline.h"
 
 #endif /* _CL_MACROS_H */

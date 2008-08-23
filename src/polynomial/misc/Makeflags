@@ -1,4 +1,0 @@
-# This file contains additional flags for the main Makefile.
-
-include $(srcdir)/polynomial/Makeflags
-SUBDIR_INCLUDES += 

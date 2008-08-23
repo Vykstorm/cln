@@ -1,7 +1,7 @@
 // decode_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/sfloat.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_SF.h"
-#include "cl_I.h"
+#include "float/sfloat/cl_SF.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

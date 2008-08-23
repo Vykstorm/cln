@@ -1,7 +1,7 @@
 // cl_F_to_LF().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/float.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_F.h"
-#include "cl_LF.h"
+#include "float/cl_F.h"
+#include "float/lfloat/cl_LF.h"
 
 namespace cln {
 

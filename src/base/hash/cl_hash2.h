@@ -3,8 +3,8 @@
 #ifndef _CL_HASH2_H
 #define _CL_HASH2_H
 
-#include "cl_hash.h"
-#include "cl_iterator.h"
+#include "base/hash/cl_hash.h"
+#include "base/cl_iterator.h"
 
 namespace cln {
 

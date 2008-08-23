@@ -5,12 +5,12 @@
 
 #include "cln/number.h"
 #include "cln/malloc.h"
-#include "cl_low.h"
-#include "cl_F.h"
+#include "base/cl_low.h"
+#include "float/cl_F.h"
 
 #ifdef FAST_FLOAT
-#include "cl_N.h"
-#include "cl_F.h"
+#include "base/cl_N.h"
+#include "float/cl_F.h"
 #endif
 
 namespace cln {

@@ -1,15 +1,15 @@
 // I_I_to_RA().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 
 
 // Implementation.
 
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

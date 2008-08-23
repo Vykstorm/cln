@@ -4,10 +4,10 @@
 #define _CL_DS_H
 
 #include "cln/types.h"
-#include "cl_gmpconfig.h"
-#include "cl_D.h"
-#include "cl_DS_endian.h"
-#include "cl_alloca.h"
+#include "base/cl_gmpconfig.h"
+#include "base/digit/cl_D.h"
+#include "base/digitseq/cl_DS_endian.h"
+#include "base/cl_alloca.h"
 
 namespace cln {
 
@@ -104,7 +104,7 @@ struct DS {
 
 
 // See which functions are defined as external functions.
-#include "cl_asm.h"
+#include "base/digitseq/cl_asm.h"
 
 
 // Declare the external functions.
@@ -360,7 +360,7 @@ extern void shiftxor_loop_up (uintD* xptr, const uintD* yptr, uintC count, uintC
 #include <gmp.h>
 // Argh, gmp.h includes <stddef.h> which erases the definition of offsetof
 // that we have provided in cl_offsetof.h. Restore it.
-#include "cl_offsetof.h"
+#include "base/cl_offsetof.h"
 
 namespace cln {
 

@@ -1,16 +1,16 @@
 // recip2adic().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_2DS.h"
+#include "base/digitseq/cl_2DS.h"
 
 
 // Implementation.
 
-#include "cl_2D.h"
-#include "cl_DS.h"
+#include "base/digit/cl_2D.h"
+#include "base/digitseq/cl_DS.h"
 
 // Break-even point of the Newton iteration vs. standard div2adic.
 #if CL_USE_GMP

@@ -1,7 +1,7 @@
 // cl_F_to_LF().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_R.h"
-#include "cl_F.h"
-#include "cl_LF.h"
+#include "real/cl_R.h"
+#include "float/cl_F.h"
+#include "float/lfloat/cl_LF.h"
 
 #if 0
 
@@ -32,8 +32,8 @@ const cl_LF cl_R_to_LF (const cl_R& x, uintC len)
 
 #else // fully inlined, faster
 
-#include "cl_RA.h"
-#include "cl_I.h"
+#include "rational/cl_RA.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

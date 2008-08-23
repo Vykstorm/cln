@@ -1,22 +1,22 @@
 // Modular integer operations.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/modinteger.h"
 
 // Implementation.
 
-#include "cl_I.h"
-#include "cl_DS.h"
-#include "cl_2DS.h"
+#include "integer/cl_I.h"
+#include "base/digitseq/cl_DS.h"
+#include "base/digitseq/cl_2DS.h"
 #include "cln/io.h"
 #include "cln/integer_io.h"
-#include "cl_N.h"
-#include "cl_MI.h"
+#include "base/cl_N.h"
+#include "modinteger/cl_MI.h"
 #include "cln/exception.h"
-#include "cl_alloca.h"
+#include "base/cl_alloca.h"
 
 // MacOS X does "#define _R 0x00040000L"
 // Grr...
@@ -62,19 +62,19 @@ static bool modint_equal (cl_heap_modint_ring* R, const _cl_MI& x, const _cl_MI&
 }
 
 }  // namespace cln
-#include "cl_MI_int.h"
-#include "cl_MI_std.h"
-#include "cl_MI_fix16.h"
+#include "modinteger/cl_MI_int.h"
+#include "modinteger/cl_MI_std.h"
+#include "modinteger/cl_MI_fix16.h"
 #if (cl_value_len <= 32)
-#include "cl_MI_fix29.h"
-#include "cl_MI_int32.h"
+#include "modinteger/cl_MI_fix29.h"
+#include "modinteger/cl_MI_int32.h"
 #else
-#include "cl_MI_fix32.h"
+#include "modinteger/cl_MI_fix32.h"
 #endif
-#include "cl_MI_pow2.h"
-#include "cl_MI_pow2m1.h"
-#include "cl_MI_pow2p1.h"
-#include "cl_MI_montgom.h"
+#include "modinteger/cl_MI_pow2.h"
+#include "modinteger/cl_MI_pow2m1.h"
+#include "modinteger/cl_MI_pow2p1.h"
+#include "modinteger/cl_MI_montgom.h"
 namespace cln {
 
 
@@ -127,7 +127,7 @@ static inline cl_heap_modint_ring* make_modint_ring (const cl_I& m) // m >= 0
 // (It could also be a weak hashuniq table cl_I -> cl_modint_ring.)
 
 }  // namespace cln
-#include "cl_I_hashweak_rcpointer.h"
+#include "integer/hash/cl_I_hashweak_rcpointer.h"
 namespace cln {
 
 // An entry can be collected when the value (the ring) isn't referenced any more

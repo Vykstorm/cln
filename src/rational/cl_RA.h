@@ -5,9 +5,9 @@
 
 #include "cln/number.h"
 #include "cln/rational.h"
-#include "cl_macros.h"
+#include "base/cl_macros.h"
 #include "cln/malloc.h"
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 namespace cln {
 

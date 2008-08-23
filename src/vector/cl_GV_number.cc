@@ -1,7 +1,7 @@
 // cl_make_heap_GV_number().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/GV_number.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/exception.h"
-#include "cl_offsetof.h"
+#include "base/cl_offsetof.h"
 
 namespace cln {
 

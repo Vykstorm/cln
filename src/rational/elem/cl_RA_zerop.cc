@@ -1,7 +1,7 @@
 // zerop().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #define zerop inline_zerop
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #undef zerop
 
 namespace cln {

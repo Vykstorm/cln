@@ -1,19 +1,19 @@
 // UDS_to_I().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_I.h"
+#include "integer/cl_I.h"
 
 
 // Implementation.
 
 #include "cln/number.h"
-#include "cl_DS.h"
+#include "base/digitseq/cl_DS.h"
 
-#include "cl_inline.h"
-#include "cl_I_from_NDS.cc"
+#include "base/cl_inline.h"
+#include "integer/conv/cl_I_from_NDS.cc"
 
 namespace cln {
 

@@ -1,18 +1,18 @@
 // cl_LF_to_DF().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_F.h"
+#include "float/cl_F.h"
 
 
 // Implementation.
 
-#include "cl_LF.h"
-#include "cl_LF_impl.h"
-#include "cl_DF.h"
-#include "cl_DS.h"
+#include "float/lfloat/cl_LF.h"
+#include "float/lfloat/cl_LF_impl.h"
+#include "float/dfloat/cl_DF.h"
+#include "base/digitseq/cl_DS.h"
 
 namespace cln {
 

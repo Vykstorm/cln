@@ -1,7 +1,7 @@
 // jacobi().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/numtheory.h"
@@ -10,7 +10,7 @@
 // Implementation.
 
 #include "cln/exception.h"
-#include "cl_xmacros.h"
+#include "base/cl_xmacros.h"
 
 namespace cln {
 

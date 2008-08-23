@@ -1,10 +1,10 @@
 // cl_notify_composite().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
-#include "cl_MI.h"
+#include "modinteger/cl_MI.h"
 
 
 // Implementation.

@@ -1,7 +1,7 @@
 // cl_float().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,9 +9,9 @@
 
 // Implementation.
 
-#include "cl_R.h"
+#include "real/cl_R.h"
 #include "cln/float.h"
-#include "cl_F.h"
+#include "float/cl_F.h"
 
 namespace cln {
 

@@ -1,7 +1,7 @@
 // Ring of rational numbers.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/rational_ring.h"
@@ -12,7 +12,7 @@
 #include "cln/rational.h"
 #include "cln/rational_io.h"
 #define zerop zerop_inline
-#include "cl_RA.h"
+#include "rational/cl_RA.h"
 #undef zerop
 
 namespace cln {

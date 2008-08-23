@@ -5,7 +5,7 @@
 
 #include "cln/number.h"
 #include "cln/integer.h"
-#include "cl_hash1.h"
+#include "base/hash/cl_hash1.h"
 
 namespace cln {
 

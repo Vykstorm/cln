@@ -1,7 +1,7 @@
 // ftruncate().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_R.h"
-#include "cl_RA.h"
+#include "real/cl_R.h"
+#include "rational/cl_RA.h"
 #include "cln/integer.h"
 #include "cln/sfloat.h"
 #include "cln/ffloat.h"

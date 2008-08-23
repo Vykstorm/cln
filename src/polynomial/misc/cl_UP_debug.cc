@@ -1,7 +1,7 @@
 // cl_univpoly_ring debugging support.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 
@@ -9,7 +9,7 @@
 // Implementation.
 
 #include "cln/univpoly.h"
-#include "cl_UP.h"
+#include "polynomial/cl_UP.h"
 #include "cln/io.h"
 
 namespace cln {

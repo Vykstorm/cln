@@ -1,7 +1,7 @@
 // log().
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/real.h"
@@ -9,8 +9,8 @@
 
 // Implementation.
 
-#include "cl_N.h"
-#include "cl_R.h"
+#include "base/cl_N.h"
+#include "real/cl_R.h"
 #include "cln/rational.h"
 #include "cln/float.h"
 

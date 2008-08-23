@@ -1,7 +1,7 @@
 // Ring of integers.
 
 // General includes.
-#include "cl_sysdep.h"
+#include "base/cl_sysdep.h"
 
 // Specification.
 #include "cln/integer_ring.h"
@@ -12,7 +12,7 @@
 #include "cln/integer.h"
 #include "cln/integer_io.h"
 #define zerop zerop_inline
-#include "cl_I.h"
+#include "integer/cl_I.h"
 #undef zerop
 
 namespace cln {
