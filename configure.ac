@@ -135,4 +135,4 @@ CL_LIBGMP
 dnl
 dnl           That's it.
 dnl
-AC_OUTPUT([Makefile src/Makefile tests/Makefile examples/Makefile doc/Makefile cln.spec cln.pc])
+AC_OUTPUT([Makefile src/Makefile tests/Makefile examples/Makefile doc/Makefile benchmarks/Makefile cln.spec cln.pc])

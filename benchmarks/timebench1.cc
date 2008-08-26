@@ -12,6 +12,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
+#include <iostream>
+using namespace cln;
+using namespace std;
 
 // Timings on Linux i486 33 MHz, 1000 decimal places = 104 32-bit words.
 // Function              LiDIA       Pari       CLISP         CLN

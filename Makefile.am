@@ -1,5 +1,5 @@
-SUBDIRS = src tests examples doc
-DIST_SUBDIRS = src tests examples doc
+SUBDIRS = src tests examples doc benchmarks
+DIST_SUBDIRS = src tests examples doc benchmarks
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = cln.pc
