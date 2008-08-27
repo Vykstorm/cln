@@ -4,7 +4,7 @@
 #define _CL_SYSDEP_H
 
 // CPU and other
-#include "cln/config.h"
+#include "cl_config.h"
 
 // char_bitsize, short_bitsize, long_bitsize, long_long_bitsize
 #include "cln/intparam.h"

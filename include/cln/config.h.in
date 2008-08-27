@@ -1,0 +1,14 @@
+#ifdef _CL_CONFIG_PUBLIC_H
+
+#include "cln/host_cpu.h"
+#include "cln/version.h"
+
+/* 
+ * FIXME: this should not be exposed to user. Or at least it should be
+ * renamed to CL_HAVE_LONGLONG or something like that.
+ */
+/* compiler supports the `long long' type */
+#undef HAVE_LONGLONG
+
+#endif /* _CL_CONFIG_PUBLIC_H */
+

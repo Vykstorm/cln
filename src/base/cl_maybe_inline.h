@@ -3,7 +3,7 @@
 #ifndef _CL_MAYBE_INLINE_H
 #define _CL_MAYBE_INLINE_H
 
-#include "cln/config.h"
+#include "cl_config.h"
 
 /*
  * Selectively inline a function in *some* translation units.
