@@ -94,10 +94,10 @@ include/cln/SV.h \
 include/cln/integer.h
 
 ## FIXME: we should NOT expose these macros to users
-cln_GENERATEDdir = $(includedir)/cln
-cln_GENERATED_HEADERS = \
+nodist_clninclude_HEADERS = \
 include/cln/config.h \
-include/cln/host_cpu.h
+include/cln/host_cpu.h \
+include/cln/intparam.h
 
 EXTRA_DIST += include/cln/config.h.in \
 	     include/cln/host_cpu.h.in \
