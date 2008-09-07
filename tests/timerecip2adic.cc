@@ -20,7 +20,7 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	uintL len = atoi(argv[1]);
-	SAVE_NUM_STACK;
+	CL_ALLOCA_STACK;
 	uintD* a_MSDptr;
 	uintD* a_LSDptr;
 	uintD* b_MSDptr;

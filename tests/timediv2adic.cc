@@ -23,7 +23,7 @@ int main (int argc, char * argv[])
 	uintL b_len = atoi(argv[2]);
 	if (!(a_len >= b_len && b_len > 0))
 		exit(1);
-	SAVE_NUM_STACK;
+	CL_ALLOCA_STACK;
 	uintD* a_MSDptr;
 	uintD* a_LSDptr;
 	uintD* b_MSDptr;
