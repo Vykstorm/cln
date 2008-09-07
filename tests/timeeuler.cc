@@ -7,6 +7,19 @@
 #include <cstring>
 #include <cln/timing.h>
 #include "float/lfloat/cl_LF.h"
+namespace cln
+{
+// FIXME: don't use internal functions.
+extern cl_LF compute_eulerconst (uintC len);
+extern cl_LF compute_eulerconst_expintegral (uintC len);
+extern cl_LF compute_eulerconst_expintegral1 (uintC len);
+extern cl_LF compute_eulerconst_expintegral2 (uintC len);
+extern cl_LF compute_eulerconst_besselintegral1 (uintC len);
+extern cl_LF compute_eulerconst_besselintegral2 (uintC len);
+extern cl_LF compute_eulerconst_besselintegral3 (uintC len);
+extern cl_LF compute_eulerconst_besselintegral4 (uintC len);
+}
+
 using namespace cln;
 
 int main (int argc, char * argv[])
@@ -19,14 +32,8 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	uintL len = atoi(argv[1]);
-	extern cl_LF compute_eulerconst (uintC len);
-	extern cl_LF compute_eulerconst_expintegral (uintC len);
-	extern cl_LF compute_eulerconst_expintegral1 (uintC len);
-	extern cl_LF compute_eulerconst_expintegral2 (uintC len);
-	extern cl_LF compute_eulerconst_besselintegral1 (uintC len);
-	extern cl_LF compute_eulerconst_besselintegral2 (uintC len);
-	extern cl_LF compute_eulerconst_besselintegral3 (uintC len);
-	extern cl_LF compute_eulerconst_besselintegral4 (uintC len);
+
+
 	cl_LF p;
 	ln(cl_I_to_LF(1000,len+10)); // fill cache
 #if 0

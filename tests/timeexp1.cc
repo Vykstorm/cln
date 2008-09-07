@@ -6,6 +6,12 @@
 #include <cstdlib>
 #include <cstring>
 #include <cln/timing.h>
+namespace cln
+{
+// FIXME: don't use internal functions!
+extern cl_LF compute_exp1 (uintC len);
+}
+
 using namespace cln;
 
 int main (int argc, char * argv[])
@@ -18,7 +24,6 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	uintL len = atoi(argv[1]);
-	extern cl_LF compute_exp1 (uintC len);
 	cl_LF p;
 	{ CL_TIMING;
 	  for (int rep = repetitions; rep > 0; rep--)

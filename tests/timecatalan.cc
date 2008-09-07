@@ -8,6 +8,18 @@
 #include <cln/timing.h>
 #include "float/lfloat/cl_LF.h"
 #include <iostream>
+namespace cln
+{
+// FIXME: using internal functions is a bad idea (even if it works
+// on some ELF systems)
+extern cl_LF compute_catalanconst_ramanujan (uintC len);
+extern cl_LF compute_catalanconst_ramanujan_fast (uintC len);
+extern cl_LF compute_catalanconst_expintegral1 (uintC len);
+extern cl_LF compute_catalanconst_expintegral2 (uintC len);
+extern cl_LF compute_catalanconst_cvz1 (uintC len);
+extern cl_LF compute_catalanconst_cvz2 (uintC len);
+}
+
 using namespace cln;
 using namespace std;
 
@@ -21,12 +33,8 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	uintL len = atoi(argv[1]);
-	extern cl_LF compute_catalanconst_ramanujan (uintC len);
-	extern cl_LF compute_catalanconst_ramanujan_fast (uintC len);
-	extern cl_LF compute_catalanconst_expintegral1 (uintC len);
-	extern cl_LF compute_catalanconst_expintegral2 (uintC len);
-	extern cl_LF compute_catalanconst_cvz1 (uintC len);
-	extern cl_LF compute_catalanconst_cvz2 (uintC len);
+
+
 	cl_LF p;
 	ln(cl_I_to_LF(1000,len+10)); // fill cache
 	{ CL_TIMING;

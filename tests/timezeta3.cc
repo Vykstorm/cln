@@ -6,6 +6,15 @@
 #include <cstring>
 #include <cln/timing.h>
 #include "float/lfloat/cl_LF.h"
+namespace cln
+{
+// FIXME: don't use internal functions.
+extern cl_LF zeta (int s, uintC len);
+extern cl_LF compute_zeta_exp (int s, uintC len);
+extern cl_LF compute_zeta_cvz1 (int s, uintC len);
+extern cl_LF compute_zeta_cvz2 (int s, uintC len);
+extern cl_LF zeta3 (uintC len);
+}
 using namespace cln;
 #include <iostream>
 using namespace std;
@@ -20,11 +29,6 @@ int main (int argc, char * argv[])
 	if (argc < 2)
 		exit(1);
 	uintL len = atoi(argv[1]);
-	extern cl_LF zeta (int s, uintC len);
-	extern cl_LF compute_zeta_exp (int s, uintC len);
-	extern cl_LF compute_zeta_cvz1 (int s, uintC len);
-	extern cl_LF compute_zeta_cvz2 (int s, uintC len);
-	extern cl_LF zeta3 (uintC len);
 	cl_LF p;
 	ln(cl_I_to_LF(1000,len+10)); // fill cache
 	{ CL_TIMING;
