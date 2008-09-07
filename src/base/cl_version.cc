@@ -1,13 +1,5 @@
 // Version string buried into the library
-
-// General includes.
-#include "base/cl_sysdep.h"
-
-// Specification.
 #include "cln/version.h"
-
-
-// Implementation.
 
 namespace cln {
 
