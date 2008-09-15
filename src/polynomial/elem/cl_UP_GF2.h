@@ -20,8 +20,8 @@ static bool gf2_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP
 	unused UPR;
 	var const cl_heap_GV_I_bits1 * xv = (const cl_heap_GV_I_bits1 *) x.heappointer;
 	var const cl_heap_GV_I_bits1 * yv = (const cl_heap_GV_I_bits1 *) y.heappointer;
-	var uintL xlen = xv->v.length();
-	var uintL ylen = yv->v.length();
+	var uintL xlen = xv->v.size();
+	var uintL ylen = yv->v.size();
 	if (!(xlen == ylen))
 		return false;
 	// We can compare full words since unused bits in the last word are 0.
@@ -37,8 +37,8 @@ static const _cl_UP gf2_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const
 	DeclarePoly(cl_GV_MI,y);
 	var const cl_heap_GV_I_bits1 * xv = (const cl_heap_GV_I_bits1 *) x.heappointer;
 	var const cl_heap_GV_I_bits1 * yv = (const cl_heap_GV_I_bits1 *) y.heappointer;
-	var uintL xlen = xv->v.length();
-	var uintL ylen = yv->v.length();
+	var uintL xlen = xv->v.size();
+	var uintL ylen = yv->v.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, y);
 	if (ylen == 0)
@@ -822,8 +822,8 @@ static const _cl_UP gf2_mul (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const 
 	DeclarePoly(cl_GV_MI,y);
 	var const cl_heap_GV_I_bits1 * xv = (const cl_heap_GV_I_bits1 *) x.heappointer;
 	var const cl_heap_GV_I_bits1 * yv = (const cl_heap_GV_I_bits1 *) y.heappointer;
-	var uintL xlen = xv->v.length();
-	var uintL ylen = yv->v.length();
+	var uintL xlen = xv->v.size();
+	var uintL ylen = yv->v.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, x);
 	if (ylen == 0)
@@ -943,7 +943,7 @@ static const _cl_UP gf2_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var const cl_heap_GV_I_bits1 * xv = (const cl_heap_GV_I_bits1 *) x.heappointer;
-	var uintL xlen = xv->v.length();
+	var uintL xlen = xv->v.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
@@ -985,7 +985,7 @@ static const cl_ring_element gf2_eval (cl_heap_univpoly_ring* UPR, const _cl_UP&
   {	DeclarePoly(_cl_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
 	var const cl_heap_GV_I_bits1 * xv = (const cl_heap_GV_I_bits1 *) x.heappointer;
-	var uintL len = xv->v.length();
+	var uintL len = xv->v.size();
 	if (len==0)
 		return R->zero();
 	if (R->_zerop(y))

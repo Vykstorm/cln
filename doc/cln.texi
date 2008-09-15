@@ -3151,8 +3151,8 @@ The following functions are available on strings:
 @item operator =
 Assignment from @code{cl_string} and @code{const char *}.
 
-@item s.length()
-@cindex @code{length ()}
+@item s.size()
+@cindex @code{size()}
 @itemx strlen(s)
 @cindex @code{strlen ()}
 Returns the length of the string @code{s}.
@@ -3160,7 +3160,7 @@ Returns the length of the string @code{s}.
 @item s[i]
 @cindex @code{operator [] ()}
 Returns the @code{i}th character of the string @code{s}.
-@code{i} must be in the range @code{0 <= i < s.length()}.
+@code{i} must be in the range @code{0 <= i < s.size()}.
 
 @item bool equal (const cl_string& s1, const cl_string& s2)
 @cindex @code{equal ()}

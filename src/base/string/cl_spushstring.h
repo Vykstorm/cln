@@ -29,7 +29,7 @@ public:
 // Get the contents as a string. Free it using free_hook() when done.
 	char* contents ();
 // Look at the contents.
-	uintL length () const;
+	uintL size() const;
 	char operator[] (uintL i) const;
 };
 inline cl_spushstring::cl_spushstring ()
@@ -50,7 +50,7 @@ inline char* cl_spushstring::contents ()
 {
 	return cl_sstring(buffer,index);
 }
-inline uintL cl_spushstring::length () const
+inline uintL cl_spushstring::size() const
 {
 	return index;
 }

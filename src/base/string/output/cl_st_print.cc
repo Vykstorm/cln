@@ -15,7 +15,7 @@ namespace cln {
 
 void fprint (std::ostream& stream, const cl_string& str)
 {
-	stream.write(str.asciz(),str.length());
+	stream.write(str.asciz(),str.size());
 }
 
 }  // namespace cln

@@ -32,7 +32,7 @@ static void gen_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, const 
 {{
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		fprint(stream, "0");
 	else {
@@ -61,8 +61,8 @@ static bool gen_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl_UP
 	DeclarePoly(cl_SV_ringelt,x);
 	DeclarePoly(cl_SV_ringelt,y);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (!(xlen == ylen))
 		return false;
 	for (var sintL i = xlen-1; i >= 0; i--)
@@ -80,7 +80,7 @@ static bool gen_zerop (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {
 	unused UPR;
  {	DeclarePoly(cl_SV_ringelt,x);
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		return true;
 	else
@@ -92,8 +92,8 @@ static const _cl_UP gen_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const
 	DeclarePoly(cl_SV_ringelt,x);
 	DeclarePoly(cl_SV_ringelt,y);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, y);
 	if (ylen == 0)
@@ -135,7 +135,7 @@ static const _cl_UP gen_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, x);
 	// Now xlen > 0.
@@ -155,8 +155,8 @@ static const _cl_UP gen_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, cons
 	DeclarePoly(cl_SV_ringelt,x);
 	DeclarePoly(cl_SV_ringelt,y);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (ylen == 0)
 		return _cl_UP(UPR, x);
 	if (xlen == 0)
@@ -215,8 +215,8 @@ static const _cl_UP gen_mul (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const 
 	DeclarePoly(cl_SV_ringelt,x);
 	DeclarePoly(cl_SV_ringelt,y);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, x);
 	if (ylen == 0)
@@ -261,7 +261,7 @@ static const _cl_UP gen_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		return cl_UP(UPR, x);
 	var sintL len = 2*xlen-1;
@@ -316,7 +316,7 @@ static const _cl_UP gen_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_eleme
  {
 	DeclarePoly(cl_SV_ringelt,y);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL ylen = y.length();
+	var sintL ylen = y.size();
 	if (ylen == 0)
 		return _cl_UP(UPR, y);
 	if (R->zerop(x))
@@ -334,13 +334,13 @@ static sintL gen_degree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {
 	unused UPR;
  {	DeclarePoly(cl_SV_ringelt,x);
-	return (sintL) x.length() - 1;
+	return (sintL) x.size() - 1;
 }}
 
 static sintL gen_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	for (sintL i = 0; i < xlen; i++) {
 		if (!R->_zerop(x[i]))
 			return i;
@@ -366,7 +366,7 @@ static const cl_ring_element gen_coeff (cl_heap_univpoly_ring* UPR, const _cl_UP
 {{
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	if (index < x.length())
+	if (index < x.size())
 		return cl_ring_element(R, x[index]);
 	else
 		return R->zero();
@@ -386,7 +386,7 @@ static void gen_set_coeff (cl_heap_univpoly_ring* UPR, _cl_UP& x, uintL index, c
 {{
 	DeclareMutablePoly(cl_SV_ringelt,x);
 	if (!(UPR->basering() == y.ring())) throw runtime_exception();
-	if (!(index < x.length())) throw runtime_exception();
+	if (!(index < x.size())) throw runtime_exception();
 	x[index] = y;
 }}
 
@@ -394,7 +394,7 @@ static void gen_finalize (cl_heap_univpoly_ring* UPR, _cl_UP& x)
 {{
 	DeclareMutablePoly(cl_SV_ringelt,x); // NB: x is modified by reference!
 	var cl_heap_ring* R = TheRing(UPR->basering());
-	var uintL len = x.length();
+	var uintL len = x.size();
 	if (len > 0)
 		gen_normalize(R,x,len);
 }}
@@ -408,7 +408,7 @@ static const cl_ring_element gen_eval (cl_heap_univpoly_ring* UPR, const _cl_UP&
 	DeclarePoly(cl_SV_ringelt,x);
 	var cl_heap_ring* R = TheRing(UPR->basering());
 	if (!(y.ring() == R)) throw runtime_exception();
-	var uintL len = x.length();
+	var uintL len = x.size();
 	if (len==0)
 		return R->zero();
 	if (R->_zerop(y))

@@ -16,7 +16,7 @@ namespace cln {
 void fprint (std::ostream& stream, const cl_ring& R, const cl_SV_ringelt& vector)
 {
 	var const cl_print_flags& flags = default_print_flags;
-	var uintC len = vector.length();
+	var uintC len = vector.size();
 	if (flags.vector_syntax == vsyntax_commonlisp) {
 		fprintchar(stream,'#');
 		fprintchar(stream,'(');

@@ -16,7 +16,7 @@ unsigned long hashcode (const cl_string& str)
     var unsigned long code = 0x61284AF3;
     // We walk through all characters. It may take some time for very
     // long strings, but it's better than completely ignoring some characters.
-    var long len = str.length();
+    var long len = str.size();
     var const char * ptr = str.asciz();
     for (; len > 0; len--) {
         var unsigned char c = *ptr++;

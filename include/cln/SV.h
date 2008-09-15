@@ -46,18 +46,18 @@ private:
 	T * data() { return (T *) (this+1); }
 	const T * data() const { return (const T *) (this+1); }
 public:
-	uintC length () const { return len; } // number of elements
+	uintC size() const { return len; } // number of elements
 	const T & operator[] (unsigned long index) const
 	{
 		#ifndef CL_SV_NO_RANGECHECKS
-		if (!(index < length())) throw runtime_exception();
+		if (!(index < size())) throw runtime_exception();
 		#endif
 		return data()[index];
 	}
 	T & operator[] (unsigned long index)
 	{
 		#ifndef CL_SV_NO_RANGECHECKS
-		if (!(index < length())) throw runtime_exception();
+		if (!(index < size())) throw runtime_exception();
 		#endif
 		return data()[index];
 	}
@@ -115,9 +115,9 @@ template <class T, class BASE>
 struct cl_SV : public BASE {
 public:
 	// Length.
-	uintC length () const
+	uintC size() const
 	{
-		return ((const cl_heap_SV<T> *) this->pointer)->v.length();
+		return ((const cl_heap_SV<T> *) this->pointer)->v.size();
 	}
 	// Reference. Forbid modification of `const cl_SV&' arguments.
 	const T & operator[] (unsigned long index) const

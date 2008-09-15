@@ -45,14 +45,14 @@ public:
 		return &((cl_heap_string*)pointer)->data[0];
 	}
 	// Return the length (number of characters).
-	unsigned long length () const
+	unsigned long size() const
 	{
 		return ((cl_heap_string*)pointer)->length;
 	}
 	// Return a specific character.
 	char operator[] (unsigned long i) const
 	{
-		if (!(i < length())) throw runtime_exception(); // Range check.
+		if (!(i < size())) throw runtime_exception(); // Range check.
 		return ((cl_heap_string*)pointer)->data[i];
 	}
 	// New ANSI C++ compilers also want the following.
@@ -94,7 +94,7 @@ inline cl_string& cl_string::operator= (const char * s)
 // Length.
 inline unsigned long strlen (const cl_string& str)
 {
-	return str.length();
+	return str.size();
 }
 // Conversion to `const char *'.
 inline const char * asciz (const char * s) { return s; }
@@ -103,7 +103,7 @@ inline const char * asciz (const cl_string& s) { return s.asciz(); }
 // Comparison.
 inline bool equal (const cl_string& str1, const cl_string& str2)
 {
-    return str1.length() == str2.length()
+    return str1.size() == str2.size()
            && !strcmp(str1.asciz(), str2.asciz());
 }
 inline bool equal (const char * str1, const cl_string& str2)

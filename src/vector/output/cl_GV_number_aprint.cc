@@ -19,7 +19,7 @@ namespace cln {
 
 void print_vector (std::ostream& stream, const cl_print_flags& flags, void (* printfun) (std::ostream&, const cl_print_flags&, const cl_number&), const cl_GV_number& vector)
 {
-	var uintC len = vector.length();
+	var uintC len = vector.size();
 	if (flags.vector_syntax == vsyntax_commonlisp) {
 		fprintchar(stream,'#');
 		fprintchar(stream,'(');

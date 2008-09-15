@@ -36,7 +36,7 @@ static void modint_fprint (cl_heap_univpoly_ring* UPR, std::ostream& stream, con
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		fprint(stream, "0");
 	else {
@@ -65,8 +65,8 @@ static bool modint_equal (cl_heap_univpoly_ring* UPR, const _cl_UP& x, const _cl
 	DeclarePoly(cl_GV_MI,x);
 	DeclarePoly(cl_GV_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (!(xlen == ylen))
 		return false;
 	for (var sintL i = xlen-1; i >= 0; i--)
@@ -84,7 +84,7 @@ static bool modint_zerop (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {
 	unused UPR;
  {	DeclarePoly(cl_GV_MI,x);
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		return true;
 	else
@@ -96,8 +96,8 @@ static const _cl_UP modint_plus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, co
 	DeclarePoly(cl_GV_MI,x);
 	DeclarePoly(cl_GV_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, y);
 	if (ylen == 0)
@@ -147,7 +147,7 @@ static const _cl_UP modint_uminus (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, x);
 	// Now xlen > 0.
@@ -167,8 +167,8 @@ static const _cl_UP modint_minus (cl_heap_univpoly_ring* UPR, const _cl_UP& x, c
 	DeclarePoly(cl_GV_MI,x);
 	DeclarePoly(cl_GV_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (ylen == 0)
 		return _cl_UP(UPR, x);
 	if (xlen == 0)
@@ -231,8 +231,8 @@ static const _cl_UP modint_mul (cl_heap_univpoly_ring* UPR, const _cl_UP& x, con
 	DeclarePoly(cl_GV_MI,x);
 	DeclarePoly(cl_GV_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
-	var sintL ylen = y.length();
+	var sintL xlen = x.size();
+	var sintL ylen = y.size();
 	if (xlen == 0)
 		return _cl_UP(UPR, x);
 	if (ylen == 0)
@@ -277,7 +277,7 @@ static const _cl_UP modint_square (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	if (xlen == 0)
 		return cl_UP(UPR, x);
 	var sintL len = 2*xlen-1;
@@ -333,7 +333,7 @@ static const _cl_UP modint_scalmul (cl_heap_univpoly_ring* UPR, const cl_ring_el
 	DeclarePoly(_cl_MI,x);
 	DeclarePoly(cl_GV_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL ylen = y.length();
+	var sintL ylen = y.size();
 	if (ylen == 0)
 		return _cl_UP(UPR, y);
 	if (R->_zerop(x))
@@ -350,14 +350,14 @@ static sintL modint_degree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {
 	unused UPR;
  {	DeclarePoly(cl_GV_MI,x);
-	return (sintL) x.length() - 1;
+	return (sintL) x.size() - 1;
 }}
 
 static sintL modint_ldegree (cl_heap_univpoly_ring* UPR, const _cl_UP& x)
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var sintL xlen = x.length();
+	var sintL xlen = x.size();
 	for (sintL i = 0; i < xlen; i++) {
 		if (!R->_zerop(x[i]))
 			return i;
@@ -384,7 +384,7 @@ static const cl_ring_element modint_coeff (cl_heap_univpoly_ring* UPR, const _cl
 {{
 	DeclarePoly(cl_GV_MI,x);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	if (index < x.length())
+	if (index < x.size())
 		return cl_MI(R, x[index]);
 	else
 		return R->zero();
@@ -406,7 +406,7 @@ static void modint_set_coeff (cl_heap_univpoly_ring* UPR, _cl_UP& x, uintL index
 	DeclareMutablePoly(cl_GV_MI,x);
 	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(_cl_MI,y);
-	if (!(index < x.length())) throw runtime_exception();
+	if (!(index < x.size())) throw runtime_exception();
 	x[index] = y;
 }}}
 
@@ -414,7 +414,7 @@ static void modint_finalize (cl_heap_univpoly_ring* UPR, _cl_UP& x)
 {{
 	DeclareMutablePoly(cl_GV_MI,x); // NB: x is modified by reference!
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var uintL len = x.length();
+	var uintL len = x.size();
 	if (len > 0)
 		modint_normalize(R,x,len);
 }}
@@ -429,7 +429,7 @@ static const cl_ring_element modint_eval (cl_heap_univpoly_ring* UPR, const _cl_
 	if (!(UPR->basering() == y.ring())) throw runtime_exception();
   {	DeclarePoly(_cl_MI,y);
 	var cl_heap_modint_ring* R = TheModintRing(UPR->basering());
-	var uintL len = x.length();
+	var uintL len = x.size();
 	if (len==0)
 		return R->zero();
 	if (R->_zerop(y))

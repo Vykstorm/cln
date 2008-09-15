@@ -18,7 +18,7 @@ static void dprint (cl_heap* pointer)
 {
 	var const cl_string& obj = *(const cl_string*)&pointer;
 	fprint(cl_debugout, "(cl_string) \"");
-	var unsigned long l = obj.length();
+	var unsigned long l = obj.size();
 	for (var unsigned long i = 0; i < l; i++) {
 		var unsigned char c = obj[i];
 		if (c >= 0x20) {

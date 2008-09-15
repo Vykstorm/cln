@@ -69,7 +69,7 @@ static void general_set_element (cl_GV_inner<cl_number>* vec, uintC index, const
 static void general_do_delete (cl_GV_inner<cl_number>* vec)
 {
 	var cl_heap_GV_number_general* hv = (cl_heap_GV_number_general *) outcast(vec);
-	var uintC len = hv->v.length();
+	var uintC len = hv->v.size();
 	for (var uintC i = 0; i < len; i++)
 		hv->data[i].~cl_number();
 }
@@ -81,8 +81,8 @@ static void general_copy_elements (const cl_GV_inner<cl_number>* srcvec, uintC s
 		  (const cl_heap_GV_number_general *) outcast(srcvec);
 		var cl_heap_GV_number_general* destv =
 		  (cl_heap_GV_number_general *) outcast(destvec);
-		var uintC srclen = srcv->v.length();
-		var uintC destlen = destv->v.length();
+		var uintC srclen = srcv->v.size();
+		var uintC destlen = destv->v.size();
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))
 			throw runtime_exception();
 		if (!(destindex <= destindex+count && destindex+count <= destlen))

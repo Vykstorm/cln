@@ -11,7 +11,7 @@
 namespace cln {
 
 // A vector is a structure having the following interface:
-//     v.length()        returns the number of elements
+//     v.size()        returns the number of elements
 //     v[i]              returns the i-th element (0<=i<length), as a
 //                       pseudo-lvalue (you can assign to it, but not take its
 //                       address - exactly what you want for bit-vectors)
@@ -27,7 +27,7 @@ class cl_GV_inner {
 protected:
 	uintC len; // number of elements
 public:
-	uintC length () const; // number of elements
+	uintC size() const; // number of elements
 	cl_GV_vectorops<T>* vectorops; // get/set element
 	const cl_GV_index<T> operator[] (unsigned long index);
 	const cl_GV_constindex<T> operator[] (unsigned long index) const;
@@ -109,7 +109,7 @@ struct cl_GV_vectorops {
 // All member functions are inline.
 
 template <class T>
-inline uintC cl_GV_inner<T>::length () const
+inline uintC cl_GV_inner<T>::size() const
 {
 	return len;
 }
@@ -219,9 +219,9 @@ template <class T, class BASE>
 struct cl_GV : public BASE {
 public:
 	// Length.
-	uintC length () const
+	uintC size() const
 	{
-		return ((const cl_heap_GV<T> *) this->pointer)->v.length();
+		return ((const cl_heap_GV<T> *) this->pointer)->v.size();
 	}
 	// Reference. Forbid modification of `const cl_GV&' arguments.
 	const cl_GV_constindex<T> operator[] (unsigned long index) const

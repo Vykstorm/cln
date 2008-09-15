@@ -93,7 +93,7 @@ static void general_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I
 static void general_do_delete (cl_GV_inner<cl_I>* vec)
 {
 	var cl_heap_GV_I_general* hv = (cl_heap_GV_I_general *) outcast(vec);
-	var uintC len = hv->v.length();
+	var uintC len = hv->v.size();
 	for (var uintC i = 0; i < len; i++)
 		hv->data[i].~cl_I();
 }
@@ -105,8 +105,8 @@ static void general_copy_elements (const cl_GV_inner<cl_I>* srcvec, uintC srcind
 		  (const cl_heap_GV_I_general *) outcast(srcvec);
 		var cl_heap_GV_I_general* destv =
 		  (cl_heap_GV_I_general *) outcast(destvec);
-		var uintC srclen = srcv->v.length();
-		var uintC destlen = destv->v.length();
+		var uintC srclen = srcv->v.size();
+		var uintC destlen = destv->v.size();
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))
 			throw runtime_exception();
 		if (!(destindex <= destindex+count && destindex+count <= destlen))
@@ -158,8 +158,8 @@ static void bits##m##_copy_elements (const cl_GV_inner<cl_I>* srcvec, uintC srci
 		  (const cl_heap_GV_I_bits##m *) outcast(srcvec);		\
 		var cl_heap_GV_I_bits##m * destv =				\
 		  (cl_heap_GV_I_bits##m *) outcast(destvec);			\
-		var uintC srclen = srcv->v.length();				\
-		var uintC destlen = destv->v.length();				\
+		var uintC srclen = srcv->v.size();				\
+		var uintC destlen = destv->v.size();				\
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))	\
 			throw runtime_exception();	       			\
 		if (!(destindex <= destindex+count && destindex+count <= destlen)) \
