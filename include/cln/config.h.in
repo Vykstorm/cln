@@ -1,4 +1,5 @@
-#ifdef _CL_CONFIG_PUBLIC_H
+#ifndef _CL_CONFIG_PUBLIC_H
+#define _CL_CONFIG_PUBLIC_H
 
 #include "cln/host_cpu.h"
 #include "cln/version.h"
