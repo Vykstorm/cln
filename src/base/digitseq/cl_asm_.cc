@@ -6,35 +6,35 @@
 #ifndef NO_ASM
 
 #if defined(__m68k__) && (intCsize==16)
-  #include "cl_asm_m68k_.cc"
+  #include "base/digitseq/cl_asm_m68k_.cc"
 #endif
 
 #if defined(__sparc__) && !defined(__sparc64__)
-  #include "cl_asm_sparc_.cc"
+  #include "base/digitseq/cl_asm_sparc_.cc"
 #endif
 
 #if defined(__sparc64__)
-  #include "cl_asm_sparc64_.cc"
+  #include "base/digitseq/cl_asm_sparc64_.cc"
 #endif
 
 #if defined(__i386__)
-  #include "cl_asm_i386_.cc"
+  #include "base/digitseq/cl_asm_i386_.cc"
 #endif
 
 #if defined(__mips__) && !defined(__mipsel__)
-  #include "cl_asm_mips_.cc"
+  #include "base/digitseq/cl_asm_mips_.cc"
 #endif
 
 #if defined(__mipsel__)
-  #include "cl_asm_mipsel_.cc"
+  #include "base/digitseq/cl_asm_mipsel_.cc"
 #endif
 
 #if defined(__hppa__)
-  #include "cl_asm_hppa_.cc"
+  #include "base/digitseq/cl_asm_hppa_.cc"
 #endif
 
 #if defined(__arm__)
-  #include "cl_asm_arm_.cc"
+  #include "base/digitseq/cl_asm_arm_.cc"
 #endif
 
 #endif // ndef NO_ASM
