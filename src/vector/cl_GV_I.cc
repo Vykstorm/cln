@@ -80,33 +80,33 @@ struct cl_heap_GV_I_general : public cl_heap_GV_I {
 	cl_heap_GV_I_general ();
 };
 
-static const cl_I general_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I general_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	return ((const cl_heap_GV_I_general *) outcast(vec))->data[index];
 }
 
-static void general_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void general_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
 	((cl_heap_GV_I_general *) outcast(vec))->data[index] = x;
 }
 
 static void general_do_delete (cl_GV_inner<cl_I>* vec)
 {
-	var cl_heap_GV_I_general* hv = (cl_heap_GV_I_general *) outcast(vec);
-	var uintC len = hv->v.size();
-	for (var uintC i = 0; i < len; i++)
+	cl_heap_GV_I_general* hv = (cl_heap_GV_I_general *) outcast(vec);
+	std::size_t len = hv->v.size();
+	for (std::size_t i = 0; i < len; i++)
 		hv->data[i].~cl_I();
 }
 
-static void general_copy_elements (const cl_GV_inner<cl_I>* srcvec, uintC srcindex, cl_GV_inner<cl_I>* destvec, uintC destindex, uintC count)
+static void general_copy_elements (const cl_GV_inner<cl_I>* srcvec, std::size_t srcindex, cl_GV_inner<cl_I>* destvec, std::size_t destindex, std::size_t count)
 {
 	if (count > 0) {
-		var const cl_heap_GV_I_general* srcv =
+		const cl_heap_GV_I_general* srcv =
 		  (const cl_heap_GV_I_general *) outcast(srcvec);
-		var cl_heap_GV_I_general* destv =
+		cl_heap_GV_I_general* destv =
 		  (cl_heap_GV_I_general *) outcast(destvec);
-		var uintC srclen = srcv->v.size();
-		var uintC destlen = destv->v.size();
+		std::size_t srclen = srcv->v.size();
+		std::size_t destlen = destv->v.size();
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))
 			throw runtime_exception();
 		if (!(destindex <= destindex+count && destindex+count <= destlen))
@@ -125,13 +125,13 @@ static cl_GV_I_vectorops general_vectorops = {{
 	-1
 };
 
-cl_heap_GV_I* cl_make_heap_GV_I (uintC len)
+cl_heap_GV_I* cl_make_heap_GV_I (std::size_t len)
 {
-	var cl_heap_GV_I_general* hv = (cl_heap_GV_I_general*) malloc_hook(offsetofa(cl_heap_GV_I_general,data)+sizeof(cl_I)*len);
+	cl_heap_GV_I_general* hv = (cl_heap_GV_I_general*) malloc_hook(offsetofa(cl_heap_GV_I_general,data)+sizeof(cl_I)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_gvector_integer();
 	new (&hv->v) cl_GV_inner<cl_I> (len,&general_vectorops.ops);
-	for (var uintC i = 0; i < len; i++)
+	for (std::size_t i = 0; i < len; i++)
 		init1(cl_I, hv->data[i]) ();
 	return hv;
 }
@@ -149,24 +149,24 @@ struct cl_heap_GV_I_bits##m : public cl_heap_GV_I {			\
 	/* No default constructor. */					\
 	cl_heap_GV_I_bits##m ();					\
 };									\
-static const cl_I bits##m##_element (const cl_GV_inner<cl_I>* vec, uintC index); \
-static void bits##m##_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x); \
-static void bits##m##_copy_elements (const cl_GV_inner<cl_I>* srcvec, uintC srcindex, cl_GV_inner<cl_I>* destvec, uintC destindex, uintC count) \
+static const cl_I bits##m##_element (const cl_GV_inner<cl_I>* vec, std::size_t index); \
+static void bits##m##_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x); \
+static void bits##m##_copy_elements (const cl_GV_inner<cl_I>* srcvec, std::size_t srcindex, cl_GV_inner<cl_I>* destvec, std::size_t destindex, std::size_t count) \
 {										\
 	if (count > 0) {							\
-		var const cl_heap_GV_I_bits##m * srcv =				\
+		const cl_heap_GV_I_bits##m * srcv =				\
 		  (const cl_heap_GV_I_bits##m *) outcast(srcvec);		\
-		var cl_heap_GV_I_bits##m * destv =				\
+		cl_heap_GV_I_bits##m * destv =					\
 		  (cl_heap_GV_I_bits##m *) outcast(destvec);			\
-		var uintC srclen = srcv->v.size();				\
-		var uintC destlen = destv->v.size();				\
+		std::size_t srclen = srcv->v.size();				\
+		std::size_t destlen = destv->v.size();				\
 		if (!(srcindex <= srcindex+count && srcindex+count <= srclen))	\
 			throw runtime_exception();	       			\
 		if (!(destindex <= destindex+count && destindex+count <= destlen)) \
 			throw runtime_exception();	       			\
 		if (m == intDsize) {						\
-			var const uintD* srcptr = &srcv->data[srcindex];	\
-			var uintD* destptr = &destv->data[destindex];		\
+			const uintD* srcptr = &srcv->data[srcindex];		\
+			uintD* destptr = &destv->data[destindex];		\
 			do {							\
 				*destptr++ = *srcptr++;				\
 			} while (--count > 0);					\
@@ -189,7 +189,7 @@ static void bits_do_delete (cl_GV_inner<cl_I>* vec)
 
 // Copy bits srcptr.bits[srcindex..srcindex+count-1] into destptr.bits[destindex..destindex+count-1].
 // Assumes that all range checks have already been performed.
-static void bits_copy (const uintD* srcptr, uintC srcindex, uintD* destptr, uintC destindex, uintC count)
+static void bits_copy (const uintD* srcptr, std::size_t srcindex, uintD* destptr, std::size_t destindex, std::size_t count)
 {
 	srcptr += floor(srcindex,intDsize);
 	destptr += floor(destindex,intDsize);
@@ -209,7 +209,7 @@ static void bits_copy (const uintD* srcptr, uintC srcindex, uintD* destptr, uint
 			count -= intDsize-srcindex;
 		}
 		// Now srcindex and destindex can be assumed to be 0.
-		var uintC count1 = count%intDsize;
+		std::size_t count1 = count%intDsize;
 		count = floor(count,intDsize);
 		if (count > 0) {
 			do {
@@ -220,8 +220,8 @@ static void bits_copy (const uintD* srcptr, uintC srcindex, uintD* destptr, uint
 			*destptr ^= (*destptr ^ *srcptr) & (uintD)(bit(count1)-1);
 		}
 	} else {
-		var uintC i = destindex - srcindex;
-		var uintD tmp;
+		std::size_t i = destindex - srcindex;
+		uintD tmp;
 		if (destindex >= srcindex) { // i > 0
 			if (count <= intDsize-destindex) {
 				*destptr ^= (*destptr ^ (*srcptr << i)) & ((uintD)(bit(count)-1) << destindex);
@@ -242,9 +242,9 @@ static void bits_copy (const uintD* srcptr, uintC srcindex, uintD* destptr, uint
 		}
 		srcptr++;
 		// tmp now contains the low i bits to be put into *destptr.
-		var uintC count1 = count%intDsize;
+		std::size_t count1 = count%intDsize;
 		count = floor(count,intDsize);
-		var uintD lastdest;
+		uintD lastdest;
 		if (count == 0)
 			lastdest = tmp;
 		else {
@@ -280,17 +280,17 @@ static void bits_copy (const uintD* srcptr, uintC srcindex, uintD* destptr, uint
 
 DEFINE_cl_heap_GV_I_bits(1,uintD)
 
-static const cl_I bits1_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I bits1_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	return (unsigned int)((((const cl_heap_GV_I_bits1 *) outcast(vec))->data[index/intDsize] >> (index%intDsize)) & 0x1);
 }
-static void bits1_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void bits1_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
-	var uintV xval;
+	uintV xval;
 	if (fixnump(x)) {
 		xval = FN_to_UV(x);
 		if (xval <= 0x1) {
-			var uintD* ptr = &((cl_heap_GV_I_bits1 *) outcast(vec))->data[index/intDsize];
+			uintD* ptr = &((cl_heap_GV_I_bits1 *) outcast(vec))->data[index/intDsize];
 			index = index%intDsize;
 			*ptr = *ptr ^ ((*ptr ^ ((uintD)xval << index)) & ((uintD)0x1 << index));
 			return;
@@ -302,17 +302,17 @@ static void bits1_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 
 DEFINE_cl_heap_GV_I_bits(2,uintD)
 
-static const cl_I bits2_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I bits2_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	return (unsigned int)((((const cl_heap_GV_I_bits2 *) outcast(vec))->data[index/(intDsize/2)] >> (2*(index%(intDsize/2)))) & 0x3);
 }
-static void bits2_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void bits2_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
-	var uintV xval;
+	uintV xval;
 	if (fixnump(x)) {
 		xval = FN_to_UV(x);
 		if (xval <= 0x3) {
-			var uintD* ptr = &((cl_heap_GV_I_bits2 *) outcast(vec))->data[index/(intDsize/2)];
+			uintD* ptr = &((cl_heap_GV_I_bits2 *) outcast(vec))->data[index/(intDsize/2)];
 			index = 2*(index%(intDsize/2));
 			*ptr = *ptr ^ ((*ptr ^ ((uintD)xval << index)) & ((uintD)0x3 << index));
 			return;
@@ -324,17 +324,17 @@ static void bits2_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 
 DEFINE_cl_heap_GV_I_bits(4,uintD)
 
-static const cl_I bits4_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I bits4_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	return (unsigned int)((((const cl_heap_GV_I_bits4 *) outcast(vec))->data[index/(intDsize/4)] >> (4*(index%(intDsize/4)))) & 0xF);
 }
-static void bits4_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void bits4_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
-	var uintV xval;
+	uintV xval;
 	if (fixnump(x)) {
 		xval = FN_to_UV(x);
 		if (xval <= 0xF) {
-			var uintD* ptr = &((cl_heap_GV_I_bits4 *) outcast(vec))->data[index/(intDsize/4)];
+			uintD* ptr = &((cl_heap_GV_I_bits4 *) outcast(vec))->data[index/(intDsize/4)];
 			index = 4*(index%(intDsize/4));
 			*ptr = *ptr ^ ((*ptr ^ ((uintD)xval << index)) & ((uintD)0xF << index));
 			return;
@@ -346,7 +346,7 @@ static void bits4_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 
 DEFINE_cl_heap_GV_I_bits(8,uintD)
 
-static const cl_I bits8_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I bits8_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	#if CL_CPU_BIG_ENDIAN_P
 	return (unsigned int)((((const cl_heap_GV_I_bits8 *) outcast(vec))->data[index/(intDsize/8)] >> (8*(index%(intDsize/8)))) & 0xFF);
@@ -355,14 +355,14 @@ static const cl_I bits8_element (const cl_GV_inner<cl_I>* vec, uintC index)
 	return (unsigned int)(((uint8*)(((const cl_heap_GV_I_bits8 *) outcast(vec))->data))[index]);
 	#endif
 }
-static void bits8_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void bits8_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
-	var uintV xval;
+	uintV xval;
 	if (fixnump(x)) {
 		xval = FN_to_UV(x);
 		if (xval <= 0xFF) {
 			#if CL_CPU_BIG_ENDIAN_P
-			var uintD* ptr = &((cl_heap_GV_I_bits8 *) outcast(vec))->data[index/(intDsize/8)];
+			uintD* ptr = &((cl_heap_GV_I_bits8 *) outcast(vec))->data[index/(intDsize/8)];
 			index = 8*(index%(intDsize/8));
 			*ptr = *ptr ^ ((*ptr ^ ((uintD)xval << index)) & ((uintD)0xFF << index));
 			#else
@@ -378,7 +378,7 @@ static void bits8_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& 
 
 DEFINE_cl_heap_GV_I_bits(16,uintD)
 
-static const cl_I bits16_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I bits16_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	#if CL_CPU_BIG_ENDIAN_P
 	return (unsigned int)((((const cl_heap_GV_I_bits16 *) outcast(vec))->data[index/(intDsize/16)] >> (16*(index%(intDsize/16)))) & 0xFFFF);
@@ -387,14 +387,14 @@ static const cl_I bits16_element (const cl_GV_inner<cl_I>* vec, uintC index)
 	return (unsigned int)(((uint16*)(((const cl_heap_GV_I_bits16 *) outcast(vec))->data))[index]);
 	#endif
 }
-static void bits16_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void bits16_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
-	var uintV xval;
+	uintV xval;
 	if (fixnump(x)) {
 		xval = FN_to_UV(x);
 		if (xval <= 0xFFFF) {
 			#if CL_CPU_BIG_ENDIAN_P
-			var uintD* ptr = &((cl_heap_GV_I_bits16 *) outcast(vec))->data[index/(intDsize/16)];
+			uintD* ptr = &((cl_heap_GV_I_bits16 *) outcast(vec))->data[index/(intDsize/16)];
 			index = 16*(index%(intDsize/16));
 			*ptr = *ptr ^ ((*ptr ^ ((uintD)xval << index)) & ((uintD)0xFFFF << index));
 			#else
@@ -410,7 +410,7 @@ static void bits16_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I&
 
 DEFINE_cl_heap_GV_I_bits(32,uintD)
 
-static const cl_I bits32_element (const cl_GV_inner<cl_I>* vec, uintC index)
+static const cl_I bits32_element (const cl_GV_inner<cl_I>* vec, std::size_t index)
 {
 	#if (intDsize==32)
 	return (unsigned long)(((const cl_heap_GV_I_bits32 *) outcast(vec))->data[index]);
@@ -421,13 +421,13 @@ static const cl_I bits32_element (const cl_GV_inner<cl_I>* vec, uintC index)
 	return (unsigned long)(((uint32*)(((const cl_heap_GV_I_bits32 *) outcast(vec))->data))[index]);
 	#endif
 }
-static void bits32_set_element (cl_GV_inner<cl_I>* vec, uintC index, const cl_I& x)
+static void bits32_set_element (cl_GV_inner<cl_I>* vec, std::size_t index, const cl_I& x)
 {
-	var uint32 xval = cl_I_to_UL(x);
+	uint32 xval = cl_I_to_UL(x);
 	#if (intDsize==32)
 	((cl_heap_GV_I_bits32 *) outcast(vec))->data[index] = xval;
 	#elif CL_CPU_BIG_ENDIAN_P
-	var uintD* ptr = &((cl_heap_GV_I_bits32 *) outcast(vec))->data[index/(intDsize/32)];
+	uintD* ptr = &((cl_heap_GV_I_bits32 *) outcast(vec))->data[index/(intDsize/32)];
 	index = 32*(index%(intDsize/32));
 	*ptr = *ptr ^ ((*ptr ^ ((uintD)xval << index)) & ((uintD)0xFFFFFFFF << index));
 	#else
@@ -446,10 +446,10 @@ static cl_GV_I_vectorops* bits_vectorops[6] = {
 	&bits32_vectorops
 };
 
-cl_heap_GV_I* cl_make_heap_GV_I (uintC len, sintC m)
+cl_heap_GV_I* cl_make_heap_GV_I (std::size_t len, sintC m)
 {
 	// Determine log2(bits).
-	var uintL log2_bits;
+	uintL log2_bits;
 	switch (m) {
 		case 0: case 1:
 			log2_bits = 0; break;
@@ -471,14 +471,14 @@ cl_heap_GV_I* cl_make_heap_GV_I (uintC len, sintC m)
 			return cl_make_heap_GV_I(len);
 	}
 	// For room allocation purposes, be pessimistic: assume the uintD case (since intDsize>=32).
-	var uintC words = // ceiling(len*2^log2_bits,intDsize)
+	std::size_t words = // ceiling(len*2^log2_bits,intDsize)
 	  (((sintC)len-1)>>(log2_intDsize-log2_bits))+1;
-	var cl_heap_GV_I_bits32* hv = (cl_heap_GV_I_bits32*) malloc_hook(offsetofa(cl_heap_GV_I_bits32,data)+sizeof(uintD)*words);
+	cl_heap_GV_I_bits32* hv = (cl_heap_GV_I_bits32*) malloc_hook(offsetofa(cl_heap_GV_I_bits32,data)+sizeof(uintD)*words);
 	hv->refcount = 1;
 	hv->type = &cl_class_gvector_integer();
 	new (&hv->v) cl_GV_inner<cl_I> (len,&bits_vectorops[log2_bits]->ops);
-	var uintD* ptr = (uintD*)(hv->data);
-	for (var uintC i = 0; i < words; i++)
+	uintD* ptr = (uintD*)(hv->data);
+	for (std::size_t i = 0; i < words; i++)
 		ptr[i] = 0;
 	return (cl_heap_GV_I*) hv;
 }
@@ -498,7 +498,7 @@ int cl_GV_I_init_helper::count = 0;
 cl_GV_I_init_helper::cl_GV_I_init_helper()
 {
 	if (count++ == 0)
-		new ((void *)&cl_null_GV_I) cl_GV_I((uintC)0);
+		new ((void *)&cl_null_GV_I) cl_GV_I((std::size_t)0);
 }
 
 cl_GV_I_init_helper::~cl_GV_I_init_helper()

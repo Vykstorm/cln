@@ -31,9 +31,9 @@ cl_class& cl_class_svector_ringelt()
 	return instance;
 }
 
-cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintC len)
+cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (std::size_t len)
 {
-	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
+	cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_ringelt();
 	new (&hv->v) cl_SV_inner<_cl_ring_element> (len);
@@ -41,13 +41,13 @@ cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintC len)
 	return hv;
 }
 
-cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (uintC len)
+cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (std::size_t len)
 {
-	var cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
+	cl_heap_SV_ringelt* hv = (cl_heap_SV_ringelt*) malloc_hook(sizeof(cl_heap_SV_ringelt)+sizeof(_cl_ring_element)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_ringelt();
 	new (&hv->v) cl_SV_inner<_cl_ring_element> (len);
-	for (var uintC i = 0; i < len; i++)
+	for (std::size_t i = 0; i < len; i++)
 		init1(_cl_ring_element, hv->v[i]) ();
 	return hv;
 }
@@ -60,7 +60,7 @@ int cl_SV_ringelt_init_helper::count = 0;
 cl_SV_ringelt_init_helper::cl_SV_ringelt_init_helper()
 {
 	if (count++ == 0)
-		new ((void *)&cl_null_SV_ringelt) cl_SV_ringelt((uintC)0);
+		new ((void *)&cl_null_SV_ringelt) cl_SV_ringelt((std::size_t)0);
 }
 
 cl_SV_ringelt_init_helper::~cl_SV_ringelt_init_helper()

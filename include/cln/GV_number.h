@@ -15,7 +15,7 @@ public:
 	// Constructors.
 	cl_GV_number ();
 	cl_GV_number (const cl_GV_number&);
-	explicit cl_GV_number (uintC len);
+	explicit cl_GV_number (std::size_t len);
 	// Assignment operators.
 	cl_GV_number& operator= (const cl_GV_number&);
 	// Private pointer manipulations.
@@ -24,8 +24,8 @@ public:
 };
 inline cl_GV_number::cl_GV_number (const cl_GV_number& x) : cl_GV<cl_number,cl_GV_any> (as_cl_private_thing(x)) {}
 CL_DEFINE_ASSIGNMENT_OPERATOR(cl_GV_number,cl_GV_number)
-extern cl_heap_GV_number* cl_make_heap_GV_number (uintC len);
-inline cl_GV_number::cl_GV_number (uintC len)
+extern cl_heap_GV_number* cl_make_heap_GV_number (std::size_t len);
+inline cl_GV_number::cl_GV_number (std::size_t len)
 	: cl_GV<cl_number,cl_GV_any> (cl_make_heap_GV_number(len)) {}
 
 // Private pointer manipulations. Never throw away a `struct cl_heap_GV_number *'!

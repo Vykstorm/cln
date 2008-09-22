@@ -16,7 +16,7 @@ public:
 	// Constructors.
 	cl_SV_ringelt ();
 	cl_SV_ringelt (const cl_SV_ringelt&);
-	explicit cl_SV_ringelt (uintC len);
+	explicit cl_SV_ringelt (std::size_t len);
 	// Assignment operators.
 	cl_SV_ringelt& operator= (const cl_SV_ringelt&);
 	// Private pointer manipulations.
@@ -27,10 +27,10 @@ public:
 inline cl_SV_ringelt::cl_SV_ringelt (const cl_SV_ringelt& x) : cl_SV<_cl_ring_element,cl_SV_any> (as_cl_private_thing(x)) {}
 CL_DEFINE_ASSIGNMENT_OPERATOR(cl_SV_ringelt,cl_SV_ringelt)
 // Returns a new simple vector with uninitialized contents.
-extern cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (uintC len);
+extern cl_heap_SV_ringelt* cl_make_heap_SV_ringelt_uninit (std::size_t len);
 // Returns a new simple vector with all elements initialized to some value.
-extern cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (uintC len);
-inline cl_SV_ringelt::cl_SV_ringelt (uintC len)
+extern cl_heap_SV_ringelt* cl_make_heap_SV_ringelt (std::size_t len);
+inline cl_SV_ringelt::cl_SV_ringelt (std::size_t len)
 	: cl_SV<_cl_ring_element,cl_SV_any> (cl_make_heap_SV_ringelt(len)) {}
 
 // Private pointer manipulations.

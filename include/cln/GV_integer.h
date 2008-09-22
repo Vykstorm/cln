@@ -27,9 +27,9 @@ public:
 	cl_GV_I ();
 	cl_GV_I (const cl_GV_I&);
 	// Create a vector of unconstrained integers.
-	explicit cl_GV_I (uintC len);
+	explicit cl_GV_I (std::size_t len);
 	// Create a vector of m-bit integers (>=0, <2^m).
-	cl_GV_I (uintC len, sintC m);
+	cl_GV_I (std::size_t len, sintC m);
 	// Assignment operators.
 	cl_GV_I& operator= (const cl_GV_I&);
 	// Number m of bits allowed per element (-1 if unconstrained).
@@ -43,11 +43,11 @@ public:
 };
 inline cl_GV_I::cl_GV_I (const cl_GV_I& x) : cl_GV<cl_I,cl_GV_RA> (as_cl_private_thing(x)) {}
 CL_DEFINE_ASSIGNMENT_OPERATOR(cl_GV_I,cl_GV_I)
-extern cl_heap_GV_I* cl_make_heap_GV_I (uintC len);
-inline cl_GV_I::cl_GV_I (uintC len)
+extern cl_heap_GV_I* cl_make_heap_GV_I (std::size_t len);
+inline cl_GV_I::cl_GV_I (std::size_t len)
 	: cl_GV<cl_I,cl_GV_RA> (cl_make_heap_GV_I(len)) {}
-extern cl_heap_GV_I* cl_make_heap_GV_I (uintC len, sintC m);
-inline cl_GV_I::cl_GV_I (uintC len, sintC m)
+extern cl_heap_GV_I* cl_make_heap_GV_I (std::size_t len, sintC m);
+inline cl_GV_I::cl_GV_I (std::size_t len, sintC m)
 	: cl_GV<cl_I,cl_GV_RA> (cl_make_heap_GV_I(len,m)) {}
 
 // Private pointer manipulations. Never throw away a `struct cl_heap_GV_I *'!

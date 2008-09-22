@@ -19,13 +19,13 @@ namespace cln {
 
 void print_vector (std::ostream& stream, const cl_print_flags& flags, void (* printfun) (std::ostream&, const cl_print_flags&, const cl_number&), const cl_SV_number& vector)
 {
-	var uintC len = vector.size();
+	std::size_t len = vector.size();
 	if (flags.vector_syntax == vsyntax_commonlisp) {
 		fprintchar(stream,'#');
 		fprintchar(stream,'(');
 	} else
 		fprintchar(stream,'[');
-	for (var uintC i = 0; i < len; i++) {
+	for (std::size_t i = 0; i < len; i++) {
 		if (i > 0) {
 			if (flags.vector_syntax == vsyntax_algebraic)
 				fprintchar(stream,',');

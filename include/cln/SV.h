@@ -7,6 +7,7 @@
 #include "cln/V.h"
 #include "cln/exception.h"
 #include <cstdlib>
+#include <cstddef>
 
 namespace cln {
 
@@ -40,13 +41,13 @@ template <class T> class cl_SV_inner;
 template <class T>
 class cl_SV_inner {
 protected:
-	uintC len; // number of elements
+	std::size_t len; // number of elements
 private:
 //	T data[]; // the elements
 	T * data() { return (T *) (this+1); }
 	const T * data() const { return (const T *) (this+1); }
 public:
-	uintC size() const { return len; } // number of elements
+	std::size_t size() const { return len; } // number of elements
 	const T & operator[] (unsigned long index) const
 	{
 		#ifndef CL_SV_NO_RANGECHECKS
@@ -76,7 +77,7 @@ public:
 	{ return operator[]((unsigned long)index); }
 public: /* ugh */
 	// Constructor.
-	cl_SV_inner (uintC l) : len (l) {}
+	cl_SV_inner (std::size_t l) : len (l) {}
 public:
 	// Destructor.
 	~cl_SV_inner ();
@@ -95,7 +96,7 @@ private:
 template <class T>
 inline cl_SV_inner<T>::~cl_SV_inner ()
 {
-	uintC i = len;
+	std::size_t i = len;
 	while (i > 0) {
 		i--;
 		data()[i].~T();
@@ -115,7 +116,7 @@ template <class T, class BASE>
 struct cl_SV : public BASE {
 public:
 	// Length.
-	uintC size() const
+	std::size_t size() const
 	{
 		return ((const cl_heap_SV<T> *) this->pointer)->v.size();
 	}

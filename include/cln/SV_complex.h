@@ -19,7 +19,7 @@ public:
 	// Constructors.
 	cl_SV_N () : cl_SV<cl_N,cl_SV_number> ((cl_heap_SV_N*) (cl_heap_SV_number*) cl_null_SV_number) {};
 	cl_SV_N (const cl_SV_N&);
-	explicit cl_SV_N (uintC len) : cl_SV<cl_N,cl_SV_number> ((cl_heap_SV_N*) cl_make_heap_SV_number(len)) {};
+	explicit cl_SV_N (std::size_t len) : cl_SV<cl_N,cl_SV_number> ((cl_heap_SV_N*) cl_make_heap_SV_number(len)) {};
 	// Assignment operators.
 	cl_SV_N& operator= (const cl_SV_N&);
 	// Private pointer manipulations.

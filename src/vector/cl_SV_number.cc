@@ -30,9 +30,9 @@ cl_class& cl_class_svector_number()
 	return instance;
 }
 
-cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintC len)
+cl_heap_SV_number* cl_make_heap_SV_number_uninit (std::size_t len)
 {
-	var cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
+	cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_number();
 	new (&hv->v) cl_SV_inner<cl_number> (len);
@@ -40,13 +40,13 @@ cl_heap_SV_number* cl_make_heap_SV_number_uninit (uintC len)
 	return hv;
 }
 
-cl_heap_SV_number* cl_make_heap_SV_number (uintC len)
+cl_heap_SV_number* cl_make_heap_SV_number (std::size_t len)
 {
-	var cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
+	cl_heap_SV_number* hv = (cl_heap_SV_number*) malloc_hook(sizeof(cl_heap_SV_number)+sizeof(cl_number)*len);
 	hv->refcount = 1;
 	hv->type = &cl_class_svector_number();
 	new (&hv->v) cl_SV_inner<cl_number> (len);
-	for (var uintC i = 0; i < len; i++)
+	for (std::size_t i = 0; i < len; i++)
 		init1(cl_number, hv->v[i]) (0);
 	return hv;
 }
@@ -59,7 +59,7 @@ int cl_SV_number_init_helper::count = 0;
 cl_SV_number_init_helper::cl_SV_number_init_helper()
 {
 	if (count++ == 0)
-		new ((void *)&cl_null_SV_number) cl_SV_number((uintC)0);
+		new ((void *)&cl_null_SV_number) cl_SV_number((std::size_t)0);
 }
 
 cl_SV_number_init_helper::~cl_SV_number_init_helper()

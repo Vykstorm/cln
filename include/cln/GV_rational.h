@@ -19,7 +19,7 @@ public:
 	// Constructors.
 	cl_GV_RA ();
 	cl_GV_RA (const cl_GV_RA&);
-	explicit cl_GV_RA (uintC len);
+	explicit cl_GV_RA (std::size_t len);
 	// Assignment operators.
 	cl_GV_RA& operator= (const cl_GV_RA&);
 	// Private pointer manipulations.
@@ -28,7 +28,7 @@ public:
 };
 inline cl_GV_RA::cl_GV_RA (const cl_GV_RA& x) : cl_GV<cl_RA,cl_GV_R> (as_cl_private_thing(x)) {}
 CL_DEFINE_ASSIGNMENT_OPERATOR(cl_GV_RA,cl_GV_RA)
-inline cl_GV_RA::cl_GV_RA (uintC len)
+inline cl_GV_RA::cl_GV_RA (std::size_t len)
 	: cl_GV<cl_RA,cl_GV_R> ((cl_heap_GV_RA*) cl_make_heap_GV_number(len)) {}
 inline cl_GV_RA::cl_GV_RA ()
 	: cl_GV<cl_RA,cl_GV_R> ((cl_heap_GV_RA*) (cl_heap_GV_number*) cl_null_GV_number) {}
