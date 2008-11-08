@@ -137,6 +137,10 @@ CL_MACHINE([floating-point types and behaviour],${srcdir}/autoconf/floatparam.c,
                       dnl builds include/cln/floatparam.h
 CL_LIBGMP
                       dnl DEFS CL_USE_GMP, GMP_DEMANDS_UINTD_*
+
+CLNLIB_LIBS='-L${libdir} -lcln'
+AC_LIB_LINKFLAGS_FROM_LIBS([CLNLIB_RPATH], [$CLNLIB_LIBS])
+
 dnl
 dnl           That's it.
 dnl

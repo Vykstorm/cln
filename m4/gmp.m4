@@ -104,6 +104,9 @@ case $with_gmp in
     CPPFLAGS="$CPPFLAGS -I${withval}/include"
     saved_LDFLAGS="$LDFLAGS"
     LDFLAGS="$LDFLAGS -L${withval}/lib"
+    AC_LIB_LINKFLAGS_FROM_LIBS([GMP_RPATH_CFG], [$LDFLAGS])
+    LDFLAGS="$GMP_RPATH_CFG $LDFLAGS"
+    AC_MSG_NOTICE([Using "\"$LDFLAGS\"" rpath to link with GMP])
     CL_GMP_H_VERSION
     if test "$cl_cv_new_gmp_h" = yes; then
       CL_GMP_CHECK
