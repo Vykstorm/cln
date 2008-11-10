@@ -980,5 +980,5 @@ polynomial/elem/cl_asm_sparc_GF2.cc
 polynomial/elem/cl_asm_GF2.S: $(MORE_ASMFILES)
 	$(MKDIR_P) polynomial/elem; cp $< $@
 
-EXTRA_DIST = $(ASMFILES)
+EXTRA_DIST = $(ASMFILES) $(MORE_ASMFILES)
 

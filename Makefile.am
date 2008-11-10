@@ -101,4 +101,9 @@ include/cln/intparam.h
 
 EXTRA_DIST += include/cln/config.h.in \
 	     include/cln/host_cpu.h.in \
-	     include/cln/version.h.in
+	     include/cln/version.h.in \
+autoconf/floatparam.c \
+autoconf/intparam.c
+
+DISTCHECK_CONFIGURE_FLAGS = --disable-static
+

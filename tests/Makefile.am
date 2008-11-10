@@ -46,12 +46,24 @@ AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src \
 -I$(top_builddir)/include -I$(top_builddir)/src
 
 
-exam_SOURCES = exam.cc exam_I.cc exam_RA.cc exam_SF.cc \
-	exam_FF.cc exam_DF.cc exam_LF.cc exam_I_gcd.cc exam_I_sqrtp.cc
+exam_SOURCES = exam.h exam.cc \
+	       exam_I.cc exam_I_plus.cc exam_I_minus.cc exam_I_mul.cc \
+	       exam_I_div.cc exam_I_floor.cc \
+	       exam_RA.cc exam_RA_plus.cc exam_RA_minus.cc exam_RA_mul.cc \
+	       exam_RA_div.cc exam_RA_floor.cc \
+	       exam_SF.cc exam_SF_plus.cc exam_SF_minus.cc exam_SF_mul.cc \
+	       exam_SF_div.cc exam_SF_floor.cc \
+	       exam_FF.cc exam_FF_plus.cc exam_FF_minus.cc exam_FF_mul.cc \
+	       exam_FF_div.cc exam_FF_floor.cc \
+	       exam_DF.cc exam_DF_plus.cc exam_DF_minus.cc exam_DF_mul.cc \
+	       exam_DF_div.cc exam_DF_floor.cc \
+	       exam_LF.cc exam_LF_plus.cc exam_LF_minus.cc exam_LF_mul.cc \
+	       exam_LF_div.cc exam_LF_floor.cc \
+	       exam_I_gcd.cc exam_I_sqrtp.cc test_MI.h test.h
 	
 exam_LDADD = ../src/libcln.la
 
-tests_SOURCES = tests.cc test_I.cc test_I_abs.cc test_I_compare.cc \
+tests_SOURCES = test.h tests.cc test_I.cc test_I.h test_I_abs.cc test_I_compare.cc \
 	test_I_plus.cc test_I_minus.cc test_I_plus1.cc \
 	test_I_minus1.cc test_I_mul.cc test_I_div.cc \
 	test_I_gcd.cc test_I_xgcd.cc test_I_ash.cc \
@@ -65,10 +77,10 @@ tests_SOURCES = tests.cc test_I.cc test_I_abs.cc test_I_compare.cc \
 	test_I_logcount.cc test_I_ilength.cc test_I_ord2.cc \
 	test_I_power2p.cc test_I_isqrt.cc test_I_sqrtp.cc \
 	test_I_io.cc test_I_GV.cc \
-	test_MI.cc test_MI_canonhom.cc test_MI_plus.cc \
+	test_MI.h test_MI.cc test_MI_canonhom.cc test_MI_plus.cc \
 	test_MI_minus.cc test_MI_mul.cc test_MI_recip.cc \
 	test_MI_div.cc test_MI_expt.cc \
-	test_nt.cc test_nt_jacobi.cc
+	test_nt.h test_nt.cc test_nt_jacobi.cc
 	
 tests_LDADD = ../src/libcln.la
 
