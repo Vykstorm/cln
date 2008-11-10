@@ -20,7 +20,7 @@ m4_define([cl_revision], [0])
 m4_define([cl_age], [0])
 m4_define([cl_lt_version], [cl_current:cl_revision:cl_age])
 
-AC_INIT([cln], cln_version)
+AC_INIT([cln], cl_version)
 AC_PREREQ(2.59)
 AC_CONFIG_SRCDIR(src/integer/gcd/cl_I_gcd.cc)
 AC_CONFIG_AUX_DIR([autoconf])
