@@ -5,6 +5,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = cln.pc
 
 EXTRA_DIST = cln.pc.in cln.spec.in
+DISTCLEANFILES = cln.pc
 
 $(pkgconfig_DATA): config.status
 
@@ -98,6 +99,12 @@ nodist_clninclude_HEADERS = \
 include/cln/config.h \
 include/cln/host_cpu.h \
 include/cln/intparam.h
+
+DISTCLEANFILES += \
+include/cln/config.h \
+include/cln/host_cpu.h \
+include/cln/intparam.h \
+include/cln/floatparam.h
 
 EXTRA_DIST += include/cln/config.h.in \
 	     include/cln/host_cpu.h.in \

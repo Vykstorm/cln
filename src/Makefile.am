@@ -982,3 +982,7 @@ polynomial/elem/cl_asm_GF2.S: $(MORE_ASMFILES)
 
 EXTRA_DIST = $(ASMFILES) $(MORE_ASMFILES)
 
+DISTCLEANFILES = \
+base/digitseq/cl_asm.S \
+polynomial/elem/cl_asm_GF2.S
+
