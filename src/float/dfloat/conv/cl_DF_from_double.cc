@@ -11,12 +11,6 @@
 
 namespace cln {
 
-cl_heap_dfloat* cl_double_to_DF_pointer (const dfloatjanus& val_)
-{
-      // XXX: This signature is for binary compatibility with CLN-1.2.0 only.
-      return cl_double_to_DF_pointer(*(double *)(&val_));
-}
-
 cl_heap_dfloat* cl_double_to_DF_pointer (const double x)
 {
       var union { dfloat eksplicit; double machine_double; } u;

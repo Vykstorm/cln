@@ -24,27 +24,6 @@ typedef std::ostream& cl_ostream;
 extern std::ostream* cl_debugout_stream;
 #define cl_debugout  (*cl_debugout_stream)
 
-// Elementary operations on std::istream&
-
-#define cl_EOF  (-1)
-
-inline int freadchar (std::istream& stream)
-{
-	char c;
-	if (stream.get(c))
-		return c;
-	else
-		// EOF or error
-		return cl_EOF;
-}
-
-inline int funreadchar (std::istream& stream, int c)
-{
-	if (c != cl_EOF)
-		stream.putback((char)c);
-	return c;
-}
-
 // Elementary operations on std::ostream&
 
 inline void fprintchar (std::ostream& stream, char c)

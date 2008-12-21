@@ -17,11 +17,11 @@ namespace cln {
 const cl_string cl_fget (std::istream& stream, int n, char delim)
 {
 	var cl_spushstring buffer;
-	// Handling of eofp is tricky: EOF is reached when (!stream.good()) || (stream.get()==EOF).
+	// Handling of eofp is tricky: EOF is reached when (!stream.good()) || (stream.eof()).
 	while (stream.good()) {
 		var int c = stream.get();
-		if (c==EOF)
-			break;	// ios::eofbit already set
+		if (stream.eof())
+			break;
 		if (c==delim) {
 			stream.unget();
 			break;

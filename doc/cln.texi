@@ -2661,30 +2661,7 @@ In Common Lisp notation: @code{#C(@var{realpart} @var{imagpart})}.
 @node Input functions
 @section Input functions
 
-Including @code{<cln/io.h>} defines a number of simple input functions
-that read from @code{std::istream&}:
-
-@table @code
-@item int freadchar (std::istream& stream)
-Reads a character from @code{stream}. Returns @code{cl_EOF} (not a @samp{char}!)
-if the end of stream was encountered or an error occurred.
-
-@item int funreadchar (std::istream& stream, int c)
-Puts back @code{c} onto @code{stream}. @code{c} must be the result of the
-last @code{freadchar} operation on @code{stream}.
-@end table
-
-Each of the classes @code{cl_N}, @code{cl_R}, @code{cl_RA}, @code{cl_I},
-@code{cl_F}, @code{cl_SF}, @code{cl_FF}, @code{cl_DF}, @code{cl_LF}
-defines, in @code{<cln/@var{type}_io.h>}, the following input function:
-
-@table @code
-@item std::istream& operator>> (std::istream& stream, @var{type}& result)
-Reads a number from @code{stream} and stores it in the @code{result}.
-@end table
-
-The most flexible input functions, defined in @code{<cln/@var{type}_io.h>},
-are the following:
+Including @code{<cln/io.h>} defines flexible input functions:
 
 @table @code
 @item cl_N read_complex (std::istream& stream, const cl_read_flags& flags)

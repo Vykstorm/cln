@@ -19,12 +19,12 @@ std::istream& operator>> (std::istream& stream, cl_string& str)
 {
 	var cl_spushstring buffer;
 	var int n = stream.width();
-	// Handling of eofp is tricky: EOF is reached when (!stream.good()) || (stream.get()==EOF).
+	// Handling of eofp is tricky: EOF is reached when (!stream.good()) || (stream.eof()).
 	int c;
 	// Skip whitespace.
 	while (stream.good()) {
 		c = stream.get();
-		if (c==EOF)
+		if (stream.eof())
 			break;
 		if (!isspace(c)) {
 			if (--n == 0) {
@@ -40,7 +40,7 @@ std::istream& operator>> (std::istream& stream, cl_string& str)
 	// Read non-whitespace.
 	while (stream.good()) {
 		c = stream.get();
-		if (c==EOF)
+		if (stream.eof())
 			break;
 		if (isspace(c)) {
 			stream.unget();

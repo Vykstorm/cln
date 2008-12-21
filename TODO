@@ -1,9 +1,3 @@
-ABI Issues:
-
-Remove extra signatures in cl_FF_from_float.cc, cl_DF_from_double.cc,
-cl_F_readparsed.cc, cl_I_readparsed.cc, and cl_RA_readparsed.cc.
-
-
 Algorithms:
 
 Niels Moeller's subquadratic GCD

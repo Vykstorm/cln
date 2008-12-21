@@ -49,8 +49,8 @@ const cl_RA read_rational (std::istream& stream, const cl_read_flags& flags)
 	var int c;
 	// Skip whitespace at the beginning.
 	loop {
-		c = freadchar(stream);
-		if (c == cl_EOF) goto eof;
+		c = stream.get();
+		if (stream.eof() || stream.fail()) goto eof;
 		if ((c == ' ') || (c == '\t') || (c == '\n'))
 			continue;
 		else
@@ -65,8 +65,8 @@ const cl_RA read_rational (std::istream& stream, const cl_read_flags& flags)
 		buffer.push(c);
 		// Read some digits, then a letter, then a token.
 		loop {
-			c = freadchar(stream);
-			if (c == cl_EOF) goto eof;
+			c = stream.get();
+			if (stream.eof() || stream.fail()) goto eof;
 			buffer.push(c);
 			if ((c >= '0') && (c <= '9'))
 				continue;
@@ -75,19 +75,19 @@ const cl_RA read_rational (std::istream& stream, const cl_read_flags& flags)
 		}
 		if (!(((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z'))))
 			goto syntax1;
-		c = freadchar(stream);
-		if (c == cl_EOF) goto eof;
+		c = stream.get();
+		if (stream.eof() || stream.fail()) goto eof;
 	}
 	// Read a number token.
 	if (!number_char_p(c))
 		goto syntax1;
 	loop {
 		buffer.push(c);
-		c = freadchar(stream);
-		if (c == cl_EOF)
+		c = stream.get();
+		if (stream.eof() || stream.fail())
 			break;
 		if (!number_char_p(c)) {
-			funreadchar(stream,c);
+			stream.putback(c);
 			break;
 		}
 	}
