@@ -1,6 +1,7 @@
 lib_LTLIBRARIES = libcln.la
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src -I$(top_builddir)/include -I$(top_builddir)/src
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/autoconf
 libcln_la_LDFLAGS = -version-info $(LT_VERSION_INFO)
 
 libcln_la_SOURCES = \

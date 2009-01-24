@@ -27,3 +27,4 @@ pi_LDADD = ../src/libcln.la
 
 
 AM_CPPFLAGS = -I../include -I$(top_srcdir)/include
+DEFAULT_INCLUDES = -I.@am__isrc@

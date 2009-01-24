@@ -44,6 +44,7 @@ EXTRA_PROGRAMS = $(ALL_TIMINGS)
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src \
 -I$(top_builddir)/include -I$(top_builddir)/src
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/autoconf
 
 
 exam_SOURCES = exam.h exam.cc \
