@@ -64,7 +64,7 @@ Installation from git.
 
 Initial download:
 
-$ git clone git://ffmssmsc.jinr.ru:443/varg/cln.git cln
+$ git clone git://www.ginac.de/cln.git
 
 Later on you can update your copy with
 
