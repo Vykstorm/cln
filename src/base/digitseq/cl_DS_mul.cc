@@ -456,7 +456,6 @@ namespace cln {
 
 #endif
 
-//  int cl_mul_algo = 0;
   void cl_UDS_mul (const uintD* sourceptr1, uintC len1,
                    const uintD* sourceptr2, uintC len2,
                    uintD* destptr)
@@ -473,12 +472,9 @@ namespace cln {
         { mulu_loop_lsp(lsprefnext(sourceptr1),sourceptr2,destptr,len2); }
       else
         {
-//          if (cl_mul_algo > 0)
-//            mulu_fftcs(sourceptr1,len1,sourceptr2,len2,destptr);
-//          else
-//          if (cl_mul_algo > 0)
-//            mulu_nussbaumer(sourceptr1,len1,sourceptr2,len2,destptr);
-//          else
+#if CL_USE_GMP && __GNU_MP__ >= 4
+          mpn_mul(destptr,sourceptr2,len2,sourceptr1,len1);
+#else
           if (len1 < cl_karatsuba_threshold)
             // Multiplikation nach Schulmethode
             mulu_2loop(sourceptr1,len1,sourceptr2,len2,destptr);
@@ -493,10 +489,11 @@ namespace cln {
             //mulu_nussbaumer(sourceptr1,len1,sourceptr2,len2,destptr);
             //mulu_fft_modp3(sourceptr1,len1,sourceptr2,len2,destptr);
             mulu_fft_modm(sourceptr1,len1,sourceptr2,len2,destptr);
+#endif
           #ifdef DEBUG_MUL_XXX
           { // Check the correctness of an other multiplication algorithm:
             CL_ALLOCA_STACK;
-            var uintD tmpprod_xxx = cl_alloc_array(uintD,len1+len2);
+            var uintD* tmpprod_xxx = cl_alloc_array(uintD,len1+len2);
             mulu_xxx(sourceptr1,len1,sourceptr2,len2,arrayLSDptr(tmpprod_xxx,len1+len2));
             if (compare_loop_msp(destptr lspop (len1+len2),arrayMSDptr(tmpprod_xxx,len1+len2),len1+len2))
               throw runtime_exception();
@@ -523,10 +520,14 @@ namespace cln {
       { if (len < cl_karatsuba_threshold)
           mulu_2loop_square(sourceptr,len,destptr);
         else
+#if CL_USE_GMP && __GNU_MP__ >= 4
+            mpn_mul(destptr,sourceptr,len,sourceptr,len);
+#else
           if (!(len >= cl_fftm_threshold))
             mulu_karatsuba_square(sourceptr,len,destptr);
           else
             mulu_fft_modm(sourceptr,len,sourceptr,len,destptr);
+#endif
       }
   }
 
