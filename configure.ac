@@ -1,8 +1,8 @@
 dnl run autoreconf -iv to produce the configure script.
 
 m4_define([cl_version_major], [1])
-m4_define([cl_version_minor], [2])
-m4_define([cl_version_patchlevel], [2])
+m4_define([cl_version_minor], [3])
+m4_define([cl_version_patchlevel], [0])
 m4_define([cl_version], [cl_version_major.cl_version_minor.cl_version_patchlevel])
 
 dnl Libtool's library version information for CLN.
