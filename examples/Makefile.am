@@ -1,4 +1,7 @@
-noinst_PROGRAMS = contfrac e fibonacci legendre lucaslehmer nextprime perfnum pi
+noinst_PROGRAMS = contfrac e fibonacci legendre lucaslehmer nextprime perfnum
+bin_PROGRAMS = pi
+
+dist_man_MANS = pi.1
 
 
 contfrac_SOURCES = contfrac.cc
