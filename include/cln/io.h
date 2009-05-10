@@ -62,11 +62,11 @@ inline void fprinthexadecimal (std::ostream& stream, int x)
 }
 
 
-class cl_print_flags;
-class cl_print_number_flags;
-class cl_print_real_flags;
-class cl_print_rational_flags;
-class cl_print_float_flags;
+struct cl_print_flags;
+struct cl_print_number_flags;
+struct cl_print_real_flags;
+struct cl_print_rational_flags;
+struct cl_print_float_flags;
 
 class cl_prin_globals_init_helper
 {
