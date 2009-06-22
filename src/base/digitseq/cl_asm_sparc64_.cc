@@ -24,10 +24,7 @@
 #if defined(__NetBSD__) || defined(__OpenBSD__)
   #define DECLARE_FUNCTION(name) .type C(name),@function
 #elif defined(__svr4__) || defined(__ELF__)
-  // Some preprocessors keep the backslash in place, some don't.
-  // Some complain about the # being not in front of an ANSI C macro.
-  // Therefore we use a dollar, which will be sed-converted to # later.
-  #define DECLARE_FUNCTION(name) .type C(name),$function
+  #define DECLARE_FUNCTION(name) .type C(name),#function
 #else
   #define DECLARE_FUNCTION(name)
 #endif
