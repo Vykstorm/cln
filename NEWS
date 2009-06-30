@@ -1,8 +1,10 @@
-2009-xx-xx, version 1.3.0
+2009-06-30, version 1.3.0
 =========================
 
 Other changes
 -------------
+
+* Use the GNU autotools as build system.
 
 * Implemented a more portable module dependency mechanism.
 
