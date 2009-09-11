@@ -70,12 +70,16 @@ double double_approx (const cl_RA& x)
         }
       // Division zaehler/nenner durchführen:
       var cl_I_div_t q_r = cl_divide(zaehler,nenner);
-      var cl_I& q = q_r.quotient;
+      var cl_I& q = q_r.quotient;  // 2^53 <= q < 2^55
       var cl_I& r = q_r.remainder;
-      // 2^53 <= q < 2^55, also ist q Bignum mit ceiling(55/intDsize) Digits.
-      var const uintD* ptr = BN_MSDptr(q);
       #if (cl_word_size==64)
-      var uint64 mant = get_max64_Dptr(55,ptr);
+      # if (cl_value_len-1 > 55)
+      var uint64 mant = FN_to_V(q);  // q is a fixnum!
+      # elif (cl_value_len-1 <= 53)
+      var uint64 mant = get_max64_Dptr(55,BN_MSDptr(q));  // q is a bignum!
+      # else
+      var uint64 mant = fixnump(q) ? FN_to_V(q) : get_max64_Dptr(55,BN_MSDptr(q));
+      # endif
       if (mant >= bit(DF_mant_len+2))
         // 2^54 <= q < 2^55, schiebe um 2 Bits nach rechts
         { var uint64 rounding_bits = mant & (bit(2)-1);
@@ -126,6 +130,8 @@ double double_approx (const cl_RA& x)
         }
       return u.machine_double;
       #else
+      // q is bignum with ceiling(55/intDsize) Digits.
+      var const uintD* ptr = BN_MSDptr(q);
       var uint32 manthi = get_max32_Dptr(23,ptr);
       var uint32 mantlo = get_32_Dptr(ptr mspop ceiling(23,intDsize));
       if (manthi >= bit(DF_mant_len-32+2))
