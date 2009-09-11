@@ -100,7 +100,6 @@ base/string/cl_st_make0.cc \
 base/string/cl_st_make0.h \
 base/string/cl_st_make1.cc \
 base/string/cl_st_make2.cc \
-base/string/cl_st_null.cc \
 base/string/input/cl_st_get1.cc \
 base/string/input/cl_st_get2.cc \
 base/string/input/cl_st_getline1.cc \
