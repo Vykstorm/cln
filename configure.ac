@@ -2,23 +2,23 @@ dnl run autoreconf -iv to produce the configure script.
 
 m4_define([cl_version_major], [1])
 m4_define([cl_version_minor], [3])
-m4_define([cl_version_patchlevel], [0])
+m4_define([cl_version_patchlevel], [1])
 m4_define([cl_version], [cl_version_major.cl_version_minor.cl_version_patchlevel])
 
 dnl Libtool's library version information for CLN.
 dnl (Not to be confused with CLN's release version.)
 dnl Making new releases:
-dnl * increment CL_REVISION,
-dnl * if any functions/classes have been added, removed or changed, increment
-dnl   CL_CURRENT and set CL_REVISION to 0,
-dnl * if any functions/classes have been added, increment CL_AGE,
-dnl * if backwards compatibility has been broken, set CL_AGE to 0.
-dnl $(CL_CURRENT):$(CL_REVISION):$(CL_AGE) results in
-dnl libcln.so.$(CL_CURRENT)-$(CL_AGE)
-m4_define([cl_current], [6])
-m4_define([cl_revision], [0])
-m4_define([cl_age], [0])
-m4_define([cl_lt_version], [cl_current:cl_revision:cl_age])
+dnl * increment cl_lt_revision,
+dnl * if any interfaces have been added, removed, or changed, then increment
+dnl   cl_lt_current and set cl_lt_revision to 0,
+dnl * if any interfaces have been added, then increment cl_lt_age,
+dnl * if any interfaces have been removed, set cl_lt_age to 0.
+dnl (On many systems, $(cl_lt_current):$(cl_lt_revision):$(cl_lt_age) results in
+dnl libcln.so.$(cl_lt_current)-$(cl_lt_age).)
+m4_define([cl_lt_current], [6])
+m4_define([cl_lt_revision], [1])
+m4_define([cl_lt_age], [0])
+m4_define([cl_lt_version], [cl_lt_current:cl_lt_revision:cl_lt_age])
 
 AC_INIT([cln], cl_version)
 AC_PREREQ(2.59)
