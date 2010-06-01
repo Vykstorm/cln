@@ -36,33 +36,46 @@ cl_cv_new_libgmp="yes", cl_cv_new_libgmp="no")
 dnl What is sizeof(mp_limb_t)?  (It has to match sizeof(uintD) later.)
 AC_DEFUN([CL_GMP_SET_UINTD],
 [AC_CACHE_CHECK([how large gmp demands uintD to be], cl_cv_gmp_set_uintd, [
-    AC_TRY_RUN([#include <gmp.h>
-#include <stdio.h>
-int main() {
-    FILE *f=fopen("conftestval", "w");
-    if (!f) return(255);
-    if (sizeof(mp_limb_t) > sizeof(long))
-        fprintf(f, "long long");
-    else if (sizeof(mp_limb_t) == sizeof(long))
-        fprintf(f, "long");
-    else if (sizeof(mp_limb_t) == sizeof(int))
-        fprintf(f, "int");
-    else return(sizeof(mp_limb_t));
-#if defined(__GMP_BITS_PER_MP_LIMB)
-    /* Is there a nail in a limb? */
-    if (8*sizeof(mp_limb_t)!=__GMP_BITS_PER_MP_LIMB)
-        return(254);
-#endif
-    return(0);
-}], cl_cv_gmp_set_uintd=`cat conftestval`
-    cl_gmp_demands="GMP_DEMANDS_UINTD_`echo ${cl_cv_gmp_set_uintd} | sed -e 'y/ gilnot/_GILNOT/'`",
-    gmp_retval="$ac_status"
-    if test x$gmp_retval = "x255"; then AC_MSG_ERROR([error opening output file.]); fi
-    if test x$gmp_retval = "x254"; then AC_MSG_ERROR([nails in MP limbs are unsupported.]); fi
-    AC_MSG_ERROR([Don't know which C-type has sizeof $gmp_retval.]),
-    AC_MSG_ERROR([cross-compiling - cannot determine]))
-])
-AC_DEFINE_UNQUOTED($cl_gmp_demands)
+    dnl Note: we don't run any of compiled programs here, so this method
+    dnl both works for native and cross compilation
+    cl_gmp_demands="UNKNOWN"
+    cl_gmp_has_nails="no"
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <gmp.h>
+	 template<bool COND> struct Static_Assert;
+	 template<> struct Static_Assert<true> { };
+	 #if defined(__GMP_BITS_PER_MP_LIMB)
+         Static_Assert<8*sizeof(mp_limb_t) == __GMP_BITS_PER_MP_LIMB> check;
+	 #endif]], [[]])], [], [cl_gmp_has_nails="yes"])
+    if test "x$cl_gmp_has_nails" = "xyes"; then
+        AC_MSG_ERROR([nails in MP libms are unsupported.])
+    fi
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <gmp.h>
+	 template<bool COND> struct Static_Assert;
+	 template<> struct Static_Assert<true> { };
+	 Static_Assert<sizeof(mp_limb_t) > sizeof(long)> check;]], [[]])],
+	 [cl_gmp_demands='GMP_DEMANDS_UINTD_LONG_LONG'], [])
+    if test "x$cl_gmp_demands" = "xUNKNOWN"; then
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <gmp.h>
+	     template<bool COND> struct Static_Assert;
+	     template<> struct Static_Assert<true> { };
+	     Static_Assert<sizeof(mp_limb_t) == sizeof(long)> check;]], [[]])],
+	     [cl_gmp_demands='GMP_DEMANDS_UINTD_LONG'], [])
+    fi
+    if test "x$cl_gmp_demands" = "xUNKNOWN"; then
+        AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+             #include <gmp.h>
+	     template<bool COND> struct Static_Assert;
+	     template<> struct Static_Assert<true> { };
+	     Static_Assert<sizeof(mp_limb_t) == sizeof(int)> check;]], [[]])],
+	     [cl_gmp_demands='GMP_DEMANDS_UINTD_INT'], [])
+    fi
+    if test "x$cl_gmp_demands" = "xUNKNOWN"; then
+	AC_MSG_ERROR([Don't know which C-type has sizeof(mp_limb_t)])
+    else
+        cl_cv_gmp_set_uintd="$cl_gmp_demands"
+    fi 
+    ])
+AC_DEFINE_UNQUOTED($cl_cv_gmp_set_uintd)
 ])
 
 dnl Whether or not to use GMP. Sets CL_USE_GMP.
