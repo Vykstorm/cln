@@ -1167,7 +1167,7 @@ Returns the complex conjugate of @code{x}.
 
 We have the relations
 
-@itemize @asis
+@itemize @w{}
 @item
 @code{x = complex(realpart(x), imagpart(x))}
 @item
@@ -1282,7 +1282,7 @@ down exactly as often as it rounds up.
 
 The functions are related like this:
 
-@itemize @asis
+@itemize @w{}
 @item
 @code{ceiling(m/n) = floor((m+n-1)/n) = floor((m-1)/n)+1}
 for rational numbers @code{m/n} (@code{m}, @code{n} integers, @code{n}>0), and
@@ -2091,7 +2091,7 @@ come from @code{newbyte} and the other bits come from @code{n}.
 
 The following relations hold:
 
-@itemize @asis
+@itemize @w{}
 @item
 @code{ldb (n, b) = mask_field(n, b) >> b.position},
 @item
@@ -2454,7 +2454,7 @@ If @code{x} is already an exact number, this function returns @code{x}.
 
 If @code{x} is any float, one has
 
-@itemize @asis
+@itemize @w{}
 @item
 @code{cl_float(rational(x),x) = x}
 @item
@@ -2628,7 +2628,7 @@ one digit in the non-exponent part. The exponent has the syntax
 @var{expmarker} @var{expsign} @{@var{digit}@}+.
 The exponent marker is
 
-@itemize @asis
+@itemize @w{}
 @item
 @samp{s} for short-floats,
 @item
@@ -2646,7 +2646,7 @@ function @samp{float_format}.
 
 @item Complex numbers
 External representation:
-@itemize @asis
+@itemize @w{}
 @item
 In algebraic notation: @code{@var{realpart}+@var{imagpart}i}. Of course,
 if @var{imagpart} is negative, its printed representation begins with
