@@ -118,7 +118,7 @@ private:
         if (this->_freelist < -1)
             return;
         // Can we make room?
-        if (_garcol_fun(this))
+        if (this->_garcol_fun(this))
             if (this->_freelist < -1)
                 return;
         // No! Have to grow the hash table.
@@ -126,7 +126,7 @@ private:
       #else
         // workaround Sun C++ 4.1 inline function compiler bug
         if (this->_freelist >= -1) {
-            if (!_garcol_fun(this) || (this->_freelist >= -1))
+            if (!this->_garcol_fun(this) || (this->_freelist >= -1))
                 grow();
         }
       #endif
