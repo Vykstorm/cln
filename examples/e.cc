@@ -72,13 +72,13 @@ sum_exp1 (uintC a, uintC b, cl_I & first, cl_I & second)
 }
 
 namespace cln {
-  extern cl_LF cl_I_to_LF(const cl_I&, uintC);
+  extern const cl_LF cl_I_to_LF(const cl_I&, uintC);
 }
 
 void
 const_exp1 (cl_LF & result, uintC dec)
 {
-  uintC c = (uintC) (dec * ::log (10));
+  uintC c = (uintC) (dec * ::log (10.0));
   uintC n = dec;
   uintC actuallen = (uintC)(3.321928094 * dec / intDsize);
   n = (uintC) ((n + c) / ::log ((double)n));

@@ -25,6 +25,18 @@
 
 // Constructors and assignment operators from C numeric types.
 
+#ifdef _MSC_VER
+// Workaround to force MSVC to tag the symbol with the cln:: namespace
+// When declaring inside an inlined function the symbol is placed in the 
+// global namespace!
+namespace cln {
+extern cl_private_thing cl_I_constructor_from_L (sint32 wert);
+extern cl_private_thing cl_I_constructor_from_UL (uint32 wert);
+extern cl_private_thing cl_I_constructor_from_Q (sint64 wert);
+extern cl_private_thing cl_I_constructor_from_UQ (uint64 wert);
+}
+#endif
+
 #define CL_DEFINE_INT_CONSTRUCTOR(_class_,_type_)  \
 inline _class_::_class_ (const _type_ wert)				\
 {									\

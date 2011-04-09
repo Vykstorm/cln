@@ -202,7 +202,13 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // > arg1, arg2 : zwei 32-Bit-Zahlen
 // < 2^32*hi+lo : eine 64-Bit-Zahl
   extern "C" uint32 mulu32_ (uint32 arg1, uint32 arg2); // -> Low-Teil
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug: extern "C" results in wrong symbols, when
+  // declared inside a namespace!
+} extern "C" uint32 mulu32_high; namespace cln {        // -> High-Teil
+#else
   extern "C" uint32 mulu32_high;                        // -> High-Teil
+#endif
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ var uint32 _x = (x);       \
@@ -336,7 +342,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // > arg1, arg2 : zwei 64-Bit-Zahlen
 // < 2^64*hi+lo : eine 128-Bit-Zahl
   extern "C" uint64 mulu64_ (uint64 arg1, uint64 arg2); // -> Low-Teil
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint64 mulu64_high; namespace cln {        // -> High-Teil
+#else
   extern "C" uint64 mulu64_high;                        // -> High-Teil
+#endif
 #if defined(__GNUC__) && defined(__alpha__) && !defined(NO_ASM)
   #define mulu64(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ var register uint64 _x = (x);	\
@@ -424,7 +435,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   extern "C" uint32 divu_3216_1616_ (uint32 x, uint16 y); // -> Quotient q, Rest r
 #else
   extern "C" uint16 divu_3216_1616_ (uint32 x, uint16 y); // -> Quotient q
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint16 divu_16_rest; namespace cln {         // -> Rest r
+#else
   extern "C" uint16 divu_16_rest;                         // -> Rest r
+#endif
 #endif
 #if defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
   #define divu_3216_1616(x,y,q_zuweisung,r_zuweisung)  \
@@ -514,7 +530,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < uint16 r: x mod y
 // < x = q*y+r
   extern "C" uint32 divu_3216_3216_ (uint32 x, uint16 y); // -> Quotient q
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint16 divu_16_rest; namespace cln {         // -> Rest r
+#else
   extern "C" uint16 divu_16_rest;                         // -> Rest r
+#endif
 #if defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
   #define divu_3216_3216(x,y,q_zuweisung,r_zuweisung)  \
     ({var uint32 __x = (x);        \
@@ -564,7 +585,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < uint32 r: x mod y
 // < x = q*y+r
   extern "C" uint32 divu_3232_3232_ (uint32 x, uint32 y); // -> Quotient q
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint32 divu_32_rest; namespace cln {         // -> Rest r
+#else
   extern "C" uint32 divu_32_rest;                         // -> Rest r
+#endif
 #if defined(__GNUC__) && defined(__sparc64__) && !defined(NO_ASM)
   #define divu_3232_3232(x,y,q_zuweisung,r_zuweisung)  \
     ({var uint32 __x = (x);        \
@@ -661,7 +687,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < uint32 r: x mod y
 // < x = q*y+r
   extern "C" uint32 divu_6432_3232_ (uint32 xhi, uint32 xlo, uint32 y); // -> Quotient q
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint32 divu_32_rest; namespace cln {                       // -> Rest r
+#else
   extern "C" uint32 divu_32_rest;                                       // -> Rest r
+#endif
 #if defined(__GNUC__) && defined(__m68k__) && !defined(NO_ASM)
   #define divu_6432_3232(xhi,xlo,y,q_zuweisung,r_zuweisung)  \
     ({var uint32 __xhi = (xhi);						\
@@ -944,7 +975,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
   // multiplication is slower or faster than our own divu_6464_6464_ routine.
   // Anyway, call our own routine.
   extern "C" uint64 divu_6464_6464_ (uint64 x, uint64 y); // -> Quotient q
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint64 divu_64_rest; namespace cln {         // -> Rest r
+#else
   extern "C" uint64 divu_64_rest;                         // -> Rest r
+#endif
   #define divu_6464_6464(x,y,q_zuweisung,r_zuweisung)  \
     { q_zuweisung divu_6464_6464_(x,y); r_zuweisung divu_64_rest; }
   #define NEED_VAR_divu_64_rest
@@ -961,7 +997,12 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
 // < uint64 r: x mod y
 // < x = q*y+r
   extern "C" uint64 divu_12864_6464_ (uint64 xhi, uint64 xlo, uint64 y); // -> Quotient q
+#ifdef _MSC_VER
+  // Workaround MSVC compiler bug.
+} extern "C" uint64 divu_64_rest; namespace cln {                        // -> Rest r
+#else
   extern "C" uint64 divu_64_rest;                                        // -> Rest r
+#endif
 #if defined(__GNUC__) && defined(__x86_64__) && !defined(NO_ASM)
   #define divu_12864_6464(xhi,xlo,y,q_zuweisung,r_zuweisung)  \
     ({var uint64 __xhi = (xhi);						\
