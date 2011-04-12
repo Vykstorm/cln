@@ -27,7 +27,7 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
       var uintE uexp = TheLfloat(x)->expo;
       if (uexp==0) { return x; }
       var uintE udelta;
-      // |delta| muß <= LF_exp_high-LF_exp_low < 2^32 sein. Wie bei I_to_UL:
+      // |delta| muß <= LF_exp_high-LF_exp_low < 2^intEsize sein.
 	if (fixnump(delta)) {
 		// Fixnum
 		var sintV sdelta = FN_to_V(delta);
@@ -36,55 +36,25 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 		else
 			{ udelta = sdelta; goto neg; }
 	} else {
-	    // Bignum
-	    var cl_heap_bignum* bn = TheBignum(delta);
-	    if ((sintD)mspref(arrayMSDptr(bn->data,bn->length),0) >= 0) {
-		#define IF_LENGTH(i)  \
-		  if (bn_minlength <= i) /* genau i Digits überhaupt möglich? */\
-		    if (bn->length == i) /* genau i Digits? */			\
-		      /* 2^((i-1)*intDsize-1) <= delta < 2^(i*intDsize-1) */	\
-		      if ( (i*intDsize-1 > 32)					\
-		           && ( ((i-1)*intDsize-1 >= 32)			\
-		                || (mspref(arrayMSDptr(bn->data,i),0) >= (uintD)bitc(32-(i-1)*intDsize)) \
-		         )    )							\
-		        goto overflow;						\
-			else
-		IF_LENGTH(1)
-			{ udelta = get_uint1D_Dptr(arrayLSDptr(bn->data,1)); goto pos; }
-		IF_LENGTH(2)
-			{ udelta = get_uint2D_Dptr(arrayLSDptr(bn->data,2)); goto pos; }
-		IF_LENGTH(3)
-			{ udelta = get_uint3D_Dptr(arrayLSDptr(bn->data,3)); goto pos; }
-		IF_LENGTH(4)
-			{ udelta = get_uint4D_Dptr(arrayLSDptr(bn->data,4)); goto pos; }
-		IF_LENGTH(5)
-			{ udelta = get_uint4D_Dptr(arrayLSDptr(bn->data,5)); goto pos; }
-		#undef IF_LENGTH
-		goto overflow; // delta zu groß
-	    } else {
-		#define IF_LENGTH(i)  \
-		  if (bn_minlength <= i) /* genau i Digits überhaupt möglich? */\
-		    if (bn->length == i) /* genau i Digits? */			\
-		      /* - 2^((i-1)*intDsize-1) > delta >= - 2^(i*intDsize-1) */\
-		      if ( (i*intDsize-1 > 32)					\
-		           && ( ((i-1)*intDsize-1 >= 32)			\
-		                || (mspref(arrayMSDptr(bn->data,i),0) < (uintD)(-bitc(32-(i-1)*intDsize))) \
-		         )    )							\
-		        goto underflow;						\
-			else
-		IF_LENGTH(1)
-			{ udelta = get_sint1D_Dptr(arrayLSDptr(bn->data,1)); goto pos; }
-		IF_LENGTH(2)
-			{ udelta = get_sint2D_Dptr(arrayLSDptr(bn->data,2)); goto pos; }
-		IF_LENGTH(3)
-			{ udelta = get_sint3D_Dptr(arrayLSDptr(bn->data,3)); goto pos; }
-		IF_LENGTH(4)
-			{ udelta = get_sint4D_Dptr(arrayLSDptr(bn->data,4)); goto pos; }
-		IF_LENGTH(5)
-			{ udelta = get_sint4D_Dptr(arrayLSDptr(bn->data,5)); goto pos; }
-		#undef IF_LENGTH
-		goto underflow; // delta zu klein
-	    }
+		// Bignum
+		var cl_heap_bignum* bn = TheBignum(delta);
+		if ((sintD)mspref(arrayMSDptr(bn->data,bn->length),0) >= 0) {
+			// delta >= 0
+			try {
+				udelta = cl_I_to_UE(delta);
+				goto pos;
+			} catch (const runtime_exception&) {
+				goto overflow;
+			}
+		} else {
+			// delta < 0
+			try {
+				udelta = cl_I_to_E(delta);
+				goto neg;
+			} catch (const runtime_exception&) {
+				goto underflow;
+			}
+		}
 	}
 
       pos: // udelta = delta >=0
@@ -95,7 +65,7 @@ const cl_LF scale_float (const cl_LF& x, const cl_I& delta)
 	  { throw floating_point_overflow_exception(); }
 	goto ok;
 
-      neg: // delta <0, udelta = 2^32+delta
+      neg: // delta <0, udelta = 2^intEsize+delta
 	if (   ((uexp = uexp+udelta) >= udelta) // oder Exponent-Unterlauf?
 	    || (uexp < LF_exp_low) // oder Exponent zu klein?
 	   )
