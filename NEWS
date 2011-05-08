@@ -1,3 +1,18 @@
+2011-05-08, version 1.3.2
+=========================
+
+Implementation changes
+----------------------
+
+* Fixed a bug in scale_float(cl_LF, cl_I) when the scale factor exceeded 2^31
+  on x86.
+
+Other changes
+-------------
+
+* Improved portability to some non-GCC compilers.
+
+
 2009-09-24, version 1.3.1
 =========================
 

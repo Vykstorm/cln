@@ -2,7 +2,7 @@ dnl run autoreconf -iv to produce the configure script.
 
 m4_define([cl_version_major], [1])
 m4_define([cl_version_minor], [3])
-m4_define([cl_version_patchlevel], [1])
+m4_define([cl_version_patchlevel], [2])
 m4_define([cl_version], [cl_version_major.cl_version_minor.cl_version_patchlevel])
 
 dnl Libtool's library version information for CLN.
@@ -16,7 +16,7 @@ dnl * if any interfaces have been removed, set cl_lt_age to 0.
 dnl (On many systems, $(cl_lt_current):$(cl_lt_revision):$(cl_lt_age) results in
 dnl libcln.so.$(cl_lt_current)-$(cl_lt_age).)
 m4_define([cl_lt_current], [6])
-m4_define([cl_lt_revision], [1])
+m4_define([cl_lt_revision], [2])
 m4_define([cl_lt_age], [0])
 m4_define([cl_lt_version], [cl_lt_current:cl_lt_revision:cl_lt_age])
 
@@ -24,6 +24,7 @@ AC_INIT([cln], cl_version)
 AC_PREREQ(2.59)
 AC_CONFIG_SRCDIR(src/integer/gcd/cl_I_gcd.cc)
 AC_CONFIG_AUX_DIR([autoconf])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(autoconf/cl_config.h include/cln/config.h include/cln/host_cpu.h include/cln/version.h src/base/cl_base_config.h src/base/cl_gmpconfig.h src/timing/cl_t_config.h)
 AM_INIT_AUTOMAKE([foreign 1.10 dist-bzip2])
 AH_TOP([#ifndef _CL_CONFIG_H])
