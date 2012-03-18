@@ -82,13 +82,10 @@ const cl_F read_float (std::istream& stream, const cl_read_flags& flags)
 		goto syntax1;
 	loop {
 		buffer.push(c);
+		c = stream.peek();  // Avoid fail state on EOF.
+		if (stream.eof() || stream.fail() || !number_char_p(c))
+			break;
 		c = stream.get();
-		if (stream.eof() || stream.fail())
-			break;
-		if (!number_char_p(c)) {
-			stream.putback(c);
-			break;
-		}
 	}
 	// Parse the number.
 	return read_float(flags,
