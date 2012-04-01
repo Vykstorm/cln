@@ -75,5 +75,9 @@
 #undef __s390__
 #endif
 
+#ifndef __s390x__
+#undef __s390x__
+#endif
+
 #endif /* _CL_HOST_CPU_CONFIG_H */
 
