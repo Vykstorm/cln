@@ -28,7 +28,11 @@ static const cl_I digits_to_I_base2 (const char * MSBptr, uintC len, uintD base)
 	erg_MSDptr = erg_LSDptr; erg_len = 0;
 	var uintD d = 0;  // resulting digit
 	var int ch_where = 0;  // position of ch inside d
-	while (len > 0) {
+	var uintC min_len = 0;  // first non-zero digit
+	while (min_len < len && *(const uintB *)(MSBptr+min_len) == '0') {
+	    ++min_len;
+	}
+	while (len > min_len) {
 		var uintB ch = *(const uintB *)(MSBptr+len-1); // next character
 		if (ch!='.') { // skip decimal point
 			// Compute value of ch ('0'-'9','A'-'Z','a'-'z'):
