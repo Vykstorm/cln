@@ -136,20 +136,20 @@ inline const cl_FF make_FF (cl_sint sign, unsigned int exp, cl_uint mant)
 // encode_FF(sign,exp,mant);
 // liefert ein Single-Float.
 // > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
-// > sintL exp: Exponent
+// > sintE exp: Exponent
 // > uintL mant: Mantisse, sollte >= 2^FF_mant_len und < 2^(FF_mant_len+1) sein.
 // < object ergebnis: ein Single-Float
 // Der Exponent wird auf Überlauf/Unterlauf getestet.
-inline const cl_FF encode_FF (cl_signean sign, sintL exp, uintL mant)
+inline const cl_FF encode_FF (cl_signean sign, sintE exp, uintL mant)
 {
-	if (exp < (sintL)(FF_exp_low-FF_exp_mid))
+	if (exp < (sintE)(FF_exp_low-FF_exp_mid))
 		{ if (underflow_allowed())
 			{ throw floating_point_underflow_exception(); }
 			else
 			{ return cl_FF_0; }
 		}
 	else
-	if (exp > (sintL)(FF_exp_high-FF_exp_mid))
+	if (exp > (sintE)(FF_exp_high-FF_exp_mid))
 		{ throw floating_point_overflow_exception(); }
 	else
 	return make_FF(sign, exp+FF_exp_mid, mant & (bit(FF_mant_len)-1));

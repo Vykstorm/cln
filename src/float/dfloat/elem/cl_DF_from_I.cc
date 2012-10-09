@@ -96,7 +96,7 @@ const cl_DF cl_I_to_DF (const cl_I& x)
           if (mant >= bit(DF_mant_len+1)) // rounding overflow?
             { mant = mant>>1; exp = exp+1; }
         }
-      return encode_DF(sign,(sintL)exp,mant);
+      return encode_DF(sign,(sintE)exp,mant);
       #else
       // Die NDS besteht aus msd, msdd, msddf und len weiteren Digits.
       // Das höchste in 2^64*msd+2^32*msdd+msddf gesetzte Bit ist Bit Nummer
@@ -132,7 +132,7 @@ const cl_DF cl_I_to_DF (const cl_I& x)
               if (manthi >= bit(DF_mant_len-32+1)) // rounding overflow?
                 { manthi = manthi>>1; exp = exp+1; }
         }   }
-      return encode_DF(sign,(sintL)exp,manthi,mantlo);
+      return encode_DF(sign,(sintE)exp,manthi,mantlo);
       #endif
 }
 

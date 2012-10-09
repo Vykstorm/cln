@@ -97,20 +97,20 @@ inline uintL SF_mant (const cl_SF& x)
 // encode_SF(sign,exp,mant)
 // liefert ein Short-Float.
 // > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
-// > sintL exp: Exponent
+// > sintE exp: Exponent
 // > uintL mant: Mantisse, sollte >= 2^SF_mant_len und < 2^(SF_mant_len+1) sein.
 // < object ergebnis: ein Short-Float
 // Der Exponent wird auf Überlauf/Unterlauf getestet.
-inline const cl_SF encode_SF (cl_signean sign, sintL exp, uintL mant)
+inline const cl_SF encode_SF (cl_signean sign, sintE exp, uintL mant)
 {
-	if (exp < (sintL)(SF_exp_low-SF_exp_mid))
+	if (exp < (sintE)(SF_exp_low-SF_exp_mid))
 	  { if (underflow_allowed())
 	      { throw floating_point_underflow_exception(); }
 	      else
 	      { return SF_0; }
 	  }
 	else
-	if (exp > (sintL)(SF_exp_high-SF_exp_mid))
+	if (exp > (sintE)(SF_exp_high-SF_exp_mid))
 	  { throw floating_point_overflow_exception(); }
 	else
 	return make_SF(sign, exp+SF_exp_mid, mant);

@@ -113,7 +113,7 @@ const cl_FF cl_I_to_FF (const cl_I& x)
             { mant = mant>>1; exp = exp+1; }
         }
       #endif
-      return encode_FF(sign,(sintL)exp,mant);
+      return encode_FF(sign,(sintE)exp,mant);
 }
 
 }  // namespace cln

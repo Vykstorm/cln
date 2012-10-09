@@ -153,20 +153,20 @@ inline cl_heap_dfloat* allocate_dfloat (uint32 semhi, uint32 mlo)
 // encode_DF(sign,exp,mant)
 // liefert ein Double-Float.
 // > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
-// > sintL exp: Exponent
+// > sintE exp: Exponent
 // > uintQ mant: Mantisse, sollte >= 2^DF_mant_len und < 2^(DF_mant_len+1) sein.
 // < cl_DF ergebnis: ein Double-Float
 // Der Exponent wird auf Überlauf/Unterlauf getestet.
-inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintQ mant)
+inline const cl_DF encode_DF (cl_signean sign, sintE exp, uintQ mant)
 {
-      if (exp < (sintL)(DF_exp_low-DF_exp_mid))
+      if (exp < (sintE)(DF_exp_low-DF_exp_mid))
         { if (underflow_allowed())
             { throw floating_point_underflow_exception(); }
             else
             { return cl_DF_0; }
         }
       else
-      if (exp > (sintL)(DF_exp_high-DF_exp_mid))
+      if (exp > (sintE)(DF_exp_high-DF_exp_mid))
         { throw floating_point_overflow_exception(); }
       else
       return allocate_dfloat
@@ -179,21 +179,21 @@ inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintQ mant)
 // encode_DF(sign,exp,manthi,mantlo)
 // liefert ein Double-Float.
 // > cl_signean sign: Vorzeichen, 0 für +, -1 für negativ.
-// > sintL exp: Exponent
+// > sintE exp: Exponent
 // > uintL manthi,mantlo: Mantisse 2^32*manthi+mantlo,
 //                        sollte >= 2^DF_mant_len und < 2^(DF_mant_len+1) sein.
 // < cl_DF ergebnis: ein Double-Float
 // Der Exponent wird auf Überlauf/Unterlauf getestet.
-inline const cl_DF encode_DF (cl_signean sign, sintL exp, uintL manthi, uintL mantlo)
+inline const cl_DF encode_DF (cl_signean sign, sintE exp, uintL manthi, uintL mantlo)
 {
-      if (exp < (sintL)(DF_exp_low-DF_exp_mid))
+      if (exp < (sintE)(DF_exp_low-DF_exp_mid))
         { if (underflow_allowed())
             { throw floating_point_underflow_exception(); }
             else
             { return cl_DF_0; }
         }
       else
-      if (exp > (sintL)(DF_exp_high-DF_exp_mid))
+      if (exp > (sintE)(DF_exp_high-DF_exp_mid))
         { throw floating_point_overflow_exception(); }
       else
       return allocate_dfloat

@@ -112,7 +112,7 @@ const cl_SF cl_I_to_SF (const cl_I& x)
             { mant = mant>>1; exp = exp+1; }
         }
       #endif
-      return encode_SF(sign,(sintL)exp,mant);
+      return encode_SF(sign,(sintE)exp,mant);
 }
 
 }  // namespace cln

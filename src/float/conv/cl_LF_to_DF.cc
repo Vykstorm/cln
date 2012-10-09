@@ -20,7 +20,7 @@ const cl_DF cl_LF_to_DF (const cl_LF& x)
 {
 	// x entpacken:
 	var cl_signean sign;
-	var sintL exp;
+	var sintE exp;
 	var uintD* ptr;
 	var uintC len;
 	LF_decode(x, { return cl_DF_0; }, sign=,exp=,ptr=,len=,);
