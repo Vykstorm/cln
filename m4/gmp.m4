@@ -52,7 +52,7 @@ AC_DEFUN([CL_GMP_SET_UINTD],
     AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <gmp.h>
 	 template<bool COND> struct Static_Assert;
 	 template<> struct Static_Assert<true> { };
-	 Static_Assert<sizeof(mp_limb_t) > sizeof(long)> check;]], [[]])],
+	 Static_Assert<(sizeof(mp_limb_t) > sizeof(long))> check;]], [[]])],
 	 [cl_gmp_demands='GMP_DEMANDS_UINTD_LONG_LONG'], [])
     if test "x$cl_gmp_demands" = "xUNKNOWN"; then
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <gmp.h>
