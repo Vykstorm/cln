@@ -118,6 +118,7 @@ by the authors.
 * Customizing::                 
 * Index::
 
+@detailmenu
  --- The Detailed Node Listing ---
 
 Installation
@@ -230,6 +231,7 @@ Customizing
 * Customizing I/O::             
 * Customizing the memory allocator::  
 
+@end detailmenu
 @end menu
 
 @node Introduction
@@ -3282,17 +3284,17 @@ There is a cache table of rings, indexed by @code{R} and @code{varname}.
 This ensures that two calls of this function with the same arguments will
 return the same polynomial ring.
 
-@itemx cl_univpoly_complex_ring find_univpoly_ring (const cl_complex_ring& R)
+@item cl_univpoly_complex_ring find_univpoly_ring (const cl_complex_ring& R)
 @cindex @code{find_univpoly_ring ()}
-@itemx cl_univpoly_complex_ring find_univpoly_ring (const cl_complex_ring& R, const cl_symbol& varname)
-@itemx cl_univpoly_real_ring find_univpoly_ring (const cl_real_ring& R)
-@itemx cl_univpoly_real_ring find_univpoly_ring (const cl_real_ring& R, const cl_symbol& varname)
-@itemx cl_univpoly_rational_ring find_univpoly_ring (const cl_rational_ring& R)
-@itemx cl_univpoly_rational_ring find_univpoly_ring (const cl_rational_ring& R, const cl_symbol& varname)
-@itemx cl_univpoly_integer_ring find_univpoly_ring (const cl_integer_ring& R)
-@itemx cl_univpoly_integer_ring find_univpoly_ring (const cl_integer_ring& R, const cl_symbol& varname)
-@itemx cl_univpoly_modint_ring find_univpoly_ring (const cl_modint_ring& R)
-@itemx cl_univpoly_modint_ring find_univpoly_ring (const cl_modint_ring& R, const cl_symbol& varname)
+@item cl_univpoly_complex_ring find_univpoly_ring (const cl_complex_ring& R, const cl_symbol& varname)
+@item cl_univpoly_real_ring find_univpoly_ring (const cl_real_ring& R)
+@item cl_univpoly_real_ring find_univpoly_ring (const cl_real_ring& R, const cl_symbol& varname)
+@item cl_univpoly_rational_ring find_univpoly_ring (const cl_rational_ring& R)
+@item cl_univpoly_rational_ring find_univpoly_ring (const cl_rational_ring& R, const cl_symbol& varname)
+@item cl_univpoly_integer_ring find_univpoly_ring (const cl_integer_ring& R)
+@item cl_univpoly_integer_ring find_univpoly_ring (const cl_integer_ring& R, const cl_symbol& varname)
+@item cl_univpoly_modint_ring find_univpoly_ring (const cl_modint_ring& R)
+@item cl_univpoly_modint_ring find_univpoly_ring (const cl_modint_ring& R, const cl_symbol& varname)
 These functions are equivalent to the general @code{find_univpoly_ring},
 only the return type is more specific, according to the base ring's type.
 @end table
