@@ -3,6 +3,7 @@
 #ifndef _CL_EXCEPTION_H
 #define _CL_EXCEPTION_H
 
+#include <string>
 #include <stdexcept>
 
 namespace cln {
