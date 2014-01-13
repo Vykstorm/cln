@@ -17,7 +17,7 @@ const cl_N complex (const cl_R& a, const cl_R& b)
 {
 // Methode:
 // Falls b=0, nur a. sonst komplexe Zahl erzeugen.
-	if (eq(b,0))
+	if (zerop(b))
 		return a;
 	else
 		return allocate_complex(a,b);
