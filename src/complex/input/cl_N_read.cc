@@ -164,13 +164,11 @@ not_rational_syntax:
 		}
 		var const char * ptr_after_sign = ptr;
 		var const char * ptr_after_intpart = skip_digits(ptr_after_sign,string_limit,float_base);
-		var bool have_dot = false;
 		var const char * ptr_before_fracpart = ptr_after_intpart;
 		var const char * ptr_after_fracpart = ptr_after_intpart;
 		ptr = ptr_after_intpart;
 		if (ptr != string_limit)
 		  if (*ptr == '.') {
-			have_dot = true;
 			ptr_before_fracpart = ptr+1;
 			ptr_after_fracpart = skip_digits(ptr_before_fracpart,string_limit,float_base);
 		}
