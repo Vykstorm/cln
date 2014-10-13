@@ -12,10 +12,6 @@ namespace cln {
 // - function  bool equal (key1_type,key1_type);
 // - function  unsigned long hashcode (key1_type);
 
-#if (defined(__alpha__) && !defined(__GNUC__))
-template <class key1_type, class value_type> struct cl_htentry1;
-#endif
-
 template <class key1_type, class value_type>
 struct cl_htentry1 {
     ALLOCATE_ANYWHERE(cl_htentry1)
@@ -24,9 +20,6 @@ struct cl_htentry1 {
     const value_type& htvalue () { return val; }
     cl_htentry1 (const key1_type& k, const value_type& v)
         : key (k), val (v) {}
-#if (defined(__rs6000__) && !defined(__GNUC__))
-    cl_htentry1 () {}
-#endif
 };
 
 template <class key1_type, class value_type>
@@ -113,7 +106,6 @@ private:
     // This may change the table's size!
     void prepare_store ()
     {
-      #if !(defined(__sparc__) && !defined(__GNUC__))
         if (this->_freelist < -1)
             return;
         // Can we make room?
@@ -122,13 +114,6 @@ private:
                 return;
         // No! Have to grow the hash table.
         grow();
-      #else
-        // workaround Sun C++ 4.1 inline function compiler bug
-        if (this->_freelist >= -1) {
-            if (!this->_garcol_fun(this) || (this->_freelist >= -1))
-                grow();
-        }
-      #endif
     }
     void grow ()
     {

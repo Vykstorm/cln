@@ -327,11 +327,7 @@ public:
 	cl_private_thing _as_cl_private_thing () const;
 // Private constructor.
 	cl_gcobject (cl_private_thing p)
-		#if !(defined(__alpha__) && !defined(__GNUC__))
 		: pointer (p) {}
-		#else
-		{ pointer = p; }
-		#endif
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
@@ -377,11 +373,7 @@ public:
 	cl_private_thing _as_cl_private_thing () const;
 // Private constructor.
 	cl_gcpointer (cl_private_thing p)
-		#if !(defined(__alpha__) && !defined(__GNUC__))
 		: pointer (p) {}
-		#else
-		{ pointer = p; }
-		#endif
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
@@ -427,11 +419,7 @@ public:
 	cl_private_thing _as_cl_private_thing () const;
 // Private constructor.
 	cl_rcobject (cl_private_thing p)
-		#if !(defined(__alpha__) && !defined(__GNUC__))
 		: pointer (p) {}
-		#else
-		{ pointer = p; }
-		#endif
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.
@@ -477,11 +465,7 @@ public:
 	cl_private_thing _as_cl_private_thing () const;
 // Private constructor.
 	cl_rcpointer (cl_private_thing p)
-		#if !(defined(__alpha__) && !defined(__GNUC__))
 		: pointer (p) {}
-		#else
-		{ pointer = p; }
-		#endif
 // Debugging output.
 	void debug_print () const;
 // Ability to place an object at a given address.

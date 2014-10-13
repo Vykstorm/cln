@@ -31,11 +31,7 @@ typedef _cl_hashtable_iterator<cl_htentry_from_string_to_symbol> cl_hashtable_fr
 
 static void cl_hashtable_from_string_to_symbol_destructor (cl_heap* pointer)
 {
-#if (defined(__mips__) || defined(__mips64__)) && !defined(__GNUC__) // workaround SGI CC bug
-	(*(cl_heap_hashtable_from_string_to_symbol*)pointer).~cl_heap_weak_hashtable_uniq();
-#else
 	(*(cl_heap_hashtable_from_string_to_symbol*)pointer).~cl_heap_hashtable_from_string_to_symbol();
-#endif
 }
 
 

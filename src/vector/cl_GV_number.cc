@@ -16,11 +16,7 @@ namespace cln {
 
 static void cl_gvector_number_destructor (cl_heap* pointer)
 {
-#if (defined(__mips__) || defined(__mips64__)) && !defined(__GNUC__) // workaround SGI CC bug
-	(*(cl_heap_GV_number*)pointer).~cl_heap_GV();
-#else
 	(*(cl_heap_GV_number*)pointer).~cl_heap_GV_number();
-#endif
 }
 
 // XXX: this ought to be const, but it would be impossible to register

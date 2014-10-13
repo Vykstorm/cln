@@ -27,11 +27,7 @@ namespace cln {
 
 static void cl_gvector_integer_destructor (cl_heap* pointer)
 {
-#if (defined(__mips__) || defined(__mips64__)) && !defined(__GNUC__) // workaround SGI CC bug
-	(*(cl_heap_GV_I*)pointer).~cl_heap_GV();
-#else
 	(*(cl_heap_GV_I*)pointer).~cl_heap_GV_I();
-#endif
 }
 
 // XXX: Ugh, this needs to be non-const (and non-static) for overriding

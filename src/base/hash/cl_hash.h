@@ -131,9 +131,7 @@ protected:
             _freelist = _entries[index].next;
             return index;
         }
-        #if !(defined(__hppa__) && !defined(__GNUC__)) // workaround HP CC problem
         throw runtime_exception();
-        #endif
         return -1; // dummy
     }
     // Put a free index into the free list.
@@ -149,9 +147,7 @@ private:
 
 template <class htentry>
 struct _cl_hashtable_iterator
-  #if !(defined(__mips__) && !defined(__GNUC__)) // workaround SGI CC bug
     : cl_abstract_iterator<htentry>
-  #endif
 {
 private:
     typename cl_heap_hashtable<htentry>::htxentry * _entries;

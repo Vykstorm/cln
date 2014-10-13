@@ -100,7 +100,6 @@ private:
     // This may change the table's size!
     void prepare_store ()
     {
-      #if !(defined(__sparc__) && !defined(__GNUC__))
         if (this->_freelist < -1)
             return;
         // Can we make room?
@@ -109,13 +108,6 @@ private:
                 return;
         // No! Have to grow the hash table.
         grow();
-      #else
-        // workaround Sun C++ 4.1 inline function compiler bug
-        if (this->_freelist >= -1) {
-            if (!this->_garcol_fun(this) || (this->_freelist >= -1))
-                grow();
-        }
-      #endif
     }
     void grow ()
     {

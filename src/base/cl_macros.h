@@ -242,22 +242,12 @@
 
 // Inside a class definition:
 // Overload `new' so that a class object can be allocated anywhere.
-#if !((defined(__rs6000__) || defined(__alpha__)) && !defined(__GNUC__))
 #define ALLOCATE_ANYWHERE(classname)  \
     /* Ability to place an object at a given address. */		\
 public:									\
     void* operator new (size_t size) { return malloc_hook(size); }	\
     void* operator new (size_t size, classname* ptr) { unused size; return ptr; } \
     void operator delete (void* ptr) { free_hook(ptr); }
-#else
-// For some compilers, work around template problem with "classname".
-#define ALLOCATE_ANYWHERE(classname)  \
-    /* Ability to place an object at a given address. */		\
-public:									\
-    void* operator new (size_t size) { return malloc_hook(size); }	\
-    void* operator new (size_t size, void* ptr) { unused size; return ptr; } \
-    void operator delete (void* ptr) { free_hook(ptr); }
-#endif
 
 // init1(type, object) (value);
 // initializes `object' with `value', by calling `type''s constructor.
