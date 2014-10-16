@@ -11,7 +11,7 @@ versions might work too).
 
 If you install CLN from git, you also need 
 
-git itself (http://git.or.cz), version >= 1.5.0
+git itself (http://git-scm.com), version >= 1.5.0
 GNU autoconf (http://www.gnu.org/software/autoconf), version >= 2.59
 GNU libtool  (http://www.gnu.org/software/libtool), version >= 1.5
 GNU automake (http://www.gnu.org/software/automake), version >= 1.8
@@ -88,14 +88,14 @@ $ make
 CLN is known to work with:
 =========================
 
-  - Linux/x86, gcc-3.x, gcc-4.[0-5].x
-  - Linux/x86_64, gcc-3.[3-4], gcc-4.[0-6].x, clang-2.8
+  - Linux/x86, gcc-3.x, gcc-4.[0-9].x
+  - Linux/x86_64, gcc-3.[3-4], gcc-4.[0-9].x, clang-2.8
   - Linux/ia64, gcc-3.[2-4], gcc-4.[0-4].x
-  - Linux/arm, gcc-3.[0-3] (*), gcc-4.[0-4].x (*)
-  - Linux/mips, gcc-3.3, gcc-4.[0-4].x
-  - Linux/sparc, gcc-3.[1-3], gcc-4.[0-2].x
+  - Linux/arm, gcc-3.[0-3] (*), gcc-4.[0-9].x (*)
+  - Linux/mips, gcc-3.3, gcc-4.[0-9].x
+  - Linux/sparc, gcc-3.[1-3], gcc-4.[0-9].x
   - Linux/alpha, gcc-3.[0-3], gcc-4.[0-2].x
-  - Linux/powerpc, gcc-3.[0-3], gcc-4.[0-4].x
+  - Linux/powerpc, gcc-3.[0-3], gcc-4.[0-9].x
   - Linux/hppa, gcc-4.2.x (*)
   - Solaris 2.4 (sparc), gcc-3.[1-3], gcc-4.[0-2].x (*)
   - OSF/1 V4.0 (alpha), gcc-3.1
@@ -107,7 +107,7 @@ CLN is known to work with:
 reported. It may be best to add "-DNO_ASM" to CPPFLAGS before
 configuring.
 
-Using gcc-4.2, the "make" step takes about 15 minutes, on an x86_64 / 2 GHz.
+Using gcc-4.9, the "make" step takes about 15 minutes, on an x86_64 / 2 GHz.
 
 If you use g++ from gcc-3.0.4 or older on Sparc, add either "-O", "-O1" or
 "-O2 -fno-schedule-insns" to the CXXFLAGS. With full "-O2", g++ miscompiles

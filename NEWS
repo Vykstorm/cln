@@ -1,3 +1,17 @@
+2014-10-16, version 1.3.4
+=========================
+
+Implementation changes
+----------------------
+
+* Fix input of huge floats.
+
+Other changes
+-------------
+
+* Support the AArch64 and the Mips64 ABIs.
+
+
 2013-07-21, version 1.3.3
 =========================
 
