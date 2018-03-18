@@ -273,10 +273,15 @@ inline uint32 mulu32_unchecked (uint32 arg1, uint32 arg2)
        unused (hi_zuweisung _hi); lo_zuweisung _lo;              \
      })
 #elif defined(__GNUC__) && defined(__mips__) && !defined(NO_ASM)
+  #if __mips_isa_rev >= 6
+    #define MULTU_HI_LO "mulu %1,%3,%2 ; muhu %0,%3,%2"
+  #else
+    #define MULTU_HI_LO "multu %3,%2 ; mfhi %0 ; mflo %1"
+  #endif
   #define mulu32(x,y,hi_zuweisung,lo_zuweisung)  \
     ({ var register uint32 _hi;                       \
        var register uint32 _lo;                       \
-       __asm__("multu %3,%2 ; mfhi %0 ; mflo %1"      \
+       __asm__(MULTU_HI_LO                            \
                : "=r" (_hi), "=r" (_lo)               \
                : "r" ((uint32)(x)), "r" ((uint32)(y)) \
               );                                      \
