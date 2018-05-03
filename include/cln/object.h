@@ -25,7 +25,7 @@ namespace cln {
 #if defined(__i386__) || (defined(__mips__) && !defined(__LP64__)) || (defined(__sparc__) && !defined(__arch64__)) || defined(__hppa__) || defined(__arm__) || defined(__rs6000__) || defined(__m88k__) || defined(__convex__) || (defined(__s390__) && !defined(__s390x__)) || defined(__sh__) || (defined(__x86_64__) && defined(__ILP32__))
   #define cl_word_alignment  4
 #endif
-#if defined(__alpha__) || defined(__ia64__) || defined(__mips64__) || defined(__powerpc64__) || (defined(__sparc__) && defined(__arch64__)) || (defined(__x86_64__) && !defined(__ILP32__)) || defined(__s390x__) || defined(__aarch64__)
+#if defined(__alpha__) || defined(__ia64__) || defined(__mips64__) || defined(__powerpc64__) || (defined(__sparc__) && defined(__arch64__)) || (defined(__x86_64__) && !defined(__ILP32__)) || defined(__s390x__) || defined(__aarch64__) || (defined(__riscv) && __riscv_xlen == 64)
   #define cl_word_alignment  8
 #endif
 #if !defined(cl_word_alignment)
