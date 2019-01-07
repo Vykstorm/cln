@@ -110,15 +110,15 @@
 
 // Bit number n (0<=n<32 or 0<=n<64)
   #ifdef HAVE_FAST_LONGLONG
-    #define bit(n)  (1LL<<(n))
+    #define bit(n)  (long long)(1ULL<<(n))
   #else
-    #define bit(n)  (1L<<(n))
+    #define bit(n)  (long)(1UL<<(n))
   #endif
 // Bit number n (0<n<=32) mod 2^32
   #ifdef HAVE_FAST_LONGLONG
-    #define bitm(n)  (2LL<<((n)-1))
+    #define bitm(n)  (long long)(2ULL<<((n)-1))
   #else
-    #define bitm(n)  (2L<<((n)-1))
+    #define bitm(n)  (long)(2UL<<((n)-1))
   #endif
 // Test bit n in x, n constant, x a cl_uint:
   #if !(defined(__sparc__) || defined(__sparc64__))
@@ -137,15 +137,15 @@
   #endif
 // minus bit number n (0<=n<32 or 0<=n<64)
   #ifdef HAVE_FAST_LONGLONG
-    #define minus_bit(n)  (-1LL<<(n))
+    #define minus_bit(n)  (long long)(-1ULL<<(n))
   #else
-    #define minus_bit(n)  (-1L<<(n))
+    #define minus_bit(n)  (long)(-1UL<<(n))
   #endif
 // minus bit number n (0<n<=32) mod 2^32
   #ifdef HAVE_FAST_LONGLONG
-    #define minus_bitm(n)  (-2LL<<((n)-1))
+    #define minus_bitm(n)  (long long)(-2ULL<<((n)-1))
   #else
-    #define minus_bitm(n)  (-2L<<((n)-1))
+    #define minus_bitm(n)  (long)(-2UL<<((n)-1))
   #endif
 
 // Return 2^n, n a constant expression.
